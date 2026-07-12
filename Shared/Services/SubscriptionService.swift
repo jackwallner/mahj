@@ -1,0 +1,101 @@
+import Foundation
+import RevenueCat
+
+enum RevenueCatConfig {
+    /// Prod public SDK key (safe to ship; sim builds never configure with it).
+    static let apiKey = "appl_BPcKRTMgnvYJJaNPXdfGReCkHgO"
+}
+
+@MainActor
+final class SubscriptionService: NSObject, ObservableObject {
+    static let shared = SubscriptionService()
+
+    @Published private(set) var isPro = false
+    @Published private(set) var offerings: Offerings?
+
+    private var isConfigured = false
+    private let localOverrideKey = "subscription.localProOverride"
+
+    override private init() {
+        super.init()
+        isPro = UserDefaults.standard.bool(forKey: localOverrideKey)
+    }
+
+    func start() {
+        configureIfNeeded()
+        guard isConfigured else { return }
+        Task {
+            await refreshCustomerInfo()
+            await loadOfferings()
+        }
+    }
+
+    /// Dev/testing switch: flips Pro without a live RC key (Settings toggle).
+    func setLocalOverride(isPro: Bool) {
+        UserDefaults.standard.set(isPro, forKey: localOverrideKey)
+        self.isPro = isPro
+    }
+
+    private func configureIfNeeded() {
+        guard !isConfigured else { return }
+        #if targetEnvironment(simulator)
+        // Agent/sim runs: do NOT hit the prod RC project. Use the .storekit file
+        // + setLocalOverride(isPro:) for paywall flows. No configure → no RC customer.
+        return
+        #else
+        guard RevenueCatConfig.apiKey.hasPrefix("appl_"), !RevenueCatConfig.apiKey.contains("PLACEHOLDER") else { return }
+        #if DEBUG
+        Purchases.logLevel = .debug
+        #endif
+        Purchases.configure(withAPIKey: RevenueCatConfig.apiKey)
+        Purchases.shared.delegate = self
+        isConfigured = true
+        #endif
+    }
+
+    func refreshCustomerInfo() async {
+        guard isConfigured else { return }
+        if let info = try? await Purchases.shared.customerInfo() {
+            apply(info)
+        }
+    }
+
+    func loadOfferings() async {
+        guard isConfigured else { return }
+        offerings = try? await Purchases.shared.offerings()
+    }
+
+    func purchase(_ package: Package?) async throws {
+        guard isConfigured else {
+            setLocalOverride(isPro: true) // sim: pretend the purchase succeeded
+            return
+        }
+        guard let package else {
+            throw NSError(domain: "MahjTrainer", code: 1, userInfo: [
+                NSLocalizedDescriptionKey: "Plans are still loading. Try again in a moment.",
+            ])
+        }
+        let result = try await Purchases.shared.purchase(package: package)
+        apply(result.customerInfo)
+    }
+
+    func restore() async throws {
+        guard isConfigured else { return }
+        let info = try await Purchases.shared.restorePurchases()
+        apply(info)
+    }
+
+    private func apply(_ info: CustomerInfo) {
+        let entitled = info.entitlements["pro"]?.isActive == true
+        let override = UserDefaults.standard.bool(forKey: localOverrideKey)
+        isPro = entitled || override
+    }
+}
+
+extension SubscriptionService: PurchasesDelegate {
+    nonisolated func purchases(_ purchases: Purchases, receivedUpdated customerInfo: CustomerInfo) {
+        Task { @MainActor in
+            self.apply(customerInfo)
+        }
+    }
+}

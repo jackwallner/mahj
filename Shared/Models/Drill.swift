@@ -1,0 +1,88 @@
+import Foundation
+
+struct Flashcard: Identifiable, Sendable {
+    let id: String
+    let frontTitle: String
+    let frontTiles: [Tile]
+    let frontSubtitle: String?
+    let backTitle: String
+    let backBody: String
+
+    init(id: String, frontTitle: String, frontTiles: [Tile] = [], frontSubtitle: String? = nil,
+         backTitle: String, backBody: String) {
+        self.id = id
+        self.frontTitle = frontTitle
+        self.frontTiles = frontTiles
+        self.frontSubtitle = frontSubtitle
+        self.backTitle = backTitle
+        self.backBody = backBody
+    }
+}
+
+struct QuizQuestion: Identifiable, Sendable {
+    let id: String
+    let prompt: String
+    let tiles: [Tile]
+    let choices: [String]
+    let answerIndex: Int
+    let explanation: String
+
+    init(id: String, prompt: String, tiles: [Tile] = [], choices: [String], answerIndex: Int,
+         explanation: String) {
+        self.id = id
+        self.prompt = prompt
+        self.tiles = tiles
+        self.choices = choices
+        self.answerIndex = answerIndex
+        self.explanation = explanation
+    }
+}
+
+struct HandMatchQuestion: Identifiable, Sendable {
+    let id: String
+    let tiles: [Tile]
+    let choices: [HandCategory]
+    let answer: HandCategory
+    let explanation: String
+}
+
+struct CharlestonScenario: Identifiable, Sendable {
+    let id: String
+    let situation: String
+    let deal: [Tile]
+    let recommendedPass: [Tile]
+    let reasoning: String
+    let tip: String
+}
+
+enum DrillKind: Sendable {
+    case flashcards([Flashcard])
+    case quiz([QuizQuestion])
+    case handMatch([HandMatchQuestion])
+    case charleston([CharlestonScenario])
+
+    var itemCount: Int {
+        switch self {
+        case .flashcards(let cards): return cards.count
+        case .quiz(let questions): return questions.count
+        case .handMatch(let questions): return questions.count
+        case .charleston(let scenarios): return scenarios.count
+        }
+    }
+}
+
+struct Drill: Identifiable, Sendable {
+    let id: String
+    let title: String
+    let subtitle: String
+    let kind: DrillKind
+}
+
+struct Room: Identifiable, Sendable {
+    let id: String
+    let name: String
+    let tagline: String
+    let icon: String
+    let isFree: Bool
+    let drills: [Drill]
+}
