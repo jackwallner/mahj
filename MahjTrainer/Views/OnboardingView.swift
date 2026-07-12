@@ -3,7 +3,6 @@ import SwiftUI
 struct OnboardingView: View {
     @EnvironmentObject private var progress: ProgressStore
     @EnvironmentObject private var subscriptions: SubscriptionService
-    @Environment(\.dismiss) private var dismiss
     @State private var page = 0
     @State private var selectedPlan: PaywallPlan = .yearly
     @State private var purchasing = false
@@ -20,9 +19,9 @@ struct OnboardingView: View {
                     tiles: [.c(2), .dragon(.soap), .c(2), .b(6)]
                 ).tag(0)
                 infoPage(
-                    icon: "graduationcap.fill",
+                    icon: "rectangle.stack.fill",
                     title: "Drills, not games",
-                    body: "Like practicing serves without playing a match. Flip flashcards, read racks, pick your Charleston pass, and get the why behind every answer.",
+                    body: "Like practicing serves without playing a match. Swipe through flashcards, read racks, pick your Charleston pass, and get the why behind every answer.",
                     tiles: [.b(4), .b(5), .b(6), .joker]
                 ).tag(1)
                 infoPage(
@@ -38,22 +37,24 @@ struct OnboardingView: View {
             footer
         }
         .background(Theme.background)
-        .interactiveDismissDisabled()
     }
 
     private func infoPage(icon: String, title: String, body bodyText: String, tiles: [Tile]) -> some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 26) {
             Spacer()
             Image(systemName: icon)
-                .font(.system(size: 52))
-                .foregroundStyle(Theme.felt)
+                .font(.system(size: 40, weight: .semibold))
+                .foregroundStyle(Theme.jade)
+                .frame(width: 92, height: 92)
+                .background(Theme.jade.opacity(0.12), in: Circle())
             Text(title)
-                .font(.largeTitle.bold())
+                .font(Theme.display(32))
+                .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
-            TileRackView(tiles: tiles, tileWidth: 50)
+            TileRackView(tiles: tiles, tileWidth: 54)
             Text(bodyText)
                 .font(.body)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
             Spacer()
@@ -81,7 +82,7 @@ struct OnboardingView: View {
                     if purchasing {
                         ProgressView().tint(.white)
                     } else {
-                        Text(page == lastPage ? "Start Free Trial" : "Continue")
+                        Text(page == lastPage ? selectedPlan.ctaTitle : "Continue")
                     }
                 }
                 .primaryCTA()
@@ -93,7 +94,7 @@ struct OnboardingView: View {
             } label: {
                 Text("Get Started")
                     .font(.subheadline.weight(.medium))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.inkSecondary)
             }
             .frame(height: 30)
             .opacity(page == lastPage ? 1 : 0)
@@ -106,9 +107,10 @@ struct OnboardingView: View {
     private var pageDots: some View {
         HStack(spacing: 6) {
             ForEach(0...lastPage, id: \.self) { dot in
-                Circle()
-                    .fill(dot == page ? Theme.felt : Theme.felt.opacity(0.2))
-                    .frame(width: 7, height: 7)
+                Capsule()
+                    .fill(dot == page ? Theme.jade : Theme.jade.opacity(0.22))
+                    .frame(width: dot == page ? 20 : 7, height: 7)
+                    .animation(.snappy(duration: 0.22), value: page)
             }
         }
         .padding(.bottom, 2)
@@ -122,16 +124,14 @@ struct OnboardingView: View {
         purchasing = true
         Task {
             defer { purchasing = false }
-            let offering = subscriptions.offerings?.current
-            let package = selectedPlan == .yearly ? offering?.annual : offering?.monthly
-            if (try? await subscriptions.purchase(package)) != nil {
+            if (try? await subscriptions.purchase(subscriptions.package(for: selectedPlan))) != nil {
                 finish()
             }
         }
     }
 
     private func finish() {
+        // RootView branches on this key, so setting it swaps Home in.
         progress.hasOnboarded = true
-        dismiss()
     }
 }

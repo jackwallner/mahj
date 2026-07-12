@@ -8,7 +8,6 @@ enum TileBasicsContent {
             id: "tiles-craks",
             frontTitle: "Craks",
             frontTiles: [.c(1), .c(5), .c(9)],
-            frontSubtitle: "Tap to flip",
             backTitle: "Craks (Characters)",
             backBody: "36 tiles: numbers 1 through 9, four of each. On real tiles the number sits above a red Chinese character. Craks partner with the Red Dragon on the card."
         ),
@@ -16,7 +15,6 @@ enum TileBasicsContent {
             id: "tiles-bams",
             frontTitle: "Bams",
             frontTiles: [.b(1), .b(5), .b(9)],
-            frontSubtitle: "Tap to flip",
             backTitle: "Bams (Bamboo)",
             backBody: "36 tiles: numbers 1 through 9, four of each, drawn as green bamboo sticks. Bams partner with the Green Dragon. Heads up: the 1 Bam is usually a bird!"
         ),
@@ -24,7 +22,6 @@ enum TileBasicsContent {
             id: "tiles-dots",
             frontTitle: "Dots",
             frontTiles: [.d(1), .d(5), .d(9)],
-            frontSubtitle: "Tap to flip",
             backTitle: "Dots (Circles)",
             backBody: "36 tiles: numbers 1 through 9, four of each, drawn as circles. Dots partner with the Soap (White Dragon)."
         ),
@@ -32,7 +29,6 @@ enum TileBasicsContent {
             id: "tiles-winds",
             frontTitle: "Winds",
             frontTiles: [.wind(.north), .wind(.east), .wind(.west), .wind(.south)],
-            frontSubtitle: "Tap to flip",
             backTitle: "The Winds",
             backBody: "16 tiles: North, East, West, South, four of each. They mostly live in the Winds & Dragons section of the card, so lone winds are usually early passes."
         ),
@@ -40,7 +36,6 @@ enum TileBasicsContent {
             id: "tiles-dragons",
             frontTitle: "Dragons",
             frontTiles: [.dragon(.red), .dragon(.green), .dragon(.soap)],
-            frontSubtitle: "Tap to flip",
             backTitle: "The Dragons",
             backBody: "12 tiles: 4 Red, 4 Green, 4 Soap. Each dragon belongs to a suit: Red goes with Craks, Green with Bams, Soap with Dots. When a card hand shows a dragon, it must match the suit you're using."
         ),
@@ -56,7 +51,6 @@ enum TileBasicsContent {
             id: "tiles-flowers",
             frontTitle: "Flowers",
             frontTiles: [.flower, .flower],
-            frontSubtitle: "Tap to flip",
             backTitle: "Flowers",
             backBody: "8 flower tiles, and in American mahj they are ALL interchangeable. Any flower works wherever the card shows an F. Flowers appear all over the card, so hold them early."
         ),

@@ -18,6 +18,9 @@ struct SettingsView: View {
                 debugSection
                 #endif
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.background)
+            .tint(Theme.jade)
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -41,7 +44,7 @@ struct SettingsView: View {
         Section("Membership") {
             if subscriptions.isPro {
                 Label("Pro unlocked", systemImage: "checkmark.seal.fill")
-                    .foregroundStyle(Theme.felt)
+                    .foregroundStyle(Theme.jade)
             } else {
                 Button {
                     showPaywall = true

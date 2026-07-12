@@ -11,33 +11,52 @@ struct DrillCompleteView: View {
     @Environment(\.requestReview) private var requestReview
     @State private var showEnjoymentGate = false
     @State private var recorded = false
+    @State private var celebrate = false
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 22) {
             Spacer()
-            Image(systemName: "checkmark.seal.fill")
-                .font(.system(size: 64))
-                .foregroundStyle(Theme.felt)
-            Text("Drill complete!")
-                .font(.title.bold())
-            if let score {
-                Text("\(score) of \(total) right")
-                    .font(.title3)
-                    .foregroundStyle(.secondary)
-            } else {
-                Text("\(total) cards reviewed")
-                    .font(.title3)
-                    .foregroundStyle(.secondary)
+            ZStack {
+                Circle()
+                    .fill(Theme.jade.opacity(0.12))
+                    .frame(width: 132, height: 132)
+                    .scaleEffect(celebrate ? 1 : 0.6)
+                if let score {
+                    VStack(spacing: 2) {
+                        Text("\(score)/\(total)")
+                            .font(Theme.display(34))
+                            .foregroundStyle(Theme.jade)
+                            .monospacedDigit()
+                        Text("right")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(Theme.inkSecondary)
+                    }
+                } else {
+                    Image(systemName: "checkmark.seal.fill")
+                        .font(.system(size: 58))
+                        .foregroundStyle(Theme.jade)
+                }
+            }
+            .animation(.spring(response: 0.5, dampingFraction: 0.6), value: celebrate)
+            VStack(spacing: 8) {
+                Text(headline)
+                    .font(Theme.display(30))
+                    .foregroundStyle(Theme.ink)
+                Text(subheadline)
+                    .font(.body)
+                    .foregroundStyle(Theme.inkSecondary)
+                    .multilineTextAlignment(.center)
             }
             HStack(spacing: 6) {
                 Image(systemName: "flame.fill")
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(Theme.coral)
                 Text("\(progress.streakCount)-day streak")
                     .font(.headline)
+                    .foregroundStyle(Theme.ink)
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 18)
             .padding(.vertical, 10)
-            .background(Theme.cardBackground, in: Capsule())
+            .themedCard(corner: 22)
             Spacer()
             Button {
                 dismiss()
@@ -49,8 +68,10 @@ struct DrillCompleteView: View {
         .background(Theme.background)
         .navigationBarBackButtonHidden(true)
         .onAppear {
+            celebrate = true
             guard !recorded else { return }
             recorded = true
+            Haptics.success()
             progress.recordSession(drillID: drill.id)
             if progress.shouldShowEnjoymentGate() {
                 showEnjoymentGate = true
@@ -62,5 +83,20 @@ struct DrillCompleteView: View {
         } message: {
             Text("You've finished 3 drills. Nice streak!")
         }
+    }
+
+    private var headline: String {
+        guard let score else { return "Deck cleared!" }
+        let fraction = Double(score) / Double(max(total, 1))
+        if fraction >= 1 { return "Perfect round!" }
+        if fraction >= 0.7 { return "Nice work!" }
+        return "Good practice!"
+    }
+
+    private var subheadline: String {
+        if score == nil {
+            return "All \(total) cards down. They'll stick a little better every pass."
+        }
+        return "Every rack you read here is one you'll read faster at the table."
     }
 }

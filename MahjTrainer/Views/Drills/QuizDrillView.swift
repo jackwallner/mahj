@@ -27,7 +27,8 @@ struct QuizDrillView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     Text(question.prompt)
-                        .font(.title3.bold())
+                        .font(Theme.display(22))
+                        .foregroundStyle(Theme.ink)
                         .multilineTextAlignment(.center)
                         .padding(.top, 8)
                     if !question.tiles.isEmpty {
@@ -56,15 +57,21 @@ struct QuizDrillView: View {
                     HStack {
                         Text(question.choices[choiceIndex])
                             .font(.body.weight(.medium))
+                            .foregroundStyle(Theme.ink)
                             .multilineTextAlignment(.leading)
                         Spacer()
                         if answered {
                             resultIcon(for: choiceIndex)
                         }
                     }
-                    .padding(14)
+                    .padding(16)
                     .frame(maxWidth: .infinity)
-                    .background(choiceBackground(choiceIndex), in: RoundedRectangle(cornerRadius: 14))
+                    .background(choiceBackground(choiceIndex), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .strokeBorder(choiceBorder(choiceIndex), lineWidth: 1)
+                    )
+                    .animation(.spring(response: 0.3, dampingFraction: 0.8), value: answered)
                 }
                 .buttonStyle(.plain)
                 .disabled(answered)
@@ -86,6 +93,13 @@ struct QuizDrillView: View {
         if choiceIndex == question.answerIndex { return Theme.bamGreen.opacity(0.15) }
         if choiceIndex == selection { return Theme.crakRed.opacity(0.15) }
         return Theme.cardBackground
+    }
+
+    private func choiceBorder(_ choiceIndex: Int) -> Color {
+        guard answered else { return Theme.rule }
+        if choiceIndex == question.answerIndex { return Theme.bamGreen.opacity(0.5) }
+        if choiceIndex == selection { return Theme.crakRed.opacity(0.5) }
+        return Theme.rule
     }
 
     private var explanationCard: some View {
@@ -121,7 +135,12 @@ struct QuizDrillView: View {
     private func select(_ choiceIndex: Int) {
         guard !answered else { return }
         selection = choiceIndex
-        if choiceIndex == question.answerIndex { score += 1 }
+        if choiceIndex == question.answerIndex {
+            score += 1
+            Haptics.success()
+        } else {
+            Haptics.error()
+        }
     }
 
     private func advance() {

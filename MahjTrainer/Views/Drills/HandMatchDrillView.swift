@@ -27,7 +27,8 @@ struct HandMatchDrillView: View {
             ScrollView {
                 VStack(spacing: 18) {
                     Text("Which section is this rack chasing?")
-                        .font(.title3.bold())
+                        .font(Theme.display(22))
+                        .foregroundStyle(Theme.ink)
                         .multilineTextAlignment(.center)
                         .padding(.top, 8)
                     TileRackView(tiles: question.tiles.racked, tileWidth: 44)
@@ -55,14 +56,20 @@ struct HandMatchDrillView: View {
                     HStack {
                         Text(category.displayName)
                             .font(.body.weight(.medium))
+                            .foregroundStyle(Theme.ink)
                         Spacer()
                         if answered {
                             resultIcon(for: category)
                         }
                     }
-                    .padding(14)
+                    .padding(16)
                     .frame(maxWidth: .infinity)
-                    .background(choiceBackground(category), in: RoundedRectangle(cornerRadius: 14))
+                    .background(choiceBackground(category), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .strokeBorder(choiceBorder(category), lineWidth: 1)
+                    )
+                    .animation(.spring(response: 0.3, dampingFraction: 0.8), value: answered)
                 }
                 .buttonStyle(.plain)
                 .disabled(answered)
@@ -84,6 +91,13 @@ struct HandMatchDrillView: View {
         if category == question.answer { return Theme.bamGreen.opacity(0.15) }
         if category == selection { return Theme.crakRed.opacity(0.15) }
         return Theme.cardBackground
+    }
+
+    private func choiceBorder(_ category: HandCategory) -> Color {
+        guard answered else { return Theme.rule }
+        if category == question.answer { return Theme.bamGreen.opacity(0.5) }
+        if category == selection { return Theme.crakRed.opacity(0.5) }
+        return Theme.rule
     }
 
     private var explanationCard: some View {
@@ -119,7 +133,12 @@ struct HandMatchDrillView: View {
     private func select(_ category: HandCategory) {
         guard !answered else { return }
         selection = category
-        if category == question.answer { score += 1 }
+        if category == question.answer {
+            score += 1
+            Haptics.success()
+        } else {
+            Haptics.error()
+        }
     }
 
     private func advance() {

@@ -65,6 +65,15 @@ final class SubscriptionService: NSObject, ObservableObject {
         offerings = try? await Purchases.shared.offerings()
     }
 
+    func package(for plan: PaywallPlan) -> Package? {
+        guard let offering = offerings?.current else { return nil }
+        switch plan {
+        case .yearly: return offering.annual
+        case .monthly: return offering.monthly
+        case .lifetime: return offering.lifetime
+        }
+    }
+
     func purchase(_ package: Package?) async throws {
         guard isConfigured else {
             setLocalOverride(isPro: true) // sim: pretend the purchase succeeded

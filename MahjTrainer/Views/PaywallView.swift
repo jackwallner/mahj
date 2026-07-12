@@ -2,7 +2,11 @@ import SwiftUI
 import RevenueCat
 
 enum PaywallPlan: String, CaseIterable {
-    case yearly, monthly
+    case yearly, lifetime, monthly
+
+    var ctaTitle: String {
+        self == .lifetime ? "Unlock Forever" : "Start Free Trial"
+    }
 }
 
 /// Shared paywall content used by the onboarding trial page and the
@@ -12,13 +16,14 @@ struct PaywallContent: View {
     @Binding var selectedPlan: PaywallPlan
 
     var body: some View {
-        VStack(spacing: 18) {
+        VStack(spacing: 20) {
             VStack(spacing: 8) {
                 Text("Unlock Every Room")
-                    .font(.title.bold())
+                    .font(Theme.display(30))
+                    .foregroundStyle(Theme.ink)
                 Text("The Card Room, Charleston Room, and Table Room, plus every drill added all year.")
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)
             }
             VStack(alignment: .leading, spacing: 10) {
@@ -35,60 +40,72 @@ struct PaywallContent: View {
     private func benefit(_ text: String) -> some View {
         HStack(spacing: 10) {
             Image(systemName: "checkmark.circle.fill")
-                .foregroundStyle(Theme.felt)
+                .foregroundStyle(Theme.jade)
             Text(text)
                 .font(.subheadline)
+                .foregroundStyle(Theme.ink)
         }
     }
 
     private var planCards: some View {
         VStack(spacing: 10) {
-            planCard(.yearly, title: "Yearly", price: price(for: .yearly) ?? "$29.99/year",
+            planCard(.yearly, title: "Yearly", price: price(for: .yearly) ?? "$9.99/year",
                      detail: "7 days free, then billed yearly", badge: "BEST VALUE")
-            planCard(.monthly, title: "Monthly", price: price(for: .monthly) ?? "$4.99/month",
+            planCard(.lifetime, title: "Lifetime", price: price(for: .lifetime) ?? "$29.99",
+                     detail: "Pay once, keep every room forever", badge: "NO SUBSCRIPTION")
+            planCard(.monthly, title: "Monthly", price: price(for: .monthly) ?? "$1.99/month",
                      detail: "7 days free, then billed monthly", badge: nil)
         }
     }
 
     private func price(for plan: PaywallPlan) -> String? {
-        guard let offering = subscriptions.offerings?.current else { return nil }
-        let package = plan == .yearly ? offering.annual : offering.monthly
-        guard let package else { return nil }
-        let unit = plan == .yearly ? "year" : "month"
-        return "\(package.storeProduct.localizedPriceString)/\(unit)"
+        guard let package = subscriptions.package(for: plan) else { return nil }
+        let base = package.storeProduct.localizedPriceString
+        switch plan {
+        case .yearly: return "\(base)/year"
+        case .monthly: return "\(base)/month"
+        case .lifetime: return base
+        }
     }
 
     private func planCard(_ plan: PaywallPlan, title: String, price: String, detail: String, badge: String?) -> some View {
         let isSelected = selectedPlan == plan
         return Button {
             selectedPlan = plan
+            Haptics.impact(.light, intensity: 0.6)
         } label: {
             HStack {
                 VStack(alignment: .leading, spacing: 3) {
                     HStack(spacing: 8) {
-                        Text(title).font(.headline)
+                        Text(title)
+                            .font(.headline)
+                            .foregroundStyle(Theme.ink)
                         if let badge {
                             Text(badge)
                                 .font(.caption2.bold())
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
-                                .background(Theme.gold.opacity(0.2), in: Capsule())
+                                .background(Theme.gold.opacity(0.18), in: Capsule())
                                 .foregroundStyle(Theme.gold)
                         }
                     }
                     Text(detail)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Theme.inkSecondary)
                 }
                 Spacer()
                 Text(price)
                     .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.ink)
             }
             .padding(14)
-            .background(Theme.cardBackground, in: RoundedRectangle(cornerRadius: 14))
+            .background(
+                isSelected ? Theme.jade.opacity(0.08) : Theme.card,
+                in: RoundedRectangle(cornerRadius: 14, style: .continuous)
+            )
             .overlay(
-                RoundedRectangle(cornerRadius: 14)
-                    .strokeBorder(isSelected ? Theme.felt : Color.clear, lineWidth: 2)
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .strokeBorder(isSelected ? Theme.jade : Theme.rule, lineWidth: isSelected ? 2 : 1)
             )
         }
         .buttonStyle(.plain)
@@ -119,7 +136,7 @@ struct PaywallView: View {
                             if purchasing {
                                 ProgressView().tint(.white)
                             } else {
-                                Text("Start Free Trial")
+                                Text(selectedPlan.ctaTitle)
                             }
                         }
                         .primaryCTA()
@@ -133,6 +150,7 @@ struct PaywallView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Close") { dismiss() }
+                        .foregroundStyle(Theme.inkSecondary)
                 }
             }
             .alert("Purchase Issue", isPresented: .init(
@@ -158,7 +176,7 @@ struct PaywallView: View {
             Link("Privacy", destination: URL(string: "https://jackwallner.github.io/mahj/privacy-policy")!)
         }
         .font(.caption)
-        .foregroundStyle(.secondary)
+        .foregroundStyle(Theme.inkSecondary)
     }
 
     private func purchase() {
@@ -166,13 +184,7 @@ struct PaywallView: View {
         Task {
             defer { purchasing = false }
             do {
-                if let offering = subscriptions.offerings?.current,
-                   let package = selectedPlan == .yearly ? offering.annual : offering.monthly {
-                    try await subscriptions.purchase(package)
-                } else {
-                    // Sim / RC not configured: SubscriptionService flips the local override.
-                    try await subscriptions.purchase(nil)
-                }
+                try await subscriptions.purchase(subscriptions.package(for: selectedPlan))
             } catch {
                 errorMessage = error.localizedDescription
             }

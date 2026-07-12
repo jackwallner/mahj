@@ -29,7 +29,8 @@ struct CharlestonDrillView: View {
             ScrollView {
                 VStack(spacing: 18) {
                     Text(scenario.situation)
-                        .font(.headline)
+                        .font(Theme.display(20, weight: .semibold))
+                        .foregroundStyle(Theme.ink)
                         .multilineTextAlignment(.center)
                         .padding(.top, 8)
                     TileRackView(
@@ -89,7 +90,7 @@ struct CharlestonDrillView: View {
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.cardBackground, in: RoundedRectangle(cornerRadius: 16))
+        .themedCard(corner: 16)
     }
 
     private var headline: String {
@@ -149,6 +150,11 @@ struct CharlestonDrillView: View {
         guard selected.count == 3 else { return }
         submitted = true
         score += matchCount
+        if matchCount >= 2 {
+            Haptics.success()
+        } else {
+            Haptics.impact(.soft, intensity: 0.7)
+        }
     }
 
     private func advance() {

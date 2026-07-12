@@ -9,10 +9,13 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 16) {
+                VStack(spacing: 18) {
+                    header
                     statsHeader
-                    ForEach(DrillLibrary.rooms) { room in
-                        roomCard(room)
+                    VStack(spacing: 14) {
+                        ForEach(DrillLibrary.rooms) { room in
+                            roomCard(room)
+                        }
                     }
                     disclaimerFooter
                 }
@@ -20,26 +23,41 @@ struct HomeView: View {
                 .padding(.bottom, 24)
             }
             .background(Theme.background)
-            .navigationTitle("Mahj Trainer")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showSettings = true
                     } label: {
                         Image(systemName: "gearshape")
+                            .foregroundStyle(Theme.inkSecondary)
                     }
                     .accessibilityLabel("Settings")
                 }
             }
+            .toolbarBackground(.hidden, for: .navigationBar)
             .sheet(isPresented: $showPaywall) { PaywallView() }
             .sheet(isPresented: $showSettings) { SettingsView() }
         }
+        .tint(Theme.jade)
+    }
+
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Mahj Trainer")
+                .font(Theme.display(34))
+                .foregroundStyle(Theme.ink)
+            Text("Your seat at the table.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.inkSecondary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.top, 2)
     }
 
     private var statsHeader: some View {
         HStack(spacing: 12) {
-            statTile(value: "\(progress.streakCount)", label: "Day streak", icon: "flame.fill", color: .orange)
-            statTile(value: "\(progress.totalSessions)", label: "Drills done", icon: "checkmark.seal.fill", color: Theme.felt)
+            statTile(value: "\(progress.streakCount)", label: "Day streak", icon: "flame.fill", color: Theme.coral)
+            statTile(value: "\(progress.totalSessions)", label: "Drills done", icon: "checkmark.seal.fill", color: Theme.jade)
         }
     }
 
@@ -48,18 +66,21 @@ struct HomeView: View {
             Image(systemName: icon)
                 .font(.title3)
                 .foregroundStyle(color)
+                .frame(width: 34, height: 34)
+                .background(color.opacity(0.13), in: Circle())
             VStack(alignment: .leading, spacing: 2) {
                 Text(value)
                     .font(.title3.bold())
+                    .foregroundStyle(Theme.ink)
                     .monospacedDigit()
                 Text(label)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.inkSecondary)
             }
             Spacer(minLength: 0)
         }
         .padding(12)
-        .background(Theme.cardBackground, in: RoundedRectangle(cornerRadius: 16))
+        .themedCard(corner: 16)
     }
 
     @ViewBuilder
@@ -71,68 +92,74 @@ struct HomeView: View {
             } label: {
                 roomCardBody(room, locked: true)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(PressableCardStyle())
         } else {
             NavigationLink {
                 RoomView(room: room)
             } label: {
                 roomCardBody(room, locked: false)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(PressableCardStyle())
         }
     }
 
     private func roomCardBody(_ room: Room, locked: Bool) -> some View {
         HStack(spacing: 14) {
             ZStack {
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(Theme.felt.opacity(locked ? 0.5 : 1))
-                    .frame(width: 52, height: 52)
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(room.accent.opacity(locked ? 0.10 : 0.16))
+                    .frame(width: 56, height: 56)
                 Image(systemName: room.icon)
-                    .font(.title3)
-                    .foregroundStyle(.white)
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(locked ? room.accent.opacity(0.55) : room.accent)
             }
             VStack(alignment: .leading, spacing: 3) {
                 Text(room.name)
-                    .font(.headline)
+                    .font(Theme.display(19, weight: .semibold))
+                    .foregroundStyle(Theme.ink)
                 Text(room.tagline)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.inkSecondary)
                     .lineLimit(2)
             }
             Spacer(minLength: 4)
             if locked {
-                Image(systemName: "lock.fill")
+                Text("PRO")
+                    .font(.caption2.weight(.heavy))
                     .foregroundStyle(Theme.gold)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Theme.gold.opacity(0.15), in: Capsule())
             } else {
-                progressRing(progress.roomProgress(room))
+                progressRing(progress.roomProgress(room), accent: room.accent)
             }
         }
-        .padding(14)
-        .background(Theme.cardBackground, in: RoundedRectangle(cornerRadius: 18))
+        .padding(16)
+        .themedCard()
+        .contentShape(RoundedRectangle(cornerRadius: Theme.cardCorner, style: .continuous))
     }
 
-    private func progressRing(_ fraction: Double) -> some View {
+    private func progressRing(_ fraction: Double, accent: Color) -> some View {
         ZStack {
             Circle()
-                .stroke(Theme.felt.opacity(0.15), lineWidth: 4)
+                .stroke(accent.opacity(0.18), lineWidth: 4)
             Circle()
                 .trim(from: 0, to: fraction)
-                .stroke(Theme.felt, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                .stroke(accent, style: StrokeStyle(lineWidth: 4, lineCap: .round))
                 .rotationEffect(.degrees(-90))
             if fraction >= 1 {
                 Image(systemName: "checkmark")
                     .font(.caption2.bold())
-                    .foregroundStyle(Theme.felt)
+                    .foregroundStyle(accent)
             }
         }
-        .frame(width: 28, height: 28)
+        .frame(width: 30, height: 30)
     }
 
     private var disclaimerFooter: some View {
         Text("Mahj Trainer teaches skills for American Mah Jongg with original practice hands. It is not affiliated with the National Mah Jongg League. For official hands and values, get the current NMJL card.")
             .font(.caption2)
-            .foregroundStyle(.tertiary)
+            .foregroundStyle(Theme.inkTertiary)
             .multilineTextAlignment(.center)
             .padding(.top, 8)
     }
