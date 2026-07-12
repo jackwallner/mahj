@@ -58,6 +58,35 @@ final class ProgressStoreTests: XCTestCase {
         XCTAssertEqual(store.roomProgress(room), 0.5, accuracy: 0.001)
     }
 
+    func testRecordItemTracksSeenAndMissed() {
+        store.recordItem(id: "q1", correct: false)
+        XCTAssertTrue(store.seenItems.contains("q1"))
+        XCTAssertTrue(store.missedItems.contains("q1"))
+        store.recordItem(id: "q1", correct: true)
+        XCTAssertTrue(store.seenItems.contains("q1"))
+        XCTAssertFalse(store.missedItems.contains("q1"), "A correct answer clears the miss")
+    }
+
+    func testItemTrackingPersists() {
+        store.recordItem(id: "q1", correct: false)
+        let reloaded = ProgressStore(defaults: defaults)
+        XCTAssertTrue(reloaded.seenItems.contains("q1"))
+        XCTAssertTrue(reloaded.missedItems.contains("q1"))
+    }
+
+    func testResetAllClearsEverythingButOnboarding() {
+        store.hasOnboarded = true
+        store.recordSession(drillID: "a")
+        store.recordItem(id: "q1", correct: false)
+        store.resetAll()
+        XCTAssertEqual(store.streakCount, 0)
+        XCTAssertEqual(store.totalSessions, 0)
+        XCTAssertEqual(store.completions(for: "a"), 0)
+        XCTAssertTrue(store.seenItems.isEmpty)
+        XCTAssertTrue(store.missedItems.isEmpty)
+        XCTAssertTrue(store.hasOnboarded, "Reset must not re-trigger onboarding")
+    }
+
     func testEnjoymentGateFiresOnceAfterThreeSessions() {
         store.recordSession(drillID: "a")
         XCTAssertFalse(store.shouldShowEnjoymentGate())

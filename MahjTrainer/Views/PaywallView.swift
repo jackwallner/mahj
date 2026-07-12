@@ -18,19 +18,19 @@ struct PaywallContent: View {
     var body: some View {
         VStack(spacing: 20) {
             VStack(spacing: 8) {
-                Text("Unlock Every Room")
+                Text("Unlock the Pro Tables")
                     .font(Theme.display(30))
                     .foregroundStyle(Theme.ink)
-                Text("The Card Room, Charleston Room, and Table Room, plus every drill added all year.")
+                Text("Every beginner drill is free. Pro adds the advanced tables, plus every drill added all year.")
                     .font(.subheadline)
                     .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)
             }
             VStack(alignment: .leading, spacing: 10) {
-                benefit("Read any rack and name its section")
-                benefit("Practice the Charleston without the panic")
-                benefit("Keep-or-throw instincts for real games")
-                benefit("New drills as skills grow")
+                benefit("Advanced Charleston: pair math and defensive passing")
+                benefit("Defense School: read exposures, stop feeding winners")
+                benefit("Expert rack reading with deliberately tricky deals")
+                benefit("New advanced drills as skills grow")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             planCards
@@ -52,7 +52,7 @@ struct PaywallContent: View {
             planCard(.yearly, title: "Yearly", price: price(for: .yearly) ?? "$9.99/year",
                      detail: "7 days free, then billed yearly", badge: "BEST VALUE")
             planCard(.lifetime, title: "Lifetime", price: price(for: .lifetime) ?? "$29.99",
-                     detail: "Pay once, keep every room forever", badge: "NO SUBSCRIPTION")
+                     detail: "Pay once, keep the Pro Tables forever", badge: "NO SUBSCRIPTION")
             planCard(.monthly, title: "Monthly", price: price(for: .monthly) ?? "$1.99/month",
                      detail: "7 days free, then billed monthly", badge: nil)
         }

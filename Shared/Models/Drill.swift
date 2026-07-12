@@ -1,5 +1,17 @@
 import Foundation
 
+/// A two-option self-test on a card's front ("Keep" / "Throw"). Answering
+/// flips the card and grades the pick before the explanation lands.
+struct CardChoice: Sendable {
+    let options: [String]
+    let answerIndex: Int
+
+    init(_ first: String, _ second: String, answerIndex: Int) {
+        options = [first, second]
+        self.answerIndex = answerIndex
+    }
+}
+
 struct Flashcard: Identifiable, Sendable {
     let id: String
     let frontTitle: String
@@ -7,15 +19,17 @@ struct Flashcard: Identifiable, Sendable {
     let frontSubtitle: String?
     let backTitle: String
     let backBody: String
+    let choice: CardChoice?
 
     init(id: String, frontTitle: String, frontTiles: [Tile] = [], frontSubtitle: String? = nil,
-         backTitle: String, backBody: String) {
+         backTitle: String, backBody: String, choice: CardChoice? = nil) {
         self.id = id
         self.frontTitle = frontTitle
         self.frontTiles = frontTiles
         self.frontSubtitle = frontSubtitle
         self.backTitle = backTitle
         self.backBody = backBody
+        self.choice = choice
     }
 }
 

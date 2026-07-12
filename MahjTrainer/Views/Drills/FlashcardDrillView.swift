@@ -1,12 +1,17 @@
 import SwiftUI
 
 /// Flashcards as a swipeable deck. The grammar: tap flips the card to reveal
-/// the answer; only a flipped card can be swiped — right means "got it" (card
-/// leaves the deck), left means "again" (card returns at the back). Before the
+/// the answer; only a flipped card can be swiped — right = "got it" (card
+/// leaves the deck), left = "again" (card returns at the back). Before the
 /// flip a horizontal drag rubber-bands, so the reveal always comes first.
+/// Cards with a `CardChoice` add a self-test: pick Keep/Throw on the front,
+/// and the flip grades you.
 struct FlashcardDrillView: View {
     let drill: Drill
     let cards: [Flashcard]
+    var accent: Color = Theme.jade
+
+    @EnvironmentObject private var progress: ProgressStore
 
     @State private var queue: [Flashcard] = []
     @State private var isFlipped = false
@@ -15,6 +20,8 @@ struct FlashcardDrillView: View {
     @State private var crossedThreshold = false
     @State private var lastSwipe: SwipeRecord?
     @State private var finished = false
+    @State private var choicePick: Int?
+    @State private var confettiTrigger = 0
 
     /// One-time teaching nudge after the first-ever flip.
     @AppStorage("mahj.hasSwipedDeck") private var hasSwipedDeck = false
@@ -48,6 +55,7 @@ struct FlashcardDrillView: View {
         }
         .padding()
         .background(Theme.background)
+        .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.42)) }
         .navigationTitle(drill.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -70,7 +78,7 @@ struct FlashcardDrillView: View {
                 ZStack(alignment: .leading) {
                     Capsule().fill(Theme.well)
                     Capsule()
-                        .fill(Theme.jade)
+                        .fill(accent)
                         .frame(width: geo.size.width * CGFloat(mastered) / CGFloat(max(cards.count, 1)))
                         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: mastered)
                 }
@@ -90,17 +98,23 @@ struct FlashcardDrillView: View {
         let visible = Array(queue.prefix(3).enumerated())
         ZStack {
             ForEach(visible.reversed(), id: \.element.id) { slot, card in
-                FlipCardFace(card: card, isFlipped: slot == 0 && isFlipped)
-                    .scaleEffect(scale(forSlot: slot))
-                    .offset(y: yOffset(forSlot: slot))
-                    .offset(slot == 0 ? effectiveDrag : .zero)
-                    .rotationEffect(slot == 0 ? topRotation : .zero, anchor: .bottom)
-                    .overlay { if slot == 0 { verdictStamps } }
-                    .zIndex(Double(3 - slot))
-                    .allowsHitTesting(slot == 0)
-                    .gesture(dragGesture(size: size))
-                    .accessibilityAddTraits(.isButton)
-                    .accessibilityHint(isFlipped ? "Swipe right if you knew it, left to review again" : "Tap to reveal the answer")
+                FlipCardFace(
+                    card: card,
+                    isFlipped: slot == 0 && isFlipped,
+                    accent: accent,
+                    choicePick: slot == 0 ? choicePick : nil,
+                    onChoose: slot == 0 ? { choose($0, card: card) } : nil
+                )
+                .scaleEffect(scale(forSlot: slot))
+                .offset(y: yOffset(forSlot: slot))
+                .offset(slot == 0 ? effectiveDrag : .zero)
+                .rotationEffect(slot == 0 ? topRotation : .zero, anchor: .bottom)
+                .overlay { if slot == 0 { verdictStamps } }
+                .zIndex(Double(3 - slot))
+                .allowsHitTesting(slot == 0)
+                .gesture(dragGesture(size: size))
+                .accessibilityAddTraits(.isButton)
+                .accessibilityHint(isFlipped ? "Swipe right if you knew it, left to review again" : "Tap to reveal the answer")
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -132,7 +146,7 @@ struct FlashcardDrillView: View {
 
     private func stamp(_ text: String, color: Color, angle: Double) -> some View {
         Text(text)
-            .font(.system(size: 26, weight: .heavy, design: .rounded))
+            .font(Theme.display(24, weight: .black))
             .foregroundStyle(color)
             .padding(.horizontal, 10)
             .padding(.vertical, 4)
@@ -151,7 +165,7 @@ struct FlashcardDrillView: View {
         max(90, size.width * 0.30)
     }
 
-    private var progress: CGFloat {
+    private var progress01: CGFloat {
         guard isFlipped else { return 0 }
         return min(1, abs(drag.width) / 110)
     }
@@ -161,16 +175,37 @@ struct FlashcardDrillView: View {
 
     private func scale(forSlot slot: Int) -> CGFloat {
         guard slot > 0 else { return 1 }
-        return restingScale(slot) + (restingScale(slot - 1) - restingScale(slot)) * progress
+        return restingScale(slot) + (restingScale(slot - 1) - restingScale(slot)) * progress01
     }
 
     private func yOffset(forSlot slot: Int) -> CGFloat {
         guard slot > 0 else { return 0 }
-        return restingY(slot) + (restingY(slot - 1) - restingY(slot)) * progress
+        return restingY(slot) + (restingY(slot - 1) - restingY(slot)) * progress01
     }
 
     private var topRotation: Angle {
         .degrees(Double(max(-12, min(12, effectiveDrag.width / 14))))
+    }
+
+    // MARK: - Choice self-test
+
+    private func choose(_ index: Int, card: Flashcard) {
+        guard let choice = card.choice, choicePick == nil, !isFlipped, !isFlinging else { return }
+        choicePick = index
+        let correct = index == choice.answerIndex
+        progress.recordItem(id: card.id, correct: correct)
+        if correct {
+            confettiTrigger += 1
+            Haptics.success()
+            SoundPlayer.play(.success)
+        } else {
+            Haptics.error()
+            SoundPlayer.play(.miss)
+        }
+        withAnimation(.spring(response: 0.55, dampingFraction: 0.8)) {
+            isFlipped = true
+        }
+        maybeHintSwipe()
     }
 
     // MARK: - Gestures
@@ -252,6 +287,11 @@ struct FlashcardDrillView: View {
     private func commit(gotIt: Bool) {
         guard let card = queue.first else { return }
         lastSwipe = SwipeRecord(card: card, gotIt: gotIt)
+        // Choice cards were graded at pick time; plain cards grade by swipe.
+        if card.choice == nil || choicePick == nil {
+            progress.recordItem(id: card.id, correct: gotIt)
+        }
+        choicePick = nil
         queue.removeFirst()
         if !gotIt {
             queue.append(card)
@@ -266,6 +306,7 @@ struct FlashcardDrillView: View {
         guard let record = lastSwipe, !isFlinging else { return }
         Haptics.impact(.light)
         lastSwipe = nil
+        choicePick = nil
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             if !record.gotIt, queue.last?.id == record.card.id {
                 queue.removeLast()
@@ -295,81 +336,220 @@ struct FlashcardDrillView: View {
     }
 }
 
-/// One card, both faces. The hidden face never draws text backwards and never
-/// steals touches.
-private struct FlipCardFace: View {
+// MARK: - Card faces
+
+/// One card, both faces, flipped as a single rigid unit: the whole card
+/// rotates and the face swap happens exactly at 90°, when the card is
+/// edge-on and invisible. Rotating the faces inside a static background is
+/// what made the text detach from the card (the Sideline deck fix).
+struct FlipCardFace: View {
     let card: Flashcard
     let isFlipped: Bool
+    var accent: Color = Theme.jade
+    var choicePick: Int?
+    var onChoose: ((Int) -> Void)?
+    /// The deck grades by swipe; the mixed session grades with buttons.
+    var showsSwipeHints = true
 
     var body: some View {
-        ZStack {
+        FlipRotation(angle: isFlipped ? 180 : 0) {
             front
-                .rotation3DEffect(.degrees(isFlipped ? 180 : 0), axis: (x: 0, y: 1, z: 0))
-                .opacity(isFlipped ? 0 : 1)
-                .accessibilityHidden(isFlipped)
+        } back: {
             back
-                .rotation3DEffect(.degrees(isFlipped ? 0 : -180), axis: (x: 0, y: 1, z: 0))
-                .opacity(isFlipped ? 1 : 0)
-                .accessibilityHidden(!isFlipped)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous)
-                .fill(Theme.card)
-                .shadow(color: .black.opacity(0.10), radius: 14, y: 6)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous)
-                .strokeBorder(Theme.rule, lineWidth: 1)
-        )
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: isFlipped ? .combine : .contain)
         .accessibilityLabel(isFlipped ? "\(card.backTitle). \(card.backBody)" : card.frontTitle)
     }
 
     private var front: some View {
-        VStack(spacing: 20) {
-            Spacer(minLength: 0)
-            Text(card.frontTitle)
-                .font(Theme.display(26))
-                .foregroundStyle(Theme.ink)
-                .multilineTextAlignment(.center)
-            if !card.frontTiles.isEmpty {
-                TileRackView(tiles: card.frontTiles, tileWidth: 52)
-            }
-            if let subtitle = card.frontSubtitle {
-                Text(subtitle)
-                    .font(.subheadline)
-                    .foregroundStyle(Theme.inkSecondary)
+        MahjCardFace(accent: accent, eyebrow: "MAHJ TRAINER") {
+            VStack(spacing: 18) {
+                Spacer(minLength: 0)
+                Text(card.frontTitle)
+                    .font(Theme.display(25))
+                    .foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.center)
+                if !card.frontTiles.isEmpty {
+                    TileRackView(tiles: card.frontTiles, tileWidth: 52)
+                }
+                if let subtitle = card.frontSubtitle {
+                    Text(subtitle)
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.inkSecondary)
+                        .multilineTextAlignment(.center)
+                }
+                Spacer(minLength: 0)
+                if let choice = card.choice, let onChoose {
+                    choiceButtons(choice, onChoose: onChoose)
+                } else {
+                    Label("Tap to reveal", systemImage: "hand.tap.fill")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.inkTertiary)
+                }
             }
-            Spacer(minLength: 0)
-            Label("Tap to reveal", systemImage: "hand.tap.fill")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(Theme.inkTertiary)
         }
-        .padding(26)
     }
 
     private var back: some View {
-        VStack(spacing: 16) {
-            Spacer(minLength: 0)
-            Text(card.backTitle)
-                .font(Theme.display(22))
-                .foregroundStyle(Theme.jade)
-                .multilineTextAlignment(.center)
-            Rectangle()
-                .fill(Theme.rule)
-                .frame(width: 44, height: 2)
-            Text(card.backBody)
-                .font(.body)
-                .foregroundStyle(Theme.ink)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            Spacer(minLength: 0)
-            Label("Knew it? Swipe right · Again? Swipe left", systemImage: "hand.draw.fill")
+        MahjCardFace(accent: accent, eyebrow: "THE CALL") {
+            VStack(spacing: 14) {
+                if let verdict {
+                    verdictBanner(verdict)
+                }
+                Spacer(minLength: 0)
+                Text(card.backTitle)
+                    .font(Theme.display(22))
+                    .foregroundStyle(accent)
+                    .multilineTextAlignment(.center)
+                Rectangle()
+                    .fill(Theme.rule)
+                    .frame(width: 44, height: 2)
+                Text(card.backBody)
+                    .font(.body)
+                    .foregroundStyle(Theme.ink)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+                if showsSwipeHints {
+                    Label("Knew it? Swipe right · Again? Swipe left", systemImage: "hand.draw.fill")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.inkTertiary)
+                }
+            }
+        }
+    }
+
+    private var verdict: (text: String, correct: Bool)? {
+        guard let choice = card.choice, let pick = choicePick else { return nil }
+        let correct = pick == choice.answerIndex
+        return ("You said \"\(choice.options[pick])\"", correct)
+    }
+
+    private func verdictBanner(_ verdict: (text: String, correct: Bool)) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: verdict.correct ? "checkmark.circle.fill" : "xmark.circle.fill")
+            Text(verdict.correct ? "\(verdict.text). Right!" : "\(verdict.text). Not this time.")
+                .font(.footnote.weight(.semibold))
+        }
+        .foregroundStyle(verdict.correct ? Theme.jade : Theme.coral)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 7)
+        .background((verdict.correct ? Theme.jade : Theme.coral).opacity(0.13), in: Capsule())
+    }
+
+    private func choiceButtons(_ choice: CardChoice, onChoose: @escaping (Int) -> Void) -> some View {
+        VStack(spacing: 8) {
+            Text("Make the call")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(Theme.inkTertiary)
+            HStack(spacing: 10) {
+                ForEach(choice.options.indices, id: \.self) { index in
+                    Button {
+                        onChoose(index)
+                    } label: {
+                        Text(choice.options[index])
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(accent)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.8)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: 44)
+                            .background(accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 13, style: .continuous))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 13, style: .continuous)
+                                    .strokeBorder(accent.opacity(0.45), lineWidth: 1.5)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
         }
-        .padding(26)
+    }
+}
+
+/// The mahjong-card chrome both faces share: ivory surface, double frame like
+/// the printed card, corner pips, and a faint tile-glyph watermark so the
+/// open space feels designed instead of empty.
+private struct MahjCardFace<Content: View>: View {
+    let accent: Color
+    let eyebrow: String
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        VStack(spacing: 10) {
+            HStack(spacing: 8) {
+                frameDot
+                Text(eyebrow)
+                    .font(.caption2.weight(.heavy))
+                    .kerning(2.2)
+                    .foregroundStyle(accent.opacity(0.65))
+                frameDot
+            }
+            content()
+        }
+        .padding(24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background {
+            RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous)
+                .fill(Theme.card)
+        }
+        .overlay {
+            // Watermark sits above the surface but below the frame.
+            Text("麻")
+                .font(.system(size: 190, weight: .bold))
+                .foregroundStyle(accent.opacity(0.05))
+                .rotationEffect(.degrees(-10))
+                .offset(x: 60, y: 70)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                .clipShape(RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous))
+                .allowsHitTesting(false)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous)
+                .strokeBorder(Theme.rule, lineWidth: 1)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: Theme.deckCorner - 9, style: .continuous)
+                .strokeBorder(accent.opacity(0.28), lineWidth: 1.5)
+                .padding(9)
+                .allowsHitTesting(false)
+        }
+        .shadow(color: .black.opacity(0.10), radius: 14, y: 6)
+    }
+
+    private var frameDot: some View {
+        Circle()
+            .fill(accent.opacity(0.4))
+            .frame(width: 4, height: 4)
+    }
+}
+
+/// Animatable 3D flip that swaps faces at the 90° midpoint. Conforming the
+/// view itself to Animatable means SwiftUI interpolates `angle` every frame,
+/// so the swap always happens while the card is edge-on.
+// @preconcurrency: Animatable's requirement is nonisolated but SwiftUI only
+// ever drives animatableData on the main thread, where this view lives.
+private struct FlipRotation<Front: View, Back: View>: View, @preconcurrency Animatable {
+    var angle: Double
+    @ViewBuilder let front: () -> Front
+    @ViewBuilder let back: () -> Back
+
+    var animatableData: Double {
+        get { angle }
+        set { angle = newValue }
+    }
+
+    var body: some View {
+        ZStack {
+            if angle < 90 {
+                front()
+            } else {
+                // Pre-mirrored so it reads correctly once the container hits 180°.
+                back()
+                    .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+            }
+        }
+        .rotation3DEffect(.degrees(angle), axis: (x: 0, y: 1, z: 0), perspective: 0.35)
     }
 }

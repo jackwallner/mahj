@@ -9,13 +9,12 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 18) {
+                VStack(spacing: 20) {
                     header
+                    getStartedCard
                     statsHeader
-                    VStack(spacing: 14) {
-                        ForEach(DrillLibrary.rooms) { room in
-                            roomCard(room)
-                        }
+                    ForEach(DrillLibrary.rooms) { room in
+                        section(for: room)
                     }
                     disclaimerFooter
                 }
@@ -54,6 +53,43 @@ struct HomeView: View {
         .padding(.top, 2)
     }
 
+    /// The one-tap way in: builds a short mixed session, no browsing needed.
+    private var getStartedCard: some View {
+        NavigationLink {
+            MixedSessionView(items: SessionBuilder.dailyMix(
+                seen: progress.seenItems,
+                missed: progress.missedItems,
+                includePro: subscriptions.isPro
+            ))
+        } label: {
+            HStack(spacing: 14) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Get Started")
+                        .font(Theme.display(24))
+                        .foregroundStyle(.white)
+                    Text("A five-minute mix of what you need next")
+                        .font(.subheadline)
+                        .foregroundStyle(.white.opacity(0.85))
+                }
+                Spacer(minLength: 4)
+                Image(systemName: "play.circle.fill")
+                    .font(.system(size: 44))
+                    .foregroundStyle(.white)
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                LinearGradient(
+                    colors: [Theme.jade, Theme.jade.opacity(0.82)],
+                    startPoint: .topLeading, endPoint: .bottomTrailing
+                ),
+                in: RoundedRectangle(cornerRadius: Theme.cardCorner, style: .continuous)
+            )
+            .shadow(color: Theme.jade.opacity(0.3), radius: 10, y: 5)
+        }
+        .buttonStyle(PressableCardStyle())
+    }
+
     private var statsHeader: some View {
         HStack(spacing: 12) {
             statTile(value: "\(progress.streakCount)", label: "Day streak", icon: "flame.fill", color: Theme.coral)
@@ -83,77 +119,107 @@ struct HomeView: View {
         .themedCard(corner: 16)
     }
 
-    @ViewBuilder
-    private func roomCard(_ room: Room) -> some View {
+    // MARK: - Drill sections (flat: every drill is one tap from here)
+
+    private func section(for room: Room) -> some View {
         let locked = !room.isFree && !subscriptions.isPro
+        return VStack(spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: room.icon)
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(room.accent)
+                Text(room.name.uppercased())
+                    .font(.caption.weight(.heavy))
+                    .kerning(1.4)
+                    .foregroundStyle(Theme.inkSecondary)
+                Spacer()
+                if locked {
+                    Text("PRO")
+                        .font(.caption2.weight(.heavy))
+                        .foregroundStyle(Theme.gold)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(Theme.gold.opacity(0.15), in: Capsule())
+                }
+            }
+            .padding(.horizontal, 4)
+            ForEach(room.drills) { drill in
+                drillRow(drill, room: room, locked: locked)
+            }
+        }
+        .padding(.top, 6)
+    }
+
+    @ViewBuilder
+    private func drillRow(_ drill: Drill, room: Room, locked: Bool) -> some View {
         if locked {
             Button {
                 showPaywall = true
             } label: {
-                roomCardBody(room, locked: true)
+                drillRowBody(drill, room: room, locked: true)
             }
             .buttonStyle(PressableCardStyle())
         } else {
             NavigationLink {
-                RoomView(room: room)
+                drillDestination(drill, room: room)
             } label: {
-                roomCardBody(room, locked: false)
+                drillRowBody(drill, room: room, locked: false)
             }
             .buttonStyle(PressableCardStyle())
         }
     }
 
-    private func roomCardBody(_ room: Room, locked: Bool) -> some View {
-        HStack(spacing: 14) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(room.accent.opacity(locked ? 0.10 : 0.16))
-                    .frame(width: 56, height: 56)
-                Image(systemName: room.icon)
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(locked ? room.accent.opacity(0.55) : room.accent)
-            }
+    private func drillRowBody(_ drill: Drill, room: Room, locked: Bool) -> some View {
+        let done = progress.completions(for: drill.id) > 0
+        return HStack(spacing: 14) {
+            Image(systemName: drill.kind.symbol)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(locked ? room.accent.opacity(0.55) : room.accent)
+                .frame(width: 42, height: 42)
+                .background(room.accent.opacity(locked ? 0.08 : 0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             VStack(alignment: .leading, spacing: 3) {
-                Text(room.name)
-                    .font(Theme.display(19, weight: .semibold))
+                Text(drill.title)
+                    .font(.headline)
                     .foregroundStyle(Theme.ink)
-                Text(room.tagline)
+                Text(drill.subtitle)
                     .font(.subheadline)
                     .foregroundStyle(Theme.inkSecondary)
                     .lineLimit(2)
+                Text("\(drill.kind.itemCount) \(drill.kind.unitName)")
+                    .font(.caption)
+                    .foregroundStyle(Theme.inkTertiary)
             }
             Spacer(minLength: 4)
             if locked {
-                Text("PRO")
-                    .font(.caption2.weight(.heavy))
+                Image(systemName: "lock.fill")
+                    .font(.footnote)
                     .foregroundStyle(Theme.gold)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Theme.gold.opacity(0.15), in: Capsule())
+            } else if done {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundStyle(room.accent)
             } else {
-                progressRing(progress.roomProgress(room), accent: room.accent)
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Theme.inkTertiary)
             }
         }
-        .padding(16)
-        .themedCard()
-        .contentShape(RoundedRectangle(cornerRadius: Theme.cardCorner, style: .continuous))
+        .padding(14)
+        .themedCard(corner: 16)
+        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 
-    private func progressRing(_ fraction: Double, accent: Color) -> some View {
-        ZStack {
-            Circle()
-                .stroke(accent.opacity(0.18), lineWidth: 4)
-            Circle()
-                .trim(from: 0, to: fraction)
-                .stroke(accent, style: StrokeStyle(lineWidth: 4, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-            if fraction >= 1 {
-                Image(systemName: "checkmark")
-                    .font(.caption2.bold())
-                    .foregroundStyle(accent)
-            }
+    @ViewBuilder
+    private func drillDestination(_ drill: Drill, room: Room) -> some View {
+        switch drill.kind {
+        case .flashcards(let cards):
+            FlashcardDrillView(drill: drill, cards: cards, accent: room.accent)
+        case .quiz(let questions):
+            QuizDrillView(drill: drill, questions: questions)
+        case .handMatch(let questions):
+            HandMatchDrillView(drill: drill, questions: questions)
+        case .charleston(let scenarios):
+            CharlestonDrillView(drill: drill, scenarios: scenarios)
         }
-        .frame(width: 30, height: 30)
     }
 
     private var disclaimerFooter: some View {
@@ -162,5 +228,25 @@ struct HomeView: View {
             .foregroundStyle(Theme.inkTertiary)
             .multilineTextAlignment(.center)
             .padding(.top, 8)
+    }
+}
+
+extension DrillKind {
+    var symbol: String {
+        switch self {
+        case .flashcards: return "rectangle.stack.fill"
+        case .quiz: return "questionmark.circle.fill"
+        case .handMatch: return "square.grid.3x3.fill"
+        case .charleston: return "arrow.left.arrow.right"
+        }
+    }
+
+    var unitName: String {
+        switch self {
+        case .flashcards: return "cards"
+        case .quiz: return "questions"
+        case .handMatch: return "racks"
+        case .charleston: return "deals"
+        }
     }
 }

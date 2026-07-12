@@ -4,10 +4,13 @@ struct HandMatchDrillView: View {
     let drill: Drill
     let questions: [HandMatchQuestion]
 
+    @EnvironmentObject private var progress: ProgressStore
+
     @State private var index = 0
     @State private var selection: HandCategory?
     @State private var score = 0
     @State private var finished = false
+    @State private var confettiTrigger = 0
 
     var body: some View {
         if finished {
@@ -23,94 +26,28 @@ struct HandMatchDrillView: View {
     private var drillBody: some View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(questions.count))
-                .tint(Theme.felt)
-            ScrollView {
-                VStack(spacing: 18) {
-                    Text("Which section is this rack chasing?")
-                        .font(Theme.display(22))
-                        .foregroundStyle(Theme.ink)
-                        .multilineTextAlignment(.center)
-                        .padding(.top, 8)
-                    TileRackView(tiles: question.tiles.racked, tileWidth: 44)
-                        .padding(.vertical, 6)
-                    choiceButtons
-                    if answered {
-                        explanationCard
-                    }
+                .tint(Theme.jade)
+            QuestionPager(
+                prompt: "Which section is this rack chasing?",
+                tiles: question.tiles.racked,
+                explanation: question.explanation,
+                answered: answered
+            ) {
+                ChoiceList(
+                    labels: question.choices.map(\.displayName),
+                    selection: question.choices.firstIndex(where: { $0 == selection }),
+                    answerIndex: question.choices.firstIndex(of: question.answer) ?? 0
+                ) { pick in
+                    select(question.choices[pick])
                 }
             }
             footer
         }
         .padding()
         .background(Theme.background)
+        .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.35)) }
         .navigationTitle(drill.title)
         .navigationBarTitleDisplayMode(.inline)
-    }
-
-    private var choiceButtons: some View {
-        VStack(spacing: 10) {
-            ForEach(question.choices) { category in
-                Button {
-                    select(category)
-                } label: {
-                    HStack {
-                        Text(category.displayName)
-                            .font(.body.weight(.medium))
-                            .foregroundStyle(Theme.ink)
-                        Spacer()
-                        if answered {
-                            resultIcon(for: category)
-                        }
-                    }
-                    .padding(16)
-                    .frame(maxWidth: .infinity)
-                    .background(choiceBackground(category), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 14, style: .continuous)
-                            .strokeBorder(choiceBorder(category), lineWidth: 1)
-                    )
-                    .animation(.spring(response: 0.3, dampingFraction: 0.8), value: answered)
-                }
-                .buttonStyle(.plain)
-                .disabled(answered)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func resultIcon(for category: HandCategory) -> some View {
-        if category == question.answer {
-            Image(systemName: "checkmark.circle.fill").foregroundStyle(Theme.bamGreen)
-        } else if category == selection {
-            Image(systemName: "xmark.circle.fill").foregroundStyle(Theme.crakRed)
-        }
-    }
-
-    private func choiceBackground(_ category: HandCategory) -> Color {
-        guard answered else { return Theme.cardBackground }
-        if category == question.answer { return Theme.bamGreen.opacity(0.15) }
-        if category == selection { return Theme.crakRed.opacity(0.15) }
-        return Theme.cardBackground
-    }
-
-    private func choiceBorder(_ category: HandCategory) -> Color {
-        guard answered else { return Theme.rule }
-        if category == question.answer { return Theme.bamGreen.opacity(0.5) }
-        if category == selection { return Theme.crakRed.opacity(0.5) }
-        return Theme.rule
-    }
-
-    private var explanationCard: some View {
-        HStack(alignment: .top, spacing: 10) {
-            Image(systemName: "lightbulb.fill")
-                .foregroundStyle(Theme.gold)
-            Text(question.explanation)
-                .font(.subheadline)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .padding(14)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Theme.gold.opacity(0.12), in: RoundedRectangle(cornerRadius: 14))
     }
 
     private var footer: some View {
@@ -124,7 +61,7 @@ struct HandMatchDrillView: View {
             } else {
                 Text("Rack \(index + 1) of \(questions.count)")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.inkTertiary)
                     .frame(height: 54)
             }
         }
@@ -133,11 +70,16 @@ struct HandMatchDrillView: View {
     private func select(_ category: HandCategory) {
         guard !answered else { return }
         selection = category
-        if category == question.answer {
+        let correct = category == question.answer
+        progress.recordItem(id: question.id, correct: correct)
+        if correct {
             score += 1
+            confettiTrigger += 1
             Haptics.success()
+            SoundPlayer.play(.success)
         } else {
             Haptics.error()
+            SoundPlayer.play(.miss)
         }
     }
 

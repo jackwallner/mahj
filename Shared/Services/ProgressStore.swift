@@ -7,6 +7,8 @@ final class ProgressStore: ObservableObject {
     @Published private(set) var streakCount: Int
     @Published private(set) var totalSessions: Int
     @Published private(set) var completions: [String: Int]
+    @Published private(set) var seenItems: Set<String>
+    @Published private(set) var missedItems: Set<String>
 
     private let defaults: UserDefaults
 
@@ -17,6 +19,8 @@ final class ProgressStore: ObservableObject {
         static let completions = "progress.completions"
         static let hasOnboarded = "progress.hasOnboarded"
         static let reviewGateShown = "progress.reviewGateShown"
+        static let seenItems = "progress.seenItems"
+        static let missedItems = "progress.missedItems"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -24,6 +28,8 @@ final class ProgressStore: ObservableObject {
         streakCount = defaults.integer(forKey: Keys.streakCount)
         totalSessions = defaults.integer(forKey: Keys.totalSessions)
         completions = (defaults.dictionary(forKey: Keys.completions) as? [String: Int]) ?? [:]
+        seenItems = Set(defaults.stringArray(forKey: Keys.seenItems) ?? [])
+        missedItems = Set(defaults.stringArray(forKey: Keys.missedItems) ?? [])
     }
 
     var hasOnboarded: Bool {
@@ -68,6 +74,35 @@ final class ProgressStore: ObservableObject {
         }
         defaults.set(today, forKey: Keys.lastActiveDay)
         defaults.set(streakCount, forKey: Keys.streakCount)
+    }
+
+    /// Item-level memory that feeds the Get Started mix: anything answered wrong
+    /// (or self-graded "again") comes back first; unseen items come next.
+    func recordItem(id: String, correct: Bool) {
+        seenItems.insert(id)
+        if correct {
+            missedItems.remove(id)
+        } else {
+            missedItems.insert(id)
+        }
+        defaults.set(Array(seenItems), forKey: Keys.seenItems)
+        defaults.set(Array(missedItems), forKey: Keys.missedItems)
+    }
+
+    /// Clears every practice stat. Leaves onboarding and purchases alone.
+    func resetAll() {
+        streakCount = 0
+        totalSessions = 0
+        completions = [:]
+        seenItems = []
+        missedItems = []
+        defaults.removeObject(forKey: Keys.streakCount)
+        defaults.removeObject(forKey: Keys.lastActiveDay)
+        defaults.removeObject(forKey: Keys.totalSessions)
+        defaults.removeObject(forKey: Keys.completions)
+        defaults.removeObject(forKey: Keys.seenItems)
+        defaults.removeObject(forKey: Keys.missedItems)
+        defaults.removeObject(forKey: Keys.reviewGateShown)
     }
 
     /// Review funnel: fire the enjoyment gate once, after the third finished session.

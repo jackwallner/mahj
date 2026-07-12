@@ -4,11 +4,14 @@ struct CharlestonDrillView: View {
     let drill: Drill
     let scenarios: [CharlestonScenario]
 
+    @EnvironmentObject private var progress: ProgressStore
+
     @State private var index = 0
     @State private var selected: Set<Int> = []
     @State private var submitted = false
     @State private var score = 0
     @State private var finished = false
+    @State private var confettiTrigger = 0
 
     var body: some View {
         if finished {
@@ -25,7 +28,7 @@ struct CharlestonDrillView: View {
     private var drillBody: some View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(scenarios.count))
-                .tint(Theme.felt)
+                .tint(Theme.jade)
             ScrollView {
                 VStack(spacing: 18) {
                     Text(scenario.situation)
@@ -53,6 +56,7 @@ struct CharlestonDrillView: View {
         }
         .padding()
         .background(Theme.background)
+        .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.35)) }
         .navigationTitle(drill.title)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -150,10 +154,17 @@ struct CharlestonDrillView: View {
         guard selected.count == 3 else { return }
         submitted = true
         score += matchCount
-        if matchCount >= 2 {
+        progress.recordItem(id: scenario.id, correct: matchCount >= 2)
+        if matchCount == 3 {
+            confettiTrigger += 1
             Haptics.success()
+            SoundPlayer.play(.success)
+        } else if matchCount == 2 {
+            Haptics.success()
+            SoundPlayer.play(.success)
         } else {
             Haptics.impact(.soft, intensity: 0.7)
+            SoundPlayer.play(.miss)
         }
     }
 

@@ -128,8 +128,14 @@ struct PressableCardStyle: ButtonStyle {
 enum Haptics {
     enum Impact { case soft, light, rigid }
 
+    /// Settings gate: reads the same key AppSettings writes, defaulting on.
+    private static var enabled: Bool {
+        UserDefaults.standard.object(forKey: "settings.haptics") as? Bool ?? true
+    }
+
     static func impact(_ style: Impact, intensity: CGFloat = 1.0) {
         #if canImport(UIKit)
+        guard enabled else { return }
         let uiStyle: UIImpactFeedbackGenerator.FeedbackStyle
         switch style {
         case .soft: uiStyle = .soft
@@ -142,12 +148,14 @@ enum Haptics {
 
     static func success() {
         #if canImport(UIKit)
+        guard enabled else { return }
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         #endif
     }
 
     static func error() {
         #if canImport(UIKit)
+        guard enabled else { return }
         UINotificationFeedbackGenerator().notificationOccurred(.error)
         #endif
     }

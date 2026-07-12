@@ -3,14 +3,19 @@ import StoreKit
 
 struct SettingsView: View {
     @EnvironmentObject private var subscriptions: SubscriptionService
+    @EnvironmentObject private var settings: AppSettings
+    @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dismiss) private var dismiss
     @Environment(\.requestReview) private var requestReview
     @State private var showPaywall = false
+    @State private var showResetConfirm = false
     @State private var restoreMessage: String?
 
     var body: some View {
         NavigationStack {
             Form {
+                appearanceSection
+                practiceSection
                 proSection
                 supportSection
                 aboutSection
@@ -37,6 +42,36 @@ struct SettingsView: View {
             } message: {
                 Text(restoreMessage ?? "")
             }
+            .alert("Reset all progress?", isPresented: $showResetConfirm) {
+                Button("Reset", role: .destructive) { progress.resetAll() }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("Your streak, completed drills, and practice history will be cleared. Purchases are not affected.")
+            }
+        }
+    }
+
+    private var appearanceSection: some View {
+        Section("Appearance") {
+            Picker("Theme", selection: $settings.appearance) {
+                ForEach(AppSettings.Appearance.allCases) { appearance in
+                    Text(appearance.displayName).tag(appearance)
+                }
+            }
+        }
+    }
+
+    private var practiceSection: some View {
+        Section("Practice") {
+            Toggle("Haptics", isOn: $settings.hapticsEnabled)
+            Toggle("Sound Effects", isOn: $settings.soundEnabled)
+            Toggle("Daily Reminder", isOn: $settings.reminderEnabled)
+            if settings.reminderEnabled {
+                DatePicker("Reminder Time", selection: $settings.reminderTime, displayedComponents: .hourAndMinute)
+            }
+            Button("Reset Progress", role: .destructive) {
+                showResetConfirm = true
+            }
         }
     }
 
@@ -49,7 +84,7 @@ struct SettingsView: View {
                 Button {
                     showPaywall = true
                 } label: {
-                    Label("Unlock every room", systemImage: "lock.open.fill")
+                    Label("Unlock the Pro Tables", systemImage: "lock.open.fill")
                 }
             }
             Button("Restore Purchases") {

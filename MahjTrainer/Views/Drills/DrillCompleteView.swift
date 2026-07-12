@@ -12,6 +12,7 @@ struct DrillCompleteView: View {
     @State private var showEnjoymentGate = false
     @State private var recorded = false
     @State private var celebrate = false
+    @State private var confettiTrigger = 0
 
     var body: some View {
         VStack(spacing: 22) {
@@ -66,12 +67,15 @@ struct DrillCompleteView: View {
         }
         .padding()
         .background(Theme.background)
+        .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.3), particleCount: 44) }
         .navigationBarBackButtonHidden(true)
         .onAppear {
             celebrate = true
+            confettiTrigger += 1
             guard !recorded else { return }
             recorded = true
             Haptics.success()
+            SoundPlayer.play(.complete)
             progress.recordSession(drillID: drill.id)
             if progress.shouldShowEnjoymentGate() {
                 showEnjoymentGate = true

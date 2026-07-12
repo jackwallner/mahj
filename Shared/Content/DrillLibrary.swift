@@ -29,7 +29,7 @@ enum DrillLibrary {
             name: "The Card Room",
             tagline: "Learn to read the card and your rack",
             icon: "menucard.fill",
-            isFree: false,
+            isFree: true,
             drills: [
                 Drill(
                     id: "category-cards",
@@ -50,7 +50,7 @@ enum DrillLibrary {
             name: "The Charleston Room",
             tagline: "Practice the pass without the pressure",
             icon: "arrow.triangle.2.circlepath",
-            isFree: false,
+            isFree: true,
             drills: [
                 Drill(
                     id: "charleston-rules",
@@ -71,13 +71,40 @@ enum DrillLibrary {
             name: "The Table Room",
             tagline: "Keep-or-throw judgment for real games",
             icon: "hand.point.up.left.fill",
-            isFree: false,
+            isFree: true,
             drills: [
                 Drill(
                     id: "judgment-cards",
                     title: "Keep or Throw",
-                    subtitle: "Flashcards: the split-second calls that win games",
+                    subtitle: "Make the call, then flip to see the coach's answer",
                     kind: .flashcards(KeepDiscardContent.judgmentCards)
+                ),
+            ]
+        ),
+        Room(
+            id: "pro-tables",
+            name: "The Pro Tables",
+            tagline: "Advanced play for when the basics feel easy",
+            icon: "crown.fill",
+            isFree: false,
+            drills: [
+                Drill(
+                    id: "pro-charleston",
+                    title: "Advanced Charleston",
+                    subtitle: "Torn deals, pair math, and defending with your pass",
+                    kind: .charleston(ProContent.advancedCharleston)
+                ),
+                Drill(
+                    id: "pro-defense",
+                    title: "Defense School",
+                    subtitle: "Read exposures, count tiles, and stop feeding winners",
+                    kind: .quiz(ProContent.defenseQuiz)
+                ),
+                Drill(
+                    id: "pro-rack-reading",
+                    title: "Expert Rack Reading",
+                    subtitle: "Ambiguous racks where two sections look right",
+                    kind: .handMatch(ProContent.expertRackReading)
                 ),
             ]
         ),
