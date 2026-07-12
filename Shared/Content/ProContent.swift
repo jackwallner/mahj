@@ -127,7 +127,7 @@ enum ProContent {
             tiles: [.c(3), .c(3), .joker],
             choices: ["Call the joker off the discard pile", "Swap your real 3 Crak for the joker and take the joker into your hand", "Nothing, exposed jokers are frozen"],
             answerIndex: 1,
-            explanation: "This is the joker exchange. On your turn you may redeem an exposed joker by giving the matching natural tile, and the joker comes into your hand. A free joker is a huge tempo swing, so watch for these."
+            explanation: "This is the joker exchange. On your turn, after you draw or call your 14th tile, you may redeem an exposed joker by giving the matching natural tile, and the joker comes into your hand. Exchange before you draw or call and your hand is ruled dead, so always draw or call first. A free joker is a huge tempo swing, so watch for these."
         ),
         QuizQuestion(
             id: "pro-def-track-jokers",

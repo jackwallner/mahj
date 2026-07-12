@@ -201,7 +201,7 @@ enum TileBasicsContent {
             prompt: "An opponent's exposed kong contains a joker. You hold the real matching tile. Can you swap?",
             choices: ["No, exposures are locked", "Yes, on your turn", "Only if they agree", "Only for your own exposures"],
             answerIndex: 1,
-            explanation: "Yes! On your turn you can exchange the real tile for any exposed joker, yours or an opponent's. Free joker. Always scan the racks."
+            explanation: "Yes, but only after you draw or call your 14th tile. Then you can exchange the real tile for any exposed joker, yours or an opponent's. Free joker. Always scan the racks."
         ),
         QuizQuestion(
             id: "quiz-dead-joker",
