@@ -56,6 +56,6 @@ extension View {
 
     /// Celebration glow around a winning element.
     func winGlow(_ color: Color, active: Bool) -> some View {
-        shadow(color: color.opacity(active ? 0.5 : 0), radius: active ? 12 : 0, y: 0)
+        shadow(color: color.opacity(active ? 0.58 : 0), radius: active ? 16 : 0, y: 0)
     }
 }

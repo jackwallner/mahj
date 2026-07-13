@@ -60,7 +60,7 @@ struct HomeView: View {
     /// The one-tap way in: builds a short mixed session, no browsing needed.
     private var getStartedCard: some View {
         NavigationLink {
-            MixedSessionView(items: SessionBuilder.dailyMix(
+            QuickSessionView(items: SessionBuilder.quickSession(
                 seen: progress.seenItems,
                 missed: progress.missedItems,
                 includePro: subscriptions.isPro
