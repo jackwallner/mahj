@@ -128,14 +128,14 @@ If respawned: `git log --oneline -8`, read this file, `grep` for
 from the first unchecked box, re-run the build.
 
 ## Progress
-- [ ] QuickItem + builder (choice-only pool, tiering, Pro filter)
-- [ ] QuickSessionView uniform flow (no skip/glitch)
-- [ ] QuestionPager/ChoiceList moved to shared Components file, room drills compile
-- [ ] Deterministic answer-position shuffle on all choice surfaces
-- [ ] Correct-answer dopamine escalation + session streak milestones
-- [ ] HomeView + all references updated; MixedSessionView removed
-- [ ] xcodegen + build + unit tests green
-- [ ] Committed
+- [x] QuickItem + builder (choice-only pool, tiering, Pro filter)
+- [x] QuickSessionView uniform flow (no skip/glitch)
+- [x] QuestionPager/ChoiceList moved to shared Components file, room drills compile
+- [x] Deterministic answer-position shuffle on all choice surfaces
+- [x] Correct-answer dopamine escalation + session streak milestones
+- [x] HomeView + all references updated; MixedSessionView removed
+- [x] xcodegen + build + unit tests green
+- [x] Committed
 
 ## Report back
 Summarize the new architecture (files added/removed), how the glitch was fixed,
