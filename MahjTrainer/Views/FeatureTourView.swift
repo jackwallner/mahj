@@ -8,15 +8,19 @@ struct FeatureTourView: View {
     let onDone: () -> Void
 
     @EnvironmentObject private var subscriptions: SubscriptionService
+    @EnvironmentObject private var progress: ProgressStore
     @State private var index = 0
     @State private var shineTrigger = 0
     @State private var confettiTrigger = 0
+    @State private var showQuickSession = false
 
     private struct TourPage {
         let eyebrow: String
         let title: String
         let body: String
         let hero: AnyView
+        /// Gold-accented "jackpot" beat (the Pro reveal), regardless of position.
+        var accentGold: Bool = false
     }
 
     var body: some View {
@@ -38,7 +42,7 @@ struct FeatureTourView: View {
                 Text(page.eyebrow)
                     .font(.caption.weight(.heavy))
                     .kerning(2)
-                    .foregroundStyle(index == pages.count - 1 ? Theme.gold : Theme.jade)
+                    .foregroundStyle(page.accentGold ? Theme.gold : Theme.jade)
                 page.hero
                 Text(page.title)
                     .font(Theme.display(27))
@@ -63,12 +67,21 @@ struct FeatureTourView: View {
             Button {
                 advance(pageCount: pages.count)
             } label: {
-                Text(isLast ? "Take your seat" : "Show me").primaryCTA()
+                Text(isLast ? "Start my first session" : "Show me").primaryCTA()
             }
         }
         .padding()
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.35)) }
+        .fullScreenCover(isPresented: $showQuickSession, onDismiss: onDone) {
+            NavigationStack {
+                QuickSessionView(items: SessionBuilder.quickSession(
+                    seen: progress.seenItems,
+                    missed: progress.missedItems,
+                    includePro: subscriptions.isPro
+                ))
+            }
+        }
         .onAppear { fireShine() }
     }
 
@@ -76,12 +89,6 @@ struct FeatureTourView: View {
 
     private var tourPages: [TourPage] {
         [
-            TourPage(
-                eyebrow: "ONE TAP IN",
-                title: "Get Started builds your session",
-                body: "The big jade card at the top of Home deals you a five-minute mix of exactly what you need next. Misses come back first, new material follows.",
-                hero: AnyView(getStartedHero)
-            ),
             TourPage(
                 eyebrow: "THE ROOMS",
                 title: "Every drill, one tap from Home",
@@ -99,14 +106,24 @@ struct FeatureTourView: View {
                     eyebrow: "YOURS NOW",
                     title: "Your Pro Tables are open",
                     body: "Your trial already includes everything behind the gold door: Advanced Charleston, Defense School, and expert rack reading, with new advanced drills all year.",
-                    hero: AnyView(proHero(locked: false))
+                    hero: AnyView(proHero(locked: false)),
+                    accentGold: true
                 )
                 : TourPage(
                     eyebrow: "BEHIND THE GOLD DOOR",
                     title: "The Pro Tables wait for you",
                     body: "Advanced Charleston, Defense School, and expert rack reading live behind the lock. Unlock them any time from Home or Settings.",
-                    hero: AnyView(proHero(locked: true))
+                    hero: AnyView(proHero(locked: true)),
+                    accentGold: true
                 ),
+            // Last on purpose: this is the one page whose CTA is real. Tapping
+            // it opens an actual Quick Session, not a preview of one.
+            TourPage(
+                eyebrow: "YOUR TURN",
+                title: "Let's try a real one",
+                body: "Get Started builds this same five-minute mix any time from Home: exactly what you need next, misses first. Let's run your first one now.",
+                hero: AnyView(getStartedHero)
+            ),
         ]
     }
 
@@ -205,15 +222,19 @@ struct FeatureTourView: View {
 
     private func advance(pageCount: Int) {
         if index == pageCount - 1 {
+            // The finale CTA is genuinely actionable: it opens a real Quick
+            // Session rather than just advancing a tour page. The tour only
+            // finishes (`onDone`) once that session's `fullScreenCover` is
+            // dismissed, so nothing shadows the actionable moment.
             Haptics.success()
-            onDone()
+            showQuickSession = true
             return
         }
         Haptics.impact(.soft, intensity: 0.6)
         withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
             index += 1
         }
-        if index == pageCount - 1 {
+        if tourPages[index].accentGold {
             // The Pro beat is the jackpot moment either way.
             confettiTrigger += 1
         }
