@@ -5,25 +5,35 @@ struct HomeView: View {
     @EnvironmentObject private var subscriptions: SubscriptionService
     @State private var showPaywall = false
     @State private var showSettings = false
+    @State private var highlightedRoomID: String?
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
+    /// One-shot hint set by `HowToPlayView`'s end-of-primer recommendation:
+    /// the room id to highlight/scroll to the next time Home appears.
+    @AppStorage("mahj.recommendedRoomHint") private var recommendedRoomHint = ""
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    header
-                    getStartedCard
-                    if skillLevel == "new" {
-                        howToPlayCard
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 20) {
+                        header
+                        getStartedCard
+                        if skillLevel == "new" {
+                            howToPlayCard
+                        }
+                        statsHeader
+                        ForEach(DrillLibrary.rooms) { room in
+                            section(for: room)
+                        }
+                        disclaimerFooter
                     }
-                    statsHeader
-                    ForEach(DrillLibrary.rooms) { room in
-                        section(for: room)
-                    }
-                    disclaimerFooter
+                    .padding(.horizontal)
+                    .padding(.bottom, 24)
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 24)
+                .onAppear { consumeRecommendedRoomHint(proxy: proxy) }
+                .onChange(of: showSettings) { _, isShowing in
+                    if !isShowing { consumeRecommendedRoomHint(proxy: proxy) }
+                }
             }
             .background(Theme.background)
             .toolbar {
@@ -42,6 +52,25 @@ struct HomeView: View {
             .sheet(isPresented: $showSettings) { SettingsView() }
         }
         .tint(Theme.jade)
+    }
+
+    /// Consumes the one-shot recommendation hint: scrolls to and briefly
+    /// highlights the recommended room's section, then clears the hint so it
+    /// only ever fires once per recommendation.
+    private func consumeRecommendedRoomHint(proxy: ScrollViewProxy) {
+        guard !recommendedRoomHint.isEmpty else { return }
+        let roomID = recommendedRoomHint
+        recommendedRoomHint = ""
+        guard DrillLibrary.rooms.contains(where: { $0.id == roomID }) else { return }
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 400_000_000)
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.85)) {
+                proxy.scrollTo(roomID, anchor: .top)
+                highlightedRoomID = roomID
+            }
+            try? await Task.sleep(nanoseconds: 2_200_000_000)
+            withAnimation(.easeOut(duration: 0.4)) { highlightedRoomID = nil }
+        }
     }
 
     private var header: some View {
@@ -157,6 +186,7 @@ struct HomeView: View {
 
     private func section(for room: Room) -> some View {
         let locked = !room.isFree && !subscriptions.isPro
+        let highlighted = highlightedRoomID == room.id
         return VStack(spacing: 10) {
             HStack(spacing: 8) {
                 Image(systemName: room.icon)
@@ -182,6 +212,16 @@ struct HomeView: View {
             }
         }
         .padding(.top, 6)
+        .padding(10)
+        .background(
+            highlighted ? room.accent.opacity(0.10) : Color.clear,
+            in: RoundedRectangle(cornerRadius: 20, style: .continuous)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(highlighted ? room.accent : Color.clear, lineWidth: 2)
+        )
+        .id(room.id)
     }
 
     @ViewBuilder

@@ -71,4 +71,17 @@ enum HowToPlayContent {
             body: "That's the whole shape of the game: build toward the card, survive the Charleston, and read racks fast. The drills teach each skill one room at a time, five minutes at a stretch."
         ),
     ]
+
+    /// Maps the onboarding skill level (defaults key `mahj.skillLevel`) to the
+    /// room recommended at the end of the primer. Falls back to the Tile Room
+    /// for an unset or unrecognized level.
+    static func recommendedRoom(forSkillLevel skillLevel: String) -> Room {
+        let roomID: String
+        switch skillLevel {
+        case "basics": roomID = "card-room"
+        case "played": roomID = "table-room"
+        default: roomID = "tile-room"
+        }
+        return DrillLibrary.rooms.first { $0.id == roomID } ?? DrillLibrary.rooms[0]
+    }
 }
