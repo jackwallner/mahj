@@ -112,7 +112,7 @@ struct SettingsView: View {
             } label: {
                 Label("Rate Mahj Trainer", systemImage: "star.fill")
             }
-            Link(destination: URL(string: "mailto:jackwallner@gmail.com?subject=Mahj%20Trainer%20Feedback")!) {
+            Link(destination: URL(string: "mailto:jackwallner+m@gmail.com?subject=Mahj%20Trainer%20Feedback")!) {
                 Label("Send Feedback", systemImage: "envelope.fill")
             }
         }

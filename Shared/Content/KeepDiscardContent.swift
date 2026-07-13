@@ -115,7 +115,7 @@ enum KeepDiscardContent {
             id: "kd-mahj-call",
             frontTitle: "Your hand is concealed (marked C) and someone throws your winning tile.",
             frontSubtitle: "Can you call it?",
-            backTitle: "Yes! Mahj Jongg!",
+            backTitle: "Yes! Mah Jongg!",
             backBody: "Concealed only bans exposures BEFORE the win. Any hand, concealed or not, may call the final winning tile. Don't sit silently on a win: call it.",
             choice: CardChoice("Yes, call it", "No, stay silent", answerIndex: 0)
         ),

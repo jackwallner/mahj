@@ -88,7 +88,7 @@ enum TileBasicsContent {
             frontTitle: "C vs X on the Card",
             frontSubtitle: "Those little letters by the value",
             backTitle: "Concealed vs Exposed",
-            backBody: "X = you may call discards and expose groups on your rack. C = concealed: no exposures allowed before mahj jongg (you may still call the final winning tile). Concealed hands are harder, so they pay more."
+            backBody: "X = you may call discards and expose groups on your rack. C = concealed: no exposures allowed before mah jongg (you may still call the final winning tile). Concealed hands are harder, so they pay more."
         ),
     ]
 
@@ -180,7 +180,7 @@ enum TileBasicsContent {
             prompt: "A hand marked C on the card means...",
             choices: ["Craks only", "Concealed: no exposures", "Courtesy hand", "Charleston required"],
             answerIndex: 1,
-            explanation: "Concealed. You can't call discards to expose groups; the hand stays on your rack until you call the winning tile for mahj jongg."
+            explanation: "Concealed. You can't call discards to expose groups; the hand stays on your rack until you call the winning tile for mah jongg."
         ),
         QuizQuestion(
             id: "quiz-colors",
@@ -194,19 +194,19 @@ enum TileBasicsContent {
             prompt: "How many tiles do you hold during play (before your turn)?",
             choices: ["12", "13", "14", "16"],
             answerIndex: 1,
-            explanation: "Thirteen. You draw a 14th, then discard (or keep it and discard something else). Mahj jongg = 14 tiles matching a card hand exactly."
+            explanation: "Thirteen. You draw a 14th, then discard (or keep it and discard something else). Mah jongg = 14 tiles matching a card hand exactly."
         ),
         QuizQuestion(
             id: "quiz-joker-exchange",
             prompt: "An opponent's exposed kong contains a joker. You hold the real matching tile. Can you swap?",
             choices: ["No, exposures are locked", "Yes, on your turn", "Only if they agree", "Only for your own exposures"],
             answerIndex: 1,
-            explanation: "Yes, but only after you draw or call your 14th tile. Then you can exchange the real tile for any exposed joker, yours or an opponent's. Free joker. Always scan the racks."
+            explanation: "Yes. On your turn, before you discard, you may give the real matching tile to any exposure holding a joker, yours or an opponent's, and take the joker into your hand. Free joker. Always scan the racks."
         ),
         QuizQuestion(
             id: "quiz-dead-joker",
             prompt: "Someone discards a joker. Can you call it?",
-            choices: ["Yes, like any discard", "Only for mahj jongg", "No, discarded jokers are dead", "Only with a pung"],
+            choices: ["Yes, like any discard", "Only for mah jongg", "No, discarded jokers are dead", "Only with a pung"],
             answerIndex: 2,
             explanation: "A discarded joker is dead: nobody can call it for anything. Which is why you basically never throw one."
         ),

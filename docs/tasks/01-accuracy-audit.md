@@ -81,10 +81,10 @@ If respawned: run `git log --oneline -5`, read this file and the audit report if
 it exists, and continue from the first unchecked box.
 
 ## Progress
-- [ ] Report written
-- [ ] Corrections applied
-- [ ] ContentValidityTests green (or noted as unrunnable)
-- [ ] Committed
+- [x] Report written (`docs/audits/mahjong-accuracy-2026-07-12.md`)
+- [x] Corrections applied (joker exchange sequencing, 2 files)
+- [x] ContentValidityTests green (15/15 passed)
+- [x] Committed (`81eefa0` report, `f94bb79` fix)
 
 ## Report back to orchestrator
 Return: count of items checked, list of FIXED (file:id -> what changed), list of

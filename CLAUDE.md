@@ -19,7 +19,7 @@ free/Pro split).
 
 **App Store reviews:** enjoyment gate fires once after the 3rd completed drill
 (`DrillCompleteView` → `ProgressStore.shouldShowEnjoymentGate()`). Settings has
-Rate + Send Feedback (`jackwallner@gmail.com`).
+Rate + Send Feedback (`jackwallner+m@gmail.com`).
 
 ## Products & free/Pro model
 
