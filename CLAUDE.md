@@ -37,6 +37,36 @@ Membership is branded **Mahj+** in-app (`Membership.name`; the RevenueCat
 entitlement id stays `pro`). "Pro" as a player-facing word is retired: it reads
 as a skill tier, and the free rooms are explicitly the beginner ones.
 
+**Generated practice (1.1, 2026-07-30):** the authored sets are finite, so a
+motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
+1.1 answers that with three Mahj+ modes on Home under TRAINING, all run by
+`PracticeRunView` (Endless / Timed / Review), all built on the existing
+`QuickItem` shape:
+- **Endless Practice** (`RackGenerator` + `EndlessPractice`) deals racks
+  procedurally, forever. `RackGenerator` only generates the five sections whose
+  read is UNAMBIGUOUS (evens/odds/369/consecutive/winds-dragons); Like Numbers
+  and Quints stay authored because a single-number rack always doubles as evens
+  or odds. Every rack is checked with `fits` against all five and thrown away
+  if it reads as more than one, and distractors are only sections the rack does
+  NOT fit. Generated racks are ORIGINAL structures, never card hands.
+- **Fix My Mistakes** replays `PracticeRecordStore.reviewQueue()`, an SM-2-ish
+  schedule over per-item history. An item leaves the queue after two correct in
+  a row, not one.
+- **Timed Challenge**: 90 seconds of mixed generated items, best score kept.
+
+`PracticeRecordStore` records EVERY graded answer app-wide (each drill view
+calls it alongside `progress.recordItem`). Generated ids are unique per
+question, so they collapse onto one per-skill row and never enter the review
+queue or the seen/missed sets, which would otherwise grow without bound.
+`StatsView` (free for everyone) reads the per-room rollups.
+
+**What's New sheet:** `WhatsNew` + `WhatsNewSheet`, shown once on the first
+launch after an update. A FRESH install never sees it: onboarding calls
+`WhatsNew.markCurrentAsBaseline()`. An onboarded player with no stored marker
+is an upgrader from a pre-1.1 build and does get it. The sheet raises
+`onUpgrade` rather than presenting `PaywallView` itself, because a sheet cannot
+present another sheet while dismissing.
+
 **Free-beginner + extra-sets model (2026-07-13):** all four beginner rooms are
 FREE and everything that was ever free stays free. Mahj+ ADDS: one extra
 practice set per beginner room (`Shared/Content/PlusContent.swift`, drills
