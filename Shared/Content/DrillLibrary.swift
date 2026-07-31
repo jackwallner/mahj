@@ -26,7 +26,7 @@ enum DrillLibrary {
                     id: "plus-tile-extras",
                     title: "Tile Check: Extra Reps",
                     subtitle: "Eight more: set counts, calling rules, and how hands go dead",
-                    kind: .quiz(PlusContent.tileExtras),
+                    kind: .quiz(PlusContent.tileExtras + MoreContent.tileExtras),
                     isPlus: true
                 ),
             ]
@@ -54,7 +54,7 @@ enum DrillLibrary {
                     id: "plus-rack-extras",
                     title: "Read the Rack: Extra Reps",
                     subtitle: "Six more racks, including the ones with a convincing decoy",
-                    kind: .handMatch(PlusContent.extraRackReading),
+                    kind: .handMatch(PlusContent.extraRackReading + MoreContent.rackReading),
                     isPlus: true
                 ),
             ]
@@ -82,7 +82,7 @@ enum DrillLibrary {
                     id: "plus-charleston-extras",
                     title: "Pick Your Pass: Extra Reps",
                     subtitle: "Four more deals: the blind pass, the courtesy pass, and flower discipline",
-                    kind: .charleston(PlusContent.extraPasses),
+                    kind: .charleston(PlusContent.extraPasses + MoreContent.passes),
                     isPlus: true
                 ),
             ]
@@ -101,10 +101,16 @@ enum DrillLibrary {
                     kind: .flashcards(KeepDiscardContent.judgmentCards)
                 ),
                 Drill(
+                    id: "table-quiz",
+                    title: "Table Rules",
+                    subtitle: "Calling, exposures, dead hands, and safe discards",
+                    kind: .quiz(MoreContent.tableQuiz)
+                ),
+                Drill(
                     id: "plus-judgment-extras",
                     title: "Keep or Throw: Extra Reps",
                     subtitle: "Six more calls: safe discards, dead tiles, and when NOT to call",
-                    kind: .flashcards(PlusContent.extraJudgment),
+                    kind: .flashcards(PlusContent.extraJudgment + MoreContent.judgment),
                     isPlus: true
                 ),
             ]
@@ -134,11 +140,24 @@ enum DrillLibrary {
                     subtitle: "Ambiguous racks where two sections look right",
                     kind: .handMatch(ProContent.expertRackReading)
                 ),
+                Drill(
+                    id: "pro-joker-rules",
+                    title: "Joker School",
+                    subtitle: "Substitution limits, redemption timing, and stealing jokers",
+                    kind: .quiz(MoreContent.jokerRules)
+                ),
             ]
         ),
     ]
 
     static func room(id: String) -> Room? {
         rooms.first { $0.id == id }
+    }
+
+    /// The room a drill belongs to. Lets the individual drill views report
+    /// per-room accuracy without every one of them having to be handed its
+    /// room down the navigation stack.
+    static func roomID(forDrillID drillID: String) -> String {
+        rooms.first { $0.drills.contains { $0.id == drillID } }?.id ?? ""
     }
 }

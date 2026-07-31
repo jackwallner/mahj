@@ -159,6 +159,7 @@ struct CharlestonDrillView: View {
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { submitted = true }
         score += matchCount
         progress.recordItem(id: scenario.id, correct: matchCount >= 2)
+        PracticeRecordStore.shared.record(itemID: scenario.id, roomID: DrillLibrary.roomID(forDrillID: drill.id), correct: matchCount >= 2)
         if matchCount == 3 {
             confettiTrigger += 1
             Task { @MainActor in

@@ -13,6 +13,9 @@ struct QuickItem: Identifiable, Sendable {
     let explanation: String
     /// e.g. "The Tile Room", shown as a small tag above the prompt.
     let sourceLabel: String
+    /// The room this item came from, for per-room accuracy stats. Generated
+    /// items report the room whose skill they drill.
+    let roomID: String
 }
 
 /// Builds the Quick Session: a short run of choice-only items pulled from
@@ -25,6 +28,13 @@ enum SessionBuilder {
         id: "quick-session",
         title: "Quick Session",
         subtitle: "A short mix of what you need next",
+        kind: .flashcards([])
+    )
+
+    static let reviewDrill = Drill(
+        id: "review-session",
+        title: "Fix My Mistakes",
+        subtitle: "The questions you keep getting wrong",
         kind: .flashcards([])
     )
 
@@ -47,21 +57,33 @@ enum SessionBuilder {
             .flatMap(\.value)
             .prefix(count)
 
-        // Answer-position variety: shuffle each item's choices deterministically
-        // by its own id so the order is stable across re-render/undo but not
-        // always the authored slot.
-        return picked.map { item in
-            let shuffled = ChoiceShuffle.shuffledChoices(labels: item.choices, answerIndex: item.answerIndex, seed: item.id)
-            return QuickItem(
-                id: item.id,
-                prompt: item.prompt,
-                tiles: item.tiles,
-                choices: shuffled.labels,
-                answerIndex: shuffled.answerIndex,
-                explanation: item.explanation,
-                sourceLabel: item.sourceLabel
-            )
-        }
+        return picked.map(reshuffled)
+    }
+
+    /// The Fix My Mistakes session: exactly the items the scheduler says are
+    /// due, in the order it ranked them. Unlike Quick Session this never pads
+    /// with fresh material - the whole point is a short run of the questions a
+    /// player actually keeps getting wrong.
+    static func reviewSession(ids: [String], includePro: Bool) -> [QuickItem] {
+        let pool = Dictionary(choicePool(includePro: includePro).map { ($0.id, $0) }) { first, _ in first }
+        return ids.compactMap { pool[$0] }.map(reshuffled)
+    }
+
+    /// Answer-position variety: shuffle each item's choices deterministically
+    /// by its own id so the order is stable across re-render/undo but not
+    /// always the authored slot.
+    private static func reshuffled(_ item: QuickItem) -> QuickItem {
+        let shuffled = ChoiceShuffle.shuffledChoices(labels: item.choices, answerIndex: item.answerIndex, seed: item.id)
+        return QuickItem(
+            id: item.id,
+            prompt: item.prompt,
+            tiles: item.tiles,
+            choices: shuffled.labels,
+            answerIndex: shuffled.answerIndex,
+            explanation: item.explanation,
+            sourceLabel: item.sourceLabel,
+            roomID: item.roomID
+        )
     }
 
     /// Every choice-gradeable item a player is entitled to: the free rooms'
@@ -80,7 +102,8 @@ enum SessionBuilder {
                             choices: question.choices,
                             answerIndex: question.answerIndex,
                             explanation: question.explanation,
-                            sourceLabel: room.name
+                            sourceLabel: room.name,
+                            roomID: room.id
                         )
                     }
                 case .handMatch(let questions):
@@ -94,7 +117,8 @@ enum SessionBuilder {
                             choices: labels,
                             answerIndex: answerIndex,
                             explanation: question.explanation,
-                            sourceLabel: room.name
+                            sourceLabel: room.name,
+                            roomID: room.id
                         )
                     }
                 case .flashcards(let cards):
@@ -111,7 +135,8 @@ enum SessionBuilder {
                             choices: choice.options,
                             answerIndex: choice.answerIndex,
                             explanation: card.backBody,
-                            sourceLabel: room.name
+                            sourceLabel: room.name,
+                            roomID: room.id
                         )
                     }
                 case .charleston:
