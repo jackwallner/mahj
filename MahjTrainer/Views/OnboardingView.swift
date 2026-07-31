@@ -199,9 +199,9 @@ struct OnboardingView: View {
                 .multilineTextAlignment(.center)
             VStack(alignment: .leading, spacing: 12) {
                 trialBenefit("Every beginner room is free, forever")
-                trialBenefit("\(Membership.name) adds extra practice sets in all four rooms")
-                trialBenefit("Plus the Master Tables: advanced Charleston and defense")
-                trialBenefit("New drills added all year")
+                trialBenefit("Endless Practice deals a fresh rack every time")
+                trialBenefit("Fix My Mistakes brings back what you miss")
+                trialBenefit("Extra sets in all four rooms, plus the Master Tables")
             }
             Spacer()
             Spacer()
