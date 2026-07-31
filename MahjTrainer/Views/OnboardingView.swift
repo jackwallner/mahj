@@ -163,6 +163,10 @@ struct OnboardingView: View {
                     Text(option.detail)
                         .font(.subheadline)
                         .foregroundStyle(Theme.inkSecondary)
+                        // Wrap rather than truncate. Mahj's strings fit today,
+                        // but the HStack will compress this to one line and
+                        // clip it on a narrow phone or at larger type sizes.
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer()
                 Image(systemName: selected ? "checkmark.circle.fill" : "circle")
