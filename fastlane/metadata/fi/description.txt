@@ -20,7 +20,19 @@ PÖYTÄHUONE
 Pidä-vai-heitä-päätökset: milloin kannattaa pitää kukka, milloin vaihtaa esillä olevaan jokeriin, mitä vastustajan esillä oleva käsi kertoo, ja mitkä heitot ovat turvallisia.
 
 MAHJ+ (valinnainen päivitys)
-Kaikki yllä oleva pysyy ilmaisena ikuisesti. Mahj+ lisää vain lisää harjoittelua: ylimääräisen harjoitussetin jokaiseen neljään huoneeseen, uusilla kysymyksillä, rakeilla ja jaoilla samoissa harjoitteissa joita jo käytät. Se avaa myös The Master Tables -osion, jossa odottavat edistyneempi Charleston-strategia, puolustuskoulu ja asiantuntijatason rackin lukuharjoitukset. Uusia harjoitteita lisätään ympäri vuoden.
+Kaikki yllä oleva pysyy ilmaisena ikuisesti. Mahj+ lisää harjoittelua, joka ei lopu kesken:
+
+ENDLESS PRACTICE jakaa joka kerta tuoreen generoidun rackin, joten kategorioiden lukeminen ei koskaan toistu eikä lopu kesken.
+
+FIX MY MISTAKES muistaa, mitä vastasit väärin, ja tuo sen takaisin jaksotetun aikataulun mukaan, jotta heikot kohdat todella umpeutuvat.
+
+TIMED CHALLENGE antaa sinulle yhdeksänkymmentä sekuntia sekalaisia kysymyksiä ja ennätyksen tavoiteltavaksi.
+
+YLIMÄÄRÄISET HARJOITUSSARJAT jokaisessa neljässä huoneessa, uusilla kysymyksillä, rackeilla ja jaoilla samoissa harjoituksissa, joita jo käytät.
+
+THE MASTER TABLES, jossa edistynyt Charleston-strategia, puolustuskoulu ja asiantuntijatason rackin lukuharjoitukset odottavat pelaajia, jotka ovat päässeet perusteiden yli.
+
+Uusia harjoituksia lisätään ympäri vuoden.
 
 SUUNNITELTU UUSILLE PELAAJILLE
 Muistikortit, joiden takana on "miksi". Putket, jotka pitävät sinut harjoittelemassa pelikertojen välillä. Alkuperäisiä harjoituskäsiä, jotka opettavat kategoriajärjestelmän, jotta taitosi siirtyvät minkä tahansa vuoden korttiin.
