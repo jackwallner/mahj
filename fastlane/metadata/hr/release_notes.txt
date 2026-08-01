@@ -1,9 +1,9 @@
 Vježbanje koje nikad ne ponestane.
 
-Endless Practice svaki put dijeli novu ruku, pa možeš vježbati otvaranja i brojanje poena koliko god želiš, uz potpuno objašnjenje nakon svakog odgovora.
+Endless Practice svaki put dijeli novi rack, pa možeš vježbati čitanje kategorija i brojanje pločica koliko god želiš, uz potpuno objašnjenje nakon svakog odgovora.
 
 Fix My Mistakes sada pamti što si pogriješio i vraća to prema rasporedu, kako bi se slabe točke doista zatvorile.
 
 Timed Challenge daje ti devedeset sekundi i osobni rekord koji možeš obarati.
 
-Također novo: točnost za svaku sobu i više ručno pisanih pitanja o licitaciji, igri deklaranta, obrani i Master Tables.
+Također novo: točnost za svaku sobu i više ručno pisanih pitanja o pločicama, kartici, Charlestonu, stolu i Master Tables.

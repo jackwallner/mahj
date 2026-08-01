@@ -3,8 +3,7 @@ import RevenueCat
 
 enum RevenueCatConfig {
     /// Prod public SDK key (safe to ship; sim builds never configure with it).
-    static let apiKey = "appl_ZITvIQJfBJBvvpiATcXJJNmKRXY"
-    static let entitlement = "Bridge+"
+    static let apiKey = "appl_BPcKRTMgnvYJJaNPXdfGReCkHgO"
 }
 
 /// What actually happened at Apple's sheet. A cancel is an outcome, not an error.
@@ -58,7 +57,7 @@ final class SubscriptionService: NSObject, ObservableObject {
         // + setLocalOverride(isPro:) for paywall flows. No configure → no RC customer.
         return
         #else
-        guard !RevenueCatConfig.apiKey.isEmpty, !RevenueCatConfig.apiKey.contains("PLACEHOLDER") else { return }
+        guard RevenueCatConfig.apiKey.hasPrefix("appl_"), !RevenueCatConfig.apiKey.contains("PLACEHOLDER") else { return }
         #if DEBUG
         Purchases.logLevel = .debug
         #endif
@@ -138,7 +137,7 @@ final class SubscriptionService: NSObject, ObservableObject {
     }
 
     private func apply(_ info: CustomerInfo) {
-        let entitled = info.entitlements[RevenueCatConfig.entitlement]?.isActive == true
+        let entitled = info.entitlements["pro"]?.isActive == true
         let override = UserDefaults.standard.bool(forKey: localOverrideKey)
         isPro = entitled || override
     }

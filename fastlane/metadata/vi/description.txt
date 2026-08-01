@@ -1,40 +1,44 @@
-Xây dựng bản năng chơi bridge hợp đồng thực sự trong các phiên năm phút.
+Luyện mạt chược Mỹ với các bài tập chỉ 5 phút: quân bài, chiến thuật Charleston, cách đọc bài trên khay, và phán đoán giữ hay bỏ, được thiết kế riêng cho người mới chơi.
 
-Bridge Trainer chuyển đổi các phần mà người mới bắt đầu cần nhất thành các bài tập nhanh chóng, tập trung. Không có đối thủ, không có đồng hồ bấm giờ và không có áp lực. Tính điểm, chọn mở thầu, lập kế hoạch chơi bài và học các thói quen phòng thủ với lý do đằng sau mỗi câu trả lời.
+Vừa học mạt chược ở buổi tối thứ Năm nhưng không có chỗ nào để luyện tập trước buổi sau? Mahj Trainer không có đối thủ, không đồng hồ đếm giờ, không áp lực, chỉ có những bài luyện tương tác nhanh gọn giúp bạn xây dựng kỹ năng cần thiết trước khi ngồi vào bàn thật. Cứ nghĩ như đang luyện cú giao bóng trước khi vào trận vậy.
 
-BỐN PHÒNG LUYỆN TẬP MIỄN PHÍ
+TẠI SAO HIỆU QUẢ
+Hầu hết người mới học mạt chược tại buổi chơi hằng tuần, rồi chẳng có cách nào luyện tập cho đến lần sau. Kiến thức vì thế cứ phai dần. Mahj Trainer cho bạn những bài luyện nhanh có thể làm ở bất cứ đâu, kể cả khi đang xếp hàng.
 
-PHÒNG BÀI
-Tìm hiểu thứ hạng bài, điểm bài cao, vòng ăn bài, quân bài chủ, hợp đồng và vai trò trên bàn.
+BỐN PHÒNG LUYỆN MIỄN PHÍ
 
-PHÒNG ĐẤU THẦU
-Luyện tập khung Standard American cho người mới bắt đầu. Đọc các tay bài 13 quân và chọn giữa chuyển lượt, mở thầu bộ hoặc 1NT.
+PHÒNG QUÂN BÀI
+Làm quen với mọi họ bài: vạn, sách, văn, gió, rồng, hoa và joker. Sau đó tự kiểm tra những quy tắc ai cũng hay nhầm: rồng nào đi với chất bài nào, joker được và không được làm gì, "soap" thực sự có nghĩa là gì.
 
-PHÒNG NGƯỜI ĐI BÀI
-Đếm các quân bài ăn điểm, rút quân bài chủ, thiết lập các bộ bài dài, lách bài và chọn đúng quân bài.
+PHÒNG THẺ BÀI
+Học các nhóm trên thẻ bài (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs và nhiều nhóm khác) cùng cách nhận diện chúng. Sau đó luyện đọc khay bài: nhìn 13 quân bài và đoán xem chúng đang nhắm tới nhóm nào.
 
-PHÒNG PHÒNG THỦ
-Huấn luyện dẫn thầu, trình tự, chơi bài tay thứ ba, trả bộ bài và thói quen hợp tác đối tác.
+PHÒNG CHARLESTON
+Phần khiến người mới lo lắng nhất, giờ không còn phải hoảng. Học luật và chiến thuật của vòng trao đổi bài trước, rồi thực hành với các ván bài thật: chọn 3 quân để trao đi và so sánh lựa chọn của bạn với huấn luyện viên, kèm giải thích lý do.
 
-BRIDGE+ (TÙY CHỌN)
-Mọi thứ ở trên vẫn miễn phí. Bridge+ bổ sung phần luyện tập không bao giờ cạn:
+PHÒNG TRÊN BÀN
+Rèn khả năng phán đoán giữ hay bỏ: khi nào nên giữ hoa, khi nào nên đổi lấy joker đang lộ, thông tin gì có thể đọc được từ những quân bài đối thủ đã lộ, và quân nào bỏ đi là an toàn.
 
-ENDLESS PRACTICE chia một bộ 13 lá được tạo mới mỗi lần, nên bài tập gọi mở đầu không bao giờ lặp lại và không bao giờ hết.
+MAHJ+ (nâng cấp tùy chọn)
+Mọi thứ ở trên vẫn miễn phí mãi mãi. Mahj+ bổ sung phần luyện tập không bao giờ cạn:
+
+ENDLESS PRACTICE chia một rack được tạo mới mỗi lần, nên việc đọc nhóm bài không bao giờ lặp lại và không bao giờ hết.
 
 FIX MY MISTAKES ghi nhớ những câu bạn làm sai và đưa lại theo lịch giãn cách, để điểm yếu thực sự được khắc phục.
 
 TIMED CHALLENGE cho bạn chín mươi giây với câu hỏi trộn lẫn và một kỷ lục cá nhân để phá.
 
-BỘ BÀI TẬP BỔ SUNG trong cả bốn phòng nhập môn, với câu hỏi và bộ bài mới trong chính những bài tập bạn đang dùng.
+BỘ BÀI TẬP BỔ SUNG trong cả bốn phòng, với câu hỏi, rack và lượt chia mới trong chính những bài tập bạn đang dùng.
 
-THE MASTER TABLES, với các quy ước, lối chơi bài nâng cao và chiến thuật duplicate.
+THE MASTER TABLES, nơi chiến thuật Charleston nâng cao, trường phòng thủ và bài tập đọc rack trình độ chuyên gia chờ những người đã vượt qua căn bản.
 
 Bài tập mới được thêm quanh năm.
 
-THIẾT KẾ ĐỂ HỌC TẬP
-Thẻ hướng dẫn có thể vuốt, câu đố nhanh, tay bài 13 quân thực tế, kịch bản đi bài, chuỗi ngày luyện tập và phiên hỗn hợp hàng ngày giúp ôn lại tài liệu bị bỏ lỡ.
+THIẾT KẾ RIÊNG CHO NGƯỜI MỚI
+Flashcard có phần giải thích "tại sao" ở mặt sau. Chuỗi ngày luyện tập giúp bạn duy trì động lực. Các ván bài luyện tập nguyên bản dạy hệ thống phân loại, nên kỹ năng học được áp dụng được cho thẻ bài của bất kỳ năm nào.
 
-Bridge Trainer sử dụng khung Standard American cho người mới bắt đầu. Thỏa thuận đối tác khác nhau, vì vậy hãy xác nhận các quy ước với đối tác của bạn.
+Mahj Trainer là ứng dụng luyện tập độc lập, không liên kết hay được chứng nhận bởi National Mah Jongg League. Để biết các thế bài và điểm số chính thức, hãy dùng thẻ bài NMJL hiện hành.
 
-ĐĂNG KÝ
-Bridge+ có sẵn dưới dạng đăng ký tự động gia hạn hoặc mua một lần: Hàng tháng $1.99/tháng, Hàng năm $9.99/năm (cả hai đều bao gồm 1 tuần dùng thử miễn phí) hoặc Trọn đời $29.99 một lần. Thanh toán được tính vào tài khoản Apple ID của bạn khi xác nhận mua hàng. Đăng ký tự động gia hạn trừ khi bị hủy ít nhất 24 giờ trước khi kết thúc giai đoạn hiện tại. Quản lý hoặc hủy bất kỳ lúc nào trong Cài đặt tài khoản trên thiết bị của bạn. Điều khoản sử dụng (EULA tiêu chuẩn của Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Chính sách bảo mật: https://jackwallner.github.io/bridge/privacy-policy.
+VỀ GÓI ĐĂNG KÝ
+Mahj+ có thể mở khóa qua gói đăng ký tự động gia hạn hoặc mua một lần: gói Monthly $1,99/tháng, gói Yearly $9,99/năm (cả hai đều có 1 tuần dùng thử miễn phí), hoặc mua trọn đời Lifetime $29,99 một lần. Khoản thanh toán sẽ được tính vào tài khoản Apple ID của bạn ngay khi xác nhận mua. Gói đăng ký sẽ tự động gia hạn trừ khi bạn hủy ít nhất 24 giờ trước khi kỳ hiện tại kết thúc. Bạn có thể quản lý hoặc hủy bất cứ lúc nào trong Cài đặt tài khoản trên thiết bị. Điều khoản sử dụng (EULA tiêu chuẩn của Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Chính sách quyền riêng tư: https://jackwallner.github.io/mahj/privacy-policy

@@ -1,1 +1,1 @@
-bridge,enchères,cartes,apprendre,tuteur,débutant,leçon,exercice,défense,déclarant,pratique,contrat
+tuile,point,bambou,caractère,vent,dragon,fleur,joker,rack,main,quiz,débutant,tutoriel,pung,kong

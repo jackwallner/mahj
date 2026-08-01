@@ -1,40 +1,43 @@
-Építs ki valódi bridzsösztönöket napi ötperces gyakorlásokkal.
+Gyakorold az amerikai Mah Jonggot ötperces gyakorlatokban: kövek, Charleston-stratégia, állványolvasás és tartsd-vagy-dobd döntések, kezdő játékosoknak tervezve.
 
-A Bridge Trainer a kezdők számára legfontosabb alapokat alakítja át gyors, fókuszált gyakorlatokká. Nincsenek ellenfelek, nincs időzítő és nincs nyomás. Számolj pontokat, válassz indító licitet, tervezd meg a játékot és sajátíts el védekező szokásokat a válaszok magyarázataival.
+Csütörtökön tanultad a mah jonggot? Őrizd meg. A Mahj Trainerben nincsenek ellenfelek, időmérők vagy nyomás: csak gyors, interaktív ismétlések, amelyek felépítik a valódi asztalhoz üléshez szükséges tudást. Gondolj rá úgy, mint a szerva gyakorlására meccs nélkül.
+
+MIÉRT MŰKÖDIK
+A legtöbb új játékos a heti játéknál tanul, utána nincs módja gyakorolni a következőig. A tudás elhalványul. A Mahj Trainer gyors ismétléseket ad, amelyeket bárhol elvégezhetsz, akár sorban állva is.
 
 NÉGY INGYENES GYAKORLÓSZOBA
 
-A KÁRTYASZOBA
-Tanuld meg a kártyák rangsorát, a figurapontokat, az ütéseket, az adut, a szerződéseket és az asztali szerepeket.
+KŐSZOBA
+Ismerd meg minden kőcsaládot: crak, bam, dot, szél, sárkány, virág és joker. Teszteld magad a szabályokban, amelyeket mindenki elront: melyik sárkány melyik színhez tartozik, mit tehet és mit nem a joker, és mit jelent valójában a "soap".
 
-A LICITSZOBA
-Gyakorold a kezdő Standard American rendszert. Mérd fel a 13 lapos kezeket, és dönts a passz, a színes indítás vagy az 1NT között.
+KÁRTYASZOBA
+Tanuld meg a kártya szakaszait (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs és további) és felismerésük módját. Aztán gyakorold az állványolvasást: láss 13 követ, és nevezd meg a szakaszt, amelyet hajszolnak.
 
-A JÁTÉKSZOBA
-Számold a biztos ütéseket, húzz adut, építs ki hosszú színeket, játssz impasszokat, és válaszd a helyes lapot.
+CHARLESTON-SZOBA
+A rész, amely minden új játékost megrémít, pánik nélkül. Tanuld meg az adogatás szabályait és stratégiáját, aztán dolgozz végig valódi osztásokon: válassz 3 követ adásra, és hasonlítsd össze a választásod az edzőével, magyarázattal együtt.
 
-A VÉDEKEZÉSSZOBA
-Gyakorold az induló lapokat, a szekvenciákat, a színvisszaadásokat és a partnermegállapodásokat.
+ASZTALSZOBA
+Tartsd-vagy-dobd döntések: mikor tartsd meg a virágot, mikor cseréld le egy felfedett jokerre, mit árul el egy ellenfél felfedése, és melyik dobás biztonságos.
 
-BRIDGE+ (OPCIONÁLIS)
-A fentiek mind ingyenesek maradnak. A Bridge+ olyan gyakorlást ad hozzá, ami sosem fogy el:
+MAHJ+ (opcionális fejlesztés)
+A fentiek mind örökre ingyenesek maradnak. A Mahj+ olyan gyakorlást ad hozzá, ami sosem fogy el:
 
-ENDLESS PRACTICE: minden alkalommal frissen generált, 13 lapos leosztást ad, így a nyitólicit-gyakorlatok sosem ismétlődnek és sosem fogynak el.
+ENDLESS PRACTICE: minden alkalommal frissen generált rackot oszt, így a kategóriaolvasás sosem ismétlődik és sosem fogy el.
 
 FIX MY MISTAKES: megjegyzi, mit rontottál el, és időben elosztott ütemezéssel visszahozza, hogy a gyenge pontok tényleg bezáruljanak.
 
 TIMED CHALLENGE: kilencven másodpercnyi vegyes kérdést ad, és egy megdöntendő egyéni csúcsot.
 
-EXTRA GYAKORLÓSOROZATOK mind a négy kezdő szobában, új kérdésekkel és leosztásokkal ugyanazokban a gyakorlatokban, amelyeket már használsz.
+EXTRA GYAKORLÓSOROZATOK mind a négy szobában, új kérdésekkel, rackekkel és osztásokkal ugyanazokban a gyakorlatokban, amelyeket már használsz.
 
-THE MASTER TABLES, konvenciókkal, haladó lapjátékkal és versenybridzs-stratégiával.
+THE MASTER TABLES, ahol haladó Charleston-stratégia, egy védekezésiskola és szakértői rackolvasó gyakorlatok várják azokat, akik túlléptek az alapokon.
 
 Egész évben érkeznek új gyakorlatok.
 
-TANULÁSRA TERVEZVE
-Súgókártyák, gyors tesztek, valósághű 13 lapos kezek, játékhelyzetek, sorozatok és napi vegyes gyakorlás a hibák ismétlésére.
+KEZDŐ JÁTÉKOSOKNAK TERVEZVE
+Kártyák a "miért"-tel a hátoldalon. Sorozatok, amelyek gyakorláson tartanak a játékok között. Eredeti gyakorlóosztások, amelyek a kategóriarendszert tanítják, így a tudásod bármelyik évi kártyán működik.
 
-A Bridge Trainer a kezdő Standard American rendszert használja. A partnermegállapodások eltérhetnek, ezért egyeztesd a konvenciókat a partnereddel.
+A Mahj Trainer egy független gyakorlóalkalmazás. Nem áll kapcsolatban a National Mah Jongg League-gel, és nem az ő jóváhagyásával készült. A hivatalos osztásokért és értékekért szerezd be az aktuális NMJL kártyát.
 
 ELŐFIZETÉSEK
-A Bridge+ automatikusan megújuló előfizetéssel vagy egyszeri vásárlással érhető el: Havonta $1.99/hó, Évente $9.99/év (mindkettő 1 hét ingyenes próbát tartalmaz), vagy Örökös $29.99 egyszeri díj. A fizetés a vásárlás megerősítésekor az Apple ID fiókodat terheli. Az előfizetések automatikusan megújulnak, hacsak nem mondod le legalább 24 órával az aktuális időszak vége előtt. Kezeld vagy mondd le bármikor a készüléked Fiókbeállításaiban. Felhasználási feltételek (Apple standard EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Adatvédelmi irányelvek: https://jackwallner.github.io/bridge/privacy-policy.
+A Mahj+ automatikusan megújuló előfizetésként vagy egyszeri vásárlásként érhető el: Havi $1.99/hó, Éves $9.99/év (mindkettő 1 hetes ingyenes próbaidőszakkal), vagy Élethosszig tartó $29.99 egyszeri vásárlásként. A fizetés a vásárlás megerősítésekor terhelődik az Apple ID-fiókodra. Az előfizetés automatikusan megújul, hacsak nem mondod le legalább 24 órával az aktuális időszak vége előtt. Bármikor kezelheted vagy lemondhatod a készüléked Fiókbeállításaiban. Felhasználási feltételek (Apple szabványos EULA-ja): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Adatvédelmi szabályzat: https://jackwallner.github.io/mahj/privacy-policy.

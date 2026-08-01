@@ -1,40 +1,43 @@
-Développez de vrais réflexes de bridge de contrat en sessions de cinq minutes.
+Pratique le Mah Jongg américain en séances de cinq minutes : tuiles, stratégie du Charleston, lecture du rack et décisions de garder ou défausser, conçu pour les joueurs débutants.
 
-Bridge Trainer transforme les notions essentielles pour les débutants en exercices rapides et ciblés. Sans adversaires, sans chronomètres et sans pression. Comptez les points, choisissez une enchère d'ouverture, planifiez le jeu et apprenez les réflexes défensifs avec l'explication de chaque réponse.
+Tu as appris le mah jongg jeudi dernier? Garde le rythme. Mahj Trainer n'a pas d'adversaires, pas de chronomètre et pas de pression : juste des répétitions rapides et interactives qui bâtissent les habiletés dont tu as besoin avant de t'asseoir à une vraie table. Pense à ça comme pratiquer ton service sans jouer un match complet.
 
-QUATRE SALLES D'ENTRAÎNEMENT GRATUITES
+POURQUOI ÇA FONCTIONNE
+La plupart des débutants apprennent lors d'une partie hebdomadaire, puis n'ont aucun moyen de pratiquer avant la prochaine. Les leçons s'effacent. Mahj Trainer te donne des répétitions rapides que tu peux faire n'importe où, même en attendant dans une file.
 
-LA SALLE DES CARTES
-Apprenez la valeur des cartes, les points d'honneurs, les plis, l'atout, les contrats et les rôles à la table.
+QUATRE SALLES DE PRATIQUE GRATUITES
 
-LA SALLE DES ENCHÈRES
-Pratiquez le système Standard Américain pour débutants. Lisez des mains de 13 cartes et choisissez entre passer, une ouverture à la couleur ou 1SA.
+LA SALLE DES TUILES
+Découvre chaque famille de tuiles : caractères, bambous, points, vents, dragons, fleurs et jokers. Teste-toi ensuite sur les règles que tout le monde mélange : quel dragon va avec quelle famille, ce qu'un joker peut et ne peut pas faire, ce qu'un "soap" veut vraiment dire.
 
-LA SALLE DU DÉCLARANT
-Comptez les gagnantes, battez les atouts, établissez les longues, faites des impasses et jouez la bonne carte en situation.
+LA SALLE DE LA CARTE
+Apprends les sections de la carte (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs et plus) et comment les reconnaître. Pratique ensuite la lecture des racks : regarde 13 tuiles et nomme la section visée.
 
-LA SALLE DE LA DÉFENSE
-Entraînez-vous aux entames, séquences, jeu en troisième, retours et habitudes de flanc.
+LA SALLE DU CHARLESTON
+La partie qui fait peur à tous les débutants, sans la panique. Apprends les règles et la stratégie de la passe, puis travaille sur de vraies donnes : choisis 3 tuiles à passer et compare ton choix à celui de l'entraîneur, avec le raisonnement expliqué.
 
-BRIDGE+ (OPTIONNEL)
-Tout ce qui précède reste gratuit. Bridge+ ajoute de l'entraînement qui ne s'épuise jamais :
+LA SALLE DE JEU
+Décisions de garder ou défausser : quand garder une fleur, quand l'échanger contre un joker exposé, ce que l'exposition d'un adversaire révèle, et quelles défausses sont sécuritaires.
 
-ENDLESS PRACTICE distribue à chaque fois une main de 13 cartes générée à la volée, les exercices d'ouverture ne se répètent jamais et ne s'épuisent jamais.
+MAHJ+ (amélioration optionnelle)
+Tout ce qui précède reste gratuit pour toujours. Mahj+ ajoute de l'entraînement qui ne s'épuise jamais :
+
+ENDLESS PRACTICE distribue un rack généré à la volée à chaque fois, la lecture des catégories ne se répète jamais et ne s'épuise jamais.
 
 FIX MY MISTAKES retient vos erreurs et les ramène selon un calendrier espacé, pour que les points faibles se comblent vraiment.
 
 TIMED CHALLENGE vous donne quatre-vingt-dix secondes de questions variées et un record personnel à battre.
 
-DES SÉRIES D'EXERCICES SUPPLÉMENTAIRES dans chacune des quatre salles pour débutants, avec de nouvelles questions et de nouvelles mains dans les exercices que vous utilisez déjà.
+DES SÉRIES D'EXERCICES SUPPLÉMENTAIRES dans chacune des quatre salles, avec de nouvelles questions, de nouveaux racks et de nouvelles donnes dans les exercices que vous utilisez déjà.
 
-THE MASTER TABLES, avec les conventions, le jeu de la carte avancé et la stratégie de tournoi.
+THE MASTER TABLES, où la stratégie avancée du Charleston, une école de défense et des exercices experts de lecture de rack attendent ceux qui dépassent les bases.
 
 De nouveaux exercices sont ajoutés toute l'année.
 
-CONÇU POUR L'APPRENTISSAGE
-Fiches de coaching interactives, quiz rapides, donnes réalistes de 13 cartes, scénarios de jeu, séries de victoires et une session quotidienne mixte qui révise le contenu manqué.
+CONÇU POUR LES DÉBUTANTS
+Des cartes mémoire avec le "pourquoi" au verso. Des séries pour te garder motivé·e entre les parties. Des mains de pratique originales qui enseignent le système de catégories, pour que tes habiletés s'appliquent à la carte de n'importe quelle année.
 
-Bridge Trainer utilise le système Standard Américain pour débutants. Les conventions pouvant varier selon les paires, validez vos accords avec votre partenaire.
+Mahj Trainer est une application de pratique indépendante. Elle n'est pas affiliée à la National Mah Jongg League ni approuvée par elle. Pour les mains et valeurs officielles, procure-toi la carte NMJL en vigueur.
 
 ABONNEMENTS
-Bridge+ est disponible par abonnement auto-renouvelable ou achat unique : Mensuel 1,99 $/mois, Annuel 9,99 $/an (les deux incluent 1 semaine d'essai gratuit) ou À vie 29,99 $ en achat unique. Le paiement est débité sur votre compte Apple ID à la confirmation d'achat. Les abonnements se renouvellent automatiquement sauf s'ils sont annulés au moins 24 heures avant la fin de la période en cours. Gérez ou annulez à tout moment dans les Réglages du Compte sur votre appareil. Conditions d'utilisation (EULA standard d'Apple) : https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Politique de confidentialité : https://jackwallner.github.io/bridge/privacy-policy.
+Mahj+ est offert par abonnement à renouvellement automatique ou par achat unique : Mensuel $1.99/mois, Annuel $9.99/an (les deux incluent 1 semaine d'essai gratuit), ou Lifetime $29.99 en achat unique. Le paiement est porté à ton compte Apple ID à la confirmation de l'achat. Les abonnements se renouvellent automatiquement, sauf annulation au moins 24 heures avant la fin de la période en cours. Gère ou annule en tout temps dans les réglages de compte de ton appareil. Conditions d'utilisation (CLUF standard d'Apple) : https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Politique de confidentialité : https://jackwallner.github.io/mahj/privacy-policy.

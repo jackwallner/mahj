@@ -29,7 +29,7 @@ from asc_lib import (
 )
 
 COPYRIGHT = "2026 Jack Wallner"
-SUPPORT_URL = "https://jackwallner.github.io/bridge/support"
+SUPPORT_URL = "https://jackwallner.github.io/mahj/support"
 CONTENT_RIGHTS = "DOES_NOT_USE_THIRD_PARTY_CONTENT"
 
 
@@ -148,8 +148,8 @@ def main() -> int:
 
     ensure_support_urls(c, vid)
 
-    # Keep review contact email on the +b alias used for feedback.
-    email = read_meta("review_information", "email_address") or "jackwallner+b@gmail.com"
+    # Keep review contact email on the +m alias used for feedback.
+    email = read_meta("review_information", "email_address") or "jackwallner+m@gmail.com"
     # review_information lives under metadata/review_information/, not a locale.
     ri = Path(__file__).resolve().parent.parent / "fastlane/metadata/review_information"
     if (ri / "email_address.txt").exists():

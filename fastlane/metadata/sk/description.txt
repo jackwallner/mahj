@@ -1,40 +1,43 @@
-Vypestujte si správne bridžové instinkty počas päťminútových lekcií.
+Trénujte americký Mah Jongg v päťminútových cvičeniach: kamene, stratégiu Charlestonu, čítanie stojanu a rozhodovanie držať-alebo-zahodiť, vytvorené pre nových hráčov.
 
-Bridge Trainer premieňa základy, ktoré začiatočníci najviac potrebujú, na rýchle a cielené cvičenia. Žiadni súperi, žiadne stopky a žiadny tlak. Počítajte body, zvolte zahajoviciu hlášku, plánujte zohrávku a učte sa obranné návyky s vysvetlením každého riešenia.
+Naučili ste sa mah jongg vo štvrtok? Udržte si to. Mahj Trainer nemá súperov, časomieru ani tlak: len rýchle interaktívne cvičenia, ktoré budujú zručnosti potrebné pred sadnutím si k skutočnému stolu. Berte to ako trénovanie podania bez odohratia zápasu.
+
+PREČO TO FUNGUJE
+Väčšina nových hráčov sa učí na týždennej hre a potom nemá ako cvičiť až do nabudúce. Naučené rýchlo vyprchá. Mahj Trainer vám dáva rýchle cvičenia, ktoré zvládnete kdekoľvek, aj v rade.
 
 ŠTYRI BEZPLATNÉ TRÉNINGOVÉ MIESTNOSTI
 
-KARTOVÁ MIESTNOSŤ
-Naučte sa hodnoty kariet, bodovanie, zdvihy, trumfy, záväzky a roly pri stole.
+MIESTNOSŤ KAMEŇOV
+Spoznajte každú rodinu kameňov: crak, bam, dot, vietor, drak, kvet a žolík. Otestujte sa v pravidlách, v ktorých sa každý pomýli: ktorý drak patrí ku ktorej farbe, čo žolík smie a nesmie, a čo skutočne znamená "soap".
 
-LICITAČNÁ MIESTNOSŤ
-Precvičujte základy systému Standard American. Prečítajte 13-kartové listy a voľte medzi pasom, zahájením vo farbe alebo 1NT.
+MIESTNOSŤ KARTY
+Naučte sa sekcie karty (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs a ďalšie) a ako ich rozpoznať. Potom si precvičte čítanie stojanu: uvidíte 13 kameňov a pomenujete sekciu, ktorú sledujú.
 
-MIESTNOSŤ ZOHRÁVKY
-Počítajte víťazné zdvihy, vytrumfujte, vypracujte dlhé farby, vykonávajte impasy a vyberajte správne karty.
+MIESTNOSŤ CHARLESTONU
+Časť, ktorá desí každého nového hráča, bez tej paniky. Naučte sa pravidlá a stratégiu podávania, potom si prejdite skutočné rozdania: vyberte 3 kamene na podanie a porovnajte svoju voľbu s koučom, vrátane vysvetlenia.
 
-OBRANNOÁ MIESTNOSŤ
-Trénujte výnosy, sekvencie, hru tretieho hráče, vracenie farby a partnerské návyky.
+MIESTNOSŤ STOLA
+Rozhodovanie držať-alebo-zahodiť: kedy si nechať kvet, kedy ho vymeniť za odhaleného žolíka, čo vám prezradí súperovo odhalenie a ktoré odhody sú bezpečné.
 
-BRIDGE+ (VOLITEĽNÉ)
-Všetko vyššie zostáva zadarmo. Bridge+ pridáva cvičenie, ktoré sa nikdy neminie:
+MAHJ+ (voliteľný upgrade)
+Všetko vyššie zostáva navždy zadarmo. Mahj+ pridáva cvičenie, ktoré sa nikdy neminie:
 
-ENDLESS PRACTICE zakaždým rozdá čerstvo vygenerovaný list trinástich kariet, takže sa cvičenia na otváraciu dražbu nikdy neopakujú ani neminú.
+ENDLESS PRACTICE zakaždým rozdá čerstvo vygenerovaný rack, takže sa čítanie kategórií nikdy neopakuje ani neminie.
 
 FIX MY MISTAKES si pamätá, čo si mal zle, a vracia to podľa rozloženého rozvrhu, aby sa slabé miesta naozaj uzavreli.
 
 TIMED CHALLENGE ti dá deväťdesiat sekúnd zmiešaných otázok a osobný rekord, ktorý môžeš prekonávať.
 
-EXTRA SADY CVIČENÍ v každej zo štyroch miestností pre začiatočníkov, s novými otázkami a listami v tých istých cvičeniach, ktoré už používaš.
+EXTRA SADY CVIČENÍ v každej zo štyroch miestností, s novými otázkami, rackmi a rozdaniami v tých istých cvičeniach, ktoré už používaš.
 
-THE MASTER TABLES, s konvenciami, pokročilou hrou a turnajovou stratégiou.
+THE MASTER TABLES, kde na hráčov za hranicou základov čaká pokročilá stratégia Charlestonu, škola obrany a expertné cvičenia čítania racku.
 
 Nové cvičenia pribúdajú po celý rok.
 
-NAVRHNUTÉ PRE VÝUKU
-Interaktívne výukové karty, rýchle kvízy, realistické 13-kartové listy, herné scenáre, série a denný mix, ktorý sa vracia k chybám.
+VYTVORENÉ PRE NOVÝCH HRÁČOV
+Kartičky s "prečo" na zadnej strane. Série, ktoré vás udržia v tréningu medzi hrami. Pôvodné tréningové rozdania učiace systém kategórií, takže vaše zručnosti fungujú na karte z akéhokoľvek roku.
 
-Bridge Trainer využíva základy systému Standard American. Partnerské dohody sa líšia, preto si konvencie vždy overte so svojím partnerem.
+Mahj Trainer je nezávislá tréningová aplikácia. Nie je prepojená s National Mah Jongg League ani ňou schválená. Pre oficiálne rozdania a hodnoty si zaobstarajte aktuálnu kartu NMJL.
 
 PREDPLATNÉ
-Bridge+ je k dispozícii formou automaticky sa obnovujúceho predplatného alebo jednorazového nákupu: Mesačne $1.99/mesiac, Ročne $9.99/rok (obidve s 1 týdňom skúšobnej doby zadarmo) nebo Doživotne $29.99 jednorazovo. Platba je zaúčtována na váš Apple ID účet pri potvrdení nákupu. Predplatné sa automaticky obnovuje, pokiaľ nie je zrušené aspoň 24 hodín pred koncom aktuálneho obdobia. Správa a zrušenie sú možné kedykoľvek v Nastavení účtu vo vašom zariadení. Podmienky používania (štandardný Apple EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Zásady ochrany osobných údajov: https://jackwallner.github.io/bridge/privacy-policy.
+Mahj+ je k dispozícii formou automaticky sa obnovujúceho predplatného alebo jednorazového nákupu: Mesačné $1.99/mesiac, Ročné $9.99/rok (obe zahŕňajú 1 týždeň zadarmo na skúšku), alebo Doživotné $29.99 ako jednorazový nákup. Platba je strhnutá z vášho účtu Apple ID pri potvrdení nákupu. Predplatné sa automaticky obnovuje, pokiaľ nie je zrušené aspoň 24 hodín pred koncom aktuálneho obdobia. Spravujte alebo zrušte kedykoľvek v Nastaveniach účtu na svojom zariadení. Podmienky používania (štandardná EULA Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Zásady ochrany osobných údajov: https://jackwallner.github.io/mahj/privacy-policy.

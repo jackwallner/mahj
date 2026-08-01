@@ -1,9 +1,9 @@
 Hiç bitmeyen alıştırma.
 
-Endless Practice her seferinde yeni bir el dağıtır, böylece açılış deklarasyonlarını ve puan saymayı istediğin kadar çalışabilirsin; her cevaptan sonra tam bir açıklama gelir.
+Endless Practice her seferinde yeni bir rack dağıtır, böylece kategori okumayı ve taş saymayı istediğin kadar çalışabilirsin; her cevaptan sonra tam bir açıklama gelir.
 
 Fix My Mistakes artık yanlış yaptıklarını hatırlıyor ve bir program dahilinde geri getiriyor, böylece zayıf noktalar gerçekten kapanıyor.
 
 Timed Challenge sana doksan saniye ve kovalayacağın bir kişisel rekor veriyor.
 
-Ayrıca yeni: her oda için doğruluk oranı ve deklarasyon, deklaran oyunu, savunma ve Master Tables genelinde daha fazla elle yazılmış soru.
+Ayrıca yeni: her oda için doğruluk oranı ve taşlar, kart, Charleston, masa ve Master Tables genelinde daha fazla elle yazılmış soru.

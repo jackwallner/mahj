@@ -19,7 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import asc_lib
 
-BUNDLE = "com.jackwallner.bridge"
+BUNDLE = "com.jackwallner.mahj"
 
 
 def all_territories(c: asc_lib.ASCClient) -> list[str]:

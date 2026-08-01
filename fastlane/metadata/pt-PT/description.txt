@@ -1,40 +1,43 @@
-Desenvolva instintos reais de bridge de contrato em sesões de cinco minutos.
+Pratica Mah Jongg americano em sessões de cinco minutos: peças, estratégia do Charleston, leitura do rack e decisões de manter ou descartar, pensada para quem está a começar.
 
-O Bridge Trainer transforma as partes que os iniciantes mais precisam em exercícios rápidos e focados. Sem oponentes, sem cronômetros e sem pressão. Conte pontos, escolha uma abertura de licitação, planeje o jogo e aprenda hábitos defensivos com a justificativa de cada resposta.
+Aprendeste mah jongg na quinta-feira passada? Não o deixes esfriar. O Mahj Trainer não tem adversários, nem cronómetro, nem pressão: apenas repetições rápidas e interativas que constroem as competências de que precisas antes de te sentares a uma mesa a sério. Pensa nisto como treinar o teu serviço sem jogares uma partida completa.
 
-QUATRO SALAS DE PRÁTICA GRATUITAS
+PORQUE É QUE FUNCIONA
+A maioria dos jogadores novos aprende numa partida semanal e depois não tem forma de praticar até à seguinte. As lições esquecem-se. O Mahj Trainer dá-te repetições rápidas que podes fazer em qualquer lado, mesmo à espera numa fila.
 
-A SALA DE CARTAS
-Aprenda o ranking das cartas, pontos de honra, vazas, trunfo, contratos e papéis na mesa.
+QUATRO SALAS DE TREINO GRATUITAS
 
-A SALA DE LICITAÇÃO
-Pratique o sistema Standard American para iniciantes. Leia mãos de 13 cartas e escolha entre passo, abertura de naipe ou 1NT.
+A SALA DAS PEÇAS
+Conhece cada família de peças: caracteres, bambus, pontos, ventos, dragões, flores e jokers. Depois testa-te nas regras que toda a gente confunde: que dragão combina com que naipe, o que um joker pode e não pode fazer, o que significa mesmo um "soap".
 
-A SALA DO DECLARANTE
-Conte ganhadoras, puxe trunfos, estabeleça naipes longos, faça finesses e escolha a carta certa nas situações de jogo.
+A SALA DA CARTA
+Aprende as secções da carta (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs e mais) e como as identificar. Depois pratica a leitura de racks: vê 13 peças e indica a secção que estão a construir.
 
-A SALA DE DEFESA
-Treine saídas, sequências, jogo de terceira mão, retornos de naipe e hábitos de parceria.
+A SALA DO CHARLESTON
+A parte que assusta todos os jogadores novos, sem o pânico. Aprende as regras e a estratégia da troca, depois resolve distribuições reais: escolhe 3 peças para passar e compara a tua escolha com a do treinador, com o raciocínio explicado.
 
-BRIDGE+ (OPCIONAL)
-Tudo o que está acima continua gratuito. O Bridge+ acrescenta prática que nunca acaba:
+A SALA DA MESA
+Decisões de manter ou descartar: quando guardar uma flor, quando a trocar por um joker exposto, o que a exposição de um adversário revela e que descartes são seguros.
 
-ENDLESS PRACTICE distribui de cada vez uma mão de 13 cartas gerada na hora, por isso os exercícios de abertura nunca se repetem e nunca acabam.
+MAHJ+ (upgrade opcional)
+Tudo o que está acima continua gratuito para sempre. O Mahj+ acrescenta prática que nunca acaba:
+
+ENDLESS PRACTICE distribui um rack gerado na hora de cada vez, por isso a leitura de categorias nunca se repete e nunca acaba.
 
 FIX MY MISTAKES lembra-se do que erraste e traz de volta segundo um calendário espaçado, para que os pontos fracos fechem mesmo.
 
 TIMED CHALLENGE dá-te noventa segundos de perguntas variadas e um recorde pessoal para perseguir.
 
-CONJUNTOS DE PRÁTICA EXTRA em cada uma das quatro salas para iniciantes, com novas perguntas e mãos nos mesmos exercícios que já usas.
+CONJUNTOS DE PRÁTICA EXTRA em cada uma das quatro salas, com novas perguntas, racks e distribuições nos mesmos exercícios que já usas.
 
-THE MASTER TABLES, com convenções, jogo da carta avançado e estratégia de duplicado.
+THE MASTER TABLES, onde estratégia avançada de Charleston, uma escola de defesa e exercícios de leitura de rack para especialistas esperam quem já passou do básico.
 
 São adicionados novos exercícios durante todo o ano.
 
-CONSTRUÍDO PARA O APRENDIZADO
-Cartões de treinamento interativos, quizzes rápidos, mãos reais de 13 cartas, cenários de jogo, sequências de acertos e uma sessão diária mista que traz de volta o material que você errou.
+PENSADA PARA QUEM ESTÁ A COMEÇAR
+Flashcards com o "porquê" no verso. Sequências que te mantêm a praticar entre partidas. Mãos de prática originais que ensinam o sistema de categorias, para que as tuas competências funcionem com a carta de qualquer ano.
 
-O Bridge Trainer usa o sistema Standard American para iniciantes. Os acordos de parceria variam, portanto, confirme as convenções com seu parceiro.
+O Mahj Trainer é uma aplicação de treino independente. Não está afiliado nem é apoiado pela National Mah Jongg League. Para mãos e valores oficiais, obtém a carta NMJL em vigor.
 
-ASSINATURAS
-O Bridge+ está disponível por assinatura autorrenovável ou compra única: Mensal $1.99/mês, Anual $9.99/ano (ambos incluem 1 semana de teste grátis) ou Lifetime $29.99 pagamento único. O pagamento é cobrado na sua conta Apple ID na confirmação da compra. As assinaturas são renovadas automaticamente, a menos que sejam canceladas pelo menos 24 horas antes do final do período atual. Gerencie ou cancele a qualquer momento nos Ajustes de Conta do seu dispositivo. Termos de Uso (EULA padrão da Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Política de Privacidade: https://jackwallner.github.io/bridge/privacy-policy.
+SUBSCRIÇÕES
+O Mahj+ está disponível por subscrição de renovação automática ou compra única: Mensal $1.99/mês, Anual $9.99/ano (ambas com 1 semana de teste gratuito), ou Lifetime $29.99 em pagamento único. O pagamento é cobrado na tua conta Apple ID na confirmação da compra. As subscrições renovam-se automaticamente, salvo cancelamento com pelo menos 24 horas de antecedência em relação ao fim do período atual. Gere ou cancela quando quiseres nas Definições de conta do teu dispositivo. Termos de Utilização (CLUF padrão da Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Política de Privacidade: https://jackwallner.github.io/mahj/privacy-policy.

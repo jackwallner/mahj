@@ -1,1 +1,1 @@
-bridge,meldinger,kort,lære,tutor,begynder,lektion,drill,forsvar,spilfører,træning,quiz,kontrakt
+dot,bam,crak,vind,drage,blomst,joker,rack,hånd,quiz,nybegynner,guide,tip,strategi,pung,kong,bræt
