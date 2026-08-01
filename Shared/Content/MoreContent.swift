@@ -4,302 +4,328 @@ import Foundation
 /// it stays obvious which questions shipped when, and so the 1.0 sets can be
 /// read as they were authored.
 ///
-/// Everything here is original teaching material for a beginner Standard
-/// American framework. Where a call is a partnership agreement rather than a
-/// rule, the explanation says so.
+/// Every rack and deal here is an ORIGINAL teaching hand built from the stable
+/// category structures. Nothing is copied from the NMJL card, and nothing
+/// claims to be a card hand.
 enum MoreContent {
 
-    // MARK: - The Card Room (Bridge+ extras)
+    // MARK: - The Tile Room (Mahj+ extras)
 
-    static let cardExtras: [QuizQuestion] = [
+    static let tileExtras: [QuizQuestion] = [
         QuizQuestion(
-            id: "more-card-trump",
-            prompt: "In a suit contract, when may you play a trump instead of following suit?",
-            choices: [
-                "Whenever you want to win the trick",
-                "Only when you are void in the suit led",
-                "Only when you are declarer",
-                "Only on the first trick"
-            ],
-            answerIndex: 1,
-            explanation: "Following suit comes first. You may ruff only when you hold no cards in the suit led."
-        ),
-        QuizQuestion(
-            id: "more-card-honors",
-            prompt: "Which cards are the honors in a suit?",
-            choices: ["Ace through jack", "Ace through ten", "Ace, king, queen", "Face cards only"],
-            answerIndex: 1,
-            explanation: "The five honors are ace, king, queen, jack, and ten. Only the top four carry high-card points."
-        ),
-        QuizQuestion(
-            id: "more-card-opening-lead",
-            prompt: "Who makes the opening lead?",
-            choices: [
-                "Declarer",
-                "The player to declarer's left",
-                "Dummy's partner",
-                "Whoever bid last"
-            ],
-            answerIndex: 1,
-            explanation: "The defender on declarer's left leads to the first trick, before dummy comes down."
-        ),
-        QuizQuestion(
-            id: "more-card-notrump-tricks",
-            prompt: "How many tricks does 3NT require?",
-            choices: ["Three", "Six", "Nine", "Ten"],
+            id: "more-tile-flower-count",
+            prompt: "How many flower tiles are in an American mah jongg set?",
+            choices: ["Four", "Six", "Eight", "Twelve"],
             answerIndex: 2,
-            explanation: "Contract level plus book: 3 + 6 = 9 tricks, with no trump suit in play."
+            explanation: "Eight flowers, and unlike suited tiles they are all interchangeable with each other."
         ),
         QuizQuestion(
-            id: "more-card-follow-suit",
-            prompt: "You hold two hearts and a heart is led. What must you do?",
+            id: "more-tile-joker-count",
+            prompt: "How many jokers are in a standard American set?",
+            choices: ["Four", "Six", "Eight", "Ten"],
+            answerIndex: 2,
+            explanation: "Eight jokers. That is why joker-hungry sections like Quints are playable at all."
+        ),
+        QuizQuestion(
+            id: "more-tile-joker-pair",
+            prompt: "Can a joker stand in for a tile in a PAIR?",
             choices: [
-                "Play a heart",
-                "Play your highest card",
-                "Discard if you cannot win",
-                "Anything you like"
+                "Yes, jokers are always wild",
+                "No, jokers only work in groups of three or more",
+                "Only in the Charleston",
+                "Only if both players agree"
             ],
-            answerIndex: 0,
-            explanation: "You must follow suit whenever you hold the suit led. Which heart you choose is up to you."
-        ),
-    ]
-
-    // MARK: - The Auction Room (Bridge+ extras)
-
-    static let openingHands: [HandMatchQuestion] = [
-        HandMatchQuestion(
-            id: "more-open-pass",
-            cards: [.s(.queen), .s(.seven), .s(.four),
-                    .h(.jack), .h(.nine), .h(.six), .h(.three),
-                    .d(.king), .d(.eight), .d(.five),
-                    .c(.ten), .c(.four), .c(.two)],
-            choices: [.pass, .oneClub, .oneDiamond, .oneHeart],
-            answer: .pass,
-            explanation: "Six high-card points and no long suit. You need about 12 to open at the one level, so pass."
-        ),
-        HandMatchQuestion(
-            id: "more-open-notrump",
-            cards: [.s(.ace), .s(.queen), .s(.six),
-                    .h(.king), .h(.nine), .h(.four),
-                    .d(.queen), .d(.jack), .d(.seven), .d(.two),
-                    .c(.king), .c(.eight), .c(.three)],
-            choices: [.oneClub, .oneDiamond, .oneNotrump, .oneSpade],
-            answer: .oneNotrump,
-            explanation: "Fifteen points, balanced 4-3-3-3, and no five-card major. That is the 1NT range exactly."
-        ),
-        HandMatchQuestion(
-            id: "more-open-diamond",
-            cards: [.s(.king), .s(.nine), .s(.four),
-                    .h(.queen), .h(.eight), .h(.three),
-                    .d(.ace), .d(.jack), .d(.seven), .d(.five),
-                    .c(.king), .c(.six), .c(.two)],
-            choices: [.oneClub, .oneDiamond, .oneNotrump, .pass],
-            answer: .oneDiamond,
-            explanation: "Thirteen points and no five-card major, but too weak for 1NT. Open your longer minor, 1♦."
-        ),
-        HandMatchQuestion(
-            id: "more-open-heart-six",
-            cards: [.s(.queen), .s(.five),
-                    .h(.ace), .h(.king), .h(.jack), .h(.nine), .h(.six), .h(.three),
-                    .d(.king), .d(.seven), .d(.four),
-                    .c(.eight), .c(.two)],
-            choices: [.oneClub, .oneDiamond, .oneHeart, .oneSpade],
-            answer: .oneHeart,
-            explanation: "Thirteen points with a six-card heart suit. Open the major and tell partner about the length straight away."
-        ),
-    ]
-
-    // MARK: - The Declarer Room (Bridge+ extras)
-
-    static let plays: [PlayScenario] = [
-        PlayScenario(
-            id: "more-play-draw-trumps",
-            situation: "You are in 4♠ with no side-suit shortness and plenty of trumps. What is usually the first job?",
-            cards: [.s(.ace), .s(.king), .s(.queen)],
-            answerIndex: 0,
-            reasoning: "Start drawing trumps with the ace. Leaving trumps outstanding invites a defender to ruff one of your winners.",
-            tip: "Delay drawing trumps only when you need dummy's trumps for ruffing first."
-        ),
-        PlayScenario(
-            id: "more-play-count-winners",
-            situation: "In a notrump contract, what should you do before playing to trick one?",
-            cards: [.h(.ace), .h(.king), .d(.ace)],
-            answerIndex: 0,
-            reasoning: "Count your sure winners first, then work out where the extra tricks will come from. The ace here is a winner you can already count.",
-            tip: "In notrump count winners. In a suit contract count losers."
-        ),
-        PlayScenario(
-            id: "more-play-entry",
-            situation: "Dummy holds a long solid club suit but only one outside entry. Which card do you protect?",
-            cards: [.s(.ace), .c(.king), .c(.queen)],
-            answerIndex: 0,
-            reasoning: "Protect the outside ace. Without an entry the established clubs are unreachable and the whole plan collapses.",
-            tip: "A long suit is worth nothing if you cannot get to it."
-        ),
-        PlayScenario(
-            id: "more-play-ruff-in-dummy",
-            situation: "You are in 4♥ holding three small diamonds while dummy has a singleton diamond and three trumps. Where do the extra tricks come from?",
-            cards: [.d(.six), .h(.four), .h(.three)],
             answerIndex: 1,
-            reasoning: "Ruff diamonds in dummy with the small trumps. Dummy's shortness is what turns losers into winners.",
-            tip: "Ruff in the hand with the fewer trumps, so you keep enough to draw the opponents'."
+            explanation: "Jokers substitute in pungs, kongs and quints, never in a pair or a single. That is exactly why Singles and Pairs hands pay the most."
+        ),
+        QuizQuestion(
+            id: "more-tile-swap-joker",
+            prompt: "When may you swap a real tile for a joker in an exposure?",
+            choices: [
+                "Never",
+                "When the exposure is yours only",
+                "On your turn, for any exposed joker whose tile you hold",
+                "Only during the Charleston"
+            ],
+            answerIndex: 2,
+            explanation: "On your turn you may redeem any exposed joker, including an opponent's, by giving the real tile it stands for."
+        ),
+        QuizQuestion(
+            id: "more-tile-total",
+            prompt: "How many tiles does a player hold after the deal, before the first discard?",
+            choices: ["12", "13", "14", "16"],
+            answerIndex: 1,
+            explanation: "Thirteen tiles, except East who starts with fourteen and discards first."
+        ),
+        QuizQuestion(
+            id: "more-tile-soap",
+            prompt: "In Year hands, what does the soap usually represent?",
+            choices: ["A joker", "A zero", "A flower", "Any dragon"],
+            answerIndex: 1,
+            explanation: "The white dragon, or soap, stands in for the zero in a year. It is still a dragon everywhere else on the card."
         ),
     ]
 
-    // MARK: - The Defense Room
+    // MARK: - The Card Room (Mahj+ extras)
 
-    /// Free. The Defense Room shipped with a single drill, which made it the
+    static let rackReading: [HandMatchQuestion] = [
+        HandMatchQuestion(
+            id: "more-rack-evens",
+            tiles: [.c(2), .c(2), .c(2),
+                    .b(4), .b(4), .b(4),
+                    .d(6), .d(6), .d(6),
+                    .b(8), .b(8),
+                    .flower, .flower],
+            choices: [.evens2468, .odds13579, .threeSixNine, .consecutiveRun],
+            answer: .evens2468,
+            explanation: "Every number on this rack is even and there is not an odd tile in sight. Pass anything odd and commit to 2468."
+        ),
+        HandMatchQuestion(
+            id: "more-rack-consecutive",
+            tiles: [.c(3), .c(3), .c(3),
+                    .c(4), .c(4), .c(4),
+                    .c(5), .c(5), .c(5),
+                    .b(6), .b(6),
+                    .flower, .flower],
+            choices: [.consecutiveRun, .evens2468, .odds13579, .threeSixNine],
+            answer: .consecutiveRun,
+            explanation: "Three, four, five, six: the numbers step up in order. A run always mixes odd and even, so it can never be an evens or odds hand."
+        ),
+        HandMatchQuestion(
+            id: "more-rack-winds",
+            tiles: [.wind(.north), .wind(.north), .wind(.north),
+                    .wind(.east), .wind(.east), .wind(.east),
+                    .dragon(.red), .dragon(.red), .dragon(.red),
+                    .dragon(.green), .dragon(.green),
+                    .flower, .flower],
+            choices: [.windsDragons, .likeNumbers, .singlesAndPairs, .threeSixNine],
+            answer: .windsDragons,
+            explanation: "Not one numbered tile on the rack. When honors pile up like this, Winds and Dragons is the only section that fits."
+        ),
+        HandMatchQuestion(
+            id: "more-rack-369",
+            tiles: [.c(3), .c(3), .c(3),
+                    .b(6), .b(6), .b(6),
+                    .d(9), .d(9), .d(9),
+                    .d(6), .d(6),
+                    .flower, .flower],
+            choices: [.threeSixNine, .evens2468, .odds13579, .consecutiveRun],
+            answer: .threeSixNine,
+            explanation: "Only 3s, 6s and 9s. The 6 rules out a pure odds hand and the 3 and 9 rule out a pure evens hand, so 369 is the read."
+        ),
+        HandMatchQuestion(
+            id: "more-rack-like",
+            tiles: [.c(7), .c(7), .c(7),
+                    .b(7), .b(7), .b(7),
+                    .d(7), .d(7), .d(7),
+                    .dragon(.red), .dragon(.red),
+                    .flower, .flower],
+            choices: [.likeNumbers, .consecutiveRun, .threeSixNine, .quints],
+            answer: .likeNumbers,
+            explanation: "The same number in all three suits is the signature of Any Like Numbers. One number arriving from every direction is the cue to look here."
+        ),
+    ]
+
+    // MARK: - The Charleston Room (Mahj+ extras)
+
+    static let passes: [CharlestonScenario] = [
+        CharlestonScenario(
+            id: "more-pass-odds",
+            situation: "Your deal leans heavily odd. First pass, three tiles to the right.",
+            deal: [.c(1), .c(1), .c(3), .c(5),
+                   .b(1), .b(3), .b(5), .b(9),
+                   .d(7), .d(9),
+                   .c(2), .b(4), .wind(.north)],
+            recommendedPass: [.c(2), .b(4), .wind(.north)],
+            reasoning: "Ten odd tiles is a direction, not a coincidence. The two evens and the lone wind are doing nothing for an odds hand, so they go first.",
+            tip: "Pass what does not fit the story your rack is already telling."
+        ),
+        CharlestonScenario(
+            id: "more-pass-honors",
+            situation: "Honors are stacking up and the numbers are scattered. First pass, three tiles.",
+            deal: [.wind(.east), .wind(.east), .wind(.east),
+                   .dragon(.red), .dragon(.red), .dragon(.green),
+                   .flower, .flower,
+                   .c(4), .b(7), .d(2), .d(8), .c(9)],
+            recommendedPass: [.c(4), .b(7), .c(9)],
+            reasoning: "A pung of east, a pair of red and a green is a real Winds and Dragons start. The five loose numbers are the passable ones, so send the three that pair with nothing.",
+            tip: "Keep the flowers. Almost every section uses them, and they cost you nothing to hold."
+        ),
+        CharlestonScenario(
+            id: "more-pass-flexible",
+            situation: "Nothing has taken shape yet. First pass, and you want to stay flexible.",
+            deal: [.c(2), .c(4), .c(6),
+                   .b(2), .b(4), .b(6), .b(8),
+                   .d(4), .d(6),
+                   .d(1), .d(3), .c(9), .flower],
+            recommendedPass: [.d(1), .d(3), .c(9)],
+            reasoning: "Nine even tiles against three odd ones. You are not committed yet, but the evens are clearly the majority, so pass the odd strays and see what comes back.",
+            tip: "Early passes are about narrowing, not deciding. Keep the majority and let the Charleston tell you the rest."
+        ),
+    ]
+
+    // MARK: - The Table Room
+
+    /// Free. The Table Room shipped with a single drill, which made it the
     /// thinnest door on Home; a free quiz alongside the judgment cards gives
     /// it the same shape as every other room.
-    static let defenseQuiz: [QuizQuestion] = [
+    static let tableQuiz: [QuizQuestion] = [
         QuizQuestion(
-            id: "more-defense-fourth-best",
-            prompt: "Against notrump you lead your longest suit. From K-9-7-4-2, which card is the standard lead?",
-            choices: ["K♠", "9♠", "4♠", "2♠"],
-            answerIndex: 2,
-            explanation: "Without a strong sequence, lead fourth best from the top: the four. It tells partner about your length as well as your suit."
-        ),
-        QuizQuestion(
-            id: "more-defense-partner-suit",
-            prompt: "Partner overcalled hearts during the auction. What is a reasonable opening lead?",
+            id: "more-table-call-discard",
+            prompt: "Another player discards a tile you need. When may you call it?",
             choices: [
-                "A trump",
-                "Your own longest suit",
-                "A heart",
-                "A singleton in any suit"
-            ],
-            answerIndex: 2,
-            explanation: "Partner told you where their strength is. Leading their suit is usually the friendliest start, unless you have a strong reason of your own."
-        ),
-        QuizQuestion(
-            id: "more-defense-third-hand",
-            prompt: "Partner leads a small card and dummy plays low. As third hand, what is the general rule?",
-            choices: ["Play low", "Play high", "Play your second highest", "Always play an ace"],
-            answerIndex: 1,
-            explanation: "Third hand high. You are trying to win the trick or force out a high card, since dummy has already passed on it."
-        ),
-        QuizQuestion(
-            id: "more-defense-ace-lead",
-            prompt: "Why is leading an unsupported ace against a suit contract usually a poor choice?",
-            choices: [
-                "It is against the rules",
-                "It can crash partner's king",
-                "It gives up control and may set up declarer's king",
-                "Aces cannot be led at trick one"
-            ],
-            answerIndex: 2,
-            explanation: "Leading an ace with no king behind it gives away a trick and hands declarer a free winner. Save it to capture something."
-        ),
-        QuizQuestion(
-            id: "more-defense-count",
-            prompt: "What does it mean to give partner count?",
-            choices: [
-                "Announcing your points aloud",
-                "Playing cards in an order that shows how many you hold",
-                "Counting declarer's tricks",
-                "Doubling for penalty"
+                "Any time you want it",
+                "Only to complete an exposure you can show, or to declare mah jongg",
+                "Only on your own turn",
+                "Only during the first round"
             ],
             answerIndex: 1,
-            explanation: "Playing high then low usually shows an even number of cards, low then high an odd number. Partnerships agree on this in advance."
+            explanation: "You call a discard to complete a pung, kong or quint that you then expose, or to finish your hand. You cannot call for a pair or a single."
+        ),
+        QuizQuestion(
+            id: "more-table-dead-hand",
+            prompt: "What most often makes a hand dead?",
+            choices: [
+                "Holding too many flowers",
+                "An exposure that cannot belong to any hand on the card",
+                "Passing a joker by mistake",
+                "Discarding out of turn"
+            ],
+            answerIndex: 1,
+            explanation: "If your exposures do not match any hand on the card, the hand is dead. Check the card before you expose, not after."
+        ),
+        QuizQuestion(
+            id: "more-table-safe-discard",
+            prompt: "Late in the hand, which discard is usually safest?",
+            choices: [
+                "A tile nobody has exposed",
+                "A tile already discarded twice with no takers",
+                "A joker",
+                "A flower"
+            ],
+            answerIndex: 1,
+            explanation: "A tile that has gone around without being called is unlikely to suddenly become useful. Repeating a dead discard is the classic safe throw."
+        ),
+        QuizQuestion(
+            id: "more-table-exposure-read",
+            prompt: "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. What are they most likely chasing?",
+            choices: ["An odds hand", "An evens hand", "Winds and Dragons", "Singles and Pairs"],
+            answerIndex: 1,
+            explanation: "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need."
+        ),
+        QuizQuestion(
+            id: "more-table-never-expose",
+            prompt: "Which kind of hand can never be exposed?",
+            choices: [
+                "Any Like Numbers",
+                "Consecutive Run",
+                "Singles and Pairs",
+                "Winds and Dragons"
+            ],
+            answerIndex: 2,
+            explanation: "Singles and Pairs contains no pungs or kongs, so there is nothing to call and nothing to expose. It is played entirely from your own rack."
         ),
     ]
 
-    /// Bridge+ extras for the Defense Room.
-    static let defenseExtras: [Flashcard] = [
+    /// Mahj+ extras for the Table Room.
+    static let judgment: [Flashcard] = [
         Flashcard(
-            id: "more-defense-interior",
-            frontTitle: "Lead from K-J-10-6",
-            frontCards: [.h(.king), .h(.jack), .h(.ten), .h(.six)],
-            backTitle: "Lead the jack",
-            backBody: "This is an interior sequence. The jack is safe, describes the holding to partner, and keeps the king guarding the suit.",
-            choice: CardChoice("Lead J♥", "Lead K♥", answerIndex: 0)
+            id: "more-judge-lone-wind",
+            frontTitle: "One lone North, mid-game",
+            frontTiles: [.wind(.north)],
+            frontSubtitle: "Your hand is going 2468. Keep or throw?",
+            backTitle: "Throw it",
+            backBody: "A single honor that belongs to no section you are chasing is pure dead weight. The earlier it goes, the safer it is.",
+            choice: CardChoice("Throw", "Keep", answerIndex: 0)
         ),
         Flashcard(
-            id: "more-defense-doubleton",
-            frontTitle: "Lead from 8-3",
-            frontCards: [.c(.eight), .c(.three)],
-            backTitle: "Lead the eight",
-            backBody: "Top of a doubleton. Following with the three next time shows partner the suit was two cards long and may set up a ruff.",
-            choice: CardChoice("Lead 8♣", "Lead 3♣", answerIndex: 0)
+            id: "more-judge-third-copy",
+            frontTitle: "You hold two 5 Craks",
+            frontTiles: [.c(5), .c(5)],
+            frontSubtitle: "Two more are already exposed elsewhere. Keep waiting?",
+            backTitle: "Let it go",
+            backBody: "All four are accounted for. Your pair can never become a pung, so any hand that needs one is finished. Count before you commit.",
+            choice: CardChoice("Let it go", "Keep waiting", answerIndex: 0)
         ),
         Flashcard(
-            id: "more-defense-through-strength",
-            frontTitle: "Dummy's strength sits on your left",
-            frontSubtitle: "Lead through it?",
-            backTitle: "Yes, lead through strength",
-            backBody: "Leading through dummy's honors means declarer has to commit before partner plays. The old phrase is lead through strength, up to weakness.",
-            choice: CardChoice("Lead through", "Lead around", answerIndex: 0)
+            id: "more-judge-joker-hold",
+            frontTitle: "Two jokers, no direction yet",
+            frontTiles: [.joker, .joker],
+            frontSubtitle: "Pass a joker to speed things up?",
+            backTitle: "Never pass a joker",
+            backBody: "Jokers cannot be passed in the Charleston at all, and even where a courtesy pass is allowed they are the most valuable tiles on your rack.",
+            choice: CardChoice("Keep them", "Pass one", answerIndex: 0)
         ),
         Flashcard(
-            id: "more-defense-passive",
-            frontTitle: "Declarer bid confidently to a thin game",
-            frontSubtitle: "Attack, or lead passively?",
-            backTitle: "Lead passively",
-            backBody: "When declarer sounds stretched, the tricks are often already there for you. A quiet lead avoids handing over the one trick they were missing.",
-            choice: CardChoice("Lead passively", "Attack hard", answerIndex: 0)
+            id: "more-judge-flower-discipline",
+            frontTitle: "Three flowers, hand is Singles and Pairs",
+            frontTiles: [.flower, .flower, .flower],
+            backTitle: "Check the hand first",
+            backBody: "Flowers are useful in most sections, but a Singles and Pairs hand may only want a pair of them. Holding a third out of habit costs you a tile you need.",
+            choice: CardChoice("Check the card", "Always keep all", answerIndex: 0)
         ),
         Flashcard(
-            id: "more-defense-signal-discard",
-            frontTitle: "You must discard and want a diamond back",
-            frontSubtitle: "Which diamond do you throw?",
-            backTitle: "Throw a high diamond",
-            backBody: "A high spot card is the standard encouraging signal. Partnerships vary, so agree your discard method before you sit down.",
-            choice: CardChoice("A high one", "A low one", answerIndex: 0)
+            id: "more-judge-late-switch",
+            frontTitle: "Seven tiles from mah jongg, late in the wall",
+            frontSubtitle: "A better section appears. Switch?",
+            backTitle: "Usually not",
+            backBody: "Switching late means starting over with fewer tiles left in the wall. Only jump when the new hand is genuinely closer than the one you are on.",
+            choice: CardChoice("Stay", "Switch", answerIndex: 0)
         ),
     ]
 
     // MARK: - The Master Tables
 
-    static let defensiveSignals: [QuizQuestion] = [
+    static let jokerRules: [QuizQuestion] = [
         QuizQuestion(
-            id: "more-pro-attitude",
-            prompt: "Partner leads the ace and you hold Q-8-4. Playing standard signals, which card encourages a continuation?",
-            choices: ["Q", "8", "4", "Any of them"],
+            id: "more-pro-joker-single",
+            prompt: "Your hand needs one more single tile to win. Can a joker finish it?",
+            choices: ["Yes", "No", "Only if exposed", "Only on your own draw"],
             answerIndex: 1,
-            explanation: "The eight is your highest spare card and reads as encouraging. The queen is too valuable to throw and the four discourages."
+            explanation: "Jokers never fill a single or a pair. A hand that needs a single needs the real tile, which is why those hands score higher."
         ),
         QuizQuestion(
-            id: "more-pro-suit-preference",
-            prompt: "You are giving partner a ruff and want them to return the higher of the two remaining side suits. What do you lead for the ruff?",
+            id: "more-pro-joker-redeem-timing",
+            prompt: "When can you NOT redeem an exposed joker?",
             choices: [
-                "Your highest card in the ruffed suit",
-                "Your lowest card in the ruffed suit",
-                "A trump",
-                "It cannot be shown"
+                "After you have already discarded that turn",
+                "When the joker is in your own exposure",
+                "During the first round",
+                "When you hold two of the tile"
             ],
             answerIndex: 0,
-            explanation: "Suit preference: a high card asks for the higher-ranking side suit, a low card for the lower. It is one of the most useful agreements in defense."
+            explanation: "Redemption happens on your turn, before you discard. Once you have thrown, the window is closed until your next turn."
         ),
         QuizQuestion(
-            id: "more-pro-uppercut",
-            prompt: "What is an uppercut in defense?",
+            id: "more-pro-joker-discard-late",
+            prompt: "Why is discarding a joker late in the hand risky?",
             choices: [
-                "Doubling a slam",
-                "Ruffing high to force declarer to overruff with an honor",
-                "Leading a trump at trick one",
-                "Discarding a winner"
+                "It is against the rules",
+                "Nobody can call it, so it wastes your discard",
+                "It can be called for mah jongg by a player who needs a group",
+                "It ends the game immediately"
+            ],
+            answerIndex: 2,
+            explanation: "A discarded joker cannot be called for an exposure, but it also tells the table you had one to spare. The real cost is information plus a wasted turn."
+        ),
+        QuizQuestion(
+            id: "more-pro-joker-quint",
+            prompt: "How many jokers does a quint typically require?",
+            choices: ["None", "At least one", "At least two", "Exactly four"],
+            answerIndex: 1,
+            explanation: "Only four of any tile exist, so a group of five always needs at least one joker. Most players will not commit to Quints without two."
+        ),
+        QuizQuestion(
+            id: "more-pro-joker-exposure-swap",
+            prompt: "An opponent exposes a pung of 3 Dots using a joker. You hold a 3 Dot. What can you do?",
+            choices: [
+                "Nothing until they discard",
+                "Swap your 3 Dot for their joker on your turn",
+                "Declare their hand dead",
+                "Call the tile for yourself"
             ],
             answerIndex: 1,
-            explanation: "Ruffing with a card declarer must beat can promote a trump trick for partner. Losing your ruff to gain a bigger trick is the whole idea."
-        ),
-        QuizQuestion(
-            id: "more-pro-count-declarer",
-            prompt: "Declarer has shown five spades and four hearts and follows to two rounds of clubs. How many diamonds do they hold?",
-            choices: ["One", "Two", "Three", "Cannot be known"],
-            answerIndex: 1,
-            explanation: "Thirteen cards total: 5 + 4 + 2 clubs leaves 2 diamonds. Counting the hand out is what separates good defenders from lucky ones."
-        ),
-        QuizQuestion(
-            id: "more-pro-second-hand-high",
-            prompt: "When is second hand high right rather than second hand low?",
-            choices: [
-                "Never, the rule is absolute",
-                "When playing low would let a singleton or doubleton honor in dummy win",
-                "Only at notrump",
-                "Only when holding an ace"
-            ],
-            answerIndex: 1,
-            explanation: "Rules of thumb bend to the layout. If ducking hands declarer a trick they could not otherwise take, rise instead."
+            explanation: "Any exposed joker is redeemable by any player holding the tile it stands for, on their own turn. Taking an opponent's joker is one of the strongest plays in the game."
         ),
     ]
 }

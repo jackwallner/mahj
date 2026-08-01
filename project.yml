@@ -1,4 +1,4 @@
-name: Bridge
+name: MahjTrainer
 packages:
   RevenueCat:
     url: https://github.com/RevenueCat/purchases-ios-spm.git
@@ -13,53 +13,53 @@ settings:
     SWIFT_VERSION: "6.0"
     IPHONEOS_DEPLOYMENT_TARGET: "17.0"
 targets:
-  Bridge:
+  MahjTrainer:
     type: application
     platform: iOS
     sources:
-      - path: Bridge
+      - path: MahjTrainer
       - path: Shared
     settings:
       base:
         DEVELOPMENT_TEAM: YXG4MP6W39
         CODE_SIGN_STYLE: Automatic
-        PRODUCT_BUNDLE_IDENTIFIER: com.jackwallner.bridge
-        PRODUCT_NAME: "Bridge Trainer"
-        PRODUCT_MODULE_NAME: Bridge
+        PRODUCT_BUNDLE_IDENTIFIER: com.jackwallner.mahj
+        PRODUCT_NAME: "Mahj Trainer"
+        PRODUCT_MODULE_NAME: MahjTrainer
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         MARKETING_VERSION: "1.1"
-        CURRENT_PROJECT_VERSION: "8"
+        CURRENT_PROJECT_VERSION: "14"
         GENERATE_INFOPLIST_FILE: NO
-        INFOPLIST_FILE: Bridge/Info.plist
+        INFOPLIST_FILE: MahjTrainer/Info.plist
         TARGETED_DEVICE_FAMILY: "1"
     dependencies:
       - package: RevenueCat
 
-  BridgeTests:
+  MahjTrainerTests:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - path: BridgeTests
+      - path: MahjTrainerTests
     dependencies:
-      - target: Bridge
+      - target: MahjTrainer
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Bridge Trainer.app/Bridge Trainer"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Mahj Trainer.app/Mahj Trainer"
 
 schemes:
-  Bridge:
+  MahjTrainer:
     build:
       targets:
-        Bridge: all
+        MahjTrainer: all
     run:
       config: Debug
-      storeKitConfiguration: Bridge/Bridge.storekit
+      storeKitConfiguration: MahjTrainer/MahjTrainer.storekit
     test:
       config: Debug
       targets:
-        - BridgeTests
+        - MahjTrainerTests
     profile:
       config: Release
     analyze:

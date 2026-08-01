@@ -1,1 +1,1 @@
-bridge,licita,carte,imparare,tutor,principiante,lezione,esercizio,difesa,dichiarante,pratica,tiro
+tessera,punto,bambù,carattere,vento,drago,fiore,jolly,rack,mano,quiz,principiante,pung,kong,tavolo

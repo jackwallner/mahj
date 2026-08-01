@@ -1,40 +1,43 @@
-Bouw echte instincten op voor contract bridge in sessies van vijf minuten.
+Oefen Amerikaans Mah Jongg in oefeningen van vijf minuten: stenen, Charleston-strategie, rack lezen en houden-of-weggooien beslissingen, gemaakt voor nieuwe spelers.
 
-Bridge Trainer vertaalt de belangrijkste onderdelen voor beginners naar snelle, gerichte oefeningen. Geen tegenstanders, geen timers en geen druk. Tel punten, kies een openingsbod, plan het spel en leer verdedigende gewoonten met de uitleg achter elk antwoord.
+Donderdag mah jongg geleerd? Blijf scherp. Mahj Trainer heeft geen tegenstanders, geen tijdslimiet en geen druk: alleen korte, interactieve oefeningen die de vaardigheden opbouwen die je nodig hebt voordat je aan een echte tafel gaat zitten. Zie het als je opslag oefenen zonder een wedstrijd te spelen.
 
-VIER GRATIS OEFENKAMERS
+WAAROM HET WERKT
+De meeste nieuwe spelers leren tijdens een wekelijks spel en kunnen daarna pas weer oefenen bij de volgende keer. Lessen vervagen. Mahj Trainer geeft je korte oefeningen die je overal kunt doen, zelfs in de rij.
 
-DE KAARTENKAMER
-Leer kaartvolgorde, figuurpunten, slagen, troef, contracten en tafelrollen.
+VIER GRATIS OEFENRUIMTES
 
-DE BIEDKAMER
-Oefen het Standard American-systeem voor beginners. Lees handen van 13 kaarten en kies tussen pas, een opening of 1NT.
+DE STENENKAMER
+Maak kennis met elke stenenfamilie: tekens, bamboe, punten, winden, draken, bloemen en jokers. Test jezelf daarna op de regels die iedereen fout doet: welke draak bij welke kleur hoort, wat een joker wel en niet mag, wat een "soap" nou eigenlijk betekent.
 
-DE SPEELKAMER
-Tel winnaars, trek troef, ontwikkel lange kleuren, neem snitten en kies de juiste kaart in spelsituaties.
+DE KAARTKAMER
+Leer de secties van de kaart (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs en meer) en hoe je ze herkent. Oefen daarna met rack lezen: bekijk 13 stenen en benoem de sectie waar ze naartoe werken.
 
-DE VERDEDIGINGSKAMER
-Train startkaarten, sequenties, derdemansspel, terugspelen en partnerafspraken.
+DE CHARLESTONKAMER
+Het onderdeel dat elke nieuwe speler bang maakt, zonder de paniek. Leer de regels en strategie van het doorgeven, werk daarna door echte deelrondes: kies 3 stenen om door te geven en vergelijk je keuze met die van de coach, met uitleg erbij.
 
-BRIDGE+ (OPTIONEEL)
-Alles hierboven blijft gratis. Bridge+ voegt oefening toe die nooit opraakt:
+DE SPELTAFEL
+Houden-of-weggooien beslissingen: wanneer je een bloem bewaart, wanneer je ruilt voor een blootgelegde joker, wat de blootlegging van een tegenstander verraadt, en welke worpen veilig zijn.
 
-ENDLESS PRACTICE deelt elke keer een vers gegenereerde hand van 13 kaarten, zodat openingsbiedingen nooit herhalen en nooit opraken.
+MAHJ+ (optionele upgrade)
+Alles hierboven blijft voor altijd gratis. Mahj+ voegt oefening toe die nooit opraakt:
+
+ENDLESS PRACTICE deelt elke keer een vers gegenereerd rack, zodat categorieën lezen nooit herhaalt en nooit opraakt.
 
 FIX MY MISTAKES onthoudt wat je fout had en brengt het volgens een gespreid schema terug, zodat zwakke plekken echt dichtgaan.
 
 TIMED CHALLENGE geeft je negentig seconden gemengde vragen en een persoonlijk record om te verbeteren.
 
-EXTRA OEFENSETS in elk van de vier beginnerskamers, met nieuwe vragen en handen in dezelfde oefeningen die je al gebruikt.
+EXTRA OEFENSETS in elk van de vier kamers, met nieuwe vragen, racks en delen in dezelfde oefeningen die je al gebruikt.
 
-THE MASTER TABLES, met conventies, gevorderd kaartspel en strategie voor viertallen.
+THE MASTER TABLES, waar gevorderde Charleston-strategie, een verdedigingsschool en rack-leesoefeningen voor experts wachten op spelers die verder gaan dan de basis.
 
 Het hele jaar door komen er nieuwe oefeningen bij.
 
-ONTWIKKELD OM TE LEREN
-Interactieve leskaarten, snelle quizzen, realistische 13-kaart handen, spelscenario's, reeksen en een gemengde sessie die foutieve vragen herhaalt.
+GEMAAKT VOOR NIEUWE SPELERS
+Flashcards met het "waarom" op de achterkant. Reeksen die je tussen potjes door aan het oefenen houden. Originele oefenhanden die het categoriesysteem aanleren, zodat je vaardigheden werken bij de kaart van elk jaar.
 
-Bridge Trainer gebruikt het Standard American-systeem voor beginners. Partnerafspraken kunnen variëren, dus stem conventies af met uw partner.
+Mahj Trainer is een onafhankelijke oefenapp. De app is niet gelieerd aan en wordt niet onderschreven door de National Mah Jongg League. Voor officiële hands en waarden, gebruik de actuele NMJL-kaart.
 
 ABONNEMENTEN
-Bridge+ is beschikbaar via automatisch verlengend abonnement of als eenmalige aankoop: Maandelijks $1.99/maand, Jaarlijks $9.99/jaar (beide inclusief 1 week gratis proefperiode) of Lifetime $29.99 eenmalig. De betaling wordt in rekening gebracht op uw Apple ID-account bij de voorafgaande bevestiging van de aankoop. Abonnementen worden automatisch verlengd tenzij ze ten minste 24 uur voor het einde van de huidige periode worden opgezegd. Beheer of annuleer op elk moment in de accountinstellingen van uw apparaat. Gebruiksvoorwaarden (Standaard Apple EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Privacybeleid: https://jackwallner.github.io/bridge/privacy-policy.
+Mahj+ is beschikbaar via een automatisch verlengend abonnement of een eenmalige aankoop: Maandelijks $1.99/maand, Jaarlijks $9.99/jaar (beide met 1 week gratis proefperiode), of Lifetime $29.99 eenmalig. Betaling wordt bij bevestiging van de aankoop in rekening gebracht op je Apple ID-account. Abonnementen worden automatisch verlengd, tenzij minstens 24 uur voor het einde van de huidige periode wordt opgezegd. Beheer of zeg op elk moment op via Accountinstellingen op je apparaat. Gebruiksvoorwaarden (Apple's standaard EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Privacybeleid: https://jackwallner.github.io/mahj/privacy-policy.

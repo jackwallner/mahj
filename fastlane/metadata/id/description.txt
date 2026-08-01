@@ -1,38 +1,44 @@
-Bangun insting bermain contract bridge yang nyata dalam sesi lima menit.
+Latih Mahjong Amerika lewat sesi 5 menit: ubin, strategi Charleston, membaca rak, dan keputusan simpan atau buang, dirancang khusus untuk pemain baru.
 
-Bridge Trainer mengubah bagian yang paling dibutuhkan pemula menjadi latihan yang cepat dan terfokus. Tidak ada lawan, tidak ada pengukur waktu, dan tidak ada tekanan. Hitung poin, pilih bidding pembuka, rencanakan permainan, dan pelajari kebiasaan bertahan dengan penjelasan di balik setiap jawaban.
+Baru belajar mahjong di sesi Kamis tapi tidak ada tempat untuk latihan sampai pertemuan berikutnya? Mahj Trainer tidak punya lawan, tidak ada timer, dan tanpa tekanan, hanya latihan interaktif singkat yang membangun kemampuan yang kamu butuhkan sebelum duduk di meja sungguhan. Anggap saja seperti latihan servis sebelum bertanding.
+
+KENAPA INI EFEKTIF
+Kebanyakan pemain baru belajar mahjong di sesi mingguan, lalu tidak punya cara untuk berlatih sampai sesi berikutnya. Pelajaran pun cepat terlupakan. Mahj Trainer memberimu latihan singkat yang bisa dijalankan di mana saja, bahkan saat mengantre.
 
 EMPAT RUANG LATIHAN GRATIS
 
+RUANG UBIN
+Kenali setiap keluarga ubin: craks, bams, dots, angin, naga, bunga, dan joker. Lalu uji dirimu dengan aturan yang sering salah dipahami: naga mana yang berpasangan dengan jenis ubin apa, apa yang bisa dan tidak bisa dilakukan joker, dan apa arti soap sebenarnya.
+
 RUANG KARTU
-Pelajari peringkat kartu, poin kartu tinggi (HCP), trik, trump, kontrak, dan peran di meja.
+Pelajari bagian-bagian kartu (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs, dan lainnya) serta cara mengenalinya. Lalu latih membaca rak: lihat 13 ubin dan tebak bagian mana yang sedang dikejar.
 
-RUANG BIDDING
-Latih sistem Standard American untuk pemula. Baca 13 kartu di tangan dan pilih antara pass, bid suit, atau 1NT.
+RUANG CHARLESTON
+Bagian yang paling menakutkan bagi pemain baru, tanpa rasa panik. Pelajari aturan dan strategi pertukaran ubin ini, lalu praktikkan dengan tangan sungguhan: pilih 3 ubin untuk dioper dan bandingkan pilihanmu dengan pilihan pelatih, lengkap dengan penjelasannya.
 
-RUANG DECLARER
-Hitung kartu pemenang, tarik trump, bangun suit panjang, lakukan finesse, dan pilih kartu yang tepat dalam situasi permainan.
+RUANG MEJA
+Keputusan simpan atau buang: kapan menahan bunga, kapan menukar joker yang terbuka, apa yang bisa dibaca dari ubin terbuka lawan, dan ubin mana yang aman dibuang.
 
-RUANG PERTAHANAN
-Latih lead pembuka, urutan kartu, permainan tangan ketiga (third-hand play), pengembalian suit, dan kebiasaan kemitraan.
+MAHJ+ (upgrade opsional)
+Semua di atas tetap gratis selamanya. Mahj+ menambahkan latihan yang tidak pernah habis:
 
-BRIDGE+ (OPSIONAL)
-Semua di atas tetap gratis. Bridge+ menambahkan latihan yang tidak pernah habis:
-
-ENDLESS PRACTICE membagikan kartu 13 lembar yang dibuat baru setiap kali, jadi latihan bidding pembuka tidak pernah berulang dan tidak pernah habis.
+ENDLESS PRACTICE membagikan rack yang dibuat baru setiap kali, jadi pembacaan kategori tidak pernah berulang dan tidak pernah habis.
 
 FIX MY MISTAKES mengingat apa yang kamu jawab salah dan memunculkannya kembali sesuai jadwal berjarak, sehingga titik lemah benar-benar tertutup.
 
 TIMED CHALLENGE memberimu sembilan puluh detik pertanyaan campuran dan rekor pribadi untuk dikejar.
 
-SET LATIHAN TAMBAHAN di setiap dari empat ruangan pemula, dengan pertanyaan dan kartu baru dalam latihan yang sudah kamu pakai.
+SET LATIHAN TAMBAHAN di setiap dari empat ruangan, dengan pertanyaan, rack, dan pembagian baru dalam latihan yang sudah kamu pakai.
 
-THE MASTER TABLES, dengan konvensi, permainan kartu tingkat lanjut, dan strategi duplikat.
+THE MASTER TABLES, tempat strategi Charleston tingkat lanjut, sekolah pertahanan, dan latihan membaca rack tingkat ahli menanti pemain yang melewati dasar.
 
-DIRANCANG UNTUK BELAJAR
-Kartu pelatihan yang dapat digeser, kuis cepat, 13 kartu tangan yang realistis, skenario permainan kartu, streak latihan, dan sesi campuran harian yang memunculkan kembali materi yang salah.
+Latihan baru ditambahkan sepanjang tahun.
 
-Bridge Trainer menggunakan sistem Standard American untuk pemula. Kesepakatan kemitraan bervariasi, jadi konfirmasikan konvensi dengan partner bermain Anda.
+DIRANCANG UNTUK PEMAIN BARU
+Kartu flash dengan penjelasan "kenapa" di baliknya. Streak yang membuatmu terus berlatih di antara sesi main. Tangan latihan orisinal yang mengajarkan sistem kategori, jadi kemampuanmu berlaku untuk kartu tahun berapa pun.
 
-LANGGANAN
-Bridge+ tersedia melalui langganan yang diperbarui secara otomatis atau pembelian satu kali: Bulanan $1.99/bulan, Tahunan $9.99/tahun (keduanya mencakup uji coba gratis 1 minggu), atau Seumur Hidup $29.99 sekali bayar. Pembayaran dibebankan ke akun Apple ID Anda pada saat konfirmasi pembelian. Langganan diperbarui secara otomatis kecuali dibatalkan setidaknya 24 jam sebelum akhir periode berjalan. Kelola atau batalkan kapan saja di Pengaturan Akun di perangkat Anda. Ketentuan Penggunaan (EULA standar Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Kebijakan Privasi: https://jackwallner.github.io/bridge/privacy-policy.
+Mahj Trainer adalah aplikasi latihan independen. Aplikasi ini tidak berafiliasi dengan atau didukung oleh National Mah Jongg League. Untuk tangan dan nilai resmi, gunakan kartu NMJL terbaru.
+
+TENTANG LANGGANAN
+Mahj+ tersedia lewat langganan otomatis atau pembelian sekali bayar: Monthly $1,99/bulan, Yearly $9,99/tahun (keduanya termasuk uji coba gratis 1 minggu), atau Lifetime $29,99 sekali bayar. Pembayaran dibebankan ke akun Apple ID kamu saat pembelian dikonfirmasi. Langganan diperpanjang otomatis kecuali dibatalkan setidaknya 24 jam sebelum periode berjalan berakhir. Kelola atau batalkan kapan saja di Pengaturan Akun perangkatmu. Ketentuan Penggunaan (EULA standar Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Kebijakan Privasi: https://jackwallner.github.io/mahj/privacy-policy
