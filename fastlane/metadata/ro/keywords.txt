@@ -1,1 +1,1 @@
-piesă,punct,bambus,caracter,vânt,dragon,floare,joker,rack,mână,quiz,începător,tutorial,pung,kong
+bridge,licitație,cărți,învățare,tutor,începător,lecție,exercițiu,apărare,declarant,practică,joc

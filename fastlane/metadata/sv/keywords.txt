@@ -1,1 +1,1 @@
-bricka,punkt,bambu,tecken,vind,drake,blomma,joker,rack,hand,quiz,nybörjare,tutorial,pung,kong
+bridge,budgivning,kort,lära,tutor,nybörjare,lektion,drill,försvar,spelförare,träning,quiz,kontrakt

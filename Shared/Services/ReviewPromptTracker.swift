@@ -2,14 +2,14 @@ import Foundation
 import StoreKit
 
 enum AppStoreLinks {
-    static let appStoreID = "6790052126"
+    static let appStoreID = "6791026407"
 
     /// The write-a-review page. No storefront prefix: the App Store resolves
     /// the bare app id into the viewer's own storefront, and hardcoding one
     /// only risks sending a UK player to the US store.
     static let writeReviewURL = URL(string: "https://apps.apple.com/app/id\(appStoreID)?action=write-review")!
 
-    static let feedbackEmail = "jackwallner+m@gmail.com"
+    static let feedbackEmail = "jackwallner+b@gmail.com"
 }
 
 /// How the player last resolved the review funnel. Either terminal outcome
@@ -23,7 +23,7 @@ enum ReviewPromptOutcome: String, Sendable {
 /// the player has done enough for the ask to be fair.
 ///
 /// The funnel itself: a positive moment (a finished drill) leads to "Enjoying
-/// Mahj Trainer?" A yes leads to the App Store; a no leads to a feedback box
+/// Bridge Trainer?" A yes leads to the App Store; a no leads to a feedback box
 /// that mails us instead. Unhappy players never get pushed at a star rating,
 /// which is the whole point of gating it.
 @MainActor

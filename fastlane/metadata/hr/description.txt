@@ -1,43 +1,40 @@
-Vježbaj američki Mah Jongg u petominutnim vježbama: pločice, Charleston strategiju, čitanje stalka i odluke zadrži-ili-baci, izrađeno za nove igrače.
+Izgradite prave instinkte za kontraktni briž u petominutnim sesijama.
 
-Naučio si mah jongg u četvrtak? Zadrži to. Mahj Trainer nema protivnika, tajmera ni pritiska: samo brze, interaktivne ponavljanja koja grade vještine potrebne prije sjedanja za pravi stol. Zamisli to kao vježbanje udarca bez odigranog meča.
+Bridge Trainer pretvara najvažnije dijelove za početnike u brze, fokusirane vježbe. Bez protivnika, bez mjerača vremena i bez pritiska. Brojite bodove, odaberite otvarajući licit, planirajte igru i naučite obrambene navike uz objašnjenje svakog odgovora.
 
-ZAŠTO FUNKCIONIRA
-Većina novih igrača uči na tjednoj igri, a onda nema način vježbati do sljedeće. Naučeno blijedi. Mahj Trainer ti daje brza ponavljanja koja možeš raditi bilo gdje, čak i dok stojiš u redu.
+ČETIRI BESPLATNE SOBE ZA VJEŽBANJE
 
-ČETIRI BESPLATNE PROSTORIJE ZA VJEŽBU
+SOBA KARTA
+Naučite vrijednosti karata, bodove u slikama, štihove, adute, ugovore i uloge za stolom.
 
-PROSTORIJA PLOČICA
-Upoznaj svaku obitelj pločica: crak, bam, dot, vjetrove, zmajeve, cvjetove i džokere. Zatim testiraj sebe na pravilima koja svi krivo shvate: koji zmaj ide uz koju boju, što džoker smije i ne smije, i što zapravo znači "soap".
+SOBA ZA LICITACIJU
+Vježbajte početni Standard American sustav. Čitajte ruke od 13 karata i birajte između pasa, otvaranja u boji ili 1NT.
 
-PROSTORIJA KARTE
-Nauči odjeljke karte (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs i druge) i kako ih prepoznati. Zatim vježbaj čitanje stalka: vidi 13 pločica i imenuj odjeljak koji progone.
+SOBA IZVOĐAČA
+Brojite pobjedničke štihove, izvlačite adute, uspostavljajte duge boje, radite finesse i birajte pravu kartu.
 
-PROSTORIJA CHARLESTONA
-Dio koji plaši svakog novog igrača, minus panika. Nauči pravila i strategiju dodavanja, zatim prođi kroz prava dijeljenja: odaberi 3 pločice za dodavanje i usporedi svoj izbor s trenerovim, uz objašnjenje.
+SOBA ZA OBRANU
+Trenirajte izlaze, sekvence, igru treće ruke, vraćanje boje i partnerske navike.
 
-PROSTORIJA STOLA
-Odluke zadrži-ili-baci: kada zadržati cvijet, kada ga zamijeniti za otkrivenog džokera, što ti otkrivanje protivnika govori, i koja su bacanja sigurna.
+BRIDGE+ (OPCIONALNO)
+Sve navedeno ostaje besplatno. Bridge+ dodaje vježbanje koje nikad ne ponestane:
 
-MAHJ+ (opcionalni upgrade)
-Sve navedeno ostaje besplatno zauvijek. Mahj+ dodaje vježbanje koje nikad ne ponestane:
-
-ENDLESS PRACTICE svaki put dijeli svježe generirani rack, pa se čitanje kategorija nikad ne ponavlja niti ponestane.
+ENDLESS PRACTICE svaki put dijeli svježe generiranu ruku od 13 karata, pa se vježbe otvaranja nikad ne ponavljaju niti ponestanu.
 
 FIX MY MISTAKES pamti što si pogriješio i vraća to prema razmaknutom rasporedu, kako bi se slabe točke doista zatvorile.
 
 TIMED CHALLENGE daje ti devedeset sekundi mješovitih pitanja i osobni rekord koji možeš obarati.
 
-DODATNI KOMPLETI VJEŽBI u svakoj od četiri sobe, s novim pitanjima, rackovima i djeljenjima u istim vježbama koje već koristiš.
+DODATNI KOMPLETI VJEŽBI u svakoj od četiri početničke sobe, s novim pitanjima i rukama u istim vježbama koje već koristiš.
 
-THE MASTER TABLES, gdje napredna Charleston strategija, škola obrane i stručne vježbe čitanja racka čekaju igrače koji su prešli osnove.
+THE MASTER TABLES, s konvencijama, naprednom igrom kartama i strategijom za turnire.
 
 Nove vježbe dodaju se tijekom cijele godine.
 
-IZRAĐENO ZA NOVE IGRAČE
-Kartice sa "zašto" na poleđini. Nizovi koji te drže u vježbanju između igara. Originalna vježbovna dijeljenja koja uče sustav kategorija, tako da se tvoje vještine prenose na kartu bilo koje godine.
+DIZAJNIRANO ZA UČENJE
+Kartice s uputama, brzi kvizovi, realistične ruke s 13 karata, scenariji igre, nizovi pobjeda i svakodnevna mješovita sesija koja vraća propušteno gradivo.
 
-Mahj Trainer je nezavisna aplikacija za vježbu. Nije povezana s National Mah Jongg League niti od nje odobrena. Za službena dijeljenja i vrijednosti nabavi trenutnu NMJL kartu.
+Bridge Trainer koristi početni Standard American sustav. Partnerski dogovori se razlikuju, stoga uvijek potvrdite konvencije s partnerom.
 
 PRETPLATE
-Mahj+ je dostupan putem automatski obnavljajuće pretplate ili jednokratne kupnje: Mjesečna $1.99/mjesec, Godišnja $9.99/godina (obje uključuju besplatno probno razdoblje od 1 tjedna), ili Doživotna $29.99 kao jednokratna kupnja. Plaćanje se naplaćuje na tvoj Apple ID račun po potvrdi kupnje. Pretplata se automatski obnavlja osim ako se ne otkaže najmanje 24 sata prije kraja trenutnog razdoblja. Upravljaj ili otkaži bilo kada u Postavkama računa na svom uređaju. Uvjeti korištenja (Appleov standardni EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Pravila privatnosti: https://jackwallner.github.io/mahj/privacy-policy.
+Bridge+ je dostupan putem pretplate koja se automatski obnavlja ili jednokratne kupnje: Mjesečno $1.99/mjesečno, Godišnje $9.99/godišnje (oba uključuju 1 tjedan besplatnog probnog razdoblja) ili Doživotno $29.99 jednokratno. Plaćanje se naplaćuje s vašeg Apple ID računa prilikom potvrde kupnje. Pretplate se automatski obnavljaju osim ako se ne otkažu najmanje 24 sata prije kraja tekućeg razdoblja. Upravljajte ili otkažite u bilo kojem trenutku u Postavkama Računa na svom uređaju. Uvjeti korištenja (standardni Apple EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Pravila o privatnosti: https://jackwallner.github.io/bridge/privacy-policy.

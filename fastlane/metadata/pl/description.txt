@@ -1,43 +1,38 @@
-Ćwicz amerykańskiego mahjonga w pięciominutowych sesjach: kamienie, strategia Charlestona, czytanie stojaka i decyzje trzymać-czy-rzucić, stworzone dla nowych graczy.
+Rozwijaj praktyczny instynkt brydżowy podczas pięciominutowych sesji.
 
-Nauczyłeś się mahjonga w czwartek? Utrwal to. Mahj Trainer nie ma przeciwników, liczników czasu ani presji: to szybkie, interaktywne powtórki, które budują umiejętności potrzebne, zanim usiądziesz przy prawdziwym stole. Traktuj to jak trening serwisu bez rozgrywania meczu.
+Bridge Trainer zamienia elementy, których początkujący potrzebują najbardziej, w szybkie, ukierunkowane ćwiczenia. Bez przeciwników, bez liczników czasu i bez presji. Licz punkty, wybieraj odzywki otwarcia, planuj rozgrywkę i ucz się nawyków obronnych dzięki wyjaśnieniom każdego wyboru.
 
-DLACZEGO TO DZIAŁA
-Większość nowych graczy uczy się podczas cotygodniowej gry, a potem nie ma jak ćwiczyć aż do następnej. Wiedza szybko blaknie. Mahj Trainer daje krótkie powtórki, które możesz zrobić wszędzie, nawet stojąc w kolejce.
+CZTERY DARMOWE POKOJE TRENINGOWE
 
-CZTERY BEZPŁATNE POKOJE ĆWICZEŃ
+POKÓJ KART
+Poznaj hierarchię kart, punkty honorowe, lewy, atuty, kontrakty i role przy stole.
 
-POKÓJ KAMIENI
-Poznaj każdą rodzinę kamieni: crak, bam, dot, wiatry, smoki, kwiaty i jokery. Sprawdź się w zasadach, w których każdy się myli: który smok pasuje do którego koloru, co joker może, a czego nie może zrobić, i co naprawdę oznacza "soap".
+POKÓJ LICYTACJI
+Ćwicz podstawy systemu Standard American. Analizuj 13-kartowe ręce i wybieraj między pasem, otwarciem w kolor lub 1NT.
 
-POKÓJ KARTY
-Poznaj sekcje karty (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs i inne) oraz sposoby ich rozpoznawania. Potem ćwicz czytanie stojaka: zobacz 13 kamieni i nazwij sekcję, do której zmierzają.
+POKÓJ ROZGRYWAJĄCEGO
+Licz lewy wygrywające, ściągaj atuty, wyrabiaj długie kolory, rób impasy i wybieraj właściwą kartę w sytuacjach przy stole.
 
-POKÓJ CHARLESTONA
-Część, która przeraża każdego nowego gracza, tyle że bez paniki. Poznaj zasady i strategię przekazywania kamieni, a potem przejdź przez prawdziwe rozdania: wybierz 3 kamienie do oddania i porównaj swój wybór z wyborem trenera wraz z wyjaśnieniem.
+POKÓJ OBRONY
+Trenuj wisty, sekwencje, grę z trzeciej ręki, powroty w kolor i nawyki partnerskie.
 
-POKÓJ STOŁU
-Decyzje trzymać-czy-rzucić: kiedy zatrzymać kwiat, kiedy wymienić go na odsłoniętego jokera, co odsłonięcie przeciwnika ci mówi i które rzuty są bezpieczne.
+BRIDGE+ (OPCJONALNIE)
+Wszystko powyżej pozostaje darmowe. Bridge+ dodaje ćwiczenia, które nigdy się nie kończą:
 
-MAHJ+ (opcjonalne ulepszenie)
-Wszystko powyżej pozostaje darmowe na zawsze. Mahj+ dodaje ćwiczenia, które nigdy się nie kończą:
-
-ENDLESS PRACTICE za każdym razem rozdaje świeżo wygenerowany rack, więc czytanie kategorii nigdy się nie powtarza ani nie wyczerpuje.
+ENDLESS PRACTICE za każdym razem rozdaje świeżo wygenerowane rozdanie 13 kart, więc ćwiczenia otwarć nigdy się nie wyczerpują.
 
 FIX MY MISTAKES zapamiętuje twoje błędy i przywraca je według rozłożonego w czasie harmonogramu, dzięki czemu słabe punkty naprawdę się domykają.
 
 TIMED CHALLENGE daje ci dziewięćdziesiąt sekund mieszanych pytań i rekord życiowy do pobicia.
 
-DODATKOWE ZESTAWY ĆWICZEŃ w każdym z czterech pokoi, z nowymi pytaniami, rackami i rozdaniami w tych samych ćwiczeniach, których już używasz.
+DODATKOWE ZESTAWY ĆWICZEŃ w każdym z czterech pokoi dla początkujących, z nowymi pytaniami i rozdaniami.
 
-THE MASTER TABLES, gdzie zaawansowana strategia Charleston, szkoła obrony i eksperckie ćwiczenia czytania racka czekają na graczy wychodzących poza podstawy.
+THE MASTER TABLES, z konwencjami, zaawansowaną rozgrywką i strategią turniejową.
 
-Nowe ćwiczenia dochodzą przez cały rok.
+STWORZONY DO NAUKI
+Interaktywne karty szkoleniowe, szybkie quizy, realistyczne 13-kartowe ręce, scenariusze gry, serie zwycięstw oraz codzienny trening mieszany, który powraca do błędów.
 
-STWORZONE DLA NOWYCH GRACZY
-Fiszki z "dlaczego" na odwrocie. Serie ćwiczeń, które motywują między grami. Oryginalne układy treningowe uczące systemu kategorii, dzięki czemu Twoje umiejętności przenoszą się na kartę z dowolnego roku.
-
-Mahj Trainer to niezależna aplikacja treningowa. Nie jest powiązana ani zatwierdzona przez National Mah Jongg League. Po oficjalne układy i wartości sięgnij po aktualną kartę NMJL.
+Bridge Trainer opiera się na podstawach systemu Standard American. Uzgodnienia partnerskie bywają różne, dlatego zawsze potwierdzaj konwencje ze swoim partnerem.
 
 SUBSKRYPCJE
-Mahj+ jest dostępne w ramach automatycznie odnawianej subskrypcji lub zakupu jednorazowego: Miesięczna $1.99/miesiąc, Roczna $9.99/rok (obie z 1-tygodniowym bezpłatnym okresem próbnym), lub Dożywotnia $29.99 jako zakup jednorazowy. Płatność zostaje pobrana z Twojego konta Apple ID w momencie potwierdzenia zakupu. Subskrypcja odnawia się automatycznie, chyba że zostanie anulowana co najmniej 24 godziny przed końcem bieżącego okresu. Zarządzaj lub anuluj w dowolnym momencie w Ustawieniach konta na swoim urządzeniu. Warunki użytkowania (standardowa umowa EULA Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Polityka prywatności: https://jackwallner.github.io/mahj/privacy-policy.
+Bridge+ jest dostępny w formie automatycznie odnawialnej subskrypcji lub jednorazowego zakupu: Miesięcznie 1.99 $/miesiąc, Rocznie 9.99 $/rok (obie opcje zawierają 1 tydzień darmowego okresu próbnego) lub Dożywotnio 29.99 $ jednorazowo. Płatność jest pobierana z konta Apple ID po potwierdzeniu zakupu. Subskrypcje odnawiają się automatycznie, chyba że zostaną anulowane co najmniej 24 godziny przed końcem bieżącego okresu. Możesz zarządzać subskrypcją lub ją anulować w dowolnym momencie w Ustawieniach Konta na swoim urządzeniu. Warunki korzystania (standardowa umowa EULA firmy Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Polityka prywatności: https://jackwallner.github.io/bridge/privacy-policy.

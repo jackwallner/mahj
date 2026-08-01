@@ -48,7 +48,7 @@ enum WhatsNew {
                     id: "endless",
                     icon: "infinity",
                     title: "Endless Practice",
-                    body: "Freshly dealt racks, every time. Read the section or count what is still live for as long as you like, with a full explanation after every answer.",
+                    body: "Freshly dealt hands, every time. Name the opening call or count the points for as long as you like, with a full explanation after every answer.",
                     isPlus: true
                 ),
                 WhatsNewItem(
@@ -62,7 +62,7 @@ enum WhatsNew {
                     id: "challenge",
                     icon: "timer",
                     title: "Timed Challenge",
-                    body: "Ninety seconds, as many correct reads as you can manage, and a personal best to chase.",
+                    body: "Ninety seconds, as many correct calls as you can manage, and a personal best to chase.",
                     isPlus: true
                 ),
                 WhatsNewItem(
@@ -75,7 +75,7 @@ enum WhatsNew {
                     id: "content",
                     icon: "plus.rectangle.on.folder.fill",
                     title: "More drills in every room",
-                    body: "New hand-written questions across the tiles, the card, the Charleston, the table, and the Master Tables."
+                    body: "New hand-written questions across the auction, declarer play, defense, and the Master Tables."
                 ),
             ]
         )
