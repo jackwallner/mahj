@@ -1,43 +1,40 @@
-Practica el Mah Jongg americà en sessions de cinc minuts: fitxes, estratègia del Charleston, lectura del rack i decisions de guardar o descartar, pensat per a jugadors nous.
+Desenvolupa instints reals de bridge de contracte en sessions de cinc minuts.
 
-Vas aprendre mah jongg dijous passat? No ho perdis. Mahj Trainer no té rivals, ni cronòmetre, ni pressió: només repeticions ràpides i interactives que construeixen les habilitats que necessites abans de seure a una taula de veritat. Pensa-hi com practicar el servei sense jugar un partit sencer.
-
-PER QUÈ FUNCIONA
-La majoria de jugadors nous aprenen en una partida setmanal i després no tenen manera de practicar fins a la següent. El que han après s'esvaeix. Mahj Trainer et dona repeticions ràpides que pots fer a qualsevol lloc, fins i tot fent cua.
+Bridge Trainer converteix els aspectes que més necessiten els principiants en exercicis ràpids i enfocats. Sense oponents, sense temporitzadors i sense pressió. Compta punts, tria una licitació d'obertura, planifica la jugada i aprèn hàbits defensius amb l'explicació darrere de cada resposta.
 
 QUATRE SALES DE PRÀCTICA GRATUÏTES
 
-LA SALA DE LES FITXES
-Coneix cada família de fitxes: caràcters, bambús, punts, vents, dracs, flors i comodins. Després posa't a prova amb les regles que tothom confon: quin drac va amb quin coll, què pot i no pot fer un comodí, què vol dir realment un "soap".
+LA SALA DE CARTES
+Aprèn el rang de les cartes, punts de cartes altes, bases, trumfs, contractes i rols a la taula.
 
-LA SALA DE LA CARTA
-Aprèn les seccions de la carta (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs i més) i com identificar-les. Després practica la lectura de racks: mira 13 fitxes i digues quina secció persegueixen.
+LA SALA DE LICITACIÓ
+Practica el sistema estàndard americà per a principiants. Llegeix mans de 13 cartes i tria entre passar, obertura de coll o 1NT.
 
-LA SALA DEL CHARLESTON
-La part que espanta tots els jugadors nous, sense el pànic. Aprèn les regles i l'estratègia de l'intercanvi, després treballa amb repartiments reals: tria 3 fitxes per passar i compara la teva elecció amb la de l'entrenador, amb el raonament explicat.
+LA SALA DEL DECLARANT
+Compta guanyadores, arrossega trumfs, estableix colls llargs, fes finesses i tria la carta correcta en situacions de joc.
 
-LA SALA DE JOC
-Decisions de guardar o descartar: quan guardar una flor, quan canviar-la per un comodí exposat, què revela l'exposició d'un rival i quins descarts són segurs.
+LA SALA DE DEFENSA
+Entrena sortides, seqüències, joc de la tercera mà, retorn de coll i hàbits de parella.
 
-MAHJ+ (millora opcional)
-Tot l'anterior segueix sent gratuït per sempre. Mahj+ afegeix pràctica que no s'acaba mai:
+BRIDGE+ (OPCIONAL)
+Tot l'anterior segueix sent gratuït. Bridge+ afegeix pràctica que no s'acaba mai:
 
-ENDLESS PRACTICE reparteix un rack generat al moment cada vegada, així la lectura de categories no es repeteix mai ni s'esgota.
+ENDLESS PRACTICE reparteix cada vegada una mà de 13 cartes generada al moment, així els exercicis d'obertura no es repeteixen mai ni s'esgoten.
 
 FIX MY MISTAKES recorda què has fallat i t'ho retorna segons un calendari espaiat, perquè els punts febles es tanquin de debò.
 
 TIMED CHALLENGE et dóna noranta segons de preguntes variades i un rècord personal per superar.
 
-SÈRIES DE PRÀCTICA ADDICIONALS a cadascuna de les quatre sales, amb noves preguntes, racks i repartiments als mateixos exercicis que ja utilitzes.
+SÈRIES DE PRÀCTICA ADDICIONALS a cadascuna de les quatre sales per a principiants, amb noves preguntes i mans als mateixos exercicis que ja utilitzes.
 
-THE MASTER TABLES, on l'estratègia avançada del Charleston, una escola de defensa i exercicis experts de lectura de rack esperen qui ja ha passat els fonaments.
+THE MASTER TABLES, amb convencions, joc de cartes avançat i estratègia de duplicat.
 
 S'afegeixen exercicis nous durant tot l'any.
 
-PENSAT PER A JUGADORS NOUS
-Targetes amb el "per què" al dors. Ratxes que et mantenen practicant entre partides. Mans de pràctica originals que ensenyen el sistema de categories, perquè les teves habilitats funcionin amb la carta de qualsevol any.
+DISSENYAT PER APRENDRE
+Targetes d'entrenament lliscants, qüestionaris ràpids, mans reals de 13 cartes, escenaris de joc, ratxes i una sessió diària mixta que repassa el material fallat.
 
-Mahj Trainer és una aplicació de pràctica independent. No està afiliada ni recolzada per la National Mah Jongg League. Per a mans i valors oficials, aconsegueix la carta NMJL vigent.
+Bridge Trainer utilitza un sistema estàndard americà per a principiants. Els acords de parella varien, així que confirma les convencions amb el teu company.
 
 SUBSCRIPCIONS
-Mahj+ està disponible mitjançant subscripció de renovació automàtica o compra única: Mensual $1.99/mes, Anual $9.99/any (totes dues amb 1 setmana de prova gratuïta), o Lifetime $29.99 pagament únic. El pagament es carrega al teu compte d'Apple ID en confirmar la compra. Les subscripcions es renoven automàticament llevat que es cancel·lin almenys 24 hores abans que acabi el període actual. Gestiona-la o cancel·la-la quan vulguis a la Configuració del compte del teu dispositiu. Condicions d'ús (CLUF estàndard d'Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Política de privacitat: https://jackwallner.github.io/mahj/privacy-policy.
+Bridge+ està disponible mitjançant subscripció autorenovable o compra única: Mensual $1.99/mes, Anual $9.99/any (ambdós inclouen 1 setmana de prova gratuïta) o Vitalici $29.99 pagament únic. El pago es carrega al teu compte d'Apple ID en confirmar la compra. Les subscripcions es renoven automàticament a menys que es cancel·lin almenys 24 hores abans del final del període actual. Gestiona o cancel·la en qualsevol moment als Ajustos de Compte del teu dispositiu. Termes d'ús (EULA estàndard d'Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Política de privadesa: https://jackwallner.github.io/bridge/privacy-policy.

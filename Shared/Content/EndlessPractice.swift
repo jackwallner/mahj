@@ -8,37 +8,36 @@ import Foundation
 /// This is the answer to the finite-content problem: authored sets are a pile a
 /// player finishes, generated skills are a machine that keeps going.
 enum PracticeSkill: String, CaseIterable, Identifiable, Sendable {
-    case rackReading
-    case tileCounting
+    case openings
+    case pointCount
 
     var id: String { rawValue }
 
     var title: String {
         switch self {
-        case .rackReading: return "Read the Rack"
-        case .tileCounting: return "Count What's Left"
+        case .openings: return "Name Your Opening"
+        case .pointCount: return "Count the Points"
         }
     }
 
     var subtitle: String {
         switch self {
-        case .rackReading: return "Freshly dealt racks, unlimited reps"
-        case .tileCounting: return "Track the tiles still in play"
+        case .openings: return "Freshly dealt hands, unlimited reps"
+        case .pointCount: return "Add up a hand at a glance"
         }
     }
 
     var icon: String {
         switch self {
-        case .rackReading: return "square.grid.3x3.fill"
-        case .tileCounting: return "number.circle.fill"
+        case .openings: return "quote.bubble.fill"
+        case .pointCount: return "number.circle.fill"
         }
     }
 
     /// The room this skill practises, for the stats breakdown.
     var roomID: String {
         switch self {
-        case .rackReading: return "card-room"
-        case .tileCounting: return "table-room"
+        case .openings, .pointCount: return "auction-room"
         }
     }
 
@@ -65,10 +64,11 @@ enum EndlessPractice {
         kind: .quiz([])
     )
 
+    /// A fresh batch of generated questions for one skill.
     static func items(for skill: PracticeSkill, count: Int) -> [QuickItem] {
         switch skill {
-        case .rackReading: return rackItems(count: count)
-        case .tileCounting: return countingItems(count: count)
+        case .openings: return openingItems(count: count)
+        case .pointCount: return pointCountItems(count: count)
         }
     }
 
@@ -79,70 +79,70 @@ enum EndlessPractice {
         return skills.flatMap { items(for: $0, count: perSkill) }.shuffled().prefix(count).map { $0 }
     }
 
-    // MARK: - Rack reading
+    // MARK: - Openings
 
-    private static func rackItems(count: Int) -> [QuickItem] {
-        RackGenerator.batch(count: count).map { rack in
-            let labels = rack.choices.map(\.displayName)
-            let answerIndex = rack.choices.firstIndex(of: rack.answer) ?? 0
+    private static func openingItems(count: Int) -> [QuickItem] {
+        HandGenerator.batch(count: count).map { hand in
+            let labels = HandCategory.allCases.map(\.displayName)
+            let answerIndex = HandCategory.allCases.firstIndex(of: hand.answer) ?? 0
             return QuickItem(
-                id: PracticeSkill.rackReading.itemPrefix + UUID().uuidString,
-                prompt: "Which section is this rack chasing?",
-                tiles: rack.tiles,
+                id: PracticeSkill.openings.itemPrefix + UUID().uuidString,
+                prompt: "What is your opening call?",
+                cards: hand.cards,
                 choices: labels,
                 answerIndex: answerIndex,
-                explanation: rack.explanation,
+                explanation: hand.explanation,
                 sourceLabel: "Endless Practice",
-                roomID: PracticeSkill.rackReading.roomID
+                roomID: PracticeSkill.openings.roomID
             )
         }
     }
 
-    // MARK: - Tile counting
+    // MARK: - Point count
 
-    /// Four of every suited tile, wind and dragon exist. Knowing how many are
-    /// still live is the difference between waiting on a tile that is coming
-    /// and waiting on one that is already gone, which is the single most
-    /// useful counting habit at a real table.
-    private static func countingItems(count: Int) -> [QuickItem] {
+    /// Deal a hand, ask for its high-card points. Distractors sit next to the
+    /// true count so the player has to actually add rather than eyeball it.
+    private static func pointCountItems(count: Int) -> [QuickItem] {
+        let deck: [BridgeCard] = Suit.allCases.flatMap { suit in
+            Rank.allCases.map { BridgeCard($0, suit) }
+        }
         var items: [QuickItem] = []
         while items.count < count {
-            let tile = randomCountableTile()
-            let held = Int.random(in: 0...2)
-            let exposed = Int.random(in: 0...(4 - held - 1))
-            let remaining = 4 - held - exposed
+            let cards = Array(deck.shuffled().prefix(13)).sortedForDisplay
+            let hcp = cards.highCardPoints
+            // A hand with no honours at all is a trick question, not a drill.
+            guard hcp >= 3 else { continue }
 
-            var values = Set([remaining])
-            for offset in [-2, -1, 1, 2] where (0...4).contains(remaining + offset) {
-                values.insert(remaining + offset)
+            let offsets = [-2, -1, 1, 2].shuffled().prefix(3)
+            var values = Set([hcp])
+            for offset in offsets where hcp + offset >= 0 {
+                values.insert(hcp + offset)
             }
-            let sorted = Array(values.sorted().prefix(4))
-            guard let answerIndex = sorted.firstIndex(of: remaining), sorted.count >= 3 else { continue }
-
-            let heldPhrase = held == 0 ? "none on your rack" : "\(held) on your rack"
-            let exposedPhrase = exposed == 0 ? "none showing on the table" : "\(exposed) exposed on other racks"
+            let sorted = values.sorted()
+            guard let answerIndex = sorted.firstIndex(of: hcp) else { continue }
 
             items.append(QuickItem(
-                id: PracticeSkill.tileCounting.itemPrefix + UUID().uuidString,
-                prompt: "You have \(heldPhrase) and can see \(exposedPhrase). How many \(tile.spokenName)s are still unaccounted for?",
-                tiles: Array(repeating: tile, count: max(held, 1)),
+                id: PracticeSkill.pointCount.itemPrefix + UUID().uuidString,
+                prompt: "How many high-card points is this hand worth?",
+                cards: cards,
                 choices: sorted.map(String.init),
                 answerIndex: answerIndex,
-                explanation: "Four of every tile exist. \(held) held plus \(exposed) exposed leaves \(remaining) unaccounted for. Jokers cannot stand in for a tile in a pair, so counting matters most when you are waiting on one.",
+                explanation: pointExplanation(cards, total: hcp),
                 sourceLabel: "Endless Practice",
-                roomID: PracticeSkill.tileCounting.roomID
+                roomID: PracticeSkill.pointCount.roomID
             ))
         }
         return items
     }
 
-    /// Flowers and jokers are excluded: eight of each exist, so they do not
-    /// follow the four-of-a-kind arithmetic this drill teaches.
-    private static func randomCountableTile() -> Tile {
-        let suited: [Tile] = (1...9).flatMap { rank in
-            Suit.allCases.map { Tile.suited(rank: rank, suit: $0) }
+    private static func pointExplanation(_ cards: [BridgeCard], total: Int) -> String {
+        var parts: [String] = []
+        for (rank, value) in [(Rank.ace, 4), (Rank.king, 3), (Rank.queen, 2), (Rank.jack, 1)] {
+            let held = cards.filter { $0.rank == rank }.count
+            guard held > 0 else { continue }
+            parts.append("\(held) \(rank.spokenName.lowercased())\(held == 1 ? "" : "s") at \(value)")
         }
-        let honors: [Tile] = Wind.allCases.map { Tile.wind($0) } + Dragon.allCases.map { Tile.dragon($0) }
-        return (suited + honors).randomElement() ?? .c(1)
+        let breakdown = parts.isEmpty ? "no honours" : parts.joined(separator: ", ")
+        return "\(breakdown). That totals \(total) high-card points. Aces 4, kings 3, queens 2, jacks 1."
     }
 }

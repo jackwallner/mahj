@@ -1,43 +1,40 @@
-Pratique Mah Jongg americano em sessões de cinco minutos: peças, estratégia do Charleston, leitura do rack e decisões de manter ou descartar, feito para quem está começando.
+Desenvolva instintos reais de bridge de contrato em sessões de cinco minutos.
 
-Aprendeu mah jongg na quinta-feira? Não deixe esfriar. O Mahj Trainer não tem adversários, cronômetro nem pressão: só repetições rápidas e interativas que constroem as habilidades que você precisa antes de sentar numa mesa de verdade. Pense nisso como treinar seu saque sem jogar uma partida completa.
-
-POR QUE FUNCIONA
-A maioria dos iniciantes aprende numa partida semanal e depois não tem como praticar até a próxima. As lições somem da memória. O Mahj Trainer te dá repetições rápidas que você pode fazer em qualquer lugar, até na fila.
+O Bridge Trainer transforma as partes que os iniciantes mais precisam em exercícios rápidos e focados. Sem oponentes, sem cronômetros e sem pressão. Conte pontos, escolha uma abertura de licitação, planeje o jogo e aprenda hábitos defensivos com la justificativa de cada resposta.
 
 QUATRO SALAS DE PRÁTICA GRATUITAS
 
-A SALA DAS PEÇAS
-Conheça cada família de peças: caracteres, bambus, pontos, ventos, dragões, flores e coringas. Depois teste-se nas regras que todo mundo erra: qual dragão combina com qual naipe, o que um coringa pode e não pode fazer, o que um "soap" realmente significa.
+A SALA DE CARTAS
+Aprenda o ranking das cartas, pontos de honra, vazas, trunfo, contratos e papéis na mesa.
 
-A SALA DA CARTA
-Aprenda as seções da carta (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs e mais) e como identificá-las. Depois pratique a leitura de racks: veja 13 peças e diga qual seção elas estão buscando.
+A SALA DE LICITAÇÃO
+Pratique o sistema Standard American para iniciantes. Leia mãos de 13 cartas e escolha entre passo, abertura de naipe ou 1NT.
 
-A SALA DO CHARLESTON
-A parte que assusta todo iniciante, sem o pânico. Aprenda as regras e a estratégia da troca, depois trabalhe em distribuições reais: escolha 3 peças para passar e compare sua escolha com a do treinador, com o raciocínio explicado.
+A SALA DO DECLARANTE
+Conte ganhadoras, puxe trunfos, estabeleça naipes longos, faça finesses e escolha a carta certa nas situações de jogo.
 
-A SALA DA MESA
-Decisões de manter ou descartar: quando guardar uma flor, quando trocar por um coringa exposto, o que a exposição de um adversário revela e quais descartes são seguros.
+A SALA DE DEFESA
+Treine saídas, sequências, jogo de terceira mão, retornos de naipe e hábitos de parceria.
 
-MAHJ+ (upgrade opcional)
-Tudo acima continua gratuito para sempre. O Mahj+ acrescenta prática que nunca acaba:
+BRIDGE+ (OPCIONAL)
+Tudo acima continua gratuito. O Bridge+ acrescenta prática que nunca acaba:
 
-ENDLESS PRACTICE distribui um rack gerado na hora toda vez, então a leitura de categorias nunca se repete e nunca acaba.
+ENDLESS PRACTICE distribui toda vez uma mão de 13 cartas gerada na hora, então os exercícios de abertura nunca se repetem e nunca acabam.
 
 FIX MY MISTAKES lembra o que você errou e traz de volta em um cronograma espaçado, para que os pontos fracos realmente se fechem.
 
 TIMED CHALLENGE dá noventa segundos de perguntas variadas e um recorde pessoal para perseguir.
 
-CONJUNTOS DE PRÁTICA EXTRA em cada uma das quatro salas, com novas perguntas, racks e distribuições nos mesmos exercícios que você já usa.
+CONJUNTOS DE PRÁTICA EXTRA em cada uma das quatro salas para iniciantes, com novas perguntas e mãos nos mesmos exercícios que você já usa.
 
-THE MASTER TABLES, onde estratégia avançada de Charleston, uma escola de defesa e exercícios de leitura de rack para especialistas esperam quem já passou do básico.
+THE MASTER TABLES, com convenções, jogo da carta avançado e estratégia de duplicado.
 
 Novos exercícios são adicionados o ano todo.
 
-FEITO PARA QUEM ESTÁ COMEÇANDO
-Flashcards com o "porquê" no verso. Sequências que te mantêm praticando entre uma partida e outra. Mãos de prática originais que ensinam o sistema de categorias, para que suas habilidades funcionem com a carta de qualquer ano.
+CONSTRUÍDO PARA O APRENDIZADO
+Cartões de treinamento interativos, quizzes rápidos, mãos reais de 13 cartas, cenários de jogo, sequências de acertos e uma sessão diária mista que traz de volta o material que você errou.
 
-O Mahj Trainer é um app de prática independente. Não é afiliado nem endossado pela National Mah Jongg League. Para mãos e valores oficiais, obtenha a carta NMJL vigente.
+O Bridge Trainer usa o sistema Standard American para iniciantes. Os acordos de parceria variam, portanto, confirme as convenções com seu parceiro.
 
 ASSINATURAS
-O Mahj+ está disponível por assinatura de renovação automática ou compra única: Mensal $1.99/mês, Anual $9.99/ano (ambas com 1 semana de teste grátis), ou Lifetime $29.99 em pagamento único. O pagamento é cobrado na sua conta Apple ID na confirmação da compra. As assinaturas renovam automaticamente, a menos que sejam canceladas pelo menos 24 horas antes do fim do período atual. Gerencie ou cancele quando quiser nos Ajustes de conta do seu dispositivo. Termos de Uso (EULA padrão da Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Política de Privacidade: https://jackwallner.github.io/mahj/privacy-policy.
+O Bridge+ está disponível por assinatura autorrenovável ou compra única: Mensal $1.99/mês, Anual $9.99/ano (ambos incluem 1 semana de teste grátis) ou Lifetime $29.99 pagamento único. O pagamento é cobrado na sua conta Apple ID na confirmação da compra. As assinaturas são renovadas automaticamente, a menos que sejam canceladas pelo menos 24 horas antes do final do período atual. Gerencie ou cancele a qualquer momento nos Ajustes de Conta do seu dispositivo. Termos de Uso (EULA padrão da Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Política de Privacidade: https://jackwallner.github.io/bridge/privacy-policy.

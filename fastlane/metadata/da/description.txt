@@ -1,43 +1,40 @@
-Øv amerikansk Mah Jongg i femminutters øvelser: brikker, Charleston-strategi, brætlæsning og hold-eller-kast-beslutninger, lavet til nye spillere.
+Opbyg ægte instinkter for kontraktbridge i sessioner på fem minutter.
 
-Lærte du mah jongg torsdag? Behold det. Mahj Trainer har ingen modstandere, ingen tidtagning og intet pres: bare hurtige, interaktive øvelser, der opbygger de færdigheder, du skal bruge, inden du sætter dig ved et rigtigt bord. Tænk på det som at øve din serv uden at spille en kamp.
+Bridge Trainer forvandler de vigtigste elementer for begyndere til hurtige, fokuserede øvelser. Der er ingen modstandere, ingen timere og intet pres. Tæl point, vælg en åbningsmelding, planlæg spillet, og lær forsvarsvaner med forklaringen bag hvert svar.
 
-HVORFOR DET VIRKER
-De fleste nye spillere lærer det til et ugentligt spil og har ingen måde at øve på før næste gang. Lærdommen forsvinder. Mahj Trainer giver dig hurtige øvelser, du kan tage overalt, selv mens du står i kø.
+FIRE GRATIS TRÆNINGSRUM
 
-FIRE GRATIS ØVELSESRUM
+KORTRUMMET
+Lær kortrang, honnørpoint, stik, trumf, kontrakter og roller ved bordet.
 
-BRIKROMMET
-Mød hver brikfamilie: crak, bam, dot, vind, drage, blomst og joker. Test dig selv på reglerne, alle tager fejl af: hvilken drage hører til hvilken farve, hvad jokere kan og ikke kan gøre, og hvad en "soap" egentlig betyder.
+MELDERUMMET
+Træn det grundlæggende Standard American-system. Læs hænder med 13 kort, og vælg mellem pas, en farveåbning eller 1NT.
 
-KORTROMMET
-Lær kortets afsnit (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs, med flere) og hvordan du genkender dem. Øv dig derefter i at læse bræt: se 13 brikker og find det afsnit, de jagter.
+SPILFØRERRUMMET
+Tæl vindere, træk trumf, etabler lange farver, tag knibe, og vælg det rigtige kort i spilsituationer.
 
-CHARLESTON-ROMMET
-Delen, der skræmmer alle nye spillere, minus panikken. Lær reglerne og strategien bag afgivelsen, og arbejd dig gennem rigtige deals: vælg 3 brikker at give videre, og sammenlign dit valg med trænerens, med forklaringen inkluderet.
+FORSVARSRUMMET
+Træn udspil, sekvenser, spil som tredjemand, returer og partnerskabsvaner.
 
-BORDROMMET
-Hold-eller-kast-beslutninger: hvornår du skal beholde en blomst, hvornår du skal bytte for en eksponeret joker, hvad en modstanders eksponering fortæller dig, og hvilke kast der er sikre.
+BRIDGE+ (VALGFRIT)
+Alt ovenfor forbliver gratis. Bridge+ tilføjer træning, der aldrig slipper op:
 
-MAHJ+ (valgfri opgradering)
-Alt ovenfor forbliver gratis for altid. Mahj+ tilføjer træning, der aldrig slipper op:
-
-ENDLESS PRACTICE giver et nygenereret rack hver gang, så kategorilæsningen aldrig gentages og aldrig slipper op.
+ENDLESS PRACTICE giver hver gang en nygenereret hånd med 13 kort, så øvelser i åbningsmeldinger aldrig gentages og aldrig slipper op.
 
 FIX MY MISTAKES husker, hvad du svarede forkert, og bringer det tilbage efter en spredt plan, så svage punkter faktisk lukkes.
 
 TIMED CHALLENGE giver dig halvfems sekunder med blandede spørgsmål og en personlig rekord at jagte.
 
-EKSTRA ØVELSESSÆT i hvert af de fire rum, med nye spørgsmål, racks og givninger i de samme øvelser, du allerede bruger.
+EKSTRA ØVELSESSÆT i hvert af de fire begynderrum, med nye spørgsmål og hænder i de samme øvelser, du allerede bruger.
 
-THE MASTER TABLES, hvor avanceret Charleston-strategi, en forsvarsskole og eksperttræning i rack-læsning venter på spillere, der er kommet videre fra det grundlæggende.
+THE MASTER TABLES, med konventioner, avanceret kortspil og turneringsstrategi.
 
 Der kommer nye øvelser hele året.
 
-LAVET TIL NYE SPILLERE
-Flashcards med "hvorfor" på bagsiden. Stimer, der holder dig i gang mellem spilleaftener. Originale øvelseshænder, der lærer kategorisystemet, så dine færdigheder overføres til ethvert års kort.
+BYGGET TIL LÆRING
+Læringskort, hurtige quizzer, realistiske 13-korthænder, spilszenarier, serier og en daglig blandet session, der gentager det glemte materiale.
 
-Mahj Trainer er en uafhængig træningsapp. Den er ikke tilknyttet eller godkendt af National Mah Jongg League. For officielle hænder og værdier, skaf dig det gældende NMJL-kort.
+Bridge Trainer bruger det grundlæggende Standard American-system. Partnerskabsforståelser varierer, så aftal konventioner med din partner.
 
 ABONNEMENTER
-Mahj+ fås som automatisk fornyende abonnement eller et engangskøb: Månedlig $1.99/måned, Årlig $9.99/år (begge inkluderer en 1-uges gratis prøveperiode), eller Livstid $29.99 som engangskøb. Betaling trækkes fra din Apple ID-konto ved bekræftelse af købet. Abonnementet fornyes automatisk, medmindre det opsiges mindst 24 timer før udgangen af den aktuelle periode. Administrer eller opsig når som helst i Kontoindstillinger på din enhed. Brugsvilkår (Apples standard EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Privatlivspolitik: https://jackwallner.github.io/mahj/privacy-policy.
+Bridge+ fås som automatisk fornyeligt abonnement eller som engangskøb: Månedligt $1.99/måned, Årligt $9.99/år (begge inkluderer 1 uges gratis prøveperiode) eller Livstid $29.99 engangskøb. Betalingen debiteres dit Apple ID ved bekræftelse av købet. Abonnementer fornyes automatisk, medmindre de opsiges senest 24 timer før udgangen af den aktuelle periode. Administrer eller opsig når som helst i din enheds kontoindstillinger. Vilkår for brug (Apples standard EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Privatlivspolitik: https://jackwallner.github.io/bridge/privacy-policy.
