@@ -2,7 +2,7 @@
 
 Mahj Trainer: American Mah Jongg drill app for new players (flashcards, quizzes,
 hand-matching, Charleston practice — no gameplay). XcodeGen project/scheme:
-`MahjTrainer`, simulator device `agent-mahj`. Bundle ID `com.jackwallner.mahj`.
+`MahjTrainer`, sim lease owner `mahj`. Bundle ID `com.jackwallner.mahj`.
 
 **Product direction:** the swipe deck is a signature mechanic but this is NOT
 "a flashcard app" — each room is free to use whatever training interaction fits
