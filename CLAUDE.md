@@ -155,6 +155,44 @@ Terms of Use, and Privacy Policy. Don't trim any of them for layout.
 See `MahjTrainer/Views/Drills/CLAUDE.md` for the swipe-deck gesture/flip
 mechanics and gotchas.
 
+## iPad layout: centre what underfills
+
+Every drill body is a scroll view, because a graded question plus its coaching
+note outgrows a phone. On a 13-inch iPad the same question fills a third of the
+screen, and a plain `ScrollView` pins it to the top. `CenteringScrollView`
+(`Views/Components/`) is the answer: `minHeight` = viewport so short content
+centres, natural size so tall content still scrolls. `QuestionPager` and
+`CharlestonDrillView` both use it. Two things it must keep: `maxWidth:
+.infinity` alongside the `minHeight` (a plain ScrollView centres narrow content
+for you, an explicitly framed one does not, and the question slides left), and
+the room eyebrow INSIDE the pager (`QuestionPager.eyebrow`) so it centres with
+the question instead of stranding itself at the top. The flashcard deck is
+capped at 520pt wide, 1.5x tall: a card stretched to the full readable width is
+the same few words spread thinner.
+
+## Screenshots: captured, not hand-shot
+
+`scripts/capture-screenshots.sh <udid> <out-dir> [prefix]` drives the real app
+through the six App Store screens via the `Screenshots` scheme
+(`MahjTrainerScreenshots`) and exports the attachments. iPad shots must be
+2064x2752, which only a 13-inch device produces and the agent-sim pool does not
+have, so `scripts/with-ipad-sim.sh` creates a throwaway one, boots it headless,
+and deletes it on exit:
+
+```bash
+./scripts/with-ipad-sim.sh sh -c './scripts/capture-screenshots.sh "$IPAD_UDID" out ipad_'
+```
+
+Gotchas baked into the test, do not undo them: the What's New sheet covers Home
+on the first launch after a version bump, so the script passes the marketing
+version through `TEST_RUNNER_SCREENSHOT_APP_VERSION` and the test marks it seen
+(dismissing is not enough, it returns every time Home reappears); returning to
+the root taps navigation-bar button 0 only while a back button is there,
+because on Home that button is the Settings gear and the extra tap opens
+Settings while the elements underneath still answer queries; and the test never
+calls `XCTFail`, because a failing UI test spends ten minutes collecting
+simulator diagnostics before it tells you anything.
+
 ## Illustration: don't
 
 Generated room art was tried and removed (2026-07-13): it looked cheap and

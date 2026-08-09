@@ -129,7 +129,13 @@ schedules on release day.
    TestFlight via `./scripts/testflight.sh`.
 5. Submit 1.3 for review.
 6. **On release day**, run `asc-set-prices.py` (with lifetime support added) to
-   flip the price schedules.
+   flip the price schedules. The script now ENFORCES this rather than trusting
+   the reader: `REQUIRED_LIVE_VERSION` must be READY_FOR_SALE on the store or it
+   refuses and exits 1. Bump that constant alongside `USA_PRICES`. `--force`
+   exists but you almost certainly do not want it.
+
+**Note (2026-08-09):** the price change shipped folded into 1.2.0 rather than a
+separate 1.3, so the gate is set to `1.2.0`.
 
 Do not flip ASC prices before the build is live. That would leave the paywall
 fallback advertising $9.99 while Apple charges $19.99, which is the wrong

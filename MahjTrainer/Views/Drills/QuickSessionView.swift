@@ -107,15 +107,12 @@ struct QuickSessionView: View {
             ProgressView(value: Double(index), total: Double(items.count))
                 .tint(Theme.jade)
             VStack(spacing: 12) {
-                Text(item.sourceLabel.uppercased())
-                    .font(.caption2.weight(.heavy))
-                    .kerning(1.4)
-                    .foregroundStyle(Theme.inkTertiary)
                 QuestionPager(
                     prompt: item.prompt,
                     tiles: item.tiles,
                     explanation: item.explanation,
-                    answered: answered
+                    answered: answered,
+                    eyebrow: item.sourceLabel.uppercased()
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)
