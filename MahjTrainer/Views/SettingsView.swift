@@ -71,12 +71,13 @@ struct SettingsView: View {
                 }
                 Button("Not now", role: .cancel) {}
             } message: {
-                Text("Mahj Trainer can't send your daily reminder until notifications are turned on for it in iOS Settings.")
+                Text("Mahj Trainer cannot send reminders until notifications are turned on in iOS Settings.")
             }
             .alert("Reset all progress?", isPresented: $showResetConfirm) {
                 Button("Reset", role: .destructive) {
                     progress.resetAll()
                     PracticeRecordStore.shared.resetAll()
+                    MahjMinuteStore.shared.resetAll()
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {
@@ -102,6 +103,13 @@ struct SettingsView: View {
             Toggle("Daily Reminder", isOn: $settings.reminderEnabled)
             if settings.reminderEnabled {
                 DatePicker("Reminder Time", selection: $settings.reminderTime, displayedComponents: .hourAndMinute)
+            }
+            if subscriptions.isPro {
+                NavigationLink {
+                    GameNightPrepView()
+                } label: {
+                    Label("Game Night Prep", systemImage: "person.2.fill")
+                }
             }
         }
     }

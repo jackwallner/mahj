@@ -84,6 +84,8 @@ struct FeatureTourView: View {
             }
         }
         .padding()
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.35)) }
         .fullScreenCover(isPresented: $showQuickSession, onDismiss: onDone) {
@@ -122,14 +124,14 @@ struct FeatureTourView: View {
                 ? TourPage(
                     eyebrow: "YOURS NOW",
                     title: "\(Membership.name) is open",
-                    body: "Your trial already includes Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables: advanced Charleston, Defense School, and expert rack reading.",
+                    body: "Your trial already includes Mahj Minute, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables.",
                     hero: AnyView(proHero(locked: false)),
                     accentGold: true
                 )
                 : TourPage(
                     eyebrow: "BEHIND THE GOLD DOOR",
                     title: "\(Membership.name) adds more of it",
-                    body: "Endless Practice deals racks that never run out, every room keeps a set of extra drills behind the lock, and the Master Tables hold the advanced ones. Nothing you have now goes away. Unlock any time from Home or Settings.",
+                    body: "Mahj Minute gives every member the same daily challenge, Game Night Prep targets your weak spots before you play, and Endless Practice never runs out. Nothing you have now goes away. Unlock any time from Home or Settings.",
                     hero: AnyView(proHero(locked: true)),
                     accentGold: true
                 ),
@@ -227,7 +229,7 @@ struct FeatureTourView: View {
             // The same three modes the paywall leads with. Extra sets and the
             // Master Tables are carried by the page body, so the hero does not
             // have to say everything.
-            ForEach(["Endless Practice, never repeats", "Fix My Mistakes replays your misses", "Timed Challenge, 90 seconds"], id: \.self) { line in
+            ForEach(["Mahj Minute, one shared daily challenge", "Game Night Prep, built around your weak spots", "Endless Practice, never repeats"], id: \.self) { line in
                 HStack(spacing: 8) {
                     Image(systemName: locked ? "sparkles" : "checkmark.circle.fill")
                         .font(.footnote)

@@ -200,6 +200,9 @@ final class ContentValidityTests: XCTestCase {
         copy += HowToPlayContent.pages.flatMap { page in
             [page.title, page.body, page.tip ?? ""]
         }
+        copy += MahjMinuteContent.challenge().items.flatMap { item in
+            [item.prompt, item.explanation, item.sourceLabel] + item.choices
+        }
         for text in copy {
             XCTAssertFalse(text.contains("\u{2014}"), "Em dash found in copy: \(text)")
         }
@@ -284,5 +287,23 @@ final class ContentValidityTests: XCTestCase {
             XCTAssertFalse(plainFlashcardIDs.contains(item.id), "\(item.id) is a plain flip flashcard and must not appear in Quick Session")
             XCTAssertFalse(charlestonIDs.contains(item.id), "\(item.id) is a Charleston scenario and must not appear in Quick Session")
         }
+    }
+
+    func testGameNightPrepPrioritizesDueMistakesAndWeakRoom() throws {
+        let pool = SessionBuilder.choiceItems(in: "table-room", includePro: true)
+        let due = try XCTUnwrap(pool.first)
+        let missed = try XCTUnwrap(pool.dropFirst().first)
+        let session = SessionBuilder.gameNightPrep(
+            count: 10,
+            seen: Set(pool.map(\.id)),
+            missed: [missed.id],
+            dueIDs: [due.id],
+            weakestRoomID: "table-room"
+        )
+
+        XCTAssertEqual(session.count, 10)
+        XCTAssertEqual(session.first?.id, due.id)
+        XCTAssertEqual(session.dropFirst().first?.id, missed.id)
+        XCTAssertEqual(Set(session.map(\.id)).count, session.count)
     }
 }

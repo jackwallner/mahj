@@ -128,6 +128,8 @@ struct PracticeRunView: View {
             ))
         }
         .padding()
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
         .background(Theme.background)
         .drillStage(answerRect: $answerRect)
         .overlay { Theme.bamGreen.opacity(flashOpacity).allowsHitTesting(false).ignoresSafeArea() }

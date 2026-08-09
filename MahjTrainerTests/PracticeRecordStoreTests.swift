@@ -67,6 +67,14 @@ final class PracticeRecordStoreTests: XCTestCase {
         XCTAssertEqual(store.dueCount, 0)
     }
 
+    func testOneOffDailyItemContributesToStatsWithoutEnteringReview() {
+        store.record(itemID: "mahj-minute-charleston", roomID: "charleston-room", correct: false, isReviewable: false)
+
+        XCTAssertEqual(store.records["mahj-minute-charleston"]?.attempts, 1)
+        XCTAssertTrue(store.reviewQueue().isEmpty)
+        XCTAssertEqual(store.dueCount, 0)
+    }
+
     func testRoomStatsAggregate() {
         store.record(itemID: "q1", roomID: "tile-room", correct: true)
         store.record(itemID: "q2", roomID: "tile-room", correct: false)
