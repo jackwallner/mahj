@@ -40,5 +40,5 @@ THE MASTER TABLES：上級チャールストン戦略、守備スクール、上
 Mahj Trainerは非公式の独立したトレーニングアプリです。National Mah Jongg Leagueとの提携・公認は一切ありません。公式の役や点数については、最新のNMJLカードをご確認ください。
 
 サブスクリプションについて
-Mahj+は自動更新のサブスクリプションまたは買い切りでご利用いただけます。月額プランMonthly $1.99/月、年額プランYearly $9.99/年（どちらも1週間の無料トライアル付き）、または買い切りプランLifetime $29.99（一回限り）。購入確定時にApple IDアカウントに課金されます。サブスクリプションは、現在の期間終了の少なくとも24時間前にキャンセルしない限り自動的に更新されます。デバイスの「アカウント設定」からいつでも管理・キャンセルできます。利用規約（Appleの標準EULA）：https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Mahj+は自動更新のサブスクリプションまたは買い切りでご利用いただけます。月額プランMonthly $4.99/月、年額プランYearly $19.99/年（どちらも1週間の無料トライアル付き）、または買い切りプランLifetime $49.99（一回限り）。購入確定時にApple IDアカウントに課金されます。サブスクリプションは、現在の期間終了の少なくとも24時間前にキャンセルしない限り自動的に更新されます。デバイスの「アカウント設定」からいつでも管理・キャンセルできます。利用規約（Appleの標準EULA）：https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 プライバシーポリシー：https://jackwallner.github.io/mahj/privacy-policy

@@ -23,7 +23,7 @@ import asc_lib
 
 BUNDLE = "com.jackwallner.mahj"
 PRODUCT_ID = "com.jackwallner.mahj.lifetime"
-PRICE = "29.99"
+PRICE = "49.99"
 NAME = "Pro Lifetime"
 DISPLAY_NAME = "Mahj Trainer Pro Lifetime"
 DESCRIPTION = "All rooms and drills, forever"
@@ -100,7 +100,7 @@ def main() -> None:
     else:
         print("localization exists")
 
-    # 3. $29.99 price schedule based on USA (other territories equalize).
+    # 3. Price schedule based on USA (other territories equalize).
     points = []
     path = f"/v2/inAppPurchases/{iap_id}/pricePoints?filter[territory]=USA&limit=200"
     while path:

@@ -1,9 +1,9 @@
-Práctica que nunca se acaba.
+Un mejor ritmo para la noche de juego.
 
-Endless Practice reparte un rack nuevo cada vez, para que practiques la lectura de categorías y el conteo de fichas todo lo que quieras, con una explicación completa después de cada respuesta.
+Mahj Minute es un nuevo reto diario. Todos los miembros reciben las mismas cinco preguntas el mismo día: dos lecturas de rack, una decisión de Charleston y dos juicios de mesa. Comparte tu puntuación y mantén un ritmo semanal flexible de cinco días, con un archivo de 30 días para ponerte al corriente.
 
-Fix My Mistakes ahora recuerda lo que fallaste y te lo regresa según un calendario, para que los puntos débiles sí se cierren.
+Game Night Prep te permite fijar tu noche de juego habitual. Un recordatorio llega antes y abre directamente una sesión de cinco minutos creada a partir de tus errores pendientes, tu sala más floja y material que aún no has visto.
 
-Timed Challenge te da noventa segundos y un récord personal que superar.
+Mahj Trainer ya funciona de forma nativa en iPad, en vertical u horizontal.
 
-También nuevo: un índice de aciertos para cada sala y más preguntas escritas a mano sobre las fichas, la carta, el Charleston, la mesa y las Master Tables.
+Mahj Minute y Game Night Prep forman parte de Mahj+.

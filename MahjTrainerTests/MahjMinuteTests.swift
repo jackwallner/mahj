@@ -33,6 +33,22 @@ final class MahjMinuteContentTests: XCTestCase {
         XCTAssertEqual(categories[.tableJudgment], 2)
     }
 
+    /// The day seed is fixed, so a day that fails to generate fails identically
+    /// for every member on that date. Sweep several years of real day keys
+    /// rather than trusting a single sampled day.
+    func testEveryDaySeedProducesTheFullQuestionSet() {
+        var day = date(2026, 1, 1)
+        var checked = 0
+        while day < date(2031, 1, 1) {
+            let key = MahjMinuteContent.key(for: day, calendar: calendar)
+            let racks = RackGenerator.batch(count: 2, seed: "mahj-minute-\(key)-racks")
+            XCTAssertEqual(racks.count, 2, "\(key) generated \(racks.count) racks")
+            checked += 1
+            day = calendar.date(byAdding: .day, value: 1, to: day)!
+        }
+        XCTAssertGreaterThan(checked, 1800)
+    }
+
     func testEveryDailyQuestionIsLegalAndGradeable() {
         let challenge = MahjMinuteContent.challenge(for: date(2026, 8, 8), calendar: calendar)
 
