@@ -276,12 +276,12 @@ def main() -> int:
             issues.append("EULA")
         if "jackwallner.github.io/mahj/privacy-policy" not in t:
             issues.append("privacy")
-        if not (("1.99" in t) or ("1,99" in t)):
-            issues.append("1.99")
-        if not (("9.99" in t) or ("9,99" in t)):
-            issues.append("9.99")
-        if not (("29.99" in t) or ("29,99" in t)):
-            issues.append("29.99")
+        if not (("4.99" in t) or ("4,99" in t)):
+            issues.append("4.99")
+        if not (("19.99" in t) or ("19,99" in t)):
+            issues.append("19.99")
+        if not (("49.99" in t) or ("49,99" in t)):
+            issues.append("49.99")
         if "24" not in t:
             issues.append("24h")
         if issues:

@@ -40,5 +40,5 @@ THE MASTER TABLES 裡有進階 Charleston 策略、防守課堂和專家級讀�
 Mahj Trainer是一款獨立的訓練應用程式，與National Mah Jongg League（全美麻將總會）沒有任何隸屬或認可關係。正式牌型與台數請以最新的NMJL牌譜為準。
 
 訂閱說明
-Mahj+可透過自動續訂訂閱或一次性購買解鎖：月繳方案Monthly $1.99/月、年繳方案Yearly $9.99/年（皆含1週免費試用），或一次買斷Lifetime $29.99（永久使用）。購買確認後將從您的Apple ID帳戶扣款。訂閱會自動續訂，除非在目前訂閱週期結束前至少24小時取消。您可以隨時在裝置的「帳戶設定」中管理或取消訂閱。使用條款（Apple標準EULA）：https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Mahj+可透過自動續訂訂閱或一次性購買解鎖：月繳方案Monthly $4.99/月、年繳方案Yearly $19.99/年（皆含1週免費試用），或一次買斷Lifetime $49.99（永久使用）。購買確認後將從您的Apple ID帳戶扣款。訂閱會自動續訂，除非在目前訂閱週期結束前至少24小時取消。您可以隨時在裝置的「帳戶設定」中管理或取消訂閱。使用條款（Apple標準EULA）：https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 隱私權政策：https://jackwallner.github.io/mahj/privacy-policy

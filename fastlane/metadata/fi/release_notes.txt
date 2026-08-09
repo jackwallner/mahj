@@ -1,9 +1,9 @@
-Harjoittelua, joka ei lopu kesken.
+Parempi rytmi peli-iltaan.
 
-Endless Practice jakaa joka kerta uuden rackin, joten voit harjoitella kategorioiden lukemista ja laattojen laskemista niin kauan kuin haluat, ja jokaisen vastauksen jälkeen saat täyden selityksen.
+Mahj Minute on uusi päivittäinen haaste. Kaikki jäsenet saavat samana päivänä samat viisi kysymystä: kaksi rack-lukemaa, yhden Charleston-valinnan ja kaksi pöytäarviota. Jaa tuloksesi ja pidä yllä joustavaa viiden päivän viikkorytmiä, ja kurota kiinni 30 päivän arkistosta.
 
-Fix My Mistakes muistaa nyt, mitä vastasit väärin, ja tuo sen takaisin aikataulun mukaan, jotta heikot kohdat todella umpeutuvat.
+Game Night Prep antaa sinun asettaa tavallisen peli-iltasi. Muistutus tulee etukäteen ja avaa suoraan viiden minuutin harjoituksen, joka rakentuu erääntyneistä virheistäsi, heikoimmasta huoneestasi ja materiaalista, jota et ole vielä nähnyt.
 
-Timed Challenge antaa sinulle yhdeksänkymmentä sekuntia ja ennätyksen tavoiteltavaksi.
+Mahj Trainer toimii nyt natiivisti iPadilla, pysty- tai vaakasuunnassa.
 
-Myös uutta: osumatarkkuus jokaiselle huoneelle ja lisää käsin kirjoitettuja kysymyksiä laatoista, kortista, Charlestonista, pöydästä ja Master Tablesista.
+Mahj Minute ja Game Night Prep kuuluvat Mahj+:aan.

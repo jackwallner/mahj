@@ -129,9 +129,9 @@ enum PaywallPricing {
     static func price(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String {
         let base = subscriptions.package(for: plan)?.storeProduct.localizedPriceString
         switch plan {
-        case .yearly: return "\(base ?? "$9.99")/year"
-        case .monthly: return "\(base ?? "$1.99")/month"
-        case .lifetime: return base ?? "$29.99"
+        case .yearly: return "\(base ?? "$19.99")/year"
+        case .monthly: return "\(base ?? "$4.99")/month"
+        case .lifetime: return base ?? "$49.99"
         }
     }
 

@@ -28,7 +28,7 @@ SUBS = [
         "productId": "com.jackwallner.mahj.yearly",
         "name": "Mahj Trainer Pro Yearly",
         "period": "ONE_YEAR",
-        "price": "29.99",
+        "price": "19.99",
         "desc": "All rooms and drills, billed yearly.",
         "trial": True,
     },
