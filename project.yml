@@ -29,7 +29,7 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         MARKETING_VERSION: "1.2.0"
-        CURRENT_PROJECT_VERSION: "17"
+        CURRENT_PROJECT_VERSION: "18"
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: MahjTrainer/Info.plist
         TARGETED_DEVICE_FAMILY: "1,2"
@@ -47,6 +47,21 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: YES
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Mahj Trainer.app/Mahj Trainer"
+
+  # App Store screenshot capture. Deliberately NOT in the MahjTrainer scheme's
+  # test action: it drives the real UI and takes a minute, and the unit-test
+  # loop should stay instant. Drive it with scripts/capture-screenshots.sh.
+  MahjTrainerScreenshots:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: MahjTrainerScreenshots
+    dependencies:
+      - target: MahjTrainer
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: MahjTrainer
 
 schemes:
   MahjTrainer:
@@ -66,3 +81,13 @@ schemes:
       config: Debug
     archive:
       config: Release
+
+  Screenshots:
+    build:
+      targets:
+        MahjTrainer: all
+        MahjTrainerScreenshots: [test]
+    test:
+      config: Debug
+      targets:
+        - MahjTrainerScreenshots
