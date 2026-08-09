@@ -60,6 +60,19 @@ question, so they collapse onto one per-skill row and never enter the review
 queue or the seen/missed sets, which would otherwise grow without bound.
 `StatsView` (free for everyone) reads the per-room rollups.
 
+**Game-night rhythm (1.2, 2026-08-08):** Mahj+ now owns two recurring practice
+rituals. `MahjMinuteContent` deterministically builds the same five questions
+for every member on a local calendar day: two generated rack reads, one
+authored Charleston decision, and two authored table judgments. Results and a
+30-day archive stay on device in `MahjMinuteStore`; sharing uses the system
+share sheet and needs no account or leaderboard. `GameNightPrepView` stores a
+weekly game night in `AppSettings`, schedules a local notification, and opens
+directly into `SessionBuilder.gameNightPrep`, which prioritizes due mistakes,
+misses, the weakest room, and unseen member content in that order. Both
+features are entirely Mahj+ gated. iPad support is free, with adaptive Home
+columns, drill grids, readable content widths, and portrait and landscape
+orientations.
+
 **What's New sheet:** `WhatsNew` + `WhatsNewSheet`, shown once on the first
 launch after an update. A FRESH install never sees it: onboarding calls
 `WhatsNew.markCurrentAsBaseline()`. An onboarded player with no stored marker

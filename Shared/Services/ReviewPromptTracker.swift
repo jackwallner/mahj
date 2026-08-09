@@ -3,6 +3,7 @@ import StoreKit
 
 enum AppStoreLinks {
     static let appStoreID = "6790052126"
+    static let productURL = URL(string: "https://apps.apple.com/app/id\(appStoreID)")!
 
     /// The write-a-review page. No storefront prefix: the App Store resolves
     /// the bare app id into the viewer's own storefront, and hardcoding one

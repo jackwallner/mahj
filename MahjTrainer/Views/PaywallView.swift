@@ -33,7 +33,7 @@ struct PaywallContent: View {
                 Text("Get \(Membership.name)")
                     .font(Theme.display(28))
                     .foregroundStyle(Theme.ink)
-                Text("Everything you have stays free. \(Membership.name) adds practice that never runs out.")
+                Text("Everything you have stays free. \(Membership.name) adds a smarter practice rhythm that never runs out.")
                     .font(.subheadline)
                     .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)
@@ -43,6 +43,8 @@ struct PaywallContent: View {
             // sittings; what they are actually buying now is practice that
             // does not end.
             VStack(alignment: .leading, spacing: 9) {
+                benefit("Mahj Minute: the shared five-question daily challenge")
+                benefit("Game Night Prep: five minutes built around your weak spots")
                 benefit("Endless Practice: a fresh rack dealt every time")
                 benefit("Fix My Mistakes: misses come back until they stick")
                 benefit("Timed Challenge: 90 seconds, chase your best")
@@ -160,6 +162,8 @@ struct PaywallView: View {
             ScrollView {
                 PaywallContent(selectedPlan: $selectedPlan)
                     .padding()
+                    .frame(maxWidth: 680)
+                    .frame(maxWidth: .infinity)
             }
             .background(Theme.background)
             .safeAreaInset(edge: .bottom) {

@@ -67,6 +67,10 @@ enum Theme {
 
     static let cardCorner: CGFloat = 20
     static let deckCorner: CGFloat = 26
+    /// Keeps reading and answering comfortable on iPad instead of stretching
+    /// phone-sized interactions across the full window.
+    static let readableContentWidth: CGFloat = 760
+    static let wideContentWidth: CGFloat = 1120
 }
 
 /// Room identity: each room keeps its own accent so the four doors feel like

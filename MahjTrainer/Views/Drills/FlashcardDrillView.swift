@@ -58,6 +58,8 @@ struct FlashcardDrillView: View {
             .padding(.horizontal, 4)
         }
         .padding()
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.42)) }
         .navigationTitle(drill.title)

@@ -109,7 +109,10 @@ enum RackGenerator {
     ]
 
     /// The distinct tiles a section is allowed to draw from.
-    private static func palette(for category: HandCategory) -> [Tile] {
+    private static func palette<R: RandomNumberGenerator>(
+        for category: HandCategory,
+        using generator: inout R
+    ) -> [Tile] {
         func suited(_ ranks: [Int]) -> [Tile] {
             ranks.flatMap { rank in Suit.allCases.map { Tile.suited(rank: rank, suit: $0) } }
         }
@@ -118,7 +121,7 @@ enum RackGenerator {
         case .odds13579: return suited([1, 3, 5, 7, 9])
         case .threeSixNine: return suited([3, 6, 9])
         case .consecutiveRun:
-            let start = Int.random(in: 1...6)
+            let start = Int.random(in: 1...6, using: &generator)
             return suited(Array(start...(start + 3)))
         case .windsDragons:
             return Wind.allCases.map { Tile.wind($0) } + Dragon.allCases.map { Tile.dragon($0) }
@@ -129,9 +132,13 @@ enum RackGenerator {
     /// Deals one rack for a section, or nil if this attempt came out ambiguous.
     /// Only four of any tile exist, so no group ever exceeds a kong and no tile
     /// is used twice.
-    private static func deal(_ category: HandCategory) -> [Tile]? {
-        var available = palette(for: category).shuffled()
-        guard let partition = groupPartitions.randomElement() else { return nil }
+    private static func deal<R: RandomNumberGenerator>(
+        _ category: HandCategory,
+        using generator: inout R
+    ) -> [Tile]? {
+        var available = palette(for: category, using: &generator)
+        available.shuffle(using: &generator)
+        guard let partition = groupPartitions.randomElement(using: &generator) else { return nil }
         guard available.count >= partition.count else { return nil }
 
         var tiles: [Tile] = []
@@ -144,17 +151,22 @@ enum RackGenerator {
         return tiles.racked
     }
 
-    static func rack(for target: HandCategory, attempts: Int = 200) -> GeneratedRack? {
+    private static func rack<R: RandomNumberGenerator>(
+        for target: HandCategory,
+        attempts: Int = 200,
+        using generator: inout R
+    ) -> GeneratedRack? {
         for _ in 0..<attempts {
-            guard let tiles = deal(target), category(for: tiles) == target else { continue }
+            guard let tiles = deal(target, using: &generator), category(for: tiles) == target else { continue }
             // Distractors must be sections this rack does NOT read as, or the
             // question would have two right answers.
-            let distractors = generatableCategories
+            var distractors = generatableCategories
                 .filter { $0 != target && !fits(tiles, $0) }
-                .shuffled()
-                .prefix(3)
-            guard distractors.count >= 2 else { continue }
-            let choices = ([target] + distractors).shuffled()
+            distractors.shuffle(using: &generator)
+            let pickedDistractors = distractors.prefix(3)
+            guard pickedDistractors.count >= 2 else { continue }
+            var choices = [target] + Array(pickedDistractors)
+            choices.shuffle(using: &generator)
             return GeneratedRack(
                 tiles: tiles,
                 answer: target,
@@ -165,14 +177,38 @@ enum RackGenerator {
         return nil
     }
 
+    static func rack(for target: HandCategory, attempts: Int = 200) -> GeneratedRack? {
+        var generator = SystemRandomNumberGenerator()
+        return rack(for: target, attempts: attempts, using: &generator)
+    }
+
     /// A batch spread evenly across the sections rather than at their natural
     /// frequency, so no one section dominates a practice run.
     static func batch(count: Int) -> [GeneratedRack] {
+        var generator = SystemRandomNumberGenerator()
+        return batch(count: count, using: &generator)
+    }
+
+    /// A reproducible batch for a dated shared challenge. The same app build
+    /// and seed produce the same original racks on every device.
+    static func batch(count: Int, seed: String) -> [GeneratedRack] {
+        var generator = StableSeededGenerator(seed: seed)
+        return batch(count: count, using: &generator)
+    }
+
+    private static func batch<R: RandomNumberGenerator>(
+        count: Int,
+        using generator: inout R
+    ) -> [GeneratedRack] {
         var targets: [HandCategory] = []
         while targets.count < count {
-            targets += generatableCategories.shuffled()
+            var pass = generatableCategories
+            pass.shuffle(using: &generator)
+            targets += pass
         }
-        return targets.prefix(count).compactMap { rack(for: $0) }.shuffled()
+        var racks = targets.prefix(count).compactMap { rack(for: $0, using: &generator) }
+        racks.shuffle(using: &generator)
+        return racks
     }
 
     // MARK: - Explanation

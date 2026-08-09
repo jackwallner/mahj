@@ -63,7 +63,7 @@ struct OnboardingView: View {
                 infoPage(
                     icon: "figure.walk",
                     title: "Walk in confident",
-                    body: "Know which dragon matches which suit, spot your section fast, and stop dreading the Charleston. Practice at your own pace: no timers, no opponents.",
+                    body: "Know which dragon matches which suit, spot your section fast, and stop dreading the Charleston. Practice at your own pace, with no opponents and no required timers.",
                     tiles: [.dragon(.red), .dragon(.green), .flower]
                 ).tag(2)
                 skillLevelPage.tag(3)
@@ -203,6 +203,7 @@ struct OnboardingView: View {
                 .multilineTextAlignment(.center)
             VStack(alignment: .leading, spacing: 12) {
                 trialBenefit("Every beginner room is free, forever")
+                trialBenefit("Mahj Minute and a personalized Game Night Prep")
                 trialBenefit("Endless Practice deals a fresh rack every time")
                 trialBenefit("Fix My Mistakes brings back what you miss")
                 trialBenefit("Extra sets in all four rooms, plus the Master Tables")
