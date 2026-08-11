@@ -2,8 +2,11 @@ import Foundation
 import RevenueCat
 
 enum RevenueCatConfig {
-    /// Prod public SDK key (safe to ship; sim builds never configure with it).
+    #if DEBUG
+    static let apiKey = "test_KqPmoSpYxqBfWQAdVjZVspTYdMe"
+    #else
     static let apiKey = "appl_BPcKRTMgnvYJJaNPXdfGReCkHgO"
+    #endif
 }
 
 /// What actually happened at Apple's sheet. A cancel is an outcome, not an error.
@@ -18,6 +21,12 @@ enum PurchaseError: LocalizedError {
     var errorDescription: String? {
         "The App Store isn't reachable right now. Check your connection and try again."
     }
+}
+
+struct PaywallPrice {
+    let amount: Decimal
+    let localized: String
+    let locale: Locale
 }
 
 @MainActor
@@ -53,18 +62,15 @@ final class SubscriptionService: NSObject, ObservableObject {
     private func configureIfNeeded() {
         guard !isConfigured else { return }
         #if targetEnvironment(simulator)
-        // Agent/sim runs: do NOT hit the prod RC project. Use the .storekit file
-        // + setLocalOverride(isPro:) for paywall flows. No configure → no RC customer.
-        return
-        #else
-        guard RevenueCatConfig.apiKey.hasPrefix("appl_"), !RevenueCatConfig.apiKey.contains("PLACEHOLDER") else { return }
+        guard RevenueCatConfig.apiKey.hasPrefix("test_") else { return }
+        #endif
+        guard !RevenueCatConfig.apiKey.contains("PLACEHOLDER") else { return }
         #if DEBUG
         Purchases.logLevel = .debug
         #endif
         Purchases.configure(withAPIKey: RevenueCatConfig.apiKey)
         Purchases.shared.delegate = self
         isConfigured = true
-        #endif
     }
 
     func refreshCustomerInfo() async {
@@ -88,6 +94,15 @@ final class SubscriptionService: NSObject, ObservableObject {
         }
     }
 
+    func paywallPrice(for plan: PaywallPlan) -> PaywallPrice? {
+        guard let product = package(for: plan)?.storeProduct else { return nil }
+        return PaywallPrice(
+            amount: product.price,
+            localized: product.localizedPriceString,
+            locale: product.priceFormatter?.locale ?? .current
+        )
+    }
+
     /// Offerings can still be in flight when a player reaches the trial CTA on
     /// a cold, slow network. Give them one more chance to land before we call
     /// the products missing, so the button isn't dead on a fast tapper.
@@ -101,8 +116,7 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     func purchase(_ package: Package?) async throws -> PurchaseOutcome {
         guard isConfigured else {
-            setLocalOverride(isPro: true) // sim: pretend the purchase succeeded
-            return .purchased
+            throw PurchaseError.productsUnavailable
         }
         guard let package else { throw PurchaseError.productsUnavailable }
         let result = try await Purchases.shared.purchase(package: package)
