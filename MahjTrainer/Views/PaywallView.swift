@@ -68,16 +68,20 @@ struct PaywallContent: View {
 
     private var planCards: some View {
         VStack(spacing: 10) {
-            planCard(.yearly, title: "Yearly", price: PaywallPricing.price(subscriptions, .yearly),
+            planCard(.yearly, title: "Yearly", price: PaywallPricing.priceText(subscriptions, .yearly),
+                     perMonth: PaywallPricing.perMonthEquivalent(subscriptions),
                      detail: "7 days free, then billed yearly. Auto-renews.", badge: "BEST VALUE")
-            planCard(.lifetime, title: "Lifetime", price: PaywallPricing.price(subscriptions, .lifetime),
+            planCard(.lifetime, title: "Lifetime", price: PaywallPricing.priceText(subscriptions, .lifetime),
+                     perMonth: nil,
                      detail: "One payment. No subscription, nothing renews.", badge: "NO SUBSCRIPTION")
-            planCard(.monthly, title: "Monthly", price: PaywallPricing.price(subscriptions, .monthly),
+            planCard(.monthly, title: "Monthly", price: PaywallPricing.priceText(subscriptions, .monthly),
+                     perMonth: nil,
                      detail: "7 days free, then billed monthly. Auto-renews.", badge: nil)
         }
     }
 
-    private func planCard(_ plan: PaywallPlan, title: String, price: String, detail: String, badge: String?) -> some View {
+    private func planCard(_ plan: PaywallPlan, title: String, price: String, perMonth: String?,
+                          detail: String, badge: String?) -> some View {
         let isSelected = selectedPlan == plan
         return Button {
             selectedPlan = plan
@@ -104,9 +108,16 @@ struct PaywallContent: View {
                         .multilineTextAlignment(.leading)
                 }
                 Spacer(minLength: 8)
-                Text(price)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Theme.ink)
+                VStack(alignment: .trailing, spacing: 1) {
+                    Text(price)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Theme.ink)
+                    if let perMonth {
+                        Text(perMonth)
+                            .font(.caption2)
+                            .foregroundStyle(Theme.inkSecondary)
+                    }
+                }
             }
             .padding(14)
             .background(
@@ -122,23 +133,62 @@ struct PaywallContent: View {
     }
 }
 
-/// Price and terms strings, live from StoreKit when RevenueCat has loaded and
-/// falling back to the configured prices so the screen is never blank.
+/// Price and terms strings, live from StoreKit.
+///
+/// Hardcoded fallback amounts used to live here, and they had already drifted a
+/// full price tier out of date, so the screen could quietly quote $19.99/year on
+/// a $9.99 product. A price the store did not give us is worse than no price at
+/// all (3.1.2 wants the amount the customer will actually be charged), so an
+/// unresolved product renders the loading placeholder and the disclosure drops
+/// the amount rather than inventing one.
 @MainActor
 enum PaywallPricing {
-    static func price(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String {
-        let base = subscriptions.package(for: plan)?.storeProduct.localizedPriceString
-        switch plan {
-        case .yearly: return "\(base ?? "$19.99")/year"
-        case .monthly: return "\(base ?? "$4.99")/month"
-        case .lifetime: return base ?? "$49.99"
+    /// Shown in the amount's place until StoreKit answers.
+    static let placeholder = "Loading price…"
+
+    /// The localized billed amount, or nil while the product is still in flight.
+    static func price(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String? {
+        guard let base = subscriptions.package(for: plan)?.storeProduct.localizedPriceString else {
+            return nil
         }
+        switch plan {
+        case .yearly: return "\(base)/year"
+        case .monthly: return "\(base)/month"
+        case .lifetime: return base
+        }
+    }
+
+    /// The same, ready to render: the amount or the placeholder.
+    static func priceText(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String {
+        price(subscriptions, plan) ?? placeholder
+    }
+
+    /// Yearly billed amount restated per month, e.g. "$3.33/mo". Yearly is the
+    /// only plan this makes sense for; everything else returns nil.
+    ///
+    /// This is the line that keeps a yearly price legible next to the monthly
+    /// one. Without it a 4x sticker gap reads as a penalty instead of a saving.
+    static func perMonthEquivalent(_ subscriptions: SubscriptionService) -> String? {
+        guard let product = subscriptions.package(for: .yearly)?.storeProduct else { return nil }
+        let monthly = product.price / 12
+        let fmt = NumberFormatter()
+        fmt.numberStyle = .currency
+        fmt.locale = product.priceFormatter?.locale ?? .current
+        guard let text = fmt.string(from: monthly as NSDecimalNumber) else { return nil }
+        return "\(text)/mo"
     }
 
     /// One concise point-of-purchase line: price, trial, auto-renew, cancel.
     /// The full legalese lives in the EULA behind the Terms link.
     static func terms(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String {
-        let amount = price(subscriptions, plan)
+        guard let amount = price(subscriptions, plan) else {
+            switch plan {
+            case .lifetime:
+                return "One-time purchase. Not a subscription, nothing renews."
+            case .yearly, .monthly:
+                return "Includes 7 days free. Auto-renews until canceled."
+            }
+        }
         switch plan {
         case .lifetime:
             return "\(amount) one-time. Not a subscription, nothing renews."

@@ -227,8 +227,15 @@ struct OnboardingView: View {
     /// One concise line, matching the approved fleet pattern (StatScout): trial
     /// length, price, that it renews, how to cancel. The EULA behind the Terms
     /// link carries the full legalese; this is the point-of-purchase micro copy.
-    private var yearlyDisclosure: String {
-        let price = PaywallPricing.price(subscriptions, .yearly)
+    ///
+    /// Must name the SAME plan the CTA buys. This onboarding tap buys monthly
+    /// (see `primaryAction`), so quoting a yearly amount here would misstate
+    /// what the player is charged, which is a 3.1.2 problem and a refund magnet.
+    /// If the product has not loaded, drop the amount rather than invent one.
+    private var trialDisclosure: String {
+        guard let price = PaywallPricing.price(subscriptions, .monthly) else {
+            return "Includes 7 days free. Auto-renews until canceled."
+        }
         return "7 days free, then \(price). Auto-renews until canceled."
     }
 
@@ -255,7 +262,7 @@ struct OnboardingView: View {
             .disabled(!onTrialPage)
             // Disclosure slot, also reserved. Small and tertiary: present at the
             // point of purchase (3.1.2) without shouting.
-            Text(yearlyDisclosure)
+            Text(trialDisclosure)
                 .font(.caption2)
                 .foregroundStyle(Theme.inkTertiary)
                 .multilineTextAlignment(.center)
@@ -323,12 +330,19 @@ struct OnboardingView: View {
         Task {
             defer { purchasing = false }
             await subscriptions.ensureOfferings()
-            guard let yearly = subscriptions.package(for: .yearly) else {
+            // Monthly, not yearly, and this is deliberate. Two different people
+            // reach the two purchase surfaces: whoever taps through onboarding
+            // has not used the app yet and is reacting to the number on Apple's
+            // sheet, while whoever hits the paywall later has already decided the
+            // app is worth something. The paywall still leads with yearly. Here
+            // the smaller recurring figure is what gets the trial started, and
+            // `trialDisclosure` above must keep naming this same plan.
+            guard let monthly = subscriptions.package(for: .monthly) else {
                 showPaywallFallback = true
                 return
             }
             do {
-                let outcome = try await subscriptions.purchase(yearly)
+                let outcome = try await subscriptions.purchase(monthly)
                 switch outcome {
                 case .purchased:
                     startTour()
