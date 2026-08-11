@@ -40,5 +40,5 @@ THE MASTER TABLES에서는 고급 찰스턴 전략, 수비 스쿨, 전문가용 
 Mahj Trainer는 독립적인 훈련 앱입니다. National Mah Jongg League와 제휴하거나 그로부터 공인받지 않았습니다. 공식 족보와 점수는 최신 NMJL 카드를 참고하세요.
 
 구독 안내
-Mahj+는 자동 갱신 구독 또는 1회성 구매로 이용할 수 있습니다. 월간 Monthly $9.99/월, 연간 Yearly $39.99/년(둘 다 1주일 무료 체험 포함), 또는 평생 이용 Lifetime $89.99(1회 결제). 구매 확정 시 Apple ID 계정으로 결제됩니다. 구독은 현재 기간 종료 최소 24시간 전에 취소하지 않으면 자동으로 갱신됩니다. 기기의 계정 설정에서 언제든 관리하거나 취소할 수 있습니다. 이용 약관(Apple 표준 EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Mahj+는 자동 갱신 구독(월간 또는 연간, 모두 7일 무료 체험 포함) 또는 일회성 Lifetime 구입으로 이용할 수 있습니다. 가격은 구입 전 앱에 표시되며 지역에 따라 다릅니다. 결제는 확인 시 Apple ID로 청구됩니다. 현재 기간 종료 최소 24시간 전에 취소하지 않으면 구독이 자동으로 갱신됩니다. 설정 → Apple ID → 구독에서 언제든지 관리하거나 취소할 수 있습니다. 이용 약관(Apple 표준 EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. 개인정보 처리방침: https://jackwallner.github.io/mahj/privacy-policy.
 개인정보 처리방침: https://jackwallner.github.io/mahj/privacy-policy
