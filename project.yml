@@ -89,5 +89,14 @@ schemes:
         MahjTrainerScreenshots: [test]
     test:
       config: Debug
+      # The test plan carries the StoreKit Testing configuration. It has to:
+      # XcodeGen's `storeKitConfiguration` only reaches the scheme's RUN action,
+      # and a UI test launches the app through the test runner, not through Run.
+      # The Debug bridge also reads the bundled catalog directly because
+      # xcodebuild does not consistently activate StoreKit test data.
+      # The target identifiers inside the plan are XcodeGen's deterministic
+      # hashes, so they survive `xcodegen generate`; renaming a target breaks it.
+      testPlans:
+        - path: MahjTrainerScreenshots/Screenshots.xctestplan
       targets:
         - MahjTrainerScreenshots

@@ -114,6 +114,9 @@ enum WhatsNew {
     /// True when this launch is the first one after an update and there are
     /// notes to show for the version now running.
     static func shouldPresent(hasOnboarded: Bool, defaults: UserDefaults = .standard) -> Bool {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-mahj.suppressWhatsNew") { return false }
+        #endif
         guard hasOnboarded, currentRelease != nil else { return false }
         let lastSeen = defaults.string(forKey: lastSeenKey) ?? ""
         // An empty marker on an onboarded player means they updated from a

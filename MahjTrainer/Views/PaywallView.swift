@@ -7,6 +7,14 @@ enum PaywallPlan: String, CaseIterable {
     var ctaTitle: String {
         self == .lifetime ? "Unlock \(Membership.name) Forever" : "Start 7-Day Free Trial"
     }
+
+    var packageType: PackageType {
+        switch self {
+        case .yearly: return .annual
+        case .monthly: return .monthly
+        case .lifetime: return .lifetime
+        }
+    }
 }
 
 enum PaywallLinks {
@@ -67,21 +75,28 @@ struct PaywallContent: View {
     }
 
     private var planCards: some View {
+        // Yearly, then monthly, then lifetime. Monthly sits DIRECTLY under yearly
+        // on purpose: the yearly card's whole pitch is a discount off the monthly
+        // price, and a discount only reads as one when the thing it's discounting
+        // is the next line down. Lifetime is a different decision (own it vs rent
+        // it) and belongs after that comparison, not inside it.
         VStack(spacing: 10) {
             planCard(.yearly, title: "Yearly", price: PaywallPricing.priceText(subscriptions, .yearly),
                      perMonth: PaywallPricing.perMonthEquivalent(subscriptions),
-                     detail: "7 days free, then billed yearly. Auto-renews.", badge: "BEST VALUE")
-            planCard(.lifetime, title: "Lifetime", price: PaywallPricing.priceText(subscriptions, .lifetime),
-                     perMonth: nil,
-                     detail: "One payment. No subscription, nothing renews.", badge: "NO SUBSCRIPTION")
+                     anchor: PaywallPricing.monthlyAnchor(subscriptions),
+                     detail: "7 days free, then billed yearly. Auto-renews.",
+                     badge: PaywallPricing.savingsBadge(subscriptions))
             planCard(.monthly, title: "Monthly", price: PaywallPricing.priceText(subscriptions, .monthly),
-                     perMonth: nil,
+                     perMonth: nil, anchor: nil,
                      detail: "7 days free, then billed monthly. Auto-renews.", badge: nil)
+            planCard(.lifetime, title: "Lifetime", price: PaywallPricing.priceText(subscriptions, .lifetime),
+                     perMonth: nil, anchor: nil,
+                     detail: "One payment. No subscription, nothing renews.", badge: "NO SUBSCRIPTION")
         }
     }
 
     private func planCard(_ plan: PaywallPlan, title: String, price: String, perMonth: String?,
-                          detail: String, badge: String?) -> some View {
+                          anchor: String?, detail: String, badge: String?) -> some View {
         let isSelected = selectedPlan == plan
         return Button {
             selectedPlan = plan
@@ -113,9 +128,21 @@ struct PaywallContent: View {
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Theme.ink)
                     if let perMonth {
-                        Text(perMonth)
-                            .font(.caption2)
-                            .foregroundStyle(Theme.inkSecondary)
+                        // The struck-through monthly price beside the yearly
+                        // per-month figure is the discount, stated. Without it
+                        // the two cards are just two numbers and the bigger one
+                        // looks like the worse deal.
+                        HStack(spacing: 5) {
+                            if let anchor {
+                                Text(anchor)
+                                    .font(.caption2)
+                                    .foregroundStyle(Theme.inkTertiary)
+                                    .strikethrough(true, color: Theme.inkTertiary)
+                            }
+                            Text(perMonth)
+                                .font(.caption2)
+                                .foregroundStyle(Theme.inkSecondary)
+                        }
                     }
                 }
             }
@@ -148,7 +175,7 @@ enum PaywallPricing {
 
     /// The localized billed amount, or nil while the product is still in flight.
     static func price(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String? {
-        guard let base = subscriptions.package(for: plan)?.storeProduct.localizedPriceString else {
+        guard let base = subscriptions.paywallPrice(for: plan)?.localized else {
             return nil
         }
         switch plan {
@@ -169,13 +196,45 @@ enum PaywallPricing {
     /// This is the line that keeps a yearly price legible next to the monthly
     /// one. Without it a 4x sticker gap reads as a penalty instead of a saving.
     static func perMonthEquivalent(_ subscriptions: SubscriptionService) -> String? {
-        guard let product = subscriptions.package(for: .yearly)?.storeProduct else { return nil }
-        let monthly = product.price / 12
+        guard let product = subscriptions.paywallPrice(for: .yearly) else { return nil }
+        let monthly = product.amount / 12
         let fmt = NumberFormatter()
         fmt.numberStyle = .currency
-        fmt.locale = product.priceFormatter?.locale ?? .current
+        fmt.locale = product.locale
         guard let text = fmt.string(from: monthly as NSDecimalNumber) else { return nil }
         return "\(text)/mo"
+    }
+
+    /// The monthly plan's own price restated as a per-month anchor, e.g.
+    /// "$9.99/mo". This is the number the yearly card is discounting; it is
+    /// struck through beside the yearly per-month figure.
+    static func monthlyAnchor(_ subscriptions: SubscriptionService) -> String? {
+        guard let product = subscriptions.paywallPrice(for: .monthly) else { return nil }
+        return "\(product.localized)/mo"
+    }
+
+    /// Whole-percent saving of the yearly plan against twelve months of the
+    /// monthly plan. nil when either product is missing or the yearly plan is
+    /// not actually cheaper, so the badge can never claim a saving that isn't
+    /// there (PPP territories price the two plans independently).
+    static func savingsPercent(_ subscriptions: SubscriptionService) -> Int? {
+        guard let yearly = subscriptions.paywallPrice(for: .yearly),
+              let monthly = subscriptions.paywallPrice(for: .monthly) else { return nil }
+        let twelveMonths = monthly.amount * 12
+        guard twelveMonths > 0, yearly.amount < twelveMonths else { return nil }
+        var rounded = Decimal()
+        var raw = (twelveMonths - yearly.amount) / twelveMonths * 100
+        NSDecimalRound(&rounded, &raw, 0, .plain)
+        let percent = NSDecimalNumber(decimal: rounded).intValue
+        return percent > 0 ? percent : nil
+    }
+
+    /// The yearly card's badge: the quantified saving when we can compute it,
+    /// otherwise the generic claim. "SAVE 67%" outsells "BEST VALUE" because it
+    /// says what the value is.
+    static func savingsBadge(_ subscriptions: SubscriptionService) -> String {
+        guard let percent = savingsPercent(subscriptions) else { return "BEST VALUE" }
+        return "SAVE \(percent)%"
     }
 
     /// One concise point-of-purchase line: price, trial, auto-renew, cancel.

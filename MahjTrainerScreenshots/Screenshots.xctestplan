@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "6E3A1C40-9D71-4B2E-9F0A-2C1D5B7E4A31",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "storeKitConfiguration" : "MahjTrainer.storekit",
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MahjTrainer.xcodeproj",
+      "identifier" : "EC20D96BEF060DAF18E56E7D",
+      "name" : "MahjTrainer"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MahjTrainer.xcodeproj",
+        "identifier" : "D0CE1C2C79B5EAAC96C1E68D",
+        "name" : "MahjTrainerScreenshots"
+      }
+    }
+  ],
+  "version" : 1
+}
