@@ -67,7 +67,7 @@ struct HomeView: View {
                     QuickSessionView(gameNightPrep: gameNightPrepItems)
                 }
             }
-            .sheet(isPresented: $showPaywall) { PaywallView() }
+            .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_home_sheet") }
             .sheet(isPresented: $showSettings) { SettingsView() }
             .sheet(isPresented: $showWhatsNew) {
                 if let release = WhatsNew.currentRelease {
