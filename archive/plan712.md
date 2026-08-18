@@ -12,7 +12,7 @@ fleet ASC/fastlane tooling.
   (`MahjTrainer/Views/SettingsView.swift`) and across `docs/` (support, terms,
   privacy-policy) + the project guide. (Appfile `apple_id` intentionally left as
   the developer login, not a support address.)
-- DONE: American Mah Jongg accuracy audit -> `docs/audits/mahjong-accuracy-2026-07-12.md`.
+- DONE: American Mah Jongg accuracy audit -> `archive/mahjong-accuracy-2026-07-12.md`.
   Fixed the recurring "mahj jongg" misspelling (should be "Mah Jongg") in
   `TileBasicsContent.swift` (4) and `KeepDiscardContent.swift` (1). Content is
   otherwise accurate. TWO nuanced rules FLAGGED for your call (see 6.A).
