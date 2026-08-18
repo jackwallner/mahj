@@ -252,7 +252,7 @@ Results: onboarding capture succeeded, Home, Settings, and paywall capture succe
 
 Final working-tree note: no app source or project files were edited by this audit. Existing unrelated modifications, including `CLAUDE.md` and `MahjTrainerTests/ContentValidityTests.swift`, were preserved.
 
-Report path: `docs/audits/flow-catalog-2026-07-12.md`
+Report path: `archive/flow-catalog-2026-07-12.md`
 
 Evidence directory: `/tmp/mahj-flow-catalog`
 

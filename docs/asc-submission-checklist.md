@@ -78,7 +78,7 @@ Answer **No** / **None** to every content category:
 
 Expected result: **4+**, no advisory content descriptors.
 
-## Cross-check against `plan712.md` section 8
+## Cross-check against `../archive/plan712.md` section 8
 
 - B (subscription legal in metadata): done — see
   `fastlane/metadata/en-US/description.txt` SUBSCRIPTIONS section, mirrored

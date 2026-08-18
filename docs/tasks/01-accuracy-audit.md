@@ -49,7 +49,7 @@ All of `Shared/Content/*.swift`, plus `Shared/Models/HandCategory.swift` and
 on.
 
 ## Deliverables
-1. `docs/audits/mahjong-accuracy-2026-07-12.md` — a table of every claim checked:
+1. `archive/mahjong-accuracy-2026-07-12.md` — a table of every claim checked:
    file + item id, the claim, verdict (OK / FIXED / FLAGGED), and for FIXED/
    FLAGGED a one-line rationale with the correct fact. Group by file.
 2. Apply corrections that are unambiguously factual (wrong dragon pairing, wrong
@@ -81,7 +81,7 @@ If respawned: run `git log --oneline -5`, read this file and the audit report if
 it exists, and continue from the first unchecked box.
 
 ## Progress
-- [x] Report written (`docs/audits/mahjong-accuracy-2026-07-12.md`)
+- [x] Report written (`archive/mahjong-accuracy-2026-07-12.md`)
 - [x] Corrections applied (joker exchange sequencing, 2 files)
 - [x] ContentValidityTests green (15/15 passed)
 - [x] Committed (`81eefa0` report, `f94bb79` fix)
