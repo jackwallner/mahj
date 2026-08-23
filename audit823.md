@@ -1127,3 +1127,44 @@ Test and screenshot quality:
 ## Final decision
 
 Mahj Trainer is suitable for continued product and acquisition work, but not for confident scaling or a catalog-affecting release until the price, plan, trial, naming, and release state are reconciled. The immediate implementation handoff should start with the catalog manifest and read-only release check, then purchase failure handling and funnel instrumentation, then current physical-device and accessibility regression testing.
+
+## Activity and success context, 2026-08-23
+
+Classification: **active monetizing**. Confidence: **high**. Trend: **no ASC comparison displayed**.
+
+ASC release state: `iOS 1.2.1 Waiting for Review`. ASC evidence: [Analytics Overview](https://appstoreconnect.apple.com/apps/6790052126/analytics/overview?dateSpec=d90), selected range `dateSpec=d90`.
+RevenueCat evidence: [Project Overview](https://app.revenuecat.com/projects/28030dc2/overview), production mode, selected range `Last 28 days, 2026-07-27 through 2026-08-23`.
+
+### Observed activity
+
+| Source | Metric | Value | Window or comparison |
+| --- | --- | ---: | --- |
+| ASC | first-time downloads | 270 | 90-day Analytics Overview |
+| ASC | redownloads | 11 | 90-day Analytics Overview |
+| ASC | conversion rate | 1.32% | comparison not displayed |
+| ASC | proceeds | $292 | 90-day Analytics Overview |
+| ASC | in-app purchases | 111 | 90-day Analytics Overview |
+| RevenueCat | new customers | 220 | last 28 days |
+| RevenueCat | active customers | 247 | last 28 days |
+| RevenueCat | active trials | 18 | current total |
+| RevenueCat | active subscriptions | 35 | current total |
+| RevenueCat | MRR | $75 | current total |
+| RevenueCat | revenue | $348 | last 28 days |
+
+A missing value above means the source did not expose that metric in this read-only snapshot. It is not a zero.
+
+### Interpretation and implementation focus
+
+Mahj is a core monetizing app in this snapshot: 270 ASC first-time downloads, $292 of ASC proceeds, 220 RevenueCat new customers, 18 active trials, 35 active subscriptions, $75 MRR, and $348 RevenueCat revenue. The main opportunity is not generic acquisition copy. It is to protect the current paid path, remove conversion ambiguity in the trial cohort, and use the catalog, paywall, and release evidence in the audit to improve trial starts without disrupting a working revenue engine.
+
+The deterministic classifier recommends: Protect the current paid path, then use release and cohort baselines to decide whether acquisition or conversion is the next constraint.
+
+- Join ASC first-time download, first launch, first value, paywall shown, offer loaded, trial started, trial canceled, trial converted, entitlement active, restore, and purchase failure events with the app version and build.
+- Keep ASC's 90-day acquisition and proceeds window separate from RevenueCat's 28-day customer and revenue window. Do not calculate a conversion rate by dividing values from different windows.
+- Use a mature trial cohort and a minimum sample before choosing a native paywall or onboarding A/B winner. Record the offering identifier, package, placement, experiment variant, and build.
+- Put the app's classification and the next baseline date in the release handoff so Cursor, Claude, and Codex do not optimize from an old qualitative audit.
+
+### Boundary on success or death
+
+This snapshot supports the label **active monetizing**, not a lifetime verdict. The app has current paid activity, but ASC does not expose a positive comparison for the selected window. A later decision should include a clean 28-day RevenueCat trend, ASC acquisition and conversion trend, ratings and review count, crash and hang evidence, and a release-specific cohort.
+This dated section supersedes earlier statements in this file that per-app ASC or RevenueCat activity was unavailable as of 2026-08-23. Earlier statements remain historical evidence boundaries for their original audit pass.
