@@ -174,7 +174,11 @@ the same few words spread thinner.
 
 `scripts/capture-screenshots.sh <udid> <out-dir> [prefix]` drives the real app
 through the six App Store screens via the `Screenshots` scheme
-(`MahjTrainerScreenshots`) and exports the attachments. iPad shots must be
+(`MahjTrainerScreenshots`) and exports only `ScreenshotTests` attachments.
+Purchase-surface tests are intentionally excluded from this command, so the
+App Store set never creates paywall images. Run
+`scripts/capture-paywall.sh <udid> <out-dir>` separately when reviewing the
+paywall or onboarding trial step. iPad shots must be
 2064x2752, which only a 13-inch device produces and the agent-sim pool does not
 have, so `scripts/with-ipad-sim.sh` creates a throwaway one, boots it headless,
 and deletes it on exit:
