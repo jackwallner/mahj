@@ -31,6 +31,7 @@ xcodebuild test \
   -scheme Screenshots \
   -destination "id=$UDID" \
   -resultBundlePath "$RESULT" \
+  -only-testing:MahjTrainerScreenshots/ScreenshotTests \
   TEST_RUNNER_SCREENSHOT_APP_VERSION="$VERSION" \
   || echo "xcodebuild reported failures; exporting what was captured" >&2
 
