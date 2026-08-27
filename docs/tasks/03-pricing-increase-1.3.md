@@ -1,4 +1,27 @@
-# Task 03 — Mahj+ price increase (1.3)
+# Task 03 — Mahj+ price increase (1.3) — DONE, AT DIFFERENT NUMBERS
+
+**Status: shipped 2026-08-12, but not at the prices planned below.** Verified
+against the App Store Connect API and the live US listing on 2026-08-27:
+
+| Product | Was | Planned here | ACTUALLY SHIPPED |
+|---|---|---|---|
+| `com.jackwallner.mahj.monthly` | $1.99/mo | $4.99/mo | **$9.99/mo** |
+| `com.jackwallner.mahj.yearly` | $9.99/yr | $19.99/yr | **$39.99/yr** |
+| `com.jackwallner.mahj.lifetime` | $29.99 | $49.99 | **$89.99** |
+
+The live prices are double this plan's targets. The `.storekit` fixture and
+`docs/index.html` agree with what shipped. Nothing below has been rewritten,
+it is kept as the record of what was decided on 2026-08-09; read the numbers
+in it as historical, not as targets. ASC is the source of truth for price.
+
+Section 1 below is obsolete in a better way: the hardcoded paywall fallback
+strings it asks you to update were deleted outright. `PaywallPricing` now
+renders a "Loading price…" placeholder when StoreKit has not answered, so
+there is no second copy of a price to drift.
+
+---
+
+## Original plan (2026-08-09)
 
 Raise Mahj+ prices before starting paid acquisition. Decided 2026-08-09 from
 live RevenueCat + App Store Connect data (see "Why" at the bottom).
