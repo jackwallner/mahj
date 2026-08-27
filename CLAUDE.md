@@ -27,11 +27,14 @@ their step. App Store ID `6790052126`.
 
 ## Products & the Mahj+ model
 
-`com.jackwallner.mahj.monthly` $1.99 · `.yearly` $9.99 · `.lifetime` $29.99
-(StatScout-style cheapo tier, chosen 2026-07-12). Both subscriptions carry a
-1-week free trial — keep monthly trials (fleet rule). RevenueCat entitlement
-`pro`; public SDK key in `SubscriptionService.swift`, RC secret API key in
-`~/.mahj_credentials` (never commit).
+`com.jackwallner.mahj.monthly` · `.yearly` · `.lifetime`. Prices are NOT
+restated here: `PaywallPricing` reads them live from StoreKit via RevenueCat,
+and App Store Connect is the only source of truth. Copies of the numbers in
+this file, the `.storekit` fixture, and `docs/index.html` have all drifted a
+tier apart before; check ASC before quoting a price anywhere. Both
+subscriptions carry a 1-week free trial; keep monthly trials (fleet rule).
+RevenueCat entitlement `pro`; public SDK key in `SubscriptionService.swift`,
+RC secret API key in `~/.mahj_credentials` (never commit).
 
 Membership is branded **Mahj+** in-app (`Membership.name`; the RevenueCat
 entitlement id stays `pro`). "Pro" as a player-facing word is retired: it reads
