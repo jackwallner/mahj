@@ -42,6 +42,14 @@ struct QuestionPager<Choices: View>: View {
     /// the question: pinned above it on an iPad, the eyebrow sat alone at the
     /// top with a hand's width of empty cream between it and the prompt.
     var eyebrow: String? = nil
+    /// Set only when the player got it WRONG and there is something specific
+    /// to say about the answer they actually chose. The generic explanation
+    /// tells them what is right; this tells them why their read was wrong,
+    /// which is the half that changes the next answer.
+    var missNote: MissNote? = nil
+    /// True when this miss just went back into the review schedule. Saying so
+    /// turns a wrong answer from a score into a plan.
+    var requeued: Bool = false
     @ViewBuilder let choices: () -> Choices
 
     var body: some View {
@@ -67,16 +75,24 @@ struct QuestionPager<Choices: View>: View {
                 }
                 choices()
                 if answered {
-                    HStack(alignment: .top, spacing: 10) {
-                        Image(systemName: "lightbulb.fill")
-                            .foregroundStyle(Theme.gold)
-                        Text(explanation)
-                            .font(.subheadline)
-                            .fixedSize(horizontal: false, vertical: true)
+                    VStack(spacing: 10) {
+                        HStack(alignment: .top, spacing: 10) {
+                            Image(systemName: "lightbulb.fill")
+                                .foregroundStyle(Theme.gold)
+                            Text(explanation)
+                                .font(.subheadline)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(14)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Theme.gold.opacity(0.12), in: RoundedRectangle(cornerRadius: 14))
+                        if let missNote {
+                            MissNoteCard(note: missNote)
+                        }
+                        if requeued {
+                            RequeuedChip()
+                        }
                     }
-                    .padding(14)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Theme.gold.opacity(0.12), in: RoundedRectangle(cornerRadius: 14))
                     .id(questionExplanationID)
                 }
             }
@@ -213,5 +229,81 @@ struct ChoiceList: View {
         if index == answerIndex { return Theme.bamGreen.opacity(0.6) }
         if index == selection { return Theme.crakRed.opacity(0.5) }
         return Theme.rule
+    }
+}
+
+
+/// What the player picked, and why it was not the answer.
+struct MissNote: Equatable, Sendable {
+    let pickedLabel: String
+    let reason: String
+}
+
+/// The second half of a wrong answer. The gold card above says what IS true;
+/// this says what the player's own read would have required, which is the
+/// part that stops them making the same read next time.
+struct MissNoteCard: View {
+    let note: MissNote
+    @State private var expanded = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Button {
+                withAnimation(.spring(response: 0.32, dampingFraction: 0.85)) { expanded.toggle() }
+            } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: "questionmark.circle.fill")
+                        .foregroundStyle(Theme.crakRed)
+                    Text("Why not \(note.pickedLabel)?")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Theme.ink)
+                        .multilineTextAlignment(.leading)
+                    Spacer(minLength: 4)
+                    Image(systemName: "chevron.down")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.inkTertiary)
+                        .rotationEffect(.degrees(expanded ? 180 : 0))
+                }
+            }
+            .buttonStyle(.plain)
+            if expanded {
+                Text(note.reason)
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.inkSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.crakRed.opacity(0.09), in: RoundedRectangle(cornerRadius: 14))
+    }
+}
+
+/// "We will ask you this again." A miss that visibly schedules itself reads as
+/// the app catching you rather than scoring you.
+struct RequeuedChip: View {
+    var body: some View {
+        HStack(spacing: 7) {
+            Image(systemName: "arrow.trianglehead.counterclockwise")
+                .font(.caption)
+            Text("Saved to Fix My Mistakes")
+                .font(.caption.weight(.semibold))
+            Spacer(minLength: 0)
+        }
+        .foregroundStyle(Theme.plum)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 9)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.plum.opacity(0.11), in: Capsule())
+    }
+}
+
+extension String {
+    /// Sentence-cases a fragment that was authored to sit mid-sentence.
+    var capitalizedFirst: String {
+        guard let first else { return self }
+        return first.uppercased() + dropFirst()
     }
 }

@@ -102,6 +102,19 @@ struct QuickSessionView: View {
     private var item: QuickItem { items[index] }
     private var answered: Bool { selection != nil }
 
+    /// Coaching for the specific wrong answer the player chose, when the
+    /// content carries one.
+    private var missNote: MissNote? {
+        guard let selection, selection != item.answerIndex else { return nil }
+        guard let reason = item.note(forPick: selection) else { return nil }
+        return MissNote(pickedLabel: item.choices[selection], reason: reason)
+    }
+
+    private var requeued: Bool {
+        guard let selection, selection != item.answerIndex else { return false }
+        return item.isReviewable && PracticeSkill.skill(forItemID: item.id) == nil
+    }
+
     private var drillBody: some View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(items.count))
@@ -112,7 +125,9 @@ struct QuickSessionView: View {
                     tiles: item.tiles,
                     explanation: item.explanation,
                     answered: answered,
-                    eyebrow: item.sourceLabel.uppercased()
+                    eyebrow: item.sourceLabel.uppercased(),
+                    missNote: missNote,
+                    requeued: requeued
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)

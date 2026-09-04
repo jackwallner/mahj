@@ -10,7 +10,7 @@ struct EndlessPickerView: View {
         ScrollView {
             VStack(spacing: 12) {
                 intro
-                ForEach(PracticeSkill.allCases) { skill in
+                ForEach(PracticeSkill.endlessCases) { skill in
                     NavigationLink {
                         PracticeRunView(mode: .endless(skill))
                     } label: {

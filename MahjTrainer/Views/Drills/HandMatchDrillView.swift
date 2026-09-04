@@ -35,6 +35,14 @@ struct HandMatchDrillView: View {
         return (categories, answerIndex)
     }
 
+    /// What the player's own pick would have required. Derived from the
+    /// section itself, so every rack question coaches the miss without any
+    /// per-question authoring.
+    private var missNote: MissNote? {
+        guard let selection, selection != question.answer else { return nil }
+        return MissNote(pickedLabel: selection.displayName, reason: selection.requires.capitalizedFirst + ".")
+    }
+
     private var drillBody: some View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(questions.count))
@@ -44,7 +52,9 @@ struct HandMatchDrillView: View {
                     prompt: "Which section is this rack chasing?",
                     tiles: question.tiles.racked,
                     explanation: question.explanation,
-                    answered: answered
+                    answered: answered,
+                    missNote: missNote,
+                    requeued: answered && selection != question.answer
                 ) {
                     ChoiceList(
                         labels: shuffled.categories.map(\.displayName),

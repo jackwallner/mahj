@@ -45,8 +45,16 @@ motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
 1.1 answers that with three Mahj+ modes on Home under TRAINING, all run by
 `PracticeRunView` (Endless / Timed / Review), all built on the existing
 `QuickItem` shape:
-- **Endless Practice** (`RackGenerator` + `EndlessPractice`) deals racks
-  procedurally, forever. `RackGenerator` only generates the five sections whose
+- **Endless Practice** (`RackGenerator`, `CharlestonGenerator`,
+  `DefenseGenerator` + `EndlessPractice`) deals four skills procedurally,
+  forever: rack reads, tile counts, Charleston passes and defensive discards.
+  The generated Charleston question is a SINGLE-tile pass ("which of these four
+  can you lose for free"), not the full three-tile pass, because a three-tile
+  ranking is not gradeable without a coach; the authored drills still teach the
+  whole pass. `DefenseGenerator` shows ONE opponent's exposures and rejects any
+  deal where two pungs share a number, because that reads as Like Numbers
+  rather than evens or odds and the safe discard would be a different tile.
+  `RackGenerator` only generates the five sections whose
   read is UNAMBIGUOUS (evens/odds/369/consecutive/winds-dragons); Like Numbers
   and Quints stay authored because a single-number rack always doubles as evens
   or odds. Every rack is checked with `fits` against all five and thrown away
@@ -75,6 +83,51 @@ misses, the weakest room, and unseen member content in that order. Both
 features are entirely Mahj+ gated. iPad support is free, with adaptive Home
 columns, drill grids, readable content widths, and portrait and landscape
 orientations.
+
+**Play a Hand (1.3, 2026-09-03):** the answer to the app testing recognition
+and never judgment. `HandPlayEngine` + `HandPlayView`: deal 13 off a real
+152-tile wall, commit to one of the five `playableTargets`, then draw and
+discard for `turnCount` (12) turns while the coach grades every throw.
+Grading is arithmetic the player can check, not opinion: `value(of:target:)`
+scores a rack by GROUPS (kong 4.2, pung 3.2, pair 1.7, single 0.6, off-family
+0, joker 3.2 always), `bestDiscards` returns EVERY tile whose loss costs least
+and all of them grade correct. Ties are real; inventing a single answer to have
+something to mark wrong is how a teaching app loses trust. Deliberately NO
+opponents or bots: "the AI feels rigged" is the category's most damaging
+complaint and a drill app structurally avoids it. Choosing a different target
+from the coach is never marked wrong; the hand is then graded against the
+player's own choice. The choose screen shows `fittingTiles` (raw count) and
+ranks by `value` (groups), which disagree on purpose, so the card says so.
+`HandPlayStore` gives a FREE player one whole hand per calendar day (a mode
+nobody has tried sells nothing) and `recordStart` is called when play begins,
+not when the screen opens. Every throw records under
+`PracticeSkill.handPlay`, which exists ONLY so those throws roll up into one
+stats row: it is excluded from `PracticeSkill.endlessCases`, so it never shows
+in the Endless picker or the Timed Challenge.
+
+**Reference (1.3):** `ReferenceContent` + `ReferenceView`, free for everyone,
+one tap from Home's toolbar book icon and a Settings row. A searchable glossary
+(nicknames are matched but never shown: "soap", "news", "wild") plus a page per
+card section with an ORIGINAL example rack. The toolbar is the right home for
+it because the moment it is wanted is mid-game and it must cost Home no
+vertical space.
+
+**Mastery, not completions (1.3):** the room ring counts questions answered
+right TWICE IN A ROW (`PracticeRecord.isKnown`), not drills opened, because
+opening a drill once rewards tapping. An item lapses only a full interval past
+due, so a weekly player does not watch rooms un-learn themselves. `Mastery.swift`
+holds `MasteryLevel` (Learning / Solid / Sharp at 0.4 and 0.85 coverage),
+`PracticeRecordStore.mastery(for:isMember:)` and `roomToWorkOn`. The denominator
+excludes locked Mahj+ drills for a free player: a ring that can never close is
+a nag. Generated skills never count toward it.
+
+**Coaching the miss (1.3):** `QuickItem.choiceNotes` is parallel to `choices`
+and rides the SAME permutation in `SessionBuilder.prepared`, or a note starts
+explaining somebody else's wrong answer. Section questions derive theirs for
+free from `HandCategory.requires` via `missNotes(for:answer:)`. The pager shows
+`MissNoteCard` ("Why not X?") only on a wrong pick, plus a `RequeuedChip` when
+the item genuinely re-enters the review schedule (never for generated items,
+which can never come back).
 
 **What's New sheet:** `WhatsNew` + `WhatsNewSheet`, shown once on the first
 launch after an update. A FRESH install never sees it: onboarding calls
