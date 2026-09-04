@@ -14,26 +14,34 @@ sys.path.insert(0, str(Path(__file__).parent))
 import asc_lib
 
 BUNDLE = "com.jackwallner.mahj"
-GROUP_NAME = "Pro"
+# App Store Connect is the source of truth for all of these. They are kept in
+# step with it so a re-run reasserts what is live instead of reverting the
+# group to its retired "Pro" name or the prices to a tier that has not been
+# charged since 2026-08-12.
+GROUP_NAME = "Mahj+"
 SUBS = [
     {
         "productId": "com.jackwallner.mahj.monthly",
-        "name": "Mahj Trainer Pro Monthly",
+        "name": "Mahj+ Monthly",
         "period": "ONE_MONTH",
-        "price": "4.99",
-        "desc": "All rooms and drills, billed monthly.",
+        "price": "9.99",
+        "desc": "Every room, every practice mode, billed monthly.",
         "trial": True,
     },
     {
         "productId": "com.jackwallner.mahj.yearly",
-        "name": "Mahj Trainer Pro Yearly",
+        "name": "Mahj+ Yearly",
         "period": "ONE_YEAR",
-        "price": "19.99",
-        "desc": "All rooms and drills, billed yearly.",
+        "price": "39.99",
+        "desc": "Every room, every practice mode, billed yearly.",
         "trial": True,
     },
 ]
-REVIEW_NOTE = "Unlocks the Card Room, Charleston Room, and Table Room drill packs."
+REVIEW_NOTE = (
+    "Mahj+ adds an extra practice set to each free beginner room, the whole "
+    "Master Tables room, the generated practice modes, Mahj Minute, Game Night "
+    "Prep, and unlimited Play a Hand."
+)
 
 
 def main() -> None:

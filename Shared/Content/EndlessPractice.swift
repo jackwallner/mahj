@@ -154,7 +154,11 @@ enum EndlessPractice {
             items.append(QuickItem(
                 id: PracticeSkill.tileCounting.itemPrefix + UUID().uuidString,
                 prompt: "You have \(heldPhrase) and can see \(exposedPhrase). How many \(tile.spokenName)s are still unaccounted for?",
-                tiles: Array(repeating: tile, count: max(held, 1)),
+                // Exactly what the prompt says is on the rack. Forcing one tile
+                // when `held` is zero put a tile on screen directly under the
+                // words "none on your rack"; the prompt already names the tile
+                // in words, so nothing is lost by showing an empty rack.
+                tiles: Array(repeating: tile, count: held),
                 choices: sorted.map(String.init),
                 answerIndex: answerIndex,
                 explanation: "Four of every tile exist. \(held) held plus \(exposed) exposed leaves \(remaining) unaccounted for. Jokers cannot stand in for a tile in a pair, so counting matters most when you are waiting on one.",

@@ -102,8 +102,11 @@ final class PaywallRenderTests: XCTestCase {
     }
 
     private func tapSettingsUpgrade() -> Bool {
-        let gear = app.navigationBars.buttons.element(boundBy: 0)
-        guard gear.exists else { return false }
+        // By LABEL, not by index. 1.3 put the Reference book in the leading
+        // toolbar slot, so button 0 stopped being the gear and this test
+        // silently opened the glossary instead of Settings.
+        let gear = app.navigationBars.buttons["Settings"].firstMatch
+        guard gear.waitForExistence(timeout: 4) else { return false }
         gear.tap()
         settle(1.0)
         let upgrade = app.buttons["Get \(membershipName)"].firstMatch

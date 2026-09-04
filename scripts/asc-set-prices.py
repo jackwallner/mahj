@@ -31,17 +31,17 @@ BUNDLE = "com.jackwallner.mahj"
 # The version whose PaywallPricing fallbacks carry the prices below. Until this
 # is live, flipping the schedules means Apple charges the new price while every
 # copy of the app in the wild quotes the old one. Bump alongside USA_PRICES.
-REQUIRED_LIVE_VERSION = "1.2.0"
+REQUIRED_LIVE_VERSION = "1.2.1"
 USA_PRICES = {
-    "com.jackwallner.mahj.monthly": "4.99",
-    "com.jackwallner.mahj.yearly": "19.99",
+    "com.jackwallner.mahj.monthly": "9.99",
+    "com.jackwallner.mahj.yearly": "39.99",
 }
 
 # Lifetime is a non-renewing IAP, so it does NOT live on /subscriptionPrices
 # like the two subscriptions above. It needs an inAppPurchasePriceSchedules
 # replacement instead; see set_lifetime_price.
 LIFETIME_ID = "com.jackwallner.mahj.lifetime"
-LIFETIME_PRICE = "49.99"
+LIFETIME_PRICE = "89.99"
 
 
 def _get_v2(token: str, path: str) -> dict:

@@ -31,6 +31,10 @@ final class NewFeatureSmokeTests: XCTestCase {
     /// Mirrors `HandPlayEngine.turnCount`, which a UI test target cannot import.
     private let handPlayTurns = 12
 
+    /// The defaults key holding an unfinished hand, as a launch-argument
+    /// override. Present, it hides any saved hand; absent, the real one is read.
+    private static let resumeArgument = "-handplay.inProgress"
+
     override func setUp() {
         continueAfterFailure = true
         app = XCUIApplication()
@@ -43,6 +47,12 @@ final class NewFeatureSmokeTests: XCTestCase {
             // paywall instead of the deal. Clearing it keeps the walk
             // repeatable without weakening the gate itself.
             "-handplay.lastFreeDay", "",
+            // Likewise a hand left unfinished by an earlier test or an earlier
+            // run: it would resume straight into play and every walk that
+            // expects the deal would find no sections to commit to. The one
+            // test that WANTS the saved hand drops this argument for its
+            // second launch (see `resumeArgument`).
+            Self.resumeArgument, "",
         ]
         if let version = Self.setting("SCREENSHOT_APP_VERSION") {
             app.launchArguments += ["-whatsnew.lastSeenVersion", version]
@@ -163,13 +173,18 @@ final class NewFeatureSmokeTests: XCTestCase {
     /// Taps a rack tile. Which one does not matter here: what is being checked
     /// is that a throw grades, coaches, and lets the hand continue.
     ///
-    /// Queried through `otherElements` and NEVER through
+    /// `buttons` comes first because a throwable tile IS a button: the rack
+    /// carries a real accessibility action and a selected state, so VoiceOver
+    /// and Switch Control can play the mode. The other queries stay as a
+    /// fallback for racks that are only being displayed.
+    ///
+    /// Queried through these element types and NEVER through
     /// `descendants(matching: .any)`. The unbounded query walks the whole
     /// accessibility tree on every `exists`, and at fourteen tiles times twelve
     /// turns that alone runs the test past the harness timeout.
     private func throwATile() -> Bool {
         let predicate = NSPredicate(format: "identifier BEGINSWITH 'rack-tile-'")
-        for query in [app.otherElements, app.images, app.staticTexts] {
+        for query in [app.buttons, app.otherElements, app.images, app.staticTexts] {
             let tile = query.matching(predicate).firstMatch
             guard tile.waitForExistence(timeout: 3) else { continue }
             tile.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
@@ -272,6 +287,115 @@ final class NewFeatureSmokeTests: XCTestCase {
         back()
     }
 
+    // MARK: - Regressions the unit tests cannot reach
+
+    /// A started hand has already cost a free player their hand for the day, so
+    /// walking out of it, or having the app killed, must not take the hand with
+    /// it. Terminates the app outright rather than backing out, because a back
+    /// swipe would not prove the state survives anywhere but memory.
+    func testAnAbandonedHandIsWaitingOnTheNextLaunch() {
+        _ = app.wait(for: .runningForeground, timeout: 30)
+        settle()
+        dismissWhatsNew()
+
+        guard open("Play a") else {
+            problems.append("could not open Play a Hand")
+            reportProblems()
+            return
+        }
+        capture("59_hand_setup")
+        // A hand left over from an earlier run opens straight into play, which
+        // is the very behaviour under test, so only deal a fresh one when the
+        // setup screen is actually there.
+        if exists("COMMIT TO A SECTION") {
+            guard open("2468 (Evens)"), open("Play it out") else {
+                problems.append("could not start the hand")
+                attachTree("failed_start")
+                reportProblems()
+                return
+            }
+        }
+        capture("60_hand_in_progress")
+
+        // Relaunch WITHOUT the override, so the app reads the hand it actually
+        // saved. This is the whole test.
+        if let index = app.launchArguments.firstIndex(of: Self.resumeArgument) {
+            app.launchArguments.removeSubrange(index...(index + 1))
+        }
+        app.terminate()
+        app.launch()
+        _ = app.wait(for: .runningForeground, timeout: 30)
+        settle()
+        dismissWhatsNew()
+        capture("61_home_after_kill")
+
+        if !exists("Resume") {
+            problems.append("Home does not offer to resume the hand that was already paid for")
+        }
+        guard open("Play a") else {
+            problems.append("the started hand could not be reopened at all")
+            reportProblems()
+            return
+        }
+        capture("62_hand_resumed")
+        if !exists("Turn ") {
+            problems.append("reopening did not land back in the hand; it re-dealt or showed the setup")
+            attachTree("failed_resume")
+        }
+        reportProblems()
+    }
+
+    /// The clock used to start with the screen, so the first read of the first
+    /// question came out of the ninety seconds. Timed Challenge is Mahj+ gated,
+    /// hence the member name.
+    func testMemberStartsTheTimedClockThemselves() {
+        _ = app.wait(for: .runningForeground, timeout: 30)
+        settle()
+        dismissWhatsNew()
+
+        guard openTrainingTile("Timed") else {
+            problems.append("could not reach Timed Challenge on Home")
+            reportProblems()
+            return
+        }
+        capture("63_timed_ready")
+        if !exists("Ready?") {
+            problems.append("Timed Challenge did not wait for the player before starting the clock")
+        }
+        guard open("Start the clock") else {
+            problems.append("the ready screen had no way to start")
+            reportProblems()
+            return
+        }
+        settle()
+        capture("64_timed_running")
+        if !exists("correct") {
+            problems.append("no running clock or score after starting")
+        }
+        back()
+        reportProblems()
+    }
+
+    /// The training row scrolls sideways, so `open` (which only swipes up, and
+    /// deliberately taps whether or not the target is hittable) cannot reach
+    /// the tiles past the second one. Here hittability is exactly the question,
+    /// so this one does gate on it.
+    private func openTrainingTile(_ label: String) -> Bool {
+        let predicate = NSPredicate(format: "label CONTAINS %@", label)
+        let tile = app.buttons.matching(predicate).firstMatch
+        guard tile.waitForExistence(timeout: 6) else { return false }
+        for _ in 0..<5 {
+            if tile.isHittable {
+                tile.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+                settle()
+                return true
+            }
+            app.scrollViews.element(boundBy: 1).swipeLeft()
+            settle()
+        }
+        return false
+    }
+
     // MARK: - The member's walk
 
     /// Endless Practice is Mahj+ gated, so the free walk can only ever see its
@@ -309,7 +433,18 @@ final class NewFeatureSmokeTests: XCTestCase {
             // picker, which is where the next skill lives.
             if !open("Done") { back() }
             settle()
-            if !exists("Read the Rack") { back() }
+            // Get all the way back to the picker before the next skill. Under a
+            // long run the completion screen sometimes needs a second back, and
+            // one missed step made the NEXT skill report itself as missing when
+            // the only thing wrong was where the test was standing.
+            for _ in 0..<3 where !exists("Read the Rack") {
+                back()
+                settle()
+            }
+            if !exists("Read the Rack") {
+                home()
+                _ = open("Endless")
+            }
         }
 
         attachTree("member_final")

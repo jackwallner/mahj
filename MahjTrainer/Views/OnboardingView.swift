@@ -53,22 +53,25 @@ struct OnboardingView: View {
                     title: "Make it stick between games",
                     body: "Mah Jongg fades fast between games. Mahj Trainer gives you five-minute drills you can run anywhere, whether you are still meeting the tiles or sharpening instincts you already have.",
                     tiles: [.c(2), .dragon(.soap), .c(2), .b(6)]
-                ).tag(0)
+                ).tag(0).accessibilityHidden(page != 0)
                 infoPage(
                     icon: "rectangle.stack.fill",
                     title: "Practice, not pressure",
                     body: "Swipe through flashcards, read racks, make keep-or-throw calls, and pick your Charleston pass, with the why behind every answer.",
                     tiles: [.b(4), .b(5), .b(6), .joker]
-                ).tag(1)
+                ).tag(1).accessibilityHidden(page != 1)
                 infoPage(
                     icon: "figure.walk",
                     title: "Walk in confident",
                     body: "Know which dragon matches which suit, spot your section fast, and stop dreading the Charleston. Practice at your own pace, with no opponents and no required timers.",
                     tiles: [.dragon(.red), .dragon(.green), .flower]
-                ).tag(2)
-                skillLevelPage.tag(3)
-                trialPage.tag(4)
+                ).tag(2).accessibilityHidden(page != 2)
+                skillLevelPage.tag(3).accessibilityHidden(page != 3)
+                trialPage.tag(4).accessibilityHidden(page != 4)
             }
+            // A paged TabView keeps every page built, so without this VoiceOver
+            // walks off the first screen straight into the trial page's price,
+            // Restore, Terms and Privacy controls before they are visible.
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut, value: page)
             footer

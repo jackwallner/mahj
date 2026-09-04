@@ -182,6 +182,7 @@ reports, covering roughly the first four weeks of availability.
 | First-time downloads | 110 |
 | Trial starts (production) | 41 → **37% of downloads** |
 | Product mix | 41/41 yearly. Zero monthly, zero lifetime |
+| Note (2026-09-04) | That mix is historical. Onboarding's one-tap CTA buys the MONTHLY trial, so a comparable pull after 1.3 will not be 100% yearly. See CLAUDE.md on why the two purchase surfaces lead with different plans. |
 | Trials past day 8 | 10 |
 | Converted to paid | 6 → **60%** |
 | Already `will_not_renew` | 13 of 41 |

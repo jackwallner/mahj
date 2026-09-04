@@ -10,10 +10,28 @@ struct TileView: View {
     /// element: applied to the wrapper in `TileRackView` instead, SwiftUI
     /// collapses it and the identifier never reaches the tree.
     var identifier: String?
+    /// What tapping this tile does, if anything. It lives here for the same
+    /// reason the identifier does: the action has to land on the SAME element
+    /// as the label, or VoiceOver reads a tile name with nothing to activate.
+    /// Play a Hand is twelve taps long, so a tile that cannot be activated
+    /// makes the whole mode unusable rather than one drill awkward.
+    var action: (() -> Void)?
+    /// Whether this tile is currently picked out (the tile just drawn, or a
+    /// selection). Announced, not just drawn.
+    var isSelected = false
 
     private var height: CGFloat { width * 1.35 }
 
+    @ViewBuilder
     var body: some View {
+        if let action {
+            tileBody.accessibilityAction(.default, action)
+        } else {
+            tileBody
+        }
+    }
+
+    private var tileBody: some View {
         ZStack {
             RoundedRectangle(cornerRadius: width * 0.16)
                 .fill(Theme.ivory)
@@ -23,8 +41,18 @@ struct TileView: View {
             face
         }
         .frame(width: width, height: height)
+        .accessibilityElement(children: .ignore)
         .accessibilityLabel(tile.spokenName)
         .accessibilityIdentifier(identifier ?? "")
+        .accessibilityAddTraits(accessibilityTraits)
+        .accessibilityHint(action == nil ? "" : "Double tap to play this tile")
+    }
+
+    private var accessibilityTraits: AccessibilityTraits {
+        var traits = AccessibilityTraits()
+        if action != nil { traits.insert(.isButton) }
+        if isSelected { traits.insert(.isSelected) }
+        return traits
     }
 
     @ViewBuilder
@@ -185,7 +213,13 @@ struct TileRackView: View {
     @ViewBuilder
     private func tileCell(_ index: Int, _ tile: Tile) -> some View {
         let selected = highlightedIndices.contains(index)
-        TileView(tile: tile, width: tileWidth, identifier: "rack-tile-\(index)")
+        TileView(
+            tile: tile,
+            width: tileWidth,
+            identifier: "rack-tile-\(index)",
+            action: onTap.map { tap in { tap(index) } },
+            isSelected: selected
+        )
             .overlay {
                 if selected {
                     RoundedRectangle(cornerRadius: tileWidth * 0.16)

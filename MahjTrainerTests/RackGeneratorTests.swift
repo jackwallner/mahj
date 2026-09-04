@@ -140,6 +140,22 @@ final class RackGeneratorTests: XCTestCase {
         }
     }
 
+    /// The rack under a counting question is what the prompt says is on the
+    /// rack. It used to force one tile even when the prompt said "none on your
+    /// rack", so the player read a sentence and saw it contradicted directly
+    /// underneath.
+    func testTileCountingRackMatchesThePrompt() {
+        for item in EndlessPractice.items(for: .tileCounting, count: 60) {
+            let held = item.tiles.count
+            if held == 0 {
+                XCTAssertTrue(item.prompt.contains("none on your rack"), item.prompt)
+            } else {
+                XCTAssertTrue(item.prompt.contains("\(held) on your rack"), item.prompt)
+                XCTAssertEqual(Set(item.tiles).count, 1, "One tile is being counted, not several")
+            }
+        }
+    }
+
     /// Drawn large on purpose: `mixedItems` trims the tail to hit the count,
     /// and a batch barely bigger than the skill count could drop one skill
     /// entirely and fail at random.

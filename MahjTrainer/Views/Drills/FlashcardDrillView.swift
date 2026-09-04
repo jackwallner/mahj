@@ -141,6 +141,10 @@ struct FlashcardDrillView: View {
                 .gesture(dragGesture(size: size))
                 .accessibilityAddTraits(.isButton)
                 .accessibilityHint(swipeAccessibilityHint)
+                // Only the top card can be flipped or flung. The two behind it
+                // are scenery: left in the tree they give VoiceOver two cards
+                // that answer nothing, which reads as a broken deck.
+                .accessibilityHidden(slot != 0)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
