@@ -12,9 +12,28 @@ import Foundation
 final class HandPlayStore: ObservableObject {
     static let shared = HandPlayStore()
 
+    /// A hand that was started and not finished.
+    ///
+    /// The free hand is spent the moment play begins, which is right: a hand is
+    /// a hand whether or not it is seen through. What is not right is spending
+    /// it and getting nothing, and before this the whole hand lived in view
+    /// state, so one stray back-swipe or a terminated app left a free player
+    /// looking at `Back tomorrow` having played nothing. Saved at each turn
+    /// boundary, the hand is still there when they come back.
+    struct InProgressHand: Codable, Sendable {
+        var rack: [Tile]
+        var wall: [Tile]
+        var wallIndex: Int
+        var target: HandCategory
+        var turn: Int
+        var cleanDiscards: Int
+        var drawn: Tile?
+    }
+
     @Published private(set) var handsPlayed: Int
     @Published private(set) var bestStars: Int
     @Published private(set) var lastFreeHandDay: String
+    @Published private(set) var inProgress: InProgressHand?
 
     private let defaults: UserDefaults
 
@@ -22,6 +41,7 @@ final class HandPlayStore: ObservableObject {
         static let handsPlayed = "handplay.handsPlayed"
         static let bestStars = "handplay.bestStars"
         static let lastFreeDay = "handplay.lastFreeDay"
+        static let inProgress = "handplay.inProgress"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -29,6 +49,9 @@ final class HandPlayStore: ObservableObject {
         handsPlayed = defaults.integer(forKey: Keys.handsPlayed)
         bestStars = defaults.integer(forKey: Keys.bestStars)
         lastFreeHandDay = defaults.string(forKey: Keys.lastFreeDay) ?? ""
+        if let data = defaults.data(forKey: Keys.inProgress) {
+            inProgress = try? JSONDecoder().decode(InProgressHand.self, from: data)
+        }
     }
 
     /// The calendar-day key, shared with Mahj Minute's format so both features
@@ -37,8 +60,10 @@ final class HandPlayStore: ObservableObject {
         MahjMinuteContent.key(for: date, calendar: calendar)
     }
 
+    /// A hand already paid for is always playable. Otherwise: members always,
+    /// free players once a calendar day.
     func canPlay(isMember: Bool, now: Date = Date(), calendar: Calendar = .current) -> Bool {
-        isMember || lastFreeHandDay != Self.dayKey(for: now, calendar: calendar)
+        inProgress != nil || isMember || lastFreeHandDay != Self.dayKey(for: now, calendar: calendar)
     }
 
     /// Called when a hand actually starts, not when the screen opens. Backing
@@ -51,6 +76,21 @@ final class HandPlayStore: ObservableObject {
         defaults.set(lastFreeHandDay, forKey: Keys.lastFreeDay)
     }
 
+    /// Saves the hand at a turn boundary: drawn, nothing thrown yet. Saving
+    /// mid-throw would resume into a state where the tile is already gone but
+    /// the turn has not advanced, and the player would spend two discards on
+    /// one draw.
+    func saveInProgress(_ hand: InProgressHand) {
+        inProgress = hand
+        guard let data = try? JSONEncoder().encode(hand) else { return }
+        defaults.set(data, forKey: Keys.inProgress)
+    }
+
+    func clearInProgress() {
+        inProgress = nil
+        defaults.removeObject(forKey: Keys.inProgress)
+    }
+
     func recordVerdict(stars: Int) {
         guard stars > bestStars else { return }
         bestStars = stars
@@ -61,6 +101,7 @@ final class HandPlayStore: ObservableObject {
         handsPlayed = 0
         bestStars = 0
         lastFreeHandDay = ""
+        clearInProgress()
         defaults.removeObject(forKey: Keys.handsPlayed)
         defaults.removeObject(forKey: Keys.bestStars)
         defaults.removeObject(forKey: Keys.lastFreeDay)

@@ -67,6 +67,24 @@ final class GeneratedPracticeTests: XCTestCase {
         }
     }
 
+    /// The explanation ends by telling the player that every other tile in the
+    /// rack is already part of a group they have built. That sentence used to
+    /// be false: the generator dealt two strays and offered only the first, so
+    /// a second ungrouped tile sat in plain sight, and some core shapes carried
+    /// a singleton on top of that. The whole rack has to back the claim, not
+    /// just the four choices.
+    func testTheAnswerIsTheOnlyUngroupedTileInTheWholeRack() {
+        for pass in passes {
+            var counts: [Tile: Int] = [:]
+            for tile in pass.tiles { counts[tile, default: 0] += 1 }
+            let ungrouped = counts.filter { $0.value < 2 }.map(\.key)
+            XCTAssertEqual(
+                ungrouped, [pass.answer],
+                "Rack \(pass.tiles) has ungrouped tiles \(ungrouped) but offers only \(pass.answer)"
+            )
+        }
+    }
+
     func testPassChoicesAreDistinctAndFour() {
         for pass in passes {
             XCTAssertEqual(pass.choices.count, 4)

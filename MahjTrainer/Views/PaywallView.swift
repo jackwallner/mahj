@@ -162,6 +162,12 @@ struct PaywallContent: View {
             )
         }
         .buttonStyle(.plain)
+        // Selection was carried by a border colour and a fill alone, and the
+        // two subscription cards share a CTA title, so nothing told a VoiceOver
+        // user which plan the button at the bottom would actually buy.
+        .accessibilityLabel("\(title), \(price). \(detail)")
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+        .accessibilityHint(isSelected ? "Selected plan" : "Double tap to choose this plan")
     }
 }
 
@@ -293,7 +299,7 @@ struct PaywallView: View {
                         purchase()
                     } label: {
                         Group {
-                            if purchasing {
+                            if purchasing || !priceReady {
                                 ProgressView().tint(.white)
                             } else {
                                 Text(selectedPlan.ctaTitle)
@@ -301,7 +307,14 @@ struct PaywallView: View {
                         }
                         .primaryCTA()
                     }
-                    .disabled(purchasing)
+                    // Dead until there is a price. Enabled over an unresolved
+                    // product, this button ran a second offerings fetch and
+                    // then showed a generic "products unavailable" alert, which
+                    // reads as the app being broken rather than the store being
+                    // slow.
+                    .disabled(purchasing || !priceReady)
+                    .opacity(priceReady ? 1 : 0.75)
+                    .accessibilityHint(priceReady ? "" : "Waiting for the App Store to return prices")
                     footerLinks
                 }
                 .padding()
@@ -326,6 +339,13 @@ struct PaywallView: View {
             }
             .task { subscriptions.trackPaywallImpression(id: source) }
         }
+    }
+
+    /// Whether the selected plan has a real amount to charge. 3.1.2 wants the
+    /// purchase screen to state what the customer pays, so a plan we cannot
+    /// price is a plan we cannot sell.
+    private var priceReady: Bool {
+        PaywallPricing.price(subscriptions, selectedPlan) != nil
     }
 
     private var footerLinks: some View {

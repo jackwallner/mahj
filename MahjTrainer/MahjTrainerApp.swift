@@ -17,6 +17,13 @@ struct MahjTrainerApp: App {
                 .environmentObject(router)
                 .preferredColorScheme(settings.appearance.colorScheme)
                 .onAppear {
+                    // Before anything reads mastery: pre-1.1 installs carry
+                    // their whole history in ProgressStore's flat sets, and
+                    // Home, Room and Stats have to tell one story about it.
+                    PracticeRecordStore.shared.migrateLegacyProgress(
+                        seen: progress.seenItems,
+                        missed: progress.missedItems
+                    )
                     subscriptions.start()
                     ReviewPromptTracker.recordAppLaunch()
                     ConversionDiagnostics.recordAppOpen()

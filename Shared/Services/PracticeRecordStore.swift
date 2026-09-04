@@ -47,6 +47,7 @@ final class PracticeRecordStore: ObservableObject {
     private enum Keys {
         static let records = "practice.records"
         static let bestChallenge = "practice.bestChallengeScore"
+        static let legacyMigrated = "practice.migratedLegacyProgress"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -58,6 +59,60 @@ final class PracticeRecordStore: ObservableObject {
         } else {
             records = [:]
         }
+    }
+
+    // MARK: - Legacy migration
+
+    /// Seeds records from the flat `seenItems`/`missedItems` sets that were the
+    /// only item-level memory before 1.1.
+    ///
+    /// The room ring used to count finished drills; from 1.3 it counts mastery,
+    /// which lives here. Without this, a player upgrading from a pre-1.1 build
+    /// opens Home to rooms that say `Not started` above drill rows still wearing
+    /// their completion checkmarks, and a Stats screen that says `No practice
+    /// yet`. Three surfaces, three different stories about the same history.
+    ///
+    /// It seeds engagement, never mastery. An item the player got right becomes
+    /// one correct attempt with a streak of ONE, which is deliberately short of
+    /// the two-in-a-row that `isKnown` wants: we know they answered it, we do
+    /// not know they know it. A missed item is seeded as missed, so it comes
+    /// back through the review queue exactly as `missedItems` already made it
+    /// come back through the daily mix.
+    func migrateLegacyProgress(seen: Set<String>, missed: Set<String>, now: Date = Date()) {
+        guard !defaults.bool(forKey: Keys.legacyMigrated) else { return }
+        defaults.set(true, forKey: Keys.legacyMigrated)
+        guard !seen.isEmpty else { return }
+
+        var rooms: [String: String] = [:]
+        for room in DrillLibrary.rooms {
+            for id in Self.trackableItemIDs(in: room, isMember: true) { rooms[id] = room.id }
+        }
+
+        var seeded = false
+        for id in seen where records[id] == nil {
+            // Only real authored items migrate. A generated id was never in
+            // these sets, and an id we cannot place in a room would land in
+            // stats as a room-less row.
+            guard let roomID = rooms[id] else { continue }
+            var record = PracticeRecord()
+            record.roomID = roomID
+            record.lastAnswered = now
+            if missed.contains(id) {
+                record.attempts = 2
+                record.correct = 1
+                record.streak = 0
+                record.dueDate = now
+            } else {
+                record.attempts = 1
+                record.correct = 1
+                record.streak = 1
+                record.intervalDays = 1
+                record.dueDate = now.addingTimeInterval(86_400)
+            }
+            records[id] = record
+            seeded = true
+        }
+        if seeded { persist() }
     }
 
     // MARK: - Recording

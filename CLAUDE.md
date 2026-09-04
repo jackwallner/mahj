@@ -146,11 +146,21 @@ Master Tables** (`Shared/Content/ProContent.swift`). Locking is per-drill:
 filters the Quick Session pool through it. The onboarding trial page
 follows the OT710 zero-shift pattern (`~/OT710.md`, StatScout reference): no
 plan cards, soft "Get Started" exit ABOVE the primary, primary CTA in the exact
-Continue slot, one tap → yearly trial purchase → Apple confirm; full
+Continue slot, one tap → MONTHLY trial purchase → Apple confirm; full
 `PaywallView` (plan picker) is only the products-failed fallback and the
 in-app/Settings paywall. A user backing out of Apple's sheet is a
 `PurchaseOutcome.cancelled`, NOT an error: never answer it by shoving up
 another paywall.
+
+Monthly here, yearly on the paywall, deliberately (confirmed 2026-09-04): two
+different people reach the two surfaces. Whoever taps through onboarding has
+not used the app yet and is reacting to the number on Apple's sheet, so the
+smaller recurring figure is what starts the trial; whoever opens the paywall
+later has already decided the app is worth something, and it still leads with
+yearly. `OnboardingView.trialDisclosure` must always name the SAME plan the CTA
+buys, or the screen misstates the charge (3.1.2). The 100%-yearly funnel in
+`docs/tasks/03-pricing-increase-1.3.md` predates this and describes the old
+onboarding, not the current one.
 
 **Paywall compliance (App Review 3.1.2):** `PaywallView` must always show, on
 the purchase screen itself: membership name, per-plan price, billing period, an

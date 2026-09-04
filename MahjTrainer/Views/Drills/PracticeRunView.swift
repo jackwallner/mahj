@@ -42,6 +42,10 @@ struct PracticeRunView: View {
     @State private var selection: Int?
 
     @State private var secondsRemaining = Self.challengeSeconds
+    /// The timed clock does not start with the screen. It used to, and the
+    /// first fourteen seconds were spent reading a question the player had not
+    /// asked for yet.
+    @State private var timedStarted = false
     @State private var confettiTrigger = 0
     @State private var confettiParticleCount = 30
     @State private var flashOpacity: Double = 0
@@ -72,9 +76,50 @@ struct PracticeRunView: View {
     var body: some View {
         if finished || items.isEmpty {
             DrillCompleteView(drill: completedDrill, score: score, total: gradedTotal)
+        } else if mode == .timed && !timedStarted {
+            readyScreen
         } else {
             runBody
         }
+    }
+
+    /// Ninety seconds is short enough that the first read costs a sixth of the
+    /// run, so the player says when it starts.
+    private var readyScreen: some View {
+        VStack(spacing: 18) {
+            Spacer()
+            Image(systemName: "timer")
+                .font(.system(size: 48))
+                .foregroundStyle(Theme.coral)
+            Text("Ready?")
+                .font(Theme.display(30))
+                .foregroundStyle(Theme.ink)
+            Text("\(Self.challengeSeconds) seconds of mixed questions. The clock starts when you tap.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            if records.bestChallengeScore > 0 {
+                Text("Best so far: \(records.bestChallengeScore)")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Theme.jade)
+                    .monospacedDigit()
+            }
+            Spacer()
+            Button {
+                Haptics.impact(.rigid)
+                timedStarted = true
+            } label: {
+                Text("Start the clock").primaryCTA()
+            }
+        }
+        .padding()
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
+        .frame(maxHeight: .infinity)
+        .background(Theme.background)
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     private var item: QuickItem { items[min(index, items.count - 1)] }
@@ -152,6 +197,13 @@ struct PracticeRunView: View {
             }
         }
         .task { await runClock() }
+        // A timed run has no Finish button on purpose, so backing out is the
+        // only early exit there is. It used to throw the score away, which
+        // punished the player for leaving rather than just ending the run.
+        .onDisappear {
+            guard mode == .timed, !finished, attempted > 0 else { return }
+            records.recordChallengeScore(score)
+        }
     }
 
     @ViewBuilder
@@ -239,7 +291,7 @@ struct PracticeRunView: View {
     // MARK: - Clock
 
     private func runClock() async {
-        guard mode == .timed else { return }
+        guard mode == .timed, timedStarted else { return }
         while secondsRemaining > 0 && !finished {
             try? await Task.sleep(nanoseconds: 1_000_000_000)
             guard !Task.isCancelled else { return }

@@ -57,20 +57,51 @@ struct HandPlayView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_hand_play") }
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.4)) }
-        .task { dealIfNeeded() }
+        .task { resumeOrDeal() }
     }
 
     // MARK: - Setup
 
-    private func dealIfNeeded() {
+    /// A hand already started is picked back up where it was left, before any
+    /// fresh deal. The free hand was spent when it began, so the player is owed
+    /// this one whether they backed out on purpose or the app was killed.
+    private func resumeOrDeal() {
         guard rack.isEmpty else { return }
+        if let saved = handPlay.inProgress {
+            rack = saved.rack
+            wall = saved.wall
+            wallIndex = saved.wallIndex
+            target = saved.target
+            turn = saved.turn
+            cleanDiscards = saved.cleanDiscards
+            drawn = saved.drawn
+            phase = .playing
+            return
+        }
         let deal = HandPlayEngine.deal()
         rack = deal.rack
         wall = deal.wall
     }
 
+    /// Called at each turn boundary only. See `HandPlayStore.saveInProgress`.
+    private func saveProgress() {
+        guard let target else { return }
+        handPlay.saveInProgress(HandPlayStore.InProgressHand(
+            rack: rack,
+            wall: wall,
+            wallIndex: wallIndex,
+            target: target,
+            turn: turn,
+            cleanDiscards: cleanDiscards,
+            drawn: drawn
+        ))
+    }
+
     private var setupScreen: some View {
-        ScrollView {
+        // Centring, like every other drill body: on a 13-inch iPad the deal and
+        // five section choices fill a third of the screen, and a plain
+        // ScrollView pins that third to the top.
+        CenteringScrollView {
             VStack(spacing: 16) {
                 VStack(spacing: 6) {
                     Text("Your deal")
@@ -328,6 +359,7 @@ struct HandPlayView: View {
         withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
             rack = (rack + [tile]).racked
         }
+        saveProgress()
     }
 
     private func throwTile(at index: Int) {
@@ -379,6 +411,7 @@ struct HandPlayView: View {
             discards: turn
         )
         verdict = result
+        handPlay.clearInProgress()
         handPlay.recordVerdict(stars: result.stars)
         progress.recordSession(drillID: "hand-play")
         if result.stars >= 2 {
@@ -394,7 +427,7 @@ struct HandPlayView: View {
     @ViewBuilder
     private var verdictScreen: some View {
         if let verdict {
-            ScrollView {
+            CenteringScrollView {
                 VStack(spacing: 16) {
                     HStack(spacing: 6) {
                         ForEach(0..<3, id: \.self) { index in

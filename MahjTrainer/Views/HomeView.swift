@@ -223,35 +223,63 @@ struct HomeView: View {
 
     // MARK: - Header (title left, stats right, one row total)
 
+    /// Title and stats. On a regular width they share one row; on a phone they
+    /// cannot.
+    ///
+    /// The toolbar draws no background, so Home's content sits directly under
+    /// the Settings gear. At 402 points the trailing stats chip ran to x 386
+    /// while the gear occupied x 348 to x 379 at an overlapping height, so the
+    /// two controls were literally on top of each other and the gear looked
+    /// like part of the progress chip. Stacking the chips under the title on
+    /// compact widths costs one row and removes the collision outright, rather
+    /// than tuning a padding that only holds at one text size.
+    @ViewBuilder
     private var header: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Mahj Trainer")
-                    .font(Theme.display(32))
-                    .foregroundStyle(Theme.ink)
-                Text("Your seat at the table.")
-                    .font(.subheadline)
-                    .foregroundStyle(Theme.inkSecondary)
+        if horizontalSizeClass == .regular {
+            HStack(alignment: .top) {
+                headerTitle
+                Spacer(minLength: 8)
+                statsLink
+                    .padding(.top, 4)
             }
-            Spacer(minLength: 8)
-            // The chips were already the honest summary of practice, so they
-            // are also the door to the full breakdown rather than yet another
-            // row competing with the rooms.
-            NavigationLink {
-                StatsView()
-            } label: {
-                HStack(spacing: 8) {
-                    statChip(value: progress.streakCount, icon: "flame.fill", color: Theme.coral,
-                             label: "\(progress.streakCount) day streak")
-                    statChip(value: progress.totalSessions, icon: "checkmark.seal.fill", color: Theme.jade,
-                             label: "\(progress.totalSessions) drills done")
-                }
+            .padding(.top, 2)
+        } else {
+            VStack(alignment: .leading, spacing: 10) {
+                headerTitle
+                statsLink
             }
-            .buttonStyle(.plain)
-            .accessibilityHint("Opens your progress breakdown")
-            .padding(.top, 4)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 2)
         }
-        .padding(.top, 2)
+    }
+
+    private var headerTitle: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Mahj Trainer")
+                .font(Theme.display(32))
+                .foregroundStyle(Theme.ink)
+            Text("Your seat at the table.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.inkSecondary)
+        }
+    }
+
+    /// The chips were already the honest summary of practice, so they are also
+    /// the door to the full breakdown rather than yet another row competing
+    /// with the rooms.
+    private var statsLink: some View {
+        NavigationLink {
+            StatsView()
+        } label: {
+            HStack(spacing: 8) {
+                statChip(value: progress.streakCount, icon: "flame.fill", color: Theme.coral,
+                         label: "\(progress.streakCount) day streak")
+                statChip(value: progress.totalSessions, icon: "checkmark.seal.fill", color: Theme.jade,
+                         label: "\(progress.totalSessions) drills done")
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityHint("Opens your progress breakdown")
     }
 
     private func statChip(value: Int, icon: String, color: Color, label: String) -> some View {
@@ -374,12 +402,27 @@ struct HomeView: View {
     /// space.
     private var trainingSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack {
+            HStack(spacing: 6) {
                 Text("TRAINING")
                     .font(.caption.weight(.heavy))
                     .kerning(1.4)
                     .foregroundStyle(Theme.inkSecondary)
                 Spacer()
+                // A phone fits two and a bit of these tiles and the scroll
+                // indicators are off, so without a cue the visible cards read
+                // as the whole offering and Timed Challenge and Fix My
+                // Mistakes are never found.
+                if horizontalSizeClass != .regular {
+                    HStack(spacing: 3) {
+                        Text("SWIPE FOR MORE")
+                            .font(.caption2.weight(.heavy))
+                            .kerning(1.1)
+                        Image(systemName: "chevron.compact.right")
+                            .font(.caption2.weight(.bold))
+                    }
+                    .foregroundStyle(Theme.inkTertiary)
+                    .accessibilityHidden(true)
+                }
             }
             .padding(.horizontal, 4)
             if horizontalSizeClass == .regular {
@@ -470,7 +513,9 @@ struct HomeView: View {
                     title: "Play a\nHand",
                     icon: "hand.draw.fill",
                     color: Theme.jade,
-                    badge: free ? "1 free today" : handPlayBadge,
+                    badge: handPlay.inProgress != nil
+                        ? "Resume"
+                        : (free ? "1 free today" : handPlayBadge),
                     locked: false
                 )
             }

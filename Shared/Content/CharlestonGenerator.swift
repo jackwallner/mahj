@@ -31,14 +31,22 @@ enum CharlestonGenerator {
         let choiceNotes: [String?]
     }
 
-    /// Group shapes for the 11 in-section tiles. Every distractor has to come
-    /// from a group of 3 or more, so each partition carries at least three of
-    /// those.
+    /// Group shapes for the 12 in-section tiles. Two rules hold every shape
+    /// here together, and the explanation depends on both:
+    ///
+    /// 1. No singletons. The coaching sentence tells the player that every
+    ///    other tile in the rack is already part of a group, so a lone tile
+    ///    inside the "in-section" core would make the question a lie the
+    ///    player can see through by counting.
+    /// 2. At least three groups of 3 or more, because every distractor has to
+    ///    be a tile whose loss genuinely breaks something.
+    ///
+    /// Twelve, not eleven, because the rack now carries exactly ONE stray.
     private static let corePartitions: [[Int]] = [
-        [4, 4, 3],
-        [3, 3, 3, 2],
-        [4, 3, 3, 1],
-        [3, 3, 4, 1],
+        [4, 4, 4],
+        [3, 3, 3, 3],
+        [4, 3, 3, 2],
+        [3, 4, 3, 2],
     ]
 
     static func pass(attempts: Int = 200) -> GeneratedPass? {
@@ -85,11 +93,14 @@ enum CharlestonGenerator {
             core += Array(repeating: tile, count: size)
             if size >= 3 { groupLeaders.append(tile) }
         }
-        guard core.count == 11, groupLeaders.count >= 3 else { return nil }
+        guard core.count == 12, groupLeaders.count >= 3 else { return nil }
 
-        // Two strays, so the rack looks like a real pre-Charleston mess, but
-        // only one of them is ever offered as a choice.
-        guard let strays = outsiders(for: section, count: 2, using: &generator) else { return nil }
+        // Exactly one stray. A second one used to ride along to make the rack
+        // look like a real pre-Charleston mess, but only the first was ever
+        // offered as an answer, so the explanation's closing promise ("every
+        // other tile here is already part of a group") was false about a tile
+        // sitting in plain sight on the rack.
+        guard let strays = outsiders(for: section, count: 1, using: &generator) else { return nil }
         let rack = (core + strays).racked
         guard rack.count == 13 else { return nil }
 
