@@ -5,6 +5,11 @@ import SwiftUI
 struct TileView: View {
     let tile: Tile
     var width: CGFloat = 44
+    /// Position-stable handle for UI tests. It must be set HERE, alongside the
+    /// accessibility label, because that is what makes this an accessibility
+    /// element: applied to the wrapper in `TileRackView` instead, SwiftUI
+    /// collapses it and the identifier never reaches the tree.
+    var identifier: String?
 
     private var height: CGFloat { width * 1.35 }
 
@@ -19,6 +24,7 @@ struct TileView: View {
         }
         .frame(width: width, height: height)
         .accessibilityLabel(tile.spokenName)
+        .accessibilityIdentifier(identifier ?? "")
     }
 
     @ViewBuilder
@@ -179,7 +185,7 @@ struct TileRackView: View {
     @ViewBuilder
     private func tileCell(_ index: Int, _ tile: Tile) -> some View {
         let selected = highlightedIndices.contains(index)
-        TileView(tile: tile, width: tileWidth)
+        TileView(tile: tile, width: tileWidth, identifier: "rack-tile-\(index)")
             .overlay {
                 if selected {
                     RoundedRectangle(cornerRadius: tileWidth * 0.16)

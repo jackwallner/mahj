@@ -242,38 +242,31 @@ struct MissNote: Equatable, Sendable {
 /// The second half of a wrong answer. The gold card above says what IS true;
 /// this says what the player's own read would have required, which is the
 /// part that stops them making the same read next time.
+///
+/// Deliberately NOT a disclosure. It was one, and it was wrong twice over: a
+/// player who has just got something wrong should not have to ask a second
+/// time to find out why, and expanding it after the pager had already scrolled
+/// pushed the reason underneath the Next button, where the last line was cut
+/// in half.
 struct MissNoteCard: View {
     let note: MissNote
-    @State private var expanded = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Button {
-                withAnimation(.spring(response: 0.32, dampingFraction: 0.85)) { expanded.toggle() }
-            } label: {
-                HStack(spacing: 8) {
-                    Image(systemName: "questionmark.circle.fill")
-                        .foregroundStyle(Theme.crakRed)
-                    Text("Why not \(note.pickedLabel)?")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Theme.ink)
-                        .multilineTextAlignment(.leading)
-                    Spacer(minLength: 4)
-                    Image(systemName: "chevron.down")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(Theme.inkTertiary)
-                        .rotationEffect(.degrees(expanded ? 180 : 0))
-                }
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 8) {
+                Image(systemName: "questionmark.circle.fill")
+                    .foregroundStyle(Theme.crakRed)
+                Text("Why not \(note.pickedLabel)?")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.ink)
+                    .multilineTextAlignment(.leading)
+                Spacer(minLength: 0)
             }
-            .buttonStyle(.plain)
-            if expanded {
-                Text(note.reason)
-                    .font(.subheadline)
-                    .foregroundStyle(Theme.inkSecondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-            }
+            Text(note.reason)
+                .font(.subheadline)
+                .foregroundStyle(Theme.inkSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)

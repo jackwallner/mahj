@@ -281,8 +281,8 @@ struct HandPlayView: View {
                 .padding(.horizontal, 9)
                 .padding(.vertical, 5)
                 .background(Theme.jade.opacity(0.12), in: Capsule())
-                Text("\(workingCount) working")
-                    .accessibilityLabel("\(workingCount) tiles working toward the section")
+                Text("\(fittingCount) fit")
+                    .accessibilityLabel("\(fittingCount) tiles fit the section")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Theme.inkSecondary)
                     .monospacedDigit()
@@ -290,9 +290,12 @@ struct HandPlayView: View {
         }
     }
 
-    private var workingCount: Int {
+    /// Tiles that FIT, not tiles already grouped. The choose screen and the
+    /// verdict both count this way, and a chip that reads "0 working" while
+    /// the player is visibly holding three even tiles looks like a bug.
+    private var fittingCount: Int {
         guard let target else { return 0 }
-        return HandPlayEngine.workingTiles(in: rack, target: target)
+        return HandPlayEngine.fittingTiles(in: rack, target: target)
     }
 
     private func gradeCard(_ grade: Grade) -> some View {
@@ -408,7 +411,7 @@ struct HandPlayView: View {
                         .multilineTextAlignment(.center)
 
                     HStack(spacing: 0) {
-                        metric("\(verdict.working)/\(verdict.total)", "tiles working", Theme.jade)
+                        metric("\(verdict.fitting)/\(verdict.total)", "tiles fit", Theme.jade)
                         Divider().frame(height: 34)
                         metric("\(verdict.cleanDiscards)/\(verdict.discards)", "clean throws", Theme.coral)
                     }
