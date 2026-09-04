@@ -65,4 +65,38 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
             return "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay the most."
         }
     }
+
+    /// The one thing this section demands, in a sentence. Used to explain a
+    /// wrong pick: a player who chose 369 needs to hear what 369 actually
+    /// wants, not just that they were wrong.
+    var requires: String {
+        switch self {
+        case .year:
+            return "a year hand is built from the year's digits, with soaps for zeros, so it wants 2s and soaps rather than a spread of numbers"
+        case .evens2468:
+            return "an evens hand can contain 2s, 4s, 6s and 8s and nothing else, so a single odd tile rules it out"
+        case .likeNumbers:
+            return "like numbers means the SAME number in all three suits, so a rack spread across several numbers is not it"
+        case .quints:
+            return "quints need five of a kind, which is impossible without jokers, so this is a joker question before it is a number question"
+        case .consecutiveRun:
+            return "a run needs numbers stepping up in order with no gaps, which always mixes odd and even"
+        case .odds13579:
+            return "an odds hand can contain 1s, 3s, 5s, 7s and 9s and nothing else, so a single even tile rules it out"
+        case .windsDragons:
+            return "this section is honors only, so any numbered tile on the rack rules it out"
+        case .threeSixNine:
+            return "369 wants only 3s, 6s and 9s, and it needs the 6 to tell it apart from a pure evens or pure odds hand"
+        case .singlesAndPairs:
+            return "singles and pairs means no pungs or kongs at all, and no jokers anywhere"
+        }
+    }
+
+    /// Per-choice coaching for a section question: nothing for the right
+    /// answer, and for every wrong one, what that section would have needed.
+    static func missNotes(for choices: [HandCategory], answer: HandCategory) -> [String?] {
+        choices.map { choice in
+            choice == answer ? nil : "\(choice.displayName): \(choice.requires)."
+        }
+    }
 }

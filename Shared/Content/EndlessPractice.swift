@@ -10,13 +10,28 @@ import Foundation
 enum PracticeSkill: String, CaseIterable, Identifiable, Sendable {
     case rackReading
     case tileCounting
+    case charlestonPass
+    case defense
+    /// Play a Hand. It is not a question stream like the others, so it never
+    /// appears in the Endless picker or the Timed Challenge; it is a member of
+    /// this enum purely so its graded throws roll up into ONE stats row
+    /// instead of minting an unbounded record per turn.
+    case handPlay
 
     var id: String { rawValue }
+
+    /// The skills that are actually a stream of generated questions.
+    static var endlessCases: [PracticeSkill] {
+        allCases.filter { $0 != .handPlay }
+    }
 
     var title: String {
         switch self {
         case .rackReading: return "Read the Rack"
         case .tileCounting: return "Count What's Left"
+        case .charlestonPass: return "Pass the Junk"
+        case .defense: return "Read the Exposures"
+        case .handPlay: return "Play a Hand"
         }
     }
 
@@ -24,6 +39,9 @@ enum PracticeSkill: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .rackReading: return "Freshly dealt racks, unlimited reps"
         case .tileCounting: return "Track the tiles still in play"
+        case .charlestonPass: return "Find the tile that fits nothing"
+        case .defense: return "Discard without feeding the table"
+        case .handPlay: return "Commit to a section and play it out"
         }
     }
 
@@ -31,6 +49,9 @@ enum PracticeSkill: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .rackReading: return "square.grid.3x3.fill"
         case .tileCounting: return "number.circle.fill"
+        case .charlestonPass: return "arrow.triangle.2.circlepath"
+        case .defense: return "shield.lefthalf.filled"
+        case .handPlay: return "hand.draw.fill"
         }
     }
 
@@ -39,6 +60,9 @@ enum PracticeSkill: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .rackReading: return "card-room"
         case .tileCounting: return "table-room"
+        case .charlestonPass: return "charleston-room"
+        case .defense: return "table-room"
+        case .handPlay: return "card-room"
         }
     }
 
@@ -69,12 +93,16 @@ enum EndlessPractice {
         switch skill {
         case .rackReading: return rackItems(count: count)
         case .tileCounting: return countingItems(count: count)
+        case .charlestonPass: return passItems(count: count)
+        case .defense: return defenseItems(count: count)
+        // Play a Hand is a whole screen of its own, not a question stream.
+        case .handPlay: return []
         }
     }
 
     /// A mixed batch across every skill, for the timed challenge.
     static func mixedItems(count: Int) -> [QuickItem] {
-        let skills = PracticeSkill.allCases
+        let skills = PracticeSkill.endlessCases
         let perSkill = max(1, count / skills.count + 1)
         return skills.flatMap { items(for: $0, count: perSkill) }.shuffled().prefix(count).map { $0 }
     }
@@ -93,7 +121,8 @@ enum EndlessPractice {
                 answerIndex: answerIndex,
                 explanation: rack.explanation,
                 sourceLabel: "Endless Practice",
-                roomID: PracticeSkill.rackReading.roomID
+                roomID: PracticeSkill.rackReading.roomID,
+                choiceNotes: HandCategory.missNotes(for: rack.choices, answer: rack.answer)
             )
         }
     }
@@ -134,6 +163,56 @@ enum EndlessPractice {
             ))
         }
         return items
+    }
+
+    // MARK: - Charleston passes
+
+    /// The generated Charleston question is a single-tile pass decision, not
+    /// the full three-tile pass. See `CharlestonGenerator` for why: a
+    /// three-tile ranking is not gradeable without a coach, and the authored
+    /// Charleston drills still teach the whole pass.
+    private static func passItems(count: Int) -> [QuickItem] {
+        CharlestonGenerator.batch(count: count).map { pass in
+            let labels = pass.choices.map(\.spokenName)
+            let answerIndex = pass.choices.firstIndex(of: pass.answer) ?? 0
+            return QuickItem(
+                id: PracticeSkill.charlestonPass.itemPrefix + UUID().uuidString,
+                prompt: "First pass, three tiles going right. Which of these can you lose for free?",
+                tiles: pass.tiles,
+                choices: labels,
+                answerIndex: answerIndex,
+                explanation: pass.explanation,
+                sourceLabel: "Endless Practice",
+                roomID: PracticeSkill.charlestonPass.roomID,
+                choiceNotes: pass.choiceNotes
+            )
+        }
+    }
+
+    // MARK: - Defense
+
+    private static func defenseItems(count: Int) -> [QuickItem] {
+        DefenseGenerator.batch(count: count).map { question in
+            let labels = question.choices.map(\.spokenName)
+            let answerIndex = question.choices.firstIndex(of: question.answer) ?? 0
+            let shown = question.exposures
+                .compactMap(\.first)
+                .map { "a pung of \($0.spokenName)" }
+                .joined(separator: " and ")
+            return QuickItem(
+                id: PracticeSkill.defense.itemPrefix + UUID().uuidString,
+                prompt: "The only player with exposures has \(shown) on their rack. Which discard is safest?",
+                // The exposed groups themselves, so the read is on the table
+                // rather than buried in the sentence above it.
+                tiles: question.exposures.flatMap { $0 },
+                choices: labels,
+                answerIndex: answerIndex,
+                explanation: question.explanation,
+                sourceLabel: "Endless Practice",
+                roomID: PracticeSkill.defense.roomID,
+                choiceNotes: question.choiceNotes
+            )
+        }
     }
 
     /// Flowers and jokers are excluded: eight of each exist, so they do not

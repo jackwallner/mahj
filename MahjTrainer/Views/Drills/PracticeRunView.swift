@@ -110,7 +110,9 @@ struct PracticeRunView: View {
                     tiles: item.tiles,
                     explanation: item.explanation,
                     answered: answered,
-                    eyebrow: item.sourceLabel.uppercased()
+                    eyebrow: item.sourceLabel.uppercased(),
+                    missNote: missNote,
+                    requeued: requeued
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)
@@ -209,6 +211,21 @@ struct PracticeRunView: View {
                     .frame(height: 54)
             }
         }
+    }
+
+    /// Only for a wrong pick, and only when the content has something to say
+    /// about that particular answer.
+    private var missNote: MissNote? {
+        guard let selection, selection != item.answerIndex else { return nil }
+        guard let reason = item.note(forPick: selection) else { return nil }
+        return MissNote(pickedLabel: item.choices[selection], reason: reason)
+    }
+
+    /// A generated question is minted fresh every time and can never come
+    /// back, so promising a player it will is a lie the app would then break.
+    private var requeued: Bool {
+        guard let selection, selection != item.answerIndex else { return false }
+        return item.isReviewable && PracticeSkill.skill(forItemID: item.id) == nil
     }
 
     private var isLastItem: Bool {

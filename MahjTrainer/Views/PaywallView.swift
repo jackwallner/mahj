@@ -51,9 +51,14 @@ struct PaywallContent: View {
             // sittings; what they are actually buying now is practice that
             // does not end.
             VStack(alignment: .leading, spacing: 9) {
+                // Play a Hand leads: it is the only mode that asks what you
+                // would DO rather than what a rack is, and a free player has
+                // already met it once a day, so it is the one line on this
+                // list they can price from experience.
+                benefit("Play a Hand: deal, commit, and play it out as often as you like")
                 benefit("Mahj Minute: the shared five-question daily challenge")
                 benefit("Game Night Prep: five minutes built around your weak spots")
-                benefit("Endless Practice: a fresh rack dealt every time")
+                benefit("Endless Practice: fresh racks, passes and defensive calls, forever")
                 benefit("Fix My Mistakes: misses come back until they stick")
                 benefit("Timed Challenge: 90 seconds, chase your best")
                 benefit("Extra practice sets in every room, plus the Master Tables")

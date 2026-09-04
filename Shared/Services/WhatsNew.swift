@@ -41,6 +41,44 @@ enum WhatsNew {
 
     static let releases: [WhatsNewRelease] = [
         WhatsNewRelease(
+            version: "1.3.0",
+            headline: "Play a hand, not just a flashcard",
+            items: [
+                WhatsNewItem(
+                    id: "hand-play",
+                    icon: "hand.draw.fill",
+                    title: "Play a Hand",
+                    body: "Commit to a section, then draw and discard for twelve turns while a coach grades every throw. One hand a day is free, and members can deal as many as they like.",
+                    isPlus: true
+                ),
+                WhatsNewItem(
+                    id: "reference",
+                    icon: "book.closed.fill",
+                    title: "Reference and glossary",
+                    body: "Search any term or read any section from the book icon on Home. Free, and built for looking something up mid-game."
+                ),
+                WhatsNewItem(
+                    id: "mastery",
+                    icon: "checkmark.seal.fill",
+                    title: "Rooms that track what is holding",
+                    body: "Each room's ring now fills as questions stick rather than as drills get opened, and Your Progress shows where you actually stand."
+                ),
+                WhatsNewItem(
+                    id: "why-not",
+                    icon: "questionmark.circle.fill",
+                    title: "Why your answer was wrong",
+                    body: "Miss a question and you can now open a note on the answer you chose, not just a reminder of the one you did not."
+                ),
+                WhatsNewItem(
+                    id: "more-endless",
+                    icon: "infinity",
+                    title: "Two more endless skills",
+                    body: "Endless Practice now deals Charleston passes and defensive discards as well as racks and tile counts.",
+                    isPlus: true
+                ),
+            ]
+        ),
+        WhatsNewRelease(
             version: "1.2.0",
             headline: "A smarter rhythm for game night",
             items: [

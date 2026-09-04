@@ -22,6 +22,10 @@ struct QuickItem: Identifiable, Sendable {
     /// False for one-off generated prompts that can never be scheduled back
     /// into Fix My Mistakes.
     let isReviewable: Bool
+    /// Parallel to `choices`: why that particular answer is wrong, shown only
+    /// when the player picks it. Empty or nil entries simply show nothing, so
+    /// content that has no per-choice coaching costs nothing to carry.
+    let choiceNotes: [String?]
 
     init(
         id: String,
@@ -33,7 +37,8 @@ struct QuickItem: Identifiable, Sendable {
         sourceLabel: String,
         roomID: String,
         trackingID: String? = nil,
-        isReviewable: Bool = true
+        isReviewable: Bool = true,
+        choiceNotes: [String?] = []
     ) {
         self.id = id
         self.prompt = prompt
@@ -45,6 +50,17 @@ struct QuickItem: Identifiable, Sendable {
         self.roomID = roomID
         self.trackingID = trackingID ?? id
         self.isReviewable = isReviewable
+        // Padded so a caller can never index past the end of a short list.
+        self.choiceNotes = choiceNotes.count == choices.count
+            ? choiceNotes
+            : choices.indices.map { index in index < choiceNotes.count ? choiceNotes[index] : nil }
+    }
+
+    /// The coaching line for a wrong pick, if there is one.
+    func note(forPick pick: Int) -> String? {
+        guard choiceNotes.indices.contains(pick) else { return nil }
+        guard let note = choiceNotes[pick], !note.isEmpty else { return nil }
+        return note
     }
 }
 
@@ -144,18 +160,24 @@ enum SessionBuilder {
     /// by its own id so the order is stable across re-render/undo but not
     /// always the authored slot.
     static func prepared(_ item: QuickItem) -> QuickItem {
-        let shuffled = ChoiceShuffle.shuffledChoices(labels: item.choices, answerIndex: item.answerIndex, seed: item.id)
+        let permutation = ChoiceShuffle.permutation(count: item.choices.count, seed: item.id)
+        let labels = permutation.map { item.choices[$0] }
+        let answerIndex = permutation.firstIndex(of: item.answerIndex) ?? item.answerIndex
+        // The notes ride the same permutation as the labels, or they would
+        // start explaining somebody else's wrong answer.
+        let notes = permutation.map { item.choiceNotes.indices.contains($0) ? item.choiceNotes[$0] : nil }
         return QuickItem(
             id: item.id,
             prompt: item.prompt,
             tiles: item.tiles,
-            choices: shuffled.labels,
-            answerIndex: shuffled.answerIndex,
+            choices: labels,
+            answerIndex: answerIndex,
             explanation: item.explanation,
             sourceLabel: item.sourceLabel,
             roomID: item.roomID,
             trackingID: item.trackingID,
-            isReviewable: item.isReviewable
+            isReviewable: item.isReviewable,
+            choiceNotes: notes
         )
     }
 
@@ -191,7 +213,8 @@ enum SessionBuilder {
                             answerIndex: answerIndex,
                             explanation: question.explanation,
                             sourceLabel: room.name,
-                            roomID: room.id
+                            roomID: room.id,
+                            choiceNotes: HandCategory.missNotes(for: question.choices, answer: question.answer)
                         )
                     }
                 case .flashcards(let cards):

@@ -78,6 +78,7 @@ struct SettingsView: View {
                     progress.resetAll()
                     PracticeRecordStore.shared.resetAll()
                     MahjMinuteStore.shared.resetAll()
+                    HandPlayStore.shared.resetAll()
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {
@@ -160,6 +161,11 @@ struct SettingsView: View {
 
     private var supportSection: some View {
         Section("Support") {
+            NavigationLink {
+                ReferenceView()
+            } label: {
+                Label("Reference & Glossary", systemImage: "book.closed.fill")
+            }
             NavigationLink {
                 HowToPlayView()
             } label: {

@@ -16,6 +16,7 @@ struct HomeView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @StateObject private var records = PracticeRecordStore.shared
     @StateObject private var minuteStore = MahjMinuteStore.shared
+    @StateObject private var handPlay = HandPlayStore.shared
     @State private var path: [AppDestination] = []
     @State private var showPaywall = false
     @State private var showSettings = false
@@ -50,6 +51,18 @@ struct HomeView: View {
             }
             .background(Theme.background)
             .toolbar {
+                // The reference is a toolbar button rather than a card
+                // because the moment it is wanted is mid-game, and it must
+                // cost Home no vertical space to be worth that.
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink {
+                        ReferenceView()
+                    } label: {
+                        Image(systemName: "book")
+                            .foregroundStyle(Theme.inkSecondary)
+                    }
+                    .accessibilityLabel("Reference and glossary")
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showSettings = true
@@ -388,6 +401,7 @@ struct HomeView: View {
 
     @ViewBuilder
     private var trainingTiles: some View {
+        handPlayTile
         trainingTile(
             title: "Endless\nPractice",
             icon: "infinity",
@@ -438,6 +452,47 @@ struct HomeView: View {
                 )
             }
         }
+    }
+
+    /// Play a Hand is the one training mode a free player can open, once a
+    /// day. It is the strongest thing the membership owns, and a mode nobody
+    /// has tried sells nothing; one whole hand is a real use of it rather than
+    /// a teaser that stops halfway.
+    @ViewBuilder
+    private var handPlayTile: some View {
+        let free = !subscriptions.isPro
+        let available = handPlay.canPlay(isMember: subscriptions.isPro)
+        if available {
+            NavigationLink {
+                HandPlayView()
+            } label: {
+                trainingTileLabel(
+                    title: "Play a\nHand",
+                    icon: "hand.draw.fill",
+                    color: Theme.jade,
+                    badge: free ? "1 free today" : handPlayBadge,
+                    locked: false
+                )
+            }
+            .buttonStyle(PressableCardStyle())
+        } else {
+            Button { showPaywall = true } label: {
+                trainingTileLabel(
+                    title: "Play a\nHand",
+                    icon: "hand.draw.fill",
+                    color: Theme.jade,
+                    badge: "Back tomorrow",
+                    locked: true
+                )
+            }
+            .buttonStyle(PressableCardStyle())
+            .accessibilityHint("Today's free hand is played. Unlimited with \(Membership.name)")
+        }
+    }
+
+    private var handPlayBadge: String? {
+        guard handPlay.handsPlayed > 0 else { return nil }
+        return handPlay.bestStars > 0 ? "Best \(handPlay.bestStars)/3" : "\(handPlay.handsPlayed) played"
     }
 
     /// A compact training tile. Locked for free players: tapping opens the
@@ -516,15 +571,17 @@ struct HomeView: View {
 
     /// Progress is a ring, not a sentence. "2 of 3 done · 2 free, 1 with Mahj+"
     /// was three facts nobody asked for on a card whose job is to be a door.
+    ///
+    /// The ring measures MASTERY, not drills opened. Counting opened drills
+    /// rewards tapping: finish every drill once, badly, and the room reads as
+    /// done forever. Counting questions the player has answered right twice
+    /// running rewards the thing the app is for. The denominator still counts
+    /// only what this player can actually reach, because a ring that can never
+    /// close is a nag dressed up as progress.
     private func roomCard(_ room: Room) -> some View {
         let locked = !room.isFree && !subscriptions.isPro
         let highlighted = highlightedRoomID == room.id
-        // Count only the drills this player can actually open. Putting the
-        // locked Mahj+ set in the denominator would mean a free player's ring
-        // can never close, which is a nag dressed up as progress.
-        let open = room.drills.filter { !room.isLocked($0, isMember: subscriptions.isPro) }
-        let total = open.count
-        let done = open.filter { progress.completions(for: $0.id) > 0 }.count
+        let mastery = records.mastery(for: room, isMember: subscriptions.isPro)
         return NavigationLink {
             RoomView(room: room)
         } label: {
@@ -555,7 +612,7 @@ struct HomeView: View {
                         .font(.footnote)
                         .foregroundStyle(Theme.gold)
                 } else {
-                    ProgressRing(done: done, total: total, color: room.accent)
+                    MasteryRing(mastery: mastery, color: room.accent)
                 }
             }
             .padding(14)
@@ -568,8 +625,8 @@ struct HomeView: View {
         }
         .buttonStyle(PressableCardStyle())
         .accessibilityHint(locked
-            ? "Locked. \(total) drills, included with \(Membership.name)"
-            : "\(done) of \(total) drills done")
+            ? "Locked. \(room.drills.count) drills, included with \(Membership.name)"
+            : "\(mastery.level.title). \(mastery.known) of \(mastery.total) questions solid")
         .id(room.id)
     }
 
@@ -621,39 +678,46 @@ struct HomeView: View {
     }
 }
 
-/// Room completion at a glance: a ring that fills as the room's drills get
-/// done, and becomes a seal once they all are.
-struct ProgressRing: View {
-    let done: Int
-    let total: Int
+/// Room mastery at a glance: a ring that fills as the room's questions start
+/// holding, with the level word underneath so the ring means something more
+/// than "some of a thing".
+struct MasteryRing: View {
+    let mastery: RoomMastery
     var color: Color
 
-    private var fraction: Double {
-        guard total > 0 else { return 0 }
-        return Double(done) / Double(total)
-    }
-
     var body: some View {
-        ZStack {
-            Circle()
-                .stroke(color.opacity(0.18), lineWidth: 3)
-            Circle()
-                .trim(from: 0, to: fraction)
-                .stroke(color, style: StrokeStyle(lineWidth: 3, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(.spring(response: 0.5, dampingFraction: 0.8), value: fraction)
-            if done == total, total > 0 {
-                Image(systemName: "checkmark")
-                    .font(.caption2.weight(.black))
-                    .foregroundStyle(color)
-            } else {
-                Text("\(done)/\(total)")
-                    .font(.system(size: 10, weight: .bold, design: .rounded))
-                    .foregroundStyle(Theme.inkSecondary)
-                    .monospacedDigit()
+        VStack(spacing: 3) {
+            ZStack {
+                Circle()
+                    .stroke(color.opacity(0.18), lineWidth: 3)
+                Circle()
+                    .trim(from: 0, to: mastery.fraction)
+                    .stroke(color, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .animation(.spring(response: 0.5, dampingFraction: 0.8), value: mastery.fraction)
+                switch mastery.level {
+                case .sharp:
+                    Image(systemName: "star.fill")
+                        .font(.system(size: 11, weight: .black))
+                        .foregroundStyle(color)
+                case .untouched:
+                    // An empty ring already says nothing has been learned here.
+                    // Printing a 0 inside it as well is the same fact twice,
+                    // and it reads as a score rather than a starting point.
+                    EmptyView()
+                default:
+                    Text("\(Int((mastery.fraction * 100).rounded()))")
+                        .font(.system(size: 10, weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.inkSecondary)
+                        .monospacedDigit()
+                }
             }
+            .frame(width: 32, height: 32)
+            Text(mastery.level == .untouched ? "New" : mastery.level.title)
+                .font(.system(size: 9, weight: .semibold))
+                .foregroundStyle(Theme.inkTertiary)
         }
-        .frame(width: 32, height: 32)
+        .frame(width: 46)
         .accessibilityHidden(true)
     }
 }

@@ -113,7 +113,7 @@ final class RackGeneratorTests: XCTestCase {
     // MARK: - Generated practice items
 
     func testEndlessItemsAreWellFormed() {
-        for skill in PracticeSkill.allCases {
+        for skill in PracticeSkill.endlessCases {
             let items = EndlessPractice.items(for: skill, count: 12)
             XCTAssertEqual(items.count, 12, "\(skill.rawValue) came up short")
             for item in items {
@@ -140,10 +140,13 @@ final class RackGeneratorTests: XCTestCase {
         }
     }
 
+    /// Drawn large on purpose: `mixedItems` trims the tail to hit the count,
+    /// and a batch barely bigger than the skill count could drop one skill
+    /// entirely and fail at random.
     func testMixedItemsDrawFromEverySkill() {
-        let items = EndlessPractice.mixedItems(count: 40)
-        XCTAssertEqual(items.count, 40)
+        let items = EndlessPractice.mixedItems(count: 200)
+        XCTAssertEqual(items.count, 200)
         XCTAssertEqual(Set(items.compactMap { PracticeSkill.skill(forItemID: $0.id) }).count,
-                       PracticeSkill.allCases.count)
+                       PracticeSkill.endlessCases.count)
     }
 }

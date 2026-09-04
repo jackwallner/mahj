@@ -6,6 +6,7 @@ import SwiftUI
 /// the Auction Room has a reason to care about the drills that would fix it.
 struct StatsView: View {
     @EnvironmentObject private var progress: ProgressStore
+    @EnvironmentObject private var subscriptions: SubscriptionService
     @StateObject private var records = PracticeRecordStore.shared
 
     private var roomStats: [PracticeRecordStore.RoomStat] { records.roomStats() }
@@ -17,9 +18,12 @@ struct StatsView: View {
                     emptyState
                 } else {
                     summaryCard
-                    if let weakest = records.weakestRoom(), roomStats.count > 1 {
+                    if let focus = records.roomToWorkOn(isMember: subscriptions.isPro) {
+                        workOnCard(focus)
+                    } else if let weakest = records.weakestRoom(), roomStats.count > 1 {
                         weakSpotCard(weakest)
                     }
+                    masteryBreakdown
                     roomBreakdown
                 }
                 streakCard
@@ -111,9 +115,84 @@ struct StatsView: View {
         .themedCard(corner: 16)
     }
 
+    /// Accuracy says how you did; mastery says where you stand. They are
+    /// genuinely different numbers, and a player at 90% accuracy who has only
+    /// locked in a third of a room needs to see the second one.
+    private var masteryBreakdown: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text("WHAT IS HOLDING")
+                .font(.caption.weight(.heavy))
+                .kerning(1.4)
+                .foregroundStyle(Theme.inkSecondary)
+            Text("A question counts here once you have answered it right twice in a row, and drops off if you leave it long enough to go rusty.")
+                .font(.caption)
+                .foregroundStyle(Theme.inkTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+            ForEach(records.masteryByRoom(isMember: subscriptions.isPro)) { mastery in
+                if let room = DrillLibrary.room(id: mastery.roomID) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        HStack {
+                            Text(room.name)
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(Theme.ink)
+                            Spacer()
+                            HStack(spacing: 5) {
+                                Image(systemName: mastery.level.icon)
+                                    .font(.caption2)
+                                Text(mastery.level.title)
+                                    .font(.caption.weight(.bold))
+                            }
+                            .foregroundStyle(levelColor(mastery.level))
+                        }
+                        accuracyBar(mastery.fraction)
+                        Text("\(mastery.known) of \(mastery.total) questions solid")
+                            .font(.caption2)
+                            .foregroundStyle(Theme.inkTertiary)
+                    }
+                }
+            }
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .themedCard()
+    }
+
+    private func levelColor(_ level: MasteryLevel) -> Color {
+        switch level {
+        case .untouched: return Theme.inkTertiary
+        case .learning: return Theme.coral
+        case .solid: return Theme.gold
+        case .sharp: return Theme.bamGreen
+        }
+    }
+
+    /// The room worth an hour, phrased as an instruction rather than a score.
+    private func workOnCard(_ mastery: RoomMastery) -> some View {
+        let room = DrillLibrary.room(id: mastery.roomID)
+        return HStack(spacing: 12) {
+            Image(systemName: "target")
+                .font(.body.weight(.semibold))
+                .foregroundStyle(Theme.coral)
+                .frame(width: 38, height: 38)
+                .background(Theme.coral.opacity(0.13), in: Circle())
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Work on \(room?.name ?? "this room")")
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                Text("\(mastery.known) of \(mastery.total) questions are holding. \(mastery.level.nextStep)")
+                    .font(.caption)
+                    .foregroundStyle(Theme.inkSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(14)
+        .themedCard(corner: 16)
+    }
+
     private var roomBreakdown: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("BY ROOM")
+            Text("ACCURACY BY ROOM")
                 .font(.caption.weight(.heavy))
                 .kerning(1.4)
                 .foregroundStyle(Theme.inkSecondary)
