@@ -153,6 +153,18 @@ final class HandPlayEngineTests: XCTestCase {
         XCTAssertEqual(HandPlayEngine.workingTiles(in: [.joker, .joker, .b(5)], target: .evens2468), 2)
     }
 
+    func testVerdictReportsFitAndGroupsSeparately() {
+        // Six evens, none of them paired. The headline number must not read
+        // zero here: a rack visibly full of the right tiles scoring 0 looks
+        // like a scoring bug, which is why `fitting` is what is shown.
+        let scattered: [Tile] = [.c(2), .b(4), .d(6), .c(8), .b(2), .d(4), .c(1), .b(3)]
+        let verdict = HandPlayEngine.verdict(rack: scattered, target: .evens2468, cleanDiscards: 6, discards: 12)
+        XCTAssertEqual(verdict.fitting, 6)
+        XCTAssertEqual(verdict.working, 0)
+        XCTAssertGreaterThan(verdict.fitting, verdict.working)
+        XCTAssertFalse(verdict.body.contains("—"))
+    }
+
     func testPerfectPlayEarnsThreeStarsAndNothingEarnsNone() {
         let strong: [Tile] = [.c(2), .c(2), .c(2), .b(4), .b(4), .b(4),
                               .d(6), .d(6), .d(6), .d(8), .d(8), .d(8), .flower]
@@ -170,6 +182,7 @@ final class HandPlayEngineTests: XCTestCase {
         let verdict = HandPlayEngine.verdict(rack: rack, target: .evens2468, cleanDiscards: 7, discards: 12)
         XCTAssertEqual(verdict.total, 4)
         XCTAssertEqual(verdict.working, 3)
+        XCTAssertEqual(verdict.fitting, 3)
         XCTAssertEqual(verdict.cleanDiscards, 7)
         XCTAssertEqual(verdict.discards, 12)
     }

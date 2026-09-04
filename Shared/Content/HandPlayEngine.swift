@@ -249,7 +249,14 @@ enum HandPlayEngine {
     // MARK: - Verdict
 
     struct Verdict {
-        /// Tiles on the final rack that are doing work toward the target.
+        /// Tiles on the final rack that belong to the target section. This is
+        /// the number the player is SHOWN, and it is the same measure the
+        /// choose screen used, so the score speaks the vocabulary they picked
+        /// their section in.
+        let fitting: Int
+        /// Of those, the ones already sitting in a group of two or more. Real
+        /// progress, but useless as the headline: a rack can hold six evens as
+        /// six singles and read as zero, which looks like a scoring bug.
         let working: Int
         let total: Int
         /// Throws that matched a cheapest discard.
@@ -285,9 +292,13 @@ enum HandPlayEngine {
     }
 
     static func verdict(rack: [Tile], target: HandCategory, cleanDiscards: Int, discards: Int) -> Verdict {
+        let fitting = fittingTiles(in: rack, target: target)
         let working = workingTiles(in: rack, target: target)
         let accuracy = discards == 0 ? 0 : Double(cleanDiscards) / Double(discards)
-        let shape = Double(working) / Double(max(rack.count, 1))
+        // Scored on tiles that fit, not on tiles already paired up. Twelve
+        // turns is not long enough to pair a rack reliably, and marking a
+        // player down for the wall's generosity teaches them nothing.
+        let shape = Double(fitting) / Double(max(rack.count, 1))
         let combined = accuracy * 0.6 + shape * 0.4
 
         let stars: Int
@@ -306,9 +317,13 @@ enum HandPlayEngine {
         default: headline = "That one fought you"
         }
 
-        let body = "You finished with \(working) of \(rack.count) tiles working toward \(target.displayName), and \(cleanDiscards) of your \(discards) throws were the cheapest one available. A real hand is thirteen tiles plus the one that finishes it, so the shape you are building toward is the whole game: everything outside it is what you spend."
+        let grouped = working == 0
+            ? "None of them have paired up yet, and pairs are what turn a collection into a hand."
+            : "\(working) of them are already sitting in a group of two or more, which is the half that counts."
+        let body = "You finished with \(fitting) of \(rack.count) tiles that fit \(target.displayName). \(grouped) \(cleanDiscards) of your \(discards) throws were the cheapest one available, and that is the number to chase: the shape you are building toward is the whole game, and everything outside it is what you spend."
 
         return Verdict(
+            fitting: fitting,
             working: working,
             total: rack.count,
             cleanDiscards: cleanDiscards,

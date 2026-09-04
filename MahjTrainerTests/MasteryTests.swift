@@ -135,10 +135,32 @@ final class MasteryTests: XCTestCase {
         XCTAssertEqual(store.roomToWorkOn(isMember: true)?.roomID, tileRoom.id)
     }
 
-    func testEveryRoomReportsMastery() {
+    func testEveryRoomReportsMasteryForAMember() {
         XCTAssertEqual(store.masteryByRoom(isMember: true).count, DrillLibrary.rooms.count)
         for mastery in store.masteryByRoom(isMember: true) {
             XCTAssertGreaterThan(mastery.total, 0, "\(mastery.roomID) has nothing gradeable to master")
         }
+    }
+
+    /// A free player cannot open a single drill in the Master Tables, so that
+    /// room has no denominator for them. The stats screen has to drop the row
+    /// rather than print "0 of 0 questions solid", which is not a goal.
+    func testAFullyLockedRoomHasNothingToMasterForAFreePlayer() {
+        let masterTables = DrillLibrary.room(id: "pro-tables")!
+        XCTAssertEqual(store.mastery(for: masterTables, isMember: false).total, 0)
+        XCTAssertGreaterThan(store.mastery(for: masterTables, isMember: true).total, 0)
+
+        let shown = store.masteryByRoom(isMember: false).filter { $0.total > 0 }
+        XCTAssertFalse(shown.contains { $0.roomID == "pro-tables" })
+        XCTAssertEqual(shown.count, DrillLibrary.rooms.count - 1)
+    }
+
+    /// A locked room must never be the thing the app tells a free player to go
+    /// work on, since they cannot open it.
+    func testRoomToWorkOnNeverPointsAtALockedRoom() {
+        for id in PracticeRecordStore.trackableItemIDs(in: DrillLibrary.room(id: "pro-tables")!, isMember: true) {
+            store.record(itemID: id, roomID: "pro-tables", correct: false)
+        }
+        XCTAssertNotEqual(store.roomToWorkOn(isMember: false)?.roomID, "pro-tables")
     }
 }

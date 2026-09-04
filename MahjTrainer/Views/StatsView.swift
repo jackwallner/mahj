@@ -128,7 +128,10 @@ struct StatsView: View {
                 .font(.caption)
                 .foregroundStyle(Theme.inkTertiary)
                 .fixedSize(horizontal: false, vertical: true)
-            ForEach(records.masteryByRoom(isMember: subscriptions.isPro)) { mastery in
+            // Rooms with nothing this player can reach are skipped. A free
+            // player has zero openable drills in the Master Tables, and a
+            // "0 of 0 questions solid" row is not a goal, it is a stray.
+            ForEach(records.masteryByRoom(isMember: subscriptions.isPro).filter { $0.total > 0 }) { mastery in
                 if let room = DrillLibrary.room(id: mastery.roomID) {
                     VStack(alignment: .leading, spacing: 6) {
                         HStack {
@@ -144,7 +147,10 @@ struct StatsView: View {
                             }
                             .foregroundStyle(levelColor(mastery.level))
                         }
-                        accuracyBar(mastery.fraction)
+                        // Coloured by LEVEL, not by the accuracy thresholds:
+                        // a room nobody has started is not failing, and
+                        // painting it alarm-red says it is.
+                        bar(mastery.fraction, color: levelColor(mastery.level))
                         Text("\(mastery.known) of \(mastery.total) questions solid")
                             .font(.caption2)
                             .foregroundStyle(Theme.inkTertiary)
@@ -221,12 +227,19 @@ struct StatsView: View {
     }
 
     private func accuracyBar(_ fraction: Double) -> some View {
+        bar(fraction, color: barColor(fraction))
+    }
+
+    private func bar(_ fraction: Double, color: Color) -> some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 Capsule().fill(Theme.well)
                 Capsule()
-                    .fill(barColor(fraction))
-                    .frame(width: max(6, geo.size.width * fraction))
+                    .fill(color)
+                    // Zero means zero. The old floor of 6pt drew a stub on an
+                    // untouched room, which reads as a sliver of progress that
+                    // has not been earned.
+                    .frame(width: fraction <= 0 ? 0 : max(6, geo.size.width * fraction))
             }
         }
         .frame(height: 8)
