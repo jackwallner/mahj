@@ -256,5 +256,16 @@ enum RevenueCatProbe {
     static var impressionID: String {
         ProcessInfo.processInfo.environment["RC_PROBE_SURFACE"] ?? "mahj_onboarding_trial"
     }
+
+    /// Also run a purchase against the Test Store, so the `converted_*` half of
+    /// the record is exercised and not just the impression half.
+    ///
+    /// Test Store purchases are simulated by RevenueCat and never touch StoreKit
+    /// or the App Store, so this creates no revenue and no real transaction.
+    /// Only some projects have Test Store packages configured; the ones with an
+    /// empty Test Store offering cannot run this.
+    static var wantsPurchase: Bool {
+        ProcessInfo.processInfo.arguments.contains("-rcfunnelprobepurchase")
+    }
 }
 #endif
