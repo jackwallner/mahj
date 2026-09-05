@@ -90,6 +90,23 @@ final class ProgressStore: ObservableObject {
         defaults.set(Array(missedItems), forKey: Keys.missedItems)
     }
 
+    struct ItemSnapshot {
+        let id: String
+        let seen: Bool
+        let missed: Bool
+    }
+
+    func snapshotItem(id: String) -> ItemSnapshot {
+        ItemSnapshot(id: id, seen: seenItems.contains(id), missed: missedItems.contains(id))
+    }
+
+    func restoreItem(_ snapshot: ItemSnapshot) {
+        if snapshot.seen { seenItems.insert(snapshot.id) } else { seenItems.remove(snapshot.id) }
+        if snapshot.missed { missedItems.insert(snapshot.id) } else { missedItems.remove(snapshot.id) }
+        defaults.set(Array(seenItems), forKey: Keys.seenItems)
+        defaults.set(Array(missedItems), forKey: Keys.missedItems)
+    }
+
     // MARK: - Daily Quick Session
 
     /// Get Started is a once-a-day ritual: a fresh mix each day, and once

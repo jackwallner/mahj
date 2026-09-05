@@ -17,6 +17,7 @@ struct OnboardingView: View {
     @EnvironmentObject private var subscriptions: SubscriptionService
     @State private var page = 0
     @State private var purchasing = false
+    @State private var restoring = false
     @State private var showPaywallFallback = false
     @State private var purchaseError: String?
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
@@ -84,7 +85,7 @@ struct OnboardingView: View {
         .sheet(isPresented: $showPaywallFallback, onDismiss: paywallDismissed) {
             PaywallView(source: "mahj_onboarding_fallback")
         }
-        .alert("Purchase Issue", isPresented: .init(
+        .alert("Mahj Trainer", isPresented: .init(
             get: { purchaseError != nil },
             set: { if !$0 { purchaseError = nil } }
         )) {
@@ -266,7 +267,7 @@ struct OnboardingView: View {
             }
             .frame(height: 30)
             .opacity(onTrialPage ? 1 : 0)
-            .disabled(!onTrialPage)
+            .disabled(!onTrialPage || purchasing || restoring)
             // Disclosure slot, also reserved. Small and tertiary: present at the
             // point of purchase (3.1.2) without shouting.
             Text(trialDisclosure)
@@ -280,7 +281,7 @@ struct OnboardingView: View {
                 primaryAction()
             } label: {
                 Group {
-                    if purchasing {
+                    if purchasing || restoring {
                         ProgressView().tint(.white)
                     } else {
                         Text(onTrialPage ? "Start 7-day free trial" : "Continue")
@@ -288,21 +289,21 @@ struct OnboardingView: View {
                 }
                 .primaryCTA()
             }
-            .disabled(purchasing || (page == skillPage && skillLevel.isEmpty))
+            .disabled(purchasing || restoring || (page == skillPage && skillLevel.isEmpty))
             .opacity(page == skillPage && skillLevel.isEmpty ? 0.5 : 1)
             // Legal footer slot, reserved on every page.
             HStack(spacing: 14) {
                 Link("Terms", destination: PaywallLinks.terms)
                 Link("Privacy", destination: PaywallLinks.privacy)
                 Button("Restore") {
-                    Task { try? await subscriptions.restore() }
+                    restorePurchases()
                 }
             }
             .font(.caption2)
             .foregroundStyle(Theme.inkTertiary)
             .frame(height: 20)
             .opacity(onTrialPage ? 1 : 0)
-            .disabled(!onTrialPage)
+            .disabled(!onTrialPage || purchasing || restoring)
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 10)
@@ -352,9 +353,31 @@ struct OnboardingView: View {
                 let outcome = try await subscriptions.purchase(monthly)
                 switch outcome {
                 case .purchased:
-                    startTour()
+                    if await subscriptions.confirmEntitlement() {
+                        startTour()
+                    } else {
+                        purchaseError = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore."
+                    }
                 case .cancelled:
                     break // They said no to Apple, not to the app. Stay put.
+                }
+            } catch {
+                purchaseError = error.localizedDescription
+            }
+        }
+    }
+
+    private func restorePurchases() {
+        guard !restoring, !purchasing else { return }
+        restoring = true
+        Task {
+            defer { restoring = false }
+            do {
+                try await subscriptions.restore()
+                if subscriptions.isPro {
+                    startTour()
+                } else {
+                    purchaseError = "No previous purchase found on this Apple Account."
                 }
             } catch {
                 purchaseError = error.localizedDescription

@@ -74,13 +74,49 @@ struct PracticeRunView: View {
     }
 
     var body: some View {
-        if finished || items.isEmpty {
+        if finished {
             DrillCompleteView(drill: completedDrill, score: score, total: gradedTotal)
+        } else if items.isEmpty {
+            // A run with nothing in it is not a finished run. Sending it to
+            // the completion screen scored a 0/0 "Perfect round!", banked a
+            // streak day and spent a positive moment on the review funnel,
+            // all for a round nobody played.
+            emptyRunScreen
         } else if mode == .timed && !timedStarted {
             readyScreen
         } else {
             runBody
         }
+    }
+
+    private var emptyRunScreen: some View {
+        VStack(spacing: 18) {
+            Spacer()
+            Image(systemName: "checkmark.circle")
+                .font(.system(size: 48))
+                .foregroundStyle(Theme.jade)
+            Text(mode == .review ? "Nothing due" : "Nothing to practise")
+                .font(Theme.display(28))
+                .foregroundStyle(Theme.ink)
+            Text(mode == .review
+                 ? "You have no mistakes waiting right now. Keep practising and anything you miss will show up here."
+                 : "No questions could be prepared for this run. Try again in a moment.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer()
+            Button { dismiss() } label: {
+                Text("Back").primaryCTA()
+            }
+        }
+        .padding()
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
+        .frame(maxHeight: .infinity)
+        .background(Theme.background)
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     /// Ninety seconds is short enough that the first read costs a sixth of the
@@ -377,7 +413,9 @@ struct PracticeRunView: View {
         }
         // A run the player quit before answering anything is not an
         // achievement; sending it to the completion screen would fake one.
-        guard attempted > 0 || mode == .review else {
+        // Review is no exception: Close on the first question used to bank a
+        // streak day and a 0-of-N score for a round that was never played.
+        guard attempted > 0 else {
             dismiss()
             return
         }

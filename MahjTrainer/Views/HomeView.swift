@@ -177,7 +177,7 @@ struct HomeView: View {
         SessionBuilder.gameNightPrep(
             seen: progress.seenItems,
             missed: progress.missedItems,
-            dueIDs: records.reviewQueue(),
+            dueIDs: records.reviewQueue(among: SessionBuilder.reviewableIDs(includePro: true)),
             weakestRoomID: records.weakestRoom()?.id
         )
     }
@@ -477,19 +477,22 @@ struct HomeView: View {
         ) {
             PracticeRunView(mode: .timed)
         }
-        // Only offered when there is something to fix. An empty review
-        // session is a dead end dressed up as a feature.
-        if records.dueCount > 0 {
+        // Only offered when there is something to fix, counted over the items
+        // this runner can actually ask. An empty review session is a dead end
+        // dressed up as a feature.
+        let reviewable = SessionBuilder.reviewableIDs(includePro: subscriptions.isPro)
+        let due = records.dueCount(among: reviewable)
+        if due > 0 {
             trainingTile(
                 title: "Fix My\nMistakes",
                 icon: "arrow.trianglehead.counterclockwise",
                 color: Theme.plum,
-                badge: "\(records.dueCount) due"
+                badge: "\(due) due"
             ) {
                 PracticeRunView(
                     mode: .review,
                     items: SessionBuilder.reviewSession(
-                        ids: records.reviewQueue(),
+                        ids: records.reviewQueue(among: reviewable),
                         includePro: subscriptions.isPro
                     )
                 )

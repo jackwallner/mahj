@@ -74,6 +74,20 @@ final class ProgressStoreTests: XCTestCase {
         XCTAssertTrue(reloaded.missedItems.contains("q1"))
     }
 
+    func testUndoRestoresSeenAndMissedStateAcrossRelaunch() {
+        let unseen = store.snapshotItem(id: "new")
+        store.recordItem(id: "new", correct: false)
+        store.restoreItem(unseen)
+        store.recordItem(id: "missed", correct: false)
+        let missed = store.snapshotItem(id: "missed")
+        store.recordItem(id: "missed", correct: true)
+        store.recordItem(id: "other", correct: true)
+        store.restoreItem(missed)
+        let reloaded = ProgressStore(defaults: defaults)
+        XCTAssertEqual(reloaded.seenItems, ["missed", "other"])
+        XCTAssertEqual(reloaded.missedItems, ["missed"])
+    }
+
     func testResetAllClearsEverythingButOnboarding() {
         store.hasOnboarded = true
         store.recordSession(drillID: "a")

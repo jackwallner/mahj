@@ -10,7 +10,7 @@ struct GameNightPrepView: View {
         SessionBuilder.gameNightPrep(
             seen: progress.seenItems,
             missed: progress.missedItems,
-            dueIDs: records.reviewQueue(),
+            dueIDs: records.reviewQueue(among: reviewableIDs),
             weakestRoomID: records.weakestRoom()?.id
         )
     }
@@ -126,12 +126,18 @@ struct GameNightPrepView: View {
         .themedCard(corner: 16)
     }
 
+    /// Prep is a member surface, so the whole library is in play.
+    private var reviewableIDs: Set<String> { SessionBuilder.reviewableIDs(includePro: true) }
+
     private func personalizationCopy(_ weakest: PracticeRecordStore.RoomStat?) -> String {
-        if records.dueCount > 0, let weakest {
-            return "\(records.dueCount) due mistake\(records.dueCount == 1 ? "" : "s") first, then extra work in \(weakest.name)."
+        // Counted over what the prep session can actually pull in, so the
+        // promise on the card matches the questions it deals.
+        let due = records.dueCount(among: reviewableIDs)
+        if due > 0, let weakest {
+            return "\(due) due mistake\(due == 1 ? "" : "s") first, then extra work in \(weakest.name)."
         }
-        if records.dueCount > 0 {
-            return "\(records.dueCount) due mistake\(records.dueCount == 1 ? "" : "s") first, followed by material you have not seen yet."
+        if due > 0 {
+            return "\(due) due mistake\(due == 1 ? "" : "s") first, followed by material you have not seen yet."
         }
         if let weakest {
             return "Extra work in \(weakest.name), followed by a balanced mix from the other rooms."

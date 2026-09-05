@@ -122,6 +122,20 @@ enum SessionBuilder {
         return ids.compactMap { pool[$0] }.map(prepared)
     }
 
+    /// The ids Fix My Mistakes can actually put on screen. Every drill records
+    /// its misses, but this runner only speaks single-select: a plain flip
+    /// card, a three-tile Charleston pass, or (for a lapsed member) a Mahj+
+    /// item has no question to show. Counting those as due offers a session
+    /// that opens with nothing in it, which the completion screen then scores
+    /// as a finished round. Callers gate the badge on this, not on the raw
+    /// schedule.
+    static func reviewableIDs(includePro: Bool) -> Set<String> {
+        includePro ? memberReviewableIDs : freeReviewableIDs
+    }
+
+    private static let freeReviewableIDs = Set(choicePool(includePro: false).map(\.id))
+    private static let memberReviewableIDs = Set(choicePool(includePro: true).map(\.id))
+
     /// A member's pre-game session. Due mistakes lead, then the weakest room,
     /// then unseen material. The final tier keeps the session full for a new
     /// player who has not built enough history to personalize yet.

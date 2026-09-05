@@ -19,6 +19,7 @@ struct FlashcardDrillView: View {
     @State private var isFlinging = false
     @State private var crossedThreshold = false
     @State private var lastSwipe: SwipeRecord?
+    @State private var pendingAnswer: AnswerSnapshot?
     @State private var finished = false
     @State private var choicePick: Int?
     @State private var confettiTrigger = 0
@@ -34,6 +35,19 @@ struct FlashcardDrillView: View {
     private struct SwipeRecord {
         let card: Flashcard
         let gotIt: Bool
+        let answer: AnswerSnapshot
+    }
+
+    private struct AnswerSnapshot {
+        let progress: ProgressStore.ItemSnapshot
+        let practice: PracticeRecordStore.AnswerSnapshot
+    }
+
+    private func snapshotAnswer(for card: Flashcard) -> AnswerSnapshot {
+        AnswerSnapshot(
+            progress: progress.snapshotItem(id: card.id),
+            practice: PracticeRecordStore.shared.snapshotAnswer(itemID: card.id)
+        )
     }
 
     var body: some View {
@@ -237,6 +251,9 @@ struct FlashcardDrillView: View {
 
     private func choose(_ index: Int, card: Flashcard) {
         guard let choice = card.choice, choicePick == nil, !isFlipped, !isFlinging else { return }
+        // Once this card is graded, undo must not rewind a different card.
+        lastSwipe = nil
+        pendingAnswer = snapshotAnswer(for: card)
         choicePick = index
         let correct = index == choice.answerIndex
         progress.recordItem(id: card.id, correct: correct)
@@ -347,6 +364,7 @@ struct FlashcardDrillView: View {
         // the graded answer (not the swipe direction) decides whether the
         // card comes back. Plain cards grade by swipe.
         let knewIt: Bool
+        let answer = pendingAnswer ?? snapshotAnswer(for: card)
         if let choice = card.choice, let pick = choicePick {
             knewIt = pick == choice.answerIndex
         } else {
@@ -354,7 +372,8 @@ struct FlashcardDrillView: View {
             progress.recordItem(id: card.id, correct: gotIt)
             PracticeRecordStore.shared.record(itemID: card.id, roomID: DrillLibrary.roomID(forDrillID: drill.id), correct: gotIt)
         }
-        lastSwipe = SwipeRecord(card: card, gotIt: knewIt)
+        lastSwipe = SwipeRecord(card: card, gotIt: knewIt, answer: answer)
+        pendingAnswer = nil
         choicePick = nil
         queue.removeFirst()
         if !knewIt {
@@ -369,7 +388,10 @@ struct FlashcardDrillView: View {
     private func undo() {
         guard let record = lastSwipe, !isFlinging else { return }
         Haptics.impact(.light)
+        progress.restoreItem(record.answer.progress)
+        PracticeRecordStore.shared.restoreAnswer(record.answer.practice)
         lastSwipe = nil
+        pendingAnswer = nil
         choicePick = nil
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
             if !record.gotIt, queue.last?.id == record.card.id {
