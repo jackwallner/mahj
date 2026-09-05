@@ -109,6 +109,17 @@ struct QuestionPager<Choices: View>: View {
                 guard isAnswered else { return }
                 // Bring the coaching note into view rather than leaving it
                 // parked below the fold behind the Next button.
+                //
+                // The anchor was audited (REG94-003) on the theory that
+                // `.bottom` pins the block to the foot of the viewport and
+                // throws the prompt off the top. It does not, and dropping the
+                // anchor for a minimum scroll changes NOTHING: this block is
+                // the last thing in the VStack, and `CenteringScrollView`
+                // gives the content a minHeight of the viewport, so either the
+                // question fits and there is no scroll range at all, or it
+                // overflows and both spellings land at the same place. Leave
+                // it alone. What a tall coaching block costs the prompt is a
+                // content-height problem, not a scroll-anchor one.
                 withAnimation(.easeOut(duration: 0.35)) {
                     proxy.scrollTo(questionExplanationID, anchor: .bottom)
                 }
@@ -171,22 +182,23 @@ struct ChoiceList: View {
         return Button {
             onPick(index)
         } label: {
-            HStack {
+            HStack(alignment: .top, spacing: 12) {
                 Text(labels[index])
                     .font(.body.weight(answered && isAnswer ? .semibold : .medium))
                     .foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.leading)
-                Spacer()
-                if answered {
-                    if isAnswer {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.body.weight(.bold))
-                            .foregroundStyle(Theme.bamGreen)
-                            .scaleEffect(landed ? 1.2 : 0.4)
-                    } else if isMiss {
-                        Image(systemName: "xmark.circle.fill").foregroundStyle(Theme.crakRed)
-                    }
-                }
+                    // Without this a long answer is squeezed onto one line and
+                    // ends in an ellipsis. These labels are teaching content,
+                    // and the moment the player most needs to read one in full
+                    // is right after grading. It goes on the Text, before the
+                    // frame, the way every other wrapping label here does.
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                // A fixed slot, occupied or not: the icon appears on grading,
+                // and if it took its width from the label then the label
+                // rewrapped underneath the answer the player is reading.
+                resultIcon(isAnswer: isAnswer, isMiss: isMiss)
+                    .frame(width: 22, alignment: .center)
             }
             .padding(16)
             .frame(maxWidth: .infinity)
@@ -215,6 +227,24 @@ struct ChoiceList: View {
         }
         .buttonStyle(.plain)
         .allowsHitTesting(!answered)
+    }
+
+    /// Always returns something 22pt wide so the label's width never changes
+    /// between the unanswered and the graded state.
+    @ViewBuilder
+    private func resultIcon(isAnswer: Bool, isMiss: Bool) -> some View {
+        if answered && isAnswer {
+            Image(systemName: "checkmark.circle.fill")
+                .font(.body.weight(.bold))
+                .foregroundStyle(Theme.bamGreen)
+                .scaleEffect(landed ? 1.2 : 0.4)
+        } else if answered && isMiss {
+            Image(systemName: "xmark.circle.fill")
+                .font(.body.weight(.bold))
+                .foregroundStyle(Theme.crakRed)
+        } else {
+            Color.clear.frame(width: 22, height: 22)
+        }
     }
 
     private func background(_ index: Int) -> Color {
