@@ -5,7 +5,7 @@ Reads the raw 1320x2868 6.9" captures in scripts/screenshot_raw/, draws a
 warm cream + jade frame matching MahjTrainer/Utilities/Theme.swift (serif
 display headline, room-accent eyebrow + rule, faint "麻" watermark), and
 writes finals to fastlane/screenshots/en-US/ at exactly 1320x2868 using
-fastlane naming (01_....png ... 06_....png).
+fastlane naming (01_....png ... 08_....png).
 
 Usage: python3 scripts/appstore_screenshot_compositor.py
 """
@@ -84,37 +84,54 @@ SHOTS = [
         headline="Practice between games",
         accent=JADE,
     ),
+    # Second on purpose. Play a Hand is the only screen that shows the app
+    # judging a decision instead of testing recognition, and the first three
+    # frames are the ones that surface in search results.
     Shot(
-        raw="02-handmatch.png",
-        out="02_hand_match.png",
+        raw="02-playahand.png",
+        out="02_play_a_hand.png",
+        eyebrow="PLAY A HAND",
+        headline="A coach for every discard",
+        accent=PLUM,
+    ),
+    Shot(
+        raw="03-handmatch.png",
+        out="03_hand_match.png",
         eyebrow="THE CARD ROOM",
         headline="Read the rack, name the section",
         accent=CORAL,
     ),
     Shot(
-        raw="03-keepthrow.png",
-        out="03_keep_or_throw.png",
+        raw="04-keepthrow.png",
+        out="04_keep_or_throw.png",
         eyebrow="THE TABLE ROOM",
         headline="Make the call, learn the why",
         accent=GOLD,
     ),
     Shot(
-        raw="04-charleston.png",
-        out="04_charleston.png",
+        raw="05-charleston.png",
+        out="05_charleston.png",
         eyebrow="THE CHARLESTON ROOM",
         headline="Beat Charleston nerves",
         accent=PLUM,
     ),
     Shot(
-        raw="05-home.png",
-        out="05_home.png",
+        raw="06-home.png",
+        out="06_home.png",
         eyebrow="MAHJ TRAINER",
-        headline="Five minutes a day. It sticks.",
+        headline="Five minutes a day, and it sticks",
         accent=JADE,
     ),
     Shot(
-        raw="06-tileroom.png",
-        out="06_tile_room.png",
+        raw="07-reference.png",
+        out="07_reference.png",
+        eyebrow="REFERENCE",
+        headline="Look it up mid-game",
+        accent=GOLD,
+    ),
+    Shot(
+        raw="08-tileroom.png",
+        out="08_tile_room.png",
         eyebrow="THE TILE ROOM",
         headline="Meet every tile",
         accent=JADE,

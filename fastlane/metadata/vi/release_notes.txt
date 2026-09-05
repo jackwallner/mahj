@@ -1,9 +1,9 @@
-Nhịp độ tốt hơn cho buổi chơi bài.
+Chơi một ván, từng quân một.
 
-Mahj Minute là thử thách mới mỗi ngày. Mọi thành viên nhận cùng năm câu hỏi trong cùng một ngày: hai câu đọc rack, một quyết định Charleston và hai phán đoán tại bàn. Chia sẻ điểm số và giữ nhịp tuần dễ chịu gồm năm ngày, cùng kho lưu 30 ngày để bù lại.
+Play a Hand chia cho bạn mười ba quân từ một bức tường thật. Hãy chọn một nhóm bài, rồi bốc và đánh trong mười hai lượt trong khi huấn luyện viên chấm từng quân bạn đánh ra và chỉ ra phép tính đằng sau. Không có đối thủ và không có bot. Ai cũng được một ván miễn phí mỗi ngày.
 
-Game Night Prep cho phép bạn đặt buổi chơi bài quen thuộc. Lời nhắc đến trước và mở thẳng vào một phiên năm phút được dựng từ những lỗi đến hạn, căn phòng yếu nhất và nội dung bạn chưa xem.
+Reference là bảng thuật ngữ mới có tìm kiếm, kèm một trang cho mỗi nhóm bài trên thẻ, miễn phí cho tất cả, chỉ cách màn hình chính một chạm.
 
-Mahj Trainer giờ chạy gốc trên iPad, ở chế độ dọc hoặc ngang.
+Tiến độ từng phòng giờ đếm những gì bạn thực sự đã học: một câu hỏi được ghi nhận khi bạn trả lời đúng hai lần liên tiếp.
 
-Mahj Minute và Game Night Prep thuộc Mahj+.
+Nếu sai, ứng dụng giờ sẽ nói cho bạn biết vì sao câu trả lời của bạn sai, chứ không chỉ đâu là đáp án đúng.

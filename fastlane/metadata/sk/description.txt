@@ -22,6 +22,8 @@ Rozhodovanie držať-alebo-zahodiť: kedy si nechať kvet, kedy ho vymeniť za o
 MAHJ+ (voliteľný upgrade)
 Všetko vyššie zostáva navždy zadarmo. Mahj+ pridáva cvičenie, ktoré sa nikdy neminie:
 
+PLAY A HAND rozdá trinásť kameňov zo skutočného múru, hodnotí každý odhoz a ukazuje výpočet, ktorý za ním stojí. Žiadni súperi a žiadni boti. Jedna ruka denne zadarmo pre každého.
+
 ENDLESS PRACTICE zakaždým rozdá čerstvo vygenerovaný rack, takže sa čítanie kategórií nikdy neopakuje ani neminie.
 
 FIX MY MISTAKES si pamätá, čo si mal zle, a vracia to podľa rozloženého rozvrhu, aby sa slabé miesta naozaj uzavreli.

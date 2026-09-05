@@ -1,9 +1,9 @@
-Oyun gecesi için daha iyi bir ritim.
+Bir el oyna, taş taş.
 
-Mahj Minute yeni bir günlük meydan okuma. Tüm üyeler aynı gün aynı beş soruyu alır: iki rack okuması, bir Charleston kararı ve iki masa değerlendirmesi. Skorunu paylaş ve beş günlük esnek bir haftalık ritim tut; 30 günlük arşivle açığını kapatabilirsin.
+Play a Hand sana gerçek bir duvardan on üç taş dağıtır. Bir bölüme karar ver, sonra on iki tur boyunca çek ve at; bu sırada bir koç her atışını değerlendirir ve arkasındaki hesabı gösterir. Rakip yok, bot yok. Herkes günde bir ücretsiz el alır.
 
-Game Night Prep her zamanki oyun geceni ayarlamanı sağlar. Hatırlatma öncesinde gelir ve doğrudan beş dakikalık bir seans açar: vadesi gelen hataların, en zayıf odan ve henüz görmediğin içerikten kurulu.
+Reference, aranabilir yeni bir sözlük ve kartın her bölümü için bir sayfa sunar; herkese ücretsiz, ana ekrandan tek dokunuş uzakta.
 
-Mahj Trainer artık iPad'de dikey veya yatay olarak yerel çalışıyor.
+Oda ilerlemesi artık gerçekten öğrendiğini sayıyor: bir soru, üst üste iki kez doğru cevapladığında yerleşir.
 
-Mahj Minute ve Game Night Prep, Mahj+ kapsamındadır.
+Yanlış yaparsan uygulama artık cevabının neden yanlış olduğunu söylüyor, sadece doğrusunun ne olduğunu değil.

@@ -22,6 +22,8 @@ Keputusan simpan atau buang: kapan menahan bunga, kapan menukar joker yang terbu
 MAHJ+ (upgrade opsional)
 Semua di atas tetap gratis selamanya. Mahj+ menambahkan latihan yang tidak pernah habis:
 
+PLAY A HAND membagikan tiga belas ubin dari tembok sungguhan, menilai setiap buangan dan menunjukkan hitungan di baliknya. Tanpa lawan dan tanpa bot. Satu tangan gratis per hari untuk semua.
+
 ENDLESS PRACTICE membagikan rack yang dibuat baru setiap kali, jadi pembacaan kategori tidak pernah berulang dan tidak pernah habis.
 
 FIX MY MISTAKES mengingat apa yang kamu jawab salah dan memunculkannya kembali sesuai jadwal berjarak, sehingga titik lemah benar-benar tertutup.

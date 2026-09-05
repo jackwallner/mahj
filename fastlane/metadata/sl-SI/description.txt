@@ -22,6 +22,8 @@ Odločitve obdrži-ali-vrzi: kdaj obdržati cvet, kdaj ga zamenjati za odkritega
 MAHJ+ (izbirna nadgradnja)
 Vse zgoraj ostane za vedno brezplačno. Mahj+ dodaja vadbo, ki se nikoli ne izteče:
 
+PLAY A HAND razdeli trinajst ploščic iz pravega zidu, oceni vsak met in pokaže računico za njim. Brez nasprotnikov in brez botov. Ena brezplačna roka na dan za vsakogar.
+
 ENDLESS PRACTICE vsakič razdeli na novo ustvarjen rack, zato se branje kategorij nikoli ne ponovi in nikoli ne izteče.
 
 FIX MY MISTAKES si zapomni, kaj si zgrešil, in to vrne po razmaknjenem urniku, da se šibke točke res zaprejo.

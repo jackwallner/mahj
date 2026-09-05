@@ -22,6 +22,8 @@ Keep-or-throw judgment calls: when to hold a flower, when to swap for an exposed
 MAHJ+ (optional upgrade)
 Everything above stays free, forever. Mahj+ adds practice that never runs out:
 
+PLAY A HAND deals thirteen tiles off a real wall, then grades every discard and shows the arithmetic behind it. No opponents and no bots, so nothing can feel rigged. Everyone gets one free hand a day.
+
 ENDLESS PRACTICE deals a freshly generated rack every time, so section reading never repeats and never runs dry.
 
 FIX MY MISTAKES remembers what you got wrong and brings it back on a spaced schedule, so weak spots actually close.

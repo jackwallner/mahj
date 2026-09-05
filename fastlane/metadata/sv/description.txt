@@ -22,6 +22,8 @@ Behåll-eller-kasta-beslut: när du ska hålla kvar en blomma, när du ska byta 
 MAHJ+ (valfri uppgradering)
 Allt ovan förblir gratis för alltid. Mahj+ lägger till övning som aldrig tar slut:
 
+PLAY A HAND delar ut tretton brickor från en riktig mur, betygsätter varje kast och visar uträkningen bakom det. Inga motståndare och inga bottar. En gratis hand om dagen för alla.
+
 ENDLESS PRACTICE delar ut ett nygenererat rack varje gång, så att kategoriläsningen aldrig upprepas och aldrig tar slut.
 
 FIX MY MISTAKES kommer ihåg vad du svarade fel på och tar tillbaka det enligt ett spritt schema, så att svaga punkter faktiskt täpps till.

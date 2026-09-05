@@ -22,6 +22,8 @@ Houden-of-weggooien beslissingen: wanneer je een bloem bewaart, wanneer je ruilt
 MAHJ+ (optionele upgrade)
 Alles hierboven blijft voor altijd gratis. Mahj+ voegt oefening toe die nooit opraakt:
 
+PLAY A HAND deelt dertien stenen uit een echte muur, beoordeelt elke worp en laat het rekenwerk erachter zien. Geen tegenstanders en geen bots. Eén gratis hand per dag voor iedereen.
+
 ENDLESS PRACTICE deelt elke keer een vers gegenereerd rack, zodat categorieën lezen nooit herhaalt en nooit opraakt.
 
 FIX MY MISTAKES onthoudt wat je fout had en brengt het volgens een gespreid schema terug, zodat zwakke plekken echt dichtgaan.

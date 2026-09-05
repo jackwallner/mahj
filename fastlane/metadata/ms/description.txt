@@ -22,6 +22,8 @@ Asah keputusan simpan atau buang: bila hendak simpan bunga, bila hendak tukar jo
 MAHJ+ (naik taraf pilihan)
 Semua di atas kekal percuma selamanya. Mahj+ menambah latihan yang tidak pernah habis:
 
+PLAY A HAND mengagihkan tiga belas jubin daripada tembok sebenar, menilai setiap buangan dan menunjukkan pengiraan di sebaliknya. Tiada lawan dan tiada bot. Satu tangan percuma sehari untuk semua.
+
 ENDLESS PRACTICE mengagihkan rack yang dijana baharu setiap kali, jadi pembacaan kategori tidak pernah berulang dan tidak pernah habis.
 
 FIX MY MISTAKES mengingati apa yang anda jawab salah dan membawanya kembali mengikut jadual berjarak, supaya titik lemah benar-benar tertutup.
@@ -31,8 +33,6 @@ TIMED CHALLENGE memberi anda sembilan puluh saat soalan campuran dan rekod perib
 SET LATIHAN TAMBAHAN di setiap satu daripada empat bilik, dengan soalan, rack dan agihan baharu dalam latihan yang sudah anda gunakan.
 
 THE MASTER TABLES, tempat strategi Charleston lanjutan, sekolah pertahanan dan latihan membaca rack tahap pakar menanti pemain yang melangkaui asas.
-
-Latihan baharu ditambah sepanjang tahun.
 
 DIREKA UNTUK PEMAIN BAHARU
 Kad kilat dengan penjelasan "sebab" di belakang. Streak yang mengekalkan semangat berlatih anda. Set latihan asli yang mengajar sistem kategori, jadi kemahiran yang diperoleh boleh digunakan pada kad tahun mana-mana.

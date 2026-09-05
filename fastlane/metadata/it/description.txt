@@ -22,6 +22,8 @@ Scelte tieni-o-scarta: quando tenere un fiore, quando scambiarlo con un jolly es
 MAHJ+ (upgrade opzionale)
 Tutto quello che c'è sopra resta gratuito per sempre. Mahj+ aggiunge pratica che non finisce mai:
 
+PLAY A HAND distribuisce tredici tessere da un muro vero, valuta ogni scarto e mostra il calcolo che c'è dietro. Nessun avversario e nessun bot. Una mano gratis al giorno per tutti.
+
 ENDLESS PRACTICE distribuisce un rack generato al momento ogni volta, così la lettura delle categorie non si ripete mai e non si esaurisce mai.
 
 FIX MY MISTAKES ricorda che cosa hai sbagliato e te lo ripropone secondo un calendario distribuito, così i punti deboli si chiudono davvero.

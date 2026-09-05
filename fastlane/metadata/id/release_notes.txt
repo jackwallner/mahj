@@ -1,9 +1,9 @@
-Ritme yang lebih baik untuk malam bermain.
+Mainkan satu tangan, satu ubin demi satu.
 
-Mahj Minute adalah tantangan harian baru. Semua anggota mendapat lima pertanyaan yang sama pada hari yang sama: dua pembacaan rack, satu keputusan Charleston, dan dua penilaian meja. Bagikan skormu dan jaga ritme mingguan yang longgar selama lima hari, dengan arsip 30 hari untuk mengejar ketinggalan.
+Play a Hand membagikan tiga belas ubin dari tembok sungguhan. Tentukan satu bagian, lalu ambil dan buang selama dua belas giliran sementara seorang pelatih menilai setiap buangan dan menunjukkan hitungan di baliknya. Tanpa lawan dan tanpa bot. Semua orang mendapat satu tangan gratis per hari.
 
-Game Night Prep memungkinkanmu menetapkan malam bermain rutinmu. Pengingat datang lebih dulu dan langsung membuka sesi lima menit yang disusun dari kesalahanmu yang jatuh tempo, ruangan terlemahmu, dan materi yang belum kamu lihat.
+Reference adalah glosarium baru yang bisa dicari plus satu halaman untuk setiap bagian kartu, gratis untuk semua, satu ketukan dari layar utama.
 
-Mahj Trainer kini berjalan secara native di iPad, dalam mode potret atau lanskap.
+Kemajuan tiap ruang kini menghitung yang benar-benar kamu kuasai: sebuah soal dianggap dikuasai setelah kamu menjawabnya benar dua kali berturut-turut.
 
-Mahj Minute dan Game Night Prep termasuk dalam Mahj+.
+Kalau salah, aplikasi kini memberi tahu mengapa jawabanmu keliru, bukan sekadar mana yang benar.

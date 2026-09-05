@@ -17,7 +17,7 @@ Products (USA):
 - Yearly: $39.99/year, auto-renewing subscription, 1-week free trial
 - Lifetime: $89.99 one-time purchase (non-consumable), no trial
 
-To test Mahj+: sign a Sandbox Apple ID into the test device (App Store Connect > Users and Access > Sandbox), then start a trial from the in-app paywall (Settings > the Mahj+ row, any locked drill, or the trial screen shown during onboarding). The onboarding trial screen starts the MONTHLY plan; the full paywall offers monthly, yearly and lifetime. Sandbox purchases do not charge real money and Apple compresses trial/renewal periods in the sandbox environment for faster testing.
+To test Mahj+: sign a Sandbox Apple ID into the test device (App Store Connect > Users and Access > Sandbox), then start a trial from the in-app paywall (Settings > the Mahj+ row, any locked drill, or the trial screen shown during onboarding). The onboarding trial screen starts the MONTHLY plan; the full paywall offers monthly, yearly and lifetime. Sandbox purchases do not charge real money and Apple compresses trial and renewal periods for faster testing.
 
 TRIAL TERMS
 Both subscriptions include a 1-week free trial. Payment is charged to the user's Apple ID account at confirmation of purchase (end of the trial, unless canceled first). Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. Users can manage or cancel anytime in their device's Account Settings. Terms of Use is Apple's standard EULA (https://www.apple.com/legal/internet-services/itunes/dev/stdeula/); Privacy Policy is at https://jackwallner.github.io/mahj/privacy-policy.

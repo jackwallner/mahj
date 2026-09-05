@@ -22,6 +22,8 @@ Tut ya da at kararları: bir çiçeği ne zaman elinde tutmalısın, açık bir 
 MAHJ+ (isteğe bağlı yükseltme)
 Yukarıdaki her şey sonsuza dek ücretsiz kalır. Mahj+ hiç bitmeyen alıştırma ekler:
 
+PLAY A HAND gerçek bir duvardan on üç taş dağıtır, her atışı değerlendirir ve arkasındaki hesabı gösterir. Rakip yok, bot yok. Herkese günde bir ücretsiz el.
+
 ENDLESS PRACTICE her seferinde anında üretilen yeni bir rack dağıtır, böylece kategori okuma ne tekrarlanır ne de tükenir.
 
 FIX MY MISTAKES yanlış yaptıklarını hatırlar ve aralıklı bir programla geri getirir, böylece zayıf noktalar gerçekten kapanır.

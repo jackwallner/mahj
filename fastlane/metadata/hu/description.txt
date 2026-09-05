@@ -22,6 +22,8 @@ Tartsd-vagy-dobd döntések: mikor tartsd meg a virágot, mikor cseréld le egy 
 MAHJ+ (opcionális fejlesztés)
 A fentiek mind örökre ingyenesek maradnak. A Mahj+ olyan gyakorlást ad hozzá, ami sosem fogy el:
 
+A PLAY A HAND tizenhárom követ oszt egy valódi falból, értékeli minden dobásodat, és megmutatja a mögötte álló számítást. Nincsenek ellenfelek és nincsenek botok. Napi egy ingyenes kéz mindenkinek.
+
 ENDLESS PRACTICE: minden alkalommal frissen generált rackot oszt, így a kategóriaolvasás sosem ismétlődik és sosem fogy el.
 
 FIX MY MISTAKES: megjegyzi, mit rontottál el, és időben elosztott ütemezéssel visszahozza, hogy a gyenge pontok tényleg bezáruljanak.
