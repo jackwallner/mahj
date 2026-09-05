@@ -90,9 +90,20 @@ struct DrillCompleteView: View {
     /// A finished drill is the positive moment the funnel waits for. Let the
     /// celebration land first: a sheet that lands on top of the confetti reads
     /// as an interruption, not a thank-you.
+    ///
+    /// The ask is recorded when it is PRESENTED, not when it is answered.
+    /// Every button inside the sheet records something, but a drag indicator
+    /// is shown on purpose and swiping the sheet away recorded nothing at all:
+    /// no outcome, no last-shown date, so the very next finished drill passed
+    /// the same gate and asked again. A rating prompt that reappears after
+    /// every drill until you tap one of its buttons is exactly the nag the
+    /// cooldown exists to prevent. Marking it here means a dismissal of any
+    /// kind, including backgrounding the app with the sheet up, spends the
+    /// ask; the buttons inside still narrow the cooldown or retire it for good.
     private func recordPositiveMoment() {
         ReviewPromptTracker.recordPositiveMoment()
         guard ReviewPromptTracker.shouldShowAfterPositiveMoment() else { return }
+        ReviewPromptTracker.markShown()
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 1_400_000_000)
             showReviewPrompt = true

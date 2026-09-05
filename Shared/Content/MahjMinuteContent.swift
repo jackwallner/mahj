@@ -58,7 +58,19 @@ enum MahjMinuteContent {
         let racks = rackQuestions(dayKey: dayKey)
         let charleston = charlestonQuestion(dayKey: dayKey)
         let table = tableQuestions(dayKey: dayKey)
-        let questions = [racks[0], charleston, table[0], racks[1], table[1]]
+        // Interleaved so the day never opens with two of the same kind, but
+        // built by appending what exists rather than by indexing what should.
+        // `RackGenerator.batch` compactMaps away a deal that came out
+        // ambiguous and `tableQuestions` takes a prefix, so both can in
+        // principle come back short; `racks[1]` would then crash the screen,
+        // and this challenge is the same for every member on the same day, so
+        // one short batch would be one shared crash.
+        var questions: [MahjMinuteQuestion] = []
+        if racks.indices.contains(0) { questions.append(racks[0]) }
+        questions.append(charleston)
+        if table.indices.contains(0) { questions.append(table[0]) }
+        if racks.indices.contains(1) { questions.append(racks[1]) }
+        if table.indices.contains(1) { questions.append(table[1]) }
 
         let parts = calendar.dateComponents([.month, .day], from: day)
         let shortDate = String(format: "%02d/%02d", parts.month ?? 1, parts.day ?? 1)

@@ -31,6 +31,25 @@ final class ReviewPromptTrackerTests: XCTestCase {
         XCTAssertTrue(ReviewPromptTracker.shouldShowAfterPositiveMoment())
     }
 
+    /// The sheet carries a drag indicator, so swiping it away is a first-class
+    /// dismissal and it records nothing of its own. Marking the ask when it is
+    /// PRESENTED is what stops the funnel re-asking after every single drill
+    /// until a button finally gets tapped.
+    func testAnAskThatIsPresentedSpendsTheAskEvenIfNoButtonIsTapped() {
+        earnTheAsk()
+        XCTAssertTrue(ReviewPromptTracker.shouldShowAfterPositiveMoment())
+
+        // What DrillCompleteView now does at presentation time.
+        ReviewPromptTracker.markShown()
+
+        // The player swipes the sheet away. The next finished drill must not
+        // put it straight back up.
+        ReviewPromptTracker.recordPositiveMoment()
+        XCTAssertFalse(ReviewPromptTracker.shouldShowAfterPositiveMoment())
+        ReviewPromptTracker.recordPositiveMoment()
+        XCTAssertFalse(ReviewPromptTracker.shouldShowAfterPositiveMoment())
+    }
+
     func testNotNowHoldsTheGateShutForTheCooldown() {
         earnTheAsk()
         ReviewPromptTracker.markShown()
