@@ -37,12 +37,11 @@ struct HandPlayView: View {
     @State private var confettiTrigger = 0
     @State private var showPaywall = false
 
-    /// The result of one throw, held on screen until the player advances.
-    struct Grade: Equatable {
-        let discard: Tile
-        let wasBest: Bool
-        let note: String
-    }
+    /// The result of one throw, held on screen until the player advances, and
+    /// saved with the hand so a relaunch mid-coaching comes back to it rather
+    /// than to the turn before. Owned by `HandPlayStore` because it has to be
+    /// `Codable` alongside the rack.
+    typealias Grade = HandPlayStore.ThrowGrade
 
     var body: some View {
         Group {
@@ -75,6 +74,7 @@ struct HandPlayView: View {
             turn = saved.turn
             cleanDiscards = saved.cleanDiscards
             drawn = saved.drawn
+            grade = saved.grade
             phase = .playing
             return
         }
@@ -83,7 +83,9 @@ struct HandPlayView: View {
         wall = deal.wall
     }
 
-    /// Called at each turn boundary only. See `HandPlayStore.saveInProgress`.
+    /// Called after BOTH halves of a turn, the draw and the throw, so the
+    /// saved hand always matches what is on screen. See
+    /// `HandPlayStore.saveInProgress`.
     private func saveProgress() {
         guard let target else { return }
         handPlay.saveInProgress(HandPlayStore.InProgressHand(
@@ -93,7 +95,8 @@ struct HandPlayView: View {
             target: target,
             turn: turn,
             cleanDiscards: cleanDiscards,
-            drawn: drawn
+            drawn: drawn,
+            grade: grade
         ))
     }
 
@@ -391,6 +394,11 @@ struct HandPlayView: View {
             correct: wasBest,
             isReviewable: false
         )
+        // Saved with the record, not after the next draw. The throw is already
+        // counted in the stats by this line, so leaving the hand at the turn
+        // boundary meant a relaunch handed the player the same throw to answer
+        // twice and counted it twice.
+        saveProgress()
     }
 
     private func advance() {

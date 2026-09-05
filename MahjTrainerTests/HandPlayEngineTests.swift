@@ -270,4 +270,48 @@ final class HandPlayStoreTests: XCTestCase {
         XCTAssertEqual(store.bestStars, 0)
         XCTAssertTrue(store.canPlay(isMember: false))
     }
+
+    // MARK: - Resuming a graded throw
+
+    private func hand(grade: HandPlayStore.ThrowGrade?) -> HandPlayStore.InProgressHand {
+        let deal = HandPlayEngine.deal(seed: "resume-test")
+        return HandPlayStore.InProgressHand(
+            rack: deal.rack,
+            wall: deal.wall,
+            wallIndex: 1,
+            target: .evens2468,
+            turn: 3,
+            cleanDiscards: 2,
+            drawn: deal.wall.first,
+            grade: grade
+        )
+    }
+
+    /// The throw is counted in the player's stats the moment it is graded, so
+    /// it has to be durable from that moment too. Resuming to the turn before
+    /// handed the same throw back to be answered, and counted, twice.
+    func testAGradedThrowSurvivesRelaunch() {
+        let grade = HandPlayStore.ThrowGrade(
+            discard: .wind(.north),
+            wasBest: false,
+            note: "That one was working."
+        )
+        store.saveInProgress(hand(grade: grade))
+
+        let reopened = HandPlayStore(defaults: defaults)
+        XCTAssertEqual(reopened.inProgress?.grade, grade)
+        XCTAssertEqual(reopened.inProgress?.turn, 3)
+        XCTAssertEqual(reopened.inProgress?.cleanDiscards, 2)
+    }
+
+    /// A hand saved at a turn boundary, and a hand saved by a build that had
+    /// no `grade` field at all, both decode with no grade and resume into the
+    /// throw rather than into somebody else's coaching card.
+    func testATurnBoundaryHandResumesWithNoGrade() {
+        store.saveInProgress(hand(grade: nil))
+
+        let reopened = HandPlayStore(defaults: defaults)
+        XCTAssertNotNil(reopened.inProgress)
+        XCTAssertNil(reopened.inProgress?.grade)
+    }
 }

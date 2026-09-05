@@ -341,6 +341,45 @@ final class NewFeatureSmokeTests: XCTestCase {
         if !exists("Turn ") {
             problems.append("reopening did not land back in the hand; it re-dealt or showed the setup")
             attachTree("failed_resume")
+            reportProblems()
+            return
+        }
+
+        // The other half of the same promise. A throw is graded, coached, and
+        // counted in the player's stats the instant it lands, so being killed
+        // while the coaching card is up must not rewind to before the throw:
+        // that hands the same turn back to be answered, and counted, twice.
+        guard throwATile() else {
+            problems.append("could not throw a tile in the resumed hand")
+            attachTree("failed_resumed_throw")
+            reportProblems()
+            return
+        }
+        capture("63_throw_graded")
+        guard exists("Next turn") || exists("See how you did") else {
+            problems.append("the throw did not grade")
+            reportProblems()
+            return
+        }
+
+        app.terminate()
+        app.launch()
+        _ = app.wait(for: .runningForeground, timeout: 30)
+        settle()
+        dismissWhatsNew()
+        guard open("Play a") else {
+            problems.append("the graded hand could not be reopened")
+            reportProblems()
+            return
+        }
+        capture("64_graded_throw_resumed")
+        if exists("Tap the tile you want to throw") {
+            problems.append("resuming rewound past a graded throw; the player has to answer it again")
+            attachTree("failed_grade_resume")
+        }
+        if !exists("Next turn") && !exists("See how you did") {
+            problems.append("the coaching card for the graded throw did not survive termination")
+            attachTree("failed_grade_card")
         }
         reportProblems()
     }

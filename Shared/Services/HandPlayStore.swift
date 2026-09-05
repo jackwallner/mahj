@@ -28,6 +28,19 @@ final class HandPlayStore: ObservableObject {
         var turn: Int
         var cleanDiscards: Int
         var drawn: Tile?
+        /// Set only while a throw is on screen waiting for `Next turn`. It is
+        /// what makes the graded half of a turn durable: without it the rack
+        /// and the coaching came back from different moments. Optional so a
+        /// hand saved by an older build still decodes.
+        var grade: ThrowGrade?
+    }
+
+    /// One graded throw, in the store rather than in the view, because it has
+    /// to survive termination alongside the rack it belongs to.
+    struct ThrowGrade: Codable, Sendable, Equatable {
+        var discard: Tile
+        var wasBest: Bool
+        var note: String
     }
 
     @Published private(set) var handsPlayed: Int
@@ -76,10 +89,12 @@ final class HandPlayStore: ObservableObject {
         defaults.set(lastFreeHandDay, forKey: Keys.lastFreeDay)
     }
 
-    /// Saves the hand at a turn boundary: drawn, nothing thrown yet. Saving
-    /// mid-throw would resume into a state where the tile is already gone but
-    /// the turn has not advanced, and the player would spend two discards on
-    /// one draw.
+    /// Saves the whole turn, both halves of it: drawn-and-not-yet-thrown, and
+    /// thrown-and-being-graded. The second half is why `grade` exists. Saving
+    /// only the rack mid-throw WOULD resume into a state where the tile is
+    /// gone but the turn has not advanced and the player spends two discards
+    /// on one draw; saving the grade with it resumes onto the exact screen
+    /// they left, coaching card and all.
     func saveInProgress(_ hand: InProgressHand) {
         inProgress = hand
         guard let data = try? JSONEncoder().encode(hand) else { return }
