@@ -117,6 +117,21 @@ final class PracticeRecordStore: ObservableObject {
 
     // MARK: - Recording
 
+    struct AnswerSnapshot {
+        let itemID: String
+        let record: PracticeRecord?
+    }
+
+    func snapshotAnswer(itemID: String) -> AnswerSnapshot {
+        AnswerSnapshot(itemID: itemID, record: records[itemID])
+    }
+
+    /// Undo restores the full schedule, including ease and due date.
+    func restoreAnswer(_ snapshot: AnswerSnapshot) {
+        records[snapshot.itemID] = snapshot.record
+        persist()
+    }
+
     /// Grades one answer. Generated items collapse onto a single per-skill row:
     /// an endless mode mints a new id every question, and storing each one
     /// would grow this dictionary without bound and drown the real items in
@@ -184,9 +199,13 @@ final class PracticeRecordStore: ObservableObject {
     /// Item ids that are due for another look, worst first. "Worst" is lowest
     /// accuracy, then longest overdue, so the questions a player keeps getting
     /// wrong surface before the ones they nearly have.
-    func reviewQueue(limit: Int = 12) -> [String] {
-        records
-            .filter { $0.value.needsReview && $0.value.isDue && PracticeSkill(rawValue: $0.key) == nil }
+    /// `presentable`, when given, restricts the queue to ids the caller can
+    /// actually show. The store grades every drill in the app, including ones
+    /// no review runner can re-ask, so the badge and the session must be
+    /// counted over the same set or the badge promises a round that does not
+    /// exist.
+    func reviewQueue(limit: Int = 12, among presentable: Set<String>? = nil) -> [String] {
+        dueRecords(among: presentable)
             .sorted { lhs, rhs in
                 if lhs.value.accuracy != rhs.value.accuracy { return lhs.value.accuracy < rhs.value.accuracy }
                 return lhs.value.dueDate < rhs.value.dueDate
@@ -196,8 +215,18 @@ final class PracticeRecordStore: ObservableObject {
     }
 
     /// How many items are waiting, for the Home card's badge.
-    var dueCount: Int {
-        records.filter { $0.value.needsReview && $0.value.isDue && PracticeSkill(rawValue: $0.key) == nil }.count
+    func dueCount(among presentable: Set<String>? = nil) -> Int {
+        dueRecords(among: presentable).count
+    }
+
+    private func dueRecords(among presentable: Set<String>?) -> [String: PracticeRecord] {
+        records.filter { id, record in
+            guard record.needsReview, record.isDue else { return false }
+            // Generated skills roll up onto one row each and can never be re-asked.
+            guard PracticeSkill(rawValue: id) == nil else { return false }
+            guard let presentable else { return true }
+            return presentable.contains(id)
+        }
     }
 
     // MARK: - Stats

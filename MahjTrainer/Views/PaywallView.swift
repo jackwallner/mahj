@@ -277,6 +277,7 @@ struct PaywallView: View {
     @State private var selectedPlan: PaywallPlan = .yearly
     @State private var purchasing = false
     @State private var restoring = false
+    @State private var loadingPrices = false
     @State private var message: String?
 
     var body: some View {
@@ -290,6 +291,17 @@ struct PaywallView: View {
             .background(Theme.background)
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 8) {
+                    if !priceReady && !loadingPrices {
+                        Text("Prices aren't available right now. Check your connection and try again.")
+                            .font(.caption)
+                            .foregroundStyle(Theme.inkSecondary)
+                            .multilineTextAlignment(.center)
+                        Button("Retry loading prices") {
+                            Task { await loadPrices() }
+                        }
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Theme.jade)
+                    }
                     Text(PaywallPricing.terms(subscriptions, selectedPlan))
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
@@ -299,7 +311,7 @@ struct PaywallView: View {
                         purchase()
                     } label: {
                         Group {
-                            if purchasing || !priceReady {
+                            if purchasing || loadingPrices {
                                 ProgressView().tint(.white)
                             } else {
                                 Text(selectedPlan.ctaTitle)
@@ -312,7 +324,7 @@ struct PaywallView: View {
                     // then showed a generic "products unavailable" alert, which
                     // reads as the app being broken rather than the store being
                     // slow.
-                    .disabled(purchasing || !priceReady)
+                    .disabled(purchasing || restoring || !priceReady)
                     .opacity(priceReady ? 1 : 0.75)
                     .accessibilityHint(priceReady ? "" : "Waiting for the App Store to return prices")
                     footerLinks
@@ -337,7 +349,10 @@ struct PaywallView: View {
             .onChange(of: subscriptions.isPro) { _, isPro in
                 if isPro { dismiss() }
             }
-            .task { subscriptions.trackPaywallImpression(id: source) }
+            .task {
+                subscriptions.trackPaywallImpression(id: source)
+                if !priceReady { await loadPrices() }
+            }
         }
     }
 
@@ -348,10 +363,17 @@ struct PaywallView: View {
         PaywallPricing.price(subscriptions, selectedPlan) != nil
     }
 
+    private func loadPrices() async {
+        guard !loadingPrices else { return }
+        loadingPrices = true
+        defer { loadingPrices = false }
+        await subscriptions.loadOfferings()
+    }
+
     private var footerLinks: some View {
         HStack(spacing: 16) {
             Button("Restore") { restore() }
-                .disabled(restoring)
+                .disabled(restoring || purchasing)
             Link("Terms of Use", destination: PaywallLinks.terms)
             Link("Privacy Policy", destination: PaywallLinks.privacy)
         }
