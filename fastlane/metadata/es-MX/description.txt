@@ -22,6 +22,8 @@ Decisiones de quedarte o tirar: cuándo guardar una flor, cuándo cambiarla por 
 MAHJ+ (mejora opcional)
 Todo lo anterior sigue siendo gratis para siempre. Mahj+ agrega práctica que nunca se acaba:
 
+PLAY A HAND reparte trece fichas de un muro real, califica cada descarte y muestra la aritmética que hay detrás. Sin rivales y sin bots. Una mano gratis al día para todos.
+
 ENDLESS PRACTICE reparte un rack generado al momento cada vez, así la lectura de categorías nunca se repite ni se agota.
 
 FIX MY MISTAKES recuerda lo que fallaste y te lo regresa según un calendario espaciado, para que los puntos débiles sí se cierren.

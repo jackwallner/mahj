@@ -2,9 +2,6 @@ Entraîne-toi au Mah Jongg américain en séances de cinq minutes : tuiles, stra
 
 Tu as appris le mah jongg jeudi dernier ? Ne le perds pas. Mahj Trainer n'a ni adversaires, ni chronomètre, ni pression : juste des répétitions rapides et interactives qui construisent les compétences dont tu as besoin avant de t'asseoir à une vraie table. Vois ça comme t'entraîner au service sans jouer un match.
 
-POURQUOI ÇA MARCHE
-La plupart des nouveaux joueurs apprennent lors d'une partie hebdomadaire, puis n'ont aucun moyen de s'entraîner avant la suivante. Les leçons s'effacent. Mahj Trainer te donne des répétitions rapides que tu peux faire n'importe où, même en faisant la queue.
-
 QUATRE SALLES D'ENTRAÎNEMENT GRATUITES
 
 LA SALLE DES TUILES
@@ -22,6 +19,8 @@ Choix garder-ou-défausser : quand garder une fleur, quand l'échanger contre un
 MAHJ+ (amélioration optionnelle)
 Tout ce qui précède reste gratuit pour toujours. Mahj+ ajoute de l'entraînement qui ne s'épuise jamais :
 
+PLAY A HAND distribue treize tuiles d'un vrai mur, note chaque rejet et montre le calcul qui le justifie. Aucun adversaire, aucun bot. Une main gratuite par jour pour tous.
+
 ENDLESS PRACTICE distribue un rack généré à la volée à chaque fois, la lecture des catégories ne se répète jamais et ne s'épuise jamais.
 
 FIX MY MISTAKES retient vos erreurs et les ramène selon un calendrier espacé, pour que les points faibles se comblent vraiment.
@@ -31,8 +30,6 @@ TIMED CHALLENGE vous donne quatre-vingt-dix secondes de questions variées et un
 DES SÉRIES D'EXERCICES SUPPLÉMENTAIRES dans chacune des quatre salles, avec de nouvelles questions, de nouveaux racks et de nouvelles donnes dans les exercices que vous utilisez déjà.
 
 THE MASTER TABLES, où la stratégie avancée du Charleston, une école de défense et des exercices experts de lecture de rack attendent ceux qui dépassent les bases.
-
-De nouveaux exercices sont ajoutés toute l'année.
 
 CONÇU POUR LES NOUVEAUX JOUEURS
 Des cartes mémo avec le "pourquoi" au dos. Des séries pour te garder motivé·e entre les parties. Des mains d'entraînement originales qui enseignent le système de catégories, pour que tes compétences s'appliquent à la carte de n'importe quelle année.

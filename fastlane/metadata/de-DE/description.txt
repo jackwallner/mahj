@@ -22,6 +22,8 @@ Behalten-oder-Ablegen-Entscheidungen: wann du eine Blume behältst, wann du gege
 MAHJ+ (optionales Upgrade)
 Alles oben bleibt für immer kostenlos. Mahj+ fügt Übung hinzu, die nie ausgeht:
 
+PLAY A HAND teilt dreizehn Steine von einer echten Mauer aus, bewertet dann jeden Wurf und zeigt die Rechnung dahinter. Keine Gegner und keine Bots. Jeder bekommt eine kostenlose Hand pro Tag.
+
 ENDLESS PRACTICE teilt jedes Mal ein frisch generiertes Rack aus, sodass sich das Kategorien-Lesen nie wiederholt und nie ausgeht.
 
 FIX MY MISTAKES merkt sich, was du falsch hattest, und bringt es nach einem verteilten Zeitplan zurück, damit sich Schwachstellen wirklich schließen.

@@ -22,6 +22,8 @@ Rèn khả năng phán đoán giữ hay bỏ: khi nào nên giữ hoa, khi nào 
 MAHJ+ (nâng cấp tùy chọn)
 Mọi thứ ở trên vẫn miễn phí mãi mãi. Mahj+ bổ sung phần luyện tập không bao giờ cạn:
 
+PLAY A HAND chia mười ba quân từ một bức tường thật, chấm từng quân bạn đánh ra và chỉ ra phép tính đằng sau. Không có đối thủ và không có bot. Mỗi người một ván miễn phí mỗi ngày.
+
 ENDLESS PRACTICE chia một rack được tạo mới mỗi lần, nên việc đọc nhóm bài không bao giờ lặp lại và không bao giờ hết.
 
 FIX MY MISTAKES ghi nhớ những câu bạn làm sai và đưa lại theo lịch giãn cách, để điểm yếu thực sự được khắc phục.

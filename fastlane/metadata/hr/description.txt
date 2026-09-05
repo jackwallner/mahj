@@ -22,6 +22,8 @@ Odluke zadrži-ili-baci: kada zadržati cvijet, kada ga zamijeniti za otkrivenog
 MAHJ+ (opcionalni upgrade)
 Sve navedeno ostaje besplatno zauvijek. Mahj+ dodaje vježbanje koje nikad ne ponestane:
 
+PLAY A HAND dijeli trinaest pločica iz pravog zida, ocjenjuje svako odbacivanje i pokazuje računicu iza njega. Bez protivnika i bez botova. Jedna besplatna ruka dnevno za svakoga.
+
 ENDLESS PRACTICE svaki put dijeli svježe generirani rack, pa se čitanje kategorija nikad ne ponavlja niti ponestane.
 
 FIX MY MISTAKES pamti što si pogriješio i vraća to prema razmaknutom rasporedu, kako bi se slabe točke doista zatvorile.

@@ -22,6 +22,8 @@ Hold-eller-kast-beslutninger: hvornår du skal beholde en blomst, hvornår du sk
 MAHJ+ (valgfri opgradering)
 Alt ovenfor forbliver gratis for altid. Mahj+ tilføjer træning, der aldrig slipper op:
 
+PLAY A HAND giver tretten brikker fra en rigtig mur, bedømmer hvert kast og viser regnestykket bag det. Ingen modstandere og ingen bots. Én gratis hånd om dagen til alle.
+
 ENDLESS PRACTICE giver et nygenereret rack hver gang, så kategorilæsningen aldrig gentages og aldrig slipper op.
 
 FIX MY MISTAKES husker, hvad du svarede forkert, og bringer det tilbage efter en spredt plan, så svage punkter faktisk lukkes.

@@ -29,6 +29,13 @@ final class ScreenshotTests: XCTestCase {
             "-progress.hasOnboarded", "YES",
             "-mahj.hasReadPrimer", "YES",
             "-mahj.skillLevel", "some",
+            // Play a Hand spends a free player's one hand a day the moment
+            // play begins, and saves an unfinished hand across launches. Both
+            // markers survive between runs, so without clearing them the
+            // second capture run of the day photographs the paywall or resumes
+            // somebody else's half-played rack instead of a fresh deal.
+            "-handplay.lastFreeDay", "",
+            "-handplay.inProgress", "",
         ]
         // The What's New sheet fires on the first launch after a version bump
         // and covers Home. Marking the CURRENT version as already seen is what
@@ -44,7 +51,7 @@ final class ScreenshotTests: XCTestCase {
         _ = app.wait(for: .runningForeground, timeout: 30)
         settle()
         dismissWhatsNew()
-        capture("05_home")
+        capture("06_home")
         attachTree("home")
 
         if open("Get Started") {
@@ -52,23 +59,33 @@ final class ScreenshotTests: XCTestCase {
         }
         home()
 
+        // Second in the set on purpose. Play a Hand is what 1.3 added and the
+        // only screen that shows the app judging a decision rather than
+        // testing recognition, and the first three frames are the ones that
+        // appear in search results.
+        capturePlayAHand()
+        home()
+
         if open("The Card Room"), open("Read the Rack") {
-            capture("02_hand_match")
+            capture("03_hand_match")
         }
         home()
 
         if open("The Table Room"), open("Keep or Throw") {
-            capture("03_keep_or_throw")
+            capture("04_keep_or_throw")
         }
         home()
 
         if open("The Charleston Room"), open("Pick Your Pass") {
-            capture("04_charleston")
+            capture("05_charleston")
         }
         home()
 
+        captureReference()
+        home()
+
         if open("The Tile Room") {
-            capture("06_tile_room")
+            capture("08_tile_room")
         }
 
         if !problems.isEmpty {
@@ -77,6 +94,67 @@ final class ScreenshotTests: XCTestCase {
             note.lifetime = .keepAlways
             add(note)
         }
+    }
+
+    /// The graded throw, not the deal. The deal is thirteen tiles and a list of
+    /// section names, which reads like every other rack screen in the set; the
+    /// frame worth having is the one where the coach has just marked a discard
+    /// and said why, because that is the thing no other drill in the app does.
+    private func capturePlayAHand() {
+        // "Play a" and not "Play a Hand": the Home tile wraps the title, so the
+        // accessibility label carries a real newline between the two words and
+        // the full string matches nothing.
+        guard open("Play a") else { return }
+        guard open("2468 (Evens)"), open("Play it out") else {
+            problems.append("could not start the hand for the Play a Hand shot")
+            attachTree("play_a_hand")
+            return
+        }
+        guard throwATile() else {
+            problems.append("no rack tile to throw for the Play a Hand shot")
+            attachTree("play_a_hand_rack")
+            return
+        }
+        capture("02_play_a_hand")
+    }
+
+    /// Tapped through the element types a rack tile can surface as. It is a
+    /// real button first (the rack carries an accessibility action), and the
+    /// rest are the fallback for a rack that is only being displayed.
+    private func throwATile() -> Bool {
+        let predicate = NSPredicate(format: "identifier BEGINSWITH 'rack-tile-'")
+        for query in [app.buttons, app.otherElements, app.images, app.staticTexts] {
+            let tile = query.matching(predicate).firstMatch
+            guard tile.waitForExistence(timeout: 3) else { continue }
+            tile.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+            settle()
+            return true
+        }
+        return false
+    }
+
+    /// The Sections tab with one card open, not the glossary list. Both are the
+    /// same feature, but an expanded section draws a real example rack, and
+    /// tiles are the only illustration this app has.
+    private func captureReference() {
+        guard tap(app.buttons["Reference and glossary"]) else {
+            problems.append("no reference button on Home")
+            return
+        }
+        if tap(app.buttons["Sections"]), open("2468 (Evens)") {
+            capture("07_reference")
+        } else {
+            problems.append("could not open a reference section")
+            attachTree("reference")
+        }
+    }
+
+    @discardableResult
+    private func tap(_ element: XCUIElement) -> Bool {
+        guard element.waitForExistence(timeout: 6) else { return false }
+        element.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        settle()
+        return true
     }
 
     // MARK: - Navigation
@@ -101,15 +179,26 @@ final class ScreenshotTests: XCTestCase {
     @discardableResult
     private func open(_ label: String) -> Bool {
         let predicate = NSPredicate(format: "label CONTAINS %@", label)
-        for query in [app.buttons, app.staticTexts] {
-            let match = query.matching(predicate).firstMatch
-            guard match.waitForExistence(timeout: 6) else { continue }
-            // Tap the centre of the frame rather than the element. SwiftUI
-            // cards report isHittable false often enough that trusting it costs
-            // a whole capture run, and a coordinate tap lands the same place.
-            match.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
-            settle()
-            return true
+        // Two passes: as found, then again after one scroll. Home grew a
+        // training row and a fourth room card, so the card being reached for is
+        // no longer guaranteed to be above the fold on a 6.1-inch phone, and a
+        // coordinate tap at an off-screen frame silently does nothing.
+        for attempt in 0..<2 {
+            for query in [app.buttons, app.staticTexts] {
+                let match = query.matching(predicate).firstMatch
+                guard match.waitForExistence(timeout: attempt == 0 ? 6 : 2) else { continue }
+                guard match.isHittable || attempt == 1 else { continue }
+                // Tap the centre of the frame rather than the element. SwiftUI
+                // cards report isHittable false often enough that trusting it
+                // costs a whole capture run, and a coordinate tap lands the
+                // same place.
+                match.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+                settle()
+                return true
+            }
+            guard attempt == 0 else { break }
+            app.swipeUp()
+            settle(0.8)
         }
         problems.append("could not open: \(label)")
         return false

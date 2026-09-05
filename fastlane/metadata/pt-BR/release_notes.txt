@@ -1,9 +1,9 @@
-Um ritmo melhor para a noite de jogo.
+Jogue uma mão, peça por peça.
 
-Mahj Minute é um novo desafio diário. Todos os membros recebem as mesmas cinco perguntas no mesmo dia: duas leituras de rack, uma decisão de Charleston e dois julgamentos de mesa. Compartilhe sua pontuação e mantenha um ritmo semanal flexível de cinco dias, com um arquivo de 30 dias para colocar em dia.
+Play a Hand distribui treze peças de um muro real. Escolha uma seção e depois compre e descarte por doze rodadas enquanto um treinador avalia cada descarte e mostra a conta por trás dele. Sem adversários e sem bots. Todo mundo ganha uma mão grátis por dia.
 
-Game Night Prep permite definir sua noite de jogo habitual. Um lembrete chega antes e abre direto uma sessão de cinco minutos montada com seus erros pendentes, sua sala mais fraca e material que você ainda não viu.
+Reference é um novo glossário pesquisável mais uma página para cada seção da carta, grátis para todos, a um toque da tela inicial.
 
-O Mahj Trainer agora roda nativamente no iPad, em retrato ou paisagem.
+O progresso das salas agora conta o que você realmente aprendeu: uma pergunta fica quando você acerta duas vezes seguidas.
 
-Mahj Minute e Game Night Prep fazem parte do Mahj+.
+Se errar, o app agora diz por que sua resposta estava errada, não apenas qual era a certa.

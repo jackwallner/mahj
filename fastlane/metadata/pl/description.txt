@@ -22,6 +22,8 @@ Decyzje trzymać-czy-rzucić: kiedy zatrzymać kwiat, kiedy wymienić go na ods�
 MAHJ+ (opcjonalne ulepszenie)
 Wszystko powyżej pozostaje darmowe na zawsze. Mahj+ dodaje ćwiczenia, które nigdy się nie kończą:
 
+PLAY A HAND rozdaje trzynaście kamieni z prawdziwego muru, ocenia każdy zrzut i pokazuje stojącą za nim arytmetykę. Bez przeciwników i bez botów. Jedno darmowe rozdanie dziennie dla każdego.
+
 ENDLESS PRACTICE za każdym razem rozdaje świeżo wygenerowany rack, więc czytanie kategorii nigdy się nie powtarza ani nie wyczerpuje.
 
 FIX MY MISTAKES zapamiętuje twoje błędy i przywraca je według rozłożonego w czasie harmonogramu, dzięki czemu słabe punkty naprawdę się domykają.

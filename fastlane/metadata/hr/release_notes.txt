@@ -1,9 +1,9 @@
-Bolji ritam za večer igre.
+Odigraj ruku, pločicu po pločicu.
 
-Mahj Minute je novi dnevni izazov. Svi članovi istoga dana dobivaju istih pet pitanja: dva čitanja racka, jednu Charleston odluku i dvije procjene za stolom. Podijeli svoj rezultat i drži blagi tjedni ritam od pet dana, uz arhivu od 30 dana za nadoknadu.
+Play a Hand dijeli ti trinaest pločica iz pravog zida. Odaberi sekciju, a zatim vuci i odbacuj dvanaest poteza dok trener ocjenjuje svako odbacivanje i pokazuje računicu iza njega. Bez protivnika i bez botova. Svatko dobiva jednu besplatnu ruku dnevno.
 
-Game Night Prep omogućuje ti da postaviš svoju uobičajenu večer igre. Podsjetnik stiže prije i otvara odmah petominutnu sesiju sastavljenu od tvojih dospjelih pogrešaka, najslabije sobe i gradiva koje još nisi vidio.
+Reference je novi pretraživi pojmovnik i stranica za svaku sekciju karte, besplatno za sve, na jedan dodir s početnog zaslona.
 
-Mahj Trainer sada radi izvorno na iPadu, u portretnom i pejzažnom načinu.
+Napredak u sobama sada broji ono što si stvarno naučio: pitanje je usvojeno kada na njega dvaput zaredom odgovoriš točno.
 
-Mahj Minute i Game Night Prep dio su Mahj+.
+Ako pogriješiš, aplikacija ti sada kaže zašto je tvoj odgovor bio pogrešan, a ne samo koji je bio točan.

@@ -1,9 +1,9 @@
-Un ritme millor per a la nit de joc.
+Juga una mà, fitxa a fitxa.
 
-Mahj Minute és un nou repte diari. Tots els membres reben les mateixes cinc preguntes el mateix dia: dues lectures de rack, una decisió de Charleston i dos judicis de taula. Comparteix la teva puntuació i mantén un ritme setmanal flexible de cinc dies, amb un arxiu de 30 dies per posar-te al dia.
+Play a Hand et reparteix tretze fitxes d'un mur real. Compromet-te amb una secció i, després, roba i descarta durant dotze torns mentre un entrenador puntua cada descart i mostra l'aritmètica que hi ha al darrere. Sense rivals i sense bots. Tothom rep una mà gratuïta al dia.
 
-Game Night Prep et permet fixar la teva nit de joc habitual. Un recordatori arriba abans i obre directament una sessió de cinc minuts construïda a partir dels teus errors pendents, la teva sala més fluixa i material que encara no has vist.
+Reference és un nou glossari amb cerca i una pàgina per a cada secció de la carta, gratis per a tothom, a un toc de la pantalla d'inici.
 
-Mahj Trainer ara funciona de manera nativa a l'iPad, en vertical o horitzontal.
+El progrés de les sales ara compta el que has après de debò: una pregunta queda fixada quan l'encertes dues vegades seguides.
 
-Mahj Minute i Game Night Prep formen part de Mahj+.
+Si falles, l'app ara et diu per què la teva resposta era incorrecta, no només quina era la bona.

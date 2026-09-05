@@ -1,9 +1,9 @@
-Parempi rytmi peli-iltaan.
+Pelaa käsi, laatta kerrallaan.
 
-Mahj Minute on uusi päivittäinen haaste. Kaikki jäsenet saavat samana päivänä samat viisi kysymystä: kaksi rack-lukemaa, yhden Charleston-valinnan ja kaksi pöytäarviota. Jaa tuloksesi ja pidä yllä joustavaa viiden päivän viikkorytmiä, ja kurota kiinni 30 päivän arkistosta.
+Play a Hand jakaa sinulle kolmetoista laattaa oikeasta muurista. Sitoudu osioon ja nosta ja poista sitten kahdentoista vuoron ajan, kun valmentaja arvioi jokaisen heiton ja näyttää sen taustalla olevan laskutoimituksen. Ei vastustajia eikä botteja. Jokainen saa yhden ilmaisen käden päivässä.
 
-Game Night Prep antaa sinun asettaa tavallisen peli-iltasi. Muistutus tulee etukäteen ja avaa suoraan viiden minuutin harjoituksen, joka rakentuu erääntyneistä virheistäsi, heikoimmasta huoneestasi ja materiaalista, jota et ole vielä nähnyt.
+Reference on uusi haettava sanasto sekä sivu kortin jokaisesta osiosta, ilmainen kaikille, yhden napautuksen päässä aloitusnäytöstä.
 
-Mahj Trainer toimii nyt natiivisti iPadilla, pysty- tai vaakasuunnassa.
+Huoneiden edistyminen laskee nyt sen, minkä olet oikeasti oppinut: kysymys jää mieleen, kun vastaat siihen oikein kahdesti peräkkäin.
 
-Mahj Minute ja Game Night Prep kuuluvat Mahj+:aan.
+Jos vastaat väärin, sovellus kertoo nyt miksi vastauksesi oli väärä, ei vain sitä mikä oli oikea.

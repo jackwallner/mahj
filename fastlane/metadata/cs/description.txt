@@ -22,6 +22,8 @@ Rozhodování držet-nebo-zahodit: kdy si nechat květinu, kdy ji vyměnit za od
 MAHJ+ (volitelný upgrade)
 Všechno výše zůstává navždy zdarma. Mahj+ přidává cvičení, které nikdy nedojde:
 
+PLAY A HAND rozdá třináct kamenů ze skutečné zdi, hodnotí každý odhoz a ukazuje výpočet, který za ním stojí. Žádní soupeři a žádní boti. Jedna ruka denně zdarma pro každého.
+
 ENDLESS PRACTICE pokaždé rozdá čerstvě vygenerovaný rack, takže se čtení kategorií nikdy neopakuje ani nedojde.
 
 FIX MY MISTAKES si pamatuje, co jsi měl špatně, a vrací to podle rozloženého rozvrhu, aby se slabá místa opravdu zacelila.

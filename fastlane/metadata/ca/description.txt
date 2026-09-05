@@ -22,6 +22,8 @@ Decisions de guardar o descartar: quan guardar una flor, quan canviar-la per un 
 MAHJ+ (millora opcional)
 Tot l'anterior segueix sent gratuït per sempre. Mahj+ afegeix pràctica que no s'acaba mai:
 
+PLAY A HAND reparteix tretze fitxes d'un mur real, puntua cada descart i mostra l'aritmètica que hi ha al darrere. Sense rivals i sense bots. Una mà gratuïta al dia per a tothom.
+
 ENDLESS PRACTICE reparteix un rack generat al moment cada vegada, així la lectura de categories no es repeteix mai ni s'esgota.
 
 FIX MY MISTAKES recorda què has fallat i t'ho retorna segons un calendari espaiat, perquè els punts febles es tanquin de debò.

@@ -1,9 +1,9 @@
-A smarter rhythm for game night.
+Play a hand, one tile at a time.
 
-Mahj Minute is a new daily challenge. Every member gets the same five questions on the same day: two rack reads, one Charleston call, and two table judgments. Share your score, and keep a forgiving five-day weekly rhythm with a 30-day archive to catch up from.
+Play a Hand deals you thirteen tiles off a real wall. Commit to a section, then draw and discard for twelve turns while a coach grades every throw and shows the arithmetic behind it. No opponents and no bots. Everyone gets one free hand a day.
 
-Game Night Prep lets you set your usual game night. A reminder arrives beforehand and opens straight into a five-minute session built from your due mistakes, your weakest room, and material you have not seen yet.
+Reference is a new searchable glossary plus a page for every section of the card, free for everyone, one tap from the home screen.
 
-Mahj Trainer now runs natively on iPad, in portrait or landscape.
+Room progress now counts what you have actually learned: a question sticks once you answer it right twice in a row.
 
-Mahj Minute and Game Night Prep are part of Mahj+.
+Get one wrong and the app now tells you why your answer was wrong, not just what the right one was.

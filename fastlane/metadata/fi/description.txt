@@ -22,6 +22,8 @@ Pidä-vai-heitä-päätökset: milloin kannattaa pitää kukka, milloin vaihtaa 
 MAHJ+ (valinnainen päivitys)
 Kaikki yllä oleva pysyy ilmaisena ikuisesti. Mahj+ lisää harjoittelua, joka ei lopu kesken:
 
+PLAY A HAND jakaa kolmetoista laattaa oikeasta muurista, arvioi jokaisen heiton ja näyttää sen taustalla olevan laskutoimituksen. Ei vastustajia eikä botteja. Yksi ilmainen käsi päivässä kaikille.
+
 ENDLESS PRACTICE jakaa joka kerta tuoreen generoidun rackin, joten kategorioiden lukeminen ei koskaan toistu eikä lopu kesken.
 
 FIX MY MISTAKES muistaa, mitä vastasit väärin, ja tuo sen takaisin jaksotetun aikataulun mukaan, jotta heikot kohdat todella umpeutuvat.

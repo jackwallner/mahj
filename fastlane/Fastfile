@@ -25,7 +25,12 @@ platform :ios do
     )
   end
 
-  desc "Upload metadata (and screenshots if present) to App Store Connect"
+  # Screenshots are deliberately NOT part of this lane. `deliver` has twice left
+  # silent duplicate screenshots in a set across this fleet, and a version that
+  # inherits from a duplicated one carries them forever. Screenshots go through
+  # ~/ios/appstore-screenshots/bin/asc-sync-screenshots, which deletes the set
+  # first and then verifies the checksums it uploaded.
+  desc "Upload listing copy to App Store Connect. Screenshots are handled separately."
   lane :upload_metadata do
     api_key = app_store_connect_api_key(
       key_id: ENV["ASC_API_KEY_ID"],
@@ -37,7 +42,7 @@ platform :ios do
       api_key: api_key,
       run_precheck_before_submit: false,
       skip_binary_upload: true,
-      skip_screenshots: false,
+      skip_screenshots: true,
       skip_metadata: false,
       force: true,
       submit_for_review: false
