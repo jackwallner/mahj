@@ -241,10 +241,23 @@ struct OnboardingView: View {
     /// what the player is charged, which is a 3.1.2 problem and a refund magnet.
     /// If the product has not loaded, drop the amount rather than invent one.
     private var trialDisclosure: String {
+        // Nobody is being charged anything here, so quoting a price would be
+        // a lie about the button next to it.
+        if subscriptions.isPro { return "" }
         guard let price = PaywallPricing.price(subscriptions, .monthly) else {
             return "Includes 7 days free. Auto-renews until canceled."
         }
         return "7 days free, then \(price). Auto-renews until canceled."
+    }
+
+    /// A player who already owns \(Membership.name) is not a trial prospect.
+    /// A reinstall, or a second device on the same Apple Account, restores the
+    /// entitlement before onboarding is finished, and this page went on
+    /// offering to sell it to them: the tap ran a purchase for a subscription
+    /// they already hold, which Apple answers with its own confusing
+    /// "you're already subscribed" sheet. Recognise them and just let them in.
+    private var trialCTATitle: String {
+        subscriptions.isPro ? "Continue" : "Start 7-day free trial"
     }
 
     // MARK: - Footer (identical geometry on every page: zero-shift CTA)
@@ -266,8 +279,8 @@ struct OnboardingView: View {
                     .foregroundStyle(Theme.inkSecondary)
             }
             .frame(height: 30)
-            .opacity(onTrialPage ? 1 : 0)
-            .disabled(!onTrialPage || purchasing || restoring)
+            .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
+            .disabled(!onTrialPage || subscriptions.isPro || purchasing || restoring)
             // Disclosure slot, also reserved. Small and tertiary: present at the
             // point of purchase (3.1.2) without shouting.
             Text(trialDisclosure)
@@ -284,7 +297,7 @@ struct OnboardingView: View {
                     if purchasing || restoring {
                         ProgressView().tint(.white)
                     } else {
-                        Text(onTrialPage ? "Start 7-day free trial" : "Continue")
+                        Text(onTrialPage ? trialCTATitle : "Continue")
                     }
                 }
                 .primaryCTA()
@@ -302,8 +315,8 @@ struct OnboardingView: View {
             .font(.caption2)
             .foregroundStyle(Theme.inkTertiary)
             .frame(height: 20)
-            .opacity(onTrialPage ? 1 : 0)
-            .disabled(!onTrialPage || purchasing || restoring)
+            .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
+            .disabled(!onTrialPage || subscriptions.isPro || purchasing || restoring)
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 10)
@@ -332,6 +345,12 @@ struct OnboardingView: View {
     private func primaryAction() {
         if page < lastPage {
             page += 1
+            return
+        }
+        // Already a member (a reinstall, or another device on the same Apple
+        // Account): there is nothing to sell, so the CTA is just Continue.
+        guard !subscriptions.isPro else {
+            startTour()
             return
         }
         purchasing = true

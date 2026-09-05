@@ -278,6 +278,11 @@ struct PaywallView: View {
     @State private var purchasing = false
     @State private var restoring = false
     @State private var loadingPrices = false
+    /// Whether a price fetch has actually been tried yet. Without it the
+    /// "prices aren't available" line renders on the very first frame, before
+    /// `.task` has had a chance to ask, so a perfectly healthy cold open
+    /// flashes a connection error at the customer.
+    @State private var priceLoadAttempted = false
     @State private var message: String?
 
     var body: some View {
@@ -291,7 +296,7 @@ struct PaywallView: View {
             .background(Theme.background)
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 8) {
-                    if !priceReady && !loadingPrices {
+                    if priceLoadAttempted && !priceReady && !loadingPrices {
                         Text("Prices aren't available right now. Check your connection and try again.")
                             .font(.caption)
                             .foregroundStyle(Theme.inkSecondary)
@@ -311,7 +316,7 @@ struct PaywallView: View {
                         purchase()
                     } label: {
                         Group {
-                            if purchasing || loadingPrices {
+                            if purchasing || loadingPrices || (!priceLoadAttempted && !priceReady) {
                                 ProgressView().tint(.white)
                             } else {
                                 Text(selectedPlan.ctaTitle)
@@ -366,7 +371,10 @@ struct PaywallView: View {
     private func loadPrices() async {
         guard !loadingPrices else { return }
         loadingPrices = true
-        defer { loadingPrices = false }
+        defer {
+            loadingPrices = false
+            priceLoadAttempted = true
+        }
         await subscriptions.loadOfferings()
     }
 

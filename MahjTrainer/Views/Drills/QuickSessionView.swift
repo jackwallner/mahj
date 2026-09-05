@@ -60,6 +60,7 @@ struct QuickSessionView: View {
     }
 
     @EnvironmentObject private var progress: ProgressStore
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var minuteStore = MahjMinuteStore.shared
 
     @State private var index = 0
@@ -83,11 +84,46 @@ struct QuickSessionView: View {
     private static let streakMilestones: Set<Int> = [3, 5, 10]
 
     var body: some View {
-        if finished || items.isEmpty {
+        if finished {
             completion
+        } else if items.isEmpty {
+            // Not a finished round. Falling through to the completion screen
+            // banked a streak day, a session count and a review-funnel
+            // positive moment for a session that asked nothing.
+            emptySession
         } else {
             drillBody
         }
+    }
+
+    private var emptySession: some View {
+        VStack(spacing: 18) {
+            Spacer()
+            Image(systemName: "tray")
+                .font(.system(size: 44))
+                .foregroundStyle(Theme.inkTertiary)
+            Text("Nothing to practise")
+                .font(Theme.display(26))
+                .foregroundStyle(Theme.ink)
+            Text("No questions could be prepared for this session. Try again in a moment.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer()
+            Button {
+                if let onClose { onClose() } else { dismiss() }
+            } label: {
+                Text("Back").primaryCTA()
+            }
+        }
+        .padding()
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
+        .frame(maxHeight: .infinity)
+        .background(Theme.background)
+        .navigationTitle(purpose.navigationTitle)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     @ViewBuilder
