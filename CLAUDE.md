@@ -40,128 +40,6 @@ Membership is branded **Mahj+** in-app (`Membership.name`; the RevenueCat
 entitlement id stays `pro`). "Pro" as a player-facing word is retired: it reads
 as a skill tier, and the free rooms are explicitly the beginner ones.
 
-**Generated practice (1.1, 2026-07-30):** the authored sets are finite, so a
-motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
-1.1 answers that with three Mahj+ modes on Home under TRAINING, all run by
-`PracticeRunView` (Endless / Timed / Review), all built on the existing
-`QuickItem` shape:
-- **Endless Practice** (`RackGenerator`, `CharlestonGenerator`,
-  `DefenseGenerator` + `EndlessPractice`) deals four skills procedurally,
-  forever: rack reads, tile counts, Charleston passes and defensive discards.
-  The generated Charleston question is a SINGLE-tile pass ("which of these four
-  can you lose for free"), not the full three-tile pass, because a three-tile
-  ranking is not gradeable without a coach; the authored drills still teach the
-  whole pass. `DefenseGenerator` shows ONE opponent's exposures and rejects any
-  deal where two pungs share a number, because that reads as Like Numbers
-  rather than evens or odds and the safe discard would be a different tile.
-  `RackGenerator` only generates the five sections whose
-  read is UNAMBIGUOUS (evens/odds/369/consecutive/winds-dragons); Like Numbers
-  and Quints stay authored because a single-number rack always doubles as evens
-  or odds. Every rack is checked with `fits` against all five and thrown away
-  if it reads as more than one, and distractors are only sections the rack does
-  NOT fit. Generated racks are ORIGINAL structures, never card hands.
-- **Fix My Mistakes** replays `PracticeRecordStore.reviewQueue()`, an SM-2-ish
-  schedule over per-item history. An item leaves the queue after two correct in
-  a row, not one.
-- **Timed Challenge**: 90 seconds of mixed generated items, best score kept.
-
-`PracticeRecordStore` records EVERY graded answer app-wide (each drill view
-calls it alongside `progress.recordItem`). Generated ids are unique per
-question, so they collapse onto one per-skill row and never enter the review
-queue or the seen/missed sets, which would otherwise grow without bound.
-`StatsView` (free for everyone) reads the per-room rollups.
-
-**Game-night rhythm (1.2, 2026-08-08):** Mahj+ now owns two recurring practice
-rituals. `MahjMinuteContent` deterministically builds the same five questions
-for every member on a local calendar day: two generated rack reads, one
-authored Charleston decision, and two authored table judgments. Results and a
-30-day archive stay on device in `MahjMinuteStore`; sharing uses the system
-share sheet and needs no account or leaderboard. `GameNightPrepView` stores a
-weekly game night in `AppSettings`, schedules a local notification, and opens
-directly into `SessionBuilder.gameNightPrep`, which prioritizes due mistakes,
-misses, the weakest room, and unseen member content in that order. Both
-features are entirely Mahj+ gated. iPad support is free, with adaptive Home
-columns, drill grids, readable content widths, and portrait and landscape
-orientations.
-
-**Play a Hand (1.3, 2026-09-03):** the answer to the app testing recognition
-and never judgment. `HandPlayEngine` + `HandPlayView`: deal 13 off a real
-152-tile wall, commit to one of the five `playableTargets`, then draw and
-discard for `turnCount` (12) turns while the coach grades every throw.
-Grading is arithmetic the player can check, not opinion: `value(of:target:)`
-scores a rack by GROUPS (kong 4.2, pung 3.2, pair 1.7, single 0.6, off-family
-0, joker 3.2 always), `bestDiscards` returns EVERY tile whose loss costs least
-and all of them grade correct. Ties are real; inventing a single answer to have
-something to mark wrong is how a teaching app loses trust. Deliberately NO
-opponents or bots: "the AI feels rigged" is the category's most damaging
-complaint and a drill app structurally avoids it. Choosing a different target
-from the coach is never marked wrong; the hand is then graded against the
-player's own choice. The choose screen shows `fittingTiles` (raw count) and
-ranks by `value` (groups), which disagree on purpose, so the card says so.
-`HandPlayStore` gives a FREE player one whole hand per calendar day (a mode
-nobody has tried sells nothing) and `recordStart` is called when play begins,
-not when the screen opens. Every throw records under
-`PracticeSkill.handPlay`, which exists ONLY so those throws roll up into one
-stats row: it is excluded from `PracticeSkill.endlessCases`, so it never shows
-in the Endless picker or the Timed Challenge.
-
-**Reference (1.3):** `ReferenceContent` + `ReferenceView`, free for everyone,
-one tap from Home's toolbar book icon and a Settings row. A searchable glossary
-(nicknames are matched but never shown: "soap", "news", "wild") plus a page per
-card section with an ORIGINAL example rack. The toolbar is the right home for
-it because the moment it is wanted is mid-game and it must cost Home no
-vertical space.
-
-**Mastery, not completions (1.3):** the room ring counts questions answered
-right TWICE IN A ROW (`PracticeRecord.isKnown`), not drills opened, because
-opening a drill once rewards tapping. An item lapses only a full interval past
-due, so a weekly player does not watch rooms un-learn themselves. `Mastery.swift`
-holds `MasteryLevel` (Learning / Solid / Sharp at 0.4 and 0.85 coverage),
-`PracticeRecordStore.mastery(for:isMember:)` and `roomToWorkOn`. The denominator
-excludes locked Mahj+ drills for a free player: a ring that can never close is
-a nag. Generated skills never count toward it.
-
-**Coaching the miss (1.3):** `QuickItem.choiceNotes` is parallel to `choices`
-and rides the SAME permutation in `SessionBuilder.prepared`, or a note starts
-explaining somebody else's wrong answer. Section questions derive theirs for
-free from `HandCategory.requires` via `missNotes(for:answer:)`. The pager shows
-`MissNoteCard` ("Why not X?") only on a wrong pick, plus a `RequeuedChip` when
-the item genuinely re-enters the review schedule (never for generated items,
-which can never come back).
-
-**What's New sheet:** `WhatsNew` + `WhatsNewSheet`, shown once on the first
-launch after an update. A FRESH install never sees it: onboarding calls
-`WhatsNew.markCurrentAsBaseline()`. An onboarded player with no stored marker
-is an upgrader from a pre-1.1 build and does get it. The sheet raises
-`onUpgrade` rather than presenting `PaywallView` itself, because a sheet cannot
-present another sheet while dismissing.
-
-**Free-beginner + extra-sets model (2026-07-13):** all four beginner rooms are
-FREE and everything that was ever free stays free. Mahj+ ADDS: one extra
-practice set per beginner room (`Shared/Content/PlusContent.swift`, drills
-flagged `isPlus`, ids `plus-*`, same mechanics as the room's free drills, just
-more original questions) plus the whole `pro-tables` room, now shown as **The
-Master Tables** (`Shared/Content/ProContent.swift`). Locking is per-drill:
-`Room.isLocked(_:isMember:)` is the single source of truth, and `SessionBuilder`
-filters the Quick Session pool through it. The onboarding trial page
-follows the OT710 zero-shift pattern (`~/OT710.md`, StatScout reference): no
-plan cards, soft "Get Started" exit ABOVE the primary, primary CTA in the exact
-Continue slot, one tap → MONTHLY trial purchase → Apple confirm; full
-`PaywallView` (plan picker) is only the products-failed fallback and the
-in-app/Settings paywall. A user backing out of Apple's sheet is a
-`PurchaseOutcome.cancelled`, NOT an error: never answer it by shoving up
-another paywall.
-
-Monthly here, yearly on the paywall, deliberately (confirmed 2026-09-04): two
-different people reach the two surfaces. Whoever taps through onboarding has
-not used the app yet and is reacting to the number on Apple's sheet, so the
-smaller recurring figure is what starts the trial; whoever opens the paywall
-later has already decided the app is worth something, and it still leads with
-yearly. `OnboardingView.trialDisclosure` must always name the SAME plan the CTA
-buys, or the screen misstates the charge (3.1.2). The 100%-yearly funnel in
-`docs/tasks/03-pricing-increase-1.3.md` predates this and describes the old
-onboarding, not the current one.
-
 **Paywall compliance (App Review 3.1.2):** `PaywallView` must always show, on
 the purchase screen itself: membership name, per-plan price, billing period, an
 explicit auto-renew + cancellation sentence (`PaywallPricing.terms`), Restore,
@@ -183,93 +61,33 @@ Terms of Use, and Privacy Policy. Don't trim any of them for layout.
   `AppSettings` (theme Light-default/Dark/System, haptics, sound, daily
   reminder via UNUserNotificationCenter), `SubscriptionService` (RC; simulator
   early-return preserved — never configure the prod `appl_` key on sim).
-- `MahjTrainer/Views` — `RootView` branches onboarding vs `HomeView` on the
-  `progress.hasOnboarded` defaults key (branch, NOT a fullScreenCover — the
-  cover flashed Home behind onboarding on first launch). Navigation is a LOBBY:
-  `HomeView` shows Get Started (mixed session) + one card per room; `RoomView`
-  lists that room's drills, with the locked Mahj+ set and an in-room upsell.
-  Home's job is the ROOMS, so everything else earns its space: stats are chips
-  beside the title (not a row of their own), room cards carry a progress RING
-  rather than a status sentence, that ring counts only drills the player can
-  actually open, and the How to Play card disappears once the primer has been
-  read (`mahj.hasReadPrimer`), living in Settings after that.
-  (Home was flat until 2026-07-13; once every room grew an extra set, a dozen
-  drill rows on one screen stopped reading as rooms.) Onboarding stores skill level
-  at defaults key `mahj.skillLevel`. After the trial decision, players who
-  selected `new` see `HowToPlayView` first, then everyone gets
-  `FeatureTourView`, whose finale runs a real Quick Session. Both of those
-  screens carry an ESCAPE HATCH straight to Home ("Skip for now" / "Skip the
-  tour" / "Skip it, take me to the app"): onboarding is long, and a player who
-  wants to just use the app must always be one tap from doing so. The primer
-  stays available from Home for new players and from Settings for everyone.
-  `HowToPlayView` pages by swipe as well as by buttons, and its Back button
-  sits NEXT to Continue, not in the top-left corner a thumb can't reach.
-- `MahjTrainer/Utilities/Theme.swift` — the warm-modern design system: cream
-  surfaces, jade primary, coral energy, per-room accents (`Room.accent`), serif
-  display type (`Theme.display`), `themedCard()`/`primaryCTA()` styles,
-  `Haptics` (gated on `settings.haptics`; grading uses `correctAnswer()` /
-  `wrongAnswer()`, which must feel like OPPOSITES in the hand: a crisp rising
-  tap vs a dull double thud. Apple's `.success`/`.error` notification patterns
-  are both stutters and read as the same buzz mid-drill). `SoundPlayer` plays the synthesized
-  wavs in `MahjTrainer/Resources/Sounds` (gated on `settings.sound`;
-  regenerate via a make_sounds.py-style script if changed). All colors are
-  light/dark adaptive; launch screen color is the `LaunchBackground` asset
-  (keep in sync with `Theme.background`).
+
+## Rules that hold everywhere
+Condensed from the deep notes below; the reasoning and the bugs behind each one live there.
+- Generated racks are ORIGINAL structures, never card hands, and `RackGenerator` throws away any rack that reads as more than one section.
+- `Room.isLocked(_:isMember:)` is the single source of truth for locking.
+- `OnboardingView.trialDisclosure` must always name the same plan the CTA buys (3.1.2). A player backing out of Apple's sheet is `PurchaseOutcome.cancelled`, not an error: never answer it with another paywall.
+- `QuickItem.choiceNotes` rides the same permutation as `choices` in `SessionBuilder.prepared`.
+- `RootView` branches onboarding vs `HomeView` on `progress.hasOnboarded`, never a fullScreenCover. The primer and the tour always keep an escape hatch straight to Home.
+- No generated illustration: tiles are drawn from real data by `TileView`/`TileRackView`.
+
+## Deep notes (load on demand)
+These files load automatically when you read a file matching their `paths:`. Agents that do not auto-load rules (AGENTS.md readers) should open the file for the area they are touching. Record new area-specific learnings in the matching file, not here.
+
+| File | Covers | Read when |
+|---|---|---|
+| `.claude/rules/generated-practice.md` | Generated practice (1.1): the generators, Fix My Mistakes, Timed Challenge, `PracticeRecordStore` | The generators, practice runs, stats |
+| `.claude/rules/rituals-and-hand-play.md` | Game-night rhythm (1.2), Play a Hand (1.3), Reference (1.3) | Mahj Minute, game night prep, `HandPlayEngine`, the reference |
+| `.claude/rules/mastery-coaching-whats-new.md` | Mastery, coaching the miss, the What's New sheet | Room rings, miss notes, `WhatsNew` |
+| `.claude/rules/membership-and-trial.md` | Free-beginner + extra-sets model, monthly on onboarding vs yearly on the paywall | Locking, Plus content, onboarding trial, paywall defaults |
+| `.claude/rules/home-and-onboarding-flow.md` | Views: the lobby, onboarding branch, primer and tour | `RootView`, Home, rooms, onboarding |
+| `.claude/rules/design-and-ipad.md` | Theme and haptics, iPad layout, no illustration | `Theme`, components, drill layouts |
+| `.claude/rules/screenshots.md` | Screenshots: captured, not hand-shot | Capture scripts, the `Screenshots` scheme |
 
 ## Flashcard deck (signature interaction)
 
 See `MahjTrainer/Views/Drills/CLAUDE.md` for the swipe-deck gesture/flip
 mechanics and gotchas.
-
-## iPad layout: centre what underfills
-
-Every drill body is a scroll view, because a graded question plus its coaching
-note outgrows a phone. On a 13-inch iPad the same question fills a third of the
-screen, and a plain `ScrollView` pins it to the top. `CenteringScrollView`
-(`Views/Components/`) is the answer: `minHeight` = viewport so short content
-centres, natural size so tall content still scrolls. `QuestionPager` and
-`CharlestonDrillView` both use it. Two things it must keep: `maxWidth:
-.infinity` alongside the `minHeight` (a plain ScrollView centres narrow content
-for you, an explicitly framed one does not, and the question slides left), and
-the room eyebrow INSIDE the pager (`QuestionPager.eyebrow`) so it centres with
-the question instead of stranding itself at the top. The flashcard deck is
-capped at 520pt wide, 1.5x tall: a card stretched to the full readable width is
-the same few words spread thinner.
-
-## Screenshots: captured, not hand-shot
-
-`scripts/capture-screenshots.sh <udid> <out-dir> [prefix]` drives the real app
-through the six App Store screens via the `Screenshots` scheme
-(`MahjTrainerScreenshots`) and exports only `ScreenshotTests` attachments.
-Purchase-surface tests are intentionally excluded from this command, so the
-App Store set never creates paywall images. Run
-`scripts/capture-paywall.sh <udid> <out-dir>` separately when reviewing the
-paywall or onboarding trial step. iPad shots must be
-2064x2752, which only a 13-inch device produces and the agent-sim pool does not
-have, so `scripts/with-ipad-sim.sh` creates a throwaway one, boots it headless,
-and deletes it on exit:
-
-```bash
-./scripts/with-ipad-sim.sh sh -c './scripts/capture-screenshots.sh "$IPAD_UDID" out ipad_'
-```
-
-Gotchas baked into the test, do not undo them: the What's New sheet covers Home
-on the first launch after a version bump, so the script passes the marketing
-version through `TEST_RUNNER_SCREENSHOT_APP_VERSION` and the test marks it seen
-(dismissing is not enough, it returns every time Home reappears); returning to
-the root taps navigation-bar button 0 only while a back button is there,
-because on Home that button is the Settings gear and the extra tap opens
-Settings while the elements underneath still answer queries; and the test never
-calls `XCTFail`, because a failing UI test spends ten minutes collecting
-simulator diagnostics before it tells you anything.
-
-## Illustration: don't
-
-Generated room art was tried and removed (2026-07-13): it looked cheap and
-fought the type-and-tile aesthetic. Tiles are drawn from real data by
-`TileView`/`TileRackView`; a generated tile face is a WRONG tile, and a wrong
-tile teaches the wrong thing. Keep the visual language to type, tiles, SF
-Symbols and the room accents.
 
 ## Design research
 
@@ -281,6 +99,3 @@ swipe-deck checklist) — consult before design or monetization changes.
 Shared iOS conventions (build, simulator, release/TestFlight, ASC key, signing,
 review funnel, pricing scripts, gotchas): always-loaded global CLAUDE.md + the
 `ios-dev` skill.
-
-## Subagent delegation
-Follow the global CLAUDE.md subagent rules: ask Jack for the model before spawning, spawn at most one at a time unless Jack explicitly approves more, and never allow a subagent to spawn another subagent.
