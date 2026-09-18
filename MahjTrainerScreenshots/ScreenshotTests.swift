@@ -29,6 +29,7 @@ final class ScreenshotTests: XCTestCase {
             "-progress.hasOnboarded", "YES",
             "-mahj.hasReadPrimer", "YES",
             "-mahj.skillLevel", "some",
+            "-subscription.localProOverride", "YES",
             // Play a Hand spends a free player's one hand a day the moment
             // play begins, and saves an unfinished hand across launches. Both
             // markers survive between runs, so without clearing them the
@@ -56,6 +57,9 @@ final class ScreenshotTests: XCTestCase {
 
         if open("Get Started") {
             capture("01_quick_session")
+            if answerVisibleChoice() {
+                capture("01_quick_session_answered")
+            }
         }
         home()
 
@@ -68,16 +72,25 @@ final class ScreenshotTests: XCTestCase {
 
         if open("The Card Room"), open("Read the Rack") {
             capture("03_hand_match")
+            if answerVisibleChoice() {
+                capture("03_hand_match_answered")
+            }
         }
         home()
 
         if open("The Table Room"), open("Keep or Throw") {
             capture("04_keep_or_throw")
+            if answerVisibleChoice() {
+                capture("04_keep_or_throw_answered")
+            }
         }
         home()
 
         if open("The Charleston Room"), open("Pick Your Pass") {
             capture("05_charleston")
+            if answerVisibleChoice(count: 3) {
+                capture("05_charleston_answered")
+            }
         }
         home()
 
@@ -147,6 +160,41 @@ final class ScreenshotTests: XCTestCase {
             problems.append("could not open a reference section")
             attachTree("reference")
         }
+    }
+
+    @discardableResult
+    private func answerVisibleChoice(count: Int = 1) -> Bool {
+        let height = max(app.windows.firstMatch.frame.height, 1)
+        let excluded = ["Settings", "Back", "Next", "Next Rack", "Finish", "Close"]
+        var selected = 0
+        for _ in 0..<count {
+            let choice = app.buttons.allElementsBoundByIndex.first { element in
+                let label = element.label
+                return !label.isEmpty
+                    && !excluded.contains(label)
+                    && !element.isSelected
+                    && element.frame.midY > height * 0.20
+                    && element.frame.midY < height * 0.86
+            }
+            guard let choice else { break }
+            choice.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+            settle()
+            selected += 1
+        }
+        guard selected == count else {
+            problems.append("could not answer visible choice")
+            return selected > 0
+        }
+        if count == 3 {
+            let submit = app.buttons["Pass These 3"].firstMatch
+            guard submit.waitForExistence(timeout: 3) else {
+                problems.append("could not submit Charleston pass")
+                return false
+            }
+            submit.tap()
+            settle()
+        }
+        return selected == count
     }
 
     @discardableResult
