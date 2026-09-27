@@ -37,7 +37,7 @@ enum HowToPlayContent {
             id: "htp-tiles",
             icon: "square.grid.3x3.fill",
             title: "Meet the tiles",
-            body: "Three suits run 1 through 9: craks (red), bams (green), and dots (blue). Winds are printed N, E, W, S. Each dragon belongs with a suit: red with craks, green with bams, and the blank soap with dots. Flowers are bonus tiles, and jokers stand in for tiles inside bigger groups.",
+            body: "Three suits run 1 through 9: craks (red), bams (green), and dots (blue). Winds are printed N, E, W, S. Each dragon belongs with a suit: red with craks, green with bams, and the blank soap with dots. Flowers are all interchangeable and show up in many card hands, and jokers stand in for tiles inside bigger groups.",
             tiles: [.c(5), .b(5), .d(5), .wind(.north), .dragon(.red), .flower, .joker]
         ),
         HowToPlayPage(

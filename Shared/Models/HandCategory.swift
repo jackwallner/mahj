@@ -50,7 +50,7 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .evens2468:
             return "Only even numbers: 2, 4, 6, 8. Every odd tile in your hand is dead weight for this section."
         case .likeNumbers:
-            return "The same number collected across all three suits. Spot it when one number keeps showing up in craks, bams, AND dots."
+            return "The same number collected across different suits. Spot it when one number keeps showing up in two or three suits at once."
         case .quints:
             return "Needs five of a kind, and only four of each tile exist, so quints are impossible without jokers. Only chase these when you're joker-rich."
         case .consecutiveRun:
@@ -58,7 +58,7 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .odds13579:
             return "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, usually with more hand choices."
         case .windsDragons:
-            return "Built from N, E, W, S and the dragons. Spot it when winds keep piling up on your rack."
+            return "Built mostly from N, E, W, S and the dragons, sometimes with a few numbers. Spot it when winds keep piling up on your rack."
         case .threeSixNine:
             return "Only 3s, 6s, and 9s. A small, focused family: if you hold several of those three numbers, look here."
         case .singlesAndPairs:
@@ -74,19 +74,19 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .year:
             return "a year hand is built from the year's digits, with soaps for zeros, so it wants 2s and soaps rather than a spread of numbers"
         case .evens2468:
-            return "an evens hand can contain 2s, 4s, 6s and 8s and nothing else, so a single odd tile rules it out"
+            return "an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out"
         case .likeNumbers:
-            return "like numbers means the SAME number in all three suits, so a rack spread across several numbers is not it"
+            return "like numbers means the SAME number across different suits, so a rack spread across several numbers is not it"
         case .quints:
             return "quints need five of a kind, which is impossible without jokers, so this is a joker question before it is a number question"
         case .consecutiveRun:
             return "a run needs numbers stepping up in order with no gaps, which always mixes odd and even"
         case .odds13579:
-            return "an odds hand can contain 1s, 3s, 5s, 7s and 9s and nothing else, so a single even tile rules it out"
+            return "an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out"
         case .windsDragons:
-            return "this section is honors only, so any numbered tile on the rack rules it out"
+            return "this section is built mostly from winds and dragons, so a rack full of number tiles is not it"
         case .threeSixNine:
-            return "369 wants only 3s, 6s and 9s, and it needs the 6 to tell it apart from a pure evens or pure odds hand"
+            return "369 uses only 3s, 6s and 9s for its numbers, and it needs the 6 to tell it apart from a pure evens or pure odds hand"
         case .singlesAndPairs:
             return "singles and pairs means no pungs or kongs at all, and no jokers anywhere"
         }

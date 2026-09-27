@@ -73,6 +73,31 @@ final class MahjMinuteContentTests: XCTestCase {
             }
         }
     }
+
+    /// The Charleston drill counts 2 of 3 as a good pass, so a wrong choice
+    /// may share at most one tile with the coach's pass.
+    func testCharlestonDistractorsAreNeverNearlyTheAnswer() {
+        var day = date(2026, 1, 1)
+        for _ in 0..<120 {
+            let challenge = MahjMinuteContent.challenge(for: day, calendar: calendar)
+            for question in challenge.questions where question.category == .charleston {
+                let item = question.item
+                let answer = item.choices[item.answerIndex].components(separatedBy: ", ")
+                for (index, choice) in item.choices.enumerated() where index != item.answerIndex {
+                    var pool = answer
+                    var shared = 0
+                    for tile in choice.components(separatedBy: ", ") {
+                        if let hit = pool.firstIndex(of: tile) {
+                            pool.remove(at: hit)
+                            shared += 1
+                        }
+                    }
+                    XCTAssertLessThanOrEqual(shared, 1, "\(choice) is nearly \(answer)")
+                }
+            }
+            day = calendar.date(byAdding: .day, value: 1, to: day)!
+        }
+    }
 }
 
 final class MahjMinuteStoreTests: XCTestCase {

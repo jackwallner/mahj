@@ -33,9 +33,11 @@ enum DefenseGenerator {
     /// discard to name while the read itself is arguable. Like Numbers is out
     /// for a duller reason: only three tiles in the whole set are dangerous
     /// against it, which is not enough to build a question whose wrong answers
-    /// are all genuinely wrong.
+    /// are all genuinely wrong. Winds & Dragons is out because real cards put
+    /// number tiles in that section too, so no number is provably safe
+    /// against a player showing winds and dragons.
     static let readableSections: [HandCategory] = [
-        .evens2468, .odds13579, .threeSixNine, .windsDragons,
+        .evens2468, .odds13579, .threeSixNine,
     ]
 
     static func question() -> GeneratedDefense? {
@@ -86,7 +88,7 @@ enum DefenseGenerator {
         let bait = Array(dangerous.dropFirst(2).prefix(3))
         let exposures = exposed.map { Array(repeating: $0, count: 3) }
 
-        guard let safe = safeTile(against: section, avoiding: exposed + bait, using: &generator) else { return nil }
+        guard let safe = safeTile(against: section, exposed: exposed, avoiding: exposed + bait, using: &generator) else { return nil }
 
         var choices = bait + [safe]
         choices.shuffle(using: &generator)
@@ -119,41 +121,44 @@ enum DefenseGenerator {
         case .evens2468: return suited([2, 4, 6, 8])
         case .odds13579: return suited([1, 3, 5, 7, 9])
         case .threeSixNine: return suited([3, 6, 9])
-        case .windsDragons:
-            return Wind.allCases.map { Tile.wind($0) } + Dragon.allCases.map { Tile.dragon($0) }
         default: return []
         }
     }
 
-    /// A tile that cannot plausibly belong to the implied section.
+    /// A number tile that cannot plausibly belong to the implied section, or
+    /// to any other hand those two exposures could be part of.
+    ///
+    /// Honors are never offered as safe: real cards put winds and dragons in
+    /// the evens, odds and 369 sections. Two further traps are filtered out.
+    /// Two pungs a couple of numbers apart can also be a run (6 and 8 Bam
+    /// want the 7), so the safe tile must sit outside any five-number window
+    /// holding both exposures. And two pungs of the same parity (3 and 9) fit
+    /// the matching odds or evens family too, so the safe tile must be the
+    /// other parity.
     private static func safeTile<R: RandomNumberGenerator>(
         against section: HandCategory,
+        exposed: [Tile],
         avoiding used: [Tile],
         using generator: inout R
     ) -> Tile? {
-        let suitedAll: [Tile] = (1...9).flatMap { rank in
-            Suit.allCases.map { Tile.suited(rank: rank, suit: $0) }
-        }
-        let honors: [Tile] = Wind.allCases.map { Tile.wind($0) } + Dragon.allCases.map { Tile.dragon($0) }
+        let exposedRanks = exposed.compactMap { rank(of: $0) }
+        guard let low = exposedRanks.min(), let high = exposedRanks.max() else { return nil }
+        let sameParity = exposedRanks.allSatisfy { $0.isMultiple(of: 2) == low.isMultiple(of: 2) }
 
-        var pool: [Tile]
-        switch section {
-        case .evens2468:
-            pool = suitedAll.filter { rank(of: $0).map { !$0.isMultiple(of: 2) } ?? false }
-        case .odds13579:
-            pool = suitedAll.filter { rank(of: $0).map { $0.isMultiple(of: 2) } ?? false }
-        case .threeSixNine:
-            pool = suitedAll.filter { rank(of: $0).map { !(($0 % 3) == 0) } ?? false }
-        case .windsDragons:
-            pool = suitedAll
-        default:
-            return nil
+        let safeRanks = (1...9).filter { candidate in
+            let outsideSection: Bool
+            switch section {
+            case .evens2468: outsideSection = !candidate.isMultiple(of: 2)
+            case .odds13579: outsideSection = candidate.isMultiple(of: 2)
+            case .threeSixNine: outsideSection = candidate % 3 != 0
+            default: return false
+            }
+            let outsideRun = max(high, candidate) - min(low, candidate) > 4
+            let outsideParity = !sameParity || candidate.isMultiple(of: 2) != low.isMultiple(of: 2)
+            return outsideSection && outsideRun && outsideParity
         }
-        // Honors are safe against every numbered family here, and they widen
-        // the pool enough that the safe answer is not always "the odd one".
-        if section != .windsDragons {
-            pool += honors
-        }
+
+        var pool = safeRanks.flatMap { rank in Suit.allCases.map { Tile.suited(rank: rank, suit: $0) } }
         pool.removeAll { used.contains($0) }
         pool.shuffle(using: &generator)
         return pool.first

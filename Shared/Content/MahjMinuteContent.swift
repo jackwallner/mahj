@@ -143,23 +143,34 @@ enum MahjMinuteContent {
     }
 
     private static func distractorPassLabels(for scenario: CharlestonScenario, seed: String) -> [String] {
-        let passable = scenario.deal.enumerated().filter { _, tile in tile != .joker }
+        let passable = scenario.deal.filter { $0 != .joker }
         var labels: Set<String> = []
         for first in 0..<(passable.count - 2) {
             for second in (first + 1)..<(passable.count - 1) {
                 for third in (second + 1)..<passable.count {
-                    labels.insert(passLabel([
-                        passable[first].element,
-                        passable[second].element,
-                        passable[third].element,
-                    ]))
+                    let pass = [passable[first], passable[second], passable[third]]
+                    // The Charleston drill grades 2 of 3 as a good pass, and
+                    // several coaches say a swap is just as right ("either
+                    // lone wind"). A distractor sharing two tiles with the
+                    // answer would mark that equally good pass wrong.
+                    guard overlap(pass, scenario.recommendedPass) <= 1 else { continue }
+                    labels.insert(passLabel(pass))
                 }
             }
         }
-        labels.remove(passLabel(scenario.recommendedPass))
         let sorted = labels.sorted()
         let order = ChoiceShuffle.permutation(count: sorted.count, seed: "mahj-minute-\(seed)-passes")
         return order.prefix(3).map { sorted[$0] }
+    }
+
+    /// Tiles two passes share, counting duplicates the way the drill grades.
+    private static func overlap(_ pass: [Tile], _ answer: [Tile]) -> Int {
+        var pool = answer
+        return pass.reduce(0) { count, tile in
+            guard let hit = pool.firstIndex(of: tile) else { return count }
+            pool.remove(at: hit)
+            return count + 1
+        }
     }
 
     private static func passLabel(_ tiles: [Tile]) -> String {

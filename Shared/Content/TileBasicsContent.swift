@@ -37,7 +37,7 @@ enum TileBasicsContent {
             frontTitle: "Dragons",
             frontTiles: [.dragon(.red), .dragon(.green), .dragon(.soap)],
             backTitle: "The Dragons",
-            backBody: "12 tiles: 4 Red, 4 Green, 4 Soap. Each dragon belongs to a suit: Red goes with Craks, Green with Bams, Soap with Dots. When a card hand shows a dragon, it must match the suit you're using."
+            backBody: "12 tiles: 4 Red, 4 Green, 4 Soap. Each dragon belongs to a suit: Red goes with Craks, Green with Bams, Soap with Dots. When a card hand shows a dragon, its color on the card tells you which suit's dragon to use."
         ),
         Flashcard(
             id: "tiles-soap",
@@ -103,7 +103,7 @@ enum TileBasicsContent {
         ),
         QuizQuestion(
             id: "quiz-dragon-bam",
-            prompt: "Your hand is all bams. Which dragon do you need?",
+            prompt: "Which dragon belongs to the bam suit?",
             tiles: [.b(4), .b(4), .b(8), .b(8)],
             choices: ["Red Dragon", "Green Dragon", "Soap", "Any dragon"],
             answerIndex: 1,

@@ -180,7 +180,7 @@ enum MoreContent {
                 "Only during the first round"
             ],
             answerIndex: 1,
-            explanation: "You call a discard to complete a pung, kong or quint that you then expose, or to finish your hand. You cannot call for a pair or a single."
+            explanation: "You call a discard to complete a pung, kong or quint that you then expose, or to finish your hand. You cannot call for a pair or a single unless it is your winning tile."
         ),
         QuizQuestion(
             id: "more-table-dead-hand",
@@ -200,7 +200,7 @@ enum MoreContent {
             choices: [
                 "A tile nobody has exposed",
                 "A tile already discarded twice with no takers",
-                "A joker",
+                "A tile that matches an opponent's exposure",
                 "A flower"
             ],
             answerIndex: 1,
@@ -253,7 +253,7 @@ enum MoreContent {
             frontTiles: [.joker, .joker],
             frontSubtitle: "Pass a joker to speed things up?",
             backTitle: "Never pass a joker",
-            backBody: "Jokers cannot be passed in the Charleston at all, and even where a courtesy pass is allowed they are the most valuable tiles on your rack.",
+            backBody: "Jokers can never be passed, in the Charleston or the courtesy pass. Even if they could, they are the most valuable tiles on your rack.",
             choice: CardChoice("Keep them", "Pass one", answerIndex: 0)
         ),
         Flashcard(
@@ -298,15 +298,15 @@ enum MoreContent {
         ),
         QuizQuestion(
             id: "more-pro-joker-discard-late",
-            prompt: "Why is discarding a joker late in the hand risky?",
+            prompt: "Late in the hand, what happens to a joker you discard?",
             choices: [
-                "It is against the rules",
-                "Nobody can call it, so it wastes your discard",
+                "It is against the rules to discard one",
+                "Nobody can call it, so it is safe but gone for good",
                 "It can be called for mah jongg by a player who needs a group",
                 "It ends the game immediately"
             ],
-            answerIndex: 2,
-            explanation: "A discarded joker cannot be called for an exposure, but it also tells the table you had one to spare. The real cost is information plus a wasted turn."
+            answerIndex: 1,
+            explanation: "A discarded joker is dead: nobody can call it, for an exposure or for mah jongg. That makes it a safe throw, but you are giving away the most flexible tile in the set, and it tells the table you had one to spare."
         ),
         QuizQuestion(
             id: "more-pro-joker-quint",

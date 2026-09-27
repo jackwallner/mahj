@@ -56,7 +56,7 @@ enum KeepDiscardContent {
             frontTiles: [.c(5), .c(5), .c(5), .c(5)],
             frontSubtitle: "And why should you care?",
             backTitle: "Four. Count Them.",
-            backBody: "Only four copies of every tile. If two 5 Craks are in the discards and one is exposed, your 5C pair can never become a pung without a joker. Counting visible copies tells you when a hand is dead.",
+            backBody: "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your 5C pair can never become a pung without a joker. Counting visible copies tells you when a hand is dead.",
             choice: CardChoice("Three", "Four", answerIndex: 1)
         ),
         Flashcard(
@@ -65,7 +65,7 @@ enum KeepDiscardContent {
             frontTiles: [.d(4), .d(4), .d(4)],
             frontSubtitle: "What did you just learn?",
             backTitle: "Their Section Is Showing",
-            backBody: "An exposure narrows their hand to a few card lines: probably an even hand or like-numbers around 4s and dots. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
+            backBody: "An exposure narrows their hand to a few card lines: probably an even hand, a run, or like numbers around 4s and dots. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
             choice: CardChoice("Their section is showing", "Nothing useful", answerIndex: 0)
         ),
         Flashcard(
@@ -82,7 +82,7 @@ enum KeepDiscardContent {
             frontTiles: [.wind(.north), .wind(.north), .wind(.north)],
             frontSubtitle: "Keep the pung?",
             backTitle: "Keep It",
-            backBody: "A natural pung of winds is a real asset, but be honest: winds only score in the Winds & Dragons section. Keep it if you can commit there; if your hand lives elsewhere, a wind pung is three dead tiles.",
+            backBody: "A natural pung of winds is a real asset, but be honest: wind pungs almost always belong to the Winds & Dragons section. Keep it if you can commit there; if your hand lives elsewhere, a wind pung is three dead tiles.",
             choice: CardChoice("Keep it", "Break it up", answerIndex: 0)
         ),
         Flashcard(

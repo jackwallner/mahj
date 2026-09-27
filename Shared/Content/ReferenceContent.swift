@@ -94,7 +94,7 @@ enum ReferenceContent {
             category: .likeNumbers,
             exampleRack: [.c(7), .c(7), .c(7), .b(7), .b(7), .b(7), .d(7), .d(7), .d(7),
                           .flower, .flower, .flower, .flower],
-            watchOut: "You need the same number in all three suits, and only four of each exist. Losing one suit usually means losing the hand, so count what has been discarded before you commit."
+            watchOut: "You need the same number across different suits, and only four of each exist. Losing one suit usually means losing the hand, so count what has been discarded before you commit."
         ),
         SectionReference(
             category: .quints,
@@ -252,11 +252,11 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-first-right", term: "First right", aliases: ["first pass"], group: .charleston,
-            definition: "The opening pass of three tiles to the player on your right. It is the one pass you must make from tiles you have actually looked at, so it is the moment to dump your most isolated junk."
+            definition: "The opening pass of three tiles to the player on your right. Like every pass except the last one of each Charleston, it must come from tiles you have looked at, so it is the moment to dump your most isolated junk."
         ),
         GlossaryTerm(
             id: "g-blind-pass", term: "Blind pass", aliases: ["blind"], group: .charleston,
-            definition: "Passing along tiles you have not looked at, taken straight from the set you were just handed. It is allowed in the second and third passes of a Charleston, not the first, and it is what you do when you genuinely have nothing to spare."
+            definition: "Passing along tiles you have not looked at, taken straight from the set you were just handed. It is allowed only on the last pass of each Charleston (the first Left and the second Right), and it is what you do when you genuinely have nothing to spare."
         ),
         GlossaryTerm(
             id: "g-courtesy", term: "Courtesy pass", aliases: ["optional pass", "across"], group: .charleston,
@@ -268,7 +268,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-no-jokers-passed", term: "Jokers are never passed", aliases: ["passing jokers"], group: .charleston,
-            definition: "A joker may not leave your rack in any Charleston pass, blind or otherwise. If you find one in a blind pass you received, it is yours."
+            definition: "A joker may not leave your rack in any Charleston pass, blind or otherwise, or in the courtesy pass."
         ),
 
         // MARK: Play

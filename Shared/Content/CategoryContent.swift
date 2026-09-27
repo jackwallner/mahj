@@ -26,7 +26,7 @@ enum CategoryContent {
             id: "cat-like",
             frontTitle: "Any Like Numbers",
             frontTiles: [.c(5), .b(5), .d(5)],
-            frontSubtitle: "Same number, three suits",
+            frontSubtitle: "Same number, different suits",
             backTitle: "Any Like Numbers",
             backBody: HandCategory.likeNumbers.howToSpot + " Great fallback when one number keeps arriving from every direction."
         ),
@@ -60,7 +60,7 @@ enum CategoryContent {
             frontTiles: [.wind(.north), .wind(.east), .wind(.west), .wind(.south)],
             frontSubtitle: "N E W S + dragons",
             backTitle: "Winds & Dragons",
-            backBody: HandCategory.windsDragons.howToSpot + " Winds are nearly useless outside this section, so count yours: one or two = pass them, four or five = consider committing."
+            backBody: HandCategory.windsDragons.howToSpot + " Winds only show up here and there in other sections, so count yours: one or two = pass them, four or five = consider committing."
         ),
         Flashcard(
             id: "cat-369",
@@ -68,7 +68,7 @@ enum CategoryContent {
             frontTiles: [.c(3), .b(6), .d(9)],
             frontSubtitle: "Threes, sixes, nines",
             backTitle: "369",
-            backBody: HandCategory.threeSixNine.howToSpot + " Bonus: 3s, 6s and 9s also fit Consecutive Run hands, so a 369 start keeps two doors open."
+            backBody: HandCategory.threeSixNine.howToSpot + " Bonus: 3s and 9s also fit 13579, and 6s fit 2468, so a 369 start keeps other doors open."
         ),
         Flashcard(
             id: "cat-sp",
@@ -76,7 +76,7 @@ enum CategoryContent {
             frontTiles: [.c(1), .c(1), .b(3), .b(3)],
             frontSubtitle: "The no-joker zone",
             backTitle: "Singles & Pairs",
-            backBody: HandCategory.singlesAndPairs.howToSpot + " New players should admire it from a distance: every tile must be drawn or come through the Charleston."
+            backBody: HandCategory.singlesAndPairs.howToSpot + " New players should admire it from a distance: every tile but the winning one must be drawn or come through the Charleston."
         ),
     ]
 

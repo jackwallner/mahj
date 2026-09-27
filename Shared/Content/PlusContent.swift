@@ -79,7 +79,7 @@ enum PlusContent {
             choices: [
                 "Nothing, you just take it back",
                 "You lose a turn",
-                "Your hand is dead and you sit out the rest of the round",
+                "Your hand is dead: you keep playing but cannot win",
                 "You swap it for a joker",
             ],
             answerIndex: 2,
@@ -116,7 +116,7 @@ enum PlusContent {
             tiles: [.c(2), .c(2), .dragon(.soap), .dragon(.soap), .b(2), .b(6), .b(6), .d(2), .flower, .flower, .flower, .joker, .c(9)],
             choices: [.year, .evens2468, .likeNumbers, .threeSixNine],
             answer: .year,
-            explanation: "The soaps are the tell. Soap stands in for zero, so 2s, Soaps, and 6s spell out the year, and three flowers is exactly the flower load a year hand wants. 2468 is the decoy, but with no 4s and no 8s anywhere it never really had a shot."
+            explanation: "The soaps are the tell. Soap stands in for zero, so 2s, Soaps, and 6s spell out the year, and year hands often use flowers. 2468 is the decoy, but with no 4s and no 8s anywhere it never really had a shot."
         ),
         HandMatchQuestion(
             id: "plus-hm-quints",
@@ -150,7 +150,7 @@ enum PlusContent {
             situation: "Second Charleston, the LAST pass, going RIGHT. You are all-in on evens. Pick 3.",
             deal: [.b(2), .b(4), .b(6), .b(8), .c(2), .c(4), .c(6), .d(8), .d(3), .wind(.west), .wind(.south), .flower, .joker],
             recommendedPass: [.wind(.west), .wind(.south), .d(3)],
-            reasoning: "Seven evens across two suits is a real 2468 spine. The two lonely winds do nothing outside Winds and Dragons, and the 3 Dot is your only odd number tile. Those three leave without a second thought.",
+            reasoning: "Seven evens across two suits is a real 2468 spine. The two lonely winds do almost nothing for 2468, and the 3 Dot is your only odd number tile. Those three leave without a second thought.",
             tip: "This is the pass where a blind pass is legal: on the LAST pass of a Charleston you may send 1 to 3 tiles straight from the ones handed to you, without looking. Blind passing saves a hand you like, but you are shipping unknowns."
         ),
         CharlestonScenario(
@@ -179,9 +179,9 @@ enum PlusContent {
             frontTitle: "An opponent has an exposed PUNG of 6 Dots.",
             frontTiles: [.d(6), .d(6), .d(6)],
             frontSubtitle: "You just drew the fourth 6 Dot. Keep or throw?",
-            backTitle: "Hold It",
-            backBody: "A pung on the rack often wants to become a kong. The fourth copy is the exact tile they are waiting for, and it is worthless to you. Sit on it and throw something the table has already seen.",
-            choice: CardChoice("Hold it", "Throw it", answerIndex: 0)
+            backTitle: "Throw It",
+            backBody: "An exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else is collecting them either. It is one of the safest discards you have.",
+            choice: CardChoice("Hold it", "Throw it", answerIndex: 1)
         ),
         Flashcard(
             id: "plus-kd-lone-wind",
@@ -189,7 +189,7 @@ enum PlusContent {
             frontTiles: [.wind(.north)],
             frontSubtitle: "Nobody has exposed a wind. Keep or throw?",
             backTitle: "Throw It",
-            backBody: "A lone wind only serves Winds and Dragons, a section you are clearly not in. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+            backBody: "A lone wind mostly serves Winds and Dragons, a section you are clearly not in. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
             choice: CardChoice("Keep it", "Throw it", answerIndex: 1)
         ),
         Flashcard(
@@ -222,10 +222,10 @@ enum PlusContent {
         Flashcard(
             id: "plus-kd-count-tiles",
             frontTitle: "You need a pung of 5 Bams.",
-            frontTiles: [.b(5), .b(5)],
-            frontSubtitle: "Two are in the discards, one is exposed on a rack. Keep chasing?",
+            frontTiles: [.b(5)],
+            frontSubtitle: "You hold one. Two are in the discards, one is exposed on a rack. Keep chasing?",
             backTitle: "Switch Hands",
-            backBody: "Only four of any tile exist. Three are gone, so exactly one 5 Bam is alive and a pung is now impossible without a joker. Count the dead tiles before you count on a group: the discard pile tells you which hands are already over.",
+            backBody: "Only four of any tile exist. Yours plus the three gone makes four, so there are no 5 Bams left to draw and your pung would need two jokers. Count the dead tiles before you count on a group: the discard pile tells you which hands are already over.",
             choice: CardChoice("Keep chasing the pung", "Switch to a hand that does not need 5 Bams", answerIndex: 1)
         ),
     ]

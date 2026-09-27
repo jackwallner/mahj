@@ -10,7 +10,7 @@ enum CharlestonContent {
             frontTitle: "What is the Charleston?",
             frontSubtitle: "The part that scares everyone",
             backTitle: "The Charleston",
-            backBody: "Before play starts, everyone passes tiles: three passes (right, across, left), an optional second round (left, across, right), then an optional courtesy pass across. You always pass exactly 3 tiles. It exists so you can trade junk for a real hand."
+            backBody: "Before play starts, everyone passes tiles: three passes (right, across, left), an optional second round (left, across, right), then an optional courtesy pass across. Each Charleston pass is 3 tiles. It exists so you can trade junk for a real hand."
         ),
         Flashcard(
             id: "ch-first-look",
@@ -115,7 +115,7 @@ enum CharlestonContent {
             situation: "First Charleston, pass RIGHT. Nothing looks good. Pick 3.",
             deal: [.wind(.west), .wind(.west), .wind(.north), .wind(.east), .wind(.south), .c(2), .b(5), .d(8), .c(9), .d(1), .joker, .joker, .flower],
             recommendedPass: [.d(1), .c(9), .b(5)],
-            reasoning: "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, so any three of them is a fine pass; we'd keep the 2C and 8D since even tiles give you a 2468 escape route if the winds dry up. Jokers can never be passed.",
+            reasoning: "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, so the question is which two to keep: hold the 2C and 8D, since even tiles give you a 2468 escape route if the winds dry up. Jokers can never be passed.",
             tip: "With a junk deal, pass strays but keep tiles that preserve a second option."
         ),
         CharlestonScenario(

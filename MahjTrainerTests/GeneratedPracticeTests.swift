@@ -177,6 +177,34 @@ final class GeneratedPracticeTests: XCTestCase {
         }
     }
 
+    /// Real cards put winds and dragons in the number sections, so an honor
+    /// is never provably safe against a number family.
+    func testSafeDiscardIsNeverAnHonor() {
+        for question in defenses {
+            guard case .suited = question.answer else {
+                return XCTFail("\(question.answer) offered as safe against \(question.impliedSection)")
+            }
+        }
+    }
+
+    /// Pungs of 6 and 8 Bam can be a run that wants the 7, and pungs of 3 and
+    /// 9 fit an odds hand as well as 369. The safe tile must dodge both.
+    func testSafeDiscardFitsNoRunOrParityFamilyTheExposuresAllow() {
+        for question in defenses {
+            let ranks = question.exposures.compactMap { exposure -> Int? in
+                if case .suited(let rank, _) = exposure[0] { return rank }
+                return nil
+            }
+            guard case .suited(let safe, _) = question.answer, let low = ranks.min(), let high = ranks.max() else {
+                continue
+            }
+            XCTAssertGreaterThan(max(high, safe) - min(low, safe), 4, "\(question.answer) could finish a run with \(ranks)")
+            if ranks.allSatisfy({ $0.isMultiple(of: 2) == low.isMultiple(of: 2) }) {
+                XCTAssertNotEqual(safe.isMultiple(of: 2), low.isMultiple(of: 2), "\(question.answer) shares parity with \(ranks)")
+            }
+        }
+    }
+
     func testDefenseCoachingIsWrittenForEveryWrongChoice() {
         for question in defenses {
             XCTAssertEqual(question.choiceNotes.count, question.choices.count)

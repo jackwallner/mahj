@@ -33,7 +33,7 @@ enum ProContent {
             situation: "First Charleston, pass RIGHT. Eight even tiles plus a lonely pair of Norths. Pick 3.",
             deal: [.c(2), .c(4), .c(6), .c(8), .b(2), .b(4), .b(6), .b(8), .wind(.north), .wind(.north), .d(5), .flower, .joker],
             recommendedPass: [.wind(.north), .wind(.north), .d(5)],
-            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens lock you into 2468, and a pair of Norths serves only Winds and Dragons, a section you are clearly not playing. It is the very first pass, so opponents have not committed yet and the feed risk is low. Ship both Norths and the odd 5 Dot.",
+            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens lock you into 2468, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so opponents have not committed yet and the feed risk is low. Ship both Norths and the odd 5 Dot.",
             tip: "Hold pairs by default, but a pair that fits none of your target section is fair to pass early, before opponents lock in."
         ),
         CharlestonScenario(
@@ -57,7 +57,7 @@ enum ProContent {
             situation: "Last pass of the Charleston, going LEFT. Your left neighbor has already passed you three winds this round, so they clearly are not on Winds and Dragons. Pick 3.",
             deal: [.c(4), .c(5), .c(6), .b(5), .b(6), .b(7), .d(6), .d(6), .b(2), .d(9), .wind(.east), .flower, .joker],
             recommendedPass: [.b(2), .d(9), .wind(.east)],
-            reasoning: "Your run is set (4-5-6 and 5-6-7 with a 6 Dot pair), so any three strays go. But your LAST pass is also defense. Your left neighbor keeps dumping winds, so an East going back to them is the safest tile you own: it cannot be in a section they already rejected. Pair it with the two other strays, 2 Bam and 9 Dot.",
+            reasoning: "Your run is set (4-5-6 and 5-6-7 with a 6 Dot pair), so any three strays go. But your LAST pass is also defense. Your left neighbor keeps dumping winds, so an East going back to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
             tip: "Your final pass is a defensive tool. Feed a neighbor the kind of tile they have already shown they do not want."
         ),
     ]
@@ -67,19 +67,19 @@ enum ProContent {
     static let defenseQuiz: [QuizQuestion] = [
         QuizQuestion(
             id: "pro-def-read-like",
-            prompt: "An opponent exposes a pung of 6 Bams AND a pung of 6 Craks. What are they most likely building?",
-            tiles: [.b(6), .b(6), .b(6), .c(6), .c(6), .c(6)],
-            choices: ["Any Like Numbers", "2468 (Evens)", "Winds & Dragons"],
+            prompt: "An opponent exposes a kong of 6 Bams AND a kong of 6 Craks. Which discard is most dangerous?",
+            tiles: [.b(6), .b(6), .b(6), .b(6), .c(6), .c(6), .c(6), .c(6)],
+            choices: ["6 Dot", "North", "1 Crak"],
             answerIndex: 0,
-            explanation: "The same number in two different suits is the fingerprint of Any Like Numbers. A 2468 hand usually keeps one suit per number, so two suits of 6 points at Like Numbers. Stop feeding them any 6."
+            explanation: "The same number in two suits is the Like Numbers tell, and Like Numbers hands are built from kongs, so read it there. Whatever their exact hand, it is made of 6s: the 6 Dot is the tile to hold. Exposures cannot grow, so read them as they sit."
         ),
         QuizQuestion(
             id: "pro-def-read-369",
-            prompt: "An opponent exposes a pung of 3 Dots and a pung of 9 Dots. Which section is that?",
+            prompt: "An opponent exposes a pung of 3 Dots and a pung of 9 Dots. Which of these sections fits?",
             tiles: [.d(3), .d(3), .d(3), .d(9), .d(9), .d(9)],
             choices: ["Consecutive Run", "369", "Quints"],
             answerIndex: 1,
-            explanation: "3 and 9 sit too far apart to belong to one run, so Consecutive Run is out. Threes and nines together are a 369 tell. Treat 3s, 6s, and 9s as hot tiles against this player."
+            explanation: "3 and 9 sit too far apart to belong to one run, so Consecutive Run is out. Threes and nines together are a 369 tell (an odds hand can use them too). Treat 3s, 6s, and 9s as hot tiles against this player."
         ),
         QuizQuestion(
             id: "pro-def-count-copies",
@@ -103,7 +103,7 @@ enum ProContent {
             tiles: [.wind(.north), .wind(.north), .wind(.north), .dragon(.red), .dragon(.red), .dragon(.red)],
             choices: ["A 5 Bam", "North wind", "Red dragon", "Soap"],
             answerIndex: 0,
-            explanation: "Their hand is built from winds and dragons, so a plain number tile cannot help them win. The 5 Bam is safe. Hold your winds, dragons, and soaps, and feed them harmless numbers."
+            explanation: "Their hand is built from winds and dragons, so a middle number like the 5 Bam is the tile least likely to help them. Hold your winds, dragons, and soaps, and feed them numbers."
         ),
         QuizQuestion(
             id: "pro-def-hot-tile",
@@ -111,7 +111,7 @@ enum ProContent {
             tiles: [.b(6), .b(6), .b(6), .b(8), .b(8), .b(8)],
             choices: ["7 Bam", "2 Crak", "North", "Soap"],
             answerIndex: 0,
-            explanation: "Pungs of 6 and 8 Bam scream a 6-7-8 run in bams. The 7 Bam is the bridge they are missing, likely their winning tile. Hold it and throw something unrelated."
+            explanation: "Two pungs in one suit, two numbers apart, read as a run with the middle missing: the 7 Bam is the bridge, likely their winning tile. Hold it and throw something unrelated."
         ),
         QuizQuestion(
             id: "pro-def-break-hand",
@@ -204,7 +204,7 @@ enum ProContent {
             tiles: [.dragon(.soap), .dragon(.soap), .dragon(.red), .dragon(.red), .dragon(.green), .dragon(.green), .wind(.north), .wind(.north), .wind(.east), .c(2), .d(2), .flower, .joker],
             choices: [.windsDragons, .year, .singlesAndPairs],
             answer: .windsDragons,
-            explanation: "Year is the decoy: the soaps and 2s hint at 2, 0, 2, 6. But year hands use no winds, and you are holding three of them alongside all three dragons. Three dragon pairs plus winds is Winds and Dragons."
+            explanation: "Year is the decoy: the soaps and 2s hint at 2, 0, 2, 6. But there is not a single 6, and three dragon pairs plus three winds are already on the rack. That is Winds and Dragons."
         ),
     ]
 }
