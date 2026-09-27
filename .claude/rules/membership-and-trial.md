@@ -42,3 +42,12 @@ yearly. `OnboardingView.trialDisclosure` must always name the SAME plan the CTA
 buys, or the screen misstates the charge (3.1.2). The 100%-yearly funnel in
 `docs/tasks/03-pricing-increase-1.3.md` predates this and describes the old
 onboarding, not the current one.
+
+**3.1.2(c) price line (2026-09-27):** 1.3.0 was rejected on an iPad Air
+because the trial outshone the billed amount (1.2.1, same design, had passed:
+reviewer variance). Fix is Cribbage Trainer's approved one, ported as-is: a
+22pt `trialPrice` ("$9.99/month") above the caption disclosure, in a slot
+reserved on every page so the CTA never moves. Nothing else on the page
+changed. Cribbage, Skat and Sheepshead all passed with this pattern, and it
+did not track with lower trial rates across the card apps (Aug 13 to Sep 26:
+Mahj 31% small line, Bridge 9% small line, Cribbage 24% big price).
