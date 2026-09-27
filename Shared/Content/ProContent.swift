@@ -71,7 +71,7 @@ enum ProContent {
             tiles: [.b(6), .b(6), .b(6), .b(6), .c(6), .c(6), .c(6), .c(6)],
             choices: ["6 Dot", "North", "1 Crak"],
             answerIndex: 0,
-            explanation: "The same number in two suits is the Like Numbers tell, and Like Numbers hands are built from kongs, so read it there. Whatever their exact hand, it is made of 6s: the 6 Dot is the tile to hold. Exposures cannot grow, so read them as they sit."
+            explanation: "The same number in two suits is the Like Numbers tell, and Like Numbers hands are built from kongs, so read it there. Whatever their exact hand, it is made of 6s: the 6 Dot is the tile to hold. Exposures cannot grow once play moves on, so read them as they sit."
         ),
         QuizQuestion(
             id: "pro-def-read-369",
@@ -144,6 +144,22 @@ enum ProContent {
             choices: ["Yes, call it for a pung", "Yes, but only to make an exposure", "No, a discarded joker is dead and cannot be called"],
             answerIndex: 2,
             explanation: "Once a joker hits the discards it is dead. No one can call it or pick it up; it just sits there as a thrown tile. Jokers only come from the wall or from swapping an exposed one."
+        ),
+        QuizQuestion(
+            id: "pro-def-follow-discard",
+            prompt: "Late in the hand, the player on your left just threw a 4 Bam and nobody called it. You hold a 4 Bam. How risky is it to throw now?",
+            tiles: [.b(4)],
+            choices: ["About as safe as a throw gets", "Very dangerous, it is live", "Illegal, the same tile cannot follow", "Only safe if you are East"],
+            answerIndex: 0,
+            explanation: "Every other player just had the chance to take that exact tile and passed. Following a fresh discard is a classic safe throw. It is not a guarantee: one draw can change a hand, so it is safest right away."
+        ),
+        QuizQuestion(
+            id: "pro-def-no-exposures",
+            prompt: "Late in the hand, one opponent has exposed nothing and is discarding calmly. What does that tell you?",
+            tiles: [],
+            choices: ["They are far from winning", "Nothing is proven safe against them, they may be close on a concealed hand", "They cannot win without calling a discard", "Their hand is dead"],
+            answerIndex: 1,
+            explanation: "No exposures means no information, not no danger. A concealed hand can be one tile away with nothing showing. Lean on tiles the table has already let pass."
         ),
     ]
 

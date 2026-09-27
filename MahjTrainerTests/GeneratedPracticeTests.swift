@@ -107,6 +107,19 @@ final class GeneratedPracticeTests: XCTestCase {
         }
     }
 
+    /// Eight jokers exist, not four, and the answer must be the one the
+    /// explanation states.
+    func testJokerCountingUsesEightAndGradesTheStatedAnswer() {
+        for _ in 0..<200 {
+            let item = EndlessPractice.jokerCountingItem()
+            let answer = Int(item.choices[item.answerIndex])!
+            XCTAssertTrue((1...8).contains(answer))
+            XCTAssertTrue(item.explanation.contains("leaves \(answer) unseen"))
+            XCTAssertLessThanOrEqual(item.tiles.count, 2)
+            XCTAssertFalse(item.prompt.contains("\u{2014}"))
+        }
+    }
+
     // MARK: - Defense
 
     private var defenses: [DefenseGenerator.GeneratedDefense] {

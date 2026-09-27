@@ -38,6 +38,9 @@ motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
   and dragons in number sections), keeps the safe tile outside any
   five-number run window holding both exposures (6 and 8 Bam want the 7), and
   gives it the other parity when both exposures share one (3 and 9 fit odds).
+  Tile counting deals a joker question about one time in four
+  (`jokerCountingItem`): eight in the set, held + exposed + discarded, so its
+  answers run past four and the four-copy tests skip it.
   `RackGenerator` only generates the five sections whose
   read is UNAMBIGUOUS (evens/odds/369/consecutive/winds-dragons); Like Numbers
   and Quints stay authored because a single-number rack always doubles as evens

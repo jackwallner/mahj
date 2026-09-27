@@ -78,6 +78,71 @@ enum CategoryContent {
             backTitle: "Singles & Pairs",
             backBody: HandCategory.singlesAndPairs.howToSpot + " New players should admire it from a distance: every tile but the winning one must be drawn or come through the Charleston."
         ),
+        // Reading a single line of the card. The notation here is generic
+        // teaching shorthand (a group of 4s, a D), never a line from the card.
+        Flashcard(
+            id: "cat-line-matching-dragon",
+            frontTitle: "A line shows 4444 and a D, both in the same color.",
+            frontTiles: [.c(4), .c(4), .c(4), .c(4), .dragon(.red)],
+            frontSubtitle: "Does this group fit it?",
+            backTitle: "Yes: Same Color, Same Suit",
+            backBody: "A dragon printed in the same color as a number group is that suit's own dragon. 4 Craks go with the Red Dragon, so this fits. Green would belong with bams, and Soap with dots.",
+            choice: CardChoice("Fits", "Doesn't fit", answerIndex: 0)
+        ),
+        Flashcard(
+            id: "cat-line-opposite-dragon",
+            frontTitle: "A line shows 4444 in one color and a D in a different color.",
+            frontTiles: [.b(4), .b(4), .b(4), .b(4), .dragon(.green)],
+            frontSubtitle: "Does this group fit it?",
+            backTitle: "No: Different Color, Different Suit",
+            backBody: "A dragon in a different color from the numbers has to come from a different suit. Green is the bams' own dragon, so it matches these 4 Bams instead of contrasting with them. A Red Dragon or a Soap would fit.",
+            choice: CardChoice("Fits", "Doesn't fit", answerIndex: 1)
+        ),
+        Flashcard(
+            id: "cat-line-any-number",
+            frontTitle: "A Like Numbers line is printed with 1s.",
+            frontTiles: [.c(7), .c(7), .c(7), .c(7), .b(7), .b(7), .b(7), .b(7)],
+            frontSubtitle: "Can you play it with 7s instead?",
+            backTitle: "Yes, Any Number Works",
+            backBody: "In Any Like Numbers the 1s are a placeholder. Any number works as long as every group on the line uses the same one, so 7s in the colors the line shows are just as good as 1s.",
+            choice: CardChoice("Yes", "No, only 1s", answerIndex: 0)
+        ),
+        Flashcard(
+            id: "cat-line-run-slides",
+            frontTitle: "A Consecutive Run line is printed with 1s, 2s and 3s.",
+            frontTiles: [.d(5), .d(5), .d(6), .d(6), .d(6), .d(7), .d(7)],
+            frontSubtitle: "Can you play it with 5s, 6s and 7s?",
+            backTitle: "Yes, Unless the Line Says Otherwise",
+            backBody: "Run lines show the lowest numbers, and most can start anywhere as long as the numbers stay in order with no gaps. Read the note beside the line: a run that names its numbers cannot slide.",
+            choice: CardChoice("Yes, unless noted", "No, only 1-2-3", answerIndex: 0)
+        ),
+        Flashcard(
+            id: "cat-line-concealed",
+            frontTitle: "Your target line is marked C, and you already exposed a pung.",
+            frontTiles: [.b(4), .b(4), .b(4)],
+            frontSubtitle: "Can you still win with that line?",
+            backTitle: "No, Pick Another Line",
+            backBody: "C means concealed: nothing may be exposed before mah jongg. Once a group is face up on your rack, every C line is closed to you, and only X lines can still win.",
+            choice: CardChoice("Yes", "No", answerIndex: 1)
+        ),
+        Flashcard(
+            id: "cat-line-news",
+            frontTitle: "A line includes NEWS.",
+            frontTiles: [.wind(.north), .wind(.east), .joker, .wind(.south)],
+            frontSubtitle: "Can the joker stand in for the West?",
+            backTitle: "No, Every Letter Is Real",
+            backBody: "NEWS means one North, one East, one West and one South: four single tiles. Jokers never fill a single, so every wind has to be the real tile.",
+            choice: CardChoice("Yes", "No", answerIndex: 1)
+        ),
+        Flashcard(
+            id: "cat-line-year-soap",
+            frontTitle: "Your year hand's 2s and 6 are Craks.",
+            frontTiles: [.c(2), .dragon(.soap), .c(2), .c(6)],
+            frontSubtitle: "Can the Soap be your 0?",
+            backTitle: "Yes, a Zero Has No Suit",
+            backBody: "Used as a zero, the Soap goes with any suit. It only has to line up with Dots when it is playing its other role, as the dots' dragon.",
+            choice: CardChoice("Yes", "No, only with Dots", answerIndex: 0)
+        ),
     ]
 
     static let handMatch: [HandMatchQuestion] = [

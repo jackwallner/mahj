@@ -225,6 +225,106 @@ enum MoreContent {
             answerIndex: 2,
             explanation: "Singles and Pairs contains no pungs or kongs, so there is nothing to call and nothing to expose. It is played entirely from your own rack."
         ),
+        // Scoring and payment. Values come from the card; these are the
+        // standing payment rules every table uses on top of them.
+        QuizQuestion(
+            id: "table-pay-discard",
+            prompt: "You win on another player's discard. Who pays what?",
+            choices: [
+                "The discarder pays double, the other two pay the hand's value",
+                "Only the discarder pays",
+                "All three pay the same",
+                "All three pay double"
+            ],
+            answerIndex: 0,
+            explanation: "Throwing the winning tile costs double. The other two players pay the value printed beside the hand on the card."
+        ),
+        QuizQuestion(
+            id: "table-pay-self-pick",
+            prompt: "You win on a tile you drew from the wall yourself. Who pays?",
+            choices: ["Nobody", "Only East", "All three players pay double", "All three pay the hand's value"],
+            answerIndex: 2,
+            explanation: "Nobody fed you the winning tile, so everyone pays double."
+        ),
+        QuizQuestion(
+            id: "table-pay-jokerless",
+            prompt: "You win with no jokers anywhere in your hand. What changes?",
+            choices: ["Nothing", "The hand pays double", "You deal the next hand", "Only the discarder pays"],
+            answerIndex: 1,
+            explanation: "A jokerless win pays double. Singles and Pairs hands are the exception: they can never hold a joker, so they earn no bonus for going without."
+        ),
+        QuizQuestion(
+            id: "table-pay-stacked",
+            prompt: "You draw your own winning tile, and the hand has no jokers. What does each player pay?",
+            choices: ["The hand's value", "Double the value", "Four times the value", "Nothing extra, bonuses do not combine"],
+            answerIndex: 2,
+            explanation: "Both bonuses apply. Drawing it yourself doubles the payment, and jokerless doubles it again, so each player pays four times the hand's value."
+        ),
+        QuizQuestion(
+            id: "table-pay-wall",
+            prompt: "The wall runs out and nobody has won. Who pays?",
+            choices: ["The last player to discard", "East", "Nobody", "Everyone pays East"],
+            answerIndex: 2,
+            explanation: "A wall game costs nothing. The tiles are reshuffled and the next hand is dealt."
+        ),
+        QuizQuestion(
+            id: "table-pay-dead-hand",
+            prompt: "Your hand went dead earlier, and another player wins. Do you pay?",
+            choices: ["No, a dead hand is out of the game", "Yes, like any other player", "Only if you are East", "You pay double"],
+            answerIndex: 1,
+            explanation: "A dead hand cannot win, but you are still at the table, so you pay the winner like everyone else. Throw the winning tile and you pay double, as anyone would."
+        ),
+        // Table procedure: the moments that start arguments.
+        QuizQuestion(
+            id: "table-call-too-late",
+            prompt: "When is it too late to call a discard?",
+            choices: [
+                "Once the next player has drawn from the wall and racked the tile",
+                "As soon as the tile touches the table",
+                "Only after the next discard lands",
+                "Never, discards stay callable all game"
+            ],
+            answerIndex: 0,
+            explanation: "You may call until the next player has drawn a tile and put it on their rack. After that, the discard is gone. Speak up quickly."
+        ),
+        QuizQuestion(
+            id: "table-call-then-what",
+            prompt: "You call a discard for a pung. What comes next?",
+            choices: [
+                "Draw from the wall, then discard",
+                "Expose the pung, then discard",
+                "Expose the pung and draw a replacement tile",
+                "Wait for your normal turn"
+            ],
+            answerIndex: 1,
+            explanation: "Calling takes the place of your draw. Put the pung face up on your rack, discard, and play continues to your right."
+        ),
+        QuizQuestion(
+            id: "table-call-priority",
+            prompt: "Two players call the same discard for a pung. Who gets it?",
+            choices: ["Whoever spoke first", "The player whose turn comes next", "The player with fewer exposures", "Neither, it is dead"],
+            answerIndex: 1,
+            explanation: "When two players want a tile for an exposure, it goes to the one next in turn after the discarder. A call for mah jongg still beats any exposure."
+        ),
+        QuizQuestion(
+            id: "table-exposure-locked",
+            prompt: "You have an exposed pung of 5 Bams and draw the fourth. Can you add it to make a kong?",
+            choices: ["Yes, on your turn", "No, an exposure can never grow", "Only if it wins the hand", "Only before your next discard"],
+            answerIndex: 1,
+            explanation: "Once you have discarded after exposing it, a group is locked. The fourth 5 Bam stays on your rack or goes to the discards. The one change still allowed is someone swapping a real tile for a joker in it."
+        ),
+        QuizQuestion(
+            id: "table-mahj-in-error",
+            prompt: "You call mah jongg, lay your hand down, and it turns out one tile is wrong. What happens?",
+            choices: [
+                "Pick the tiles back up and keep playing",
+                "Your hand is dead, and the other three play on",
+                "The whole hand is replayed",
+                "You skip your next turn"
+            ],
+            answerIndex: 1,
+            explanation: "Once a wrong hand is laid down, it is dead. The other three keep playing, and you still pay whoever wins. Check the card before you lay down."
+        ),
     ]
 
     /// Mahj+ extras for the Table Room.
@@ -326,6 +426,22 @@ enum MoreContent {
             ],
             answerIndex: 1,
             explanation: "Any exposed joker is redeemable by any player holding the tile it stands for, on their own turn. Taking an opponent's joker is one of the strongest plays in the game."
+        ),
+        QuizQuestion(
+            id: "more-pro-joker-flowers",
+            prompt: "Your hand needs four flowers and you hold three. Can a joker be the fourth?",
+            tiles: [.flower, .flower, .flower, .joker],
+            choices: ["Yes, flowers in a group of three or more take jokers", "No, flowers never take jokers", "Only in a pair of flowers", "Only if the flowers are exposed"],
+            answerIndex: 0,
+            explanation: "A group of three or more flowers is a group like any other, so jokers can fill it. A pair of flowers is still a pair: those two have to be real."
+        ),
+        QuizQuestion(
+            id: "more-pro-joker-year",
+            prompt: "Can a joker stand in for one of the digits in a year like 2026?",
+            tiles: [.c(2), .dragon(.soap), .joker, .c(6)],
+            choices: ["Yes, any digit", "Only for the zero", "No, each digit is a single tile", "Only in a concealed hand"],
+            answerIndex: 2,
+            explanation: "Each digit of the year is a single tile, and jokers never fill a single. The year has to be spelled with real tiles."
         ),
     ]
 }

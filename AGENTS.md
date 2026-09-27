@@ -70,7 +70,7 @@ Condensed from the deep notes below; the reasoning and the bugs behind each one 
 - `QuickItem.choiceNotes` rides the same permutation as `choices` in `SessionBuilder.prepared`.
 - `RootView` branches onboarding vs `HomeView` on `progress.hasOnboarded`, never a fullScreenCover. The primer and the tour always keep an escape hatch straight to Home.
 - No generated illustration: tiles are drawn from real data by `TileView`/`TileRackView`.
-- Content teaches how to read hands, never what the current card contains. Players check every claim against their card, so a card-dependent statement ("usually", "exactly", "most likely building") must hold on the current card, checked privately and never copied in. Exposures cannot grow: an exposed pung never becomes a kong.
+- Content teaches how to read hands, never what the current card contains. Players check every claim against their card, so a card-dependent statement ("usually", "exactly", "most likely building") must hold on the current card, checked privately and never copied in. Exposures cannot grow: once its owner discards, an exposed pung never becomes a kong.
 
 ## Deep notes (load on demand)
 These files load automatically when you read a file matching their `paths:`. Agents that do not auto-load rules (Codex, Cursor) should open the file for the area they are touching. Record new area-specific learnings in the matching file, not here.

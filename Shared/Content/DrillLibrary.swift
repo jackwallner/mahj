@@ -25,7 +25,7 @@ enum DrillLibrary {
                 Drill(
                     id: "plus-tile-extras",
                     title: "Tile Check: Extra Reps",
-                    subtitle: "Eight more: set counts, calling rules, and how hands go dead",
+                    subtitle: "Sixteen more: set counts, calling rules, sextets, and how hands go dead",
                     kind: .quiz(PlusContent.tileExtras + MoreContent.tileExtras),
                     isPlus: true
                 ),
@@ -41,7 +41,7 @@ enum DrillLibrary {
                 Drill(
                     id: "category-cards",
                     title: "Know the Sections",
-                    subtitle: "Flashcards: every card section and how to spot it",
+                    subtitle: "Flashcards: every card section, and how to read a line",
                     kind: .flashcards(CategoryContent.categoryCards)
                 ),
                 Drill(
@@ -53,7 +53,7 @@ enum DrillLibrary {
                 Drill(
                     id: "plus-rack-extras",
                     title: "Read the Rack: Extra Reps",
-                    subtitle: "Six more racks, including the ones with a convincing decoy",
+                    subtitle: "Eleven more racks, including the ones with a convincing decoy",
                     kind: .handMatch(PlusContent.extraRackReading + MoreContent.rackReading),
                     isPlus: true
                 ),
@@ -81,7 +81,7 @@ enum DrillLibrary {
                 Drill(
                     id: "plus-charleston-extras",
                     title: "Pick Your Pass: Extra Reps",
-                    subtitle: "Four more deals: the blind pass, the courtesy pass, and flower discipline",
+                    subtitle: "Seven more deals: the blind pass, the courtesy pass, and flower discipline",
                     kind: .charleston(PlusContent.extraPasses + MoreContent.passes),
                     isPlus: true
                 ),
@@ -103,13 +103,13 @@ enum DrillLibrary {
                 Drill(
                     id: "table-quiz",
                     title: "Table Rules",
-                    subtitle: "Calling, exposures, dead hands, and safe discards",
+                    subtitle: "Calling, exposures, scoring, dead hands, and safe discards",
                     kind: .quiz(MoreContent.tableQuiz)
                 ),
                 Drill(
                     id: "plus-judgment-extras",
                     title: "Keep or Throw: Extra Reps",
-                    subtitle: "Six more calls: safe discards, dead tiles, and when NOT to call",
+                    subtitle: "Thirteen more calls: safe discards, dead tiles, joker swaps, and when NOT to call",
                     kind: .flashcards(PlusContent.extraJudgment + MoreContent.judgment),
                     isPlus: true
                 ),

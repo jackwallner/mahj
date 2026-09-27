@@ -41,7 +41,9 @@ enum WhatsNew {
 
     static let releases: [WhatsNewRelease] = [
         WhatsNewRelease(
-            version: "1.3.0",
+            // Shipped as 1.3.1: 1.3.0 never reached the App Store, and this
+            // matches CFBundleShortVersionString exactly.
+            version: "1.3.1",
             headline: "Play a hand, not just a flashcard",
             items: [
                 WhatsNewItem(
@@ -50,6 +52,18 @@ enum WhatsNew {
                     title: "Play a Hand",
                     body: "Commit to a section, then draw and discard for twelve turns while a coach grades every throw. One hand a day is free, and members can deal as many as they like.",
                     isPlus: true
+                ),
+                WhatsNewItem(
+                    id: "table-rules",
+                    icon: "dollarsign.circle.fill",
+                    title: "Scoring and table rules",
+                    body: "Who pays what, when a call is too late, and what happens after a wrong mah jongg, in the Table Room. Free for everyone."
+                ),
+                WhatsNewItem(
+                    id: "card-lines",
+                    icon: "menucard.fill",
+                    title: "Read a line on the card",
+                    body: "Matching and opposite dragons, NEWS, zeros, and which numbers can slide, in Know the Sections. Free for everyone."
                 ),
                 WhatsNewItem(
                     id: "reference",

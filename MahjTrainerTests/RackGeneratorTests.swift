@@ -132,7 +132,8 @@ final class RackGeneratorTests: XCTestCase {
     /// always come to four. An off-by-one here would teach players to wait on
     /// tiles that are already gone.
     func testTileCountingArithmeticAlwaysSumsToFour() {
-        let items = EndlessPractice.items(for: .tileCounting, count: 40)
+        // Joker counts run to eight and have their own test.
+        let items = EndlessPractice.items(for: .tileCounting, count: 40).filter { !$0.prompt.contains("joker") }
         for item in items {
             let answer = Int(item.choices[item.answerIndex])
             XCTAssertNotNil(answer)
@@ -147,7 +148,11 @@ final class RackGeneratorTests: XCTestCase {
     func testTileCountingRackMatchesThePrompt() {
         for item in EndlessPractice.items(for: .tileCounting, count: 60) {
             let held = item.tiles.count
-            if held == 0 {
+            if item.prompt.contains("joker") {
+                let phrase = held == 0 ? "You hold no jokers" : held == 1 ? "You hold 1 joker." : "You hold \(held) jokers"
+                XCTAssertTrue(item.prompt.hasPrefix(phrase), item.prompt)
+                XCTAssertTrue(item.tiles.allSatisfy { $0 == .joker })
+            } else if held == 0 {
                 XCTAssertTrue(item.prompt.contains("none on your rack"), item.prompt)
             } else {
                 XCTAssertTrue(item.prompt.contains("\(held) on your rack"), item.prompt)

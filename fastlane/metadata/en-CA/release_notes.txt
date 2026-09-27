@@ -7,3 +7,9 @@ Reference is a new searchable glossary plus a page for every section of the card
 Room progress now counts what you have actually learned: a question sticks once you answer it right twice in a row.
 
 Get one wrong and the app now tells you why your answer was wrong, not just what the right one was.
+
+New in the Table Room: scoring and table rules. Who pays what, when a call is too late, and what happens after a wrong mah jongg.
+
+New in the Card Room: how to read a line on the card, from matching and opposite dragons to NEWS and zeros.
+
+We also re-checked every question against the rules and corrected a handful of answers, including a joker question and a defense question players flagged. Thank you for the notes.

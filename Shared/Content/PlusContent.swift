@@ -85,6 +85,21 @@ enum PlusContent {
             answerIndex: 2,
             explanation: "Dead hand. Every exposure has to belong to a real hand on the card, so look before you call. You keep discarding but you can no longer win the round."
         ),
+        QuizQuestion(
+            id: "plus-tq-call-kong",
+            prompt: "A discard would finish a kong for you. Can you call it?",
+            tiles: [.c(8), .c(8), .c(8)],
+            choices: ["Yes, then expose all four", "No, only pungs can be called", "Only for mah jongg", "Only with a joker in it"],
+            answerIndex: 0,
+            explanation: "You can call a discard for a pung, a kong or a quint, as long as you expose the whole group. Pairs and singles are the ones you can only call to win."
+        ),
+        QuizQuestion(
+            id: "plus-tq-sextet",
+            prompt: "Only four of each tile exist. What does a sextet (six of a kind) need?",
+            choices: ["Nothing special", "At least one joker", "At least two jokers", "Two different suits"],
+            answerIndex: 2,
+            explanation: "Four real tiles is the most you can have, so the other two of the six have to be jokers."
+        ),
     ]
 
     // MARK: - The Card Room: more racks
@@ -180,7 +195,7 @@ enum PlusContent {
             frontTiles: [.d(6), .d(6), .d(6)],
             frontSubtitle: "You just drew the fourth 6 Dot. Keep or throw?",
             backTitle: "Throw It",
-            backBody: "An exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else is collecting them either. It is one of the safest discards you have.",
+            backBody: "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else is collecting them either. It is one of the safest discards you have.",
             choice: CardChoice("Hold it", "Throw it", answerIndex: 1)
         ),
         Flashcard(
@@ -227,6 +242,24 @@ enum PlusContent {
             backTitle: "Switch Hands",
             backBody: "Only four of any tile exist. Yours plus the three gone makes four, so there are no 5 Bams left to draw and your pung would need two jokers. Count the dead tiles before you count on a group: the discard pile tells you which hands are already over.",
             choice: CardChoice("Keep chasing the pung", "Switch to a hand that does not need 5 Bams", answerIndex: 1)
+        ),
+        Flashcard(
+            id: "plus-kd-redeem-own",
+            frontTitle: "Your own exposed pung of 8 Craks holds a joker.",
+            frontTiles: [.c(8), .c(8), .joker],
+            frontSubtitle: "You draw the real 8 Crak. Swap it in?",
+            backTitle: "Swap It",
+            backBody: "You can redeem a joker from your own exposure, not just an opponent's. The 8 Crak goes on the pung, the joker comes back to your rack, and now it can fill a group you still need.",
+            choice: CardChoice("Swap for the joker", "Keep the 8 Crak", answerIndex: 0)
+        ),
+        Flashcard(
+            id: "plus-kd-call-single",
+            frontTitle: "You are one tile from mah jongg: a lone 5 Dot.",
+            frontTiles: [.d(5)],
+            frontSubtitle: "Someone discards a 5 Dot. Can you call it?",
+            backTitle: "Yes, Call It",
+            backBody: "Singles and pairs can't be called for an exposure, but any tile can be called when it wins the hand. Call it, then lay down your hand.",
+            choice: CardChoice("Call it", "Wait for your draw", answerIndex: 0)
         ),
     ]
 }

@@ -136,6 +136,10 @@ enum EndlessPractice {
     private static func countingItems(count: Int) -> [QuickItem] {
         var items: [QuickItem] = []
         while items.count < count {
+            if Int.random(in: 0..<4) == 0 {
+                items.append(jokerCountingItem())
+                continue
+            }
             let tile = randomCountableTile()
             let held = Int.random(in: 0...2)
             let exposed = Int.random(in: 0...(4 - held - 1))
@@ -167,6 +171,38 @@ enum EndlessPractice {
             ))
         }
         return items
+    }
+
+    /// Jokers follow their own arithmetic: eight in the set, and a discarded
+    /// one is dead for good. Knowing how many are still out there tells you
+    /// whether a joker-hungry hand is a plan or a wish.
+    static func jokerCountingItem() -> QuickItem {
+        let held = Int.random(in: 0...2)
+        let exposed = Int.random(in: 0...3)
+        // At most 2 + 3 + 2 seen, so at least one is always still out there.
+        let discarded = Int.random(in: 0...2)
+        let remaining = 8 - held - exposed - discarded
+
+        var values = Set([remaining])
+        for offset in [-2, -1, 1, 2] where (0...8).contains(remaining + offset) {
+            values.insert(remaining + offset)
+        }
+        let sorted = Array(values.sorted().prefix(4))
+        let answerIndex = sorted.firstIndex(of: remaining) ?? 0
+
+        let heldPhrase = held == 0 ? "no jokers" : held == 1 ? "1 joker" : "\(held) jokers"
+        let exposedPhrase = exposed == 0 ? "None sit" : exposed == 1 ? "1 sits" : "\(exposed) sit"
+        let discardedPhrase = discarded == 0 ? "none are" : discarded == 1 ? "1 is" : "\(discarded) are"
+        return QuickItem(
+            id: PracticeSkill.tileCounting.itemPrefix + UUID().uuidString,
+            prompt: "You hold \(heldPhrase). \(exposedPhrase) in other players' exposures and \(discardedPhrase) in the discards. How many jokers are still hidden in the wall or other hands?",
+            tiles: Array(repeating: .joker, count: held),
+            choices: sorted.map(String.init),
+            answerIndex: answerIndex,
+            explanation: "Eight jokers are in the set. \(held) held, \(exposed) exposed and \(discarded) discarded leaves \(remaining) unseen. The exposed ones are not gone: hold the matching real tile and you can swap one out on your turn.",
+            sourceLabel: "Endless Practice",
+            roomID: PracticeSkill.tileCounting.roomID
+        )
     }
 
     // MARK: - Charleston passes
@@ -220,7 +256,8 @@ enum EndlessPractice {
     }
 
     /// Flowers and jokers are excluded: eight of each exist, so they do not
-    /// follow the four-of-a-kind arithmetic this drill teaches.
+    /// follow the four-of-a-kind arithmetic. Jokers get their own question
+    /// (`jokerCountingItem`).
     private static func randomCountableTile() -> Tile {
         let suited: [Tile] = (1...9).flatMap { rank in
             Suit.allCases.map { Tile.suited(rank: rank, suit: $0) }
