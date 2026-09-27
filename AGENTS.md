@@ -1,4 +1,4 @@
-# Mahj — Project Guide
+# Mahj Project Guide
 
 Mahj Trainer: American Mah Jongg drill app for new players (flashcards, quizzes,
 hand-matching, Charleston practice — no gameplay). XcodeGen project/scheme:
@@ -47,16 +47,16 @@ Terms of Use, and Privacy Policy. Don't trim any of them for layout.
 
 ## Architecture
 
-- `Shared/Models` — `Tile` (suits/winds/dragons/flower/joker, `.c(n)/.b(n)/.d(n)`
+- `Shared/Models`: `Tile` (suits/winds/dragons/flower/joker, `.c(n)/.b(n)/.d(n)`
   authoring shorthand), `HandCategory` (the 9 stable NMJL card sections), drill
   types (`Flashcard` + optional `CardChoice` self-test, `QuizQuestion`,
   `HandMatchQuestion`, `CharlestonScenario`, `Drill`, `Room`).
-- `Shared/Content` — all drill content as Swift constants; `DrillLibrary.rooms`
+- `Shared/Content`: all drill content as Swift constants; `DrillLibrary.rooms`
   defines the 5 rooms (ids: `tile-room`, `card-room`, `charleston-room`,
   `table-room`, `pro-tables`). `SessionBuilder.dailyMix` builds the Get Started
   mixed session (missed items first, then unseen; excludes Pro for free users).
   `HowToPlayContent` holds the original six-page beginner primer.
-- `Shared/Services` — `ProgressStore` (UserDefaults streaks/completions/review
+- `Shared/Services`: `ProgressStore` (UserDefaults streaks/completions/review
   gate + item-level `seenItems`/`missedItems`, `resetAll()` keeps onboarding),
   `AppSettings` (theme Light-default/Dark/System, haptics, sound, daily
   reminder via UNUserNotificationCenter), `SubscriptionService` (RC; simulator
@@ -72,7 +72,7 @@ Condensed from the deep notes below; the reasoning and the bugs behind each one 
 - No generated illustration: tiles are drawn from real data by `TileView`/`TileRackView`.
 
 ## Deep notes (load on demand)
-These files load automatically when you read a file matching their `paths:`. Agents that do not auto-load rules (AGENTS.md readers) should open the file for the area they are touching. Record new area-specific learnings in the matching file, not here.
+These files load automatically when you read a file matching their `paths:`. Agents that do not auto-load rules (Codex, Cursor) should open the file for the area they are touching. Record new area-specific learnings in the matching file, not here.
 
 | File | Covers | Read when |
 |---|---|---|
@@ -86,7 +86,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 
 ## Flashcard deck (signature interaction)
 
-See `MahjTrainer/Views/Drills/CLAUDE.md` for the swipe-deck gesture/flip
+See `MahjTrainer/Views/Drills/AGENTS.md` for the swipe-deck gesture/flip
 mechanics and gotchas.
 
 ## Design research
@@ -97,5 +97,5 @@ swipe-deck checklist) — consult before design or monetization changes.
 
 ---
 Shared iOS conventions (build, simulator, release/TestFlight, ASC key, signing,
-review funnel, pricing scripts, gotchas): always-loaded global CLAUDE.md + the
+review funnel, pricing scripts, gotchas): the global agent rules + the
 `ios-dev` skill.

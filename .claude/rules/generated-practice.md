@@ -17,7 +17,7 @@ paths:
 
 # Mahj: generated practice
 
-Moved verbatim from CLAUDE.md. Loads when a matching file is read; update it here.
+Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
 **Generated practice (1.1, 2026-07-30):** the authored sets are finite, so a
 motivated player exhausted Mahj+ in two sittings and then paid for nothing new.

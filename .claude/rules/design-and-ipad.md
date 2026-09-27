@@ -7,9 +7,9 @@ paths:
 
 # Mahj: design system, iPad layout, and illustration
 
-Moved verbatim from CLAUDE.md. Loads when a matching file is read; update it here.
+Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
-- `MahjTrainer/Utilities/Theme.swift` — the warm-modern design system: cream
+- `MahjTrainer/Utilities/Theme.swift`: the warm-modern design system: cream
   surfaces, jade primary, coral energy, per-room accents (`Room.accent`), serif
   display type (`Theme.display`), `themedCard()`/`primaryCTA()` styles,
   `Haptics` (gated on `settings.haptics`; grading uses `correctAnswer()` /

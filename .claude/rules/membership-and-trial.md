@@ -15,7 +15,7 @@ paths:
 
 # Mahj: the free-beginner model and the onboarding trial
 
-Moved verbatim from CLAUDE.md. Loads when a matching file is read; update it here.
+Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
 **Free-beginner + extra-sets model (2026-07-13):** all four beginner rooms are
 FREE and everything that was ever free stays free. Mahj+ ADDS: one extra

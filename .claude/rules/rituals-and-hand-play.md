@@ -19,7 +19,7 @@ paths:
 
 # Mahj: game night, Play a Hand, and the reference
 
-Moved verbatim from CLAUDE.md. Loads when a matching file is read; update it here.
+Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
 **Game-night rhythm (1.2, 2026-08-08):** Mahj+ now owns two recurring practice
 rituals. `MahjMinuteContent` deterministically builds the same five questions

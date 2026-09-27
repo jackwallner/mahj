@@ -11,9 +11,9 @@ paths:
 
 # Mahj: Home, rooms, and the onboarding flow
 
-Moved verbatim from CLAUDE.md. Loads when a matching file is read; update it here.
+Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
-- `MahjTrainer/Views` — `RootView` branches onboarding vs `HomeView` on the
+- `MahjTrainer/Views`: `RootView` branches onboarding vs `HomeView` on the
   `progress.hasOnboarded` defaults key (branch, NOT a fullScreenCover — the
   cover flashed Home behind onboarding on first launch). Navigation is a LOBBY:
   `HomeView` shows Get Started (mixed session) + one card per room; `RoomView`

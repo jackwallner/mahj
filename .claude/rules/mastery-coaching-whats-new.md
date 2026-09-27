@@ -15,7 +15,7 @@ paths:
 
 # Mahj: mastery, coaching the miss, and What's New
 
-Moved verbatim from CLAUDE.md. Loads when a matching file is read; update it here.
+Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
 **Mastery, not completions (1.3):** the room ring counts questions answered
 right TWICE IN A ROW (`PracticeRecord.isKnown`), not drills opened, because
