@@ -1,16 +1,16 @@
 # Mahj Project Guide
 
 Mahj Trainer: American Mah Jongg drill app for new players (flashcards, quizzes,
-hand-matching, Charleston practice — no gameplay). XcodeGen project/scheme:
+hand-matching, Charleston practice, no gameplay). XcodeGen project/scheme:
 `MahjTrainer`, sim lease owner `mahj`. Bundle ID `com.jackwallner.mahj`.
 
 **Product direction:** the swipe deck is a signature mechanic but this is NOT
-"a flashcard app" — each room is free to use whatever training interaction fits
+"a flashcard app." Each room is free to use whatever training interaction fits
 its skill (self-test choices, scenario picks, future sims). Propose
 room-appropriate mechanics when adding content.
 
 **Content is legally constrained:** the NMJL yearly card is copyrighted. Every
-example hand is an ORIGINAL teaching hand for the category system — never copy
+example hand is an ORIGINAL teaching hand for the category system. Never copy
 hands from the actual card. Keep the "not affiliated with NMJL" disclaimer
 (Home footer, Settings, App Store description). `ContentValidityTests` enforces
 content rules across ALL drills in `DrillLibrary` (13-tile deals/racks, 3-tile
@@ -60,7 +60,7 @@ Terms of Use, and Privacy Policy. Don't trim any of them for layout.
   gate + item-level `seenItems`/`missedItems`, `resetAll()` keeps onboarding),
   `AppSettings` (theme Light-default/Dark/System, haptics, sound, daily
   reminder via UNUserNotificationCenter), `SubscriptionService` (RC; simulator
-  early-return preserved — never configure the prod `appl_` key on sim).
+  early-return preserved. Never configure the prod `appl_` key on sim).
 
 ## Rules that hold everywhere
 Condensed from the deep notes below; the reasoning and the bugs behind each one live there.
@@ -93,7 +93,7 @@ mechanics and gotchas.
 
 `docs/research/mahjong-market.md` (competitor apps, pricing, aesthetic
 white-space) and `docs/research/trainer-ux.md` (flashcard/session UX patterns,
-swipe-deck checklist) — consult before design or monetization changes.
+swipe-deck checklist). Consult before design or monetization changes.
 
 ---
 Shared iOS conventions (build, simulator, release/TestFlight, ASC key, signing,
