@@ -7,3 +7,9 @@ A Reference egy új, kereshető szójegyzék, plusz egy oldal a kártya minden s
 A szobák haladása mostantól azt számolja, amit valóban megtanultál: egy kérdés akkor ül, ha kétszer egymás után helyesen válaszolsz rá.
 
 Ha hibázol, az alkalmazás most megmondja miért volt rossz a válaszod, nem csak azt, hogy melyik lett volna a helyes.
+
+Újdonság a Table Roomban: pontozás és asztali szabályok. Ki mennyit fizet, mikor késő már egy követ bekérni, és mi történik egy téves mah jongg után.
+
+Újdonság a Card Roomban: hogyan olvass el egy sort a kártyán, az egyező és ellentétes sárkányoktól a NEWS-ig és a nullákig.
+
+Minden kérdést újra ellenőriztünk a szabályok alapján, és kijavítottunk néhány választ, köztük egy dzsókeres és egy védekezési kérdést, amelyekre játékosok hívták fel a figyelmünket. Köszönjük a visszajelzéseket.

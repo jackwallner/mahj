@@ -7,3 +7,9 @@ Reference is een nieuwe doorzoekbare woordenlijst plus een pagina voor elke sect
 De voortgang per kamer telt nu wat je echt geleerd hebt: een vraag zit vast zodra je hem twee keer achter elkaar goed beantwoordt.
 
 Heb je het mis, dan vertelt de app nu waarom je antwoord fout was, niet alleen welk antwoord goed was.
+
+Nieuw in de Table Room: puntentelling en tafelregels. Wie wat betaalt, wanneer het te laat is om een steen te roepen en wat er gebeurt na een onterechte mah jongg.
+
+Nieuw in de Card Room: zo lees je een regel op de kaart, van bijpassende en tegengestelde draken tot NEWS en nullen.
+
+We hebben ook elke vraag opnieuw aan de regels getoetst en een handvol antwoorden verbeterd, waaronder een jokervraag en een verdedigingsvraag waar spelers ons op wezen. Bedankt voor jullie feedback.

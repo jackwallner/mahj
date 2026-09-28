@@ -81,13 +81,13 @@ enum ReferenceContent {
         SectionReference(
             category: .year,
             exampleRack: [.d(2), .d(2), .dragon(.soap), .dragon(.soap), .d(2), .d(2),
-                          .b(2), .b(2), .b(2), .flower, .flower, .flower, .flower],
+                          .d(6), .d(6), .b(2), .b(2), .b(2), .flower, .flower],
             watchOut: "Soaps do double duty as zeros, so they get scarce fast. If two are already showing on other racks, the year hand you are chasing may already be out of reach."
         ),
         SectionReference(
             category: .evens2468,
-            exampleRack: [.c(2), .c(2), .c(2), .c(4), .c(4), .c(4), .b(6), .b(6), .b(6),
-                          .d(8), .d(8), .d(8), .d(8)],
+            exampleRack: [.c(2), .c(2), .c(4), .c(4), .c(4), .b(6), .b(6), .b(6), .b(6),
+                          .d(8), .d(8), .flower, .flower],
             watchOut: "Every odd tile you pick up is dead weight. If half your rack is odd after the Charleston, you are in the wrong section."
         ),
         SectionReference(

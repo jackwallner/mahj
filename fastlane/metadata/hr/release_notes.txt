@@ -7,3 +7,9 @@ Reference je novi pretraživi pojmovnik i stranica za svaku sekciju karte, bespl
 Napredak u sobama sada broji ono što si stvarno naučio: pitanje je usvojeno kada na njega dvaput zaredom odgovoriš točno.
 
 Ako pogriješiš, aplikacija ti sada kaže zašto je tvoj odgovor bio pogrešan, a ne samo koji je bio točan.
+
+Novo u Table Roomu: bodovanje i pravila za stolom. Tko koliko plaća, kada je prekasno za zvanje pločice i što se događa nakon pogrešnog mah jongga.
+
+Novo u Card Roomu: kako pročitati redak na kartici, od istih i suprotnih zmajeva do NEWS i nula.
+
+Također smo ponovno provjerili svako pitanje prema pravilima i ispravili nekoliko odgovora, među njima pitanje o jokerima i obrambeno pitanje na koje su nas upozorili igrači. Hvala na povratnim informacijama.

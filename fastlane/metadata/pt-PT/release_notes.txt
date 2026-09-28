@@ -7,3 +7,9 @@ Reference é um novo glossário pesquisável mais uma página para cada seção 
 O progresso das salas agora conta o que você realmente aprendeu: uma pergunta fica quando você acerta duas vezes seguidas.
 
 Se errar, o app agora diz por que sua resposta estava errada, não apenas qual era a certa.
+
+Novidade na Table Room: pontuação e regras de mesa. Quem paga o quê, quando já é tarde para pedir uma peça e o que acontece depois de um mah jongg errado.
+
+Novidade na Card Room: como ler uma linha do cartão, desde os dragões iguais e opostos até NEWS e aos zeros.
+
+Também voltámos a verificar cada pergunta segundo as regras e corrigimos algumas respostas, incluindo uma pergunta sobre jokers e outra de defesa assinaladas pelos jogadores. Obrigado pelos comentários.

@@ -7,3 +7,9 @@ Reference to nowy przeszukiwalny słowniczek plus strona dla każdej sekcji kart
 Postęp w pokojach liczy teraz to, czego naprawdę się nauczyłeś: pytanie zostaje opanowane, gdy odpowiesz na nie poprawnie dwa razy z rzędu.
 
 Gdy się pomylisz, aplikacja powie ci teraz dlaczego twoja odpowiedź była zła, a nie tylko która była dobra.
+
+Nowość w Table Room: punktacja i zasady przy stole. Kto ile płaci, kiedy jest za późno na zawołanie kamienia i co się dzieje po błędnym mah jongg.
+
+Nowość w Card Room: jak czytać wiersz na karcie, od pasujących i przeciwnych smoków po NEWS i zera.
+
+Sprawdziliśmy też ponownie każde pytanie pod kątem zasad i poprawiliśmy kilka odpowiedzi, w tym pytanie o jokery i pytanie o obronę, na które zwrócili nam uwagę gracze. Dziękujemy za uwagi.

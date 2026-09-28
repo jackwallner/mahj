@@ -197,8 +197,12 @@ struct TileRackView: View {
     private let columns = 7
 
     var body: some View {
+        // Rows are balanced rather than filled: eight tiles split 4 and 4, not
+        // 7 and a lone tile. A full 13-tile rack still reads 7 and 6.
+        let rowCount = max(1, (tiles.count + columns - 1) / columns)
+        let perRow = max(1, (tiles.count + rowCount - 1) / rowCount)
         let rows = tiles.enumerated().map { (index: $0.offset, tile: $0.element) }
-            .chunked(into: columns)
+            .chunked(into: perRow)
         VStack(spacing: 10) {
             ForEach(0..<rows.count, id: \.self) { rowIndex in
                 HStack(spacing: 6) {

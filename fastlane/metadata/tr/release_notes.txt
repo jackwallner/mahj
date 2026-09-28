@@ -7,3 +7,9 @@ Reference, aranabilir yeni bir sözlük ve kartın her bölümü için bir sayfa
 Oda ilerlemesi artık gerçekten öğrendiğini sayıyor: bir soru, üst üste iki kez doğru cevapladığında yerleşir.
 
 Yanlış yaparsan uygulama artık cevabının neden yanlış olduğunu söylüyor, sadece doğrusunun ne olduğunu değil.
+
+Table Room'da yeni: puanlama ve masa kuralları. Kim ne öder, bir taşı istemek için ne zaman geç kalınır ve hatalı bir mah jongg sonrası ne olur.
+
+Card Room'da yeni: karttaki bir satır nasıl okunur, eşleşen ve karşıt ejderhalardan NEWS'e ve sıfırlara kadar.
+
+Ayrıca her soruyu kurallara göre yeniden kontrol ettik ve oyuncuların bildirdiği bir joker sorusu ile bir savunma sorusu dahil birkaç cevabı düzelttik. Geri bildirimleriniz için teşekkürler.

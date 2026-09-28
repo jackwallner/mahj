@@ -510,6 +510,115 @@ final class NewFeatureSmokeTests: XCTestCase {
         problems.append("no answer row to tap")
     }
 
+    // MARK: - 1.3.1 content walk
+
+    /// Every drill that gained questions in 1.3.1, answered end to end in the
+    /// real app, with a capture of every new screen. Member walk, so the
+    /// Mahj+ sets and the Master Tables open.
+    func testMemberWalksThe131Content() {
+        _ = app.wait(for: .runningForeground, timeout: 30)
+        settle()
+        dismissWhatsNew()
+
+        walkDeck(room: "The Card Room", drill: "Know the Sections", shot: "60_card_line")
+        walkQuiz(room: "The Table Room", drill: "Table Rules", shot: "62_table_rules")
+        walkQuiz(room: "The Tile Room", drill: "Tile Check: Extra Reps", shot: "64_tile_extras")
+        walkDeck(room: "The Table Room", drill: "Keep or Throw: Extra Reps", shot: "66_judgment_extras")
+        walkQuiz(room: "The Master Tables", drill: "Joker School", shot: "68_joker_school")
+        walkQuiz(room: "The Master Tables", drill: "Defense School", shot: "70_defense_school")
+
+        home()
+        if open("Endless"), open("Count What's Left") {
+            for index in 0..<8 {
+                capture("72_counting_\(index)")
+                answerAnything()
+                capture("72_counting_\(index)_graded")
+                if !open("Next") { break }
+            }
+        } else {
+            problems.append("could not open Count What's Left")
+        }
+
+        attachTree("content131_final")
+        reportProblems()
+    }
+
+    /// Rooms sit in a scrolling lobby, and the Master Tables is the last one,
+    /// so it can need several swipes before it is on screen at all.
+    private func openRoom(_ name: String) -> Bool {
+        let predicate = NSPredicate(format: "label CONTAINS %@", name)
+        for _ in 0..<6 {
+            for query in [app.buttons, app.staticTexts] {
+                let match = query.matching(predicate).firstMatch
+                if match.exists, match.isHittable {
+                    match.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+                    settle()
+                    return true
+                }
+            }
+            app.swipeUp()
+            settle()
+        }
+        return false
+    }
+
+    /// Answers a whole quiz drill, capturing every question and its graded
+    /// state, then finishes it.
+    private func walkQuiz(room: String, drill: String, shot: String) {
+        home()
+        guard openRoom(room), open(drill) else {
+            problems.append("could not open \(drill)")
+            return
+        }
+        for index in 0..<30 {
+            capture("\(shot)_\(index)")
+            answerAnything()
+            capture("\(shot)_\(index)_graded")
+            if open("Next Question") { continue }
+            if !open("Finish") { problems.append("\(drill) question \(index) had no way on") }
+            break
+        }
+        settle()
+        if !open("Done") { back() }
+    }
+
+    /// Walks a flashcard deck: choice cards get an answer and Next, plain cards
+    /// get a flip and a swipe right.
+    private func walkDeck(room: String, drill: String, shot: String) {
+        home()
+        guard openRoom(room), open(drill) else {
+            problems.append("could not open \(drill)")
+            return
+        }
+        for index in 0..<40 {
+            if exists("Make the call") {
+                capture("\(shot)_\(index)")
+                let make = app.staticTexts["Make the call"].firstMatch
+                let buttons = app.buttons.allElementsBoundByIndex.filter {
+                    $0.exists && $0.frame.minY > make.frame.maxY && !$0.label.isEmpty
+                }
+                guard let first = buttons.first else {
+                    problems.append("\(drill) card \(index) showed no choices")
+                    break
+                }
+                first.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+                settle()
+                capture("\(shot)_\(index)_answered")
+                if !open("Next") { problems.append("\(drill) card \(index) had no Next"); break }
+            } else {
+                let center = app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45))
+                center.tap()
+                settle()
+                if exists("Done") || exists("Keep going") || exists("Back to") { break }
+                center.press(forDuration: 0.05, thenDragTo: app.windows.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.98, dy: 0.45)))
+                settle()
+            }
+            if exists("Done") { break }
+        }
+        capture("\(shot)_end")
+        if !open("Done") { back() }
+    }
+
     // MARK: - Helpers
 
     private func dismissWhatsNew() {

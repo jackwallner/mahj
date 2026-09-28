@@ -7,3 +7,9 @@ Reference on uusi haettava sanasto sekä sivu kortin jokaisesta osiosta, ilmaine
 Huoneiden edistyminen laskee nyt sen, minkä olet oikeasti oppinut: kysymys jää mieleen, kun vastaat siihen oikein kahdesti peräkkäin.
 
 Jos vastaat väärin, sovellus kertoo nyt miksi vastauksesi oli väärä, ei vain sitä mikä oli oikea.
+
+Uutta Table Roomissa: pisteytys ja pöytäsäännöt. Kuka maksaa mitä, milloin laatan kutsuminen on liian myöhäistä ja mitä tapahtuu virheellisen mah jonggin jälkeen.
+
+Uutta Card Roomissa: näin luet kortin rivin, samanvärisistä ja vastakkaisista lohikäärmeistä NEWSiin ja nolliin.
+
+Tarkistimme myös jokaisen kysymyksen uudelleen sääntöjä vasten ja korjasimme muutaman vastauksen, muun muassa jokerikysymyksen ja puolustuskysymyksen, joista pelaajat huomauttivat. Kiitos palautteesta.

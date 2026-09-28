@@ -191,11 +191,11 @@ enum EndlessPractice {
         let answerIndex = sorted.firstIndex(of: remaining) ?? 0
 
         let heldPhrase = held == 0 ? "no jokers" : held == 1 ? "1 joker" : "\(held) jokers"
-        let exposedPhrase = exposed == 0 ? "None sit" : exposed == 1 ? "1 sits" : "\(exposed) sit"
-        let discardedPhrase = discarded == 0 ? "none are" : discarded == 1 ? "1 is" : "\(discarded) are"
+        let exposedPhrase = exposed == 0 ? "none" : "\(exposed)"
+        let discardedPhrase = discarded == 0 ? "none" : "\(discarded)"
         return QuickItem(
             id: PracticeSkill.tileCounting.itemPrefix + UUID().uuidString,
-            prompt: "You hold \(heldPhrase). \(exposedPhrase) in other players' exposures and \(discardedPhrase) in the discards. How many jokers are still hidden in the wall or other hands?",
+            prompt: "You hold \(heldPhrase). You can see \(exposedPhrase) in exposures and \(discardedPhrase) in the discards. How many jokers are still unseen?",
             tiles: Array(repeating: .joker, count: held),
             choices: sorted.map(String.init),
             answerIndex: answerIndex,

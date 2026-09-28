@@ -7,3 +7,9 @@ Reference és un nou glossari amb cerca i una pàgina per a cada secció de la c
 El progrés de les sales ara compta el que has après de debò: una pregunta queda fixada quan l'encertes dues vegades seguides.
 
 Si falles, l'app ara et diu per què la teva resposta era incorrecta, no només quina era la bona.
+
+Novetat a la Table Room: puntuació i normes de taula. Qui paga què, quan és massa tard per cantar una fitxa i què passa després d'un mah jongg erroni.
+
+Novetat a la Card Room: com llegir una línia de la targeta, des dels dracs coincidents i oposats fins a NEWS i els zeros.
+
+També hem revisat cada pregunta amb les normes i hem corregit algunes respostes, entre elles una pregunta de comodins i una de defensa que ens van assenyalar els jugadors. Gràcies pels comentaris.

@@ -7,3 +7,9 @@ Reference est un nouveau glossaire consultable, avec une page par section de la 
 La progression des salles compte désormais ce que vous avez vraiment appris : une question est acquise dès que vous y répondez juste deux fois de suite.
 
 En cas d'erreur, l'application vous dit maintenant pourquoi votre réponse était fausse, et pas seulement quelle était la bonne.
+
+Nouveau dans la Table Room : décompte des points et règles de table. Qui paie quoi, quand il est trop tard pour réclamer une tuile et ce qui se passe après un mah jongg annoncé à tort.
+
+Nouveau dans la Card Room : comment lire une ligne de la carte, des dragons assortis et opposés jusqu'à NEWS et aux zéros.
+
+Nous avons aussi revérifié chaque question au regard des règles et corrigé quelques réponses, dont une question sur les jokers et une question de défense signalées par des joueurs. Merci pour vos retours.

@@ -7,3 +7,9 @@ Reference adalah glosarium baru yang bisa dicari plus satu halaman untuk setiap 
 Kemajuan tiap ruang kini menghitung yang benar-benar kamu kuasai: sebuah soal dianggap dikuasai setelah kamu menjawabnya benar dua kali berturut-turut.
 
 Kalau salah, aplikasi kini memberi tahu mengapa jawabanmu keliru, bukan sekadar mana yang benar.
+
+Baru di Table Room: skor dan aturan meja. Siapa membayar berapa, kapan sudah terlambat untuk memanggil ubin, dan apa yang terjadi setelah salah menyatakan mah jongg.
+
+Baru di Card Room: cara membaca satu baris di kartu, dari naga yang sepadan dan berlawanan hingga NEWS dan nol.
+
+Kami juga memeriksa ulang setiap pertanyaan sesuai aturan dan memperbaiki beberapa jawaban, termasuk pertanyaan tentang joker dan pertanyaan bertahan yang ditandai para pemain. Terima kasih atas masukannya.

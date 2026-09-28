@@ -7,3 +7,9 @@ Reference är en ny sökbar ordlista plus en sida för varje sektion på kortet,
 Rummens framsteg räknar nu det du faktiskt lärt dig: en fråga sitter när du svarat rätt två gånger i rad.
 
 Svarar du fel säger appen nu varför ditt svar var fel, inte bara vilket som var rätt.
+
+Nytt i Table Room: poängräkning och bordsregler. Vem som betalar vad, när det är för sent att ropa på en bricka och vad som händer efter en felaktig mah jongg.
+
+Nytt i Card Room: så läser du en rad på kortet, från matchande och motsatta drakar till NEWS och nollor.
+
+Vi har också gått igenom varje fråga mot reglerna igen och rättat några svar, bland annat en jokerfråga och en försvarsfråga som spelare påpekade. Tack för era synpunkter.

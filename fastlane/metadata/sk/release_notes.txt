@@ -7,3 +7,9 @@ Reference je nový prehľadávateľný slovníček plus stránka ku každej sekc
 Postup v miestnostiach teraz počíta to, čo si sa naozaj naučil: otázka je zvládnutá, keď na ňu odpovieš správne dvakrát po sebe.
 
 Keď sa pomýliš, aplikácia ti teraz povie prečo bola tvoja odpoveď zlá, nielen ktorá bola správna.
+
+Novinka v Table Room: bodovanie a pravidlá pri stole. Kto koľko platí, kedy je na ohlásenie kameňa neskoro a čo sa stane po chybnom mah jongg.
+
+Novinka v Card Room: ako čítať riadok na karte, od zhodných a opačných drakov po NEWS a nuly.
+
+Znovu sme tiež preverili každú otázku podľa pravidiel a opravili niekoľko odpovedí, okrem iného otázku o žolíkoch a obrannú otázku, na ktoré nás upozornili hráči. Ďakujeme za pripomienky.
