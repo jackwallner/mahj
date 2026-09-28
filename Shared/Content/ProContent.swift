@@ -71,7 +71,7 @@ enum ProContent {
             tiles: [.b(6), .b(6), .b(6), .b(6), .c(6), .c(6), .c(6), .c(6)],
             choices: ["6 Dot", "North", "1 Crak"],
             answerIndex: 0,
-            explanation: "The same number in two suits is the Like Numbers tell, and Like Numbers hands are built from kongs, so read it there. Whatever their exact hand, it is made of 6s: the 6 Dot is the tile to hold. Exposures cannot grow once play moves on, so read them as they sit."
+            explanation: "The same number in two suits is the Like Numbers tell, and kongs of it make the read even stronger. Whatever their exact hand, it is made of 6s: the 6 Dot is the tile to hold. Exposures cannot grow once play moves on, so read them as they sit."
         ),
         QuizQuestion(
             id: "pro-def-read-369",

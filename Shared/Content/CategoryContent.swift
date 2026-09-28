@@ -84,7 +84,7 @@ enum CategoryContent {
             id: "cat-line-matching-dragon",
             frontTitle: "A line shows 4444 and a D, both in the same color.",
             frontTiles: [.c(4), .c(4), .c(4), .c(4), .dragon(.red)],
-            frontSubtitle: "Does this group fit it?",
+            frontSubtitle: "Your tiles: do they fill that part of the line?",
             backTitle: "Yes: Same Color, Same Suit",
             backBody: "A dragon printed in the same color as a number group is that suit's own dragon. 4 Craks go with the Red Dragon, so this fits. Green would belong with bams, and Soap with dots.",
             choice: CardChoice("Fits", "Doesn't fit", answerIndex: 0)
@@ -93,7 +93,7 @@ enum CategoryContent {
             id: "cat-line-opposite-dragon",
             frontTitle: "A line shows 4444 in one color and a D in a different color.",
             frontTiles: [.b(4), .b(4), .b(4), .b(4), .dragon(.green)],
-            frontSubtitle: "Does this group fit it?",
+            frontSubtitle: "Your tiles: do they fill that part of the line?",
             backTitle: "No: Different Color, Different Suit",
             backBody: "A dragon in a different color from the numbers has to come from a different suit. Green is the bams' own dragon, so it matches these 4 Bams instead of contrasting with them. A Red Dragon or a Soap would fit.",
             choice: CardChoice("Fits", "Doesn't fit", answerIndex: 1)
