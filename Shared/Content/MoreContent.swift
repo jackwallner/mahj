@@ -19,24 +19,23 @@ enum MoreContent {
             answerIndex: 2,
             explanation: "Eight flowers, and unlike suited tiles they are all interchangeable with each other."
         ),
+        // These two replaced a joker count and a joker-in-a-pair question that
+        // repeated the free Tile Check word for word.
         QuizQuestion(
-            id: "more-tile-joker-count",
-            prompt: "How many jokers are in a standard American set?",
-            choices: ["Four", "Six", "Eight", "Ten"],
+            id: "more-tile-dragon-count",
+            prompt: "How many dragon tiles are in an American set?",
+            tiles: [.dragon(.red), .dragon(.green), .dragon(.soap)],
+            choices: ["Three", "Eight", "Twelve", "Sixteen"],
             answerIndex: 2,
-            explanation: "Eight jokers. That is why joker-hungry sections like Quints are playable at all."
+            explanation: "Twelve: four Red, four Green and four Soap. Sixteen is the winds. With only four of each dragon, a dragon kong takes every copy or a joker."
         ),
         QuizQuestion(
-            id: "more-tile-joker-pair",
-            prompt: "Can a joker stand in for a tile in a PAIR?",
-            choices: [
-                "Yes, jokers are always wild",
-                "No, jokers only work in groups of three or more",
-                "Only in the Charleston",
-                "Only if both players agree"
-            ],
-            answerIndex: 1,
-            explanation: "Jokers substitute in pungs, kongs and quints, never in a pair or a single. That is exactly why Singles and Pairs hands pay the most."
+            id: "more-tile-one-bam",
+            prompt: "Many sets draw the 1 Bam as something other than a single stick. What is it usually?",
+            tiles: [.b(1)],
+            choices: ["A bird", "A flower", "A dragon", "A joker"],
+            answerIndex: 0,
+            explanation: "A bird, often a peacock or sparrow. It is still just the 1 Bam: a bam tile, and one of the four copies."
         ),
         QuizQuestion(
             id: "more-tile-swap-joker",

@@ -457,6 +457,20 @@ struct FlipCardFace: View {
         }
     }
 
+    /// 52pt tiles fit five across the card. A wider row (a seven-tile run)
+    /// shrinks its tiles instead of stretching the card past the screen edge,
+    /// which also stretched every card stacked behind it.
+    private var frontTileWidth: CGFloat {
+        let count = card.frontTiles.count
+        let rows = max(1, (count + 6) / 7)
+        let widest = (count + rows - 1) / rows
+        switch widest {
+        case ...5: return 52
+        case 6: return 44
+        default: return 38
+        }
+    }
+
     private var front: some View {
         MahjCardFace(accent: accent, eyebrow: "MAHJ TRAINER") {
             VStack(spacing: 18) {
@@ -466,7 +480,7 @@ struct FlipCardFace: View {
                     .foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.center)
                 if !card.frontTiles.isEmpty {
-                    TileRackView(tiles: card.frontTiles, tileWidth: 52)
+                    TileRackView(tiles: card.frontTiles, tileWidth: frontTileWidth)
                 }
                 if let subtitle = card.frontSubtitle {
                     Text(subtitle)

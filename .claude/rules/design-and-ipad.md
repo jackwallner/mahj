@@ -43,3 +43,9 @@ fought the type-and-tile aesthetic. Tiles are drawn from real data by
 `TileView`/`TileRackView`; a generated tile face is a WRONG tile, and a wrong
 tile teaches the wrong thing. Keep the visual language to type, tiles, SF
 Symbols and the room accents.
+
+**Tile rows (2026-09-27):** `TileRackView` balances its rows (8 tiles read 4
+and 4, 13 still read 7 and 6). The flashcard front sizes tiles to its widest
+row (52pt up to five across, 44 at six, 38 at seven): the deck is a ZStack, so
+one wide card stretched EVERY card in the deck past the screen edge and
+clipped the choice buttons. Check any new wide front on a phone.

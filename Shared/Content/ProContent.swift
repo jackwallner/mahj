@@ -138,16 +138,16 @@ enum ProContent {
             explanation: "Exposed jokers are up for grabs. A single spare natural tile can pull one into your hand on your turn. Knowing which jokers are live tells you when a swap is waiting for you."
         ),
         QuizQuestion(
-            id: "pro-def-dead-joker",
-            prompt: "An opponent discards a joker. Can you claim it to help your hand?",
-            tiles: [.joker],
-            choices: ["Yes, call it for a pung", "Yes, but only to make an exposure", "No, a discarded joker is dead and cannot be called"],
-            answerIndex: 2,
-            explanation: "Once a joker hits the discards it is dead. No one can call it or pick it up; it just sits there as a thrown tile. Jokers only come from the wall or from swapping an exposed one."
+            id: "pro-def-hidden-count",
+            prompt: "Between turns, an opponent has three pungs face up. How many of their tiles are still hidden?",
+            tiles: [],
+            choices: ["One", "Four", "Seven", "Ten"],
+            answerIndex: 1,
+            explanation: "Everyone holds thirteen between turns. Nine are showing in the three pungs, so only four are hidden, and those four plus one more tile make the hand. The fewer tiles hidden, the easier they are to read and the closer they usually are."
         ),
         QuizQuestion(
             id: "pro-def-follow-discard",
-            prompt: "Late in the hand, the player on your left just threw a 4 Bam and nobody called it. You hold a 4 Bam. How risky is it to throw now?",
+            prompt: "The player on your left just threw a 4 Bam and nobody called it. You hold a 4 Bam. How risky is throwing it now?",
             tiles: [.b(4)],
             choices: ["About as safe as a throw gets", "Very dangerous, it is live", "Illegal, the same tile cannot follow", "Only safe if you are East"],
             answerIndex: 0,
