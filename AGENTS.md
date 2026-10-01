@@ -84,6 +84,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/home-and-onboarding-flow.md` | Views: the lobby, onboarding branch, primer and tour | `RootView`, Home, rooms, onboarding |
 | `.claude/rules/design-and-ipad.md` | Theme and haptics, iPad layout, no illustration | `Theme`, components, drill layouts |
 | `.claude/rules/screenshots.md` | Screenshots: captured, not hand-shot | Capture scripts, the `Screenshots` scheme |
+| `.claude/rules/android.md` | The Android port: exported content, RNG parity, Play identity, deliberate differences | Anything under `android/` or the content export |
 
 ## Flashcard deck (signature interaction)
 
