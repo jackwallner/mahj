@@ -14,6 +14,7 @@ import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.PurchasesConfiguration
 import com.revenuecat.purchases.PurchasesErrorCode
+import com.revenuecat.purchases.PurchasesException
 import com.revenuecat.purchases.PurchasesTransactionException
 import com.revenuecat.purchases.awaitCustomerInfo
 import com.revenuecat.purchases.awaitOfferings
@@ -49,6 +50,11 @@ internal fun purchaseOutcome(code: PurchasesErrorCode, userCancelled: Boolean): 
     code == PurchasesErrorCode.PaymentPendingError -> PurchaseOutcome.PENDING
     else -> null
 }
+
+internal fun restoreFailureMessage(code: PurchasesErrorCode): String =
+    if (code == PurchasesErrorCode.PaymentPendingError) {
+        "Google Play is still processing your payment. ${Membership.NAME} unlocks as soon as it completes."
+    } else "Couldn't restore purchases. Try again."
 
 class PurchaseException(message: String) : Exception(message)
 
@@ -201,6 +207,8 @@ class SubscriptionService(
             apply(Purchases.sharedInstance.awaitRestore())
         } catch (error: CancellationException) {
             throw error
+        } catch (error: PurchasesException) {
+            throw PurchaseException(restoreFailureMessage(error.code))
         } catch (_: Throwable) {
             throw PurchaseException("Couldn't restore purchases. Try again.")
         }

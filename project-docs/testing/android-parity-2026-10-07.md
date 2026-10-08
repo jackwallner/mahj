@@ -3,7 +3,7 @@
 ## Verified baseline
 
 - iOS 1.3.1, build 36: 167 unit tests and 3 screenshot UI tests passed.
-- Android build 2: 40 unit tests and 25 connected device tests passed on API 36.
+- Android build 3: 42 unit tests and 25 connected device tests passed on API 36.
 - Screenshot helper: 8 Python tests passed.
 - Minified QA reviewer access unlocked membership and survived a restart without a production RevenueCat connection.
 - Signed release bundle: package `com.jackwallner.mahj`, version 1.3.1 (1), target API 36. All four native libraries use at least 16 KB ELF load alignment.
@@ -73,3 +73,9 @@ The monthly test subscription was cancelled through the app's Manage Subscriptio
 The returning-subscriber paywall displays Subscribe and regular billing terms in the Play-installed build. Its yearly purchase selects the base plan, and the Google checkout omits the previous ineligible-trial warning. The no-charge yearly purchase unlocks Mahj+, has a sandbox receipt granting `pro`, and in-app restore reports "Mahj+ restored!". The yearly sandbox order was refunded and revoked for the next test; Google confirms it is a refunded test order with an expired test subscription. RevenueCat receipt refresh and in-app restore returned the app to free access.
 
 Lifetime uses Google's slow test card that approves after a few minutes. The checkout explicitly states this is a test order with no charge. The app displays the pending-payment explanation; RevenueCat has no lifetime purchase yet, and both prior subscription receipts have lost access. Completion and lifetime restore are pending.
+
+## Pending restore correction (build 3)
+
+Restoring while Google's delayed payment remained pending produced a generic retry error in build 2. Android now maps RevenueCat PaymentPendingError to the same pending-payment explanation used by purchase, while preserving retry messages for network and store failures. Two additional unit tests cover those cases. All 42 unit tests and 25 device tests pass; the QA APK, release APK and signed bundle build successfully. Evidence is in `/tmp/mahj-build3-full-verification.log` and `/tmp/mahj-build3-passing-results/`.
+
+Signed bundle SHA256 is `2c933f8e5439b10bdb3f1e0696930952898b8e5222564383772aba0ae2e78c54`. Version 1.3.1 (3) is active and available to internal testers, not reviewed. Play installation of build 3 and the remaining delayed Lifetime completion/restore check are pending. IARC terms consent is still required.

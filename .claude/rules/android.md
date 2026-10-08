@@ -146,7 +146,7 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 
 ## Verified release state (2026-10-08)
 
-- Internal track serves signed 2 (1.3.1), active for the existing verified
+- Internal track serves signed 3 (1.3.1), active for the existing verified
   tester list. The app has its temporary package-based name until review.
 - Google credentials are valid in the separate Android RevenueCat project.
 - The complete store listing and eight screenshots are saved, pending review.
@@ -171,3 +171,7 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 - The existing iOS RevenueCat configuration matches its before/after snapshot
   byte for byte across Apple products, entitlement metadata, current offering,
   packages and package-product assignments.
+
+- Build 3 handles pending Restore with the payment-pending explanation. All 42
+  unit tests and 25 device tests pass. It is active internally; install and
+  delayed Lifetime completion/restore verification are pending.
