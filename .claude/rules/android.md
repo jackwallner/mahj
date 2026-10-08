@@ -146,7 +146,7 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 
 ## Verified release state (2026-10-08)
 
-- Internal track serves signed 1 (1.3.1), active for the existing verified
+- Internal track serves signed 2 (1.3.1), active for the existing verified
   tester list. The app has its temporary package-based name until review.
 - Google credentials are valid in the separate Android RevenueCat project.
 - The complete store listing and eight screenshots are saved, pending review.
@@ -161,8 +161,9 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
   the release app displays Mahj+ unlocked. Annual and lifetime store-flow
   verification, pre-launch reporting and production submission remain pending.
 - Build 2 fixes returning-subscriber trial disclosure. Forty unit tests and 25
-  device tests pass. Its signed bundle is uploaded as an internal draft;
-  activation and Play installation are pending.
+  device tests pass. Its signed bundle is active internally and installed
+  through Play. Returning-subscriber copy and yearly base-plan purchase/restore
+  are verified in release. Lifetime pending payment is being checked.
 - The app-scoped service account can upload bundles and validate receipts.
   Subscription creation and regional-price conversion currently return 403.
   Use the signed-in Console for billing and final submission; expanded service

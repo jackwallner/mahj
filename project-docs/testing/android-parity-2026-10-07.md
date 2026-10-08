@@ -64,6 +64,12 @@ The real Google yearly purchase sheet rejected a second free trial after the mon
 
 Four new policy tests and two device flows cover new and returning subscribers, both subscription periods, lifetime copy, unavailable prices, onboarding and activity recreation. All 40 unit tests and 25 device tests pass. Logs are `/tmp/mahj-trial-policy-unit.log`, `/tmp/mahj-trial-policy-connected.log` and `/tmp/mahj-trial-policy-release.log`. Device XML is saved in `/tmp/mahj-trial-policy-passing-results/`.
 
-The signed 1.3.1 (2) bundle is 6,432,623 bytes, SHA256 `157bea4283fca2778f13690c86299c51ab85a02d69690d7ce48db32441a8869c`. Its package and version are verified, and all four native libraries retain at least 16 KB ELF load alignment. The official Play CLI successfully uploaded it as an internal draft. Activation and install-from-Play verification are pending.
+The signed 1.3.1 (2) bundle is 6,432,623 bytes, SHA256 `157bea4283fca2778f13690c86299c51ab85a02d69690d7ce48db32441a8869c`. Its package and version are verified, and all four native libraries retain at least 16 KB ELF load alignment. The official Play CLI uploaded it, Console activated it, and the remote test device updated through Google Play. Installed versionCode is 2, installer is `com.android.vending`, and the package is not debuggable.
 
 The monthly test subscription was cancelled through the app's Manage Subscription route. Google confirmed cancellation, and the release app returned to free access after expiry. Annual and lifetime purchase verification remain pending.
+
+## Build 2 store-flow evidence
+
+The returning-subscriber paywall displays Subscribe and regular billing terms in the Play-installed build. Its yearly purchase selects the base plan, and the Google checkout omits the previous ineligible-trial warning. The no-charge yearly purchase unlocks Mahj+, has a sandbox receipt granting `pro`, and in-app restore reports "Mahj+ restored!". The yearly sandbox order was refunded and revoked for the next test; Google confirms it is a refunded test order with an expired test subscription. RevenueCat receipt refresh and in-app restore returned the app to free access.
+
+Lifetime uses Google's slow test card that approves after a few minutes. The checkout explicitly states this is a test order with no charge. The app displays the pending-payment explanation; RevenueCat has no lifetime purchase yet, and both prior subscription receipts have lost access. Completion and lifetime restore are pending.
