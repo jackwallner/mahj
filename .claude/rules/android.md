@@ -135,6 +135,10 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
   Return `PurchaseOutcome.PENDING` without unlocking or presenting a failure.
 - The Swift exporter rounds numeric scoring fixtures to nine decimal places;
   dictionary summation order can change insignificant floating-point bits.
+- In Play Console plan IDs and local-price popups, clear the input, use
+  `pressSequentially`, then press Tab. Verify prices through the Play API after
+  the final save confirmation. `fill` changes the visible value but can leave
+  the underlying form value stale in these custom fields.
 
 ## Verified release state (2026-10-08)
 
@@ -143,14 +147,19 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 - Google credentials are valid in the separate Android RevenueCat project.
 - The complete store listing and eight screenshots are saved, pending review.
   App setup is 10 of 11 complete; IARC agreement approval is pending.
-- Monthly and yearly Google subscription identities exist without active base
-  plans. Console rejects valid base plan IDs. Lifetime is saved as a draft with
-  a backwards-compatible Buy option `lifetime`; check regional pricing before
-  activation. Android RevenueCat product `prod123d5bd30c` is attached to the
-  lifetime package and `pro` entitlement.
+- Monthly (`monthly`, P1M), yearly (`yearly`, P1Y) and lifetime Buy option
+  `lifetime` are active. Both subscriptions have active `trial-7d` offers with
+  one P7D free phase, eligible for people who never subscribed in this app.
+  All three prices match current Apple prices in 127 shared markets using the
+  same currency. Preserve the existing Apple subscription cohorts.
+- Play license-test monthly purchase, cancellation of its purchase sheet and
+  restore passed in signed build 1. The receipt is sandbox, grants `pro`, and
+  the release app displays Mahj+ unlocked. Annual and lifetime store-flow
+  verification, pre-launch reporting and production submission remain pending.
 - The app-scoped service account can upload bundles and validate receipts.
-  Subscription creation and regional-price conversion currently return 403;
-  use the signed-in Console for those writes without broadening account access.
+  Subscription creation and regional-price conversion currently return 403.
+  Use the signed-in Console for billing and final submission; expanded service
+  account permissions are optional.
 - The existing iOS RevenueCat configuration matches its before/after snapshot
   byte for byte across Apple products, entitlement metadata, current offering,
   packages and package-product assignments.
