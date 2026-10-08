@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -72,7 +73,7 @@ fun PaywallSheet(source: String, onClose: () -> Unit) {
     val context = LocalContext.current
     val colors = Mahj.colors
     val scope = rememberCoroutineScope()
-    var plan by remember { mutableStateOf(PaywallPlan.YEARLY) }
+    var plan by rememberSaveable { mutableStateOf(PaywallPlan.YEARLY) }
     var purchasing by remember { mutableStateOf(false) }
     var restoring by remember { mutableStateOf(false) }
     var loading by remember { mutableStateOf(false) }

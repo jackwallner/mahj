@@ -7,10 +7,12 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.core.view.WindowCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.After
+import org.junit.Assert.assertFalse
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,14 +25,14 @@ class AppFlowTest {
 
     private var scenario: ActivityScenario<MainActivity>? = null
 
-    private fun launch(onboarded: Boolean, forcePro: Boolean = false, skill: String? = null) {
+    private fun launch(onboarded: Boolean, forcePro: Boolean = false, skill: String? = null, appearance: String = "light") {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val intent = Intent(context, MainActivity::class.java)
             .putExtra("resetAll", true)
             .putExtra("uiTest", true)
             .putExtra("onboarded", onboarded)
             .putExtra("forcePro", forcePro)
-            .putExtra("appearance", "light")
+            .putExtra("appearance", appearance)
         skill?.let { intent.putExtra("skillLevel", it) }
         scenario = ActivityScenario.launch(intent)
     }
@@ -66,6 +68,17 @@ class AppFlowTest {
         waitFor("Four rooms, four skills")
         tag("tour-skip")
         waitFor("Your seat at the table.")
+    }
+
+    @Test
+    fun darkOnboardingKeepsSystemBarsReadableFromFirstLaunch() {
+        launch(onboarded = false, appearance = "dark")
+        waitFor("Make it stick between games")
+        scenario?.onActivity { activity ->
+            val controller = WindowCompat.getInsetsController(activity.window, activity.window.decorView)
+            assertFalse(controller.isAppearanceLightStatusBars)
+            assertFalse(controller.isAppearanceLightNavigationBars)
+        }
     }
 
     @Test

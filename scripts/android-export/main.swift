@@ -11,6 +11,10 @@ import Foundation
 func code(_ tile: Tile) -> String { tile.shortLabel }
 func codes(_ tiles: [Tile]) -> [String] { tiles.map(code) }
 
+// Dictionary iteration can change the final floating-point bit between runs.
+// Keep exported scores stable below the parity tests' numerical tolerance.
+func fixtureScore(_ value: Double) -> Double { (value * 1_000_000_000).rounded() / 1_000_000_000 }
+
 func flashcard(_ card: Flashcard) -> [String: Any] {
     var json: [String: Any] = [
         "id": card.id,
@@ -204,10 +208,10 @@ func parity() -> [String: Any] {
             handPlay.append([
                 "seed": seed,
                 "target": target.rawValue,
-                "value": HandPlayEngine.value(of: deal.rack, target: target),
+                "value": fixtureScore(HandPlayEngine.value(of: deal.rack, target: target)),
                 "best": codes(best.sorted { $0.sortKey < $1.sortKey }),
                 "discard": code(discard),
-                "cost": HandPlayEngine.cost(of: discard, from: deal.rack, target: target),
+                "cost": fixtureScore(HandPlayEngine.cost(of: discard, from: deal.rack, target: target)),
                 "note": HandPlayEngine.coachNote(for: discard, rack: deal.rack, target: target, wasBest: wasBest),
                 "fitting": HandPlayEngine.fittingTiles(in: deal.rack, target: target),
                 "working": HandPlayEngine.workingTiles(in: deal.rack, target: target),

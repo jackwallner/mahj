@@ -13,6 +13,7 @@ import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.PurchasesConfiguration
+import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.PurchasesTransactionException
 import com.revenuecat.purchases.awaitCustomerInfo
 import com.revenuecat.purchases.awaitOfferings
@@ -43,6 +44,12 @@ data class PaywallPrice(val amount: BigDecimal, val localized: String, val curre
 
 enum class PurchaseOutcome { PURCHASED, PENDING, CANCELLED }
 
+internal fun purchaseOutcome(code: PurchasesErrorCode, userCancelled: Boolean): PurchaseOutcome? = when {
+    userCancelled || code == PurchasesErrorCode.PurchaseCancelledError -> PurchaseOutcome.CANCELLED
+    code == PurchasesErrorCode.PaymentPendingError -> PurchaseOutcome.PENDING
+    else -> null
+}
+
 class PurchaseException(message: String) : Exception(message)
 
 /**
@@ -54,7 +61,8 @@ class SubscriptionService(
     private val defaults: KeyValueStore,
     private val diagnostics: ConversionDiagnostics,
 ) {
-    var isPro by mutableStateOf(BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE))
+    private val reviewAccess = ReviewAccess(defaults, BuildConfig.PLAY_REVIEW_CODE_SHA256)
+    var isPro by mutableStateOf(reviewAccess.isGranted || (BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE)))
         private set
     var offering by mutableStateOf<Offering?>(null)
         private set
@@ -74,7 +82,13 @@ class SubscriptionService(
     fun setLocalOverride(value: Boolean) {
         if (!BuildConfig.DEBUG) return
         defaults.putBoolean(LOCAL_OVERRIDE, value)
-        isPro = value
+        isPro = value || reviewAccess.isGranted
+    }
+
+    fun activateReviewAccess(code: String): Boolean {
+        if (!reviewAccess.activate(code)) return false
+        isPro = true
+        return true
     }
 
     suspend fun start() {
@@ -93,7 +107,9 @@ class SubscriptionService(
     suspend fun loadOfferings() {
         if (!configureIfNeeded()) return
         try {
-            offering = Purchases.sharedInstance.awaitOfferings().current
+            val offerings = Purchases.sharedInstance.awaitOfferings()
+            // Android owns its offering; the live iOS default stays untouched.
+            offering = if (BuildConfig.DEBUG) offerings.current else offerings.all[ANDROID_OFFERING_ID]
         } catch (error: CancellationException) {
             throw error
         } catch (_: Throwable) {
@@ -149,8 +165,8 @@ class SubscriptionService(
             syncConversionAttributes()
             PurchaseOutcome.PURCHASED
         } catch (error: PurchasesTransactionException) {
-            if (error.userCancelled) PurchaseOutcome.CANCELLED
-            else throw PurchaseException("Couldn't complete the purchase. Please try again.")
+            purchaseOutcome(error.code, error.userCancelled)
+                ?: throw PurchaseException("Couldn't complete the purchase. Please try again.")
         }
     }
 
@@ -185,7 +201,7 @@ class SubscriptionService(
         val entitlement = info.entitlements["pro"]
         activeProductId = entitlement?.productIdentifier?.substringBefore(":")
         val override = BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE)
-        isPro = entitlement?.isActive == true || override
+        isPro = entitlement?.isActive == true || override || reviewAccess.isGranted
     }
 
     private fun configureIfNeeded(): Boolean {
@@ -204,6 +220,7 @@ class SubscriptionService(
     }
 
     companion object {
+        private const val ANDROID_OFFERING_ID = "android"
         private const val LOCAL_OVERRIDE = "subscription.localProOverride"
         private const val UNAVAILABLE = "Google Play isn't reachable right now. Check your connection and try again."
     }

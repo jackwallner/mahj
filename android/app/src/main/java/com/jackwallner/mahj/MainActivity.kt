@@ -1,6 +1,7 @@
 package com.jackwallner.mahj
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,10 +17,12 @@ import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 import com.jackwallner.mahj.data.AlarmReminderScheduler
 import com.jackwallner.mahj.data.Appearance
 import com.jackwallner.mahj.ui.LocalGraph
@@ -42,7 +45,12 @@ class MainActivity : ComponentActivity() {
             graph.review.recordAppLaunch()
             graph.diagnostics.recordAppOpen()
         }
-        DebugLaunchOptions.apply(graph, intent)
+        if (savedInstanceState == null) DebugLaunchOptions.apply(graph, intent)
+        applySystemBars(when (graph.settings.appearance) {
+            Appearance.SYSTEM -> (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+            Appearance.LIGHT -> false
+            Appearance.DARK -> true
+        })
         pendingRoute = intent?.getStringExtra(AlarmReminderScheduler.ROUTE_KEY)
         SoundPlayer.load(this)
         setContent {
@@ -52,10 +60,7 @@ class MainActivity : ComponentActivity() {
                 Appearance.LIGHT -> false
                 Appearance.DARK -> true
             }
-            LaunchedEffect(dark) {
-                val bars = if (dark) SystemBarStyle.dark(Color.TRANSPARENT) else SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
-                enableEdgeToEdge(statusBarStyle = bars, navigationBarStyle = bars)
-            }
+            SideEffect { applySystemBars(dark) }
             val view = LocalView.current
             DisposableEffect(view) {
                 Haptics.attach(view)
@@ -72,6 +77,15 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun applySystemBars(dark: Boolean) {
+        val bars = if (dark) SystemBarStyle.dark(Color.TRANSPARENT) else SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT)
+        enableEdgeToEdge(statusBarStyle = bars, navigationBarStyle = bars)
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = !dark
+            isAppearanceLightNavigationBars = !dark
         }
     }
 

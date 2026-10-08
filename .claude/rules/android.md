@@ -19,15 +19,50 @@ holds only what is specific to this app.
   `Mahj Trainer: Mahjong Practice`, category Education, audience 18+.
 - Version name follows iOS (`1.3.1`); `versionCode` starts at 1 and bumps on
   every upload.
-- RevenueCat project `proj28030dc2`, Play app `app8da2718cbb` (created
-  2026-09-30). Entitlement `pro`, offering `default`, packages
+- RevenueCat Android project `projba4fbe38`, Play app `appeb48abdaf2`
+  (created 2026-10-07); Test Store app `appfedf079587`. Entitlement `pro`,
+  Android offering `android`, packages
   `$rc_monthly`/`$rc_annual`/`$rc_lifetime`. Play products are listed in
-  `android/play-assets/listing-en-US.md` and are NOT created yet.
+  `android/play-assets/listing-en-US.md`. Google Play product setup is in progress.
+- The live iOS RevenueCat project is `proj28030dc2`. Preserve every Apple
+  product, the current iOS `default` offering and its
+  package mappings, Apple credentials, and App Store pricing. Android has its
+  own project and offering, including separate Test Store keys, so its reporting
+  and configuration never enter the iOS project. Android work does not trigger an
+  iOS release or TestFlight upload.
 - Debug uses the project's Test Store key (`REVENUECAT_TEST_KEY`), release the
   `goog_` key (`REVENUECAT_PLAY_KEY`), both in ignored `android/local.properties`.
 - Upload keystore: `~/.android/keystores/mahj-upload.p12`, alias `upload`,
   password in `local.properties` and `~/.mahj_credentials`
   (`MAHJ_PLAY_UPLOAD_PASSWORD`). Never commit either.
+- Google service-account key: `~/.config/google-play/mahj-service-account.json`,
+  approved by Jack for Mahj-scoped billing, product setup and testing uploads.
+  Keep the file private and outside git. Preserve the existing service-account
+  key and IM Tri Tracker permissions.
+- Play Console app record: `4976065425376857577`, E3 Apps developer
+  `8314164911785412040` (created 2026-10-07). Creation and export declarations
+  were approved by Jack. Recheck the live track and review state before release.
+
+## Review access and repeatable uploads
+
+- Play's Sign in details declaration includes paid features even without an
+  account. Reviewers must reach Mahj+ without paying or starting a trial.
+  Long press Settings > About > Version, enter the private reviewer code,
+  then tap Unlock. Wrong codes never grant membership. This access is separate
+  from purchases and persists through restore and app restarts.
+- The raw code is `MAHJ_PLAY_REVIEW_CODE` in `~/.mahj_credentials`. Only its
+  SHA-256 digest, `PLAY_REVIEW_CODE_SHA256` in ignored `local.properties`, is
+  compiled. Release validation requires it. Never put the raw code in git,
+  screenshots, logs, public metadata, or chat. Supply it only in Play's private
+  reviewer access instructions.
+- `scripts/play-upload.sh` uses fastlane supply and reads `applicationId` from
+  Gradle. Set `PLAY_SERVICE_ACCOUNT_JSON` to the external credential file.
+  The default `validate` mode checks an edit without publishing. `internal`
+  uploads to testing; `internal-draft` supports a not-yet-published app;
+  `production-draft` stages a release for review through Console. The script
+  stages production with draft status. Google rejects changesNotSentForReview
+  on this new app, so the upload uses its default commit behavior. Use Chrome
+  for the final production review submission.
 
 ## Content is exported, not transcribed
 
@@ -93,3 +128,22 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 - Under strong skipping, a function reference to a local fun captured a stale
   parameter (onboarding's skill check). Read changing parameters through
   `rememberUpdatedState` inside handlers.
+- The navigation stack lives in `NavigationViewModel`, so activity recreation
+  keeps the current drill and its saved Compose state. App-wide sheet flags
+  are saveable as well. `ParityFlowTest` checks a graded drill across recreation.
+- RevenueCat reports deferred Play payments as `PaymentPendingError`.
+  Return `PurchaseOutcome.PENDING` without unlocking or presenting a failure.
+- The Swift exporter rounds numeric scoring fixtures to nine decimal places;
+  dictionary summation order can change insignificant floating-point bits.
+
+## Verified release state (2026-10-07)
+
+- Internal track serves signed 1 (1.3.1), active for the existing verified
+  tester list. The app has its temporary package-based name until review.
+- Google credentials are valid in the separate Android RevenueCat project.
+- The app-scoped service account can upload bundles and validate receipts.
+  Subscription creation and regional-price conversion currently return 403;
+  use the signed-in Console for those writes without broadening account access.
+- The existing iOS RevenueCat configuration matches its before/after snapshot
+  byte for byte across Apple products, entitlement metadata, current offering,
+  packages and package-product assignments.

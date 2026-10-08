@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,6 +46,7 @@ import com.jackwallner.mahj.content.PracticeSkill
 import com.jackwallner.mahj.content.QuickItem
 import com.jackwallner.mahj.content.SessionBuilder
 import com.jackwallner.mahj.data.MahjMinuteResult
+import com.jackwallner.mahj.data.QuickItemState
 import com.jackwallner.mahj.model.Drill
 import com.jackwallner.mahj.ui.LocalGraph
 import com.jackwallner.mahj.ui.components.DrillProgress
@@ -118,7 +120,7 @@ fun SessionScreen(items: List<QuickItem>, purpose: SessionPurpose, onClose: (() 
     val flash = remember { Animatable(0f) }
 
     if (finished) {
-        val result = minuteResult
+        val result = minuteResult ?: if (purpose is SessionPurpose.Minute) graph.minutes.result(purpose.challenge.day) else null
         if (purpose is SessionPurpose.Minute && result != null) {
             MahjMinuteResultScreen(result, recordsCompletion = true, onDone = close)
         } else {
@@ -227,6 +229,11 @@ private const val CHALLENGE_SECONDS = 90
 private const val BATCH_SIZE = 8
 private const val TOP_UP_THRESHOLD = 3
 
+private val practiceItemsSaver = Saver<List<QuickItem>, String>(
+    save = { QuickItemState.encode(it) },
+    restore = { QuickItemState.decode(it) },
+)
+
 /**
  * The runner behind Endless Practice, the Timed Challenge and Fix My
  * Mistakes: the Quick Session beat, with a different source and end.
@@ -237,7 +244,7 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
     val navigator = LocalNavigator.current
     val colors = Mahj.colors
     val scope = rememberCoroutineScope()
-    var items by remember {
+    var items by rememberSaveable(stateSaver = practiceItemsSaver) {
         mutableStateOf(
             when (mode) {
                 is PracticeMode.Endless -> EndlessPractice.items(mode.skill, BATCH_SIZE)
@@ -246,14 +253,14 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
             },
         )
     }
-    var index by remember { mutableIntStateOf(0) }
-    var score by remember { mutableIntStateOf(0) }
-    var attempted by remember { mutableIntStateOf(0) }
-    var selection by remember { mutableStateOf<Int?>(null) }
-    var finished by remember { mutableStateOf(false) }
-    var secondsLeft by remember { mutableIntStateOf(CHALLENGE_SECONDS) }
-    var timedStarted by remember { mutableStateOf(false) }
-    var streak by remember { mutableIntStateOf(0) }
+    var index by rememberSaveable { mutableIntStateOf(0) }
+    var score by rememberSaveable { mutableIntStateOf(0) }
+    var attempted by rememberSaveable { mutableIntStateOf(0) }
+    var selection by rememberSaveable { mutableStateOf<Int?>(null) }
+    var finished by rememberSaveable { mutableStateOf(false) }
+    var secondsLeft by rememberSaveable { mutableIntStateOf(CHALLENGE_SECONDS) }
+    var timedStarted by rememberSaveable { mutableStateOf(false) }
+    var streak by rememberSaveable { mutableIntStateOf(0) }
     var confetti by remember { mutableIntStateOf(0) }
     var particles by remember { mutableIntStateOf(30) }
     var answerRect by remember { mutableStateOf<Rect?>(null) }
@@ -383,13 +390,15 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
                         finish()
                     } else {
                         if (mode.isGenerated && items.size - index <= TOP_UP_THRESHOLD) {
-                            items = items + when (mode) {
+                            items = items.drop(index + 1) + when (mode) {
                                 is PracticeMode.Endless -> EndlessPractice.items(mode.skill, BATCH_SIZE)
                                 else -> EndlessPractice.mixedItems(BATCH_SIZE)
                             }
+                            index = 0
+                        } else {
+                            index += 1
                         }
                         selection = null
-                        index += 1
                     }
                 },
                 onAnswerBounds = { answerRect = it },

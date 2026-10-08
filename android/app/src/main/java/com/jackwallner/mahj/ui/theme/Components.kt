@@ -139,6 +139,7 @@ fun PrimaryCTA(
             .graphicsLayer { alpha = if (dimmed) 0.5f else 1f }
             .shadow(6.dp, shape, ambientColor = color.copy(alpha = 0.35f), spotColor = color.copy(alpha = 0.35f))
             .background(color, shape)
+            .semantics { contentDescription = text }
             .pressable(enabled = enabled && !loading, onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
