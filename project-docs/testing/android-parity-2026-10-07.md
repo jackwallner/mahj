@@ -6,8 +6,8 @@
 - Android build 4: 44 unit tests and 26 connected device tests passed on API 36.
 - Screenshot helper: 8 Python tests passed.
 - Minified QA reviewer access unlocked membership and survived a restart without a production RevenueCat connection.
-- Signed release bundle: package `com.jackwallner.mahj`, version 1.3.1 (1), target API 36. All four native libraries use at least 16 KB ELF load alignment.
-- Play internal track: build 1 active and available to internal testers. Production submission is still pending completion of billing and store setup.
+- Signed release bundle: package `com.jackwallner.mahj`, version 1.3.1 (4), target API 36. All four native libraries use at least 16 KB ELF load alignment.
+- Play internal track: build 4 active and installed from Google Play on the MacBook Pro. Production review request accepted with managed publishing enabled; Google quick checks completed; Console confirms the changes are now in review.
 
 ## Coverage
 
@@ -36,7 +36,7 @@ Android uses RevenueCat project `projba4fbe38`, Play app `appeb48abdaf2`, its ow
 
 ## Remaining release checks
 
-Finish the annual and lifetime store-flow checks, obtain the Play pre-launch report and content rating, then submit production for review. Managed publishing was attempted, but Google Console displayed "You can't turn on managed publishing right now" for this unpublished app. Recheck availability before submission.
+Monthly, yearly and standard Lifetime purchase and restore passed. Content rating is saved. Build 4 production review has been requested, with managed publishing enabled. Google quick checks completed successfully. Inspect any generated pre-launch device report when available. The delayed Lifetime order ended refunded, so its approval completion remains unverified.
 
 ## Play installation verification
 
@@ -88,4 +88,12 @@ The Lifetime membership incorrectly exposed a subscription-specific Google link,
 
 IARC terms were accepted with explicit user approval on October 8. The completed questionnaire returns Everyone (ESRB), PEGI 3, and equivalent all-ages ratings, with In-App Purchases disclosed. The rating is saved for review.
 
-Build 4 signed bundle SHA256 is `ed9fcb1d0c4508e3b10c96f869ddaa6a711eab06064ab927446c6323de0b43bc`. Build 4 is active on internal testing. Play installation of this final correction is pending. The existing iOS app source, release and RevenueCat configuration remain unchanged.
+Build 4 signed bundle SHA256 is `ed9fcb1d0c4508e3b10c96f869ddaa6a711eab06064ab927446c6323de0b43bc`. Build 4 is active on internal testing and installed from Google Play on the MacBook Pro. The release package is non-debuggable, installer com.android.vending. Lifetime Settings hides Manage Subscription while retaining Restore Purchases; restore reports "Mahj+ restored!". The existing iOS app source, release and RevenueCat configuration remain unchanged.
+
+## Review request accepted (October 8)
+
+Google accepted submission of 17 changes, including production 1.3.1 (4), full rollout to 177 countries/regions plus Rest of World, the US Alpha test, listing and policy declarations. Quick checks completed successfully. Publishing overview confirms "Your changes are now in review" and lists production build 4 and the submitted metadata. Managed publishing is on, so approved changes remain held for publication. This is a review request, not a public release.
+
+The pre-launch overview currently has no generated device report. Google documents that reports run on bundle upload or a saved production release subject to device-lab capacity. Production was saved to trigger that path. Do not report a passing Google device-lab result until one exists.
+
+All further emulator work uses the MacBook Pro only, per Jack's instruction. The Air's Mahj emulator is absent. The Pro Play AVD retains its account, installation and sandbox Lifetime purchase. Its emulator process was stopped after verification.

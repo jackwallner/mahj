@@ -98,16 +98,25 @@ holds only what is specific to this app.
 ```bash
 cd android
 ./gradlew testDebugUnitTest            # parity, content, stores
-ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
+ANDROID_SERIAL=<dedicated-Pro-test-serial> ./gradlew connectedDebugAndroidTest
 ./gradlew assembleQa                   # R8 build, debug-signed, no RC key
 ./gradlew bundleRelease                # signed AAB, needs goog_ key + keystore
 ```
 
-- Local AVD `mahj-api36` (Pixel 9, API 36 Google Play image), started
-  headless on port 5586: `emulator -avd mahj-api36 -port 5586 -no-window
-  -no-audio -no-boot-anim -no-metrics -gpu swiftshader_indirect`. Connected
-  tests pass on API 36 (23/23 on 2026-10-08); 36.1 has the Espresso
-  `InputManager.getInstance` failure noted in the skill.
+- All further emulator work runs on the MacBook Pro, never the MacBook Air
+  (Jack's instruction, 2026-10-08). Earlier API 36 test evidence remains valid.
+- Remote Pro: SSH `jackwallner@192.168.4.25` with BatchMode and strict host key
+  checking. SDK `/Users/jackwallner/Library/Android/sdk`; Play AVD `small_phone`,
+  serial `emulator-5554`. Preserve its accounts and Play-installed Mahj. Never
+  install instrumentation over it. Use a separate headless Pro AVD for tests,
+  with `ANDROID_SERIAL` set explicitly and Gradle executed on that host.
+- Check the Pro with `ssh -o BatchMode=yes -o StrictHostKeyChecking=yes
+  jackwallner@192.168.4.25 '/Users/jackwallner/Library/Android/sdk/platform-tools/adb
+  devices -l'`. Shutdown only the owned Play emulator with the same SSH options
+  and `adb -s emulator-5554 emu kill` on the Pro after testing.
+- Run Pro emulators with `-no-window -no-audio -no-boot-anim -no-metrics`.
+  API 36.1 has the Espresso `InputManager.getInstance` failure noted in the
+  skill; use API 36 for connected instrumentation.
 - Compose test tags are exposed as resource ids (`testTagsAsResourceId` on the
   root and inside `MahjSheet`), so UI Automator and the capture script find
   controls by tag.
@@ -146,11 +155,11 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 
 ## Verified release state (2026-10-08)
 
-- Internal track serves signed 3 (1.3.1), active for the existing verified
+- Internal track serves signed 4 (1.3.1), active for the existing verified
   tester list. The app has its temporary package-based name until review.
 - Google credentials are valid in the separate Android RevenueCat project.
 - The complete store listing and eight screenshots are saved, pending review.
-  App setup is 10 of 11 complete; IARC agreement approval is pending.
+  App setup is complete. IARC terms were approved and the Everyone rating saved.
 - Monthly (`monthly`, P1M), yearly (`yearly`, P1Y) and lifetime Buy option
   `lifetime` are active. Both subscriptions have active `trial-7d` offers with
   one P7D free phase, eligible for people who never subscribed in this app.
@@ -180,3 +189,10 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
   hides it for Lifetime-only membership. All 44 unit tests and 26 device tests
   pass. Standard Lifetime purchase and restore passed in the Play build; the
   delayed test order was refunded and did not verify approval completion.
+
+- Production 1.3.1 (4) and the US Alpha release are submitted for review.
+  Google quick checks completed; Publishing overview confirms changes are now
+  in review. Managed publishing is enabled, so approval does not publish.
+  Production targets 177 countries/regions plus Rest of World. The Pro Play
+  installation, Lifetime management correction and Restore were verified.
+  The pre-launch device-lab report has not been generated; do not claim it passed.
