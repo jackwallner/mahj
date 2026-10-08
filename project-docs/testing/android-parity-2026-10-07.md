@@ -97,3 +97,21 @@ Google accepted submission of 17 changes, including production 1.3.1 (4), full r
 The pre-launch overview currently has no generated device report. Google documents that reports run on bundle upload or a saved production release subject to device-lab capacity. Production was saved to trigger that path. Do not report a passing Google device-lab result until one exists.
 
 All further emulator work uses the MacBook Pro only, per Jack's instruction. The Air's Mahj emulator is absent. The Pro Play AVD retains its account, installation and sandbox Lifetime purchase. Its emulator process was stopped after verification.
+
+## Final content audit (October 8, 13:44 UTC)
+
+Reran `./scripts/sync-android-content.sh` against the current Swift source. Both exported JSON files remain byte-identical to git. The `mahj-content.json` embedded in the signed build 4 bundle is byte-identical to this fresh export. The bundle hash remains the submitted build 4 hash above.
+
+The existing passing generator parity tests compare all 129 prepared choice items and their shuffled coaching notes, 62 free and 129 member reviewable IDs, 25 permutations, five RNG streams, three rack/pass/defense batches each, three hand deals, 15 hand-scoring cases, 25 verdicts and four daily challenges against Swift fixtures. Property tests additionally exercise legal generated racks, passes, defense choices and hand play. Device tests cover the corresponding navigation, grading, locking, persistence and purchase copy.
+
+| Requirement | Current evidence | State |
+| --- | --- | --- |
+| Shared teaching content and deterministic behavior | Fresh Swift export matches git and the shipped bundle; passing parity assertions | Verified |
+| Feature flows and rendered screens | iOS runtime captures and passing Android device assertions described above | Verified for documented coverage |
+| Billing and restore | Play-installed no-charge monthly, yearly and standard Lifetime purchases, sandbox receipts and restores | Verified; delayed order approval completion remains unverified |
+| Preserve existing iOS | Separate Android RevenueCat project; identical five-section iOS snapshot; no iOS release | Verified |
+| Pro-only emulator work | Air device list empty; Pro test completed and owned emulator stopped | Verified |
+| Production submission | Console confirms build 4 changes in review, managed publishing on | Verified |
+| Google device-lab report | Live overview still has no report after bundle upload and saved production release | Unavailable |
+
+Google [documents capacity-dependent device-lab report generation](https://support.google.com/googleplay/android-developer/answer/9842757?hl=en-GB). The report is not a passing result and cannot be inspected until Google generates it. The goal remains active for this check.
