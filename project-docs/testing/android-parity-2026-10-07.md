@@ -32,8 +32,16 @@ Runtime logs and captures are in `/tmp/mahj-ios-parity/` and `/tmp/mahj-android-
 
 ## iOS protection
 
-Android uses RevenueCat project `projba4fbe38`, Play app `appeb48abdaf2`, its own `android` offering and a separate Test Store. The original iOS project is `proj28030dc2`. Its Apple products and current offering were snapshotted before Android setup and will be compared after release work. No iOS app source, signing credentials, App Store prices or App Store metadata have been changed. Android privacy disclosures use `android-privacy.html`; the existing shared privacy policy is outside this task commit. Android changes do not trigger an iOS release.
+Android uses RevenueCat project `projba4fbe38`, Play app `appeb48abdaf2`, its own `android` offering and a separate Test Store. The original iOS project is `proj28030dc2`. Its Apple products, current offering, entitlement metadata, packages and product assignments were compared against the pre-port snapshot and are identical. No iOS app source, signing credentials, App Store prices or App Store metadata have been changed. Android privacy disclosures use `android-privacy.html`; the existing shared privacy policy is outside this task commit. Android changes do not trigger an iOS release.
 
 ## Remaining release checks
 
 Configure and verify Google Play products, trial offers, real license-test purchase and restore, Play pre-launch report, listing and policy declarations, then submit production for review with managed publishing.
+
+## Play installation verification
+
+Build 1 was installed through Google Play on the signed-in remote Play AVD. Its installer is `com.android.vending` and the package has no debuggable flag. First-run pages, skill choice, free exit, tour escape and Home render correctly on the 720 x 1280 display. Actual purchases and restore remain blocked until Google base plans and store products are activated.
+
+## Store setup status
+
+Data Safety is saved with purchase history, app interaction analytics and anonymous app identifiers, encrypted transit, no third-party sharing outside service-provider processing, and an email-based deletion request route. The Android privacy page is published and separate from the iOS page. Education and support contact details are saved. IARC Terms approval is pending. The service account stages listing text and artwork, but its current testing access cannot commit the store listing. Mahj-only production publishing access has been requested. Google Console also rejects valid base-plan IDs in the current editor; do not claim billing or production review completed.

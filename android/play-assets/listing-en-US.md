@@ -98,9 +98,9 @@ US tier, then review Play's converted local prices against `~/ios/pricing`.
   purchase-screen counts, timestamps and paywall impressions), and Device or
   other IDs (RevenueCat's anonymous app user ID, not a hardware or advertising
   identifier). Practice answers, progress and settings stay on device.
-  Purchase history and interactions are used for app functionality and
-  analytics. The anonymous app ID is used for purchase/restore functionality
-  and associating those events. Processing is not ephemeral. There is no
+  Purchase history is used for app functionality and analytics. Interactions
+  are used for purchase-funnel analytics. The anonymous app ID is used for purchase/restore functionality
+  and associating those analytics events. Processing is not ephemeral. There is no
   collection opt-out in this build, so do not label SDK collection optional.
   Data is encrypted in transit. RevenueCat acts as a service provider; confirm
   no additional integrations share the data before answering the sharing
