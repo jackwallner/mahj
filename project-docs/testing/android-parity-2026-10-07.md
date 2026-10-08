@@ -28,7 +28,7 @@ python3 -m unittest discover -s scripts/tests -v
 
 ## Evidence
 
-Runtime logs and captures are in `/tmp/mahj-ios-parity/` and `/tmp/mahj-android-parity/`. The passing Android instrumentation XML is in `/tmp/mahj-android-final-passing-results/`. Temporary evidence is local and is not committed. iOS captures include Home, quick sessions, card matching, Keep or Throw, Charleston, hand play, Reference, onboarding, primer, paywall, Settings and dark mode. The iOS Meet the Tiles capture is the room list; its first deck gesture capture was not completed after simulator startup slowed. Android device tests separately verify those gestures.
+Runtime logs and captures are in `/tmp/mahj-ios-parity/` and `/tmp/mahj-android-parity/`. The passing Android instrumentation XML is in `/tmp/mahj-android-final-passing-results/`. Temporary evidence is local and is not committed. iOS captures include Home, quick sessions, card matching, Keep or Throw, Charleston, hand play, Reference, onboarding, primer, paywall, Settings and dark mode. A follow-up headless iOS run captured the first Meet the Tiles front, revealed answer and undo state. Runtime snapshots verify that a pre-reveal swipe does not advance, swipe right changes progress from 0 to 1, undo restores Craks and 0, and swipe left advances to Bams without increasing progress. Tapping the locked Extra Reps set opens the paywall. These match the assertions in Android `ParityFlowTest.deckRequiresFlipThenSupportsSwipeAndUndo`. Evidence is in `/tmp/mahj-ios-parity/deck-runtime-evidence.json`; the simulator lease was released afterward.
 
 ## iOS protection
 
@@ -45,3 +45,7 @@ Build 1 was installed through Google Play on the signed-in remote Play AVD. Its 
 ## Store setup status
 
 Data Safety is saved with purchase history, app interaction analytics and anonymous app identifiers, encrypted transit, no third-party sharing outside service-provider processing, and an email-based deletion request route. The Android privacy page is published and separate from the iOS page. Education and support contact details are saved. IARC Terms approval is pending. The complete English store listing, icon, feature graphic and eight phone screenshots were saved through the signed-in Console. Publishing overview confirms the listing is ready to send for review. The service account can stage these assets but cannot commit them with its current testing access. Mahj-only production publishing access has been requested. The pre-launch report currently has no generated report and suggests a closed-testing upload. Google Console also rejects valid base-plan IDs in the current editor; do not claim billing or production review completed.
+
+## Google product preparation
+
+Google monthly and yearly subscription identities exist, with no active base plans. The lifetime product `com.jackwallner.mahj.lifetime` has a saved, backwards-compatible Buy purchase option `lifetime`, in Draft state across 174 regions. Its US price matches the live Apple lifetime price; generated regional prices still need parity checks before activation. RevenueCat product `prod123d5bd30c` in the separate Android project is non-consumable and attached to the lifetime package and `pro` entitlement. No changes were made to the original iOS project.

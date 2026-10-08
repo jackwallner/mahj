@@ -106,7 +106,7 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 - Local AVD `mahj-api36` (Pixel 9, API 36 Google Play image), started
   headless on port 5586: `emulator -avd mahj-api36 -port 5586 -no-window
   -no-audio -no-boot-anim -no-metrics -gpu swiftshader_indirect`. Connected
-  tests pass on API 36 (5/5 on 2026-09-30); 36.1 has the Espresso
+  tests pass on API 36 (23/23 on 2026-10-08); 36.1 has the Espresso
   `InputManager.getInstance` failure noted in the skill.
 - Compose test tags are exposed as resource ids (`testTagsAsResourceId` on the
   root and inside `MahjSheet`), so UI Automator and the capture script find
@@ -136,11 +136,18 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 - The Swift exporter rounds numeric scoring fixtures to nine decimal places;
   dictionary summation order can change insignificant floating-point bits.
 
-## Verified release state (2026-10-07)
+## Verified release state (2026-10-08)
 
 - Internal track serves signed 1 (1.3.1), active for the existing verified
   tester list. The app has its temporary package-based name until review.
 - Google credentials are valid in the separate Android RevenueCat project.
+- The complete store listing and eight screenshots are saved, pending review.
+  App setup is 10 of 11 complete; IARC agreement approval is pending.
+- Monthly and yearly Google subscription identities exist without active base
+  plans. Console rejects valid base plan IDs. Lifetime is saved as a draft with
+  a backwards-compatible Buy option `lifetime`; check regional pricing before
+  activation. Android RevenueCat product `prod123d5bd30c` is attached to the
+  lifetime package and `pro` entitlement.
 - The app-scoped service account can upload bundles and validate receipts.
   Subscription creation and regional-price conversion currently return 403;
   use the signed-in Console for those writes without broadening account access.
