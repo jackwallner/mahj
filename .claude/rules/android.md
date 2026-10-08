@@ -196,3 +196,46 @@ ANDROID_SERIAL=<dedicated-Pro-test-serial> ./gradlew connectedDebugAndroidTest
   Production targets 177 countries/regions plus Rest of World. The Pro Play
   installation, Lifetime management correction and Restore were verified.
   The pre-launch device-lab report has not been generated; do not claim it passed.
+
+## Parity audit (2026-10-08)
+
+Every iOS view and shared service was read against its Kotlin counterpart,
+and every user-facing string literal was diffed between the two trees. Copy,
+flows, gates, keys and the RNG ports match; the only Android-only strings are
+the deliberate Google Play wording. Three gaps were fixed in build 5:
+
+- `PracticeRunScreen` drops answered items when a generated run tops up and
+  resets `index`, so its "Question N" footer went back to 1 mid-run. The
+  footer now counts `attempted + 1`, which is what iOS shows.
+- The "Notifications are off" alert only lived in Settings; iOS also raises it
+  from Game Night Prep. It now lives in `RootScreen` and fires wherever the
+  toggle was flipped.
+- The reviewer-code dialog was stock Material; it now uses the app palette.
+
+Build 6 answers Play's release-dashboard recommendations on build 4: resource
+shrinking is on, and a Gradle constraint lifts `androidx.fragment` from the
+1.1.0 that `review-ktx` pulls in. The two remaining recommendations are left
+on purpose: the portrait lock matches the iPhone app (Android 16 ignores it
+on tablets anyway), and the deprecated edge-to-edge calls come from library
+internals, not app code.
+
+All three fixes were verified on the Pro Play AVD in the Play-installed signed
+build 5. The reviewer code unlocked membership there, so the app data on that
+AVD was cleared afterwards (`pm clear`); the Play install and its account are
+preserved, and the next billing check starts from a fresh onboarding.
+
+Build 7 fixes what a 360 x 640dp phone showed (the Play AVD is one; the
+capture script's device is taller, so nothing earlier caught it):
+
+- Every onboarding page, the tour card and the primer card overflowed the
+  space the zero-shift footer leaves them, so body copy was cut off under the
+  page dots. Each now sits in a `CenteringScroll` and draws a compact variant
+  (smaller icon, title and tiles) when its `BoxWithConstraints` height is
+  short. The thresholds are 440dp (onboarding), 460dp (tour) and 500dp (primer).
+- `TileRack` shrinks tiles to the width it is given. Seven 44dp tiles need
+  344dp and a 360dp phone has 328dp inside the screen padding, so the seventh
+  tile of every 13-tile rack question, and the sixth primer tile, were clipped.
+  iOS has the same arithmetic on an iPhone SE width; it is not fixed there.
+
+Verified in the R8 QA build on a temporary config-only Pro AVD
+(`mahj_agent_test`, API 36.1 Play image, port 5560), removed afterwards.

@@ -16,6 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -189,9 +190,13 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
 
     restoreMessage?.let { MahjAlert("Restore", it, onConfirm = { restoreMessage = null }) }
     if (showReviewAccess) {
+        // Reviewer-only, but it still wears the app's palette rather than stock Material.
         AlertDialog(
             onDismissRequest = { showReviewAccess = false },
-            title = { Text("Review access") },
+            containerColor = colors.card,
+            titleContentColor = colors.ink,
+            textContentColor = colors.inkSecondary,
+            title = { Text("Review access", style = MahjType.headline) },
             text = {
                 OutlinedTextField(
                     value = reviewCode,
@@ -201,6 +206,18 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
                     visualTransformation = PasswordVisualTransformation(),
                     isError = reviewCodeRejected,
                     supportingText = { if (reviewCodeRejected) Text("Code not recognized.") },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = colors.ink,
+                        unfocusedTextColor = colors.ink,
+                        cursorColor = colors.jade,
+                        focusedBorderColor = colors.jade,
+                        unfocusedBorderColor = colors.rule,
+                        focusedLabelColor = colors.jade,
+                        unfocusedLabelColor = colors.inkSecondary,
+                        errorBorderColor = colors.crakRed,
+                        errorLabelColor = colors.crakRed,
+                        errorSupportingTextColor = colors.crakRed,
+                    ),
                     modifier = Modifier.testTag("review-access-code"),
                 )
             },
@@ -210,9 +227,11 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
                         showReviewAccess = false
                         reviewCode = ""
                     } else reviewCodeRejected = true
-                }) { Text("Unlock") }
+                }) { Text("Unlock", style = MahjType.headline, color = colors.jade) }
             },
-            dismissButton = { TextButton(onClick = { showReviewAccess = false }) { Text("Cancel") } },
+            dismissButton = {
+                TextButton(onClick = { showReviewAccess = false }) { Text("Cancel", style = MahjType.body, color = colors.inkSecondary) }
+            },
         )
     }
     if (confirmReset) {
@@ -227,22 +246,6 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
                 graph.resetProgress()
             },
             onDismiss = { confirmReset = false },
-        )
-    }
-    if (settings.reminderPermissionDenied) {
-        MahjAlert(
-            "Notifications are off",
-            "Mahj Trainer cannot send reminders until notifications are turned on in Android settings.",
-            confirmTitle = "Open Settings",
-            dismissTitle = "Not now",
-            onConfirm = {
-                settings.reminderPermissionDenied = false
-                context.startActivity(
-                    android.content.Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                        .putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName),
-                )
-            },
-            onDismiss = { settings.reminderPermissionDenied = false },
         )
     }
 }

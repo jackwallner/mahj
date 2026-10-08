@@ -41,7 +41,7 @@ android {
         applicationId = "com.jackwallner.mahj"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
+        versionCode = 7
         versionName = "1.3.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Every connected test starts from a clean install: no progress, no purchase.
@@ -72,6 +72,8 @@ android {
         }
         release {
             isMinifyEnabled = true
+            // Play's release dashboard flags an unshrunk bundle as a memory cost.
+            isShrinkResources = true
             if (uploadKeyStore.isNotBlank()) signingConfig = signingConfigs.getByName("playUpload")
             buildConfigField("String", "REVENUECAT_API_KEY", "\"$playKey\"")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -133,4 +135,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")
+
+    constraints {
+        // review-ktx 2.0.2 pulls fragment 1.1.0, which Play reports as outdated.
+        implementation("androidx.fragment:fragment:1.8.9") { because("Play flags fragment 1.1.0 as an outdated SDK") }
+    }
 }

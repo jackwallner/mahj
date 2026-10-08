@@ -1,7 +1,9 @@
 package com.jackwallner.mahj.ui
 
 import android.Manifest
+import android.content.Intent
 import android.os.Build
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
@@ -47,6 +49,7 @@ import com.jackwallner.mahj.ui.screens.SettingsScreen
 import com.jackwallner.mahj.ui.screens.StatsScreen
 import com.jackwallner.mahj.ui.screens.WhatsNewSheet
 import com.jackwallner.mahj.ui.screens.gameNightPrepItems
+import com.jackwallner.mahj.ui.theme.MahjAlert
 import com.jackwallner.mahj.ui.theme.MahjSheet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -186,6 +189,23 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
         }
         MahjSheet(showFeedback, onDismiss = { showFeedback = false }) {
             FeedbackSheet(onClose = { showFeedback = false })
+        }
+        // Both reminder toggles (Settings and Game Night Prep) can trip this, so it
+        // lives here and shows wherever the player is, as on iOS.
+        if (graph.settings.reminderPermissionDenied) {
+            MahjAlert(
+                "Notifications are off",
+                "Mahj Trainer cannot send reminders until notifications are turned on in Android settings.",
+                confirmTitle = "Open Settings",
+                dismissTitle = "Not now",
+                onConfirm = {
+                    graph.settings.reminderPermissionDenied = false
+                    context.startActivity(
+                        Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName),
+                    )
+                },
+                onDismiss = { graph.settings.reminderPermissionDenied = false },
+            )
         }
     }
 }

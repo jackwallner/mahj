@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -48,6 +49,7 @@ import com.jackwallner.mahj.ui.components.ConfettiBurst
 import com.jackwallner.mahj.ui.components.shine
 import com.jackwallner.mahj.ui.components.symbol
 import com.jackwallner.mahj.ui.nav.SessionPurpose
+import com.jackwallner.mahj.ui.theme.CenteringScroll
 import com.jackwallner.mahj.ui.theme.Haptics
 import com.jackwallner.mahj.ui.theme.IconBadge
 import com.jackwallner.mahj.ui.theme.Mahj
@@ -61,7 +63,7 @@ import com.jackwallner.mahj.ui.theme.rounded
 import com.jackwallner.mahj.ui.theme.themedCard
 import kotlinx.coroutines.delay
 
-private data class TourPage(val eyebrow: String, val title: String, val body: String, val gold: Boolean = false, val hero: @Composable () -> Unit)
+private data class TourPage(val eyebrow: String, val title: String, val body: String, val gold: Boolean = false, val hero: @Composable (compact: Boolean) -> Unit)
 
 /**
  * The post-trial tour of where things live. Its finale runs a real Quick
@@ -120,14 +122,14 @@ fun FeatureTourScreen(onDone: () -> Unit) {
                 "${Membership.NAME} is open",
                 "Your trial already includes Mahj Minute, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables.",
                 gold = true,
-            ) { ProHero(locked = false) }
+            ) { compact -> ProHero(locked = false, compact = compact) }
         } else {
             TourPage(
                 "BEHIND THE GOLD DOOR",
                 "${Membership.NAME} adds more of it",
                 "Mahj Minute gives every member the same daily challenge, Game Night Prep targets your weak spots before you play, and Endless Practice never runs out. Nothing you have now goes away. Unlock any time from Home or Settings.",
                 gold = true,
-            ) { ProHero(locked = true) }
+            ) { compact -> ProHero(locked = true, compact = compact) }
         },
         TourPage(
             "YOUR TURN",
@@ -158,32 +160,38 @@ fun FeatureTourScreen(onDone: () -> Unit) {
         Readable(Modifier.fillMaxSize()) {
             Column(Modifier.fillMaxSize().statusBarsPadding().navigationBarsPadding().padding(16.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
                 Dots(pages.size, index, Modifier.align(Alignment.CenterHorizontally).padding(top = 10.dp))
-                Spacer(Modifier.weight(1f))
-                AnimatedContent(
-                    index,
-                    transitionSpec = {
-                        (slideInHorizontally(tween(320)) { it } + fadeIn(tween(320))) togetherWith
-                            (slideOutHorizontally(tween(320)) { -it } + fadeOut(tween(320)))
-                    },
-                    label = "tour",
-                ) { shown ->
-                    val page = pages[shown]
-                    Column(
-                        Modifier.fillMaxWidth().themedCard(22.dp).shine(shineTrigger, 22.dp).padding(24.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                    ) {
-                        Text(
-                            page.eyebrow,
-                            style = MahjType.caption.copy(fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp),
-                            color = if (page.gold) colors.gold else colors.jade,
-                        )
-                        page.hero()
-                        Text(page.title, style = MahjType.display(27.sp), color = colors.ink, textAlign = TextAlign.Center)
-                        Text(page.body, style = MahjType.body, color = colors.inkSecondary, textAlign = TextAlign.Center)
+                // Centred when the card fits, scrolling when it does not. Under
+                // 420dp (a 640dp phone) the card draws its compact variant so the
+                // Mahj+ page is never cut off behind the buttons.
+                BoxWithConstraints(Modifier.fillMaxWidth().weight(1f)) {
+                    val compact = maxHeight < 460.dp
+                    CenteringScroll(Modifier.fillMaxSize()) {
+                        AnimatedContent(
+                            index,
+                            transitionSpec = {
+                                (slideInHorizontally(tween(320)) { it } + fadeIn(tween(320))) togetherWith
+                                    (slideOutHorizontally(tween(320)) { -it } + fadeOut(tween(320)))
+                            },
+                            label = "tour",
+                        ) { shown ->
+                            val page = pages[shown]
+                            Column(
+                                Modifier.fillMaxWidth().padding(vertical = 12.dp).themedCard(22.dp).shine(shineTrigger, 22.dp).padding(if (compact) 18.dp else 24.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(if (compact) 12.dp else 16.dp),
+                            ) {
+                                Text(
+                                    page.eyebrow,
+                                    style = MahjType.caption.copy(fontWeight = FontWeight.ExtraBold, letterSpacing = 2.sp),
+                                    color = if (page.gold) colors.gold else colors.jade,
+                                )
+                                page.hero(compact)
+                                Text(page.title, style = MahjType.display(if (compact) 23.sp else 27.sp), color = colors.ink, textAlign = TextAlign.Center)
+                                Text(page.body, style = if (compact) MahjType.subheadline else MahjType.body, color = colors.inkSecondary, textAlign = TextAlign.Center)
+                            }
+                        }
                     }
                 }
-                Spacer(Modifier.weight(1f))
                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     PrimaryCTA(if (isLast) "Start my first session" else "Show me", Modifier.testTag("tour-primary")) {
                         if (isLast) {
@@ -206,15 +214,15 @@ fun FeatureTourScreen(onDone: () -> Unit) {
 }
 
 @Composable
-private fun ProHero(locked: Boolean) {
+private fun ProHero(locked: Boolean, compact: Boolean = false) {
     val colors = Mahj.colors
     Column(
         Modifier
             .fillMaxWidth()
             .background(colors.gold.copy(alpha = 0.10f), rounded(16.dp))
             .border(1.5.dp, colors.gold.copy(alpha = 0.4f), rounded(16.dp))
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+            .padding(if (compact) 12.dp else 16.dp),
+        verticalArrangement = Arrangement.spacedBy(if (compact) 6.dp else 8.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             Icon(symbol(if (locked) "lock.fill" else "sparkles"), null, tint = colors.gold, modifier = Modifier.size(16.dp))

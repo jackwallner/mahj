@@ -10,9 +10,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,6 +44,7 @@ import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jackwallner.mahj.data.Membership
@@ -59,6 +61,7 @@ import com.jackwallner.mahj.ui.components.TileRack
 import com.jackwallner.mahj.ui.components.symbol
 import com.jackwallner.mahj.ui.findActivity
 import com.jackwallner.mahj.ui.openUrl
+import com.jackwallner.mahj.ui.theme.CenteringScroll
 import com.jackwallner.mahj.ui.theme.Haptics
 import com.jackwallner.mahj.ui.theme.IconBadge
 import com.jackwallner.mahj.ui.theme.Mahj
@@ -295,33 +298,46 @@ private fun LegalLink(text: String, enabled: Boolean, onClick: () -> Unit) {
     Text(text, style = MahjType.caption2, color = Mahj.colors.inkTertiary, modifier = Modifier.pressable(enabled = enabled, onClick = onClick).padding(4.dp))
 }
 
+/**
+ * One onboarding page: centred when it fits, scrolling when it does not. The
+ * footer reserves its trial slots on every page (the zero-shift rule), so on a
+ * 640dp phone the page itself gets under 400dp. Below that the page draws its
+ * compact variant (smaller icon, title and tiles) so a new player never meets
+ * copy clipped under the page dots.
+ */
+@Composable
+private fun OnboardingPage(spacing: Dp, compactSpacing: Dp, content: @Composable ColumnScope.(compact: Boolean) -> Unit) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        val compact = maxHeight < 440.dp
+        CenteringScroll(Modifier.fillMaxSize()) {
+            Column(
+                Modifier.fillMaxWidth().padding(horizontal = if (compact) 22.dp else 28.dp, vertical = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(if (compact) compactSpacing else spacing),
+            ) { content(compact) }
+        }
+    }
+}
+
 @Composable
 private fun InfoPage(icon: String, title: String, body: String, tiles: List<Tile>) {
     val colors = Mahj.colors
-    Column(
-        Modifier.fillMaxSize().padding(horizontal = 28.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(26.dp, Alignment.CenterVertically),
-    ) {
-        IconBadge(icon, colors.jade, size = 92.dp, iconSize = 42.dp, alpha = 0.12f)
-        Text(title, style = MahjType.display(32.sp), color = colors.ink, textAlign = TextAlign.Center)
-        TileRack(tiles, tileWidth = 54.dp)
-        Text(body, style = MahjType.body, color = colors.inkSecondary, textAlign = TextAlign.Center)
-        Spacer(Modifier.height(40.dp))
+    OnboardingPage(spacing = 26.dp, compactSpacing = 16.dp) { compact ->
+        if (compact) IconBadge(icon, colors.jade, size = 68.dp, iconSize = 32.dp, alpha = 0.12f)
+        else IconBadge(icon, colors.jade, size = 92.dp, iconSize = 42.dp, alpha = 0.12f)
+        Text(title, style = MahjType.display(if (compact) 26.sp else 32.sp), color = colors.ink, textAlign = TextAlign.Center)
+        TileRack(tiles, tileWidth = if (compact) 46.dp else 54.dp)
+        Text(body, style = if (compact) MahjType.subheadline else MahjType.body, color = colors.inkSecondary, textAlign = TextAlign.Center)
     }
 }
 
 @Composable
 private fun SkillPage(selected: String, onSelect: (String) -> Unit) {
     val colors = Mahj.colors
-    Column(
-        Modifier.fillMaxSize().padding(horizontal = 28.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(22.dp, Alignment.CenterVertically),
-    ) {
-        Text("Where are you starting from?", style = MahjType.display(30.sp), color = colors.ink, textAlign = TextAlign.Center)
+    OnboardingPage(spacing = 22.dp, compactSpacing = 12.dp) { compact ->
+        Text("Where are you starting from?", style = MahjType.display(if (compact) 26.sp else 30.sp), color = colors.ink, textAlign = TextAlign.Center)
         Text("We'll point you at the right drills.", style = MahjType.subheadline, color = colors.inkSecondary)
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 12.dp)) {
             skillOptions.forEach { option ->
                 val isSelected = selected == option.id
                 val shape = rounded(16.dp)
@@ -336,7 +352,7 @@ private fun SkillPage(selected: String, onSelect: (String) -> Unit) {
                         }
                         .background(if (isSelected) colors.jade.copy(alpha = 0.08f) else colors.card, shape)
                         .border(if (isSelected) 2.dp else 1.dp, if (isSelected) colors.jade else colors.rule, shape)
-                        .padding(16.dp),
+                        .padding(if (compact) 12.dp else 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
@@ -354,21 +370,17 @@ private fun SkillPage(selected: String, onSelect: (String) -> Unit) {
             }
         }
         Text(if (selected.isEmpty()) "Pick one to continue." else " ", style = MahjType.footnote, color = colors.inkSecondary)
-        Spacer(Modifier.height(40.dp))
     }
 }
 
 @Composable
 private fun TrialPage(hasSubscriptionHistory: Boolean) {
     val colors = Mahj.colors
-    Column(
-        Modifier.fillMaxSize().padding(horizontal = 28.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(22.dp, Alignment.CenterVertically),
-    ) {
-        IconBadge("sparkles", colors.gold, size = 92.dp, iconSize = 42.dp, alpha = 0.14f)
-        Text(if (hasSubscriptionHistory) "Get ${Membership.NAME}" else "Try ${Membership.NAME} free", style = MahjType.display(30.sp), color = colors.ink, textAlign = TextAlign.Center)
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    OnboardingPage(spacing = 22.dp, compactSpacing = 14.dp) { compact ->
+        if (compact) IconBadge("sparkles", colors.gold, size = 68.dp, iconSize = 32.dp, alpha = 0.14f)
+        else IconBadge("sparkles", colors.gold, size = 92.dp, iconSize = 42.dp, alpha = 0.14f)
+        Text(if (hasSubscriptionHistory) "Get ${Membership.NAME}" else "Try ${Membership.NAME} free", style = MahjType.display(if (compact) 26.sp else 30.sp), color = colors.ink, textAlign = TextAlign.Center)
+        Column(verticalArrangement = Arrangement.spacedBy(if (compact) 8.dp else 12.dp)) {
             listOf(
                 "Every beginner room is free, forever",
                 "Mahj Minute and a personalized Game Night Prep",
@@ -382,6 +394,5 @@ private fun TrialPage(hasSubscriptionHistory: Boolean) {
                 }
             }
         }
-        Spacer(Modifier.height(40.dp))
     }
 }

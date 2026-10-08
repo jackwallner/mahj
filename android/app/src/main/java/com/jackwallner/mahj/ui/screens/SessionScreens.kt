@@ -361,7 +361,9 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
                 item.asQuestion(),
                 selection,
                 nextTitle = if (isLast) "Finish" else "Next",
-                footerLabel = if (mode == PracticeMode.Review) "${index + 1} of ${items.size}" else "Question ${index + 1}",
+                // A generated run drops answered items when it tops up, so the index
+                // restarts; the count of questions answered is the position the player sees.
+                footerLabel = if (mode == PracticeMode.Review) "${index + 1} of ${items.size}" else "Question ${attempted + 1}",
                 onPick = { pick ->
                     if (selection != null) return@ChoiceQuestionBody
                     selection = pick
