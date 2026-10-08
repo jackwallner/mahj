@@ -175,3 +175,8 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 - Build 3 handles pending Restore with the payment-pending explanation. All 42
   unit tests and 25 device tests pass. It is active internally; install and
   delayed Lifetime completion/restore verification are pending.
+
+- Build 4 derives subscription management from active subscription IDs and
+  hides it for Lifetime-only membership. All 44 unit tests and 26 device tests
+  pass. Standard Lifetime purchase and restore passed in the Play build; the
+  delayed test order was refunded and did not verify approval completion.

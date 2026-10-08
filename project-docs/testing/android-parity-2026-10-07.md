@@ -3,7 +3,7 @@
 ## Verified baseline
 
 - iOS 1.3.1, build 36: 167 unit tests and 3 screenshot UI tests passed.
-- Android build 3: 42 unit tests and 25 connected device tests passed on API 36.
+- Android build 4: 44 unit tests and 26 connected device tests passed on API 36.
 - Screenshot helper: 8 Python tests passed.
 - Minified QA reviewer access unlocked membership and survived a restart without a production RevenueCat connection.
 - Signed release bundle: package `com.jackwallner.mahj`, version 1.3.1 (1), target API 36. All four native libraries use at least 16 KB ELF load alignment.
@@ -79,3 +79,13 @@ Lifetime uses Google's slow test card that approves after a few minutes. The che
 Restoring while Google's delayed payment remained pending produced a generic retry error in build 2. Android now maps RevenueCat PaymentPendingError to the same pending-payment explanation used by purchase, while preserving retry messages for network and store failures. Two additional unit tests cover those cases. All 42 unit tests and 25 device tests pass; the QA APK, release APK and signed bundle build successfully. Evidence is in `/tmp/mahj-build3-full-verification.log` and `/tmp/mahj-build3-passing-results/`.
 
 Signed bundle SHA256 is `2c933f8e5439b10bdb3f1e0696930952898b8e5222564383772aba0ae2e78c54`. Version 1.3.1 (3) is active and available to internal testers, not reviewed. Play installation of build 3 and the remaining delayed Lifetime completion/restore check are pending. IARC terms consent is still required.
+
+## Lifetime verification and management correction (build 4)
+
+Google's delayed Lifetime test order ended as refunded. It verified pending-state messaging and absence of entitlement access; approval completion for that delayed order was not verified. A subsequent standard no-charge test card purchase succeeded in Play-installed build 3, unlocked Mahj+, and produced a sandbox Play Store one-time receipt for `prod123d5bd30c` attached to `pro`. In-app restore reported "Mahj+ restored!".
+
+The Lifetime membership incorrectly exposed a subscription-specific Google link, which returned "We couldn't find your subscription." Android now derives the management target from active subscriptions and displays that row only when such a subscription exists. Lifetime restore stays available. Two unit cases and one device flow cover the correction; all 44 unit tests and 26 device tests pass, and QA, release APK and signed bundle builds succeed. Logs are `/tmp/mahj-build4-full-verification.log`; XML is in `/tmp/mahj-build4-passing-results/`.
+
+IARC terms were accepted with explicit user approval on October 8. The completed questionnaire returns Everyone (ESRB), PEGI 3, and equivalent all-ages ratings, with In-App Purchases disclosed. The rating is saved for review.
+
+Build 4 signed bundle SHA256 is `ed9fcb1d0c4508e3b10c96f869ddaa6a711eab06064ab927446c6323de0b43bc`. Build 4 is active on internal testing. Play installation of this final correction is pending. The existing iOS app source, release and RevenueCat configuration remain unchanged.

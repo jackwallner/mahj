@@ -56,6 +56,9 @@ internal fun restoreFailureMessage(code: PurchasesErrorCode): String =
         "Google Play is still processing your payment. ${Membership.NAME} unlocks as soon as it completes."
     } else "Couldn't restore purchases. Try again."
 
+internal fun managedSubscriptionId(activeSubscriptions: Set<String>): String? =
+    activeSubscriptions.map { it.substringBefore(":") }.sorted().firstOrNull()
+
 class PurchaseException(message: String) : Exception(message)
 
 /**
@@ -222,7 +225,7 @@ class SubscriptionService(
         hasSubscriptionHistory = subscriptionHistoryOverride ?: info.allExpirationDatesByProduct.isNotEmpty()
         if (forcePro) return
         val entitlement = info.entitlements["pro"]
-        activeProductId = entitlement?.productIdentifier?.substringBefore(":")
+        activeProductId = managedSubscriptionId(info.activeSubscriptions)
         val override = BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE)
         isPro = entitlement?.isActive == true || override || reviewAccess.isGranted
     }

@@ -239,6 +239,15 @@ class ParityFlowTest {
     }
 
     @Test
+    fun membershipWithoutAnActiveSubscriptionKeepsRestoreAndHidesManagement() {
+        launch(member = true)
+        compose.onNodeWithContentDescription("Settings").performClick()
+        compose.onNodeWithText("Mahj+ unlocked").assertExists()
+        compose.onNodeWithText("Restore Purchases").assertExists()
+        assertTrue(compose.onAllNodes(hasText("Manage Subscription")).fetchSemanticsNodes().isEmpty())
+    }
+
+    @Test
     fun returningSubscribersSeeRegularBillingInThePaywall() {
         launch(returning = true)
         tag("tile-endless")

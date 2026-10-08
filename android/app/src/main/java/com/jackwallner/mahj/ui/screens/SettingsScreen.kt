@@ -124,8 +124,10 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
                 FormSection("Membership") {
                     if (service.isPro) {
                         FormRow("${Membership.NAME} unlocked", icon = "checkmark.seal.fill", tint = colors.jade)
-                        FormDivider()
-                        FormRow("Manage Subscription", onClick = { context.openUrl(StoreLinks.manageSubscriptionURL(service.activeProductId)) }) { Chevron() }
+                        service.activeProductId?.let { productId ->
+                            FormDivider()
+                            FormRow("Manage Subscription", onClick = { context.openUrl(StoreLinks.manageSubscriptionURL(productId)) }) { Chevron() }
+                        }
                     } else {
                         FormRow("Get ${Membership.NAME}", icon = "sparkles", onClick = { actions.openPaywall("mahj_settings_sheet") }) { PlusBadge() }
                     }

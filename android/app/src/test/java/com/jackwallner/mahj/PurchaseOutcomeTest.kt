@@ -1,6 +1,7 @@
 package com.jackwallner.mahj
 
 import com.jackwallner.mahj.data.PurchaseOutcome
+import com.jackwallner.mahj.data.managedSubscriptionId
 import com.jackwallner.mahj.data.purchaseOutcome
 import com.jackwallner.mahj.data.restoreFailureMessage
 import com.revenuecat.purchases.PurchasesErrorCode
@@ -34,5 +35,19 @@ class PurchaseOutcomeTest {
     fun realRestoreErrorsStillOfferARetry() {
         assertEquals("Couldn't restore purchases. Try again.", restoreFailureMessage(PurchasesErrorCode.NetworkError))
         assertEquals("Couldn't restore purchases. Try again.", restoreFailureMessage(PurchasesErrorCode.StoreProblemError))
+    }
+
+    @Test
+    fun lifetimeWithoutAnActiveSubscriptionHasNoSubscriptionLink() {
+        assertNull(managedSubscriptionId(emptySet()))
+    }
+
+    @Test
+    fun activeSubscriptionManagementUsesTheStoreSubscriptionId() {
+        assertEquals("com.jackwallner.mahj.yearly", managedSubscriptionId(setOf("com.jackwallner.mahj.yearly:yearly")))
+        assertEquals(
+            "com.jackwallner.mahj.monthly",
+            managedSubscriptionId(setOf("com.jackwallner.mahj.yearly:yearly", "com.jackwallner.mahj.monthly:monthly")),
+        )
     }
 }
