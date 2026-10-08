@@ -36,7 +36,7 @@ Android uses RevenueCat project `projba4fbe38`, Play app `appeb48abdaf2`, its ow
 
 ## Remaining release checks
 
-Configure and verify Google Play products, trial offers, real license-test purchase and restore, Play pre-launch report, listing and policy declarations, then submit production for review with managed publishing.
+Configure and verify Google Play products, trial offers, real license-test purchase and restore, Play pre-launch report and content rating, then submit production for review. Managed publishing was attempted, but Google Console displayed "You can't turn on managed publishing right now" for this unpublished app. Recheck availability before submission.
 
 ## Play installation verification
 
@@ -44,4 +44,4 @@ Build 1 was installed through Google Play on the signed-in remote Play AVD. Its 
 
 ## Store setup status
 
-Data Safety is saved with purchase history, app interaction analytics and anonymous app identifiers, encrypted transit, no third-party sharing outside service-provider processing, and an email-based deletion request route. The Android privacy page is published and separate from the iOS page. Education and support contact details are saved. IARC Terms approval is pending. The service account stages listing text and artwork, but its current testing access cannot commit the store listing. Mahj-only production publishing access has been requested. Google Console also rejects valid base-plan IDs in the current editor; do not claim billing or production review completed.
+Data Safety is saved with purchase history, app interaction analytics and anonymous app identifiers, encrypted transit, no third-party sharing outside service-provider processing, and an email-based deletion request route. The Android privacy page is published and separate from the iOS page. Education and support contact details are saved. IARC Terms approval is pending. The complete English store listing, icon, feature graphic and eight phone screenshots were saved through the signed-in Console. Publishing overview confirms the listing is ready to send for review. The service account can stage these assets but cannot commit them with its current testing access. Mahj-only production publishing access has been requested. The pre-launch report currently has no generated report and suggests a closed-testing upload. Google Console also rejects valid base-plan IDs in the current editor; do not claim billing or production review completed.
