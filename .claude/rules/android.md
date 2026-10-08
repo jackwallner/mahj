@@ -239,3 +239,10 @@ capture script's device is taller, so nothing earlier caught it):
 
 Verified in the R8 QA build on a temporary config-only Pro AVD
 (`mahj_agent_test`, API 36.1 Play image, port 5560), removed afterwards.
+
+Signed build 7 (1.3.1) is active on the internal track and was installed
+through Play on `small_phone`, where the onboarding pages fit. The service
+account cannot touch the production track (`The caller does not have
+permission` on both a promote and a draft upload), so promoting 7 to
+production and sending it for review is a Console step. Production still
+holds 1.3.1 (4) in review until that happens.
