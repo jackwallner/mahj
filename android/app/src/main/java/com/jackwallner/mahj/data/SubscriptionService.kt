@@ -66,9 +66,12 @@ class SubscriptionService(
         private set
     var offering by mutableStateOf<Offering?>(null)
         private set
+    var hasSubscriptionHistory by mutableStateOf(false)
+        private set
 
     private var isConfigured = false
     private var forcePro = false
+    private var subscriptionHistoryOverride: Boolean? = null
     private val impressionsThisSession = mutableSetOf<String>()
 
     /** Debug-only: open the paid boundary for screenshots and tests. */
@@ -83,6 +86,12 @@ class SubscriptionService(
         if (!BuildConfig.DEBUG) return
         defaults.putBoolean(LOCAL_OVERRIDE, value)
         isPro = value || reviewAccess.isGranted
+    }
+
+    fun setSubscriptionHistoryForDebug(value: Boolean) {
+        if (!BuildConfig.DEBUG) return
+        subscriptionHistoryOverride = value
+        hasSubscriptionHistory = value
     }
 
     fun activateReviewAccess(code: String): Boolean {
@@ -156,9 +165,14 @@ class SubscriptionService(
     /** A cancel is an outcome, not an error. Throws only with a player-facing message. */
     suspend fun purchase(activity: Activity, pkg: Package?): PurchaseOutcome {
         if (!configureIfNeeded() || pkg == null) throw PurchaseException(UNAVAILABLE)
-        val startedTrial = pkg.product.defaultOption?.freePhase != null
+        val option = if (hasSubscriptionHistory) pkg.product.subscriptionOptions?.basePlan
+        else pkg.product.defaultOption
+        val params = if (option != null) {
+            PurchaseParams.Builder(activity, option).presentedOfferingContext(pkg.presentedOfferingContext).build()
+        } else PurchaseParams.Builder(activity, pkg).build()
+        val startedTrial = option?.freePhase != null
         return try {
-            val result = Purchases.sharedInstance.awaitPurchase(PurchaseParams.Builder(activity, pkg).build())
+            val result = Purchases.sharedInstance.awaitPurchase(params)
             apply(result.customerInfo)
             if (!isPro) return PurchaseOutcome.PENDING
             diagnostics.recordConversion(pkg.product.id, startedTrial, pkg.presentedOfferingContext.offeringIdentifier)
@@ -197,6 +211,7 @@ class SubscriptionService(
         private set
 
     private fun apply(info: CustomerInfo) {
+        hasSubscriptionHistory = subscriptionHistoryOverride ?: info.allExpirationDatesByProduct.isNotEmpty()
         if (forcePro) return
         val entitlement = info.entitlements["pro"]
         activeProductId = entitlement?.productIdentifier?.substringBefore(":")
@@ -269,13 +284,6 @@ object PaywallPricing {
     fun savingsBadge(service: SubscriptionService): String =
         savingsPercent(service)?.let { "SAVE $it%" } ?: "BEST VALUE"
 
-    fun terms(service: SubscriptionService, plan: PaywallPlan): String {
-        val amount = price(service, plan)
-        return when {
-            plan == PaywallPlan.LIFETIME && amount == null -> "One-time purchase. Not a subscription, nothing renews."
-            plan == PaywallPlan.LIFETIME -> "$amount one-time. Not a subscription, nothing renews."
-            amount == null -> "Includes 7 days free. Auto-renews until canceled."
-            else -> "7 days free, then $amount. Auto-renews until canceled in Google Play."
-        }
-    }
+    fun terms(service: SubscriptionService, plan: PaywallPlan): String =
+        TrialPolicy.terms(plan, price(service, plan), service.hasSubscriptionHistory)
 }

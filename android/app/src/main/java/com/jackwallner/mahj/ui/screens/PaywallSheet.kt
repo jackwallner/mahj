@@ -43,6 +43,7 @@ import com.jackwallner.mahj.data.PurchaseException
 import com.jackwallner.mahj.data.PurchaseOutcome
 import com.jackwallner.mahj.data.StoreLinks
 import com.jackwallner.mahj.data.SubscriptionService
+import com.jackwallner.mahj.data.TrialPolicy
 import com.jackwallner.mahj.ui.LocalGraph
 import com.jackwallner.mahj.ui.components.symbol
 import com.jackwallner.mahj.ui.findActivity
@@ -121,7 +122,7 @@ fun PaywallSheet(source: String, onClose: () -> Unit) {
             }
             Text(PaywallPricing.terms(service, plan), style = MahjType.caption, color = colors.inkSecondary, textAlign = TextAlign.Center)
             PrimaryCTA(
-                plan.ctaTitle,
+                TrialPolicy.cta(plan, service.hasSubscriptionHistory),
                 Modifier.testTag("paywall-cta"),
                 enabled = priceReady && !purchasing && !restoring,
                 loading = purchasing || loading || (!attempted && !priceReady),
@@ -214,12 +215,12 @@ fun PaywallContent(service: SubscriptionService, selected: PaywallPlan, onSelect
             PlanCard(
                 PaywallPlan.YEARLY, "Yearly", PaywallPricing.priceText(service, PaywallPlan.YEARLY),
                 perMonth = PaywallPricing.perMonthEquivalent(service), anchor = PaywallPricing.monthlyAnchor(service),
-                detail = "7 days free, then billed yearly. Auto-renews.", badge = PaywallPricing.savingsBadge(service),
+                detail = TrialPolicy.detail(PaywallPlan.YEARLY, service.hasSubscriptionHistory), badge = PaywallPricing.savingsBadge(service),
                 selected = selected == PaywallPlan.YEARLY, onSelect = onSelect,
             )
             PlanCard(
                 PaywallPlan.MONTHLY, "Monthly", PaywallPricing.priceText(service, PaywallPlan.MONTHLY),
-                perMonth = null, anchor = null, detail = "7 days free, then billed monthly. Auto-renews.", badge = null,
+                perMonth = null, anchor = null, detail = TrialPolicy.detail(PaywallPlan.MONTHLY, service.hasSubscriptionHistory), badge = null,
                 selected = selected == PaywallPlan.MONTHLY, onSelect = onSelect,
             )
             PlanCard(

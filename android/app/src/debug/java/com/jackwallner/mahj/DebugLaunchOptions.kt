@@ -27,6 +27,9 @@ object DebugLaunchOptions {
         }
         if (extras.getBoolean("seedProgress")) ScreenshotFixtures.seed(graph)
         if (extras.getBoolean("forcePro")) graph.subscriptions.forceProForDebug()
+        if (extras.containsKey("returningSubscriber")) {
+            graph.subscriptions.setSubscriptionHistoryForDebug(extras.getBoolean("returningSubscriber"))
+        }
         extras.getString("appearance")?.let { graph.settings.updateAppearance(Appearance.fromRaw(it)) }
     }
 }

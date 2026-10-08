@@ -133,6 +133,10 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
   are saveable as well. `ParityFlowTest` checks a graded drill across recreation.
 - RevenueCat reports deferred Play payments as `PaymentPendingError`.
   Return `PurchaseOutcome.PENDING` without unlocking or presenting a failure.
+- Google trials target people who never subscribed in this app. Derive past
+  subscription history from CustomerInfo expiration-date keys, including
+  expired subscriptions. `TrialPolicy` drives paywall and onboarding copy;
+  returning subscribers buy the base plan with its offering context.
 - The Swift exporter rounds numeric scoring fixtures to nine decimal places;
   dictionary summation order can change insignificant floating-point bits.
 - In Play Console plan IDs and local-price popups, clear the input, use
@@ -156,6 +160,9 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
   restore passed in signed build 1. The receipt is sandbox, grants `pro`, and
   the release app displays Mahj+ unlocked. Annual and lifetime store-flow
   verification, pre-launch reporting and production submission remain pending.
+- Build 2 fixes returning-subscriber trial disclosure. Forty unit tests and 25
+  device tests pass. Its signed bundle is uploaded as an internal draft;
+  activation and Play installation are pending.
 - The app-scoped service account can upload bundles and validate receipts.
   Subscription creation and regional-price conversion currently return 403.
   Use the signed-in Console for billing and final submission; expanded service

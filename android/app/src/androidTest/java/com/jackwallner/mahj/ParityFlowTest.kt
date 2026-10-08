@@ -40,17 +40,19 @@ class ParityFlowTest {
     val compose = createEmptyComposeRule()
     private var scenario: ActivityScenario<MainActivity>? = null
 
-    private fun launch(member: Boolean = false) {
+    private fun launch(member: Boolean = false, returning: Boolean = false, onboarded: Boolean = true) {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         scenario = ActivityScenario.launch(
             Intent(context, MainActivity::class.java)
                 .putExtra("resetAll", true)
                 .putExtra("uiTest", true)
-                .putExtra("onboarded", true)
+                .putExtra("onboarded", onboarded)
+                .putExtra("returningSubscriber", returning)
+                .putExtra("skillLevel", if (onboarded) "" else "some")
                 .putExtra("forcePro", member)
                 .putExtra("appearance", "light"),
         )
-        waitFor("Your seat at the table.")
+        waitFor(if (onboarded) "Your seat at the table." else "onboarding-primary")
     }
 
     @After
@@ -234,6 +236,30 @@ class ParityFlowTest {
             }
             tag("next")
         }
+    }
+
+    @Test
+    fun returningSubscribersSeeRegularBillingInThePaywall() {
+        launch(returning = true)
+        tag("tile-endless")
+        waitFor("paywall-cta")
+        compose.onNodeWithTag("paywall-cta").assertContentDescriptionEquals("Subscribe")
+        compose.onNodeWithText("Billed yearly. Auto-renews.").assertExists()
+        compose.onNodeWithText("Billed monthly. Auto-renews.").assertExists()
+        assertTrue(compose.onAllNodes(hasText("7 days free", substring = true)).fetchSemanticsNodes().isEmpty())
+        tag("plan-monthly")
+        scenario!!.recreate()
+        waitFor("paywall-cta")
+        compose.onNodeWithTag("paywall-cta").assertContentDescriptionEquals("Subscribe")
+    }
+
+    @Test
+    fun returningSubscriberOnboardingDoesNotPromiseAnotherTrial() {
+        launch(returning = true, onboarded = false)
+        repeat(4) { tag("onboarding-primary") }
+        waitFor("Get Mahj+")
+        compose.onNodeWithTag("onboarding-primary").assertContentDescriptionEquals("Subscribe")
+        assertTrue(compose.onAllNodes(hasText("7 days free", substring = true)).fetchSemanticsNodes().isEmpty())
     }
 
     @Test
