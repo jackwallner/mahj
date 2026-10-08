@@ -1,15 +1,1 @@
-Gioca una mano, una tessera alla volta.
-
-Play a Hand ti distribuisce tredici tessere da un muro vero. Scegli una sezione, poi pesca e scarta per dodici turni mentre un coach valuta ogni scarto e mostra il calcolo che c'è dietro. Nessun avversario e nessun bot. Tutti ricevono una mano gratis al giorno.
-
-Reference è un nuovo glossario ricercabile più una pagina per ogni sezione della carta, gratis per tutti, a un tocco dalla schermata principale.
-
-I progressi delle stanze ora contano quello che hai davvero imparato: una domanda è acquisita quando la indovini due volte di fila.
-
-Se sbagli, l'app ora ti dice perché la tua risposta era sbagliata, non solo quale fosse quella giusta.
-
-Novità nella Table Room: punteggio e regole del tavolo. Chi paga cosa, quando è troppo tardi per chiamare una tessera e cosa succede dopo un mah jongg sbagliato.
-
-Novità nella Card Room: come leggere una riga della card, dai draghi abbinati e opposti fino a NEWS e agli zeri.
-
-Abbiamo anche ricontrollato ogni domanda rispetto alle regole e corretto alcune risposte, tra cui una domanda sui jolly e una di difesa segnalate dai giocatori. Grazie per i suggerimenti.
+Piccole correzioni e miglioramenti dietro le quinte.

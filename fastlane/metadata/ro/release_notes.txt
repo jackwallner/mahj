@@ -1,15 +1,1 @@
-Joacă o mână, piesă cu piesă.
-
-Play a Hand îți împarte treisprezece piese dintr-un zid real. Alege o secțiune, apoi trage și aruncă timp de douăsprezece ture în timp ce un antrenor notează fiecare aruncare și arată calculul din spatele ei. Fără adversari și fără boți. Toată lumea primește o mână gratuită pe zi.
-
-Reference este un nou glosar în care poți căuta, plus o pagină pentru fiecare secțiune a cardului, gratuit pentru toți, la o atingere de ecranul principal.
-
-Progresul camerelor numără acum ce ai învățat cu adevărat: o întrebare rămâne fixată când răspunzi corect de două ori la rând.
-
-Dacă greșești, aplicația îți spune acum de ce răspunsul tău a fost greșit, nu doar care era cel corect.
-
-Nou în Table Room: punctaj și reguli la masă. Cine cât plătește, când e prea târziu să ceri o piesă și ce se întâmplă după un mah jongg greșit.
-
-Nou în Card Room: cum citești un rând de pe card, de la dragonii potriviți și opuși până la NEWS și zerouri.
-
-Am reverificat și fiecare întrebare după reguli și am corectat câteva răspunsuri, printre care o întrebare despre jokeri și una de apărare semnalate de jucători. Mulțumim pentru observații.
+Mici corecturi și îmbunătățiri în culise.

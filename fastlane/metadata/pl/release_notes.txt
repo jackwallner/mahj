@@ -1,15 +1,1 @@
-Rozegraj rozdanie, kamień po kamieniu.
-
-Play a Hand rozdaje ci trzynaście kamieni z prawdziwego muru. Wybierz sekcję, a potem dobieraj i odrzucaj przez dwanaście tur, podczas gdy trener ocenia każdy zrzut i pokazuje stojącą za nim arytmetykę. Bez przeciwników i bez botów. Każdy dostaje jedno darmowe rozdanie dziennie.
-
-Reference to nowy przeszukiwalny słowniczek plus strona dla każdej sekcji karty, za darmo dla wszystkich, o jedno dotknięcie od ekranu głównego.
-
-Postęp w pokojach liczy teraz to, czego naprawdę się nauczyłeś: pytanie zostaje opanowane, gdy odpowiesz na nie poprawnie dwa razy z rzędu.
-
-Gdy się pomylisz, aplikacja powie ci teraz dlaczego twoja odpowiedź była zła, a nie tylko która była dobra.
-
-Nowość w Table Room: punktacja i zasady przy stole. Kto ile płaci, kiedy jest za późno na zawołanie kamienia i co się dzieje po błędnym mah jongg.
-
-Nowość w Card Room: jak czytać wiersz na karcie, od pasujących i przeciwnych smoków po NEWS i zera.
-
-Sprawdziliśmy też ponownie każde pytanie pod kątem zasad i poprawiliśmy kilka odpowiedzi, w tym pytanie o jokery i pytanie o obronę, na które zwrócili nam uwagę gracze. Dziękujemy za uwagi.
+Drobne poprawki i usprawnienia w tle.

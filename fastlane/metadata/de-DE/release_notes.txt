@@ -1,15 +1,1 @@
-Spiel eine Hand, Stein für Stein.
-
-Play a Hand teilt dir dreizehn Steine von einer echten Mauer aus. Leg dich auf einen Abschnitt fest, dann ziehe und lege zwölf Runden lang ab, während ein Coach jeden Wurf bewertet und die Rechnung dahinter zeigt. Keine Gegner und keine Bots. Jeder bekommt eine kostenlose Hand pro Tag.
-
-Reference ist ein neues durchsuchbares Glossar plus eine Seite zu jedem Abschnitt der Karte, kostenlos für alle, einen Tipp vom Startbildschirm entfernt.
-
-Der Raumfortschritt zählt jetzt, was du wirklich gelernt hast: Eine Frage sitzt, sobald du sie zweimal hintereinander richtig beantwortest.
-
-Liegst du falsch, sagt dir die App jetzt, warum deine Antwort falsch war, nicht nur welche richtig gewesen wäre.
-
-Neu im Table Room: Wertung und Tischregeln. Wer was zahlt, wann es für einen Ruf zu spät ist und was nach einem falschen Mah Jongg passiert.
-
-Neu im Card Room: So liest du eine Zeile auf der Karte, von passenden und gegensätzlichen Drachen bis zu NEWS und Nullen.
-
-Außerdem haben wir jede Frage erneut an den Regeln geprüft und eine Handvoll Antworten korrigiert, darunter eine Joker-Frage und eine Verteidigungsfrage, auf die uns Spieler hingewiesen haben. Danke für eure Hinweise.
+Kleine Fehlerbehebungen und Verbesserungen im Hintergrund.

@@ -1,15 +1,1 @@
-Mainkan satu tangan, satu jubin pada satu masa.
-
-Play a Hand mengagihkan tiga belas jubin daripada tembok sebenar. Pilih satu bahagian, kemudian cabut dan buang selama dua belas pusingan sementara jurulatih menilai setiap buangan dan menunjukkan pengiraan di sebaliknya. Tiada lawan dan tiada bot. Semua orang mendapat satu tangan percuma sehari.
-
-Reference ialah glosari baharu yang boleh dicari serta satu halaman bagi setiap bahagian kad, percuma untuk semua, satu ketikan dari skrin utama.
-
-Kemajuan bilik kini mengira apa yang anda benar-benar pelajari: satu soalan dikira dikuasai apabila anda menjawabnya betul dua kali berturut-turut.
-
-Jika tersilap, apl kini memberitahu anda mengapa jawapan anda salah, bukan sekadar mana yang betul.
-
-Baharu di Table Room: pemarkahan dan peraturan meja. Siapa bayar berapa, bila sudah terlambat untuk memanggil jubin, dan apa yang berlaku selepas mah jongg yang salah.
-
-Baharu di Card Room: cara membaca satu baris pada kad, daripada naga sepadan dan berlawanan hingga NEWS dan sifar.
-
-Kami juga menyemak semula setiap soalan mengikut peraturan dan membetulkan beberapa jawapan, termasuk soalan joker dan soalan pertahanan yang ditandakan oleh pemain. Terima kasih atas maklum balas anda.
+Pembetulan kecil dan penambahbaikan di sebalik tabir.

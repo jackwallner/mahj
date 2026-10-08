@@ -1,15 +1,1 @@
-Spill en hånd, én brikke om gangen.
-
-Play a Hand deler ut tretten brikker fra en ekte mur. Velg en seksjon, og trekk og kast så i tolv runder mens en coach vurderer hvert kast og viser regnestykket bak det. Ingen motstandere og ingen bots. Alle får én gratis hånd om dagen.
-
-Reference er en ny søkbar ordliste pluss en side for hver seksjon på kortet, gratis for alle, ett trykk fra hjemskjermen.
-
-Fremgangen i rommene teller nå det du faktisk har lært: et spørsmål sitter når du svarer riktig to ganger på rad.
-
-Svarer du feil, forteller appen nå hvorfor svaret ditt var galt, ikke bare hvilket som var riktig.
-
-Nytt i Table Room: poengberegning og bordregler. Hvem betaler hva, når det er for sent å rope på en brikke, og hva som skjer etter en feilaktig mah jongg.
-
-Nytt i Card Room: slik leser du en linje på kortet, fra samsvarende og motsatte drager til NEWS og nuller.
-
-Vi har også sjekket hvert spørsmål mot reglene på nytt og rettet noen svar, blant annet et jokerspørsmål og et forsvarsspørsmål som spillere gjorde oss oppmerksomme på. Takk for tilbakemeldingene.
+Små rettelser og forbedringer bak kulissene.

@@ -1,15 +1,1 @@
-Chơi một ván, từng quân một.
-
-Play a Hand chia cho bạn mười ba quân từ một bức tường thật. Hãy chọn một nhóm bài, rồi bốc và đánh trong mười hai lượt trong khi huấn luyện viên chấm từng quân bạn đánh ra và chỉ ra phép tính đằng sau. Không có đối thủ và không có bot. Ai cũng được một ván miễn phí mỗi ngày.
-
-Reference là bảng thuật ngữ mới có tìm kiếm, kèm một trang cho mỗi nhóm bài trên thẻ, miễn phí cho tất cả, chỉ cách màn hình chính một chạm.
-
-Tiến độ từng phòng giờ đếm những gì bạn thực sự đã học: một câu hỏi được ghi nhận khi bạn trả lời đúng hai lần liên tiếp.
-
-Nếu sai, ứng dụng giờ sẽ nói cho bạn biết vì sao câu trả lời của bạn sai, chứ không chỉ đâu là đáp án đúng.
-
-Mới trong Table Room: tính điểm và luật trên bàn. Ai trả bao nhiêu, khi nào thì đã quá muộn để gọi quân, và điều gì xảy ra sau khi tuyên bố mạt chược sai.
-
-Mới trong Card Room: cách đọc một dòng trên thẻ, từ rồng cùng màu và khác màu đến NEWS và số không.
-
-Chúng tôi cũng đã kiểm tra lại mọi câu hỏi theo luật và sửa một vài đáp án, trong đó có một câu về joker và một câu phòng thủ mà người chơi đã báo. Cảm ơn góp ý của bạn.
+Các sửa lỗi nhỏ và cải tiến bên trong.

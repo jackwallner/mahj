@@ -1,15 +1,1 @@
-Juega una mano, ficha a ficha.
-
-Play a Hand te reparte trece fichas de un muro real. Comprométete con una sección y luego roba y descarta durante doce turnos mientras un entrenador califica cada descarte y te enseña la aritmética que hay detrás. Sin rivales y sin bots. Todo el mundo recibe una mano gratis al día.
-
-Reference es un nuevo glosario con búsqueda y una página por cada sección de la carta, gratis para todos, a un toque de la pantalla de inicio.
-
-El progreso de cada sala ahora cuenta lo que de verdad has aprendido: una pregunta queda fijada cuando la aciertas dos veces seguidas.
-
-Si fallas, la app ahora te dice por qué tu respuesta era incorrecta, no solo cuál era la correcta.
-
-Nuevo en la Table Room: puntuación y reglas de mesa. Quién paga qué, cuándo ya es tarde para cantar una ficha y qué pasa después de un mah jongg equivocado.
-
-Nuevo en la Card Room: cómo leer una línea de la tarjeta, desde los dragones iguales y opuestos hasta NEWS y los ceros.
-
-También revisamos cada pregunta con las reglas y corregimos algunas respuestas, entre ellas una pregunta sobre comodines y otra de defensa que nos señalaron los jugadores. Gracias por sus comentarios.
+Pequeñas correcciones y mejoras internas.

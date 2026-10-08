@@ -1,15 +1,1 @@
-Odigraj roko, ploščico za ploščico.
-
-Play a Hand ti razdeli trinajst ploščic iz pravega zidu. Izberi sekcijo, nato pa dvanajst potez vleci in odvrzi, medtem ko trener oceni vsak met in pokaže računico za njim. Brez nasprotnikov in brez botov. Vsak dobi eno brezplačno roko na dan.
-
-Reference je nov slovarček z iskanjem in stran za vsako sekcijo karte, brezplačno za vse, en dotik od domačega zaslona.
-
-Napredek sob zdaj šteje tisto, kar si se res naučil: vprašanje obvladaš, ko nanj dvakrat zapored odgovoriš pravilno.
-
-Če se zmotiš, ti aplikacija zdaj pove zakaj je bil tvoj odgovor napačen, ne le kateri je bil pravilen.
-
-Novo v Table Room: točkovanje in pravila za mizo. Kdo koliko plača, kdaj je prepozno za klic ploščice in kaj se zgodi po napačnem mah jonggu.
-
-Novo v Card Room: kako prebrati vrstico na kartici, od ujemajočih se in nasprotnih zmajev do NEWS in ničel.
-
-Vsako vprašanje smo znova preverili glede na pravila in popravili nekaj odgovorov, med njimi vprašanje o jokerjih in obrambno vprašanje, na kateri so nas opozorili igralci. Hvala za povratne informacije.
+Manjši popravki in izboljšave v ozadju.
