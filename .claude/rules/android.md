@@ -243,6 +243,8 @@ Verified in the R8 QA build on a temporary config-only Pro AVD
 Signed build 7 (1.3.1) is active on the internal track and was installed
 through Play on `small_phone`, where the onboarding pages fit. The service
 account cannot touch the production track (`The caller does not have
-permission` on both a promote and a draft upload), so promoting 7 to
-production and sending it for review is a Console step. Production still
-holds 1.3.1 (4) in review until that happens.
+permission` on both a promote and a draft upload), so promotion is a Console
+step. On 2026-10-08 build 7 was promoted from internal to a production draft in
+Chrome, with en-US release notes, and saved to Publishing overview. The only
+preview warning was the non-blocking native-debug-symbols note. Sending it
+for review ("Submit 1 change for review") was left for Jack.
