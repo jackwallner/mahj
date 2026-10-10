@@ -8,32 +8,32 @@ No prices in copy: Play shows them.
 
 Mahj Trainer: Mahjong Practice
 
-## Short description (79/80)
+## Short description (78/80)
 
-Five-minute American Mah Jongg drills: tiles, Charleston, racks and table play.
+Learn American mahjong in 5-minute drills: tiles, Charleston, racks, strategy.
 
-## Full description (3330/4000)
+## Full description (3571/4000)
 
-Practice American Mah Jongg in five-minute drills: tiles, Charleston strategy, rack reading, and keep-or-throw judgment, built for new players.
+Practice American mahjong in five-minute drills: tiles, Charleston strategy, rack reading, and keep-or-throw judgment. Built for beginners who are learning to play mah jongg.
 
-Learned mah jongg on Thursday? Keep it. Mahj Trainer has no opponents and no pressure: just quick, interactive reps that build the skills you need before sitting down at a real table. Think of it like practicing your serve without playing a match.
+Learned mahjong on Thursday? Keep it. Mahj Trainer has no opponents and no pressure: just quick, interactive reps that build the skills you need before sitting down at a real table. Think of it like practicing your serve without playing a match.
 
 WHY IT WORKS
-Most new players learn at a weekly game, then have no way to practice until the next one. Lessons fade. Mahj Trainer gives you quick reps you can run anywhere, even standing in line.
+Most new players learn mahjong at a weekly game or a class, then have no way to practice until the next one. Lessons fade. Mahj Trainer gives you quick mahjong practice you can run anywhere, even standing in line.
 
 FOUR FREE PRACTICE ROOMS
 
 THE TILE ROOM
-Meet every tile family: craks, bams, dots, winds, dragons, flowers, and jokers. Then quiz yourself on the rules everyone gets wrong: which dragon goes with which suit, what jokers can and cannot do, what a soap really means.
+Meet every mahjong tile family: craks, bams, dots, winds, dragons, flowers, and jokers. Then quiz yourself on the mahjong rules everyone gets wrong: which dragon goes with which suit, what jokers can and cannot do, what a soap really means.
 
 THE CARD ROOM
 Learn the card's sections (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs, and more) and how to spot them. Then practice reading racks: see 13 tiles and name the section they're chasing.
 
 THE CHARLESTON ROOM
-The part that scares every new player, minus the panic. Learn the rules and strategy of the pass, then work through real deals: pick 3 tiles to pass and compare your choice with the coach's, with the reasoning explained.
+The part of American mahjong that scares every new player, minus the panic. Learn the rules and strategy of the pass, then work through real deals: pick 3 tiles to pass and compare your choice with the coach's, with the reasoning explained.
 
 THE TABLE ROOM
-Keep-or-throw judgment calls: when to hold a flower, when to swap for an exposed joker, what an opponent's exposure tells you, and which discards are safe.
+Keep-or-throw mahjong strategy: when to hold a flower, when to swap for an exposed joker, what an opponent's exposure tells you, and which discards are safe.
 
 MAHJ+ (optional upgrade)
 Everything above stays free, forever. Mahj+ adds practice that never runs out:
@@ -52,8 +52,8 @@ THE MASTER TABLES, where advanced Charleston strategy, a defense school, and exp
 
 New drills are added all year.
 
-BUILT FOR NEW PLAYERS
-Flashcards with the "why" on the back. Streaks to keep you practicing between games. Original practice hands that teach the category system, so your skills transfer to any year's card.
+BUILT FOR MAHJONG BEGINNERS
+Like a patient mahjong tutor in your pocket: flashcards with the "why" on the back. Streaks to keep you practicing between games. Original practice hands that teach the category system, so your skills transfer to any year's card. Made for American mah jongg (also spelled mahjongg), the version played with a yearly card.
 
 Mahj Trainer is an independent training app. It is not affiliated with or endorsed by the National Mah Jongg League. For official hands and values, get the current NMJL card.
 
