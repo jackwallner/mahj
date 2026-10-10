@@ -248,3 +248,8 @@ step. On 2026-10-08 build 7 was promoted from internal to a production draft in
 Chrome, with en-US release notes, and saved to Publishing overview. The only
 preview warning was the non-blocking native-debug-symbols note. Sending it
 for review ("Submit 1 change for review") was left for Jack.
+
+On 2026-10-10 Google approved the submission and all 17 changes were published
+from Publishing overview (managed publishing stays on). Production 1.3.1
+(build 7, superseding build 4) is live in 177 countries/regions plus Rest of
+World, with the US Alpha track, store listing and app content declarations.
