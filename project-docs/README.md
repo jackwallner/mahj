@@ -5,6 +5,7 @@ Developer notes and historical audits for this repository. The published site re
 ## Audits
 
 - [aso827.md](audits/aso827.md): Mahj Trainer ASO Audit
+- [growth-2026-10-11.md](audits/growth-2026-10-11.md): Growth review: funnel, retention, Apple Ads economics, competitors, feedback prompt
 - [audit823.md](audits/audit823.md): Mahj Trainer audit823
 - [ios27MahjTrainer.md](audits/ios27MahjTrainer.md): iOS 27 compatibility audit: Mahj Trainer
 - [reg93.md](audits/reg93.md): REG93: 1.2.1 App Store release to 1.3.0 TestFlight audit
