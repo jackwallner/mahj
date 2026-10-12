@@ -462,7 +462,7 @@ object DefenseGenerator {
         val runPossible = (exposedRanks.maxOrNull() ?: 0) - (exposedRanks.minOrNull() ?: 0) <= 4
         var read = if (readings.size > 1) "A pung of $shown fit both ${readingNames(readings)}, so read the table both ways."
         else "A pung of $shown both sit inside ${section.displayName}, so that is the family this player is building."
-        if (runPossible) read += " Pungs that close could also be part of a Consecutive Run."
+        if (runPossible) read += " A Consecutive Run from ${exposedRanks.min()} to ${exposedRanks.max()} could hold both, too."
         val value = (safe as? Tile.Suited)?.rank ?: 0
         val article = if (value == 8) "an" else "a"
         val never = readings.map { "${it.displayName} never uses $article $value" }.toMutableList()

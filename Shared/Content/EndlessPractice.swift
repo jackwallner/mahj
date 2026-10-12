@@ -222,11 +222,12 @@ enum EndlessPractice {
     static func passItem(
         _ pass: CharlestonGenerator.GeneratedPass,
         id: String = PracticeSkill.charlestonPass.itemPrefix + UUID().uuidString,
-        sourceLabel: String = "Endless Practice"
+        sourceLabel: String = "Endless Practice",
+        prompt: String? = nil
     ) -> QuickItem {
         QuickItem(
             id: id,
-            prompt: "The first pass goes right. Which one of these four costs you nothing to pass?",
+            prompt: prompt ?? "The first pass is coming. Which tile is the first to go?",
             tiles: pass.tiles,
             choices: pass.choices.map(\.spokenName),
             answerIndex: pass.choices.firstIndex(of: pass.answer) ?? 0,
@@ -254,7 +255,7 @@ enum EndlessPractice {
             .joined(separator: " and ")
         return QuickItem(
             id: id,
-            prompt: "The only player with exposures has \(shown) on their rack. Which discard is safest?",
+            prompt: "Only one player has tiles out: \(shown). Which discard is safest?",
             // The exposed groups themselves, so the read is on the table
             // rather than buried in the sentence above it.
             tiles: question.exposures.flatMap { $0 },

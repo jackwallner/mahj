@@ -56,7 +56,7 @@ enum KeepDiscardContent {
             frontTiles: [.c(5), .c(5), .c(5), .c(5)],
             frontSubtitle: "And why should you care?",
             backTitle: "Four. Count Them.",
-            backBody: "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your 5C pair can never become a pung without a joker. Counting visible copies tells you when a hand is dead.",
+            backBody: "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your pair of 5 Craks can never become a pung without a joker. Counting visible copies tells you when a hand is dead.",
             choice: CardChoice("Three", "Four", answerIndex: 1)
         ),
         Flashcard(

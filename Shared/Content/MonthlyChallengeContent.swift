@@ -10,16 +10,16 @@ enum MonthlyChallengeTheme: String, CaseIterable, Codable, Sendable {
     var title: String {
         switch self {
         case .charleston: return "The Charleston"
-        case .defense: return "Defense"
-        case .rackReading: return "Rack Reading"
+        case .defense: return "Safe Discards"
+        case .rackReading: return "Reading Your Rack"
         }
     }
 
     var blurb: String {
         switch self {
-        case .charleston: return "Pass smart: the tiles you can lose for free, and the three that make the strongest pass."
-        case .defense: return "Read the exposures and throw the tile nobody at the table can use."
-        case .rackReading: return "Spot the section a rack is chasing before anyone else does."
+        case .charleston: return "Pass smart: the tiles that do nothing for your hand, and the three that make the strongest pass."
+        case .defense: return "Read the tiles other players have out, and throw the one nobody can use."
+        case .rackReading: return "Look at a rack and spot which section of the card it is heading for."
         }
     }
 
@@ -27,8 +27,8 @@ enum MonthlyChallengeTheme: String, CaseIterable, Codable, Sendable {
     var skillTitle: String {
         switch self {
         case .charleston: return "Charleston"
-        case .defense: return "Defense"
-        case .rackReading: return "Rack Reading"
+        case .defense: return "Safe Discards"
+        case .rackReading: return "Reading Your Rack"
         }
     }
 
@@ -206,11 +206,18 @@ enum MonthlyChallengeContent {
         let readPasses = theme == .charleston
             ? distinct(CharlestonGenerator.twoSinglesBatch(count: 12, seed: "\(seed)-two-singles"), by: { "\($0.section)" }, count: 3)
             : []
-        let passOrder = readPasses.isEmpty
-            ? plainPasses
-            : [plainPasses.first, readPasses.first, plainPasses.dropFirst().first, readPasses.dropFirst().first, readPasses.dropFirst(2).first].compactMap { $0 }
-        let passes = passOrder.enumerated().map { index, pass in
-            EndlessPractice.passItem(pass, id: PracticeSkill.charlestonPass.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
+        let plain = plainPasses.map { (pass: $0, twoSingles: false) }
+        let reads = readPasses.map { (pass: $0, twoSingles: true) }
+        let passOrder = reads.isEmpty
+            ? plain
+            : [plain.first, reads.first, plain.dropFirst().first, reads.dropFirst().first, reads.dropFirst(2).first].compactMap { $0 }
+        let passes = passOrder.enumerated().map { index, entry in
+            EndlessPractice.passItem(
+                entry.pass,
+                id: PracticeSkill.charlestonPass.itemPrefix + "\(seed)-\(index)",
+                sourceLabel: label,
+                prompt: entry.twoSingles ? "Two of these tiles are singles. Which one should you pass?" : nil
+            )
         }
         // Distinct families first, then distinct pungs; a defense month swaps a
         // run-trap tile into every question whose pungs sit two apart.

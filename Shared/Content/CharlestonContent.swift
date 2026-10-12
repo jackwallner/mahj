@@ -107,7 +107,7 @@ enum CharlestonContent {
             situation: "First Charleston, pass LEFT. Pick 3 tiles to pass.",
             deal: [.c(3), .c(3), .b(7), .b(7), .d(9), .d(9), .c(5), .b(1), .wind(.west), .d(4), .c(8), .flower, .joker],
             recommendedPass: [.d(4), .c(8), .wind(.west)],
-            reasoning: "Three natural pairs of odd numbers point at 13579 (or even Singles & Pairs). Keep every odd tile: the 5C and 1B still fit odd hands. Pass the evens (4D, 8C) and the lone wind. Never break the pairs.",
+            reasoning: "Three natural pairs of odd numbers point at 13579 (or even Singles & Pairs). Keep every odd tile: the 5 Crak and 1 Bam still fit odd hands. Pass the evens (4 Dot, 8 Crak) and the lone wind. Keep the pairs, since jokers can never make a pair for you.",
             tip: "Tiles that fit your section stay, even unpaired. Pass tiles from the WRONG number family first."
         ),
         CharlestonScenario(
@@ -123,7 +123,7 @@ enum CharlestonContent {
             situation: "First Charleston, pass ACROSS. Pick 3 tiles to pass.",
             deal: [.flower, .flower, .flower, .b(2), .b(4), .b(6), .b(8), .b(8), .d(2), .c(9), .wind(.north), .joker, .c(5)],
             recommendedPass: [.c(9), .c(5), .wind(.north)],
-            reasoning: "Three flowers plus a wall of even bams: this deal wants an evens or year hand, and flowers feature in both. The odd craks (9C, 5C) and lone North contribute nothing. Whatever you do, don't pass the flowers.",
+            reasoning: "Three flowers plus a wall of even bams: this deal wants an evens or year hand, and flowers feature in both. The odd Craks (9 Crak, 5 Crak) and lone North contribute nothing. Whatever you do, don't pass the flowers.",
             tip: "Flowers are the most re-usable tiles on the card. Early passes should almost never include one."
         ),
         CharlestonScenario(

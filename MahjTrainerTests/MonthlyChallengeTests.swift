@@ -121,7 +121,7 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(first.score, 2)
         XCTAssertEqual(second.score, 2)
         XCTAssertEqual(MonthlyChallengeStore(defaults: defaults).result(for: challenge)?.score, 2)
-        XCTAssertTrue(first.shareText.contains("November Challenge: 2/3"))
+        XCTAssertTrue(first.shareText.contains("November Challenge (The Charleston): 2/3"))
     }
 
     @MainActor

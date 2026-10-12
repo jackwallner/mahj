@@ -1855,7 +1855,7 @@
         "Three",
         "Four"
       ],
-      "explanation" : "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your 5C pair can never become a pung without a joker. Counting visible copies tells you when a hand is dead.",
+      "explanation" : "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your pair of 5 Craks can never become a pung without a joker. Counting visible copies tells you when a hand is dead.",
       "id" : "kd-count-four",
       "isReviewable" : true,
       "prompt" : "How many 5 Craks exist in the whole set?\nAnd why should you care?",
@@ -4000,7 +4000,7 @@
           "3D",
           "6B"
         ],
-        "explanation" : "A pung of 9 Bam and a pung of 6 Crak both sit inside 369, so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 4 Crak fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Bam and a pung of 6 Crak both sit inside 369, so that is the family this player is building. A Consecutive Run from 6 to 9 could hold both, too. The 4 Crak fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "9B",
@@ -4029,7 +4029,7 @@
           "9C",
           "9B"
         ],
-        "explanation" : "A pung of 6 Crak and a pung of 9 Dot both sit inside 369, so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 4 Dot fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 6 Crak and a pung of 9 Dot both sit inside 369, so that is the family this player is building. A Consecutive Run from 6 to 9 could hold both, too. The 4 Dot fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "6C",
@@ -4058,7 +4058,7 @@
           "9D",
           "1D"
         ],
-        "explanation" : "A pung of 3 Dot and a pung of 6 Crak both sit inside 369, so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 1 Dot fits none of it: 369 never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 3 Dot and a pung of 6 Crak both sit inside 369, so that is the family this player is building. A Consecutive Run from 3 to 6 could hold both, too. The 1 Dot fits none of it: 369 never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "3D",
@@ -4116,7 +4116,7 @@
           "1D",
           "2B"
         ],
-        "explanation" : "A pung of 8 Bam and a pung of 4 Crak both sit inside 2468 (Evens), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 1 Dot fits none of it: 2468 (Evens) never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 8 Bam and a pung of 4 Crak both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 4 to 8 could hold both, too. The 1 Dot fits none of it: 2468 (Evens) never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "8B",
@@ -4145,7 +4145,7 @@
           "3D",
           "3C"
         ],
-        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 4 Crak fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family this player is building. A Consecutive Run from 6 to 9 could hold both, too. The 4 Crak fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "9D",
@@ -4174,7 +4174,7 @@
           "4D",
           "9C"
         ],
-        "explanation" : "A pung of 7 Crak and a pung of 9 Dot both sit inside 13579 (Odds), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 4 Dot fits none of it: 13579 (Odds) never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 7 Crak and a pung of 9 Dot both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 7 to 9 could hold both, too. The 4 Dot fits none of it: 13579 (Odds) never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "7C",
@@ -4205,7 +4205,7 @@
           "3B",
           "6C"
         ],
-        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 1 Crak fits none of it: 369 never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family this player is building. A Consecutive Run from 6 to 9 could hold both, too. The 1 Crak fits none of it: 369 never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "9D",
@@ -4234,7 +4234,7 @@
           "4C",
           "7B"
         ],
-        "explanation" : "A pung of 2 Crak and a pung of 6 Dot both sit inside 2468 (Evens), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 7 Bam fits none of it: 2468 (Evens) never uses a 7, and no run through both of them reaches a 7. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 2 Crak and a pung of 6 Dot both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 2 to 6 could hold both, too. The 7 Bam fits none of it: 2468 (Evens) never uses a 7, and no run through both of them reaches a 7. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "2C",
@@ -4263,7 +4263,7 @@
           "3D",
           "7D"
         ],
-        "explanation" : "A pung of 5 Bam and a pung of 7 Bam both sit inside 13579 (Odds), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 5 Bam and a pung of 7 Bam both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 7 could hold both, too. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "5B",
@@ -4292,7 +4292,7 @@
           "9C",
           "3B"
         ],
-        "explanation" : "A pung of 6 Crak and a pung of 3 Dot both sit inside 369, so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 8 Dot fits none of it: 369 never uses an 8, and no run through both of them reaches an 8. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 6 Crak and a pung of 3 Dot both sit inside 369, so that is the family this player is building. A Consecutive Run from 3 to 6 could hold both, too. The 8 Dot fits none of it: 369 never uses an 8, and no run through both of them reaches an 8. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "6C",
@@ -4321,7 +4321,7 @@
           "1B",
           "1D"
         ],
-        "explanation" : "A pung of 9 Dot and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 2 Crak fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Dot and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 9 could hold both, too. The 2 Crak fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "9D",
@@ -4350,7 +4350,7 @@
           "4D",
           "2B"
         ],
-        "explanation" : "A pung of 6 Crak and a pung of 2 Dot both sit inside 2468 (Evens), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 1 Crak fits none of it: 2468 (Evens) never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 6 Crak and a pung of 2 Dot both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 2 to 6 could hold both, too. The 1 Crak fits none of it: 2468 (Evens) never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "6C",
@@ -4410,7 +4410,7 @@
           "3D",
           "9B"
         ],
-        "explanation" : "A pung of 7 Dot and a pung of 5 Bam both sit inside 13579 (Odds), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 2 Dot fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 7 Dot and a pung of 5 Bam both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 7 could hold both, too. The 2 Dot fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "7D",
@@ -4468,7 +4468,7 @@
           "2B",
           "7C"
         ],
-        "explanation" : "A pung of 7 Bam and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 7 Bam and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 7 could hold both, too. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "7B",
@@ -4497,7 +4497,7 @@
           "7C",
           "6C"
         ],
-        "explanation" : "A pung of 4 Bam and a pung of 2 Bam both sit inside 2468 (Evens), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 7 Crak fits none of it: 2468 (Evens) never uses a 7, and no run through both of them reaches a 7. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 4 Bam and a pung of 2 Bam both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 2 to 4 could hold both, too. The 7 Crak fits none of it: 2468 (Evens) never uses a 7, and no run through both of them reaches a 7. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "4B",
@@ -4526,7 +4526,7 @@
           "6C",
           "8C"
         ],
-        "explanation" : "A pung of 3 Bam and a pung of 6 Dot both sit inside 369, so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 8 Crak fits none of it: 369 never uses an 8, and no run through both of them reaches an 8. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 3 Bam and a pung of 6 Dot both sit inside 369, so that is the family this player is building. A Consecutive Run from 3 to 6 could hold both, too. The 8 Crak fits none of it: 369 never uses an 8, and no run through both of them reaches an 8. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "3B",
@@ -4555,7 +4555,7 @@
           "4D",
           "8C"
         ],
-        "explanation" : "A pung of 4 Bam and a pung of 6 Bam both sit inside 2468 (Evens), so that is the family this player is building. Pungs that close could also be part of a Consecutive Run. The 9 Bam fits none of it: 2468 (Evens) never uses a 9, and no run through both of them reaches a 9. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 4 Bam and a pung of 6 Bam both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 4 to 6 could hold both, too. The 9 Bam fits none of it: 2468 (Evens) never uses a 9, and no run through both of them reaches a 9. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "4B",
@@ -4852,13 +4852,13 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 5,
       "note" : "The 6 Dot fits 2468 (Evens), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
       "seed" : "deal-3",
       "target" : "evens2468",
-      "value" : 6.1000000000000005,
+      "value" : 6.0999999999999996,
       "working" : 3
     },
     {
@@ -5120,7 +5120,7 @@
               "8 Bam, Flower, Flower",
               "9 Crak, 2 Bam, 6 Bam"
             ],
-            "explanation" : "Three flowers plus a wall of even bams: this deal wants an evens or year hand, and flowers feature in both. The odd craks (9C, 5C) and lone North contribute nothing. Whatever you do, don't pass the flowers.",
+            "explanation" : "Three flowers plus a wall of even bams: this deal wants an evens or year hand, and flowers feature in both. The odd Craks (9 Crak, 5 Crak) and lone North contribute nothing. Whatever you do, don't pass the flowers.",
             "id" : "mahj-minute-charleston-2026-02-28",
             "isReviewable" : false,
             "prompt" : "First Charleston, pass ACROSS. Pick 3 tiles to pass. Which three tiles make the strongest pass?",

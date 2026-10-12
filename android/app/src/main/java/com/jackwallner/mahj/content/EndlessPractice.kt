@@ -134,7 +134,7 @@ object EndlessPractice {
     private fun passItems(count: Int): List<QuickItem> = CharlestonGenerator.batch(count).map { pass ->
         QuickItem(
             id = newID(PracticeSkill.CHARLESTON_PASS),
-            prompt = "The first pass goes right. Which one of these four costs you nothing to pass?",
+            prompt = "The first pass is coming. Which tile is the first to go?",
             tiles = pass.tiles,
             choices = pass.choices.map { it.spokenName },
             answerIndex = pass.choices.indexOf(pass.answer).coerceAtLeast(0),
@@ -149,7 +149,7 @@ object EndlessPractice {
         val shown = question.exposures.mapNotNull { it.firstOrNull() }.joinToString(" and ") { "a pung of ${it.spokenName}" }
         QuickItem(
             id = newID(PracticeSkill.DEFENSE),
-            prompt = "The only player with exposures has $shown on their rack. Which discard is safest?",
+            prompt = "Only one player has tiles out: $shown. Which discard is safest?",
             tiles = question.exposures.flatten(),
             choices = question.choices.map { it.spokenName },
             answerIndex = question.choices.indexOf(question.answer).coerceAtLeast(0),

@@ -234,7 +234,9 @@ enum DefenseGenerator {
         var read = readings.count > 1
             ? "A pung of \(shown) fit both \(readingNames(readings)), so read the table both ways."
             : "A pung of \(shown) both sit inside \(section.displayName), so that is the family this player is building."
-        if runPossible { read += " Pungs that close could also be part of a Consecutive Run." }
+        if runPossible, let low = exposedRanks.min(), let high = exposedRanks.max() {
+            read += " A Consecutive Run from \(low) to \(high) could hold both, too."
+        }
         let value = rank(of: safe) ?? 0
         let article = value == 8 ? "an" : "a"
         var never = readings.map { "\($0.displayName) never uses \(article) \(value)" }

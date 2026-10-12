@@ -91,7 +91,7 @@ struct MonthlyChallengeView: View {
     private func footnote(result: MonthlyChallengeResult?, progress: MonthlyChallengeProgress?) -> String {
         guard isCurrent else {
             return result == nil
-                ? "From \(challenge.title). One attempt: your score is final once you finish."
+                ? "From \(challenge.title). Each answer counts as soon as you tap it, and your answers are saved if you stop."
                 : "From \(challenge.title). Your score is final."
         }
         let next = MonthlyChallengeContent.next(after: challenge)
@@ -106,7 +106,7 @@ struct MonthlyChallengeView: View {
             let last = challenge.end.addingTimeInterval(-1).formatted(.dateTime.month(.wide).day())
             return "Your answers are saved. Pick up any time before \(last)."
         }
-        return "One attempt: your score is final once you finish. \(left)."
+        return "Each answer counts as soon as you tap it. Stop any time and your answers are saved. \(left)."
     }
 
     private var archive: some View {
@@ -166,7 +166,7 @@ struct MonthlyChallengeView: View {
 }
 
 /// What the twelve questions are made of, so the theme is a promise the
-/// player can count: "8 Charleston · 2 Defense · 2 Rack Reading", the theme
+/// player can count: "8 Charleston · 2 Safe Discards · 2 Reading Your Rack", the theme
 /// first and in its colour. Plain text, so it wraps at any text size.
 private struct MonthlyChallengeMix: View {
     let challenge: MonthlyChallenge

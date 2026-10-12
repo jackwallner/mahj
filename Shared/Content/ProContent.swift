@@ -33,7 +33,7 @@ enum ProContent {
             situation: "First Charleston, pass RIGHT. Eight even tiles plus a lonely pair of Norths. Pick 3.",
             deal: [.c(2), .c(4), .c(6), .c(8), .b(2), .b(4), .b(6), .b(8), .wind(.north), .wind(.north), .d(5), .flower, .joker],
             recommendedPass: [.wind(.north), .wind(.north), .d(5)],
-            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so opponents have not committed yet and the feed risk is low. Ship both Norths and the odd 5 Dot.",
+            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so nobody has settled on a hand yet and passing a pair is unlikely to help anyone much. Pass both Norths and the odd 5 Dot.",
             tip: "Hold pairs by default, but a pair that fits none of your target section is fair to pass early, before opponents lock in."
         ),
         CharlestonScenario(
@@ -54,10 +54,10 @@ enum ProContent {
         ),
         CharlestonScenario(
             id: "pro-ch-defend-late",
-            situation: "First Charleston, the pass LEFT, and the second Charleston has been stopped, so this is your last pass. On the first pass your left neighbor handed you three winds, so they are not on Winds and Dragons. Pick 3.",
+            situation: "Second Charleston, the last pass, going RIGHT. On an earlier left pass your right-hand neighbor handed you three winds, so they are not on Winds and Dragons. Pick 3.",
             deal: [.c(4), .c(5), .c(6), .b(5), .b(6), .b(7), .d(6), .d(6), .b(2), .d(9), .wind(.east), .flower, .joker],
             recommendedPass: [.b(2), .d(9), .wind(.east)],
-            reasoning: "Your run is set (4-5-6 and 5-6-7 with a 6 Dot pair), so any three strays go. But your LAST pass is also defense. Your left neighbor passed you three winds, so an East going back to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
+            reasoning: "Your tiles cluster on 4s through 7s, the makings of a Consecutive Run with a 6 Dot pair, so the three strays go. But your LAST pass is also defense. Your right-hand neighbor passed you three winds, so an East going to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
             tip: "Your final pass is a defensive tool. Feed a neighbor the kind of tile they have already shown they do not want."
         ),
     ]
