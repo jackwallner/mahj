@@ -55,10 +55,17 @@ struct QuickSessionView: View {
         self.onClose = onClose
     }
 
-    init(monthlyChallenge challenge: MonthlyChallenge, onClose: (() -> Void)? = nil) {
+    /// Picks up a started run where it stopped: the challenge counts the first
+    /// run, so leaving mid-way must neither lose answers nor offer a reset.
+    init(monthlyChallenge challenge: MonthlyChallenge, resume: MonthlyChallengeProgress? = nil, onClose: (() -> Void)? = nil) {
         _items = State(initialValue: challenge.items)
         purpose = .monthlyChallenge(challenge)
         self.onClose = onClose
+        if let resume, resume.answers.count < challenge.items.count {
+            _index = State(initialValue: resume.answers.count)
+            _answers = State(initialValue: resume.answers)
+            _score = State(initialValue: resume.answers.filter { $0 }.count)
+        }
     }
 
     init(gameNightPrep items: [QuickItem], onClose: (() -> Void)? = nil) {
@@ -247,6 +254,10 @@ struct QuickSessionView: View {
         selection = pick
         let correct = pick == item.answerIndex
         answers.append(correct)
+        if case .monthlyChallenge(let challenge) = purpose,
+           let result = monthlyStore.recordAnswer(challenge: challenge, correct: correct, pick: pick) {
+            monthlyResult = result
+        }
         if item.isReviewable {
             progress.recordItem(id: item.id, correct: correct)
         }
@@ -316,7 +327,7 @@ struct QuickSessionView: View {
         case .mahjMinute(let challenge):
             minuteResult = minuteStore.record(challenge: challenge, answers: answers)
         case .monthlyChallenge(let challenge):
-            monthlyResult = monthlyStore.record(challenge: challenge, answers: answers)
+            monthlyResult = monthlyResult ?? monthlyStore.record(challenge: challenge, answers: answers)
         case .gameNightPrep:
             break
         }

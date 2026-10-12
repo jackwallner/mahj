@@ -22,6 +22,7 @@ enum AppDestination: Hashable {
 enum AppNotification {
     static let routeKey = "mahj.route"
     static let gameNightPrepValue = "game-night-prep"
+    static let monthlyChallengeValue = "monthly-challenge"
 }
 
 @MainActor
@@ -54,11 +55,13 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
-        if response.notification.request.content.userInfo[AppNotification.routeKey] as? String
-            == AppNotification.gameNightPrepValue {
-            Task { @MainActor in
-                AppRouter.shared.route(to: .gameNightPrepSession)
-            }
+        switch response.notification.request.content.userInfo[AppNotification.routeKey] as? String {
+        case AppNotification.gameNightPrepValue:
+            Task { @MainActor in AppRouter.shared.route(to: .gameNightPrepSession) }
+        case AppNotification.monthlyChallengeValue:
+            Task { @MainActor in AppRouter.shared.route(to: .monthlyChallenge) }
+        default:
+            break
         }
         completionHandler()
     }

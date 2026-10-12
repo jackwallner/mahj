@@ -6,65 +6,111 @@ struct MonthlyChallengeResult: Codable, Identifiable, Sendable {
     let theme: MonthlyChallengeTheme
     let completedAt: Date
     let answers: [Bool]
+    /// The choice index picked for each question, for the answer review.
+    /// Optional because results saved before 1.4.0 shipped did not carry it.
+    let picks: [Int]?
 
     var id: String { monthKey }
     var score: Int { answers.filter { $0 }.count }
     var total: Int { answers.count }
 
     var shareText: String {
-        let grid = answers.map { $0 ? "🟩" : "⬜️" }.joined()
-        return "Mahj Trainer \(title) Challenge: \(score)/\(total)\n\(grid)\nSame questions for every player. Can you beat me? \(AppStoreLinks.productURL.absoluteString)"
+        let grid = stride(from: 0, to: answers.count, by: 6).map { start in
+            answers[start..<min(start + 6, answers.count)].map { $0 ? "🟩" : "⬜️" }.joined()
+        }.joined(separator: "\n")
+        return "Mahj Trainer \(title) Challenge: \(score)/\(total)\n\(grid)\nSame twelve questions for every player. Can you beat me? \(AppStoreLinks.productURL.absoluteString)"
     }
+}
+
+/// A run that has started but not finished. Saved after every answer, so
+/// leaving mid-run resumes at the same question instead of starting over.
+struct MonthlyChallengeProgress: Codable, Sendable {
+    var answers: [Bool]
+    var picks: [Int]
 }
 
 /// The first finished run of a month is the score that counts, the way a
 /// shared puzzle works: the questions are the same for everyone, so a replay
-/// would only be a memory test.
+/// would only be a memory test. A started run is saved answer by answer, so
+/// backing out and starting again cannot reset a bad start either.
 @MainActor
 final class MonthlyChallengeStore: ObservableObject {
     static let shared = MonthlyChallengeStore()
 
     @Published private(set) var results: [String: MonthlyChallengeResult]
+    @Published private(set) var inProgress: [String: MonthlyChallengeProgress]
 
     private let defaults: UserDefaults
     private static let resultsKey = "monthlyChallenge.results"
+    private static let progressKey = "monthlyChallenge.progress"
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        if let data = defaults.data(forKey: Self.resultsKey),
-           let decoded = try? JSONDecoder().decode([String: MonthlyChallengeResult].self, from: data) {
-            results = decoded
-        } else {
-            results = [:]
-        }
+        results = Self.load(defaults, key: Self.resultsKey) ?? [:]
+        inProgress = Self.load(defaults, key: Self.progressKey) ?? [:]
     }
 
     func result(for challenge: MonthlyChallenge) -> MonthlyChallengeResult? {
         results[challenge.monthKey]
     }
 
+    func progress(for challenge: MonthlyChallenge) -> MonthlyChallengeProgress? {
+        guard results[challenge.monthKey] == nil else { return nil }
+        return inProgress[challenge.monthKey]
+    }
+
+    /// Saves one more answer. The last answer finishes the run, so a run
+    /// killed between the final answer and the result screen still counts.
     @discardableResult
-    func record(challenge: MonthlyChallenge, answers: [Bool], now: Date = Date()) -> MonthlyChallengeResult {
+    func recordAnswer(challenge: MonthlyChallenge, correct: Bool, pick: Int, now: Date = Date()) -> MonthlyChallengeResult? {
+        guard results[challenge.monthKey] == nil else { return results[challenge.monthKey] }
+        var run = inProgress[challenge.monthKey] ?? MonthlyChallengeProgress(answers: [], picks: [])
+        guard run.answers.count < challenge.items.count else { return finish(challenge, run, now: now) }
+        run.answers.append(correct)
+        run.picks.append(pick)
+        if run.answers.count >= challenge.items.count { return finish(challenge, run, now: now) }
+        inProgress[challenge.monthKey] = run
+        save(inProgress, key: Self.progressKey)
+        return nil
+    }
+
+    /// Finishes a run from whatever was saved. Idempotent.
+    @discardableResult
+    func record(challenge: MonthlyChallenge, answers: [Bool], picks: [Int]? = nil, now: Date = Date()) -> MonthlyChallengeResult {
         if let existing = results[challenge.monthKey] { return existing }
+        return finish(challenge, MonthlyChallengeProgress(answers: answers, picks: picks ?? []), now: now)
+    }
+
+    func resetAll() {
+        results = [:]
+        inProgress = [:]
+        defaults.removeObject(forKey: Self.resultsKey)
+        defaults.removeObject(forKey: Self.progressKey)
+    }
+
+    private func finish(_ challenge: MonthlyChallenge, _ run: MonthlyChallengeProgress, now: Date) -> MonthlyChallengeResult {
         let result = MonthlyChallengeResult(
             monthKey: challenge.monthKey,
             title: challenge.monthName,
             theme: challenge.theme,
             completedAt: now,
-            answers: answers
+            answers: run.answers,
+            picks: run.picks.count == run.answers.count ? run.picks : nil
         )
         results[challenge.monthKey] = result
-        persist()
+        inProgress[challenge.monthKey] = nil
+        save(results, key: Self.resultsKey)
+        save(inProgress, key: Self.progressKey)
         return result
     }
 
-    func resetAll() {
-        results = [:]
-        defaults.removeObject(forKey: Self.resultsKey)
+    private static func load<T: Decodable>(_ defaults: UserDefaults, key: String) -> T? {
+        guard let data = defaults.data(forKey: key) else { return nil }
+        return try? JSONDecoder().decode(T.self, from: data)
     }
 
-    private func persist() {
-        guard let data = try? JSONEncoder().encode(results) else { return }
-        defaults.set(data, forKey: Self.resultsKey)
+    private func save<T: Encodable>(_ value: T, key: String) {
+        guard let data = try? JSONEncoder().encode(value) else { return }
+        defaults.set(data, forKey: key)
     }
 }

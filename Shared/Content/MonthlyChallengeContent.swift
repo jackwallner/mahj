@@ -23,6 +23,16 @@ enum MonthlyChallengeTheme: String, CaseIterable, Codable, Sendable {
         }
     }
 
+    /// The skill row on the result screen. Defense months also carry the
+    /// authored table judgments, so that row reads as table play.
+    var skillTitle: String {
+        switch self {
+        case .charleston: return "Charleston"
+        case .defense: return "Table Play"
+        case .rackReading: return "Rack Reading"
+        }
+    }
+
     var icon: String {
         switch self {
         case .charleston: return "arrow.triangle.2.circlepath"
@@ -114,8 +124,32 @@ enum MonthlyChallengeContent {
             theme: theme,
             start: start,
             end: end,
-            items: items(theme: theme, monthKey: monthKey)
+            items: items(theme: theme, monthKey: monthKey, label: "\(monthName) Challenge")
         )
+    }
+
+    /// The challenge a stored result belongs to, rebuilt from its key.
+    static func challenge(monthKey: String, calendar: Calendar = .current) -> MonthlyChallenge? {
+        let parts = monthKey.split(separator: "-").compactMap { Int($0) }
+        guard parts.count == 2,
+              let date = calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: 15))
+        else { return nil }
+        return challenge(for: date, calendar: calendar)
+    }
+
+    /// The month after `challenge`, for the "next up" line and the reminder.
+    static func next(after challenge: MonthlyChallenge, calendar: Calendar = .current) -> MonthlyChallenge {
+        let date = calendar.date(byAdding: .day, value: 1, to: challenge.end) ?? challenge.end
+        return MonthlyChallengeContent.challenge(for: date, calendar: calendar)
+    }
+
+    /// Which skill row an item counts toward on the result screen.
+    static func skill(of item: QuickItem) -> MonthlyChallengeTheme {
+        if item.id.hasPrefix(PracticeSkill.rackReading.itemPrefix) { return .rackReading }
+        if item.id.hasPrefix(PracticeSkill.charlestonPass.itemPrefix) || item.roomID == "charleston-room" {
+            return .charleston
+        }
+        return .defense
     }
 
     static func key(year: Int, month: Int) -> String {
@@ -137,9 +171,8 @@ enum MonthlyChallengeContent {
         return months
     }
 
-    private static func items(theme: MonthlyChallengeTheme, monthKey: String) -> [QuickItem] {
+    private static func items(theme: MonthlyChallengeTheme, monthKey: String, label: String) -> [QuickItem] {
         let seed = "monthly-\(monthKey)"
-        let label = "Monthly Challenge"
         func counts(_ skill: MonthlyChallengeTheme) -> Int { skill == theme ? 6 : 2 }
 
         let racks = RackGenerator.batch(count: counts(.rackReading), seed: "\(seed)-racks")
@@ -176,7 +209,7 @@ enum MonthlyChallengeContent {
                     distractorSeed: "\(seed)-\(index)"
                 )
             }
-            : tableItems(seed: seed)
+            : tableItems(seed: seed).map { relabeled($0, label) }
 
         // Generated ids are one-off, so they never land in Fix My Mistakes.
         let generated = (racks + passes + defense).map { item in
@@ -196,6 +229,24 @@ enum MonthlyChallengeContent {
         }
         let all = generated + authored
         return ChoiceShuffle.permutation(count: all.count, seed: "\(seed)-order").map { all[$0] }
+    }
+
+    /// Authored items keep their id and grading; only the eyebrow changes, so
+    /// every question in the run says which month's challenge it is.
+    private static func relabeled(_ item: QuickItem, _ label: String) -> QuickItem {
+        QuickItem(
+            id: item.id,
+            prompt: item.prompt,
+            tiles: item.tiles,
+            choices: item.choices,
+            answerIndex: item.answerIndex,
+            explanation: item.explanation,
+            sourceLabel: label,
+            roomID: item.roomID,
+            trackingID: item.trackingID,
+            isReviewable: item.isReviewable,
+            choiceNotes: item.choiceNotes
+        )
     }
 
     private static func tableItems(seed: String) -> [QuickItem] {

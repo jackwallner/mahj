@@ -85,11 +85,86 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertTrue(first.shareText.contains("November Challenge: 2/3"))
     }
 
+    @MainActor
+    func testARunResumesAndTheLastAnswerFinishesIt() {
+        let defaults = UserDefaults(suiteName: "MonthlyChallengeResume")!
+        defaults.removePersistentDomain(forName: "MonthlyChallengeResume")
+        let store = MonthlyChallengeStore(defaults: defaults)
+        let challenge = MonthlyChallengeContent.challenge(for: date(2026, 11, 3), calendar: calendar)
+
+        XCTAssertNil(store.recordAnswer(challenge: challenge, correct: true, pick: 0))
+        XCTAssertNil(store.recordAnswer(challenge: challenge, correct: false, pick: 2))
+        let reloaded = MonthlyChallengeStore(defaults: defaults)
+        XCTAssertEqual(reloaded.progress(for: challenge)?.answers, [true, false])
+        XCTAssertEqual(reloaded.progress(for: challenge)?.picks, [0, 2])
+
+        var result: MonthlyChallengeResult?
+        for _ in 2..<challenge.items.count {
+            result = reloaded.recordAnswer(challenge: challenge, correct: true, pick: 1)
+        }
+        XCTAssertEqual(result?.total, challenge.items.count)
+        XCTAssertEqual(result?.score, challenge.items.count - 1)
+        XCTAssertEqual(result?.picks?.prefix(2), [0, 2])
+        XCTAssertNil(reloaded.progress(for: challenge))
+        XCTAssertEqual(MonthlyChallengeStore(defaults: defaults).result(for: challenge)?.score, challenge.items.count - 1)
+    }
+
+    func testTheThemeIsMostOfTheMonth() {
+        for (month, theme) in [(11, MonthlyChallengeTheme.charleston), (12, .defense)] {
+            let challenge = MonthlyChallengeContent.challenge(for: date(2026, month, 5), calendar: calendar)
+            let onTheme = challenge.items.filter { MonthlyChallengeContent.skill(of: $0) == theme }
+            XCTAssertGreaterThanOrEqual(onTheme.count, 8, "\(challenge.monthKey)")
+        }
+    }
+
+    func testMonthKeysRoundTripAndNextFollows() {
+        let november = MonthlyChallengeContent.challenge(for: date(2026, 11, 5), calendar: calendar)
+        XCTAssertEqual(MonthlyChallengeContent.challenge(monthKey: "2026-11", calendar: calendar)?.items.map(\.id),
+                       november.items.map(\.id))
+        XCTAssertNil(MonthlyChallengeContent.challenge(monthKey: "nonsense", calendar: calendar))
+        XCTAssertEqual(MonthlyChallengeContent.next(after: november, calendar: calendar).monthKey, "2026-12")
+        XCTAssertTrue(november.items.allSatisfy { $0.sourceLabel == "November Challenge" })
+    }
+
     func testChallengeLinkParses() {
         XCTAssertEqual(AppDestination(url: URL(string: "mahj://challenge")!), .monthlyChallenge)
         XCTAssertNil(AppDestination(url: URL(string: "mahj://elsewhere")!))
         XCTAssertNil(AppDestination(url: URL(string: "https://challenge")!))
         XCTAssertTrue(AppDestination.monthlyChallenge.isFree)
         XCTAssertFalse(AppDestination.gameNightPrepSession.isFree)
+    }
+}
+
+/// Writes every question for a run of months as JSON when
+/// `TEST_RUNNER_CHALLENGE_DUMP` names a path, for content review outside Xcode.
+final class MonthlyChallengeDumpTests: XCTestCase {
+    func testDumpChallengesForReview() throws {
+        guard let path = ProcessInfo.processInfo.environment["CHALLENGE_DUMP"] else { return }
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        var months: [[String: Any]] = []
+        for (year, month) in [(2026, 10), (2026, 11), (2026, 12), (2027, 1), (2027, 2), (2027, 3)] {
+            let date = calendar.date(from: DateComponents(year: year, month: month, day: 15))!
+            let challenge = MonthlyChallengeContent.challenge(for: date, calendar: calendar)
+            months.append([
+                "month": challenge.monthKey,
+                "theme": challenge.theme.title,
+                "questions": challenge.items.enumerated().map { index, item in
+                    [
+                        "number": index + 1,
+                        "id": item.id,
+                        "eyebrow": item.sourceLabel,
+                        "prompt": item.prompt,
+                        "tiles": item.tiles.map(\.spokenName),
+                        "choices": item.choices,
+                        "answer": item.choices[item.answerIndex],
+                        "explanation": item.explanation,
+                        "wrongChoiceNotes": item.choiceNotes.map { $0 ?? "" },
+                    ] as [String: Any]
+                },
+            ])
+        }
+        let data = try JSONSerialization.data(withJSONObject: months, options: [.prettyPrinted, .sortedKeys])
+        try data.write(to: URL(fileURLWithPath: path))
     }
 }

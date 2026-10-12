@@ -33,14 +33,14 @@ def main() -> int:
 
     # Build attached + processing state
     try:
-        build = client.request("GET", f"/v1/appStoreVersions/{vid}/build?include=")
+        build = client.request("GET", f"/appStoreVersions/{vid}/build")
         bdata = build.get("data")
         print(f"Build attached (linkage id): {bdata['id'] if bdata else 'NONE'}")
     except Exception as e:
         print(f"Build attached: error {e}")
     # latest builds available (source of truth)
     try:
-        builds = list_all(client, f"/v1/builds?filter[app]={app_id}&limit=8&sort=-version")
+        builds = list_all(client, f"/builds?filter[app]={app_id}&limit=8&sort=-uploadedDate")
         for bb in builds[:8]:
             a = bb["attributes"]
             print(f"   build {a.get('version')}: processing={a.get('processingState')} expired={a.get('expired')} id={bb['id']}")
@@ -60,7 +60,8 @@ def main() -> int:
 
     # Age rating
     try:
-        ard = client.request("GET", f"/v1/appStoreVersions/{vid}/ageRatingDeclaration").get("data")
+        info = client.request("GET", f"/apps/{app_id}/appInfos")["data"][0]
+        ard = client.request("GET", f"/appInfos/{info['id']}/ageRatingDeclaration").get("data")
         print(f"Age rating declaration: {'present' if ard else 'MISSING'}")
     except Exception as e:
         print(f"Age rating declaration: error {e}")

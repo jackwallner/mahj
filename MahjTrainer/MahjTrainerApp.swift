@@ -28,6 +28,7 @@ struct MahjTrainerApp: App {
                         missed: progress.missedItems
                     )
                     subscriptions.start()
+                    MonthlyChallengeReminder.refresh()
                     ReviewPromptTracker.recordAppLaunch()
                     ConversionDiagnostics.recordAppOpen()
                     Task { await FeedbackService.shared.flushPending() }

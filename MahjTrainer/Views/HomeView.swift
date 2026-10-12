@@ -469,8 +469,7 @@ struct HomeView: View {
                     Text(challenge.theme.title)
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
-                    Text(result.map { "You scored \($0.score)/\($0.total). A new one lands next month." }
-                         ?? "\(MonthlyChallengeContent.questionCount) questions, the same for every player. Free.")
+                    Text(monthlyChallengeLine(challenge, result: result))
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
                         .multilineTextAlignment(.leading)
@@ -490,6 +489,19 @@ struct HomeView: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .strokeBorder(Theme.plum.opacity(0.3), lineWidth: 1)
         )
+    }
+
+    private func monthlyChallengeLine(_ challenge: MonthlyChallenge, result: MonthlyChallengeResult?) -> String {
+        if let result {
+            let next = MonthlyChallengeContent.next(after: challenge)
+            return "You scored \(result.score)/\(result.total). \(next.monthName) brings \(next.theme.title)."
+        }
+        let days = challenge.daysLeft()
+        let left = days <= 1 ? "Last day" : "\(days) days left"
+        if let run = monthlyStore.progress(for: challenge) {
+            return "\(run.answers.count) of \(challenge.items.count) answered. Pick up where you left off. \(left)."
+        }
+        return "\(challenge.items.count) questions, the same for every player. Free. \(left)."
     }
 
     private var gameNightCard: some View {
