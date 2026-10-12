@@ -89,6 +89,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/design-and-ipad.md` | Theme and haptics, iPad layout, no illustration | `Theme`, components, drill layouts |
 | `.claude/rules/screenshots.md` | Screenshots: captured, not hand-shot | Capture scripts, the `Screenshots` scheme |
 | `.claude/rules/feedback-and-retention.md` | Feedback sink, question reports, churn question, weekly gain ledger, personalised reminders, trial-end reminder (1.4) | `FeedbackService`, `ReviewPromptSheet`, `MasteryLedger`, churn prompts, reminder copy |
+| `.claude/rules/monthly-challenge.md` | The free monthly challenge, its rotation and the monthly event + nomination | `MonthlyChallengeContent`, `mahj://challenge`, in-app events |
 | `.claude/rules/android.md` | The Android port: exported content, RNG parity, Play identity, deliberate differences | Anything under `android/` or the content export |
 
 ## Flashcard deck (signature interaction)
