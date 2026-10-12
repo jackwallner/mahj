@@ -155,19 +155,20 @@ enum MahjMinuteContent {
         distractorSeed: String
     ) -> QuickItem {
         let answer = passLabel(scenario.recommendedPass)
-        let distractors = distractorPassLabels(for: scenario, seed: distractorSeed)
+        let distractors = distractorPasses(for: scenario, seed: distractorSeed)
         let item = QuickItem(
             id: id,
             // The drill's "Pick 3." cue says the same thing as the question.
             prompt: "\(scenario.situation.replacingOccurrences(of: " Pick 3.", with: "")) Which three tiles make the strongest pass?",
             tiles: scenario.deal.racked,
-            choices: [answer] + distractors,
+            choices: [answer] + distractors.map(\.label),
             answerIndex: 0,
             explanation: scenario.reasoning,
             sourceLabel: sourceLabel,
             roomID: "charleston-room",
             trackingID: trackingID,
-            isReviewable: false
+            isReviewable: false,
+            choiceNotes: [nil] + distractors.map { missNote(pass: $0.tiles, answer: scenario.recommendedPass) }
         )
         return SessionBuilder.prepared(item)
     }
@@ -180,9 +181,20 @@ enum MahjMinuteContent {
         }
     }
 
-    private static func distractorPassLabels(for scenario: CharlestonScenario, seed: String) -> [String] {
+    /// What a wrong pass gives up that the strongest pass keeps.
+    private static func missNote(pass: [Tile], answer: [Tile]) -> String {
+        var pool = answer
+        let given = pass.filter { tile in
+            guard let hit = pool.firstIndex(of: tile) else { return true }
+            pool.remove(at: hit)
+            return false
+        }
+        return "This pass gives away \(given.map { "the \($0.spokenName)" }.joined(separator: " and ")), which the strongest pass keeps."
+    }
+
+    private static func distractorPasses(for scenario: CharlestonScenario, seed: String) -> [(label: String, tiles: [Tile])] {
         let passable = scenario.deal.filter { $0 != .joker }
-        var labels: Set<String> = []
+        var labels: [String: [Tile]] = [:]
         for first in 0..<(passable.count - 2) {
             for second in (first + 1)..<(passable.count - 1) {
                 for third in (second + 1)..<passable.count {
@@ -192,13 +204,14 @@ enum MahjMinuteContent {
                     // lone wind"). A distractor sharing two tiles with the
                     // answer would mark that equally good pass wrong.
                     guard overlap(pass, scenario.recommendedPass) <= 1 else { continue }
-                    labels.insert(passLabel(pass))
+                    let label = passLabel(pass)
+                    if labels[label] == nil { labels[label] = pass }
                 }
             }
         }
-        let sorted = labels.sorted()
+        let sorted = labels.keys.sorted()
         let order = ChoiceShuffle.permutation(count: sorted.count, seed: "mahj-minute-\(seed)-passes")
-        return order.prefix(3).map { sorted[$0] }
+        return order.prefix(3).map { (label: sorted[$0], tiles: labels[sorted[$0]] ?? []) }
     }
 
     /// Tiles two passes share, counting duplicates the way the drill grades.

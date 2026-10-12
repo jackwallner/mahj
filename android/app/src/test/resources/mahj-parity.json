@@ -4682,7 +4682,7 @@
       "note" : "Right. The 3 Bam does nothing for 2468 (Evens), and the tiles that do nothing are the ones to spend first.",
       "seed" : "deal-1",
       "target" : "evens2468",
-      "value" : 6.1000000000000005,
+      "value" : 6.0999999999999996,
       "working" : 3
     },
     {
@@ -4820,7 +4820,7 @@
       "note" : "The 1 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 6 Bam.",
       "seed" : "deal-2",
       "target" : "consecutiveRun",
-      "value" : 11.700000000000001,
+      "value" : 11.699999999999999,
       "working" : 4
     },
     {
@@ -4852,13 +4852,13 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.60000000000000053,
       "discard" : "6D",
       "fitting" : 5,
       "note" : "The 6 Dot fits 2468 (Evens), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
       "seed" : "deal-3",
       "target" : "evens2468",
-      "value" : 6.0999999999999996,
+      "value" : 6.1000000000000005,
       "working" : 3
     },
     {
@@ -4886,7 +4886,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -5110,9 +5110,9 @@
             "answerIndex" : 0,
             "choiceNotes" : [
               null,
-              null,
-              null,
-              null
+              "This pass gives away the Flower and the 2 Bam and the 4 Bam, which the strongest pass keeps.",
+              "This pass gives away the Flower and the Flower and the 8 Bam, which the strongest pass keeps.",
+              "This pass gives away the 2 Bam and the 6 Bam, which the strongest pass keeps."
             ],
             "choices" : [
               "5 Crak, 9 Crak, North Wind",
@@ -5287,9 +5287,9 @@
           "item" : {
             "answerIndex" : 3,
             "choiceNotes" : [
-              null,
-              null,
-              null,
+              "This pass gives away the 4 Crak and the 6 Crak, which the strongest pass keeps.",
+              "This pass gives away the 6 Crak and the 6 Bam, which the strongest pass keeps.",
+              "This pass gives away the 6 Crak and the 2 Bam and the Flower, which the strongest pass keeps.",
               null
             ],
             "choices" : [
@@ -5460,10 +5460,10 @@
           "item" : {
             "answerIndex" : 1,
             "choiceNotes" : [
+              "This pass gives away the West Wind and the West Wind, which the strongest pass keeps.",
               null,
-              null,
-              null,
-              null
+              "This pass gives away the South Wind and the 8 Dot, which the strongest pass keeps.",
+              "This pass gives away the West Wind and the East Wind and the 8 Dot, which the strongest pass keeps."
             ],
             "choices" : [
               "1 Dot, West Wind, West Wind",
@@ -5637,10 +5637,10 @@
           "item" : {
             "answerIndex" : 1,
             "choiceNotes" : [
+              "This pass gives away the 4 Crak and the 4 Dot and the 6 Dot, which the strongest pass keeps.",
               null,
-              null,
-              null,
-              null
+              "This pass gives away the 4 Bam and the 4 Dot and the 6 Dot, which the strongest pass keeps.",
+              "This pass gives away the 2 Bam and the 6 Dot, which the strongest pass keeps."
             ],
             "choices" : [
               "4 Crak, 4 Dot, 6 Dot",

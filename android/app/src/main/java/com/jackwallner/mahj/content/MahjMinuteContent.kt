@@ -79,17 +79,19 @@ object MahjMinuteContent {
         val generator = StableSeededGenerator("mahj-minute-$dayKey-charleston")
         val scenario = scenarios[(generator.next() % scenarios.size.toULong()).toInt()]
         val answer = passLabel(scenario.recommendedPass)
+        val distractors = distractorPasses(scenario, dayKey)
         val item = QuickItem(
             id = "mahj-minute-charleston-$dayKey",
             prompt = "${scenario.situation.replace(" Pick 3.", "")} Which three tiles make the strongest pass?",
             tiles = scenario.deal.racked,
-            choices = listOf(answer) + distractorPassLabels(scenario, dayKey),
+            choices = listOf(answer) + distractors.map { it.first },
             answerIndex = 0,
             explanation = scenario.reasoning,
             sourceLabel = "Mahj Minute: Charleston",
             roomID = "charleston-room",
             trackingID = "mahj-minute-charleston",
             isReviewable = false,
+            choiceNotes = listOf<String?>(null) + distractors.map { missNote(it.second, scenario.recommendedPass) },
         )
         return MahjMinuteQuestion(MahjMinuteCategory.CHARLESTON, SessionBuilder.prepared(item))
     }
@@ -100,22 +102,29 @@ object MahjMinuteContent {
         return indices.take(2).map { MahjMinuteQuestion(MahjMinuteCategory.TABLE_JUDGMENT, SessionBuilder.prepared(pool[it])) }
     }
 
-    private fun distractorPassLabels(scenario: CharlestonScenario, seed: String): List<String> {
+    /** What a wrong pass gives up that the strongest pass keeps (iOS parity). */
+    private fun missNote(pass: List<Tile>, answer: List<Tile>): String {
+        val pool = answer.toMutableList()
+        val given = pass.filter { tile -> !pool.remove(tile) }
+        return "This pass gives away ${given.joinToString(" and ") { "the ${it.spokenName}" }}, which the strongest pass keeps."
+    }
+
+    private fun distractorPasses(scenario: CharlestonScenario, seed: String): List<Pair<String, List<Tile>>> {
         val passable = scenario.deal.filter { it != Tile.Joker }
-        val labels = mutableSetOf<String>()
+        val labels = mutableMapOf<String, List<Tile>>()
         for (first in 0 until passable.size - 2) {
             for (second in first + 1 until passable.size - 1) {
                 for (third in second + 1 until passable.size) {
                     val pass = listOf(passable[first], passable[second], passable[third])
                     // A distractor sharing two tiles with the answer would mark an equally good pass wrong.
                     if (overlap(pass, scenario.recommendedPass) > 1) continue
-                    labels += passLabel(pass)
+                    labels.getOrPut(passLabel(pass)) { pass }
                 }
             }
         }
-        val sorted = labels.sorted()
+        val sorted = labels.keys.sorted()
         val order = ChoiceShuffle.permutation(sorted.size, "mahj-minute-$seed-passes")
-        return order.take(3).map { sorted[it] }
+        return order.take(3).map { sorted[it] to labels.getValue(sorted[it]) }
     }
 
     private fun overlap(pass: List<Tile>, answer: List<Tile>): Int {
