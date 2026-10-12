@@ -17,13 +17,17 @@ content rules across ALL drills in `DrillLibrary` (13-tile deals/racks, 3-tile
 passes, no passing jokers, max 4 copies of a tile, no em dashes, unique ids,
 free/Mahj+ split).
 
-**App Store reviews:** the fleet funnel. `ReviewPromptTracker` (launches,
-positive moments, cooldowns, terminal outcome) gates `ReviewPromptSheet`:
-enjoying it? → yes routes to the App Store write-review page, no routes to a
-feedback mail draft (`jackwallner+m@gmail.com`). Unhappy players never see a
-rating ask. Fires after the 3rd finished drill (`DrillCompleteView`, 1.4s after
-the celebration lands); Settings' Rate / Send Feedback open the same sheet at
-their step. App Store ID `6790052126`.
+**App Store reviews and feedback (1.4):** the fleet funnel, with a different
+yes-path. `ReviewPromptTracker` (launches, positive moments, cooldowns,
+terminal outcome) gates `ReviewPromptSheet`: enjoying it? → yes fires Apple's
+native `requestReview()` (stars in one tap, soft 30-day cooldown, never
+terminal), no opens an in-app feedback box that posts to `FeedbackService`
+(Supabase insert-only table, offline queue). Unhappy players never see a
+rating ask. Fires after the 3rd finished drill (`DrillCompleteView`, 1.4s
+after the celebration lands); Settings' Rate / Send Feedback open the same
+sheet at their step. The same sheet hosts the per-question "Something wrong?"
+report and the one churn question. App Store ID `6790052126`. Details in
+`.claude/rules/feedback-and-retention.md`.
 
 ## Products & the Mahj+ model
 
@@ -84,6 +88,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/home-and-onboarding-flow.md` | Views: the lobby, onboarding branch, primer and tour | `RootView`, Home, rooms, onboarding |
 | `.claude/rules/design-and-ipad.md` | Theme and haptics, iPad layout, no illustration | `Theme`, components, drill layouts |
 | `.claude/rules/screenshots.md` | Screenshots: captured, not hand-shot | Capture scripts, the `Screenshots` scheme |
+| `.claude/rules/feedback-and-retention.md` | Feedback sink, question reports, churn question, weekly gain ledger, personalised reminders, trial-end reminder (1.4) | `FeedbackService`, `ReviewPromptSheet`, `MasteryLedger`, churn prompts, reminder copy |
 | `.claude/rules/android.md` | The Android port: exported content, RNG parity, Play identity, deliberate differences | Anything under `android/` or the content export |
 
 ## Flashcard deck (signature interaction)

@@ -40,7 +40,9 @@ struct QuizDrillView: View {
                     prompt: question.prompt,
                     tiles: question.tiles,
                     explanation: question.explanation,
-                    answered: answered
+                    answered: answered,
+                    reportID: question.id,
+                    reportSource: drill.title
                 ) {
                     ChoiceList(labels: shuffled.labels, selection: selection, answerIndex: shuffled.answerIndex) { pick in
                         select(pick)

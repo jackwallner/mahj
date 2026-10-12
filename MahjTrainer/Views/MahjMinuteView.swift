@@ -193,7 +193,11 @@ struct MahjMinuteResultView: View {
         .onAppear { recordCompletionIfNeeded() }
         .sheet(isPresented: $showReviewPrompt) {
             ReviewPromptSheet { outcome in
-                if outcome == .enjoyedMaybeLater { requestReview() }
+                guard outcome.wantsSystemReviewPrompt else { return }
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: 700_000_000)
+                    requestReview()
+                }
             }
         }
     }

@@ -111,10 +111,14 @@ struct DrillCompleteView: View {
     }
 
     private func handleReviewOutcome(_ outcome: ReviewPromptDismissOutcome) {
-        // "Yes" then "Maybe later" is the one case worth spending Apple's
-        // native prompt on: they're warm, and the system sheet is one tap.
-        guard outcome == .enjoyedMaybeLater else { return }
-        requestReview()
+        // A warm "yes" is the moment to spend Apple's native prompt: stars in
+        // one tap, without leaving the app. The short wait lets the sheet
+        // finish dismissing first, or the system prompt can be swallowed.
+        guard outcome.wantsSystemReviewPrompt else { return }
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 700_000_000)
+            requestReview()
+        }
     }
 
     private var headline: String {

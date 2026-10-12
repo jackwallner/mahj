@@ -17,10 +17,17 @@ struct HomeView: View {
     @StateObject private var records = PracticeRecordStore.shared
     @StateObject private var minuteStore = MahjMinuteStore.shared
     @StateObject private var handPlay = HandPlayStore.shared
+    @StateObject private var ledger = MasteryLedger.shared
     @State private var path: [AppDestination] = []
     @State private var showPaywall = false
     @State private var showSettings = false
     @State private var showWhatsNew = false
+    /// Non-nil while the one churn question is up.
+    @State private var churnPrompt: ChurnMoment?
+    /// "When's your game night?" is shown to members until they set one or
+    /// wave it off. The reminder is the hook that matches how people play,
+    /// and it was buried two taps deep in a tile nobody opened in week one.
+    @AppStorage("mahj.gameNightCardDismissed") private var gameNightCardDismissed = false
     @State private var pendingAfterUpgrade: AppDestination?
     @State private var highlightedRoomID: String?
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
@@ -44,6 +51,7 @@ struct HomeView: View {
                 .onAppear {
                     consumeRecommendedRoomHint(proxy: proxy)
                     consumePendingDestination()
+                    recordMastery()
                 }
                 .onChange(of: showSettings) { _, isShowing in
                     if !isShowing { consumeRecommendedRoomHint(proxy: proxy) }
@@ -96,6 +104,12 @@ struct HomeView: View {
                 }
             }
             .task { presentWhatsNewIfNeeded() }
+            .task { presentChurnPromptIfNeeded() }
+            .sheet(item: $churnPrompt) { moment in
+                ReviewPromptSheet(initialStep: .churn(moment)) { _ in }
+            }
+            .onChange(of: subscriptions.pendingChurnMoment) { _, _ in presentChurnPromptIfNeeded() }
+            .onChange(of: records.records.count) { _, _ in recordMastery() }
             .onChange(of: router.pendingDestination) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.isPro) { _, isMember in
                 if isMember {
@@ -135,6 +149,7 @@ struct HomeView: View {
                 header
                 todaySession
                 if showsPrimerCard { howToPlayCard }
+                if showsGameNightCard { gameNightCard }
                 trainingSection
                 roomsColumn
                 if !subscriptions.isPro { upgradeCard }
@@ -148,10 +163,34 @@ struct HomeView: View {
         VStack(spacing: 14) {
             todaySession
             if showsPrimerCard { howToPlayCard }
+            if showsGameNightCard { gameNightCard }
             trainingSection
             if !subscriptions.isPro { upgradeCard }
         }
         .frame(maxWidth: .infinity, alignment: .top)
+    }
+
+    private var showsGameNightCard: Bool {
+        subscriptions.isPro && !settings.gameNightReminderEnabled && !gameNightCardDismissed
+    }
+
+    /// Today's mastery, written to the ledger so the week-over-week gain has
+    /// something to measure from. Cheap, and idempotent within a day.
+    private func recordMastery() {
+        ledger.record(records.masteryByRoom(isMember: subscriptions.isPro))
+        settings.refreshReminderCopy(weeklyGain: ledger.weeklyGain())
+    }
+
+    /// The one question asked when a membership turns toward the exit. Waits
+    /// for a drawn Home, and never stacks on the What's New sheet.
+    private func presentChurnPromptIfNeeded() {
+        guard let moment = subscriptions.pendingChurnMoment, progress.hasOnboarded else { return }
+        guard !showWhatsNew, !showPaywall, churnPrompt == nil else { return }
+        subscriptions.consumeChurnMoment()
+        Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 900_000_000)
+            churnPrompt = moment
+        }
     }
 
     private var roomsColumn: some View {
@@ -276,18 +315,24 @@ struct HomeView: View {
                          label: "\(progress.streakCount) day streak")
                 statChip(value: progress.totalSessions, icon: "checkmark.seal.fill", color: Theme.jade,
                          label: "\(progress.totalSessions) drills done")
+                // Only ever positive. A week that went backwards is not news
+                // worth a chip; the ring already says where things stand.
+                if let gain = ledger.weeklyGain() {
+                    statChip(value: gain, icon: "arrow.up.right", color: Theme.plum,
+                             label: "\(gain) questions locked in this week", prefix: "+")
+                }
             }
         }
         .buttonStyle(.plain)
         .accessibilityHint("Opens your progress breakdown")
     }
 
-    private func statChip(value: Int, icon: String, color: Color, label: String) -> some View {
+    private func statChip(value: Int, icon: String, color: Color, label: String, prefix: String = "") -> some View {
         HStack(spacing: 5) {
             Image(systemName: icon)
                 .font(.caption)
                 .foregroundStyle(color)
-            Text("\(value)")
+            Text("\(prefix)\(value)")
                 .font(.subheadline.weight(.bold))
                 .foregroundStyle(Theme.ink)
                 .monospacedDigit()
@@ -391,6 +436,54 @@ struct HomeView: View {
             .themedCard(corner: 16)
         }
         .buttonStyle(PressableCardStyle())
+    }
+
+    /// Members who have not picked a game night yet. One card, one tap to
+    /// set it, one tap to never see it again.
+    private var gameNightCard: some View {
+        HStack(spacing: 12) {
+            NavigationLink {
+                GameNightPrepView()
+            } label: {
+                HStack(spacing: 12) {
+                    Image(systemName: "person.2.fill")
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(Theme.plum)
+                        .frame(width: 38, height: 38)
+                        .background(Theme.plum.opacity(0.13), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("When's your game night?")
+                            .font(.headline)
+                            .foregroundStyle(Theme.ink)
+                        Text("Pick the day and a five-minute prep built from your own misses lands before you play.")
+                            .font(.caption)
+                            .foregroundStyle(Theme.inkSecondary)
+                            .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    Spacer(minLength: 4)
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(PressableCardStyle())
+            Button {
+                withAnimation(.easeOut(duration: 0.25)) { gameNightCardDismissed = true }
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(Theme.inkTertiary)
+                    .frame(width: 32, height: 32)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Dismiss")
+        }
+        .padding(12)
+        .themedCard(corner: 16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(Theme.plum.opacity(0.3), lineWidth: 1)
+        )
     }
 
     // MARK: - Training modes

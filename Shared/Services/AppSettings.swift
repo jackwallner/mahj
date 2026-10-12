@@ -58,10 +58,12 @@ final class AppSettings: ObservableObject {
         static let gameNightDay = "settings.gameNightDay"
         static let gameNightHour = "settings.gameNightHour"
         static let gameNightMinute = "settings.gameNightMinute"
+        static let weeklyGain = "settings.reminderWeeklyGain"
     }
 
     private static let reminderID = "mahj.dailyReminder"
     private static let gameNightReminderID = "mahj.gameNightReminder"
+    private static let trialEndReminderID = "mahj.trialEndReminder"
 
     @Published var appearance: Appearance {
         didSet { defaults.set(appearance.rawValue, forKey: Keys.appearance) }
@@ -148,6 +150,76 @@ final class AppSettings: ObservableObject {
         ) ?? Date()
     }
 
+    // MARK: - Personalised copy
+
+    /// Questions locked in this week, as of the last launch. Local
+    /// notifications are static text, so the body is rewritten with the
+    /// latest number every time the app opens rather than computed when it
+    /// fires. A reminder that knows what you did this week is worth opening;
+    /// a generic one gets swiped.
+    private var weeklyGain: Int {
+        defaults.integer(forKey: Keys.weeklyGain)
+    }
+
+    func refreshReminderCopy(weeklyGain gain: Int?) {
+        let value = max(gain ?? 0, 0)
+        guard value != weeklyGain else { return }
+        defaults.set(value, forKey: Keys.weeklyGain)
+        if reminderEnabled { scheduleReminder() }
+        if gameNightReminderEnabled { scheduleGameNightReminder() }
+    }
+
+    static func dailyReminderBody(weeklyGain: Int) -> String {
+        guard weeklyGain > 0 else {
+            return "Five minutes of practice keeps your Charleston calm and your rack reading sharp."
+        }
+        return "You locked in \(weeklyGain) question\(weeklyGain == 1 ? "" : "s") this week. Five minutes keeps them."
+    }
+
+    static func gameNightReminderBody(weeklyGain: Int) -> String {
+        guard weeklyGain > 0 else {
+            return "Five personalized minutes now can make the table feel calmer later."
+        }
+        return "\(weeklyGain) question\(weeklyGain == 1 ? "" : "s") locked in since last week. Five minutes now and you walk in ready."
+    }
+
+    // MARK: - Trial-end reminder
+
+    /// One local notification two days before a free week ends. Offered right
+    /// after the trial starts, never scheduled silently: a reminder nobody
+    /// asked for reads as a nag, and the same reminder they chose reads as
+    /// honesty. Needs notification permission; the caller handles a refusal.
+    func scheduleTrialEndReminder(trialStartedAt start: Date, trialDays: Int = 7, daysBefore: Int = 2) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [Self.trialEndReminderID])
+        let fireDay = Calendar.current.date(byAdding: .day, value: trialDays - daysBefore, to: start) ?? start
+        var parts = Calendar.current.dateComponents([.year, .month, .day], from: fireDay)
+        parts.hour = 10
+        parts.minute = 0
+        let content = UNMutableNotificationContent()
+        content.title = "Your \(Membership.name) trial ends in \(daysBefore) days"
+        content.body = "Keep it and nothing changes. Not for you? Cancel in Settings > Apple Account > Subscriptions and you won't be charged."
+        content.sound = .default
+        let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)
+        center.add(UNNotificationRequest(identifier: Self.trialEndReminderID, content: content, trigger: trigger))
+    }
+
+    /// Asks for permission if needed, then schedules. `completion` reports
+    /// whether the reminder is actually set.
+    func requestTrialEndReminder(trialStartedAt start: Date, completion: @escaping @MainActor (Bool) -> Void) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+            Task { @MainActor in
+                guard granted else {
+                    self.reminderPermissionDenied = true
+                    completion(false)
+                    return
+                }
+                self.scheduleTrialEndReminder(trialStartedAt: start)
+                completion(true)
+            }
+        }
+    }
+
     // MARK: - Daily reminder
 
     private func requestPermissionAndSchedule() {
@@ -169,7 +241,7 @@ final class AppSettings: ObservableObject {
 
         let content = UNMutableNotificationContent()
         content.title = "Time for a quick drill"
-        content.body = "Five minutes of practice keeps your Charleston calm and your rack reading sharp."
+        content.body = Self.dailyReminderBody(weeklyGain: weeklyGain)
         content.sound = .default
 
         var parts = Calendar.current.dateComponents([.hour, .minute], from: reminderTime)
@@ -204,7 +276,7 @@ final class AppSettings: ObservableObject {
 
         let content = UNMutableNotificationContent()
         content.title = "Your game night prep is ready"
-        content.body = "Five personalized minutes now can make the table feel calmer later."
+        content.body = Self.gameNightReminderBody(weeklyGain: weeklyGain)
         content.sound = .default
         content.userInfo = [AppNotification.routeKey: AppNotification.gameNightPrepValue]
 

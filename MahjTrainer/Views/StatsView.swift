@@ -8,6 +8,7 @@ struct StatsView: View {
     @EnvironmentObject private var progress: ProgressStore
     @EnvironmentObject private var subscriptions: SubscriptionService
     @StateObject private var records = PracticeRecordStore.shared
+    @StateObject private var ledger = MasteryLedger.shared
 
     private var roomStats: [PracticeRecordStore.RoomStat] { records.roomStats() }
 
@@ -18,6 +19,9 @@ struct StatsView: View {
                     emptyState
                 } else {
                     summaryCard
+                    if let gain = ledger.weeklyGain() {
+                        weekCard(gain)
+                    }
                     if let focus = records.roomToWorkOn(isMember: subscriptions.isPro) {
                         workOnCard(focus)
                     } else if let weakest = records.weakestRoom(), roomStats.count > 1 {
@@ -91,6 +95,33 @@ struct StatsView: View {
         Rectangle()
             .fill(Theme.rule)
             .frame(width: 1, height: 34)
+    }
+
+    /// The week in one sentence. The bars below say where you stand; this
+    /// says whether the practice is working, which is the question a player
+    /// in their first week is actually asking.
+    private func weekCard(_ gain: Int) -> some View {
+        let strongest = ledger.strongestRoom().flatMap { DrillLibrary.room(id: $0.roomID) }
+        return HStack(spacing: 12) {
+            Image(systemName: "arrow.up.right")
+                .font(.body.weight(.semibold))
+                .foregroundStyle(Theme.plum)
+                .frame(width: 38, height: 38)
+                .background(Theme.plum.opacity(0.13), in: Circle())
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Up \(gain) question\(gain == 1 ? "" : "s") this week")
+                    .font(.headline)
+                    .foregroundStyle(Theme.ink)
+                Text(strongest.map { "Most of it in \($0.name). Keep that pace and it holds." }
+                     ?? "Questions you have now answered right twice running.")
+                    .font(.caption)
+                    .foregroundStyle(Theme.inkSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(14)
+        .themedCard(corner: 16)
     }
 
     private func weakSpotCard(_ stat: PracticeRecordStore.RoomStat) -> some View {
