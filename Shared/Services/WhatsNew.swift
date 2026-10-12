@@ -45,6 +45,12 @@ enum WhatsNew {
             headline: "Built around your week",
             items: [
                 WhatsNewItem(
+                    id: "monthly-challenge",
+                    icon: "calendar",
+                    title: "A new challenge every month",
+                    body: "Twelve questions, the same for every player, free for everyone. Your first run is the one that counts, so share your score."
+                ),
+                WhatsNewItem(
                     id: "week-gain",
                     icon: "arrow.up.right",
                     title: "Your week, counted",

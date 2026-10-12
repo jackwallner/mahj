@@ -3,12 +3,14 @@ import SwiftUI
 private enum QuickSessionPurpose {
     case quickSession(isDaily: Bool)
     case mahjMinute(MahjMinuteChallenge)
+    case monthlyChallenge(MonthlyChallenge)
     case gameNightPrep
 
     var drill: Drill {
         switch self {
         case .quickSession: return SessionBuilder.sessionDrill
         case .mahjMinute: return MahjMinuteContent.drill
+        case .monthlyChallenge: return MonthlyChallengeContent.drill
         case .gameNightPrep: return SessionBuilder.gameNightPrepDrill
         }
     }
@@ -53,6 +55,12 @@ struct QuickSessionView: View {
         self.onClose = onClose
     }
 
+    init(monthlyChallenge challenge: MonthlyChallenge, onClose: (() -> Void)? = nil) {
+        _items = State(initialValue: challenge.items)
+        purpose = .monthlyChallenge(challenge)
+        self.onClose = onClose
+    }
+
     init(gameNightPrep items: [QuickItem], onClose: (() -> Void)? = nil) {
         _items = State(initialValue: items)
         purpose = .gameNightPrep
@@ -62,6 +70,7 @@ struct QuickSessionView: View {
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dismiss) private var dismiss
     @StateObject private var minuteStore = MahjMinuteStore.shared
+    @StateObject private var monthlyStore = MonthlyChallengeStore.shared
 
     @State private var index = 0
     @State private var score = 0
@@ -69,6 +78,7 @@ struct QuickSessionView: View {
     @State private var selection: Int?
     @State private var answers: [Bool] = []
     @State private var minuteResult: MahjMinuteResult?
+    @State private var monthlyResult: MonthlyChallengeResult?
 
     @State private var confettiTrigger = 0
     @State private var confettiParticleCount = 30
@@ -130,6 +140,8 @@ struct QuickSessionView: View {
     private var completion: some View {
         if case .mahjMinute = purpose, let minuteResult {
             MahjMinuteResultView(result: minuteResult, recordsCompletion: true, onDone: onClose)
+        } else if case .monthlyChallenge = purpose, let monthlyResult {
+            MonthlyChallengeResultView(result: monthlyResult, recordsCompletion: true, onDone: onClose)
         } else {
             DrillCompleteView(drill: purpose.drill, score: score, total: items.count, onDone: onClose)
         }
@@ -303,6 +315,8 @@ struct QuickSessionView: View {
             if isDaily { progress.markQuickSessionCompleted() }
         case .mahjMinute(let challenge):
             minuteResult = minuteStore.record(challenge: challenge, answers: answers)
+        case .monthlyChallenge(let challenge):
+            monthlyResult = monthlyStore.record(challenge: challenge, answers: answers)
         case .gameNightPrep:
             break
         }

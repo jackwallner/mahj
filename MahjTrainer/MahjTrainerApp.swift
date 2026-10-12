@@ -16,6 +16,9 @@ struct MahjTrainerApp: App {
                 .environmentObject(settings)
                 .environmentObject(router)
                 .preferredColorScheme(settings.appearance.colorScheme)
+                .onOpenURL { url in
+                    if let destination = AppDestination(url: url) { router.route(to: destination) }
+                }
                 .onAppear {
                     // Before anything reads mastery: pre-1.1 installs carry
                     // their whole history in ProgressStore's flat sets, and

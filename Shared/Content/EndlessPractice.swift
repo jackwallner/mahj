@@ -110,21 +110,25 @@ enum EndlessPractice {
     // MARK: - Rack reading
 
     private static func rackItems(count: Int) -> [QuickItem] {
-        RackGenerator.batch(count: count).map { rack in
-            let labels = rack.choices.map(\.displayName)
-            let answerIndex = rack.choices.firstIndex(of: rack.answer) ?? 0
-            return QuickItem(
-                id: PracticeSkill.rackReading.itemPrefix + UUID().uuidString,
-                prompt: "Which section is this rack chasing?",
-                tiles: rack.tiles,
-                choices: labels,
-                answerIndex: answerIndex,
-                explanation: rack.explanation,
-                sourceLabel: "Endless Practice",
-                roomID: PracticeSkill.rackReading.roomID,
-                choiceNotes: HandCategory.missNotes(for: rack.choices, answer: rack.answer)
-            )
-        }
+        RackGenerator.batch(count: count).map { rackItem($0) }
+    }
+
+    static func rackItem(
+        _ rack: RackGenerator.GeneratedRack,
+        id: String = PracticeSkill.rackReading.itemPrefix + UUID().uuidString,
+        sourceLabel: String = "Endless Practice"
+    ) -> QuickItem {
+        QuickItem(
+            id: id,
+            prompt: "Which section is this rack chasing?",
+            tiles: rack.tiles,
+            choices: rack.choices.map(\.displayName),
+            answerIndex: rack.choices.firstIndex(of: rack.answer) ?? 0,
+            explanation: rack.explanation,
+            sourceLabel: sourceLabel,
+            roomID: PracticeSkill.rackReading.roomID,
+            choiceNotes: HandCategory.missNotes(for: rack.choices, answer: rack.answer)
+        )
     }
 
     // MARK: - Tile counting
@@ -212,47 +216,55 @@ enum EndlessPractice {
     /// three-tile ranking is not gradeable without a coach, and the authored
     /// Charleston drills still teach the whole pass.
     private static func passItems(count: Int) -> [QuickItem] {
-        CharlestonGenerator.batch(count: count).map { pass in
-            let labels = pass.choices.map(\.spokenName)
-            let answerIndex = pass.choices.firstIndex(of: pass.answer) ?? 0
-            return QuickItem(
-                id: PracticeSkill.charlestonPass.itemPrefix + UUID().uuidString,
-                prompt: "First pass, three tiles going right. Which of these can you lose for free?",
-                tiles: pass.tiles,
-                choices: labels,
-                answerIndex: answerIndex,
-                explanation: pass.explanation,
-                sourceLabel: "Endless Practice",
-                roomID: PracticeSkill.charlestonPass.roomID,
-                choiceNotes: pass.choiceNotes
-            )
-        }
+        CharlestonGenerator.batch(count: count).map { passItem($0) }
+    }
+
+    static func passItem(
+        _ pass: CharlestonGenerator.GeneratedPass,
+        id: String = PracticeSkill.charlestonPass.itemPrefix + UUID().uuidString,
+        sourceLabel: String = "Endless Practice"
+    ) -> QuickItem {
+        QuickItem(
+            id: id,
+            prompt: "First pass, three tiles going right. Which of these can you lose for free?",
+            tiles: pass.tiles,
+            choices: pass.choices.map(\.spokenName),
+            answerIndex: pass.choices.firstIndex(of: pass.answer) ?? 0,
+            explanation: pass.explanation,
+            sourceLabel: sourceLabel,
+            roomID: PracticeSkill.charlestonPass.roomID,
+            choiceNotes: pass.choiceNotes
+        )
     }
 
     // MARK: - Defense
 
     private static func defenseItems(count: Int) -> [QuickItem] {
-        DefenseGenerator.batch(count: count).map { question in
-            let labels = question.choices.map(\.spokenName)
-            let answerIndex = question.choices.firstIndex(of: question.answer) ?? 0
-            let shown = question.exposures
-                .compactMap(\.first)
-                .map { "a pung of \($0.spokenName)" }
-                .joined(separator: " and ")
-            return QuickItem(
-                id: PracticeSkill.defense.itemPrefix + UUID().uuidString,
-                prompt: "The only player with exposures has \(shown) on their rack. Which discard is safest?",
-                // The exposed groups themselves, so the read is on the table
-                // rather than buried in the sentence above it.
-                tiles: question.exposures.flatMap { $0 },
-                choices: labels,
-                answerIndex: answerIndex,
-                explanation: question.explanation,
-                sourceLabel: "Endless Practice",
-                roomID: PracticeSkill.defense.roomID,
-                choiceNotes: question.choiceNotes
-            )
-        }
+        DefenseGenerator.batch(count: count).map { defenseItem($0) }
+    }
+
+    static func defenseItem(
+        _ question: DefenseGenerator.GeneratedDefense,
+        id: String = PracticeSkill.defense.itemPrefix + UUID().uuidString,
+        sourceLabel: String = "Endless Practice"
+    ) -> QuickItem {
+        let shown = question.exposures
+            .compactMap(\.first)
+            .map { "a pung of \($0.spokenName)" }
+            .joined(separator: " and ")
+        return QuickItem(
+            id: id,
+            prompt: "The only player with exposures has \(shown) on their rack. Which discard is safest?",
+            // The exposed groups themselves, so the read is on the table
+            // rather than buried in the sentence above it.
+            tiles: question.exposures.flatMap { $0 },
+            choices: question.choices.map(\.spokenName),
+            answerIndex: question.choices.firstIndex(of: question.answer) ?? 0,
+            explanation: question.explanation,
+            sourceLabel: sourceLabel,
+            roomID: PracticeSkill.defense.roomID,
+            choiceNotes: question.choiceNotes
+        )
     }
 
     /// Flowers and jokers are excluded: eight of each exist, so they do not

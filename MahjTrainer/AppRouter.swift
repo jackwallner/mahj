@@ -4,6 +4,19 @@ import UserNotifications
 
 enum AppDestination: Hashable {
     case gameNightPrepSession
+    case monthlyChallenge
+
+    /// Free destinations open for everyone; the rest wait behind the paywall.
+    var isFree: Bool { self == .monthlyChallenge }
+
+    /// `mahj://challenge` is what each month's App Store in-app event opens.
+    init?(url: URL) {
+        guard url.scheme == "mahj" else { return nil }
+        switch url.host {
+        case "challenge": self = .monthlyChallenge
+        default: return nil
+        }
+    }
 }
 
 enum AppNotification {

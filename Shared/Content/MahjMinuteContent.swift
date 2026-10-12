@@ -109,29 +109,48 @@ enum MahjMinuteContent {
     }
 
     private static func charlestonQuestion(dayKey: String) -> MahjMinuteQuestion {
+        let item = authoredCharlestonItem(
+            seed: "mahj-minute-\(dayKey)-charleston",
+            id: "mahj-minute-charleston-\(dayKey)",
+            sourceLabel: "Mahj Minute: Charleston",
+            trackingID: "mahj-minute-charleston",
+            distractorSeed: dayKey
+        )
+        return MahjMinuteQuestion(category: .charleston, item: item)
+    }
+
+    /// One authored three-tile Charleston pass as a four-choice question. The
+    /// seed picks the scenario, so a seed is one shared question.
+    static func authoredCharlestonItem(
+        seed: String,
+        id: String,
+        sourceLabel: String,
+        trackingID: String,
+        distractorSeed: String
+    ) -> QuickItem {
         let scenarios = DrillLibrary.rooms.flatMap { room in
             room.drills.flatMap { drill -> [CharlestonScenario] in
                 if case .charleston(let values) = drill.kind { return values }
                 return []
             }
         }
-        var generator = StableSeededGenerator(seed: "mahj-minute-\(dayKey)-charleston")
+        var generator = StableSeededGenerator(seed: seed)
         let scenario = scenarios[Int(generator.next() % UInt64(scenarios.count))]
         let answer = passLabel(scenario.recommendedPass)
-        let distractors = distractorPassLabels(for: scenario, seed: dayKey)
+        let distractors = distractorPassLabels(for: scenario, seed: distractorSeed)
         let item = QuickItem(
-            id: "mahj-minute-charleston-\(dayKey)",
+            id: id,
             prompt: "\(scenario.situation) Which three tiles make the strongest pass?",
             tiles: scenario.deal.racked,
             choices: [answer] + distractors,
             answerIndex: 0,
             explanation: scenario.reasoning,
-            sourceLabel: "Mahj Minute: Charleston",
+            sourceLabel: sourceLabel,
             roomID: "charleston-room",
-            trackingID: "mahj-minute-charleston",
+            trackingID: trackingID,
             isReviewable: false
         )
-        return MahjMinuteQuestion(category: .charleston, item: SessionBuilder.prepared(item))
+        return SessionBuilder.prepared(item)
     }
 
     private static func tableQuestions(dayKey: String) -> [MahjMinuteQuestion] {

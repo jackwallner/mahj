@@ -16,6 +16,7 @@ struct HomeView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @StateObject private var records = PracticeRecordStore.shared
     @StateObject private var minuteStore = MahjMinuteStore.shared
+    @StateObject private var monthlyStore = MonthlyChallengeStore.shared
     @StateObject private var handPlay = HandPlayStore.shared
     @StateObject private var ledger = MasteryLedger.shared
     @State private var path: [AppDestination] = []
@@ -86,6 +87,8 @@ struct HomeView: View {
                 switch destination {
                 case .gameNightPrepSession:
                     QuickSessionView(gameNightPrep: gameNightPrepItems)
+                case .monthlyChallenge:
+                    MonthlyChallengeView()
                 }
             }
             .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_home_sheet") }
@@ -148,6 +151,7 @@ struct HomeView: View {
             VStack(spacing: 14) {
                 header
                 todaySession
+                monthlyChallengeCard
                 if showsPrimerCard { howToPlayCard }
                 if showsGameNightCard { gameNightCard }
                 trainingSection
@@ -162,6 +166,7 @@ struct HomeView: View {
     private var todayColumn: some View {
         VStack(spacing: 14) {
             todaySession
+            monthlyChallengeCard
             if showsPrimerCard { howToPlayCard }
             if showsGameNightCard { gameNightCard }
             trainingSection
@@ -223,7 +228,7 @@ struct HomeView: View {
 
     private func consumePendingDestination() {
         guard let destination = router.consumePendingDestination() else { return }
-        guard subscriptions.isPro else {
+        guard destination.isFree || subscriptions.isPro else {
             pendingAfterUpgrade = destination
             showPaywall = true
             return
@@ -440,6 +445,53 @@ struct HomeView: View {
 
     /// Members who have not picked a game night yet. One card, one tap to
     /// set it, one tap to never see it again.
+    /// This month's shared challenge, free for everyone. It sits right under
+    /// Get Started because it changes every month and the App Store event for
+    /// it sends people straight here.
+    private var monthlyChallengeCard: some View {
+        let challenge = MonthlyChallengeContent.challenge()
+        let result = monthlyStore.result(for: challenge)
+        return NavigationLink {
+            MonthlyChallengeView()
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: result == nil ? challenge.theme.icon : "checkmark.seal.fill")
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
+                    .frame(width: 38, height: 38)
+                    .background((result == nil ? Theme.plum : Theme.jade).opacity(0.13),
+                                in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("\(challenge.monthName.uppercased()) CHALLENGE")
+                        .font(.caption2.weight(.heavy))
+                        .kerning(1.2)
+                        .foregroundStyle(Theme.plum)
+                    Text(challenge.theme.title)
+                        .font(.headline)
+                        .foregroundStyle(Theme.ink)
+                    Text(result.map { "You scored \($0.score)/\($0.total). A new one lands next month." }
+                         ?? "\(MonthlyChallengeContent.questionCount) questions, the same for every player. Free.")
+                        .font(.caption)
+                        .foregroundStyle(Theme.inkSecondary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 4)
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Theme.inkTertiary)
+            }
+            .padding(12)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressableCardStyle())
+        .themedCard(corner: 16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(Theme.plum.opacity(0.3), lineWidth: 1)
+        )
+    }
+
     private var gameNightCard: some View {
         HStack(spacing: 12) {
             NavigationLink {
