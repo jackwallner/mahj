@@ -61,9 +61,17 @@ enum Theme {
     // MARK: Type
 
     /// Serif display for titles: the "mahj club" voice.
+    /// Display type follows the reader's text size, so a title never ends up
+    /// smaller than the body copy under it at accessibility sizes. Capped so
+    /// a 34pt score does not outgrow its screen.
     static func display(_ size: CGFloat, weight: Font.Weight = .bold) -> Font {
-        .system(size: size, weight: weight, design: .serif)
+        let scaled = UIFontMetrics(forTextStyle: .title1).scaledValue(for: size)
+        return .system(size: min(scaled, size * 1.6), weight: weight, design: .serif)
     }
+
+    /// Label on a filled button. The dark-mode fills are light enough that
+    /// white text fell to about 2.5:1, so dark mode uses the background ink.
+    static let onFill = Color(light: (1, 1, 1), dark: (0.11, 0.10, 0.09))
 
     static let cardCorner: CGFloat = 20
     static let deckCorner: CGFloat = 26
@@ -141,9 +149,12 @@ extension View {
     func primaryCTA(color: Color = Theme.jade) -> some View {
         self
             .font(.headline)
-            .foregroundStyle(.white)
+            .foregroundStyle(Theme.onFill)
+            .multilineTextAlignment(.center)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
             .frame(maxWidth: .infinity)
-            .frame(height: 56)
+            .frame(minHeight: 56)
             .background(color, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
             .shadow(color: color.opacity(0.35), radius: 8, y: 4)
     }

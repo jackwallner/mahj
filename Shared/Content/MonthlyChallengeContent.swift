@@ -11,7 +11,7 @@ enum MonthlyChallengeTheme: String, CaseIterable, Codable, Sendable {
         switch self {
         case .charleston: return "The Charleston"
         case .defense: return "Defense"
-        case .rackReading: return "Read the Rack"
+        case .rackReading: return "Rack Reading"
         }
     }
 
@@ -23,19 +23,18 @@ enum MonthlyChallengeTheme: String, CaseIterable, Codable, Sendable {
         }
     }
 
-    /// The skill row on the result screen. Defense months also carry the
-    /// authored table judgments, so that row reads as table play.
+    /// The skill's name on chips, the result screen and the answer review.
     var skillTitle: String {
         switch self {
         case .charleston: return "Charleston"
-        case .defense: return "Table Play"
+        case .defense: return "Defense"
         case .rackReading: return "Rack Reading"
         }
     }
 
     var icon: String {
         switch self {
-        case .charleston: return "arrow.triangle.2.circlepath"
+        case .charleston: return "arrow.left.arrow.right"
         case .defense: return "shield.lefthalf.filled"
         case .rackReading: return "square.grid.3x3.fill"
         }

@@ -51,7 +51,7 @@ struct MahjMinuteView: View {
                 NavigationLink {
                     QuickSessionView(mahjMinute: challenge)
                 } label: {
-                    Text("Start Today's Challenge").primaryCTA(color: Theme.coral)
+                    Text("Start Today's Minute").primaryCTA(color: Theme.coral)
                 }
             }
         }

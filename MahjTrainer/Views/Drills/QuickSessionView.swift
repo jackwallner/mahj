@@ -155,6 +155,13 @@ struct QuickSessionView: View {
     }
 
     private var item: QuickItem { items[index] }
+
+    /// The monthly challenge keeps its plum through the run, the way a room
+    /// keeps its accent, so the run still reads as the challenge.
+    private var accent: Color {
+        if case .monthlyChallenge = purpose { return Theme.plum }
+        return Theme.jade
+    }
     private var answered: Bool { selection != nil }
 
     /// Coaching for the specific wrong answer the player chose, when the
@@ -173,7 +180,7 @@ struct QuickSessionView: View {
     private var drillBody: some View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(items.count))
-                .tint(Theme.jade)
+                .tint(accent)
             VStack(spacing: 12) {
                 QuestionPager(
                     prompt: item.prompt,
@@ -236,7 +243,7 @@ struct QuickSessionView: View {
                 Button {
                     advance()
                 } label: {
-                    Text(index + 1 < items.count ? "Next" : "Finish").primaryCTA()
+                    Text(index + 1 < items.count ? "Next" : "Finish").primaryCTA(color: accent)
                 }
             } else {
                 Text("\(index + 1) of \(items.count)")

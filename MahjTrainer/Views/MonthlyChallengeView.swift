@@ -2,20 +2,27 @@ import StoreKit
 import SwiftUI
 
 /// The monthly challenge: free for every player, the same twelve questions on
-/// every device, one counted run a month. The App Store in-app event for each
-/// month opens here through `mahj://challenge`.
+/// every device, one attempt a month. The App Store in-app event for each
+/// month opens here through `mahj://challenge`. Past months open the same
+/// screen for their own month.
 struct MonthlyChallengeView: View {
+    /// Nil for the current month.
+    var month: Date?
+
     @StateObject private var store = MonthlyChallengeStore.shared
 
-    private var challenge: MonthlyChallenge { MonthlyChallengeContent.challenge() }
-    private var pastMonths: [Date] { MonthlyChallengeContent.pastMonths() }
+    private var challenge: MonthlyChallenge {
+        MonthlyChallengeContent.challenge(for: month ?? MonthlyChallengeContent.today)
+    }
+    private var isCurrent: Bool { challenge.monthKey == MonthlyChallengeContent.challenge().monthKey }
+    private var pastMonths: [Date] { isCurrent ? MonthlyChallengeContent.pastMonths() : [] }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
                 hero
-                if let result = store.result(for: challenge) {
-                    MonthlyChallengeNextUp(after: challenge, result: result)
+                if isCurrent, store.result(for: challenge) != nil {
+                    MonthlyChallengeNextUp(after: challenge)
                 }
                 if !pastMonths.isEmpty { archive }
             }
@@ -24,7 +31,7 @@ struct MonthlyChallengeView: View {
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
-        .navigationTitle("Monthly Challenge")
+        .navigationTitle(isCurrent ? challenge.monthName : challenge.title)
         .navigationBarTitleDisplayMode(.inline)
     }
 
@@ -37,6 +44,7 @@ struct MonthlyChallengeView: View {
                 .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
                 .frame(width: 68, height: 68)
                 .background((result == nil ? Theme.plum : Theme.jade).opacity(0.13), in: Circle())
+                .accessibilityHidden(true)
             VStack(spacing: 5) {
                 Text("\(challenge.monthName.uppercased()) CHALLENGE")
                     .font(.caption.weight(.heavy))
@@ -45,34 +53,32 @@ struct MonthlyChallengeView: View {
                 Text(challenge.theme.title)
                     .font(Theme.display(27))
                     .foregroundStyle(Theme.ink)
-                Text(challenge.theme.blurb)
-                    .font(.subheadline)
-                    .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
+                if result == nil {
+                    Text(challenge.theme.blurb)
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.inkSecondary)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
-            MonthlyChallengeMix(challenge: challenge)
             if let result {
+                MonthlyChallengeGrid(answers: result.answers)
                 NavigationLink {
                     MonthlyChallengeResultView(result: result)
                 } label: {
-                    Text("View Your \(result.score)/\(result.total)").primaryCTA()
+                    Text("See Your Results").primaryCTA()
                 }
-            } else if let progress {
+            } else {
+                MonthlyChallengeMix(challenge: challenge)
                 NavigationLink {
                     QuickSessionView(monthlyChallenge: challenge, resume: progress)
                 } label: {
-                    Text("Resume: \(progress.answers.count) of \(challenge.items.count) Answered")
+                    Text(progress.map { "Resume at Question \($0.answers.count + 1)" } ?? "Start the Challenge")
                         .primaryCTA(color: Theme.plum)
                 }
-            } else {
-                NavigationLink {
-                    QuickSessionView(monthlyChallenge: challenge)
-                } label: {
-                    Text("Start the Challenge").primaryCTA(color: Theme.plum)
-                }
             }
-            Text(footnote(done: result != nil))
+            Text(footnote(result: result, progress: progress))
                 .font(.caption)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -82,11 +88,25 @@ struct MonthlyChallengeView: View {
         .themedCard()
     }
 
-    private func footnote(done: Bool) -> String {
+    private func footnote(result: MonthlyChallengeResult?, progress: MonthlyChallengeProgress?) -> String {
+        guard isCurrent else {
+            return result == nil
+                ? "From \(challenge.title). One attempt: your score is final once you finish."
+                : "From \(challenge.title). Your score is final."
+        }
+        let next = MonthlyChallengeContent.next(after: challenge)
         let days = challenge.daysLeft()
-        let left = days <= 1 ? "Last day of the \(challenge.monthName) challenge." : "\(days) days left."
-        if done { return left }
-        return "Same questions for every player. Your first run is the one that counts. \(left)"
+        let left = days <= 1 ? "Last day" : "\(days)\u{00A0}days left"
+        if result != nil {
+            return days <= 1
+                ? "Your score is final. \(next.monthName) opens tomorrow."
+                : "Your score is final. \(next.monthName) opens in \(days)\u{00A0}days."
+        }
+        if progress != nil {
+            let last = challenge.end.addingTimeInterval(-1).formatted(.dateTime.month(.wide).day())
+            return "Your answers are saved. Pick up any time before \(last)."
+        }
+        return "One attempt: your score is final once you finish. \(left)."
     }
 
     private var archive: some View {
@@ -98,7 +118,7 @@ struct MonthlyChallengeView: View {
                 .padding(.horizontal, 4)
             VStack(spacing: 0) {
                 ForEach(pastMonths, id: \.self) { month in
-                    archiveRow(MonthlyChallengeContent.challenge(for: month))
+                    archiveRow(month)
                     if month != pastMonths.last {
                         Divider().overlay(Theme.rule)
                     }
@@ -108,20 +128,18 @@ struct MonthlyChallengeView: View {
         }
     }
 
-    private func archiveRow(_ past: MonthlyChallenge) -> some View {
+    private func archiveRow(_ month: Date) -> some View {
+        let past = MonthlyChallengeContent.challenge(for: month)
         let result = store.result(for: past)
         let progress = store.progress(for: past)
         return NavigationLink {
-            if let result {
-                MonthlyChallengeResultView(result: result)
-            } else {
-                QuickSessionView(monthlyChallenge: past, resume: progress)
-            }
+            MonthlyChallengeView(month: month)
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: result == nil ? past.theme.icon : "checkmark.seal.fill")
                     .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
                     .frame(width: 28)
+                    .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 1) {
                     Text(past.title)
                         .font(.subheadline.weight(.medium))
@@ -138,6 +156,7 @@ struct MonthlyChallengeView: View {
                 Image(systemName: "chevron.right")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Theme.inkTertiary)
+                    .accessibilityHidden(true)
             }
             .padding(14)
             .contentShape(Rectangle())
@@ -147,37 +166,55 @@ struct MonthlyChallengeView: View {
 }
 
 /// What the twelve questions are made of, so the theme is a promise the
-/// player can count: "6 Charleston · 2 Rack Reading · 4 Table Play".
+/// player can count: "8 Charleston · 2 Defense · 2 Rack Reading", the theme
+/// first and in its colour. Plain text, so it wraps at any text size.
 private struct MonthlyChallengeMix: View {
     let challenge: MonthlyChallenge
 
     var body: some View {
         let counts = Dictionary(grouping: challenge.items, by: MonthlyChallengeContent.skill(of:)).mapValues(\.count)
-        let ordered = [challenge.theme] + MonthlyChallengeTheme.allCases.filter { $0 != challenge.theme }
-        HStack(spacing: 6) {
-            ForEach(ordered.filter { counts[$0, default: 0] > 0 }, id: \.self) { skill in
-                HStack(spacing: 4) {
-                    Image(systemName: skill.icon)
-                        .font(.caption2.weight(.semibold))
-                    Text("\(counts[skill, default: 0]) \(skill.skillTitle)")
-                        .font(.caption.weight(.semibold))
-                        .monospacedDigit()
+        let others = MonthlyChallengeTheme.allCases
+            .filter { $0 != challenge.theme && counts[$0, default: 0] > 0 }
+            .map { "\(counts[$0, default: 0])\u{00A0}\($0.skillTitle.replacingOccurrences(of: " ", with: "\u{00A0}"))" }
+        let lead = "\(counts[challenge.theme, default: 0])\u{00A0}\(challenge.theme.skillTitle.replacingOccurrences(of: " ", with: "\u{00A0}"))"
+        (Text(lead).foregroundStyle(Theme.plum).fontWeight(.bold)
+            + Text(others.map { " · \($0)" }.joined()).foregroundStyle(Theme.inkSecondary))
+            .font(.subheadline.weight(.semibold))
+            .multilineTextAlignment(.center)
+            .accessibilityLabel(([lead] + others).joined(separator: ", ").replacingOccurrences(of: "\u{00A0}", with: " "))
+    }
+}
+
+/// Twelve squares in two rows of six, the same shape as the shared text.
+/// Misses are outlined in coral so a low score reads as what it is.
+struct MonthlyChallengeGrid: View {
+    let answers: [Bool]
+    @ScaledMetric(relativeTo: .body) private var side: CGFloat = 18
+
+    var body: some View {
+        VStack(spacing: 5) {
+            ForEach(Array(stride(from: 0, to: answers.count, by: 6)), id: \.self) { start in
+                HStack(spacing: 5) {
+                    ForEach(start..<min(start + 6, answers.count), id: \.self) { index in
+                        RoundedRectangle(cornerRadius: 4, style: .continuous)
+                            .fill(answers[index] ? Theme.jade : Theme.coral.opacity(0.14))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                    .strokeBorder(answers[index] ? Color.clear : Theme.coral, lineWidth: 1.5)
+                            )
+                            .frame(width: side, height: side)
+                    }
                 }
-                .foregroundStyle(skill == challenge.theme ? Theme.plum : Theme.inkSecondary)
-                .padding(.horizontal, 9)
-                .padding(.vertical, 5)
-                .background((skill == challenge.theme ? Theme.plum : Theme.well).opacity(skill == challenge.theme ? 0.12 : 1),
-                            in: Capsule())
             }
         }
-        .accessibilityElement(children: .combine)
+        .accessibilityElement()
+        .accessibilityLabel("\(answers.filter { $0 }.count) right, \(answers.filter { !$0 }.count) missed")
     }
 }
 
 /// After this month is done: what comes next and when, plus the one reminder.
 private struct MonthlyChallengeNextUp: View {
     let after: MonthlyChallenge
-    let result: MonthlyChallengeResult
 
     var body: some View {
         let next = MonthlyChallengeContent.next(after: after)
@@ -188,6 +225,7 @@ private struct MonthlyChallengeNextUp: View {
                     .foregroundStyle(Theme.plum)
                     .frame(width: 38, height: 38)
                     .background(Theme.plum.opacity(0.13), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("NEXT UP")
                         .font(.caption2.weight(.heavy))
@@ -229,16 +267,18 @@ private struct MonthlyChallengeReminderButton: View {
                     }
                 }
             } label: {
-                Label(isOn ? "Reminder set for the 1st of each month" : "Remind me when \(nextMonthName)'s opens",
+                Label(isOn ? "Reminder On · 1st of Each Month" : "Remind Me When \(nextMonthName) Opens",
                       systemImage: isOn ? "bell.fill" : "bell")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(isOn ? Theme.jade : Theme.plum)
+                    .multilineTextAlignment(.center)
+                    .padding(.vertical, 10)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background((isOn ? Theme.jade : Theme.plum).opacity(0.1),
                                 in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             }
             .buttonStyle(.plain)
-            .accessibilityHint(isOn ? "Turns the monthly reminder off" : "Asks to send one notification on the 1st of each month")
+            .accessibilityHint(isOn ? "Turns the monthly reminder off" : "Sends one notification on the 1st of each month")
             if denied {
                 Text("Notifications are off for Mahj Trainer. Turn them on in Settings > Notifications to get the reminder.")
                     .font(.caption)
@@ -258,12 +298,20 @@ struct MonthlyChallengeResultView: View {
     @EnvironmentObject private var subscriptions: SubscriptionService
     @Environment(\.dismiss) private var dismiss
     @Environment(\.requestReview) private var requestReview
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .largeTitle) private var circle: CGFloat = 122
     @State private var recorded = false
     @State private var showReviewPrompt = false
     @State private var showPaywall = false
     @State private var confettiTrigger = 0
 
     private var challenge: MonthlyChallenge? { MonthlyChallengeContent.challenge(monthKey: result.monthKey) }
+    private var fraction: Double { Double(result.score) / Double(max(result.total, 1)) }
+    private var tone: Color {
+        if fraction >= 0.75 { return Theme.jade }
+        if fraction >= 0.5 { return Theme.gold }
+        return Theme.coral
+    }
 
     var body: some View {
         ScrollView {
@@ -274,28 +322,19 @@ struct MonthlyChallengeResultView: View {
                     NavigationLink {
                         MonthlyChallengeAnswersView(challenge: challenge, result: result)
                     } label: {
-                        Label("Review Your Answers", systemImage: "list.bullet.rectangle")
-                            .font(.headline)
-                            .foregroundStyle(Theme.plum)
-                            .frame(maxWidth: .infinity, minHeight: 50)
-                            .themedCard(corner: 14)
+                        Text(result.score == result.total ? "Review Your Answers" : "See What You Missed")
+                            .primaryCTA(color: Theme.plum)
                     }
-                    .buttonStyle(PressableCardStyle())
                 }
                 ShareLink(item: result.shareText) {
-                    Label("Share Result", systemImage: "square.and.arrow.up")
-                        .primaryCTA(color: Theme.plum)
-                }
-                if let challenge, result.monthKey == MonthlyChallengeContent.challenge().monthKey {
-                    MonthlyChallengeNextUp(after: challenge, result: result)
+                    Label("Share Your Score", systemImage: "square.and.arrow.up")
+                        .font(.headline)
+                        .foregroundStyle(Theme.plum)
+                        .padding(.vertical, 10)
+                        .frame(maxWidth: .infinity, minHeight: 50)
+                        .background(Theme.plum.opacity(0.1), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
                 if !subscriptions.isPro { memberCard }
-                Button("Done") {
-                    if let onDone { onDone() } else { dismiss() }
-                }
-                .font(.headline)
-                .foregroundStyle(Theme.inkSecondary)
-                .padding(.vertical, 8)
             }
             .padding()
             .frame(maxWidth: 620)
@@ -303,9 +342,19 @@ struct MonthlyChallengeResultView: View {
         }
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.22), particleCount: 44) }
-        .navigationTitle("Monthly Challenge")
+        .navigationTitle(result.title)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(recordsCompletion)
+        .toolbar {
+            if recordsCompletion {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") {
+                        if let onDone { onDone() } else { dismiss() }
+                    }
+                    .font(.headline)
+                }
+            }
+        }
         .onAppear { recordCompletionIfNeeded() }
         .sheet(isPresented: $showPaywall) { PaywallView(source: "monthly_challenge_result") }
         .sheet(isPresented: $showReviewPrompt) {
@@ -320,24 +369,24 @@ struct MonthlyChallengeResultView: View {
     }
 
     private var verdict: String {
-        switch Double(result.score) / Double(max(result.total, 1)) {
+        switch fraction {
         case 1: return "A perfect month!"
         case 0.75...: return "Sharp play"
         case 0.5...: return "Solid month"
-        default: return "Challenge complete"
+        default: return "A tough one"
         }
     }
 
     private var scoreCard: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 10) {
             ZStack {
                 Circle()
-                    .fill(Theme.jade.opacity(0.12))
-                    .frame(width: 122, height: 122)
+                    .fill(tone.opacity(0.12))
+                    .frame(width: circle, height: circle)
                 VStack(spacing: 1) {
                     Text("\(result.score)/\(result.total)")
                         .font(Theme.display(34))
-                        .foregroundStyle(Theme.jade)
+                        .foregroundStyle(tone)
                         .monospacedDigit()
                     Text("right")
                         .font(.caption.weight(.semibold))
@@ -347,18 +396,13 @@ struct MonthlyChallengeResultView: View {
             Text(verdict)
                 .font(Theme.display(28))
                 .foregroundStyle(Theme.ink)
-            Text("\(result.title) Challenge: \(result.theme.title)")
+                .multilineTextAlignment(.center)
+            Text(fraction < 0.5 ? "Every miss is explained below." : result.theme.title)
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
-            HStack(spacing: 5) {
-                ForEach(Array(result.answers.enumerated()), id: \.offset) { _, correct in
-                    RoundedRectangle(cornerRadius: 3, style: .continuous)
-                        .fill(correct ? Theme.jade : Theme.well)
-                        .frame(width: 16, height: 16)
-                }
-            }
-            .padding(.top, 4)
-            .accessibilityHidden(true)
+                .multilineTextAlignment(.center)
+            MonthlyChallengeGrid(answers: result.answers)
+                .padding(.top, 2)
         }
         .frame(maxWidth: .infinity)
         .padding(20)
@@ -377,19 +421,28 @@ struct MonthlyChallengeResultView: View {
                 let rows = pairs.filter { $0.0 == skill }
                 if !rows.isEmpty {
                     let right = rows.filter(\.1).count
-                    HStack(spacing: 12) {
-                        Image(systemName: skill.icon)
-                            .foregroundStyle(color(right, of: rows.count))
-                            .frame(width: 30)
+                    let line = dynamicTypeSize.isAccessibilitySize
+                        ? AnyLayout(VStackLayout(alignment: .leading, spacing: 2))
+                        : AnyLayout(HStackLayout(spacing: 12))
+                    line {
+                        if !dynamicTypeSize.isAccessibilitySize {
+                            Image(systemName: skill.icon)
+                                .foregroundStyle(Theme.inkSecondary)
+                                .frame(width: 30)
+                                .accessibilityHidden(true)
+                        }
                         Text(skill.skillTitle)
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(Theme.ink)
-                        Spacer()
+                            .fixedSize(horizontal: false, vertical: true)
+                        if !dynamicTypeSize.isAccessibilitySize { Spacer(minLength: 8) }
                         Text("\(right)/\(rows.count)")
                             .font(.subheadline.weight(.bold))
                             .foregroundStyle(color(right, of: rows.count))
                             .monospacedDigit()
+                            .fixedSize()
                     }
+                    .accessibilityElement(children: .combine)
                 }
             }
         }
@@ -399,7 +452,7 @@ struct MonthlyChallengeResultView: View {
 
     private func color(_ right: Int, of total: Int) -> Color {
         if right == total { return Theme.jade }
-        if right > 0 { return Theme.gold }
+        if right * 2 >= total { return Theme.ink }
         return Theme.coral
     }
 
@@ -407,27 +460,25 @@ struct MonthlyChallengeResultView: View {
     /// this is the honest moment to say where more of them live.
     private var memberCard: some View {
         Button { showPaywall = true } label: {
-            HStack(spacing: 12) {
-                Image(systemName: "infinity")
-                    .font(.body.weight(.semibold))
-                    .foregroundStyle(Theme.jade)
-                    .frame(width: 38, height: 38)
-                    .background(Theme.jade.opacity(0.13), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Want more like these?")
-                        .font(.headline)
-                        .foregroundStyle(Theme.ink)
-                    Text("\(Membership.name) deals fresh racks, passes and defense questions every day, without end.")
-                        .font(.caption)
-                        .foregroundStyle(Theme.inkSecondary)
-                        .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
+            Group {
+                if dynamicTypeSize.isAccessibilitySize {
+                    VStack(alignment: .leading, spacing: 8) {
+                        memberIcon
+                        memberText
+                    }
+                } else {
+                    HStack(spacing: 12) {
+                        memberIcon
+                        memberText
+                        Spacer(minLength: 4)
+                        Image(systemName: "chevron.right")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(Theme.inkTertiary)
+                            .accessibilityHidden(true)
+                    }
                 }
-                Spacer(minLength: 4)
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(Theme.inkTertiary)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(14)
             .contentShape(Rectangle())
         }
@@ -435,13 +486,38 @@ struct MonthlyChallengeResultView: View {
         .themedCard(corner: 16)
     }
 
+    private var memberIcon: some View {
+        Image(systemName: "infinity")
+            .font(.body.weight(.semibold))
+            .foregroundStyle(Theme.jade)
+            .frame(width: 38, height: 38)
+            .background(Theme.jade.opacity(0.13), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .accessibilityHidden(true)
+    }
+
+    private var memberText: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text("Want more like these?")
+                .font(.headline)
+                .foregroundStyle(Theme.ink)
+            Text("\(Membership.name) deals fresh racks, passes and defense questions every day, without end.")
+                .font(.caption)
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
     private func recordCompletionIfNeeded() {
         guard recordsCompletion, !recorded else { return }
         recorded = true
-        confettiTrigger += 1
-        Haptics.success()
+        if fraction >= 0.5 {
+            confettiTrigger += 1
+            Haptics.success()
+        }
         SoundPlayer.play(.complete)
         progress.recordSession(drillID: MonthlyChallengeContent.drill.id)
+        guard fraction >= 0.5 else { return }
         ReviewPromptTracker.recordPositiveMoment()
         guard ReviewPromptTracker.shouldShowAfterPositiveMoment() else { return }
         Task { @MainActor in
@@ -451,18 +527,38 @@ struct MonthlyChallengeResultView: View {
     }
 }
 
-/// Every question of a finished month, with the player's pick, the right
-/// answer and the coaching. The score is locked, so this is where a run turns
-/// into something learned.
+/// Every question of a finished month with all its choices marked, the
+/// coaching, and why the player's pick was wrong. The score is locked, so
+/// this is where a run turns into something learned.
 struct MonthlyChallengeAnswersView: View {
     let challenge: MonthlyChallenge
     let result: MonthlyChallengeResult
+    @State private var missedOnly: Bool
+
+    init(challenge: MonthlyChallenge, result: MonthlyChallengeResult) {
+        self.challenge = challenge
+        self.result = result
+        _missedOnly = State(initialValue: result.score < result.total)
+    }
+
+    private var shown: [(index: Int, item: QuickItem)] {
+        challenge.items.enumerated()
+            .map { (index: $0.offset, item: $0.element) }
+            .filter { !missedOnly || !(result.answers.indices.contains($0.index) && result.answers[$0.index]) }
+    }
 
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 14) {
-                ForEach(Array(challenge.items.enumerated()), id: \.element.id) { index, item in
-                    answerCard(index: index, item: item)
+                if result.score < result.total {
+                    Picker("Show", selection: $missedOnly) {
+                        Text("Missed (\(result.total - result.score))").tag(true)
+                        Text("All \(result.total)").tag(false)
+                    }
+                    .pickerStyle(.segmented)
+                }
+                ForEach(shown, id: \.item.id) { entry in
+                    answerCard(index: entry.index, item: entry.item)
                 }
             }
             .padding()
@@ -481,15 +577,18 @@ struct MonthlyChallengeAnswersView: View {
             HStack(spacing: 8) {
                 Image(systemName: correct ? "checkmark.circle.fill" : "xmark.circle.fill")
                     .foregroundStyle(correct ? Theme.jade : Theme.coral)
-                Text("Question \(index + 1)")
+                    .accessibilityHidden(true)
+                Text("QUESTION \(index + 1)")
                     .font(.caption.weight(.heavy))
-                    .kerning(1.1)
+                    .kerning(1.2)
                     .foregroundStyle(Theme.inkSecondary)
                 Spacer()
                 Text(MonthlyChallengeContent.skill(of: item).skillTitle)
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Theme.inkTertiary)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Question \(index + 1), \(correct ? "right" : "missed"), \(MonthlyChallengeContent.skill(of: item).skillTitle)")
             Text(item.prompt)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Theme.ink)
@@ -500,38 +599,42 @@ struct MonthlyChallengeAnswersView: View {
                     .accessibilityLabel(item.tiles.map(\.spokenName).joined(separator: ", "))
             }
             VStack(alignment: .leading, spacing: 6) {
-                if let pick, pick != item.answerIndex, item.choices.indices.contains(pick) {
-                    answerLine("You picked", item.choices[pick], color: Theme.coral, icon: "xmark")
+                ForEach(Array(item.choices.enumerated()), id: \.offset) { choice, label in
+                    choiceRow(label, isAnswer: choice == item.answerIndex, isPick: choice == pick)
                 }
-                answerLine(correct ? "You picked" : "Answer", item.choices[item.answerIndex], color: Theme.jade, icon: "checkmark")
             }
             Text(item.explanation)
                 .font(.footnote)
                 .foregroundStyle(Theme.inkSecondary)
                 .fixedSize(horizontal: false, vertical: true)
-            if let pick, pick != item.answerIndex, let note = item.note(forPick: pick) {
-                Text("Why not \(item.choices[pick])? \(note)")
-                    .font(.footnote)
-                    .foregroundStyle(Theme.inkSecondary)
-                    .fixedSize(horizontal: false, vertical: true)
+            if let pick, pick != item.answerIndex, item.choices.indices.contains(pick),
+               let reason = item.note(forPick: pick) {
+                MissNoteCard(note: MissNote(pickedLabel: item.choices[pick], reason: reason))
             }
         }
         .padding(16)
         .themedCard(corner: 16)
     }
 
-    private func answerLine(_ label: String, _ value: String, color: Color, icon: String) -> some View {
-        HStack(alignment: .firstTextBaseline, spacing: 6) {
-            Image(systemName: icon)
+    private func choiceRow(_ label: String, isAnswer: Bool, isPick: Bool) -> some View {
+        let color: Color = isAnswer ? Theme.jade : (isPick ? Theme.coral : Theme.inkTertiary)
+        return HStack(alignment: .firstTextBaseline, spacing: 8) {
+            Image(systemName: isAnswer ? "checkmark" : (isPick ? "xmark" : "circle"))
                 .font(.caption.weight(.bold))
                 .foregroundStyle(color)
+                .frame(width: 16)
+                .accessibilityHidden(true)
             Text(label)
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(Theme.inkSecondary)
-            Text(value)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(color)
+                .font(.subheadline.weight(isAnswer || isPick ? .semibold : .regular))
+                .foregroundStyle(isAnswer || isPick ? color : Theme.inkSecondary)
                 .fixedSize(horizontal: false, vertical: true)
+            if isPick {
+                Text("your pick")
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(Theme.inkTertiary)
+            }
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(label)\(isAnswer ? ", the answer" : "")\(isPick ? ", your pick" : "")")
     }
 }

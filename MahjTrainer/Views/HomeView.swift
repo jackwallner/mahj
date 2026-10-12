@@ -447,20 +447,36 @@ struct HomeView: View {
     /// set it, one tap to never see it again.
     /// This month's shared challenge, free for everyone. It sits right under
     /// Get Started because it changes every month and the App Store event for
-    /// it sends people straight here.
+    /// it sends people straight here. Two lines in every state, so Home does
+    /// not jump when the run starts or ends.
     private var monthlyChallengeCard: some View {
         let challenge = MonthlyChallengeContent.challenge()
         let result = monthlyStore.result(for: challenge)
+        let run = monthlyStore.progress(for: challenge)
         return NavigationLink {
             MonthlyChallengeView()
         } label: {
             HStack(spacing: 12) {
-                Image(systemName: result == nil ? challenge.theme.icon : "checkmark.seal.fill")
-                    .font(.body.weight(.semibold))
-                    .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
-                    .frame(width: 38, height: 38)
-                    .background((result == nil ? Theme.plum : Theme.jade).opacity(0.13),
-                                in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill((result == nil ? Theme.plum : Theme.jade).opacity(0.13))
+                    if let run {
+                        Circle()
+                            .stroke(Theme.plum.opacity(0.2), lineWidth: 3)
+                            .padding(7)
+                        Circle()
+                            .trim(from: 0, to: Double(run.answers.count) / Double(max(challenge.items.count, 1)))
+                            .stroke(Theme.plum, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                            .rotationEffect(.degrees(-90))
+                            .padding(7)
+                    } else {
+                        Image(systemName: result == nil ? challenge.theme.icon : "checkmark.seal.fill")
+                            .font(.body.weight(.semibold))
+                            .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
+                    }
+                }
+                .frame(width: 38, height: 38)
+                .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("\(challenge.monthName.uppercased()) CHALLENGE")
                         .font(.caption2.weight(.heavy))
@@ -469,16 +485,17 @@ struct HomeView: View {
                     Text(challenge.theme.title)
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
-                    Text(monthlyChallengeLine(challenge, result: result))
+                    Text(monthlyChallengeLine(challenge, result: result, run: run))
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
+                        .lineLimit(2)
                         .multilineTextAlignment(.leading)
-                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer(minLength: 4)
                 Image(systemName: "chevron.right")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Theme.inkTertiary)
+                    .accessibilityHidden(true)
             }
             .padding(12)
             .contentShape(Rectangle())
@@ -487,21 +504,21 @@ struct HomeView: View {
         .themedCard(corner: 16)
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(Theme.plum.opacity(0.3), lineWidth: 1)
+                .strokeBorder(Theme.plum.opacity(result == nil ? 0.3 : 0), lineWidth: 1)
         )
     }
 
-    private func monthlyChallengeLine(_ challenge: MonthlyChallenge, result: MonthlyChallengeResult?) -> String {
+    private func monthlyChallengeLine(_ challenge: MonthlyChallenge, result: MonthlyChallengeResult?, run: MonthlyChallengeProgress?) -> String {
+        let days = challenge.daysLeft()
+        let left = days <= 1 ? "last day" : "\(days)\u{00A0}days left"
         if let result {
             let next = MonthlyChallengeContent.next(after: challenge)
-            return "You scored \(result.score)/\(result.total). \(next.monthName) brings \(next.theme.title)."
+            return "\(result.score)/\(result.total) · \(next.monthName) opens in \(days)\u{00A0}\(days == 1 ? "day" : "days")"
         }
-        let days = challenge.daysLeft()
-        let left = days <= 1 ? "Last day" : "\(days) days left"
-        if let run = monthlyStore.progress(for: challenge) {
-            return "\(run.answers.count) of \(challenge.items.count) answered. Pick up where you left off. \(left)."
+        if let run {
+            return "\(run.answers.count) of \(challenge.items.count) answered · \(left)"
         }
-        return "\(challenge.items.count) questions, the same for every player. Free. \(left)."
+        return "\(challenge.items.count)\u{00A0}questions · \(left)"
     }
 
     private var gameNightCard: some View {
