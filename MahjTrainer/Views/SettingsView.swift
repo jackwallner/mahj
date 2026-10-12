@@ -52,7 +52,11 @@ struct SettingsView: View {
             }
             .sheet(item: $reviewPromptStep) { step in
                 ReviewPromptSheet(initialStep: step) { outcome in
-                    if outcome == .enjoyedMaybeLater { requestReview() }
+                    guard outcome.wantsSystemReviewPrompt else { return }
+                    Task { @MainActor in
+                        try? await Task.sleep(nanoseconds: 700_000_000)
+                        requestReview()
+                    }
                 }
             }
             .alert("Restore", isPresented: .init(
@@ -79,6 +83,7 @@ struct SettingsView: View {
                     PracticeRecordStore.shared.resetAll()
                     MahjMinuteStore.shared.resetAll()
                     HandPlayStore.shared.resetAll()
+                    MasteryLedger.shared.resetAll()
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {

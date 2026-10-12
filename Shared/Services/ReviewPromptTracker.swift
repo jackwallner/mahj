@@ -110,6 +110,14 @@ enum ReviewPromptTracker {
         defaults.set(true, forKey: Keys.softDefer)
     }
 
+    /// They said yes and the host fired `requestReview()`. Apple shows that
+    /// prompt at most three times a year and may show nothing at all, so this
+    /// is not a terminal outcome: the funnel can come back after the short
+    /// cooldown and ask again.
+    static func markEnjoyed(now: Date = Date()) {
+        markSoftDeferred(now: now)
+    }
+
     static func markOpenedWriteReview() {
         outcome = .openedWriteReview
         markShown()

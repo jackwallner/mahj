@@ -87,11 +87,33 @@ final class ReviewPromptTrackerTests: XCTestCase {
         XCTAssertEqual(ReviewPromptTracker.outcome, .submittedFeedback)
     }
 
-    func testFeedbackMailURLCarriesTheMessage() {
-        let url = ReviewPromptSheet.feedbackMailURL(body: "more charleston drills please")
-        XCTAssertNotNil(url)
-        XCTAssertEqual(url?.scheme, "mailto")
-        XCTAssertEqual(url?.path, AppStoreLinks.feedbackEmail)
-        XCTAssertTrue(url?.query?.contains("more%20charleston%20drills%20please") == true)
+}
+
+@MainActor
+final class ReviewPromptTrackerEnjoyedTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        ReviewPromptTracker.resetForTesting()
+    }
+
+    override func tearDown() {
+        ReviewPromptTracker.resetForTesting()
+        super.tearDown()
+    }
+
+    /// A "yes" fires Apple's prompt, which may show nothing. It must not
+    /// retire the funnel, and it must come back on the short cooldown.
+    func testEnjoyedIsASoftDeferralNotATerminalOutcome() {
+        ReviewPromptTracker.recordAppLaunch()
+        ReviewPromptTracker.recordAppLaunch()
+        for _ in 0..<ReviewPromptTracker.minimumPositiveMoments {
+            ReviewPromptTracker.recordPositiveMoment()
+        }
+        ReviewPromptTracker.markEnjoyed()
+        XCTAssertNil(ReviewPromptTracker.outcome)
+        XCTAssertFalse(ReviewPromptTracker.shouldShowAfterPositiveMoment())
+        let day = TimeInterval(86_400)
+        let later = Date().addingTimeInterval(TimeInterval(ReviewPromptTracker.softDeferCooldownDays + 1) * day)
+        XCTAssertTrue(ReviewPromptTracker.shouldShowAfterPositiveMoment(now: later))
     }
 }

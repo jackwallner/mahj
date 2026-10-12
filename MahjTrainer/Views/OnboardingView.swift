@@ -22,8 +22,10 @@ struct OnboardingView: View {
     @State private var purchaseError: String?
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
 
-    private enum Stage: Equatable { case pages, tour, howToPlay }
+    private enum Stage: Equatable { case pages, trialReminder, tour, howToPlay }
     @State private var stage: Stage = .pages
+    @State private var trialStartedAt: Date?
+    @EnvironmentObject private var settings: AppSettings
 
     private let lastPage = 4
     private let skillPage = 3
@@ -33,6 +35,12 @@ struct OnboardingView: View {
             switch stage {
             case .pages:
                 pagesBody
+            case .trialReminder:
+                TrialReminderOfferView(
+                    onAccept: { acceptTrialReminder() },
+                    onDecline: { startTour() }
+                )
+                .transition(.move(edge: .trailing).combined(with: .opacity))
             case .howToPlay:
                 // Skip lands on Home, not on the next onboarding step: the
                 // whole point of an escape hatch is that it escapes.
@@ -388,7 +396,12 @@ struct OnboardingView: View {
                 switch outcome {
                 case .purchased:
                     if await subscriptions.confirmEntitlement() {
-                        startTour()
+                        // A trial just started. Offer the reminder BEFORE the
+                        // tour: this is the one moment the player is thinking
+                        // about the week ahead, and a reminder they chose is
+                        // the opposite of the surprise charge they fear.
+                        trialStartedAt = Date()
+                        stage = .trialReminder
                     } else {
                         purchaseError = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore."
                     }
@@ -424,6 +437,15 @@ struct OnboardingView: View {
     /// they see a tile; everyone else goes straight to the tour.
     private func startTour() {
         stage = skillLevel == "new" ? .howToPlay : .tour
+    }
+
+    /// Permission is requested here, not earlier: the system prompt lands on
+    /// a screen that has just explained exactly what the one notification is.
+    private func acceptTrialReminder() {
+        let start = trialStartedAt ?? Date()
+        settings.requestTrialEndReminder(trialStartedAt: start) { _ in
+            startTour()
+        }
     }
 
     /// A successful purchase in the products-failed fallback must rejoin the

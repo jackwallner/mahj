@@ -35,14 +35,29 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     @Published private(set) var isPro = false
     @Published private(set) var offerings: Offerings?
+    /// Set when a trial or membership was just seen turning toward the exit,
+    /// and not yet asked about. Home presents the one-question prompt and
+    /// clears it. Survives a launch: the ask is stored, not just published.
+    @Published private(set) var pendingChurnMoment: ChurnMoment?
 
     private var isConfigured = false
     private let localOverrideKey = "subscription.localProOverride"
+    private let snapshotKey = "membership.lastSnapshot"
+    private let churnAskSpentKey = "membership.churnAskSpent"
+    private let pendingChurnKey = "membership.pendingChurnMoment"
     private var paywallImpressionsThisSession: Set<String> = []
 
     override private init() {
         super.init()
         isPro = UserDefaults.standard.bool(forKey: localOverrideKey)
+        pendingChurnMoment = UserDefaults.standard.string(forKey: pendingChurnKey)
+            .flatMap(ChurnMoment.init(rawValue:))
+    }
+
+    /// The churn prompt was shown (or dismissed). One ask per departure.
+    func consumeChurnMoment() {
+        pendingChurnMoment = nil
+        UserDefaults.standard.removeObject(forKey: pendingChurnKey)
     }
 
     func start() {
@@ -221,9 +236,36 @@ final class SubscriptionService: NSObject, ObservableObject {
     }
 
     private func apply(_ info: CustomerInfo) {
-        let entitled = info.entitlements["pro"]?.isActive == true
+        let entitlement = info.entitlements["pro"]
+        let entitled = entitlement?.isActive == true
         let override = UserDefaults.standard.bool(forKey: localOverrideKey)
         isPro = entitled || override
+        observe(MembershipSnapshot(
+            isActive: entitled,
+            isTrial: entitlement?.periodType == .trial,
+            willRenew: entitlement?.willRenew == true
+        ))
+    }
+
+    /// Compares this customer record with the last one seen and remembers a
+    /// churn moment, once per departure. Both snapshots come from RevenueCat,
+    /// never from the local override, so a debug toggle cannot fake a lapse.
+    func observe(_ current: MembershipSnapshot, defaults: UserDefaults = .standard) {
+        let previous = (defaults.data(forKey: snapshotKey))
+            .flatMap { try? JSONDecoder().decode(MembershipSnapshot.self, from: $0) }
+        defer {
+            if let data = try? JSONEncoder().encode(current) {
+                defaults.set(data, forKey: snapshotKey)
+            }
+        }
+        if MembershipTransitions.resetsAsk(from: previous, to: current) {
+            defaults.removeObject(forKey: churnAskSpentKey)
+        }
+        guard pendingChurnMoment == nil, !defaults.bool(forKey: churnAskSpentKey) else { return }
+        guard let moment = MembershipTransitions.churnMoment(from: previous, to: current) else { return }
+        defaults.set(true, forKey: churnAskSpentKey)
+        defaults.set(moment.rawValue, forKey: pendingChurnKey)
+        pendingChurnMoment = moment
     }
 }
 

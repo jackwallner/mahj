@@ -27,6 +27,7 @@ struct MahjTrainerApp: App {
                     subscriptions.start()
                     ReviewPromptTracker.recordAppLaunch()
                     ConversionDiagnostics.recordAppOpen()
+                    Task { await FeedbackService.shared.flushPending() }
                     #if DEBUG
                     if RevenueCatProbe.isEnabled {
                         // Same entry point the real paywall screens call, so

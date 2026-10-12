@@ -41,6 +41,37 @@ enum WhatsNew {
 
     static let releases: [WhatsNewRelease] = [
         WhatsNewRelease(
+            version: "1.4.0",
+            headline: "Built around your week",
+            items: [
+                WhatsNewItem(
+                    id: "week-gain",
+                    icon: "arrow.up.right",
+                    title: "Your week, counted",
+                    body: "Home and Your Progress now show how many questions you locked in this week, so you can see the practice working."
+                ),
+                WhatsNewItem(
+                    id: "game-night-card",
+                    icon: "person.2.fill",
+                    title: "Game night, front and center",
+                    body: "Members can set their game night from Home. The prep reminder now says what you locked in since last week.",
+                    isPlus: true
+                ),
+                WhatsNewItem(
+                    id: "report-question",
+                    icon: "flag",
+                    title: "Something wrong? Say so",
+                    body: "Every graded question has a link to flag a wrong answer or a confusing explanation. It goes straight to the developer."
+                ),
+                WhatsNewItem(
+                    id: "feedback",
+                    icon: "paperplane.fill",
+                    title: "Feedback without the email",
+                    body: "Send Feedback is a text box and one button now. No mail app, no account."
+                ),
+            ]
+        ),
+        WhatsNewRelease(
             // Shipped as 1.3.1: 1.3.0 never reached the App Store, and this
             // matches CFBundleShortVersionString exactly.
             version: "1.3.1",
