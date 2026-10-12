@@ -195,10 +195,17 @@ class PracticeRecordStore(private val defaults: KeyValueStore, private val clock
     val totalCorrect: Int get() = records.values.sumOf { it.correct }
     val overallAccuracy: Double get() = if (totalAttempts == 0) 0.0 else totalCorrect.toDouble() / totalAttempts
 
+    /** Play a Hand is stored under the Card Room but kept out of it here (iOS parity). */
     fun roomStats(): List<RoomStat> = DrillLibrary.rooms.mapNotNull { room ->
-        val mine = records.values.filter { it.roomID == room.id }
+        val mine = records.filter { it.key != PracticeSkill.HAND_PLAY.raw && it.value.roomID == room.id }.values
         val attempts = mine.sumOf { it.attempts }
         if (attempts == 0) null else RoomStat(room.id, room.name, attempts, mine.sumOf { it.correct })
+    }
+
+    fun handPlayStat(): RoomStat? {
+        val record = records[PracticeSkill.HAND_PLAY.raw] ?: return null
+        if (record.attempts == 0) return null
+        return RoomStat(PracticeSkill.HAND_PLAY.raw, PracticeSkill.HAND_PLAY.title, record.attempts, record.correct)
     }
 
     fun weakestRoom(): RoomStat? = roomStats().filter { it.attempts >= 5 }.minByOrNull { it.accuracy }

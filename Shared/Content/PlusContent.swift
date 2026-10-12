@@ -182,7 +182,7 @@ enum PlusContent {
             deal: [.c(5), .c(5), .c(7), .c(9), .b(5), .b(7), .b(9), .d(1), .d(6), .d(2), .d(4), .flower, .flower],
             recommendedPass: [.d(2), .d(4), .d(6)],
             reasoning: "Eight odd tiles and a pair of 5 Craks: this is a 13579 hand. The even Dots (2, 4, 6) are the passes. Do NOT ship the flowers to make the choice easier. Most sections on the card want flowers, and you cannot get them back once they are gone.",
-            tip: "Flowers are the last thing you pass. They fit almost every section, so passing one is passing a tile your own hand probably needs later."
+            tip: "Flowers are the last thing you pass. All eight are interchangeable and they turn up across many sections, so passing one hands over a tile your own hand may need later."
         ),
     ]
 
@@ -204,7 +204,7 @@ enum PlusContent {
             frontTiles: [.wind(.north)],
             frontSubtitle: "Nobody has exposed a wind. Keep or throw?",
             backTitle: "Throw It",
-            backBody: "A lone wind mostly serves Winds and Dragons, a section you are clearly not in. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+            backBody: "A lone North with no partner needs two of the three remaining Norths just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
             choice: CardChoice("Keep it", "Throw it", answerIndex: 1)
         ),
         Flashcard(

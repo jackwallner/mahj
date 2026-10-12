@@ -37,7 +37,7 @@
     },
     {
       "displayName" : "13579 (Odds)",
-      "howToSpot" : "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, usually with more hand choices.",
+      "howToSpot" : "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, with one more number to build from.",
       "id" : "odds13579",
       "requires" : "an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out",
       "shortName" : "13579"
@@ -595,7 +595,7 @@
         "9D",
         "9D"
       ],
-      "watchOut" : "The mirror of the evens family, and usually the better bet early: odd tiles include the 1s and 9s that other players throw away without thinking."
+      "watchOut" : "The mirror of the evens family, with five numbers to build from instead of four. Early on, odd tiles have one more edge: the 1s and 9s are tiles other players throw away without thinking."
     },
     {
       "category" : "windsDragons",
@@ -696,7 +696,7 @@
               "id" : "tiles-dots"
             },
             {
-              "backBody" : "16 tiles: North, East, West, South, four of each. They mostly live in the Winds & Dragons section of the card, so lone winds are usually early passes.",
+              "backBody" : "16 tiles: North, East, West, South, four of each. Winds & Dragons is the section built around them. A lone wind with no partner is a common early pass unless a line on your card wants it.",
               "backTitle" : "The Winds",
               "frontTiles" : [
                 "N",
@@ -1325,7 +1325,7 @@
           "isPlus" : false,
           "items" : [
             {
-              "backBody" : "Built around the current year's digits, with soaps standing in for zeros. Spot it when you're holding 2s and soaps plus flowers. Usually near the top of the card, and a friendly section for new players.",
+              "backBody" : "Built around the current year's digits, with soaps standing in for zeros. Spot it when you're holding 2s and soaps plus flowers. A friendly section for new players, because the digits are easy to spot on a rack.",
               "backTitle" : "Year Hands",
               "frontSubtitle" : "2 - 0 - 2 - 6",
               "frontTiles" : [
@@ -1390,7 +1390,7 @@
               "id" : "cat-run"
             },
             {
-              "backBody" : "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, usually with more hand choices. Odds section is usually the biggest on the card, so an odd-heavy deal has options.",
+              "backBody" : "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, with one more number to build from. Count how many lines your card gives this section: the more lines, the more places an odd-heavy deal can go.",
               "backTitle" : "13579",
               "frontSubtitle" : "Odd numbers only",
               "frontTiles" : [
@@ -2599,7 +2599,7 @@
                 "6D"
               ],
               "situation" : "First Charleston, pass ACROSS. You hold two flowers and they look like spares. Pick 3.",
-              "tip" : "Flowers are the last thing you pass. They fit almost every section, so passing one is passing a tile your own hand probably needs later."
+              "tip" : "Flowers are the last thing you pass. All eight are interchangeable and they turn up across many sections, so passing one hands over a tile your own hand may need later."
             },
             {
               "deal" : [
@@ -2808,7 +2808,7 @@
               "id" : "kd-count-four"
             },
             {
-              "backBody" : "An exposure narrows their hand to a few card lines: probably an even hand, a run, or like numbers around 4s and dots. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
+              "backBody" : "An exposure narrows their hand to the card lines that use it: an even hand, a run, or like numbers built around 4s and dots could all fit. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
               "backTitle" : "Their Section Is Showing",
               "choice" : {
                 "answerIndex" : 0,
@@ -2844,7 +2844,7 @@
               "id" : "kd-follow-count"
             },
             {
-              "backBody" : "A natural pung of winds is a real asset, but be honest: wind pungs almost always belong to the Winds & Dragons section. Keep it if you can commit there; if your hand lives elsewhere, a wind pung is three dead tiles.",
+              "backBody" : "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them; if your hand lives elsewhere, a wind pung is three dead tiles.",
               "backTitle" : "Keep It",
               "choice" : {
                 "answerIndex" : 0,
@@ -2863,7 +2863,7 @@
               "id" : "kd-wind-pair"
             },
             {
-              "backBody" : "Flowers appear across many sections of the card, so early flowers get called often. A lone wind mostly matters to one section. Early wind throws are usually safe; flower throws help somebody.",
+              "backBody" : "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. A North fits only a player collecting Norths, and only three others exist. Early, the lone wind is the far narrower gift.",
               "backTitle" : "Throw the Wind",
               "choice" : {
                 "answerIndex" : 1,
@@ -3014,7 +3014,7 @@
               ],
               "explanation" : "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need.",
               "id" : "more-table-exposure-read",
-              "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. What are they most likely chasing?",
+              "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures?",
               "tiles" : [
 
               ]
@@ -3228,7 +3228,7 @@
               "id" : "plus-kd-fourth-tile"
             },
             {
-              "backBody" : "A lone wind mostly serves Winds and Dragons, a section you are clearly not in. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+              "backBody" : "A lone North with no partner needs two of the three remaining Norths just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
               "backTitle" : "Throw It",
               "choice" : {
                 "answerIndex" : 1,
@@ -3726,7 +3726,7 @@
                 "North",
                 "Soap"
               ],
-              "explanation" : "Two pungs in one suit, two numbers apart, read as a run with the middle missing: the 7 Bam is the bridge, likely their winning tile. Hold it and throw something unrelated.",
+              "explanation" : "Two pungs in one suit, two numbers apart, read as a run with the middle missing: the 7 Bam is the bridge that would complete it. Hold it and throw something unrelated.",
               "id" : "pro-def-hot-tile",
               "prompt" : "An opponent has exposed a pung of 6 Bams and a pung of 8 Bams and is waiting for a tile. Which discard is most dangerous?",
               "tiles" : [

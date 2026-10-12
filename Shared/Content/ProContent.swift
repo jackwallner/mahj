@@ -111,7 +111,7 @@ enum ProContent {
             tiles: [.b(6), .b(6), .b(6), .b(8), .b(8), .b(8)],
             choices: ["7 Bam", "2 Crak", "North", "Soap"],
             answerIndex: 0,
-            explanation: "Two pungs in one suit, two numbers apart, read as a run with the middle missing: the 7 Bam is the bridge, likely their winning tile. Hold it and throw something unrelated."
+            explanation: "Two pungs in one suit, two numbers apart, read as a run with the middle missing: the 7 Bam is the bridge that would complete it. Hold it and throw something unrelated."
         ),
         QuizQuestion(
             id: "pro-def-break-hand",

@@ -246,9 +246,15 @@ final class PracticeRecordStore: ObservableObject {
     }
 
     /// Accuracy per room, in library order, skipping rooms never practised.
+    ///
+    /// Play a Hand throws are stored under the Card Room but kept out of it
+    /// here: grading a throw is a different skill, and folding it in made the
+    /// "work on" card recommend the Card Room for hand-play results.
     func roomStats() -> [RoomStat] {
         DrillLibrary.rooms.compactMap { room in
-            let mine = records.values.filter { $0.roomID == room.id }
+            let mine = records
+                .filter { $0.key != PracticeSkill.handPlay.rawValue && $0.value.roomID == room.id }
+                .map(\.value)
             let attempts = mine.reduce(0) { $0 + $1.attempts }
             guard attempts > 0 else { return nil }
             return RoomStat(
@@ -258,6 +264,17 @@ final class PracticeRecordStore: ObservableObject {
                 correct: mine.reduce(0) { $0 + $1.correct }
             )
         }
+    }
+
+    /// Play a Hand's own row, shown beside the rooms rather than inside one.
+    func handPlayStat() -> RoomStat? {
+        guard let record = records[PracticeSkill.handPlay.rawValue], record.attempts > 0 else { return nil }
+        return RoomStat(
+            id: PracticeSkill.handPlay.rawValue,
+            name: PracticeSkill.handPlay.title,
+            attempts: record.attempts,
+            correct: record.correct
+        )
     }
 
     /// The room a player is worst at, once there is enough data to mean it.

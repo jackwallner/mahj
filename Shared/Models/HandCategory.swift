@@ -56,7 +56,7 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .consecutiveRun:
             return "Numbers that step up in order, like 4-5-6-7. The most flexible section on the card because any starting number can work."
         case .odds13579:
-            return "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, usually with more hand choices."
+            return "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, with one more number to build from."
         case .windsDragons:
             return "Built mostly from N, E, W, S and the dragons, sometimes with a few numbers. Spot it when winds keep piling up on your rack."
         case .threeSixNine:

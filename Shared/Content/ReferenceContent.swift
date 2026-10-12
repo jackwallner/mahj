@@ -112,7 +112,7 @@ enum ReferenceContent {
             category: .odds13579,
             exampleRack: [.d(1), .d(1), .d(1), .d(3), .d(3), .d(3), .d(5), .d(5), .d(5),
                           .d(9), .d(9), .d(9), .d(9)],
-            watchOut: "The mirror of the evens family, and usually the better bet early: odd tiles include the 1s and 9s that other players throw away without thinking."
+            watchOut: "The mirror of the evens family, with five numbers to build from instead of four. Early on, odd tiles have one more edge: the 1s and 9s are tiles other players throw away without thinking."
         ),
         SectionReference(
             category: .windsDragons,

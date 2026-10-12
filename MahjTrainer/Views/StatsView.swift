@@ -11,6 +11,10 @@ struct StatsView: View {
     @StateObject private var ledger = MasteryLedger.shared
 
     private var roomStats: [PracticeRecordStore.RoomStat] { records.roomStats() }
+    /// The accuracy list: every room, then Play a Hand as its own row.
+    private var accuracyRows: [PracticeRecordStore.RoomStat] {
+        roomStats + [records.handPlayStat()].compactMap { $0 }
+    }
 
     var body: some View {
         ScrollView {
@@ -229,11 +233,11 @@ struct StatsView: View {
 
     private var roomBreakdown: some View {
         VStack(alignment: .leading, spacing: 14) {
-            Text("ACCURACY BY ROOM")
+            Text("ACCURACY")
                 .font(.caption.weight(.heavy))
                 .kerning(1.4)
                 .foregroundStyle(Theme.inkSecondary)
-            ForEach(roomStats) { stat in
+            ForEach(accuracyRows) { stat in
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
                         Text(stat.name)

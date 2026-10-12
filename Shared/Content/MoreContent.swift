@@ -207,7 +207,7 @@ enum MoreContent {
         ),
         QuizQuestion(
             id: "more-table-exposure-read",
-            prompt: "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. What are they most likely chasing?",
+            prompt: "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures?",
             choices: ["An odds hand", "An evens hand", "Winds and Dragons", "Singles and Pairs"],
             answerIndex: 1,
             explanation: "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need."

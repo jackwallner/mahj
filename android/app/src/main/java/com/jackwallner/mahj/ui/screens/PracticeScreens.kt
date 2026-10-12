@@ -145,7 +145,7 @@ fun StatsScreen() {
                         FocusCard("Work on ${weakest.name}", "${percent(weakest.accuracy)} right across ${weakest.attempts} questions, your lowest so far.")
                     }
                     MasteryBreakdown(records.masteryByRoom(isPro).filter { it.total > 0 })
-                    AccuracyBreakdown(roomStats)
+                    AccuracyBreakdown(roomStats + listOfNotNull(records.handPlayStat()))
                 }
                 Row(
                     Modifier.fillMaxWidth().themedCard(16.dp).padding(14.dp),
@@ -234,7 +234,7 @@ private fun MasteryBreakdown(masteries: List<RoomMastery>) {
 private fun AccuracyBreakdown(stats: List<PracticeRecordStore.RoomStat>) {
     val colors = Mahj.colors
     Column(Modifier.fillMaxWidth().themedCard().padding(16.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        Eyebrow("ACCURACY BY ROOM")
+        Eyebrow("ACCURACY")
         stats.forEach { stat ->
             val tint = when {
                 stat.accuracy >= 0.8 -> colors.bamGreen

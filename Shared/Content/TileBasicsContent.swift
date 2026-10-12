@@ -30,7 +30,7 @@ enum TileBasicsContent {
             frontTitle: "Winds",
             frontTiles: [.wind(.north), .wind(.east), .wind(.west), .wind(.south)],
             backTitle: "The Winds",
-            backBody: "16 tiles: North, East, West, South, four of each. They mostly live in the Winds & Dragons section of the card, so lone winds are usually early passes."
+            backBody: "16 tiles: North, East, West, South, four of each. Winds & Dragons is the section built around them. A lone wind with no partner is a common early pass unless a line on your card wants it."
         ),
         Flashcard(
             id: "tiles-dragons",

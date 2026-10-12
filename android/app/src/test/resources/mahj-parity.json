@@ -1879,7 +1879,7 @@
         "Their section is showing",
         "Nothing useful"
       ],
-      "explanation" : "An exposure narrows their hand to a few card lines: probably an even hand, a run, or like numbers around 4s and dots. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
+      "explanation" : "An exposure narrows their hand to the card lines that use it: an even hand, a run, or like numbers built around 4s and dots could all fit. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
       "id" : "kd-exposed-pung",
       "isReviewable" : true,
       "prompt" : "Your left opponent exposes a pung of 4 Dots.\nWhat did you just learn?",
@@ -1923,7 +1923,7 @@
         "Break it up",
         "Keep it"
       ],
-      "explanation" : "A natural pung of winds is a real asset, but be honest: wind pungs almost always belong to the Winds & Dragons section. Keep it if you can commit there; if your hand lives elsewhere, a wind pung is three dead tiles.",
+      "explanation" : "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them; if your hand lives elsewhere, a wind pung is three dead tiles.",
       "id" : "kd-wind-pair",
       "isReviewable" : true,
       "prompt" : "You hold N N and draw a third North.\nKeep the pung?",
@@ -1946,7 +1946,7 @@
         "Throw the wind",
         "Throw the flower"
       ],
-      "explanation" : "Flowers appear across many sections of the card, so early flowers get called often. A lone wind mostly matters to one section. Early wind throws are usually safe; flower throws help somebody.",
+      "explanation" : "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. A North fits only a player collecting Norths, and only three others exist. Early, the lone wind is the far narrower gift.",
       "id" : "kd-flower-vs-wind",
       "isReviewable" : true,
       "prompt" : "Early game: you must throw a flower or a lone wind.\nWhich is safer?",
@@ -2136,7 +2136,7 @@
       "explanation" : "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need.",
       "id" : "more-table-exposure-read",
       "isReviewable" : true,
-      "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. What are they most likely chasing?",
+      "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2477,7 +2477,7 @@
         "Throw it",
         "Keep it"
       ],
-      "explanation" : "A lone wind mostly serves Winds and Dragons, a section you are clearly not in. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+      "explanation" : "A lone North with no partner needs two of the three remaining Norths just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
       "id" : "plus-kd-lone-wind",
       "isReviewable" : true,
       "prompt" : "Turn 3. You hold one North and no other winds.\nNobody has exposed a wind. Keep or throw?",
@@ -2885,7 +2885,7 @@
         "Soap",
         "2 Crak"
       ],
-      "explanation" : "Two pungs in one suit, two numbers apart, read as a run with the middle missing: the 7 Bam is the bridge, likely their winning tile. Hold it and throw something unrelated.",
+      "explanation" : "Two pungs in one suit, two numbers apart, read as a run with the middle missing: the 7 Bam is the bridge that would complete it. Hold it and throw something unrelated.",
       "id" : "pro-def-hot-tile",
       "isReviewable" : true,
       "prompt" : "An opponent has exposed a pung of 6 Bams and a pung of 8 Bams and is waiting for a tile. Which discard is most dangerous?",
@@ -4691,13 +4691,13 @@
         "2D",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "3B",
       "fitting" : 9,
       "note" : "The 3 Bam fits 13579 (Odds), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 4 Crak.",
       "seed" : "deal-1",
       "target" : "odds13579",
-      "value" : 8.5,
+      "value" : 8.4999999999999982,
       "working" : 3
     },
     {
@@ -4780,13 +4780,13 @@
         "GD",
         "E"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.60000000000000142,
       "discard" : "1D",
       "fitting" : 8,
       "note" : "The 1 Dot fits 13579 (Odds), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 2 Crak.",
       "seed" : "deal-2",
       "target" : "odds13579",
-      "value" : 10.499999999999998,
+      "value" : 10.5,
       "working" : 4
     },
     {
@@ -4814,7 +4814,7 @@
         "GD",
         "E"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.59999999999999787,
       "discard" : "1D",
       "fitting" : 10,
       "note" : "The 1 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 6 Bam.",
@@ -4858,7 +4858,7 @@
       "note" : "The 6 Dot fits 2468 (Evens), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
       "seed" : "deal-3",
       "target" : "evens2468",
-      "value" : 6.1000000000000005,
+      "value" : 6.0999999999999996,
       "working" : 3
     },
     {
@@ -4875,7 +4875,7 @@
       "note" : "Right. The 6 Dot does nothing for 13579 (Odds), and the tiles that do nothing are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "odds13579",
-      "value" : 7.2999999999999998,
+      "value" : 7.2999999999999989,
       "working" : 3
     },
     {
@@ -4886,13 +4886,13 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.60000000000000053,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
       "seed" : "deal-3",
       "target" : "threeSixNine",
-      "value" : 7.2999999999999998,
+      "value" : 7.2999999999999989,
       "working" : 3
     },
     {
@@ -4902,13 +4902,13 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.60000000000000053,
       "discard" : "6D",
       "fitting" : 8,
       "note" : "The 6 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 7 Bam.",
       "seed" : "deal-3",
       "target" : "consecutiveRun",
-      "value" : 7.8999999999999995,
+      "value" : 7.8999999999999986,
       "working" : 3
     },
     {
@@ -4920,13 +4920,13 @@
         "3D",
         "6D"
       ],
-      "cost" : 0,
+      "cost" : 8.8817841970012523e-16,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "Right. The 6 Dot does nothing for Winds & Dragons, and the tiles that do nothing are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "windsDragons",
-      "value" : 7.8000000000000007,
+      "value" : 7.7999999999999998,
       "working" : 5
     }
   ],
@@ -5228,7 +5228,7 @@
             "explanation" : "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need.",
             "id" : "more-table-exposure-read",
             "isReviewable" : true,
-            "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. What are they most likely chasing?",
+            "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures?",
             "roomID" : "table-room",
             "sourceLabel" : "The Table Room",
             "tiles" : [
@@ -5575,7 +5575,7 @@
               "Throw it",
               "Keep it"
             ],
-            "explanation" : "A lone wind mostly serves Winds and Dragons, a section you are clearly not in. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+            "explanation" : "A lone North with no partner needs two of the three remaining Norths just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
             "id" : "plus-kd-lone-wind",
             "isReviewable" : true,
             "prompt" : "Turn 3. You hold one North and no other winds.\nNobody has exposed a wind. Keep or throw?",

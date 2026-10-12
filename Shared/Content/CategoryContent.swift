@@ -12,7 +12,7 @@ enum CategoryContent {
             frontTiles: [.c(2), .dragon(.soap), .c(2), .b(6)],
             frontSubtitle: "2 - 0 - 2 - 6",
             backTitle: "Year Hands",
-            backBody: HandCategory.year.howToSpot + " Usually near the top of the card, and a friendly section for new players."
+            backBody: HandCategory.year.howToSpot + " A friendly section for new players, because the digits are easy to spot on a rack."
         ),
         Flashcard(
             id: "cat-2468",
@@ -52,7 +52,7 @@ enum CategoryContent {
             frontTiles: [.c(1), .c(3), .d(5), .d(7), .d(9)],
             frontSubtitle: "Odd numbers only",
             backTitle: "13579",
-            backBody: HandCategory.odds13579.howToSpot + " Odds section is usually the biggest on the card, so an odd-heavy deal has options."
+            backBody: HandCategory.odds13579.howToSpot + " Count how many lines your card gives this section: the more lines, the more places an odd-heavy deal can go."
         ),
         Flashcard(
             id: "cat-winds",

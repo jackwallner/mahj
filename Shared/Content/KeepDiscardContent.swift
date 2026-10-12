@@ -65,7 +65,7 @@ enum KeepDiscardContent {
             frontTiles: [.d(4), .d(4), .d(4)],
             frontSubtitle: "What did you just learn?",
             backTitle: "Their Section Is Showing",
-            backBody: "An exposure narrows their hand to a few card lines: probably an even hand, a run, or like numbers around 4s and dots. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
+            backBody: "An exposure narrows their hand to the card lines that use it: an even hand, a run, or like numbers built around 4s and dots could all fit. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
             choice: CardChoice("Their section is showing", "Nothing useful", answerIndex: 0)
         ),
         Flashcard(
@@ -82,7 +82,7 @@ enum KeepDiscardContent {
             frontTiles: [.wind(.north), .wind(.north), .wind(.north)],
             frontSubtitle: "Keep the pung?",
             backTitle: "Keep It",
-            backBody: "A natural pung of winds is a real asset, but be honest: wind pungs almost always belong to the Winds & Dragons section. Keep it if you can commit there; if your hand lives elsewhere, a wind pung is three dead tiles.",
+            backBody: "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them; if your hand lives elsewhere, a wind pung is three dead tiles.",
             choice: CardChoice("Keep it", "Break it up", answerIndex: 0)
         ),
         Flashcard(
@@ -91,7 +91,7 @@ enum KeepDiscardContent {
             frontTiles: [.flower, .wind(.east)],
             frontSubtitle: "Which is safer?",
             backTitle: "Throw the Wind",
-            backBody: "Flowers appear across many sections of the card, so early flowers get called often. A lone wind mostly matters to one section. Early wind throws are usually safe; flower throws help somebody.",
+            backBody: "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. A North fits only a player collecting Norths, and only three others exist. Early, the lone wind is the far narrower gift.",
             choice: CardChoice("Throw the flower", "Throw the wind", answerIndex: 1)
         ),
         Flashcard(

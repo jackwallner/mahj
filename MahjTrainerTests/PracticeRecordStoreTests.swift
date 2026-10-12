@@ -160,6 +160,26 @@ final class PracticeRecordStoreTests: XCTestCase {
         XCTAssertEqual(store.overallAccuracy, 2.0 / 3.0, accuracy: 0.0001)
     }
 
+    /// Play a Hand throws must not move the Card Room's accuracy or the
+    /// "work on" pick. They get their own row instead.
+    func testHandPlayStaysOutOfTheCardRoom() {
+        store.record(itemID: "q3", roomID: "card-room", correct: true)
+        for _ in 0..<6 {
+            store.record(
+                itemID: PracticeSkill.handPlay.itemPrefix + UUID().uuidString,
+                roomID: PracticeSkill.handPlay.roomID,
+                correct: false,
+                isReviewable: false
+            )
+        }
+        let cardRoom = store.roomStats().first { $0.id == "card-room" }
+        XCTAssertEqual(cardRoom?.attempts, 1)
+        XCTAssertEqual(cardRoom?.accuracy, 1)
+        XCTAssertNil(store.weakestRoom(), "Hand play alone must not crown a weakest room")
+        XCTAssertEqual(store.handPlayStat()?.attempts, 6)
+        XCTAssertEqual(store.handPlayStat()?.correct, 0)
+    }
+
     func testChallengeScoreKeepsTheBest() {
         store.recordChallengeScore(12)
         store.recordChallengeScore(7)
