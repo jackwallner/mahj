@@ -165,7 +165,7 @@ enum PlusContent {
             situation: "Second Charleston, the LAST pass, going RIGHT. You are all-in on evens. Pick 3.",
             deal: [.b(2), .b(4), .b(6), .b(8), .c(2), .c(4), .c(6), .d(8), .d(3), .wind(.west), .wind(.south), .flower, .joker],
             recommendedPass: [.wind(.west), .wind(.south), .d(3)],
-            reasoning: "Seven evens across two suits is a real 2468 spine. The two lonely winds do almost nothing for 2468, and the 3 Dot is your only odd number tile. Those three leave without a second thought.",
+            reasoning: "Eight evens across all three suits is a real 2468 spine. The two lonely winds do almost nothing for 2468, and the 3 Dot is your only odd number tile. Those three leave without a second thought.",
             tip: "This is the pass where a blind pass is legal: on the LAST pass of a Charleston you may send 1 to 3 tiles straight from the ones handed to you, without looking. Blind passing saves a hand you like, but you are shipping unknowns."
         ),
         CharlestonScenario(

@@ -402,6 +402,8 @@ struct HandPlayView: View {
     }
 
     private func advance() {
+        // A second tap in the same frame would draw twice and skip a throw.
+        guard grade != nil else { return }
         withAnimation(.easeInOut(duration: 0.2)) { grade = nil }
         if turn >= HandPlayEngine.turnCount {
             finish()

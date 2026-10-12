@@ -56,6 +56,18 @@ final class ProgressStore: ObservableObject {
         defaults.set(totalSessions, forKey: Keys.totalSessions)
     }
 
+    /// The streak as it stands right now. `streakCount` only changes when a
+    /// drill is finished, so after a missed day it still held the old number
+    /// and Home showed a streak the player had already lost.
+    func currentStreak(now: Date = Date()) -> Int {
+        guard let last = defaults.object(forKey: Keys.lastActiveDay) as? Date else { return streakCount }
+        let calendar = Calendar.current
+        let gap = calendar.dateComponents(
+            [.day], from: calendar.startOfDay(for: last), to: calendar.startOfDay(for: now)
+        ).day ?? 0
+        return gap > 1 ? 0 : streakCount
+    }
+
     /// Streak counts consecutive calendar days with at least one finished drill.
     private func bumpStreak(now: Date) {
         let calendar = Calendar.current
@@ -69,6 +81,10 @@ final class ProgressStore: ObservableObject {
                 streakCount += 1
             } else if gap > 1 {
                 streakCount = 1
+            } else if gap < 0 {
+                // The clock went backwards (travel, a manual change). Keep the
+                // later day so the streak is not counted twice on the way back.
+                return
             } // gap == 0: same day, streak unchanged
         } else {
             streakCount = 1

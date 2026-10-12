@@ -6,7 +6,7 @@ import SwiftUI
 /// Drills are scroll views because a graded question with its coaching note can
 /// outgrow an iPhone. On an iPad that same question fills a third of the screen
 /// and a bare `ScrollView` pins it to the top, leaving a field of empty cream
-/// under it — which is what the 1.2 iPad screenshots showed.
+/// under it, which is what the 1.2 iPad screenshots showed.
 ///
 /// The mechanic is `minHeight`, not `height`: content taller than the viewport
 /// keeps its natural size and scrolls, so nothing about the iPhone layout, the

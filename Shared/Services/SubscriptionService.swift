@@ -240,10 +240,11 @@ final class SubscriptionService: NSObject, ObservableObject {
         let entitled = entitlement?.isActive == true
         let override = UserDefaults.standard.bool(forKey: localOverrideKey)
         isPro = entitled || override
-        observe(MembershipSnapshot(
+        observe(MembershipSnapshot.observed(
             isActive: entitled,
             isTrial: entitlement?.periodType == .trial,
-            willRenew: entitlement?.willRenew == true
+            willRenew: entitlement?.willRenew == true,
+            expirationDate: entitlement?.expirationDate
         ))
     }
 

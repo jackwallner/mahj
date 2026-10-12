@@ -311,8 +311,8 @@ struct HomeView: View {
             StatsView()
         } label: {
             HStack(spacing: 8) {
-                statChip(value: progress.streakCount, icon: "flame.fill", color: Theme.coral,
-                         label: "\(progress.streakCount) day streak")
+                statChip(value: progress.currentStreak(), icon: "flame.fill", color: Theme.coral,
+                         label: "\(progress.currentStreak()) day streak")
                 statChip(value: progress.totalSessions, icon: "checkmark.seal.fill", color: Theme.jade,
                          label: "\(progress.totalSessions) drills done")
                 // Only ever positive. A week that went backwards is not news
@@ -580,7 +580,7 @@ struct HomeView: View {
                 title: "Fix My\nMistakes",
                 icon: "arrow.trianglehead.counterclockwise",
                 color: Theme.plum,
-                badge: "\(due) due"
+                badge: "\(min(due, 12)) due"
             ) {
                 PracticeRunView(
                     mode: .review,

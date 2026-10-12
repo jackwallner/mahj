@@ -134,7 +134,7 @@ enum TileBasicsContent {
         QuizQuestion(
             id: "quiz-soap-zero",
             prompt: "In a year hand like 2026, what stands in for the 0?",
-            choices: ["A flower", "The Soap", "A joker", "The White... wait, any dragon"],
+            choices: ["A flower", "The Soap", "A joker", "Any dragon"],
             answerIndex: 1,
             explanation: "The Soap (White Dragon) doubles as zero. 2026 = 2, Soap, 2, 6."
         ),
@@ -194,7 +194,7 @@ enum TileBasicsContent {
             prompt: "How many tiles do you hold during play (before your turn)?",
             choices: ["12", "13", "14", "16"],
             answerIndex: 1,
-            explanation: "Thirteen. You draw a 14th, then discard (or keep it and discard something else). Mah jongg = 14 tiles matching a card hand exactly."
+            explanation: "Thirteen. You draw a 14th, then discard (or keep it and discard something else). East is the one exception: East starts the game with 14 and opens by discarding. Mah jongg = 14 tiles matching a card hand exactly."
         ),
         QuizQuestion(
             id: "quiz-joker-exchange",

@@ -8,6 +8,16 @@ struct MembershipSnapshot: Codable, Equatable, Sendable {
     var willRenew: Bool
 
     static let none = MembershipSnapshot(isActive: false, isTrial: false, willRenew: false)
+
+    /// Builds a snapshot from an entitlement. Lifetime has no expiration date
+    /// and reports `willRenew == false`, so read literally a monthly member
+    /// who upgraded to lifetime looked like someone switching renewal off and
+    /// was asked why they were leaving. A membership that never ends counts
+    /// as renewing.
+    static func observed(isActive: Bool, isTrial: Bool, willRenew: Bool, expirationDate: Date?) -> MembershipSnapshot {
+        let neverEnds = isActive && expirationDate == nil
+        return MembershipSnapshot(isActive: isActive, isTrial: isTrial, willRenew: willRenew || neverEnds)
+    }
 }
 
 /// The moment a membership turned toward the exit. Each one is worth exactly

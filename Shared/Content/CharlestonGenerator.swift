@@ -94,6 +94,11 @@ enum CharlestonGenerator {
             if size >= 3 { groupLeaders.append(tile) }
         }
         guard core.count == 12, groupLeaders.count >= 3 else { return nil }
+        // The core has to read as this section and nothing else. A 369 core
+        // dealt without a 6 is just 3s and 9s, which reads as odds too, and an
+        // odd stray then fits the hand: two right answers. A run core that
+        // spans only two numbers is not a run at all.
+        guard RackGenerator.category(for: core) == section else { return nil }
 
         // Exactly one stray. A second one used to ride along to make the rack
         // look like a real pre-Charleston mess, but only the first was ever

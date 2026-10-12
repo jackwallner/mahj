@@ -51,6 +51,29 @@ final class ProgressStoreTests: XCTestCase {
         XCTAssertEqual(store.streakCount, 1)
     }
 
+    func testCurrentStreakHoldsThroughTheNextDay() {
+        let day1 = Date(timeIntervalSince1970: 1_750_000_000)
+        store.recordSession(drillID: "a", now: day1)
+        store.recordSession(drillID: "a", now: day1.addingTimeInterval(86_400))
+        XCTAssertEqual(store.currentStreak(now: day1.addingTimeInterval(86_400 * 2)), 2)
+    }
+
+    func testCurrentStreakDropsToZeroAfterAMissedDay() {
+        let day1 = Date(timeIntervalSince1970: 1_750_000_000)
+        store.recordSession(drillID: "a", now: day1)
+        store.recordSession(drillID: "a", now: day1.addingTimeInterval(86_400))
+        XCTAssertEqual(store.currentStreak(now: day1.addingTimeInterval(86_400 * 5)), 0)
+    }
+
+    func testClockGoingBackwardsDoesNotRewindTheLastDay() {
+        let day1 = Date(timeIntervalSince1970: 1_750_000_000)
+        store.recordSession(drillID: "a", now: day1)
+        store.recordSession(drillID: "a", now: day1.addingTimeInterval(86_400))
+        store.recordSession(drillID: "a", now: day1)
+        store.recordSession(drillID: "a", now: day1.addingTimeInterval(86_400))
+        XCTAssertEqual(store.streakCount, 2, "Returning to the real date must not count the same day twice")
+    }
+
     func testRoomProgress() {
         guard let room = DrillLibrary.rooms.first else { return XCTFail("no rooms") }
         XCTAssertEqual(store.roomProgress(room), 0)

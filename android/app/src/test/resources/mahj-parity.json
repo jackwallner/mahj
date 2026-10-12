@@ -145,7 +145,7 @@
         "The Soap",
         "A joker",
         "A flower",
-        "The White... wait, any dragon"
+        "Any dragon"
       ],
       "explanation" : "The Soap (White Dragon) doubles as zero. 2026 = 2, Soap, 2, 6.",
       "id" : "quiz-soap-zero",
@@ -350,7 +350,7 @@
         "14",
         "16"
       ],
-      "explanation" : "Thirteen. You draw a 14th, then discard (or keep it and discard something else). Mah jongg = 14 tiles matching a card hand exactly.",
+      "explanation" : "Thirteen. You draw a 14th, then discard (or keep it and discard something else). East is the one exception: East starts the game with 14 and opens by discarding. Mah jongg = 14 tiles matching a card hand exactly.",
       "id" : "quiz-hand-size",
       "isReviewable" : true,
       "prompt" : "How many tiles do you hold during play (before your turn)?",
@@ -1268,7 +1268,7 @@
         "13579 (Odds)",
         "Consecutive Run"
       ],
-      "explanation" : "Two pungs of 7s and three jokers. Two jokers finish one pung into a quint, and the third leaves the other pung one real 7 short of a second. Without jokers you would read this as Like Numbers; with them, Quints is live and pays far more. Jokers decide.",
+      "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Without jokers you would read this as Like Numbers; with them, Quints is live and pays far more. Jokers decide.",
       "id" : "hm-quints",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -2653,7 +2653,7 @@
         "Keep waiting",
         "Let it go"
       ],
-      "explanation" : "All four are accounted for. Your pair can never become a pung, so any hand that needs one is finished. Count before you commit.",
+      "explanation" : "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. Only a joker can grow this pair into a pung now, so build on it only if jokers are in reach. Count before you commit.",
       "id" : "more-judge-third-copy",
       "isReviewable" : true,
       "prompt" : "You hold two 5 Craks\nTwo more are already exposed elsewhere. Keep waiting?",
@@ -3475,8 +3475,7 @@
       "tiles" : [
         "F",
         "F",
-        "F",
-        "J"
+        "F"
       ],
       "trackingID" : "more-pro-joker-flowers"
     },
@@ -3492,12 +3491,12 @@
         "Yes, any digit",
         "Only for the zero",
         "Only in a concealed hand",
-        "No, each digit is a single tile"
+        "No, each one is a single tile"
       ],
-      "explanation" : "Each digit of the year is a single tile, and jokers never fill a single. The year has to be spelled with real tiles.",
+      "explanation" : "Spelled one tile per digit, every digit is a single, and jokers never fill a single or a pair. Those four have to be real tiles. A digit your card shows as a pung or kong is a group like any other and does take jokers.",
       "id" : "more-pro-joker-year",
       "isReviewable" : true,
-      "prompt" : "Can a joker stand in for one of the digits in a year like 2026?",
+      "prompt" : "Your hand spells 2026 with one tile per digit. Can a joker stand in for one of them?",
       "roomID" : "pro-tables",
       "sourceLabel" : "The Master Tables",
       "tiles" : [
@@ -4427,20 +4426,20 @@
         "section" : "odds13579"
       },
       {
-        "answer" : "4B",
+        "answer" : "4C",
         "choiceNotes" : [
-          "The 1 Bam sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
           null,
-          "The 5 Dot sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 5 Crak sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it."
+          "The 3 Dot sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
+          "The 9 Dot sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
+          "The 3 Crak sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it."
         ],
         "choices" : [
-          "1B",
-          "4B",
-          "5D",
-          "5C"
+          "4C",
+          "3D",
+          "9D",
+          "3C"
         ],
-        "explanation" : "A pung of 9 Bam and a pung of 3 Bam both sit inside 13579 (Odds), so that is the family this player is building. The 4 Bam cannot belong to it: an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Bam and a pung of 3 Bam both sit inside 13579 (Odds), so that is the family this player is building. The 4 Crak cannot belong to it: an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
             "9B",
@@ -4456,59 +4455,30 @@
         "section" : "odds13579"
       },
       {
-        "answer" : "8B",
+        "answer" : "2B",
         "choiceNotes" : [
-          "The 5 Crak sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 1 Crak sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 3 Crak sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          null
-        ],
-        "choices" : [
-          "5C",
-          "1C",
-          "3C",
-          "8B"
-        ],
-        "explanation" : "A pung of 3 Dot and a pung of 5 Dot both sit inside 13579 (Odds), so that is the family this player is building. The 8 Bam cannot belong to it: an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
-        "exposures" : [
-          [
-            "3D",
-            "3D",
-            "3D"
-          ],
-          [
-            "5D",
-            "5D",
-            "5D"
-          ]
-        ],
-        "section" : "odds13579"
-      },
-      {
-        "answer" : "2D",
-        "choiceNotes" : [
+          "The 5 Bam sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
           "The 1 Dot sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 1 Bam sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 5 Dot sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          null
+          null,
+          "The 7 Crak sits squarely inside 13579 (Odds), which is where those exposures point. Late in a hand that is the discard that ends it."
         ],
         "choices" : [
+          "5B",
           "1D",
-          "1B",
-          "5D",
-          "2D"
+          "2B",
+          "7C"
         ],
-        "explanation" : "A pung of 3 Dot and a pung of 7 Crak both sit inside 13579 (Odds), so that is the family this player is building. The 2 Dot cannot belong to it: an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 7 Bam and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family this player is building. The 2 Bam cannot belong to it: an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
-            "3D",
-            "3D",
-            "3D"
+            "7B",
+            "7B",
+            "7B"
           ],
           [
-            "7C",
-            "7C",
-            "7C"
+            "5C",
+            "5C",
+            "5C"
           ]
         ],
         "section" : "odds13579"
@@ -4516,23 +4486,23 @@
       {
         "answer" : "7C",
         "choiceNotes" : [
+          "The 4 Dot sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it.",
+          "The 8 Crak sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it.",
           null,
-          "The 8 Bam sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 6 Bam sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 4 Bam sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it."
+          "The 6 Crak sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it."
         ],
         "choices" : [
+          "4D",
+          "8C",
           "7C",
-          "8B",
-          "6B",
-          "4B"
+          "6C"
         ],
-        "explanation" : "A pung of 6 Dot and a pung of 2 Bam both sit inside 2468 (Evens), so that is the family this player is building. The 7 Crak cannot belong to it: an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 4 Bam and a pung of 2 Bam both sit inside 2468 (Evens), so that is the family this player is building. The 7 Crak cannot belong to it: an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
-            "6D",
-            "6D",
-            "6D"
+            "4B",
+            "4B",
+            "4B"
           ],
           [
             "2B",
@@ -4543,25 +4513,54 @@
         "section" : "evens2468"
       },
       {
-        "answer" : "4B",
+        "answer" : "8C",
         "choiceNotes" : [
-          "The 3 Bam sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
-          null,
-          "The 3 Crak sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 3 Dot sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it."
+          "The 6 Bam sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
+          "The 3 Dot sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
+          "The 6 Crak sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
+          null
         ],
         "choices" : [
-          "3B",
-          "4B",
-          "3C",
-          "3D"
+          "6B",
+          "3D",
+          "6C",
+          "8C"
         ],
-        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family this player is building. The 4 Bam cannot belong to it: 369 uses only 3s, 6s and 9s for its numbers, and it needs the 6 to tell it apart from a pure evens or pure odds hand. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 3 Bam and a pung of 6 Dot both sit inside 369, so that is the family this player is building. The 8 Crak cannot belong to it: 369 uses only 3s, 6s and 9s for its numbers, and it needs the 6 to tell it apart from a pure evens or pure odds hand. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
           [
-            "9D",
-            "9D",
-            "9D"
+            "3B",
+            "3B",
+            "3B"
+          ],
+          [
+            "6D",
+            "6D",
+            "6D"
+          ]
+        ],
+        "section" : "threeSixNine"
+      },
+      {
+        "answer" : "9B",
+        "choiceNotes" : [
+          "The 8 Dot sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it.",
+          null,
+          "The 4 Dot sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it.",
+          "The 8 Crak sits squarely inside 2468 (Evens), which is where those exposures point. Late in a hand that is the discard that ends it."
+        ],
+        "choices" : [
+          "8D",
+          "9B",
+          "4D",
+          "8C"
+        ],
+        "explanation" : "A pung of 4 Bam and a pung of 6 Bam both sit inside 2468 (Evens), so that is the family this player is building. The 9 Bam cannot belong to it: an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "exposures" : [
+          [
+            "4B",
+            "4B",
+            "4B"
           ],
           [
             "6B",
@@ -4569,33 +4568,33 @@
             "6B"
           ]
         ],
-        "section" : "threeSixNine"
+        "section" : "evens2468"
       },
       {
-        "answer" : "4C",
+        "answer" : "2B",
         "choiceNotes" : [
-          "The 6 Dot sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
+          "The 9 Dot sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
           null,
-          "The 3 Bam sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
-          "The 9 Crak sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it."
+          "The 9 Crak sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it.",
+          "The 3 Dot sits squarely inside 369, which is where those exposures point. Late in a hand that is the discard that ends it."
         ],
         "choices" : [
-          "6D",
-          "4C",
-          "3B",
-          "9C"
+          "9D",
+          "2B",
+          "9C",
+          "3D"
         ],
-        "explanation" : "A pung of 6 Bam and a pung of 9 Bam both sit inside 369, so that is the family this player is building. The 4 Crak cannot belong to it: 369 uses only 3s, 6s and 9s for its numbers, and it needs the 6 to tell it apart from a pure evens or pure odds hand. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Bam and a pung of 3 Bam both sit inside 369, so that is the family this player is building. The 2 Bam cannot belong to it: 369 uses only 3s, 6s and 9s for its numbers, and it needs the 6 to tell it apart from a pure evens or pure odds hand. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
         "exposures" : [
-          [
-            "6B",
-            "6B",
-            "6B"
-          ],
           [
             "9B",
             "9B",
             "9B"
+          ],
+          [
+            "3B",
+            "3B",
+            "3B"
           ]
         ],
         "section" : "threeSixNine"
@@ -4859,7 +4858,7 @@
       "note" : "The 6 Dot fits 2468 (Evens), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
       "seed" : "deal-3",
       "target" : "evens2468",
-      "value" : 6.0999999999999996,
+      "value" : 6.1000000000000005,
       "working" : 3
     },
     {
@@ -4876,7 +4875,7 @@
       "note" : "Right. The 6 Dot does nothing for 13579 (Odds), and the tiles that do nothing are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "odds13579",
-      "value" : 7.2999999999999989,
+      "value" : 7.2999999999999998,
       "working" : 3
     },
     {
@@ -4887,7 +4886,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -4927,7 +4926,7 @@
       "note" : "Right. The 6 Dot does nothing for Winds & Dragons, and the tiles that do nothing are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "windsDragons",
-      "value" : 7.7999999999999998,
+      "value" : 7.8000000000000007,
       "working" : 5
     }
   ],
@@ -6000,227 +5999,227 @@
     ],
     "r1" : [
       {
-        "answer" : "RD",
+        "answer" : "W",
         "choiceNotes" : [
-          "You are holding 4 of the 7 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 7 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 3 of the 7 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 3 of the 5 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
           null,
-          "You are holding 4 of the 9 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+          "You are holding 4 of the 5 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
         ],
         "choices" : [
           "7B",
-          "7D",
-          "RD",
-          "9C"
-        ],
-        "explanation" : "This rack is pointed at Consecutive Run: a run needs numbers stepping up in order with no gaps, which always mixes odd and even. The Red Dragon fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
-        "section" : "consecutiveRun",
-        "tiles" : [
-          "9C",
-          "9C",
-          "9C",
-          "9C",
-          "7B",
-          "7B",
-          "7B",
-          "7B",
-          "7D",
-          "7D",
-          "7D",
-          "7D",
-          "RD"
-        ]
-      },
-      {
-        "answer" : "2B",
-        "choiceNotes" : [
-          "You are holding 3 of the Green Dragon. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the Soap. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          null,
-          "You are holding 3 of the East Wind. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
-        ],
-        "choices" : [
-          "GD",
-          "SO",
-          "2B",
-          "E"
-        ],
-        "explanation" : "This rack is pointed at Winds & Dragons: this section is built mostly from winds and dragons, so a rack full of number tiles is not it. The 2 Bam fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
-        "section" : "windsDragons",
-        "tiles" : [
-          "2B",
-          "GD",
-          "GD",
-          "GD",
-          "SO",
-          "SO",
-          "SO",
-          "SO",
-          "N",
-          "N",
-          "E",
-          "E",
-          "E"
-        ]
-      },
-      {
-        "answer" : "8B",
-        "choiceNotes" : [
-          "You are holding 3 of the 5 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          null,
-          "You are holding 3 of the 3 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 1 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
-        ],
-        "choices" : [
-          "5D",
-          "8B",
-          "3C",
-          "1C"
-        ],
-        "explanation" : "This rack is pointed at 13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. The 8 Bam fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
-        "section" : "odds13579",
-        "tiles" : [
-          "1C",
-          "1C",
-          "1C",
-          "1C",
-          "3C",
-          "3C",
-          "3C",
-          "7B",
-          "7B",
-          "8B",
-          "5D",
-          "5D",
-          "5D"
-        ]
-      },
-      {
-        "answer" : "4C",
-        "choiceNotes" : [
-          "You are holding 4 of the 5 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 3 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          null,
-          "You are holding 4 of the 1 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
-        ],
-        "choices" : [
-          "5B",
-          "3C",
-          "4C",
-          "1B"
-        ],
-        "explanation" : "This rack is pointed at 13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. The 4 Crak fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
-        "section" : "odds13579",
-        "tiles" : [
-          "3C",
-          "3C",
-          "3C",
-          "3C",
-          "4C",
-          "1B",
-          "1B",
-          "1B",
-          "1B",
-          "5B",
-          "5B",
-          "5B",
+          "5C",
+          "W",
           "5B"
-        ]
-      },
-      {
-        "answer" : "RD",
-        "choiceNotes" : [
-          "You are holding 4 of the 2 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 5 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 3 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          null
         ],
-        "choices" : [
-          "2B",
-          "5C",
-          "3D",
-          "RD"
-        ],
-        "explanation" : "This rack is pointed at Consecutive Run: a run needs numbers stepping up in order with no gaps, which always mixes odd and even. The Red Dragon fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "explanation" : "This rack is pointed at Consecutive Run: a run needs numbers stepping up in order with no gaps, which always mixes odd and even. The West Wind fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
         "section" : "consecutiveRun",
         "tiles" : [
           "5C",
           "5C",
           "5C",
-          "5C",
-          "2B",
-          "2B",
-          "2B",
-          "2B",
-          "3D",
-          "3D",
-          "3D",
-          "3D",
-          "RD"
+          "5B",
+          "5B",
+          "5B",
+          "5B",
+          "6B",
+          "6B",
+          "7B",
+          "7B",
+          "7B",
+          "W"
         ]
       },
       {
-        "answer" : "E",
+        "answer" : "S",
         "choiceNotes" : [
-          "You are holding 3 of the 4 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 3 of the 3 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the 4 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the 3 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
           "You are holding 4 of the 2 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
           null
         ],
         "choices" : [
-          "4C",
-          "3B",
+          "4B",
+          "3D",
           "2C",
-          "E"
+          "S"
         ],
-        "explanation" : "This rack is pointed at Consecutive Run: a run needs numbers stepping up in order with no gaps, which always mixes odd and even. The East Wind fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "explanation" : "This rack is pointed at Consecutive Run: a run needs numbers stepping up in order with no gaps, which always mixes odd and even. The South Wind fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
         "section" : "consecutiveRun",
         "tiles" : [
           "2C",
           "2C",
           "2C",
           "2C",
-          "3C",
-          "3C",
-          "4C",
-          "4C",
-          "4C",
-          "3B",
-          "3B",
-          "3B",
-          "E"
+          "4B",
+          "4B",
+          "4B",
+          "4B",
+          "3D",
+          "3D",
+          "3D",
+          "3D",
+          "S"
         ]
       },
       {
-        "answer" : "3C",
+        "answer" : "1B",
         "choiceNotes" : [
           null,
-          "You are holding 4 of the 4 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 6 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 4 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+          "You are holding 4 of the North Wind. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the Red Dragon. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the Soap. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
         ],
         "choices" : [
-          "3C",
-          "4B",
-          "6C",
-          "4D"
+          "1B",
+          "N",
+          "RD",
+          "SO"
         ],
-        "explanation" : "This rack is pointed at 2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out. The 3 Crak fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
-        "section" : "evens2468",
+        "explanation" : "This rack is pointed at Winds & Dragons: this section is built mostly from winds and dragons, so a rack full of number tiles is not it. The 1 Bam fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "section" : "windsDragons",
         "tiles" : [
-          "3C",
-          "6C",
-          "6C",
-          "6C",
-          "6C",
-          "4B",
-          "4B",
-          "4B",
-          "4B",
-          "4D",
-          "4D",
-          "4D",
-          "4D"
+          "1B",
+          "RD",
+          "RD",
+          "RD",
+          "RD",
+          "SO",
+          "SO",
+          "SO",
+          "SO",
+          "N",
+          "N",
+          "N",
+          "N"
+        ]
+      },
+      {
+        "answer" : "W",
+        "choiceNotes" : [
+          "You are holding 4 of the 3 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the 6 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          null,
+          "You are holding 4 of the 3 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+        ],
+        "choices" : [
+          "3B",
+          "6B",
+          "W",
+          "3D"
+        ],
+        "explanation" : "This rack is pointed at 369: 369 uses only 3s, 6s and 9s for its numbers, and it needs the 6 to tell it apart from a pure evens or pure odds hand. The West Wind fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "section" : "threeSixNine",
+        "tiles" : [
+          "3B",
+          "3B",
+          "3B",
+          "3B",
+          "6B",
+          "6B",
+          "6B",
+          "6B",
+          "3D",
+          "3D",
+          "3D",
+          "3D",
+          "W"
+        ]
+      },
+      {
+        "answer" : "2C",
+        "choiceNotes" : [
+          "You are holding 3 of the 7 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the 5 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          null,
+          "You are holding 3 of the 3 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+        ],
+        "choices" : [
+          "7D",
+          "5C",
+          "2C",
+          "3D"
+        ],
+        "explanation" : "This rack is pointed at 13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. The 2 Crak fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "section" : "odds13579",
+        "tiles" : [
+          "2C",
+          "5C",
+          "5C",
+          "5C",
+          "5C",
+          "7B",
+          "7B",
+          "3D",
+          "3D",
+          "3D",
+          "7D",
+          "7D",
+          "7D"
+        ]
+      },
+      {
+        "answer" : "GD",
+        "choiceNotes" : [
+          "You are holding 4 of the 7 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 3 of the 8 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 3 of the 9 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          null
+        ],
+        "choices" : [
+          "7D",
+          "8C",
+          "9B",
+          "GD"
+        ],
+        "explanation" : "This rack is pointed at Consecutive Run: a run needs numbers stepping up in order with no gaps, which always mixes odd and even. The Green Dragon fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "section" : "consecutiveRun",
+        "tiles" : [
+          "8C",
+          "8C",
+          "8C",
+          "9B",
+          "9B",
+          "9B",
+          "7D",
+          "7D",
+          "7D",
+          "7D",
+          "8D",
+          "8D",
+          "GD"
+        ]
+      },
+      {
+        "answer" : "7D",
+        "choiceNotes" : [
+          "You are holding 3 of the Soap. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          null,
+          "You are holding 3 of the South Wind. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 3 of the Green Dragon. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+        ],
+        "choices" : [
+          "SO",
+          "7D",
+          "S",
+          "GD"
+        ],
+        "explanation" : "This rack is pointed at Winds & Dragons: this section is built mostly from winds and dragons, so a rack full of number tiles is not it. The 7 Dot fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "section" : "windsDragons",
+        "tiles" : [
+          "7D",
+          "GD",
+          "GD",
+          "GD",
+          "SO",
+          "SO",
+          "SO",
+          "N",
+          "N",
+          "N",
+          "S",
+          "S",
+          "S"
         ]
       }
     ],
@@ -6354,99 +6353,99 @@
         ]
       },
       {
-        "answer" : "GD",
+        "answer" : "5B",
         "choiceNotes" : [
-          "You are holding 4 of the 1 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 4 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          null,
-          "You are holding 4 of the 4 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+          "You are holding 4 of the Soap. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 3 of the West Wind. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 3 of the North Wind. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          null
         ],
         "choices" : [
-          "1C",
-          "4D",
-          "GD",
-          "4B"
+          "SO",
+          "W",
+          "N",
+          "5B"
         ],
-        "explanation" : "This rack is pointed at Consecutive Run: a run needs numbers stepping up in order with no gaps, which always mixes odd and even. The Green Dragon fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
-        "section" : "consecutiveRun",
+        "explanation" : "This rack is pointed at Winds & Dragons: this section is built mostly from winds and dragons, so a rack full of number tiles is not it. The 5 Bam fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "section" : "windsDragons",
         "tiles" : [
-          "1C",
-          "1C",
-          "1C",
-          "1C",
-          "4B",
-          "4B",
-          "4B",
-          "4B",
-          "4D",
-          "4D",
-          "4D",
-          "4D",
-          "GD"
+          "5B",
+          "SO",
+          "SO",
+          "SO",
+          "SO",
+          "N",
+          "N",
+          "N",
+          "W",
+          "W",
+          "W",
+          "S",
+          "S"
         ]
       },
       {
-        "answer" : "2C",
+        "answer" : "7D",
         "choiceNotes" : [
           null,
-          "You are holding 3 of the 5 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 3 of the 7 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 3 of the 7 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+          "You are holding 4 of the 6 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the 8 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the 8 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
         ],
         "choices" : [
-          "2C",
-          "5B",
-          "7C",
-          "7B"
+          "7D",
+          "6C",
+          "8B",
+          "8C"
         ],
-        "explanation" : "This rack is pointed at 13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. The 2 Crak fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "explanation" : "This rack is pointed at 2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out. The 7 Dot fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
+        "section" : "evens2468",
+        "tiles" : [
+          "6C",
+          "6C",
+          "6C",
+          "6C",
+          "8C",
+          "8C",
+          "8C",
+          "8C",
+          "8B",
+          "8B",
+          "8B",
+          "8B",
+          "7D"
+        ]
+      },
+      {
+        "answer" : "RD",
+        "choiceNotes" : [
+          "You are holding 4 of the 7 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          "You are holding 4 of the 1 Dot. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
+          null,
+          "You are holding 4 of the 3 Crak. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+        ],
+        "choices" : [
+          "7B",
+          "1D",
+          "RD",
+          "3C"
+        ],
+        "explanation" : "This rack is pointed at 13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out. The Red Dragon fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
         "section" : "odds13579",
         "tiles" : [
-          "2C",
-          "7C",
-          "7C",
-          "7C",
-          "1B",
-          "1B",
-          "1B",
-          "5B",
-          "5B",
-          "5B",
+          "3C",
+          "3C",
+          "3C",
+          "3C",
           "7B",
           "7B",
-          "7B"
-        ]
-      },
-      {
-        "answer" : "1B",
-        "choiceNotes" : [
-          null,
-          "You are holding 4 of the 9 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 6 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting.",
-          "You are holding 4 of the 3 Bam. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
-        ],
-        "choices" : [
-          "1B",
-          "9B",
-          "6B",
-          "3B"
-        ],
-        "explanation" : "This rack is pointed at 369: 369 uses only 3s, 6s and 9s for its numbers, and it needs the 6 to tell it apart from a pure evens or pure odds hand. The 1 Bam fits none of that. You hold exactly one of it, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built.",
-        "section" : "threeSixNine",
-        "tiles" : [
-          "1B",
-          "3B",
-          "3B",
-          "3B",
-          "3B",
-          "6B",
-          "6B",
-          "6B",
-          "6B",
-          "9B",
-          "9B",
-          "9B",
-          "9B"
+          "7B",
+          "7B",
+          "1D",
+          "1D",
+          "1D",
+          "1D",
+          "RD"
         ]
       }
     ]

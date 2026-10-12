@@ -46,6 +46,9 @@ struct PracticeRunView: View {
     /// first fourteen seconds were spent reading a question the player had not
     /// asked for yet.
     @State private var timedStarted = false
+    /// When the timed run ends, in wall time. Counting sleep ticks ran long
+    /// (every sleep overshoots) and froze while the app was in the background.
+    @State private var clockEnd: Date?
     @State private var confettiTrigger = 0
     @State private var confettiParticleCount = 30
     @State private var flashOpacity: Double = 0
@@ -160,9 +163,9 @@ struct PracticeRunView: View {
 
     private var item: QuickItem { items[min(index, items.count - 1)] }
     private var answered: Bool { selection != nil }
-    /// Endless and timed runs are scored out of what was actually attempted,
-    /// not out of a deck size that does not exist.
-    private var gradedTotal: Int { mode == .review ? items.count : attempted }
+    /// Every run is scored out of what was actually attempted. Closing Fix My
+    /// Mistakes after two of ten used to report "2/10 right".
+    private var gradedTotal: Int { attempted }
 
     private var completedDrill: Drill {
         switch mode {
@@ -329,10 +332,12 @@ struct PracticeRunView: View {
 
     private func runClock() async {
         guard mode == .timed, timedStarted else { return }
+        let end = clockEnd ?? Date().addingTimeInterval(TimeInterval(Self.challengeSeconds))
+        clockEnd = end
         while secondsRemaining > 0 && !finished {
-            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            try? await Task.sleep(nanoseconds: 250_000_000)
             guard !Task.isCancelled else { return }
-            secondsRemaining -= 1
+            secondsRemaining = max(0, Int(end.timeIntervalSinceNow.rounded(.up)))
         }
         guard !finished else { return }
         Haptics.impact(.rigid)
@@ -383,6 +388,8 @@ struct PracticeRunView: View {
     }
 
     private func advance() {
+        // Two taps on Next inside one frame used to skip a question.
+        guard answered else { return }
         if isLastItem {
             finish()
             return

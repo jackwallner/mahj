@@ -8,13 +8,13 @@ import UIKit
 enum Theme {
     // MARK: Brand
 
-    /// Deep jade — primary actions, progress, selected states.
+    /// Deep jade: primary actions, progress, selected states.
     static let jade = Color(light: (0.09, 0.42, 0.36), dark: (0.36, 0.71, 0.62))
-    /// Terracotta coral — energy moments: streaks, celebration, badges.
+    /// Terracotta coral, for energy moments: streaks, celebration, badges.
     static let coral = Color(light: (0.86, 0.42, 0.31), dark: (0.94, 0.56, 0.45))
-    /// Soft gold — locks, "best value", coach highlights.
+    /// Soft gold: locks, "best value", coach highlights.
     static let gold = Color(light: (0.76, 0.57, 0.18), dark: (0.88, 0.72, 0.38))
-    /// Plum — Charleston room identity.
+    /// Plum: Charleston room identity.
     static let plum = Color(light: (0.48, 0.28, 0.52), dark: (0.72, 0.53, 0.76))
 
     // MARK: Surfaces
@@ -60,7 +60,7 @@ enum Theme {
 
     // MARK: Type
 
-    /// Serif display for titles — the "mahj club" voice.
+    /// Serif display for titles: the "mahj club" voice.
     static func display(_ size: CGFloat, weight: Font.Weight = .bold) -> Font {
         .system(size: size, weight: weight, design: .serif)
     }

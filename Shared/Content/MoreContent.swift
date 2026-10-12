@@ -343,7 +343,7 @@ enum MoreContent {
             frontTiles: [.c(5), .c(5)],
             frontSubtitle: "Two more are already exposed elsewhere. Keep waiting?",
             backTitle: "Let it go",
-            backBody: "All four are accounted for. Your pair can never become a pung, so any hand that needs one is finished. Count before you commit.",
+            backBody: "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. Only a joker can grow this pair into a pung now, so build on it only if jokers are in reach. Count before you commit.",
             choice: CardChoice("Let it go", "Keep waiting", answerIndex: 0)
         ),
         Flashcard(
@@ -429,18 +429,18 @@ enum MoreContent {
         QuizQuestion(
             id: "more-pro-joker-flowers",
             prompt: "Your hand needs four flowers and you hold three. Can a joker be the fourth?",
-            tiles: [.flower, .flower, .flower, .joker],
+            tiles: [.flower, .flower, .flower],
             choices: ["Yes, flowers in a group of three or more take jokers", "No, flowers never take jokers", "Only in a pair of flowers", "Only if the flowers are exposed"],
             answerIndex: 0,
             explanation: "A group of three or more flowers is a group like any other, so jokers can fill it. A pair of flowers is still a pair: those two have to be real."
         ),
         QuizQuestion(
             id: "more-pro-joker-year",
-            prompt: "Can a joker stand in for one of the digits in a year like 2026?",
+            prompt: "Your hand spells 2026 with one tile per digit. Can a joker stand in for one of them?",
             tiles: [.c(2), .dragon(.soap), .joker, .c(6)],
-            choices: ["Yes, any digit", "Only for the zero", "No, each digit is a single tile", "Only in a concealed hand"],
+            choices: ["Yes, any digit", "Only for the zero", "No, each one is a single tile", "Only in a concealed hand"],
             answerIndex: 2,
-            explanation: "Each digit of the year is a single tile, and jokers never fill a single. The year has to be spelled with real tiles."
+            explanation: "Spelled one tile per digit, every digit is a single, and jokers never fill a single or a pair. Those four have to be real tiles. A digit your card shows as a pung or kong is a group like any other and does take jokers."
         ),
     ]
 }

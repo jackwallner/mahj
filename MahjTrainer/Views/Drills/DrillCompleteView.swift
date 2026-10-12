@@ -14,6 +14,9 @@ struct DrillCompleteView: View {
     @Environment(\.requestReview) private var requestReview
     @State private var showReviewPrompt = false
     @State private var recorded = false
+    /// False once the player has left. Tapping Done inside the 1.4s wait used
+    /// to spend the review ask on a sheet that never appeared.
+    @State private var onScreen = true
     @State private var celebrate = false
     @State private var confettiTrigger = 0
 
@@ -54,7 +57,7 @@ struct DrillCompleteView: View {
             HStack(spacing: 6) {
                 Image(systemName: "flame.fill")
                     .foregroundStyle(Theme.coral)
-                Text("\(progress.streakCount)-day streak")
+                Text("\(progress.currentStreak())-day streak")
                     .font(.headline)
                     .foregroundStyle(Theme.ink)
             }
@@ -82,6 +85,7 @@ struct DrillCompleteView: View {
             progress.recordSession(drillID: drill.id)
             recordPositiveMoment()
         }
+        .onDisappear { onScreen = false }
         .sheet(isPresented: $showReviewPrompt) {
             ReviewPromptSheet(onFinish: handleReviewOutcome)
         }
@@ -103,9 +107,10 @@ struct DrillCompleteView: View {
     private func recordPositiveMoment() {
         ReviewPromptTracker.recordPositiveMoment()
         guard ReviewPromptTracker.shouldShowAfterPositiveMoment() else { return }
-        ReviewPromptTracker.markShown()
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 1_400_000_000)
+            guard onScreen else { return }
+            ReviewPromptTracker.markShown()
             showReviewPrompt = true
         }
     }

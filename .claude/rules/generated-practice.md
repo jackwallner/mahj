@@ -38,6 +38,12 @@ motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
   and dragons in number sections), keeps the safe tile outside any
   five-number run window holding both exposures (6 and 8 Bam want the 7), and
   gives it the other parity when both exposures share one (3 and 9 fit odds).
+  Since 2026-10-11 (1.4 QA) the safe tile must sit outside EVERY section the
+  exposures fit, and every bait tile inside every one (`sectionsFitting`): 3
+  and 9 read as 369 and odds, so a 6 was safe under the odds read and graded
+  wrong. `CharlestonGenerator` likewise rejects any core that does not read as
+  exactly its own section (`RackGenerator.category`): a 369 core with no 6 is
+  just odds, and an odd stray then fit the hand.
   Tile counting deals a joker question about one time in four
   (`jokerCountingItem`): eight in the set, held + exposed + discarded, so its
   answers run past four and the four-copy tests skip it.

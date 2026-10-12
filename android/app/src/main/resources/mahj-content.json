@@ -887,7 +887,7 @@
                 "A flower",
                 "The Soap",
                 "A joker",
-                "The White... wait, any dragon"
+                "Any dragon"
               ],
               "explanation" : "The Soap (White Dragon) doubles as zero. 2026 = 2, Soap, 2, 6.",
               "id" : "quiz-soap-zero",
@@ -1012,7 +1012,7 @@
                 "14",
                 "16"
               ],
-              "explanation" : "Thirteen. You draw a 14th, then discard (or keep it and discard something else). Mah jongg = 14 tiles matching a card hand exactly.",
+              "explanation" : "Thirteen. You draw a 14th, then discard (or keep it and discard something else). East is the one exception: East starts the game with 14 and opens by discarding. Mah jongg = 14 tiles matching a card hand exactly.",
               "id" : "quiz-hand-size",
               "prompt" : "How many tiles do you hold during play (before your turn)?",
               "tiles" : [
@@ -1788,7 +1788,7 @@
                 "odds13579",
                 "consecutiveRun"
               ],
-              "explanation" : "Two pungs of 7s and three jokers. Two jokers finish one pung into a quint, and the third leaves the other pung one real 7 short of a second. Without jokers you would read this as Like Numbers; with them, Quints is live and pays far more. Jokers decide.",
+              "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Without jokers you would read this as Like Numbers; with them, Quints is live and pays far more. Jokers decide.",
               "id" : "hm-quints",
               "tiles" : [
                 "J",
@@ -2540,7 +2540,7 @@
                 "J"
               ],
               "id" : "plus-ch-blind-pass",
-              "reasoning" : "Seven evens across two suits is a real 2468 spine. The two lonely winds do almost nothing for 2468, and the 3 Dot is your only odd number tile. Those three leave without a second thought.",
+              "reasoning" : "Eight evens across all three suits is a real 2468 spine. The two lonely winds do almost nothing for 2468, and the 3 Dot is your only odd number tile. Those three leave without a second thought.",
               "recommendedPass" : [
                 "W",
                 "S",
@@ -3372,7 +3372,7 @@
               "id" : "more-judge-lone-wind"
             },
             {
-              "backBody" : "All four are accounted for. Your pair can never become a pung, so any hand that needs one is finished. Count before you commit.",
+              "backBody" : "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. Only a joker can grow this pair into a pung now, so build on it only if jokers are in reach. Count before you commit.",
               "backTitle" : "Let it go",
               "choice" : {
                 "answerIndex" : 0,
@@ -4134,8 +4134,7 @@
               "tiles" : [
                 "F",
                 "F",
-                "F",
-                "J"
+                "F"
               ]
             },
             {
@@ -4143,12 +4142,12 @@
               "choices" : [
                 "Yes, any digit",
                 "Only for the zero",
-                "No, each digit is a single tile",
+                "No, each one is a single tile",
                 "Only in a concealed hand"
               ],
-              "explanation" : "Each digit of the year is a single tile, and jokers never fill a single. The year has to be spelled with real tiles.",
+              "explanation" : "Spelled one tile per digit, every digit is a single, and jokers never fill a single or a pair. Those four have to be real tiles. A digit your card shows as a pung or kong is a group like any other and does take jokers.",
               "id" : "more-pro-joker-year",
-              "prompt" : "Can a joker stand in for one of the digits in a year like 2026?",
+              "prompt" : "Your hand spells 2026 with one tile per digit. Can a joker stand in for one of them?",
               "tiles" : [
                 "2C",
                 "SO",
@@ -4170,6 +4169,40 @@
     }
   ],
   "whatsNew" : [
+    {
+      "headline" : "Built around your week",
+      "items" : [
+        {
+          "body" : "Home and Your Progress now show how many questions you locked in this week, so you can see the practice working.",
+          "icon" : "arrow.up.right",
+          "id" : "week-gain",
+          "isPlus" : false,
+          "title" : "Your week, counted"
+        },
+        {
+          "body" : "Members can set their game night from Home. The prep reminder now says what you locked in since last week.",
+          "icon" : "person.2.fill",
+          "id" : "game-night-card",
+          "isPlus" : true,
+          "title" : "Game night, front and center"
+        },
+        {
+          "body" : "Every graded question has a link to flag a wrong answer or a confusing explanation. It goes straight to the developer.",
+          "icon" : "flag",
+          "id" : "report-question",
+          "isPlus" : false,
+          "title" : "Something wrong? Say so"
+        },
+        {
+          "body" : "Send Feedback is a text box and one button now. No mail app, no account.",
+          "icon" : "paperplane.fill",
+          "id" : "feedback",
+          "isPlus" : false,
+          "title" : "Feedback without the email"
+        }
+      ],
+      "version" : "1.4.0"
+    },
     {
       "headline" : "Play a hand, not just a flashcard",
       "items" : [

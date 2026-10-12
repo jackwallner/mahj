@@ -57,7 +57,7 @@ Terms of Use, and Privacy Policy. Don't trim any of them for layout.
   `HandMatchQuestion`, `CharlestonScenario`, `Drill`, `Room`).
 - `Shared/Content`: all drill content as Swift constants; `DrillLibrary.rooms`
   defines the 5 rooms (ids: `tile-room`, `card-room`, `charleston-room`,
-  `table-room`, `pro-tables`). `SessionBuilder.dailyMix` builds the Get Started
+  `table-room`, `pro-tables`). `SessionBuilder.quickSession` builds the Get Started
   mixed session (missed items first, then unseen; excludes Pro for free users).
   `HowToPlayContent` holds the original six-page beginner primer.
 - `Shared/Services`: `ProgressStore` (UserDefaults streaks/completions/review

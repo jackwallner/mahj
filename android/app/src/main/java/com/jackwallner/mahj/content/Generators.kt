@@ -196,6 +196,8 @@ object CharlestonGenerator {
             if (size >= 3) groupLeaders += tile
         }
         if (core.size != 12 || groupLeaders.size < 3) return null
+        // The core must read as this section and nothing else (iOS parity).
+        if (RackGenerator.category(core) != section) return null
 
         val strays = outsiders(section, 1, source) ?: return null
         val rack = (core + strays).racked
@@ -291,10 +293,14 @@ object DefenseGenerator {
         val first = (exposed[0] as? Tile.Suited)?.rank
         val second = (exposed[1] as? Tile.Suited)?.rank
         if (first != null && second != null && first == second) return null
-        val bait = dangerous.drop(2).take(3)
+        // Every bait tile must feed every section the exposures fit (3 and 9
+        // read as 369 and as odds), or a second reading makes it safe.
+        val readings = sectionsFitting(exposed)
+        val bait = dangerous.drop(2).filter { tile -> readings.all { fits(tile, it) } }.take(3)
+        if (bait.size != 3) return null
         val exposures = exposed.map { tile -> List(3) { tile } }
 
-        val safe = safeTile(section, exposed, exposed + bait, source) ?: return null
+        val safe = safeTile(readings, exposed, exposed + bait, source) ?: return null
         val choices = (bait + safe).toMutableList()
         choices.shuffleSwift(source)
 
@@ -312,22 +318,34 @@ object DefenseGenerator {
         else -> emptyList()
     }
 
-    private fun safeTile(section: HandCategory, exposed: List<Tile>, used: List<Tile>, source: RandomSource): Tile? {
+    /** Every readable section that holds all the exposed tiles. */
+    fun sectionsFitting(exposed: List<Tile>): List<HandCategory> =
+        readableSections.filter { section -> exposed.all { fits(it, section) } }
+
+    fun fits(tile: Tile, section: HandCategory): Boolean {
+        val rank = (tile as? Tile.Suited)?.rank ?: return false
+        return fitsRank(rank, section)
+    }
+
+    private fun fitsRank(rank: Int, section: HandCategory): Boolean = when (section) {
+        HandCategory.EVENS_2468 -> rank % 2 == 0
+        HandCategory.ODDS_13579 -> rank % 2 != 0
+        HandCategory.THREE_SIX_NINE -> rank % 3 == 0
+        else -> false
+    }
+
+    private fun safeTile(readings: List<HandCategory>, exposed: List<Tile>, used: List<Tile>, source: RandomSource): Tile? {
+        if (readings.isEmpty()) return null
         val exposedRanks = exposed.mapNotNull { (it as? Tile.Suited)?.rank }
         val low = exposedRanks.minOrNull() ?: return null
         val high = exposedRanks.max()
         val sameParity = exposedRanks.all { it % 2 == low % 2 }
 
         val safeRanks = (1..9).filter { candidate ->
-            val outsideSection = when (section) {
-                HandCategory.EVENS_2468 -> candidate % 2 != 0
-                HandCategory.ODDS_13579 -> candidate % 2 == 0
-                HandCategory.THREE_SIX_NINE -> candidate % 3 != 0
-                else -> return@filter false
-            }
+            val outsideSections = readings.all { !fitsRank(candidate, it) }
             val outsideRun = maxOf(high, candidate) - minOf(low, candidate) > 4
             val outsideParity = !sameParity || (candidate % 2 == 0) != (low % 2 == 0)
-            outsideSection && outsideRun && outsideParity
+            outsideSections && outsideRun && outsideParity
         }
         val pool = Tile.suited(safeRanks).filter { it !in used }.toMutableList()
         pool.shuffleSwift(source)

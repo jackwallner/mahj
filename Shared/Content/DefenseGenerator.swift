@@ -85,10 +85,18 @@ enum DefenseGenerator {
         if let first = rank(of: exposed[0]), let second = rank(of: exposed[1]), first == second {
             return nil
         }
-        let bait = Array(dangerous.dropFirst(2).prefix(3))
+        // Exposures can fit more than one section (3 and 9 read as 369 AND as
+        // odds). Every bait tile has to feed ALL of those readings, or a player
+        // who reads the table the other way throws a tile that is genuinely
+        // safe and gets marked wrong.
+        let readings = sectionsFitting(exposed)
+        let bait = Array(dangerous.dropFirst(2).filter { tile in
+            readings.allSatisfy { fits(tile, $0) }
+        }.prefix(3))
+        guard bait.count == 3 else { return nil }
         let exposures = exposed.map { Array(repeating: $0, count: 3) }
 
-        guard let safe = safeTile(against: section, exposed: exposed, avoiding: exposed + bait, using: &generator) else { return nil }
+        guard let safe = safeTile(against: readings, exposed: exposed, avoiding: exposed + bait, using: &generator) else { return nil }
 
         var choices = bait + [safe]
         choices.shuffle(using: &generator)
@@ -136,32 +144,45 @@ enum DefenseGenerator {
     /// the matching odds or evens family too, so the safe tile must be the
     /// other parity.
     private static func safeTile<R: RandomNumberGenerator>(
-        against section: HandCategory,
+        against readings: [HandCategory],
         exposed: [Tile],
         avoiding used: [Tile],
         using generator: inout R
     ) -> Tile? {
         let exposedRanks = exposed.compactMap { rank(of: $0) }
-        guard let low = exposedRanks.min(), let high = exposedRanks.max() else { return nil }
+        guard !readings.isEmpty, let low = exposedRanks.min(), let high = exposedRanks.max() else { return nil }
         let sameParity = exposedRanks.allSatisfy { $0.isMultiple(of: 2) == low.isMultiple(of: 2) }
 
         let safeRanks = (1...9).filter { candidate in
-            let outsideSection: Bool
-            switch section {
-            case .evens2468: outsideSection = !candidate.isMultiple(of: 2)
-            case .odds13579: outsideSection = candidate.isMultiple(of: 2)
-            case .threeSixNine: outsideSection = candidate % 3 != 0
-            default: return false
-            }
+            let outsideSections = readings.allSatisfy { !fits(rank: candidate, $0) }
             let outsideRun = max(high, candidate) - min(low, candidate) > 4
             let outsideParity = !sameParity || candidate.isMultiple(of: 2) != low.isMultiple(of: 2)
-            return outsideSection && outsideRun && outsideParity
+            return outsideSections && outsideRun && outsideParity
         }
 
         var pool = safeRanks.flatMap { rank in Suit.allCases.map { Tile.suited(rank: rank, suit: $0) } }
         pool.removeAll { used.contains($0) }
         pool.shuffle(using: &generator)
         return pool.first
+    }
+
+    /// Every readable section that holds all the exposed tiles.
+    static func sectionsFitting(_ exposed: [Tile]) -> [HandCategory] {
+        readableSections.filter { section in exposed.allSatisfy { fits($0, section) } }
+    }
+
+    static func fits(_ tile: Tile, _ section: HandCategory) -> Bool {
+        guard let rank = rank(of: tile) else { return false }
+        return fits(rank: rank, section)
+    }
+
+    private static func fits(rank: Int, _ section: HandCategory) -> Bool {
+        switch section {
+        case .evens2468: return rank.isMultiple(of: 2)
+        case .odds13579: return !rank.isMultiple(of: 2)
+        case .threeSixNine: return rank % 3 == 0
+        default: return false
+        }
     }
 
     private static func rank(of tile: Tile) -> Int? {

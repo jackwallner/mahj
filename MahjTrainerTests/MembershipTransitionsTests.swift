@@ -72,4 +72,19 @@ final class MembershipTransitionsTests: XCTestCase {
         XCTAssertEqual(service.pendingChurnMoment, .paidRenewalOff)
         service.consumeChurnMoment()
     }
+
+    /// Monthly to lifetime is an upgrade, not a departure. Lifetime reports
+    /// willRenew false with no expiration date.
+    func testUpgradingToLifetimeIsNotAChurnMoment() {
+        let monthly = MembershipSnapshot.observed(isActive: true, isTrial: false, willRenew: true, expirationDate: Date())
+        let lifetime = MembershipSnapshot.observed(isActive: true, isTrial: false, willRenew: false, expirationDate: nil)
+        XCTAssertTrue(lifetime.willRenew)
+        XCTAssertNil(MembershipTransitions.churnMoment(from: monthly, to: lifetime))
+    }
+
+    func testCancelledSubscriptionStillReadsAsRenewalOff() {
+        let on = MembershipSnapshot.observed(isActive: true, isTrial: false, willRenew: true, expirationDate: Date())
+        let off = MembershipSnapshot.observed(isActive: true, isTrial: false, willRenew: false, expirationDate: Date())
+        XCTAssertEqual(MembershipTransitions.churnMoment(from: on, to: off), .paidRenewalOff)
+    }
 }

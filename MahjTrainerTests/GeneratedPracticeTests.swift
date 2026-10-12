@@ -120,6 +120,19 @@ final class GeneratedPracticeTests: XCTestCase {
         }
     }
 
+    /// The 12 kept tiles must read as the section on their own, across many
+    /// seeds, or the stray can fit the other reading and the question has two
+    /// answers.
+    func testPassCoreReadsAsExactlyItsSection() {
+        for seed in 0..<20 {
+            for pass in CharlestonGenerator.batch(count: 40, seed: "core-\(seed)") {
+                var core = pass.tiles
+                if let index = core.firstIndex(of: pass.answer) { core.remove(at: index) }
+                XCTAssertEqual(RackGenerator.category(for: core), pass.section, "\(core) does not read as \(pass.section)")
+            }
+        }
+    }
+
     // MARK: - Defense
 
     private var defenses: [DefenseGenerator.GeneratedDefense] {
@@ -214,6 +227,25 @@ final class GeneratedPracticeTests: XCTestCase {
             XCTAssertGreaterThan(max(high, safe) - min(low, safe), 4, "\(question.answer) could finish a run with \(ranks)")
             if ranks.allSatisfy({ $0.isMultiple(of: 2) == low.isMultiple(of: 2) }) {
                 XCTAssertNotEqual(safe.isMultiple(of: 2), low.isMultiple(of: 2), "\(question.answer) shares parity with \(ranks)")
+            }
+        }
+    }
+
+    /// Pungs of 3 and 9 read as 369 AND as odds. Whatever reading a player
+    /// takes, the safe tile has to stay safe and every bait tile has to stay
+    /// dangerous, across many seeds.
+    func testDefenseHoldsUnderEveryReadingOfTheExposures() {
+        for seed in 0..<20 {
+            for question in DefenseGenerator.batch(count: 40, seed: "readings-\(seed)") {
+                let exposed = question.exposures.compactMap(\.first)
+                let readings = DefenseGenerator.sectionsFitting(exposed)
+                XCTAssertTrue(readings.contains(question.impliedSection))
+                for reading in readings {
+                    XCTAssertFalse(DefenseGenerator.fits(question.answer, reading), "\(question.answer) is dangerous under \(reading) with \(exposed)")
+                    for choice in question.choices where choice != question.answer {
+                        XCTAssertTrue(DefenseGenerator.fits(choice, reading), "\(choice) is safe under \(reading) with \(exposed)")
+                    }
+                }
             }
         }
     }
