@@ -15,7 +15,10 @@ private enum QuickSessionPurpose {
         }
     }
 
-    var navigationTitle: String { drill.title }
+    var navigationTitle: String {
+        if case .monthlyChallenge(let challenge) = self { return "\(challenge.monthName) Challenge" }
+        return drill.title
+    }
 }
 
 /// The Get Started session: a short, UNIFORM run of single-select choice

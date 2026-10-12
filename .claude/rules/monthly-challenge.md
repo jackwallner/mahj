@@ -16,18 +16,33 @@ and a new featuring nomination every month on the fleet's highest-impression
 app.
 
 - `MonthlyChallengeContent.challenge(for:)`: twelve questions per month, the
-  same on every device. Six on the month's theme, two of each other generated
-  skill, plus two authored (Charleston three-tile passes in a Charleston
-  month, table judgments otherwise). Themes rotate Charleston, Defense, Read
-  the Rack from November 2026 (`rotationAnchor`); October 2026 is the first
-  month offered (`firstMonth`). Tile counting is left out because its
-  generator is not seeded.
+  same on every device, easiest first. Q1-9 are generated: five on the
+  theme interleaved with two of each other skill (no two of a kind in a
+  row, no repeated shape, at most one all-honors rack). Q10-12 are
+  hand-written closers that rotate without repeats: three-tile Charleston
+  passes; two four-choice defense reads (`defenseQuestions`, written for the
+  challenge) plus one judgment call; hand-match racks from the sections the
+  generator cannot deal (Like Numbers, Year, Quints, Singles & Pairs).
+  Charleston months mix in `CharlestonGenerator.twoSinglesBatch` (keep the
+  single that fits, pass the one that does not); defense months swap in the
+  run-trap tile (`DefenseGenerator.withRunBait`). Both are iOS-only.
+  Themes rotate Charleston, Safe Discards, Reading Your Rack from November
+  2026 (`rotationAnchor`); October 2026 is the first month (`firstMonth`).
+- Content reviews: two passes by a teacher persona and one by a new player
+  (2026-10-12) drove the generator fixes (strays that change the read,
+  6+ of a number, odds of only 3s and 9s), rack-aware miss notes, run
+  reads in defense copy and the plain-language names. Dump any month with
+  `TEST_RUNNER_CHALLENGE_DUMP=<path>` on `MonthlyChallengeDumpTests`.
 - Free for everyone. `AppDestination.isFree` lets `mahj://challenge` through
   the Home paywall guard. The result screen shows one Mahj+ pointer to free
   players; no lock anywhere in the flow.
-- `MonthlyChallengeStore` keeps the FIRST finished run per month. Same
-  questions for everyone, so a replay would be a memory test, and a shared
-  score has to mean one attempt.
+- `MonthlyChallengeStore` keeps the FIRST run per month, saved after every
+  answer (`recordAnswer`); leaving resumes at the same question and the last
+  answer finishes it. Same questions for everyone, so a replay would be a
+  memory test, and a shared score has to mean one attempt.
+- `MonthlyChallengeReminder`: opt-in, one notification on the 1st of each
+  of the next three months, re-laid on launch.
+- The What's New line is `isAppleOnly`, so the Android export skips it.
 - Month names are forced to English (`en_US_POSIX`): a bare `Calendar`
   answers "M11", and the app's copy is English.
 - DEBUG `-ChallengeMonth 2026-11` renders a coming month for store art.
