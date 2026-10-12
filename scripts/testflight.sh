@@ -26,8 +26,24 @@ fi
 echo "==> Cleaning..."
 xcodebuild -project MahjTrainer.xcodeproj -scheme "$SCHEME" clean
 
+# Archive signing uses the same ASC API key as the upload step when one is
+# available (env or ~/.baseball_credentials), so a stale Xcode Apple ID session
+# cannot fail the run halfway through.
+CREDENTIALS="${ASC_CREDENTIALS_FILE:-$HOME/.baseball_credentials}"
+if [[ -z "${ASC_API_KEY_ID:-}" || -z "${ASC_ISSUER_ID:-}" || -z "${ASC_KEY_PATH:-}" ]] && [[ -f "$CREDENTIALS" ]]; then
+  # shellcheck disable=SC1090
+  source "$CREDENTIALS"
+fi
+AUTH_ARGS=()
+if [[ -n "${ASC_API_KEY_ID:-}" && -n "${ASC_ISSUER_ID:-}" && -f "${ASC_KEY_PATH:-/nonexistent}" ]]; then
+  AUTH_ARGS=(-authenticationKeyPath "$ASC_KEY_PATH" -authenticationKeyID "$ASC_API_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID")
+  echo "==> Signing with App Store Connect API key $ASC_API_KEY_ID"
+else
+  echo "==> No ASC API key found; signing with Xcode's local Apple ID session"
+fi
+
 echo "==> Archiving..."
-xcodebuild -project MahjTrainer.xcodeproj -scheme "$SCHEME" -configuration Release archive -archivePath "$ARCHIVE_PATH" -destination "generic/platform=iOS" -allowProvisioningUpdates
+xcodebuild -project MahjTrainer.xcodeproj -scheme "$SCHEME" -configuration Release archive -archivePath "$ARCHIVE_PATH" -destination "generic/platform=iOS" -allowProvisioningUpdates ${AUTH_ARGS[@]+"${AUTH_ARGS[@]}"}
 
 echo "==> Exporting & Uploading..."
 exec "$DIR/upload-testflight.sh" "$ARCHIVE_PATH"
