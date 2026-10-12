@@ -136,7 +136,7 @@ enum MoreContent {
                    .d(7), .d(9),
                    .c(2), .b(4), .wind(.north)],
             recommendedPass: [.c(2), .b(4), .wind(.north)],
-            reasoning: "Ten odd tiles is a direction, not a coincidence. The two evens and the lone wind are doing nothing for an odds hand, so they go first.",
+            reasoning: "Ten odd tiles is a direction, not a coincidence. The 1-2-3-4-5 stretch across Craks and Bams could look like a run, but it leans on the lone 2 and 4, and ten odds is the far stronger read. The two evens and the lone wind are doing nothing for an odds hand, so they go first.",
             tip: "Pass what does not fit the story your rack is already telling."
         ),
         CharlestonScenario(

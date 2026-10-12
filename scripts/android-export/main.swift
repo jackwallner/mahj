@@ -111,7 +111,7 @@ func content() -> [String: Any] {
         [
             "version": release.version,
             "headline": release.headline,
-            "items": release.items.map { item in
+            "items": release.items.filter { !$0.isAppleOnly }.map { item in
                 ["id": item.id, "icon": item.icon, "title": item.title, "body": item.body, "isPlus": item.isPlus]
             },
         ]

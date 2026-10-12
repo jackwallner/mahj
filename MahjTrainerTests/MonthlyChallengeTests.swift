@@ -54,7 +54,46 @@ final class MonthlyChallengeTests: XCTestCase {
     func testThemedMonthLeansOnItsSkill() {
         let challenge = MonthlyChallengeContent.challenge(for: date(2026, 12, 10), calendar: calendar)
         let defense = challenge.items.filter { $0.id.hasPrefix(PracticeSkill.defense.itemPrefix) }
-        XCTAssertEqual(defense.count, 6)
+        XCTAssertEqual(defense.count, 5)
+    }
+
+    /// The hand-written closers rotate: within one pass through a theme's
+    /// pool, no month repeats a question an earlier month already used.
+    func testAuthoredClosersDoNotRepeatAcrossMonths() {
+        for theme in MonthlyChallengeTheme.allCases {
+            var seen: Set<String> = []
+            var month = date(2026, 11, 10)
+            var checked = 0
+            while checked < 3 {
+                let challenge = MonthlyChallengeContent.challenge(for: month, calendar: calendar)
+                if challenge.theme == theme {
+                    let authored = challenge.items.suffix(3).map { $0.id.hasPrefix("monthly-charleston-") ? String($0.id.split(separator: "-").last!) : $0.id }
+                    for id in authored { XCTAssertTrue(seen.insert(id).inserted, "\(challenge.monthKey) repeats \(id)") }
+                    checked += 1
+                }
+                month = calendar.date(byAdding: .month, value: 1, to: month)!
+            }
+        }
+    }
+
+    /// The first nine never put the same kind of question back to back, and
+    /// the free-points all-honors rack shows up at most once a month.
+    func testMonthsAreVaried() {
+        for offset in 0..<24 {
+            let month = calendar.date(byAdding: .month, value: offset, to: date(2026, 10, 10))!
+            let challenge = MonthlyChallengeContent.challenge(for: month, calendar: calendar)
+            let skills = challenge.items.prefix(9).map(MonthlyChallengeContent.skill(of:))
+            for (a, b) in zip(skills, skills.dropFirst()) where a != challenge.theme {
+                XCTAssertNotEqual(a, b, "\(challenge.monthKey) repeats a skill back to back")
+            }
+            let honorRacks = challenge.items.filter {
+                $0.id.hasPrefix(PracticeSkill.rackReading.itemPrefix) && $0.tiles.allSatisfy { tile in
+                    if case .suited = tile { return false }
+                    return true
+                }
+            }
+            XCTAssertLessThanOrEqual(honorRacks.count, 1, challenge.monthKey)
+        }
     }
 
     func testPastMonthsStartAtTheFirstChallenge() {

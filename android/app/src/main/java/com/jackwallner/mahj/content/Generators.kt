@@ -51,6 +51,18 @@ object RackGenerator {
         }
     }
 
+    /**
+     * Shapes that read as a section on paper but invite a second read: more
+     * than five of one number reads as Like Numbers, and an odds rack of only
+     * 3s and 9s reads as 369 just as well (iOS parity).
+     */
+    fun isClean(tiles: List<Tile>, section: HandCategory): Boolean {
+        val counts = tiles.mapNotNull { (it as? Tile.Suited)?.rank }.groupingBy { it }.eachCount()
+        if ((counts.values.maxOrNull() ?: 0) > 5) return false
+        if (section == HandCategory.ODDS_13579 && setOf(3, 9).containsAll(counts.keys)) return false
+        return true
+    }
+
     /** The one section a rack reads as, or null if it reads as none or several. */
     fun category(tiles: List<Tile>): HandCategory? =
         generatableCategories.filter { fits(tiles, it) }.singleOrNull()
@@ -102,7 +114,7 @@ object RackGenerator {
     private fun rack(target: HandCategory, attempts: Int, source: RandomSource): GeneratedRack? {
         repeat(attempts) {
             val tiles = deal(target, source) ?: return@repeat
-            if (category(tiles) != target) return@repeat
+            if (category(tiles) != target || !isClean(tiles, target)) return@repeat
             val distractors = generatableCategories.filter { it != target && !fits(tiles, it) }.toMutableList()
             distractors.shuffleSwift(source)
             val picked = distractors.take(3)
@@ -133,12 +145,49 @@ object RackGenerator {
         return racks
     }
 
+    /** Why a wrong section does not fit THIS rack, naming the tiles that rule it out. */
+    fun missNotes(tiles: List<Tile>, choices: List<HandCategory>, answer: HandCategory): List<String?> =
+        choices.map { if (it == answer) null else missNote(tiles, it) }
+
+    fun missNote(tiles: List<Tile>, choice: HandCategory): String {
+        val ranks = suitedRanks(tiles).sorted()
+        val noNumbers = "This rack has no numbered tiles at all, and ${choice.displayName} is built from numbers."
+        return when (choice) {
+            HandCategory.EVENS_2468 ->
+                if (ranks.isEmpty()) noNumbers
+                else "This rack holds ${plural(ranks.filter { it % 2 != 0 })}, and 2468 never uses an odd number."
+            HandCategory.ODDS_13579 ->
+                if (ranks.isEmpty()) noNumbers
+                else "This rack holds ${plural(ranks.filter { it % 2 == 0 })}, and 13579 never uses an even number."
+            HandCategory.THREE_SIX_NINE -> {
+                val outside = ranks.filter { it % 3 != 0 }
+                when {
+                    ranks.isEmpty() -> noNumbers
+                    outside.isEmpty() -> "There is no 6 here, and 369 needs the 6 to read as anything other than odds."
+                    else -> "This rack holds ${plural(outside)}, and 369 never uses them."
+                }
+            }
+            HandCategory.CONSECUTIVE_RUN ->
+                if (ranks.isEmpty() || tiles.any { it.isHonor }) "A run is all numbers stepping up in order, and this rack is built on winds and dragons."
+                else "The numbers here (${ranks.joinToString(", ")}) skip, and a run steps up with no gaps."
+            HandCategory.WINDS_DRAGONS -> "This rack is full of numbered tiles, and Winds & Dragons is built from winds and dragons."
+            else -> "${choice.displayName}: ${choice.requires}."
+        }
+    }
+
+    /** "5s", "5s and 7s", "1s, 3s and 7s". */
+    private fun plural(ranks: List<Int>): String {
+        val words = ranks.map { "${it}s" }
+        if (words.size <= 1) return words.firstOrNull() ?: ""
+        return words.dropLast(1).joinToString(", ") + " and " + words.last()
+    }
+
     fun explain(tiles: List<Tile>, answer: HandCategory): String {
         val list = suitedRanks(tiles).sorted().joinToString(", ")
         return when (answer) {
             HandCategory.EVENS_2468 -> "Every number on this rack is even ($list), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it."
             HandCategory.ODDS_13579 -> "Every number here is odd ($list). That points straight at 13579, the mirror image of the evens section."
-            HandCategory.THREE_SIX_NINE -> "The rack holds only 3s, 6s and 9s ($list). The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read."
+            HandCategory.THREE_SIX_NINE -> "Every number here is a 3, 6 or 9 ($list). The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read."
             HandCategory.CONSECUTIVE_RUN -> "The numbers step up in order ($list). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run."
             HandCategory.WINDS_DRAGONS -> "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look."
             else -> HandCategory.YEAR.howToSpot
@@ -197,11 +246,14 @@ object CharlestonGenerator {
         }
         if (core.size != 12 || groupLeaders.size < 3) return null
         // The core must read as this section and nothing else (iOS parity).
-        if (RackGenerator.category(core) != section) return null
+        if (RackGenerator.category(core) != section || !RackGenerator.isClean(core, section)) return null
 
         val strays = outsiders(section, 1, source) ?: return null
         val rack = (core + strays).racked
         if (rack.size != 13) return null
+        // The stray must not change what the rack reads as (iOS parity).
+        val fullRead = RackGenerator.category(rack)
+        if ((fullRead != null && fullRead != section) || completesRun(strays[0], core)) return null
 
         val answer = strays[0]
         groupLeaders.shuffleSwift(source)
@@ -212,10 +264,7 @@ object CharlestonGenerator {
         choices.shuffleSwift(source)
 
         val notes = choices.map { tile ->
-            if (tile == answer) null else {
-                val held = rack.count { it == tile }
-                "You are holding $held of the ${tile.spokenName}. Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
-            }
+            if (tile == answer) null else note(tile, rack.count { it == tile })
         }
         return GeneratedPass(rack, section, answer, choices, explain(rack, section, answer), notes)
     }
@@ -246,11 +295,27 @@ object CharlestonGenerator {
         else -> emptyList()
     }
 
+    /** Whether a numbered stray would sit in a three-in-a-row with the core's numbers. */
+    fun completesRun(stray: Tile, core: List<Tile>): Boolean {
+        val rank = (stray as? Tile.Suited)?.rank ?: return false
+        val ranks = core.mapNotNull { (it as? Tile.Suited)?.rank }.toSet() + rank
+        return (rank - 2..rank).any { start -> (start..start + 2).all { it in ranks } }
+    }
+
+    fun note(tile: Tile, held: Int): String {
+        val cost = when {
+            held >= 4 -> "Passing one turns a kong back into a pung"
+            held == 3 -> "Passing one breaks up a pung you have already made"
+            else -> "Passing one splits a pair"
+        }
+        return "You hold $held of the ${tile.spokenName}. $cost, when another tile on this rack costs you nothing."
+    }
+
     fun explain(rack: List<Tile>, section: HandCategory, answer: Tile): String {
         val copies = rack.count { it == answer }
-        val loneness = if (copies == 1) "You hold exactly one of it"
-        else "You hold $copies of it and nothing else that pairs with them"
-        return "This rack is pointed at ${section.displayName}: ${section.requires}. The ${answer.spokenName} fits none of that. $loneness, so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built."
+        val alone = if (copies == 1) "your only single tile"
+        else "$copies of a tile nothing else on the rack works with"
+        return "This rack is pointed at ${section.displayName}. The ${answer.spokenName} is $alone. It might fit some hand, but every other choice is part of a group you have already built, so it is the one tile you can pass without breaking anything. Junk goes on the first pass."
     }
 }
 
@@ -306,7 +371,7 @@ object DefenseGenerator {
 
         val notes = choices.map { tile ->
             if (tile == safe) null
-            else "The ${tile.spokenName} sits squarely inside ${section.displayName}, which is where those exposures point. Late in a hand that is the discard that ends it."
+            else "The ${tile.spokenName} fits ${readingNames(readings)}, which is where those exposures point. Late in a hand it could be the tile that hands them the game."
         }
         return GeneratedDefense(exposures, section, safe, choices, explain(exposures, section, safe), notes)
     }
@@ -352,8 +417,16 @@ object DefenseGenerator {
         return pool.firstOrNull()
     }
 
+    /** "369", or "369 and 13579 (Odds)" when the exposures fit both. */
+    fun readingNames(readings: List<HandCategory>): String = readings.joinToString(" and ") { it.displayName }
+
     fun explain(exposures: List<List<Tile>>, section: HandCategory, safe: Tile): String {
         val shown = exposures.mapNotNull { it.firstOrNull() }.joinToString(" and a pung of ") { it.spokenName }
-        return "A pung of $shown both sit inside ${section.displayName}, so that is the family this player is building. The ${safe.spokenName} cannot belong to it: ${section.requires}. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
+        val readings = sectionsFitting(exposures.mapNotNull { it.firstOrNull() })
+        val read = if (readings.size > 1) "A pung of $shown fit both ${readingNames(readings)}, so read the table both ways."
+        else "A pung of $shown both sit inside ${section.displayName}, so that is the family this player is building."
+        val rank = (safe as? Tile.Suited)?.rank?.toString() ?: safe.spokenName
+        val never = readings.joinToString(", and ") { "${it.displayName} never uses a $rank" }
+        return "$read The ${safe.spokenName} fits none of it: $never. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
     }
 }

@@ -46,11 +46,11 @@ enum ProContent {
         ),
         CharlestonScenario(
             id: "pro-ch-second-stop",
-            situation: "Second Charleston, pass LEFT. Your hand is nearly built with seven 6s. You would rather stop, but the table voted to continue. Pick 3.",
+            situation: "Second Charleston, pass LEFT. Nobody stopped the second Charleston, so it goes ahead. You hold seven 6s across three suits. Pick 3.",
             deal: [.c(6), .c(6), .b(6), .b(6), .b(6), .d(6), .d(6), .c(9), .d(3), .flower, .flower, .wind(.north), .joker],
             recommendedPass: [.c(9), .d(3), .wind(.north)],
-            reasoning: "Seven 6s means Any Like Numbers is almost done, and this is exactly the hand you want to STOP the second Charleston with: extra passing helps the weak hands more than yours. Since it is proceeding, part with the tiles that do nothing for sixes: the lone 9 Crak, 3 Dot, and North. Keep both flowers; they slot into most hands.",
-            tip: "When your hand is ahead after round one, vote to stop the second Charleston. More passing bails out your opponents."
+            reasoning: "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out what does nothing for sixes: the lone 9 Crak, 3 Dot, and North. Keep both flowers, since many hands use them. Next time you are this far ahead after the first Charleston, consider stopping the second: any one player can, and extra passing helps the weaker hands more than yours.",
+            tip: "Any player can stop the second Charleston. When your hand is ahead after round one, stopping it keeps the others from catching up."
         ),
         CharlestonScenario(
             id: "pro-ch-defend-late",

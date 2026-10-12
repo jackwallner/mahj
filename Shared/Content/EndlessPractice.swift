@@ -127,7 +127,7 @@ enum EndlessPractice {
             explanation: rack.explanation,
             sourceLabel: sourceLabel,
             roomID: PracticeSkill.rackReading.roomID,
-            choiceNotes: HandCategory.missNotes(for: rack.choices, answer: rack.answer)
+            choiceNotes: RackGenerator.missNotes(tiles: rack.tiles, choices: rack.choices, answer: rack.answer)
         )
     }
 
@@ -226,7 +226,7 @@ enum EndlessPractice {
     ) -> QuickItem {
         QuickItem(
             id: id,
-            prompt: "First pass, three tiles going right. Which of these can you lose for free?",
+            prompt: "The first pass goes right. Which one of these four costs you nothing to pass?",
             tiles: pass.tiles,
             choices: pass.choices.map(\.spokenName),
             answerIndex: pass.choices.firstIndex(of: pass.answer) ?? 0,

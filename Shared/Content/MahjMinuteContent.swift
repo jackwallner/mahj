@@ -128,14 +128,32 @@ enum MahjMinuteContent {
         trackingID: String,
         distractorSeed: String
     ) -> QuickItem {
-        let scenarios = DrillLibrary.rooms.flatMap { room in
+        let scenarios = allCharlestonScenarios
+        var generator = StableSeededGenerator(seed: seed)
+        let scenario = scenarios[Int(generator.next() % UInt64(scenarios.count))]
+        return authoredCharlestonItem(
+            scenario: scenario, id: id, sourceLabel: sourceLabel,
+            trackingID: trackingID, distractorSeed: distractorSeed
+        )
+    }
+
+    /// Every authored three-tile Charleston pass, in library order.
+    static var allCharlestonScenarios: [CharlestonScenario] {
+        DrillLibrary.rooms.flatMap { room in
             room.drills.flatMap { drill -> [CharlestonScenario] in
                 if case .charleston(let values) = drill.kind { return values }
                 return []
             }
         }
-        var generator = StableSeededGenerator(seed: seed)
-        let scenario = scenarios[Int(generator.next() % UInt64(scenarios.count))]
+    }
+
+    static func authoredCharlestonItem(
+        scenario: CharlestonScenario,
+        id: String,
+        sourceLabel: String,
+        trackingID: String,
+        distractorSeed: String
+    ) -> QuickItem {
         let answer = passLabel(scenario.recommendedPass)
         let distractors = distractorPassLabels(for: scenario, seed: distractorSeed)
         let item = QuickItem(

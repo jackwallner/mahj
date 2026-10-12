@@ -2375,7 +2375,7 @@
                 "F"
               ],
               "id" : "cs-junk",
-              "reasoning" : "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, so the question is which two to keep: hold the 2C and 8D, since even tiles give you a 2468 escape route if the winds dry up. Jokers can never be passed.",
+              "reasoning" : "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keeping the 2 Crak and 8 Dot leaves a thin evens thread if the winds dry up; keeping a 1 or a 9 instead is a fine call too, since most of these tiles will leave on later passes anyway. Jokers can never be passed.",
               "recommendedPass" : [
                 "1D",
                 "9C",
@@ -2618,7 +2618,7 @@
                 "N"
               ],
               "id" : "more-pass-odds",
-              "reasoning" : "Ten odd tiles is a direction, not a coincidence. The two evens and the lone wind are doing nothing for an odds hand, so they go first.",
+              "reasoning" : "Ten odd tiles is a direction, not a coincidence. The 1-2-3-4-5 stretch across Craks and Bams could look like a run, but it leans on the lone 2 and 4, and ten odds is the far stronger read. The two evens and the lone wind are doing nothing for an odds hand, so they go first.",
               "recommendedPass" : [
                 "2C",
                 "4B",
@@ -2734,7 +2734,7 @@
               "id" : "kd-third-flower"
             },
             {
-              "backBody" : "Rebuild the hand around the joker, never the other way. A joker rescues nearly any section (except Singles & Pairs). Re-scan the card for sections where your joker plus your longest tiles fit.",
+              "backBody" : "Rebuild the hand around the joker. A joker rescues nearly any section (except Singles & Pairs). Re-scan the card for sections where your joker plus your longest tiles fit. The one exception comes late, with no way left to win: then a joker is the safest discard you own, because nobody can call it.",
               "backTitle" : "The Joker Stays",
               "choice" : {
                 "answerIndex" : 0,
@@ -2934,7 +2934,7 @@
               "id" : "kd-mahj-call"
             },
             {
-              "backBody" : "Prefer tiles with 3 copies already visible, tiles matching NO exposure on their rack, and tiles others already threw safely. Sometimes the right play is breaking your own hand to avoid throwing their winner.",
+              "backBody" : "Prefer tiles matching NO exposure on their rack, tiles others already threw without anyone calling them, and tiles with 3 copies already visible. Those are safer, not safe: jokers can still finish a group, and a lone tile can be their winner. Sometimes the right play is breaking your own hand to avoid throwing it.",
               "backTitle" : "Throw Dead Tiles",
               "choice" : {
                 "answerIndex" : 1,
@@ -3581,14 +3581,14 @@
                 "J"
               ],
               "id" : "pro-ch-second-stop",
-              "reasoning" : "Seven 6s means Any Like Numbers is almost done, and this is exactly the hand you want to STOP the second Charleston with: extra passing helps the weak hands more than yours. Since it is proceeding, part with the tiles that do nothing for sixes: the lone 9 Crak, 3 Dot, and North. Keep both flowers; they slot into most hands.",
+              "reasoning" : "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out what does nothing for sixes: the lone 9 Crak, 3 Dot, and North. Keep both flowers, since many hands use them. Next time you are this far ahead after the first Charleston, consider stopping the second: any one player can, and extra passing helps the weaker hands more than yours.",
               "recommendedPass" : [
                 "9C",
                 "3D",
                 "N"
               ],
-              "situation" : "Second Charleston, pass LEFT. Your hand is nearly built with seven 6s. You would rather stop, but the table voted to continue. Pick 3.",
-              "tip" : "When your hand is ahead after round one, vote to stop the second Charleston. More passing bails out your opponents."
+              "situation" : "Second Charleston, pass LEFT. Nobody stopped the second Charleston, so it goes ahead. You hold seven 6s across three suits. Pick 3.",
+              "tip" : "Any player can stop the second Charleston. When your hand is ahead after round one, stopping it keeps the others from catching up."
             },
             {
               "deal" : [

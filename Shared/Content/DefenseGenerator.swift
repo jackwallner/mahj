@@ -103,7 +103,7 @@ enum DefenseGenerator {
 
         let notes: [String?] = choices.map { tile in
             guard tile != safe else { return nil }
-            return "The \(tile.spokenName) sits squarely inside \(section.displayName), which is where those exposures point. Late in a hand that is the discard that ends it."
+            return "The \(tile.spokenName) fits \(readingNames(readings)), which is where those exposures point. Late in a hand it could be the tile that hands them the game."
         }
 
         return GeneratedDefense(
@@ -190,8 +190,19 @@ enum DefenseGenerator {
         return nil
     }
 
+    /// "369", or "369 and 13579 (Odds)" when the exposures fit both.
+    static func readingNames(_ readings: [HandCategory]) -> String {
+        readings.map(\.displayName).joined(separator: " and ")
+    }
+
     static func explain(exposures: [[Tile]], section: HandCategory, safe: Tile) -> String {
         let shown = exposures.compactMap(\.first).map(\.spokenName).joined(separator: " and a pung of ")
-        return "A pung of \(shown) both sit inside \(section.displayName), so that is the family this player is building. The \(safe.spokenName) cannot belong to it: \(section.requires). Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
+        let readings = sectionsFitting(exposures.compactMap(\.first))
+        let read = readings.count > 1
+            ? "A pung of \(shown) fit both \(readingNames(readings)), so read the table both ways."
+            : "A pung of \(shown) both sit inside \(section.displayName), so that is the family this player is building."
+        let rank = rank(of: safe).map(String.init) ?? safe.spokenName
+        let never = readings.map { "\($0.displayName) never uses a \(rank)" }.joined(separator: ", and ")
+        return "\(read) The \(safe.spokenName) fits none of it: \(never). Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
     }
 }

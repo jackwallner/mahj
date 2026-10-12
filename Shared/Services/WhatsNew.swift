@@ -9,13 +9,17 @@ struct WhatsNewItem: Identifiable, Sendable {
     /// Marks the line as membership content, so the sheet can badge it and a
     /// free player can see exactly what the upgrade would hand them.
     let isPlus: Bool
+    /// iOS-only lines are left out of the Android content export, so the
+    /// Play build never announces a feature it does not have yet.
+    let isAppleOnly: Bool
 
-    init(id: String, icon: String, title: String, body: String, isPlus: Bool = false) {
+    init(id: String, icon: String, title: String, body: String, isPlus: Bool = false, isAppleOnly: Bool = false) {
         self.id = id
         self.icon = icon
         self.title = title
         self.body = body
         self.isPlus = isPlus
+        self.isAppleOnly = isAppleOnly
     }
 }
 
@@ -48,7 +52,8 @@ enum WhatsNew {
                     id: "monthly-challenge",
                     icon: "calendar",
                     title: "A new challenge every month",
-                    body: "Twelve questions, the same for every player, free for everyone. Your first run is the one that counts, so share your score."
+                    body: "Twelve questions, the same for every player, free for everyone. Your first run is the one that counts, so share your score.",
+                    isAppleOnly: true
                 ),
                 WhatsNewItem(
                     id: "week-gain",

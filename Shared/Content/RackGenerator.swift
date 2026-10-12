@@ -80,6 +80,21 @@ enum RackGenerator {
         }
     }
 
+    /// Shapes that read as a section on paper but invite a second read at a
+    /// real table, so a generated rack never shows them:
+    /// - more than five of one number across the suits reads as Like Numbers
+    ///   (seven 5s is a like-numbers start whatever else is on the rack);
+    /// - an odds rack of nothing but 3s and 9s reads as 369 just as well.
+    static func isClean(_ tiles: [Tile], for section: HandCategory) -> Bool {
+        var counts: [Int: Int] = [:]
+        for tile in tiles {
+            if case .suited(let rank, _) = tile { counts[rank, default: 0] += 1 }
+        }
+        if (counts.values.max() ?? 0) > 5 { return false }
+        if section == .odds13579, Set(counts.keys).isSubset(of: [3, 9]) { return false }
+        return true
+    }
+
     /// The one section a rack reads as, or nil if it reads as none or several.
     static func category(for tiles: [Tile]) -> HandCategory? {
         let matches = generatableCategories.filter { fits(tiles, $0) }
@@ -157,7 +172,8 @@ enum RackGenerator {
         using generator: inout R
     ) -> GeneratedRack? {
         for _ in 0..<attempts {
-            guard let tiles = deal(target, using: &generator), category(for: tiles) == target else { continue }
+            guard let tiles = deal(target, using: &generator), category(for: tiles) == target,
+                  isClean(tiles, for: target) else { continue }
             // Distractors must be sections this rack does NOT read as, or the
             // question would have two right answers.
             var distractors = generatableCategories
@@ -213,6 +229,49 @@ enum RackGenerator {
 
     // MARK: - Explanation
 
+    /// Why a wrong section does not fit THIS rack, naming the tiles that rule
+    /// it out. A fixed line per section was often untrue for the rack on
+    /// screen ("a single odd tile" on a rack with no numbers at all).
+    static func missNotes(tiles: [Tile], choices: [HandCategory], answer: HandCategory) -> [String?] {
+        choices.map { choice in choice == answer ? nil : missNote(tiles: tiles, choice: choice) }
+    }
+
+    static func missNote(tiles: [Tile], choice: HandCategory) -> String {
+        let ranks = suitedRanks(tiles).sorted()
+        let noNumbers = "This rack has no numbered tiles at all, and \(choice.displayName) is built from numbers."
+        switch choice {
+        case .evens2468:
+            if ranks.isEmpty { return noNumbers }
+            let odd = ranks.filter { !$0.isMultiple(of: 2) }
+            return "This rack holds \(plural(odd)), and 2468 never uses an odd number."
+        case .odds13579:
+            if ranks.isEmpty { return noNumbers }
+            let even = ranks.filter { $0.isMultiple(of: 2) }
+            return "This rack holds \(plural(even)), and 13579 never uses an even number."
+        case .threeSixNine:
+            if ranks.isEmpty { return noNumbers }
+            let outside = ranks.filter { $0 % 3 != 0 }
+            if outside.isEmpty { return "There is no 6 here, and 369 needs the 6 to read as anything other than odds." }
+            return "This rack holds \(plural(outside)), and 369 never uses them."
+        case .consecutiveRun:
+            if ranks.isEmpty || hasHonors(tiles) {
+                return "A run is all numbers stepping up in order, and this rack is built on winds and dragons."
+            }
+            return "The numbers here (\(ranks.map(String.init).joined(separator: ", "))) skip, and a run steps up with no gaps."
+        case .windsDragons:
+            return "This rack is full of numbered tiles, and Winds & Dragons is built from winds and dragons."
+        default:
+            return "\(choice.displayName): \(choice.requires)."
+        }
+    }
+
+    /// "5s", "5s and 7s", "1s, 3s and 7s".
+    private static func plural(_ ranks: [Int]) -> String {
+        let words = ranks.map { "\($0)s" }
+        guard words.count > 1 else { return words.first ?? "" }
+        return words.dropLast().joined(separator: ", ") + " and " + words[words.count - 1]
+    }
+
     static func explain(_ tiles: [Tile], answer: HandCategory) -> String {
         let ranks = suitedRanks(tiles).sorted()
         let list = ranks.map(String.init).joined(separator: ", ")
@@ -223,7 +282,7 @@ enum RackGenerator {
         case .odds13579:
             return "Every number here is odd (\(list)). That points straight at 13579, the mirror image of the evens section."
         case .threeSixNine:
-            return "The rack holds only 3s, 6s and 9s (\(list)). The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read."
+            return "Every number here is a 3, 6 or 9 (\(list)). The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read."
         case .consecutiveRun:
             return "The numbers step up in order (\(list)). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run."
         case .windsDragons:

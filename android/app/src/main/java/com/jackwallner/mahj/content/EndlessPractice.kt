@@ -61,7 +61,7 @@ object EndlessPractice {
             explanation = rack.explanation,
             sourceLabel = "Endless Practice",
             roomID = PracticeSkill.RACK_READING.roomID,
-            choiceNotes = HandCategory.missNotes(rack.choices, rack.answer),
+            choiceNotes = RackGenerator.missNotes(rack.tiles, rack.choices, rack.answer),
         )
     }
 
@@ -134,7 +134,7 @@ object EndlessPractice {
     private fun passItems(count: Int): List<QuickItem> = CharlestonGenerator.batch(count).map { pass ->
         QuickItem(
             id = newID(PracticeSkill.CHARLESTON_PASS),
-            prompt = "First pass, three tiles going right. Which of these can you lose for free?",
+            prompt = "The first pass goes right. Which one of these four costs you nothing to pass?",
             tiles = pass.tiles,
             choices = pass.choices.map { it.spokenName },
             answerIndex = pass.choices.indexOf(pass.answer).coerceAtLeast(0),

@@ -29,7 +29,7 @@ enum KeepDiscardContent {
             frontTiles: [.joker],
             frontSubtitle: "Bail on the hand or the joker?",
             backTitle: "The Joker Stays",
-            backBody: "Rebuild the hand around the joker, never the other way. A joker rescues nearly any section (except Singles & Pairs). Re-scan the card for sections where your joker plus your longest tiles fit.",
+            backBody: "Rebuild the hand around the joker. A joker rescues nearly any section (except Singles & Pairs). Re-scan the card for sections where your joker plus your longest tiles fit. The one exception comes late, with no way left to win: then a joker is the safest discard you own, because nobody can call it.",
             choice: CardChoice("Rebuild around the joker", "Toss the joker", answerIndex: 0)
         ),
         Flashcard(
@@ -124,7 +124,7 @@ enum KeepDiscardContent {
             frontTitle: "It's late, one opponent is clearly close.",
             frontSubtitle: "How do you pick a discard?",
             backTitle: "Throw Dead Tiles",
-            backBody: "Prefer tiles with 3 copies already visible, tiles matching NO exposure on their rack, and tiles others already threw safely. Sometimes the right play is breaking your own hand to avoid throwing their winner.",
+            backBody: "Prefer tiles matching NO exposure on their rack, tiles others already threw without anyone calling them, and tiles with 3 copies already visible. Those are safer, not safe: jokers can still finish a group, and a lone tile can be their winner. Sometimes the right play is breaking your own hand to avoid throwing it.",
             choice: CardChoice("Gut feel is fine", "Throw dead tiles", answerIndex: 1)
         ),
     ]

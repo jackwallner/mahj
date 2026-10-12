@@ -98,7 +98,8 @@ enum CharlestonGenerator {
         // dealt without a 6 is just 3s and 9s, which reads as odds too, and an
         // odd stray then fits the hand: two right answers. A run core that
         // spans only two numbers is not a run at all.
-        guard RackGenerator.category(for: core) == section else { return nil }
+        guard RackGenerator.category(for: core) == section,
+              RackGenerator.isClean(core, for: section) else { return nil }
 
         // Exactly one stray. A second one used to ride along to make the rack
         // look like a real pre-Charleston mess, but only the first was ever
@@ -108,6 +109,12 @@ enum CharlestonGenerator {
         guard let strays = outsiders(for: section, count: 1, using: &generator) else { return nil }
         let rack = (core + strays).racked
         guard rack.count == 13 else { return nil }
+        // The stray must not change what the rack reads as. A 3 Dot beside
+        // 2s and 4s turns an evens rack into a run, and then the "junk" tile
+        // is the keystone. Any three-in-a-row it completes is the same trap.
+        let fullRead = RackGenerator.category(for: rack)
+        guard fullRead == nil || fullRead == section,
+              !completesRun(strays[0], core: core) else { return nil }
 
         let answer = strays[0]
         groupLeaders.shuffle(using: &generator)
@@ -119,8 +126,7 @@ enum CharlestonGenerator {
 
         let notes: [String?] = choices.map { tile in
             guard tile != answer else { return nil }
-            let held = rack.filter { $0 == tile }.count
-            return "You are holding \(held) of the \(tile.spokenName). Passing one breaks a group you have already built, and you would have to rebuild it from a suit somebody else may be collecting."
+            return note(passing: tile, held: rack.filter { $0 == tile }.count)
         }
 
         return GeneratedPass(
@@ -203,11 +209,34 @@ enum CharlestonGenerator {
         }
     }
 
+    /// Whether a numbered stray would sit in a three-in-a-row with the core's
+    /// numbers, any suits. Honors never do.
+    static func completesRun(_ stray: Tile, core: [Tile]) -> Bool {
+        guard case .suited(let rank, _) = stray else { return false }
+        let ranks = Set(core.compactMap { tile -> Int? in
+            if case .suited(let value, _) = tile { return value }
+            return nil
+        } + [rank])
+        return (rank - 2...rank).contains { start in
+            (start...start + 2).allSatisfy { ranks.contains($0) }
+        }
+    }
+
+    static func note(passing tile: Tile, held: Int) -> String {
+        let cost: String
+        switch held {
+        case 4...: cost = "Passing one turns a kong back into a pung"
+        case 3: cost = "Passing one breaks up a pung you have already made"
+        default: cost = "Passing one splits a pair"
+        }
+        return "You hold \(held) of the \(tile.spokenName). \(cost), when another tile on this rack costs you nothing."
+    }
+
     static func explain(rack: [Tile], section: HandCategory, answer: Tile) -> String {
         let copies = rack.filter { $0 == answer }.count
-        let loneness = copies == 1
-            ? "You hold exactly one of it"
-            : "You hold \(copies) of it and nothing else that pairs with them"
-        return "This rack is pointed at \(section.displayName): \(section.requires). The \(answer.spokenName) fits none of that. \(loneness), so it is the tile you can lose for free, and the first pass is where junk should go. Every other tile here is already part of a group you have built."
+        let alone = copies == 1
+            ? "your only single tile"
+            : "\(copies) of a tile nothing else on the rack works with"
+        return "This rack is pointed at \(section.displayName). The \(answer.spokenName) is \(alone). It might fit some hand, but every other choice is part of a group you have already built, so it is the one tile you can pass without breaking anything. Junk goes on the first pass."
     }
 }

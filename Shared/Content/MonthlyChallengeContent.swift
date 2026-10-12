@@ -82,6 +82,14 @@ enum MonthlyChallengeContent {
         kind: .quiz([])
     )
 
+    /// How many earlier months have shared this month's theme since the
+    /// rotation began (negative before it), for the authored rotation.
+    static func round(year: Int, month: Int) -> Int {
+        let offset = (year * 12 + (month - 1)) - rotationAnchor
+        let cases = MonthlyChallengeTheme.allCases.count
+        return offset >= 0 ? offset / cases : -((-offset + cases - 1) / cases)
+    }
+
     static func theme(year: Int, month: Int) -> MonthlyChallengeTheme {
         let offset = (year * 12 + (month - 1)) - rotationAnchor
         let cases = MonthlyChallengeTheme.allCases
@@ -124,7 +132,7 @@ enum MonthlyChallengeContent {
             theme: theme,
             start: start,
             end: end,
-            items: items(theme: theme, monthKey: monthKey, label: "\(monthName) Challenge")
+            items: items(theme: theme, monthKey: monthKey, label: "\(monthName) Challenge", round: round(year: year, month: month))
         )
     }
 
@@ -145,7 +153,7 @@ enum MonthlyChallengeContent {
 
     /// Which skill row an item counts toward on the result screen.
     static func skill(of item: QuickItem) -> MonthlyChallengeTheme {
-        if item.id.hasPrefix(PracticeSkill.rackReading.itemPrefix) { return .rackReading }
+        if item.id.hasPrefix(PracticeSkill.rackReading.itemPrefix) || item.roomID == "card-room" { return .rackReading }
         if item.id.hasPrefix(PracticeSkill.charlestonPass.itemPrefix) || item.roomID == "charleston-room" {
             return .charleston
         }
@@ -171,48 +179,46 @@ enum MonthlyChallengeContent {
         return months
     }
 
-    private static func items(theme: MonthlyChallengeTheme, monthKey: String, label: String) -> [QuickItem] {
+    /// Twelve questions, easiest first: five generated on the theme
+    /// interleaved with two of each other skill, then three hand-written
+    /// questions on the theme to close. Generated questions are picked so no
+    /// two in a month share a shape, and the hand-written ones rotate through
+    /// their pool so a theme does not repeat one until the pool is used up.
+    private static func items(theme: MonthlyChallengeTheme, monthKey: String, label: String, round: Int) -> [QuickItem] {
         let seed = "monthly-\(monthKey)"
-        func counts(_ skill: MonthlyChallengeTheme) -> Int { skill == theme ? 6 : 2 }
+        func count(_ skill: MonthlyChallengeTheme) -> Int { skill == theme ? 5 : 2 }
 
-        let racks = RackGenerator.batch(count: counts(.rackReading), seed: "\(seed)-racks")
-            .enumerated().map { index, rack in
-                EndlessPractice.rackItem(
-                    rack,
-                    id: PracticeSkill.rackReading.itemPrefix + "\(seed)-\(index)",
-                    sourceLabel: label
-                )
-            }
-        let passes = CharlestonGenerator.batch(count: counts(.charleston), seed: "\(seed)-passes")
-            .enumerated().map { index, pass in
-                EndlessPractice.passItem(
-                    pass,
-                    id: PracticeSkill.charlestonPass.itemPrefix + "\(seed)-\(index)",
-                    sourceLabel: label
-                )
-            }
-        let defense = DefenseGenerator.batch(count: counts(.defense), seed: "\(seed)-defense")
-            .enumerated().map { index, question in
-                EndlessPractice.defenseItem(
-                    question,
-                    id: PracticeSkill.defense.itemPrefix + "\(seed)-\(index)",
-                    sourceLabel: label
-                )
-            }
-        let authored = theme == .charleston
-            ? (0..<2).map { index in
-                MahjMinuteContent.authoredCharlestonItem(
-                    seed: "\(seed)-charleston-\(index)",
-                    id: "monthly-charleston-\(monthKey)-\(index)",
-                    sourceLabel: label,
-                    trackingID: "monthly-charleston",
-                    distractorSeed: "\(seed)-\(index)"
-                )
-            }
-            : tableItems(seed: seed).map { relabeled($0, label) }
+        let racks = distinct(
+            RackGenerator.batch(count: count(.rackReading) * 3, seed: "\(seed)-racks")
+                // An all-honors rack is free points; a themed month gets one at most.
+                .filter { theme == .rackReading || $0.answer != .windsDragons },
+            by: { "\($0.answer)" },
+            count: count(.rackReading)
+        ).enumerated().map { index, rack in
+            EndlessPractice.rackItem(rack, id: PracticeSkill.rackReading.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
+        }
+        let passes = distinct(
+            CharlestonGenerator.batch(count: count(.charleston) * 3, seed: "\(seed)-passes"),
+            by: { "\($0.section)" },
+            count: count(.charleston)
+        ).enumerated().map { index, pass in
+            EndlessPractice.passItem(pass, id: PracticeSkill.charlestonPass.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
+        }
+        let defense = distinct(
+            DefenseGenerator.batch(count: count(.defense) * 3, seed: "\(seed)-defense"),
+            by: { question in
+                question.exposures.compactMap(\.first).compactMap { tile -> Int? in
+                    if case .suited(let rank, _) = tile { return rank }
+                    return nil
+                }.sorted().map(String.init).joined(separator: "-")
+            },
+            count: count(.defense)
+        ).enumerated().map { index, question in
+            EndlessPractice.defenseItem(question, id: PracticeSkill.defense.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
+        }
 
         // Generated ids are one-off, so they never land in Fix My Mistakes.
-        let generated = (racks + passes + defense).map { item in
+        func oneOff(_ item: QuickItem) -> QuickItem {
             SessionBuilder.prepared(QuickItem(
                 id: item.id,
                 prompt: item.prompt,
@@ -227,8 +233,85 @@ enum MonthlyChallengeContent {
                 choiceNotes: item.choiceNotes
             ))
         }
-        let all = generated + authored
-        return ChoiceShuffle.permutation(count: all.count, seed: "\(seed)-order").map { all[$0] }
+        let byTheme: [MonthlyChallengeTheme: [QuickItem]] = [
+            .rackReading: racks.map(oneOff),
+            .charleston: passes.map(oneOff),
+            .defense: defense.map(oneOff),
+        ]
+        let others = MonthlyChallengeTheme.allCases.filter { $0 != theme }
+        let onTheme = byTheme[theme] ?? []
+        let first = byTheme[others[0]] ?? []
+        let second = byTheme[others[1]] ?? []
+
+        // T A T B T A T B T, then the authored three.
+        var ordered: [QuickItem] = []
+        let pattern: [(MonthlyChallengeTheme, Int)] = [
+            (theme, 0), (others[0], 0), (theme, 1), (others[1], 0), (theme, 2),
+            (others[0], 1), (theme, 3), (others[1], 1), (theme, 4),
+        ]
+        for (skill, index) in pattern {
+            let list = skill == theme ? onTheme : (skill == others[0] ? first : second)
+            if list.indices.contains(index) { ordered.append(list[index]) }
+        }
+        return ordered + authored(theme: theme, monthKey: monthKey, label: label, round: round)
+    }
+
+    /// Picks `count` items with distinct keys where the batch allows, then
+    /// tops up with repeats rather than coming back short.
+    private static func distinct<T>(_ items: [T], by key: (T) -> String, count: Int) -> [T] {
+        var seen: Set<String> = []
+        var picked: [T] = []
+        var rest: [T] = []
+        for item in items {
+            if picked.count < count, seen.insert(key(item)).inserted { picked.append(item) } else { rest.append(item) }
+        }
+        return picked + rest.prefix(max(0, count - picked.count))
+    }
+
+    /// The hand-written closers, rotating through each theme's pool.
+    private static func authored(theme: MonthlyChallengeTheme, monthKey: String, label: String, round: Int) -> [QuickItem] {
+        let count = 3
+        switch theme {
+        case .charleston:
+            let scenarios = MahjMinuteContent.allCharlestonScenarios
+            return rotation(poolSize: scenarios.count, seed: "monthly-charleston-pool", round: round, count: count).map { index in
+                MahjMinuteContent.authoredCharlestonItem(
+                    scenario: scenarios[index],
+                    id: "monthly-charleston-\(monthKey)-\(index)",
+                    sourceLabel: label,
+                    trackingID: "monthly-charleston",
+                    distractorSeed: "monthly-\(monthKey)-\(index)"
+                )
+            }
+        case .defense:
+            let pool = SessionBuilder.choiceItems(in: "table-room", includePro: true)
+            let pick = defenseItemIDs.compactMap { id in pool.first { $0.id == id } }
+            return rotation(poolSize: pick.count, seed: "monthly-defense-pool", round: round, count: count)
+                .map { relabeled(SessionBuilder.prepared(pick[$0]), label) }
+        case .rackReading:
+            let pool = SessionBuilder.choiceItems(in: "card-room", includePro: true)
+                .filter { $0.prompt == "Which section is this rack chasing?" }
+            return rotation(poolSize: pool.count, seed: "monthly-rack-pool", round: round, count: count)
+                .map { relabeled(SessionBuilder.prepared(pool[$0]), label) }
+        }
+    }
+
+    /// Hand-written table questions that are about defense: reading a
+    /// table, picking a safe discard, counting what is live.
+    static let defenseItemIDs = [
+        "more-table-safe-discard", "more-table-exposure-read", "kd-hot-late",
+        "plus-kd-safe-discard", "kd-exposed-pung", "plus-kd-fourth-tile",
+        "kd-dead-joker", "plus-kd-count-tiles", "more-judge-third-copy",
+        "kd-flower-vs-wind", "plus-kd-lone-wind", "more-judge-lone-wind",
+    ]
+
+    /// Round `round` of a fixed shuffle of the pool: consecutive slices, so
+    /// nothing repeats until every item has been used once.
+    private static func rotation(poolSize: Int, seed: String, round: Int, count: Int) -> [Int] {
+        guard poolSize > 0 else { return [] }
+        let order = ChoiceShuffle.permutation(count: poolSize, seed: seed)
+        let start = ((round * count) % poolSize + poolSize) % poolSize
+        return (0..<min(count, poolSize)).map { order[(start + $0) % poolSize] }
     }
 
     /// Authored items keep their id and grading; only the eyebrow changes, so
@@ -247,11 +330,5 @@ enum MonthlyChallengeContent {
             isReviewable: item.isReviewable,
             choiceNotes: item.choiceNotes
         )
-    }
-
-    private static func tableItems(seed: String) -> [QuickItem] {
-        let pool = SessionBuilder.choiceItems(in: "table-room", includePro: true)
-        let indices = ChoiceShuffle.permutation(count: pool.count, seed: "\(seed)-table")
-        return indices.prefix(2).map { SessionBuilder.prepared(pool[$0]) }
     }
 }
