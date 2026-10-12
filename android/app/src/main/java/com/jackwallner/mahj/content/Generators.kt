@@ -151,27 +151,61 @@ object RackGenerator {
 
     fun missNote(tiles: List<Tile>, choice: HandCategory): String {
         val ranks = suitedRanks(tiles).sorted()
+        val generic = "${choice.displayName}: ${choice.requires}."
         val noNumbers = "This rack has no numbered tiles at all, and ${choice.displayName} is built from numbers."
         return when (choice) {
-            HandCategory.EVENS_2468 ->
-                if (ranks.isEmpty()) noNumbers
-                else "This rack holds ${plural(ranks.filter { it % 2 != 0 })}, and 2468 never uses an odd number."
-            HandCategory.ODDS_13579 ->
-                if (ranks.isEmpty()) noNumbers
-                else "This rack holds ${plural(ranks.filter { it % 2 == 0 })}, and 13579 never uses an even number."
+            HandCategory.EVENS_2468 -> {
+                val odd = ranks.filter { it % 2 != 0 }
+                when {
+                    ranks.isEmpty() -> noNumbers
+                    odd.isEmpty() -> generic
+                    else -> "This rack holds ${plural(odd)}, and a finished 2468 hand never uses an odd number."
+                }
+            }
+            HandCategory.ODDS_13579 -> {
+                val even = ranks.filter { it % 2 == 0 }
+                when {
+                    ranks.isEmpty() -> noNumbers
+                    even.isEmpty() -> generic
+                    else -> "This rack holds ${plural(even)}, and a finished 13579 hand never uses an even number."
+                }
+            }
             HandCategory.THREE_SIX_NINE -> {
                 val outside = ranks.filter { it % 3 != 0 }
                 when {
                     ranks.isEmpty() -> noNumbers
-                    outside.isEmpty() -> "There is no 6 here, and 369 needs the 6 to read as anything other than odds."
-                    else -> "This rack holds ${plural(outside)}, and 369 never uses them."
+                    outside.isNotEmpty() -> "This rack holds ${plural(outside)}, and a finished 369 hand never uses them."
+                    6 in ranks -> generic
+                    else -> "There is no 6 here, and 369 needs the 6 to read as anything other than odds."
                 }
             }
-            HandCategory.CONSECUTIVE_RUN ->
-                if (ranks.isEmpty() || tiles.any { it.isHonor }) "A run is all numbers stepping up in order, and this rack is built on winds and dragons."
-                else "The numbers here (${ranks.joinToString(", ")}) skip, and a run steps up with no gaps."
-            HandCategory.WINDS_DRAGONS -> "This rack is full of numbered tiles, and Winds & Dragons is built from winds and dragons."
-            else -> "${choice.displayName}: ${choice.requires}."
+            HandCategory.CONSECUTIVE_RUN -> when {
+                ranks.isEmpty() -> "A run is all numbers stepping up in order, and this rack has no numbered tiles."
+                ranks.size < 3 -> "A run needs three or more numbers in a row, and this rack only has ${plural(ranks)}."
+                ranks.last() - ranks.first() != ranks.size - 1 -> "The numbers here (${ranks.joinToString(", ")}) skip, and a run steps up with no gaps."
+                else -> generic
+            }
+            HandCategory.WINDS_DRAGONS -> {
+                val suited = tiles.count { it is Tile.Suited }
+                val honors = tiles.count { it.isHonor }
+                if (suited > honors) "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons." else generic
+            }
+            HandCategory.LIKE_NUMBERS -> when {
+                ranks.isEmpty() -> noNumbers
+                ranks.size >= 3 -> "Like Numbers repeats one number across the suits, and this rack spreads across ${plural(ranks)}."
+                else -> generic
+            }
+            HandCategory.YEAR ->
+                if (Tile.DragonTile(Dragon.SOAP) in tiles) generic else "A year hand uses Soaps for its zeros, and this rack has none."
+            HandCategory.QUINTS -> {
+                val jokers = tiles.count { it == Tile.Joker }
+                if (jokers < 2) "Quints need five of a kind, which takes jokers, and this rack has ${if (jokers == 0) "none" else "just one"}." else generic
+            }
+            HandCategory.SINGLES_AND_PAIRS -> {
+                val pung = tiles.filter { it != Tile.Joker }.groupingBy { it }.eachCount()
+                    .filter { it.value >= 3 }.keys.sortedBy { it.spokenName }.firstOrNull()
+                if (pung != null) "This rack holds three or more ${pung.spokenName}, and Singles & Pairs never uses a pung." else generic
+            }
         }
     }
 
@@ -187,7 +221,7 @@ object RackGenerator {
         return when (answer) {
             HandCategory.EVENS_2468 -> "Every number on this rack is even ($list), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it."
             HandCategory.ODDS_13579 -> "Every number here is odd ($list). That points straight at 13579, the mirror image of the evens section."
-            HandCategory.THREE_SIX_NINE -> "Every number here is a 3, 6 or 9 ($list). The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read."
+            HandCategory.THREE_SIX_NINE -> "Every number here is a 3, 6 or 9. The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read."
             HandCategory.CONSECUTIVE_RUN -> "The numbers step up in order ($list). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run."
             HandCategory.WINDS_DRAGONS -> "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look."
             else -> HandCategory.YEAR.howToSpot
@@ -423,10 +457,16 @@ object DefenseGenerator {
     fun explain(exposures: List<List<Tile>>, section: HandCategory, safe: Tile): String {
         val shown = exposures.mapNotNull { it.firstOrNull() }.joinToString(" and a pung of ") { it.spokenName }
         val readings = sectionsFitting(exposures.mapNotNull { it.firstOrNull() })
-        val read = if (readings.size > 1) "A pung of $shown fit both ${readingNames(readings)}, so read the table both ways."
+        val exposedRanks = exposures.mapNotNull { (it.firstOrNull() as? Tile.Suited)?.rank }
+        // Pungs within five numbers can also sit in a run (iOS parity).
+        val runPossible = (exposedRanks.maxOrNull() ?: 0) - (exposedRanks.minOrNull() ?: 0) <= 4
+        var read = if (readings.size > 1) "A pung of $shown fit both ${readingNames(readings)}, so read the table both ways."
         else "A pung of $shown both sit inside ${section.displayName}, so that is the family this player is building."
-        val rank = (safe as? Tile.Suited)?.rank?.toString() ?: safe.spokenName
-        val never = readings.joinToString(", and ") { "${it.displayName} never uses a $rank" }
-        return "$read The ${safe.spokenName} fits none of it: $never. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
+        if (runPossible) read += " Pungs that close could also be part of a Consecutive Run."
+        val value = (safe as? Tile.Suited)?.rank ?: 0
+        val article = if (value == 8) "an" else "a"
+        val never = readings.map { "${it.displayName} never uses $article $value" }.toMutableList()
+        if (runPossible) never += "no run through both of them reaches $article $value"
+        return "$read The ${safe.spokenName} fits none of it: ${never.joinToString(", and ")}. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
     }
 }

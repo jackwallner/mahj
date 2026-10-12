@@ -81,7 +81,7 @@ object MahjMinuteContent {
         val answer = passLabel(scenario.recommendedPass)
         val item = QuickItem(
             id = "mahj-minute-charleston-$dayKey",
-            prompt = "${scenario.situation} Which three tiles make the strongest pass?",
+            prompt = "${scenario.situation.replace(" Pick 3.", "")} Which three tiles make the strongest pass?",
             tiles = scenario.deal.racked,
             choices = listOf(answer) + distractorPassLabels(scenario, dayKey),
             answerIndex = 0,

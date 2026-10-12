@@ -228,7 +228,7 @@ enum SessionBuilder {
                             explanation: question.explanation,
                             sourceLabel: room.name,
                             roomID: room.id,
-                            choiceNotes: HandCategory.missNotes(for: question.choices, answer: question.answer)
+                            choiceNotes: RackGenerator.missNotes(tiles: question.tiles, choices: question.choices, answer: question.answer)
                         )
                     }
                 case .flashcards(let cards):

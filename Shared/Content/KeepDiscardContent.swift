@@ -91,7 +91,7 @@ enum KeepDiscardContent {
             frontTiles: [.flower, .wind(.east)],
             frontSubtitle: "Which is safer?",
             backTitle: "Throw the Wind",
-            backBody: "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. A North fits only a player collecting Norths, and only three others exist. Early, the lone wind is the far narrower gift.",
+            backBody: "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. An East fits only a player collecting Easts, and only three others exist. Early, the lone wind is the far narrower gift.",
             choice: CardChoice("Throw the flower", "Throw the wind", answerIndex: 1)
         ),
         Flashcard(

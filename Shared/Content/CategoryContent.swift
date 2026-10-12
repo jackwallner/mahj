@@ -163,7 +163,7 @@ enum CategoryContent {
         HandMatchQuestion(
             id: "hm-odds",
             tiles: [.b(1), .b(1), .b(3), .b(3), .b(5), .b(5), .c(7), .c(9), .c(9), .flower, .d(2), .joker, .wind(.north)],
-            choices: [.odds13579, .singlesAndPairs, .evens2468, .quints],
+            choices: [.odds13579, .threeSixNine, .evens2468, .quints],
             answer: .odds13579,
             explanation: "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2D and lone wind are your first passes."
         ),

@@ -127,7 +127,7 @@ object SessionBuilder {
                             explanation = question.explanation,
                             sourceLabel = room.name,
                             roomID = room.id,
-                            choiceNotes = HandCategory.missNotes(question.choices, question.answer),
+                            choiceNotes = RackGenerator.missNotes(question.tiles, question.choices, question.answer),
                         )
                     }
                     is DrillKind.Flashcards -> pool += kind.cards.mapNotNull { card ->

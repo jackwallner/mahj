@@ -209,6 +209,86 @@ enum CharlestonGenerator {
         }
     }
 
+    // MARK: - Two singles (the monthly challenge)
+
+    /// The harder shape: the rack holds TWO single tiles, one that fits the
+    /// section and one that does not, so the question is reading the hand
+    /// rather than counting copies. iOS only for now; the Android port has no
+    /// monthly challenge to use it.
+    static func twoSinglesBatch(count: Int, seed: String) -> [GeneratedPass] {
+        var generator = StableSeededGenerator(seed: seed)
+        return (0..<count).compactMap { _ in
+            for _ in 0..<300 {
+                guard let section = twoSinglesSections.randomElement(using: &generator),
+                      let built = buildTwoSingles(section: section, using: &generator) else { continue }
+                return built
+            }
+            return nil
+        }
+    }
+
+    /// Runs are left out: their only clean stray is an honor, and an honor
+    /// against a number single is a judgment call, not a reading question.
+    private static let twoSinglesSections: [HandCategory] = [.evens2468, .odds13579, .threeSixNine, .windsDragons]
+
+    private static let twoSinglesPartitions: [[Int]] = [
+        [3, 3, 3, 2, 1],
+        [4, 3, 2, 2, 1],
+        [4, 4, 3, 1],
+    ]
+
+    private static func buildTwoSingles<R: RandomNumberGenerator>(
+        section: HandCategory,
+        using generator: inout R
+    ) -> GeneratedPass? {
+        var palette = inPalette(for: section, using: &generator)
+        palette.shuffle(using: &generator)
+        guard let partition = twoSinglesPartitions.randomElement(using: &generator),
+              palette.count >= partition.count else { return nil }
+        var core: [Tile] = []
+        var groupLeaders: [Tile] = []
+        var keeper: Tile?
+        for size in partition {
+            let tile = palette.removeFirst()
+            core += Array(repeating: tile, count: size)
+            if size >= 3 { groupLeaders.append(tile) }
+            if size == 1 { keeper = tile }
+        }
+        guard let keeper, core.count == 12, groupLeaders.count >= 2,
+              RackGenerator.category(for: core) == section,
+              RackGenerator.isClean(core, for: section) else { return nil }
+
+        // A number stray for number sections: an honor against a number
+        // single invites "dragons go in number hands too", which is a fair
+        // argument and therefore a bad question.
+        var pool: [Tile] = (1...9).flatMap { rank in Suit.allCases.map { Tile.suited(rank: rank, suit: $0) } }
+        if section != .windsDragons {
+            let fitting = Set(inPaletteRanks(section))
+            pool = pool.filter { tile in
+                if case .suited(let rank, _) = tile { return !fitting.contains(rank) }
+                return false
+            }
+        }
+        pool.shuffle(using: &generator)
+        guard let stray = pool.first(where: { !completesRun($0, core: core) }) else { return nil }
+        let rack = (core + [stray]).racked
+        let fullRead = RackGenerator.category(for: rack)
+        guard fullRead == nil || fullRead == section else { return nil }
+
+        groupLeaders.shuffle(using: &generator)
+        var choices = [stray, keeper] + Array(groupLeaders.prefix(2))
+        choices.shuffle(using: &generator)
+        let notes: [String?] = choices.map { tile in
+            if tile == stray { return nil }
+            if tile == keeper {
+                return "The \(keeper.spokenName) is a single too, but it fits \(section.displayName): one more draw makes it a pair. The \(stray.spokenName) has no place in this hand."
+            }
+            return note(passing: tile, held: rack.filter { $0 == tile }.count)
+        }
+        let explanation = "This rack is pointed at \(section.displayName), and two tiles are singles. The \(keeper.spokenName) fits that plan and can still grow into a pair or a pung. The \(stray.spokenName) does not fit it at all, so it is the one to pass. Keep the single that can still help."
+        return GeneratedPass(tiles: rack, section: section, answer: stray, choices: choices, explanation: explanation, choiceNotes: notes)
+    }
+
     /// Whether a numbered stray would sit in a three-in-a-row with the core's
     /// numbers, any suits. Honors never do.
     static func completesRun(_ stray: Tile, core: [Tile]) -> Bool {

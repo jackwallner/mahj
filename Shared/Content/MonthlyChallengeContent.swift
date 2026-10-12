@@ -62,7 +62,7 @@ struct MonthlyChallenge: Identifiable, Sendable {
 }
 
 /// One shared set per calendar month, free for everyone: the same twelve
-/// questions on every device, six on the month's theme and six across the
+/// questions on every device, eight on the month's theme and four across the
 /// other skills. Generated questions come from the seeded generators, so
 /// nothing new has to be authored to keep a month fresh, and the authored
 /// ones are picked from the app's own teaching content.
@@ -197,15 +197,28 @@ enum MonthlyChallengeContent {
         ).enumerated().map { index, rack in
             EndlessPractice.rackItem(rack, id: PracticeSkill.rackReading.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
         }
-        let passes = distinct(
-            CharlestonGenerator.batch(count: count(.charleston) * 3, seed: "\(seed)-passes"),
+        // A Charleston month mixes the one-stray pass with the harder two-singles
+        // read, easiest first; other months get the plain one.
+        let plainPasses = distinct(
+            CharlestonGenerator.batch(count: 15, seed: "\(seed)-passes"),
             by: { "\($0.section)" },
-            count: count(.charleston)
-        ).enumerated().map { index, pass in
+            count: theme == .charleston ? 2 : count(.charleston)
+        )
+        let readPasses = theme == .charleston
+            ? distinct(CharlestonGenerator.twoSinglesBatch(count: 12, seed: "\(seed)-two-singles"), by: { "\($0.section)" }, count: 3)
+            : []
+        let passOrder = readPasses.isEmpty
+            ? plainPasses
+            : [plainPasses.first, readPasses.first, plainPasses.dropFirst().first, readPasses.dropFirst().first, readPasses.dropFirst(2).first].compactMap { $0 }
+        let passes = passOrder.enumerated().map { index, pass in
             EndlessPractice.passItem(pass, id: PracticeSkill.charlestonPass.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
         }
-        let defense = distinct(
-            DefenseGenerator.batch(count: count(.defense) * 3, seed: "\(seed)-defense"),
+        // Distinct families first, then distinct pungs; a defense month swaps a
+        // run-trap tile into every question whose pungs sit two apart.
+        let defenseBatch = DefenseGenerator.batch(count: 20, seed: "\(seed)-defense")
+        let byFamily = distinct(defenseBatch, by: { "\($0.impliedSection)" }, count: 3)
+        let defensePicked = distinct(
+            byFamily + defenseBatch,
             by: { question in
                 question.exposures.compactMap(\.first).compactMap { tile -> Int? in
                     if case .suited(let rank, _) = tile { return rank }
@@ -213,7 +226,8 @@ enum MonthlyChallengeContent {
                 }.sorted().map(String.init).joined(separator: "-")
             },
             count: count(.defense)
-        ).enumerated().map { index, question in
+        ).map { theme == .defense ? (DefenseGenerator.withRunBait($0) ?? $0) : $0 }
+        let defense = defensePicked.enumerated().map { index, question in
             EndlessPractice.defenseItem(question, id: PracticeSkill.defense.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
         }
 
@@ -284,25 +298,102 @@ enum MonthlyChallengeContent {
                 )
             }
         case .defense:
+            // Two four-choice reads, then one quick judgment call.
             let pool = SessionBuilder.choiceItems(in: "table-room", includePro: true)
-            let pick = defenseItemIDs.compactMap { id in pool.first { $0.id == id } }
-            return rotation(poolSize: pick.count, seed: "monthly-defense-pool", round: round, count: count)
-                .map { relabeled(SessionBuilder.prepared(pick[$0]), label) }
+            let fourChoice = defenseQuestions + defenseItemIDs.compactMap { id in pool.first { $0.id == id && $0.choices.count >= 4 } }
+            let judgment = defenseItemIDs.compactMap { id in pool.first { $0.id == id && $0.choices.count < 4 } }
+            let reads = rotation(poolSize: fourChoice.count, seed: "monthly-defense-reads", round: round, count: 2).map { fourChoice[$0] }
+            let calls = rotation(poolSize: judgment.count, seed: "monthly-defense-calls", round: round, count: 1).map { judgment[$0] }
+            return (reads + calls).map { relabeled(SessionBuilder.prepared($0), label) }
         case .rackReading:
+            // The generated racks already cover the five sections a generator
+            // can deal, so the closers are the sections it cannot: Like
+            // Numbers, Year, Quints, Singles & Pairs. Dealt round-robin by
+            // section, so any three in a row read as three different hands.
+            let generatable = Set(RackGenerator.generatableCategories.map(\.displayName))
             let pool = SessionBuilder.choiceItems(in: "card-room", includePro: true)
-                .filter { $0.prompt == "Which section is this rack chasing?" }
-            return rotation(poolSize: pool.count, seed: "monthly-rack-pool", round: round, count: count)
-                .map { relabeled(SessionBuilder.prepared(pool[$0]), label) }
+                .filter { $0.prompt == "Which section is this rack chasing?" && !generatable.contains($0.choices[$0.answerIndex]) }
+            let groups = Dictionary(grouping: pool, by: { $0.choices[$0.answerIndex] })
+            let sections = groups.keys.sorted()
+            let depth = groups.values.map(\.count).max() ?? 0
+            let sequence = (0..<depth).flatMap { level in sections.compactMap { section in
+                groups[section].flatMap { $0.indices.contains(level) ? $0[level] : nil }
+            } }
+            guard !sequence.isEmpty else { return [] }
+            let start = ((round * count) % sequence.count + sequence.count) % sequence.count
+            return (0..<min(count, sequence.count))
+                .map { sequence[(start + $0) % sequence.count] }
+                .map { relabeled(SessionBuilder.prepared($0), label) }
         }
     }
 
-    /// Hand-written table questions that are about defense: reading a
-    /// table, picking a safe discard, counting what is live.
+    /// Two-choice table judgments that are about defense. The four-choice
+    /// ones in this list join `defenseQuestions` as reads.
     static let defenseItemIDs = [
-        "more-table-safe-discard", "more-table-exposure-read", "kd-hot-late",
+        "more-table-safe-discard", "more-table-exposure-read",
         "plus-kd-safe-discard", "kd-exposed-pung", "plus-kd-fourth-tile",
-        "kd-dead-joker", "plus-kd-count-tiles", "more-judge-third-copy",
-        "kd-flower-vs-wind", "plus-kd-lone-wind", "more-judge-lone-wind",
+        "more-judge-third-copy", "plus-kd-lone-wind",
+    ]
+
+    /// Four-choice defense reads written for the challenge. Original table
+    /// situations; nothing here comes from the NMJL card.
+    static let defenseQuestions: [QuickItem] = [
+        QuickItem(
+            id: "monthly-def-run-trap",
+            prompt: "Late in the hand, one opponent has exposed a pung of 5 Bams and a pung of 7 Dots. Which discard is safest?",
+            tiles: [.b(5), .b(5), .b(5), .d(7), .d(7), .d(7)],
+            choices: ["2 Crak", "6 Bam", "9 Crak", "North Wind"],
+            answerIndex: 0,
+            explanation: "5s and 7s read as 13579 (Odds), and with a 6 between them they could sit in a run too. The 9 Crak feeds the odds read, the 6 Bam feeds the run, and winds turn up in odds hands on real cards. The 2 Crak is even and too far from 5 and 7 for a run through both.",
+            sourceLabel: "Monthly Challenge",
+            roomID: "table-room",
+            isReviewable: false,
+            choiceNotes: [
+                nil,
+                "The 6 sits between their 5s and 7s, so it feeds a run through both pungs.",
+                "A 9 is odd, so it fits the 13579 read of their exposures.",
+                "Winds and dragons appear in odds hands too, so a wind is not proven safe against this table.",
+            ]
+        ),
+        QuickItem(
+            id: "monthly-def-dead-joker",
+            prompt: "Your hand is dead, and an opponent with three exposures looks one tile away. What is the safest discard?",
+            tiles: [],
+            choices: ["A joker", "A tile that matches their exposures", "A flower", "A wind nobody has thrown yet"],
+            answerIndex: 0,
+            explanation: "Nobody can call a discarded joker, so it can never be the tile that hands someone the game, and with your own hand dead it costs you nothing. Flowers and unseen winds are wanted by many hands, and a tile matching their exposures is the worst throw of all.",
+            sourceLabel: "Monthly Challenge",
+            roomID: "table-room",
+            isReviewable: false,
+            choiceNotes: [
+                nil,
+                "A tile that matches their exposures is the one most likely to finish their hand.",
+                "Many hands use flowers, so a late flower is one of the riskiest throws.",
+                "A wind nobody has thrown is still live for anyone collecting winds.",
+            ]
+        ),
+        QuickItem(
+            id: "monthly-def-just-passed",
+            prompt: "An opponent is close to mah jongg. The player before you just discarded a 6 Dot and nobody called it. You hold a 6 Dot. How safe is it to throw?",
+            tiles: [.d(6)],
+            choices: [
+                "Safer than most: it just went by uncalled",
+                "Never safe: a 6 fits too many hands",
+                "Safe only if it is the last copy",
+                "Safe only if you are East",
+            ],
+            answerIndex: 0,
+            explanation: "The player you fear passed on that exact tile a moment ago, so it is one of the safer throws you have. Not certain: they have drawn since and their hand may have changed. But a tile that just went around uncalled beats a fresh one.",
+            sourceLabel: "Monthly Challenge",
+            roomID: "table-room",
+            isReviewable: false,
+            choiceNotes: [
+                nil,
+                "Any number fits many hands. What matters is that this one just went by and nobody wanted it.",
+                "Copies left do not decide it: one copy can still be someone's winning tile.",
+                "Seat has nothing to do with which tiles are safe.",
+            ]
+        ),
     ]
 
     /// Round `round` of a fixed shuffle of the pool: consecutive slices, so

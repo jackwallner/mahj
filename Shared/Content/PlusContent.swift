@@ -181,7 +181,7 @@ enum PlusContent {
             situation: "First Charleston, pass ACROSS. You hold two flowers and they look like spares. Pick 3.",
             deal: [.c(5), .c(5), .c(7), .c(9), .b(5), .b(7), .b(9), .d(1), .d(6), .d(2), .d(4), .flower, .flower],
             recommendedPass: [.d(2), .d(4), .d(6)],
-            reasoning: "Eight odd tiles and a pair of 5 Craks: this is a 13579 hand. The even Dots (2, 4, 6) are the passes. Do NOT ship the flowers to make the choice easier. Most sections on the card want flowers, and you cannot get them back once they are gone.",
+            reasoning: "Eight odd tiles and a pair of 5 Craks: this is a 13579 hand. The even Dots (2, 4, 6) are the passes. Do NOT ship the flowers to make the choice easier. Many sections want flowers, and passing one hands a neighbor a tile your own hand may need later.",
             tip: "Flowers are the last thing you pass. All eight are interchangeable and they turn up across many sections, so passing one hands over a tile your own hand may need later."
         ),
     ]
@@ -222,7 +222,7 @@ enum PlusContent {
             frontTiles: [.flower, .wind(.south)],
             frontSubtitle: "Which is the safer throw?",
             backTitle: "The Twice-Thrown Wind",
-            backBody: "A tile the table has already passed on twice is close to proven safe, and only one copy is left anyway. Flowers are the opposite: nearly every section wants them, so a late flower is one of the most dangerous tiles you can put down.",
+            backBody: "A tile the table has already passed on twice is far safer than the flower, though not safe: it can still be someone's last tile, and jokers can still finish a group. Flowers are the opposite: nearly every section wants them, so a late flower is one of the most dangerous tiles you can put down.",
             choice: CardChoice("The spare flower", "The twice-thrown wind", answerIndex: 1)
         ),
         Flashcard(

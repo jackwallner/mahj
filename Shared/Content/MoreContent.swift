@@ -203,7 +203,7 @@ enum MoreContent {
                 "A flower"
             ],
             answerIndex: 1,
-            explanation: "A tile that has gone around without being called is unlikely to suddenly become useful. Repeating a dead discard is the classic safe throw."
+            explanation: "A tile that has gone around twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats feeding an exposure or giving up a flower."
         ),
         QuizQuestion(
             id: "more-table-exposure-read",

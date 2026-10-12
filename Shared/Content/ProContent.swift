@@ -33,7 +33,7 @@ enum ProContent {
             situation: "First Charleston, pass RIGHT. Eight even tiles plus a lonely pair of Norths. Pick 3.",
             deal: [.c(2), .c(4), .c(6), .c(8), .b(2), .b(4), .b(6), .b(8), .wind(.north), .wind(.north), .d(5), .flower, .joker],
             recommendedPass: [.wind(.north), .wind(.north), .d(5)],
-            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens lock you into 2468, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so opponents have not committed yet and the feed risk is low. Ship both Norths and the odd 5 Dot.",
+            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so opponents have not committed yet and the feed risk is low. Ship both Norths and the odd 5 Dot.",
             tip: "Hold pairs by default, but a pair that fits none of your target section is fair to pass early, before opponents lock in."
         ),
         CharlestonScenario(
@@ -49,15 +49,15 @@ enum ProContent {
             situation: "Second Charleston, pass LEFT. Nobody stopped the second Charleston, so it goes ahead. You hold seven 6s across three suits. Pick 3.",
             deal: [.c(6), .c(6), .b(6), .b(6), .b(6), .d(6), .d(6), .c(9), .d(3), .flower, .flower, .wind(.north), .joker],
             recommendedPass: [.c(9), .d(3), .wind(.north)],
-            reasoning: "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out what does nothing for sixes: the lone 9 Crak, 3 Dot, and North. Keep both flowers, since many hands use them. Next time you are this far ahead after the first Charleston, consider stopping the second: any one player can, and extra passing helps the weaker hands more than yours.",
+            reasoning: "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out the tiles that do not serve it. The lone 9 Crak and 3 Dot only help a 369 hand, and with seven 6s Like Numbers is the stronger lead, so they go with the North. Keep both flowers, since many hands use them. Next time you are this far ahead after the first Charleston, consider stopping the second: any one player can, and extra passing helps the weaker hands more than yours.",
             tip: "Any player can stop the second Charleston. When your hand is ahead after round one, stopping it keeps the others from catching up."
         ),
         CharlestonScenario(
             id: "pro-ch-defend-late",
-            situation: "Last pass of the Charleston, going LEFT. Your left neighbor has already passed you three winds this round, so they clearly are not on Winds and Dragons. Pick 3.",
+            situation: "First Charleston, the pass LEFT, and the second Charleston has been stopped, so this is your last pass. On the first pass your left neighbor handed you three winds, so they are not on Winds and Dragons. Pick 3.",
             deal: [.c(4), .c(5), .c(6), .b(5), .b(6), .b(7), .d(6), .d(6), .b(2), .d(9), .wind(.east), .flower, .joker],
             recommendedPass: [.b(2), .d(9), .wind(.east)],
-            reasoning: "Your run is set (4-5-6 and 5-6-7 with a 6 Dot pair), so any three strays go. But your LAST pass is also defense. Your left neighbor keeps dumping winds, so an East going back to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
+            reasoning: "Your run is set (4-5-6 and 5-6-7 with a 6 Dot pair), so any three strays go. But your LAST pass is also defense. Your left neighbor passed you three winds, so an East going back to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
             tip: "Your final pass is a defensive tool. Feed a neighbor the kind of tile they have already shown they do not want."
         ),
     ]

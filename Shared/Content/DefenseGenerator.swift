@@ -190,6 +190,35 @@ enum DefenseGenerator {
         return nil
     }
 
+    /// The harder version for the monthly challenge: when the two pungs sit
+    /// two apart, the tile between them goes in as bait, because it feeds a
+    /// run through both. Returns nil when the exposures are not that close.
+    static func withRunBait(_ question: GeneratedDefense) -> GeneratedDefense? {
+        let exposed = question.exposures.compactMap(\.first)
+        guard exposed.count == 2,
+              let low = exposed.compactMap({ rank(of: $0) }).min(),
+              let high = exposed.compactMap({ rank(of: $0) }).max(),
+              high - low == 2 else { return nil }
+        let middle = low + 1
+        guard let bait = question.choices.firstIndex(where: { $0 != question.answer }),
+              let suit = Suit.allCases.first(where: { suit in !question.choices.contains(.suited(rank: middle, suit: suit)) })
+        else { return nil }
+        let runTile = Tile.suited(rank: middle, suit: suit)
+        var choices = question.choices
+        choices[bait] = runTile
+        var notes = question.choiceNotes
+        let shown = exposed.map(\.spokenName).joined(separator: " and ")
+        notes[bait] = "The \(runTile.spokenName) sits right between their \(shown), so it feeds a run through both pungs. It is the trap tile on this table."
+        return GeneratedDefense(
+            exposures: question.exposures,
+            impliedSection: question.impliedSection,
+            answer: question.answer,
+            choices: choices,
+            explanation: question.explanation,
+            choiceNotes: notes
+        )
+    }
+
     /// "369", or "369 and 13579 (Odds)" when the exposures fit both.
     static func readingNames(_ readings: [HandCategory]) -> String {
         readings.map(\.displayName).joined(separator: " and ")
@@ -198,11 +227,18 @@ enum DefenseGenerator {
     static func explain(exposures: [[Tile]], section: HandCategory, safe: Tile) -> String {
         let shown = exposures.compactMap(\.first).map(\.spokenName).joined(separator: " and a pung of ")
         let readings = sectionsFitting(exposures.compactMap(\.first))
-        let read = readings.count > 1
+        let exposedRanks = exposures.compactMap(\.first).compactMap { rank(of: $0) }
+        // Pungs within five numbers of each other can also sit in a run, and
+        // the safe tile is always chosen outside that span.
+        let runPossible = (exposedRanks.max() ?? 0) - (exposedRanks.min() ?? 0) <= 4
+        var read = readings.count > 1
             ? "A pung of \(shown) fit both \(readingNames(readings)), so read the table both ways."
             : "A pung of \(shown) both sit inside \(section.displayName), so that is the family this player is building."
-        let rank = rank(of: safe).map(String.init) ?? safe.spokenName
-        let never = readings.map { "\($0.displayName) never uses a \(rank)" }.joined(separator: ", and ")
-        return "\(read) The \(safe.spokenName) fits none of it: \(never). Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
+        if runPossible { read += " Pungs that close could also be part of a Consecutive Run." }
+        let value = rank(of: safe) ?? 0
+        let article = value == 8 ? "an" : "a"
+        var never = readings.map { "\($0.displayName) never uses \(article) \(value)" }
+        if runPossible { never.append("no run through both of them reaches \(article) \(value)") }
+        return "\(read) The \(safe.spokenName) fits none of it: \(never.joined(separator: ", and ")). Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
     }
 }

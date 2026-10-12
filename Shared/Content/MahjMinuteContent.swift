@@ -158,7 +158,8 @@ enum MahjMinuteContent {
         let distractors = distractorPassLabels(for: scenario, seed: distractorSeed)
         let item = QuickItem(
             id: id,
-            prompt: "\(scenario.situation) Which three tiles make the strongest pass?",
+            // The drill's "Pick 3." cue says the same thing as the question.
+            prompt: "\(scenario.situation.replacingOccurrences(of: " Pick 3.", with: "")) Which three tiles make the strongest pass?",
             tiles: scenario.deal.racked,
             choices: [answer] + distractors,
             answerIndex: 0,

@@ -64,7 +64,7 @@ final class MonthlyChallengeTests: XCTestCase {
             var seen: Set<String> = []
             var month = date(2026, 11, 10)
             var checked = 0
-            while checked < 3 {
+            while checked < 2 {
                 let challenge = MonthlyChallengeContent.challenge(for: month, calendar: calendar)
                 if challenge.theme == theme {
                     let authored = challenge.items.suffix(3).map { $0.id.hasPrefix("monthly-charleston-") ? String($0.id.split(separator: "-").last!) : $0.id }

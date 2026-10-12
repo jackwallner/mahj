@@ -1654,7 +1654,7 @@
               "answer" : "odds13579",
               "choices" : [
                 "odds13579",
-                "singlesAndPairs",
+                "threeSixNine",
                 "evens2468",
                 "quints"
               ],
@@ -2592,7 +2592,7 @@
                 "F"
               ],
               "id" : "plus-ch-keep-flowers",
-              "reasoning" : "Eight odd tiles and a pair of 5 Craks: this is a 13579 hand. The even Dots (2, 4, 6) are the passes. Do NOT ship the flowers to make the choice easier. Most sections on the card want flowers, and you cannot get them back once they are gone.",
+              "reasoning" : "Eight odd tiles and a pair of 5 Craks: this is a 13579 hand. The even Dots (2, 4, 6) are the passes. Do NOT ship the flowers to make the choice easier. Many sections want flowers, and passing one hands a neighbor a tile your own hand may need later.",
               "recommendedPass" : [
                 "2D",
                 "4D",
@@ -2863,7 +2863,7 @@
               "id" : "kd-wind-pair"
             },
             {
-              "backBody" : "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. A North fits only a player collecting Norths, and only three others exist. Early, the lone wind is the far narrower gift.",
+              "backBody" : "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. An East fits only a player collecting Easts, and only three others exist. Early, the lone wind is the far narrower gift.",
               "backTitle" : "Throw the Wind",
               "choice" : {
                 "answerIndex" : 1,
@@ -2997,7 +2997,7 @@
                 "A tile that matches an opponent's exposure",
                 "A flower"
               ],
-              "explanation" : "A tile that has gone around without being called is unlikely to suddenly become useful. Repeating a dead discard is the classic safe throw.",
+              "explanation" : "A tile that has gone around twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats feeding an exposure or giving up a flower.",
               "id" : "more-table-safe-discard",
               "prompt" : "Late in the hand, which discard is usually safest?",
               "tiles" : [
@@ -3265,7 +3265,7 @@
               "id" : "plus-kd-commit"
             },
             {
-              "backBody" : "A tile the table has already passed on twice is close to proven safe, and only one copy is left anyway. Flowers are the opposite: nearly every section wants them, so a late flower is one of the most dangerous tiles you can put down.",
+              "backBody" : "A tile the table has already passed on twice is far safer than the flower, though not safe: it can still be someone's last tile, and jokers can still finish a group. Flowers are the opposite: nearly every section wants them, so a late flower is one of the most dangerous tiles you can put down.",
               "backTitle" : "The Twice-Thrown Wind",
               "choice" : {
                 "answerIndex" : 1,
@@ -3529,7 +3529,7 @@
                 "J"
               ],
               "id" : "pro-ch-pass-pair",
-              "reasoning" : "Usually you protect pairs, but this one earns an exception. Eight evens lock you into 2468, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so opponents have not committed yet and the feed risk is low. Ship both Norths and the odd 5 Dot.",
+              "reasoning" : "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so opponents have not committed yet and the feed risk is low. Ship both Norths and the odd 5 Dot.",
               "recommendedPass" : [
                 "N",
                 "N",
@@ -3581,7 +3581,7 @@
                 "J"
               ],
               "id" : "pro-ch-second-stop",
-              "reasoning" : "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out what does nothing for sixes: the lone 9 Crak, 3 Dot, and North. Keep both flowers, since many hands use them. Next time you are this far ahead after the first Charleston, consider stopping the second: any one player can, and extra passing helps the weaker hands more than yours.",
+              "reasoning" : "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out the tiles that do not serve it. The lone 9 Crak and 3 Dot only help a 369 hand, and with seven 6s Like Numbers is the stronger lead, so they go with the North. Keep both flowers, since many hands use them. Next time you are this far ahead after the first Charleston, consider stopping the second: any one player can, and extra passing helps the weaker hands more than yours.",
               "recommendedPass" : [
                 "9C",
                 "3D",
@@ -3607,13 +3607,13 @@
                 "J"
               ],
               "id" : "pro-ch-defend-late",
-              "reasoning" : "Your run is set (4-5-6 and 5-6-7 with a 6 Dot pair), so any three strays go. But your LAST pass is also defense. Your left neighbor keeps dumping winds, so an East going back to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
+              "reasoning" : "Your run is set (4-5-6 and 5-6-7 with a 6 Dot pair), so any three strays go. But your LAST pass is also defense. Your left neighbor passed you three winds, so an East going back to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
               "recommendedPass" : [
                 "2B",
                 "9D",
                 "E"
               ],
-              "situation" : "Last pass of the Charleston, going LEFT. Your left neighbor has already passed you three winds this round, so they clearly are not on Winds and Dragons. Pick 3.",
+              "situation" : "First Charleston, the pass LEFT, and the second Charleston has been stopped, so this is your last pass. On the first pass your left neighbor handed you three winds, so they are not on Winds and Dragons. Pick 3.",
               "tip" : "Your final pass is a defensive tool. Feed a neighbor the kind of tile they have already shown they do not want."
             }
           ],
