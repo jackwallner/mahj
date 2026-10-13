@@ -18,7 +18,8 @@ learn.mkdir(parents=True, exist_ok=True)
 
 BASE = "https://jackwallner.com/ios/mahj/"
 APP_URL = "https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126"
-TODAY = "2026-10-11"
+PUBLISHED = "2026-10-11"
+TODAY = "2026-10-12"
 
 # ---------------------------------------------------------------- parsing
 
@@ -91,7 +92,7 @@ def page(slug, title, description, h1, lead, body, faq=None, related=(), words_h
     ld = [{
         "@context": "https://schema.org", "@type": "Article",
         "headline": h1, "description": description, "url": canonical,
-        "datePublished": TODAY, "dateModified": TODAY,
+        "datePublished": PUBLISHED, "dateModified": TODAY,
         "author": {"@type": "Person", "name": "Jack Wallner"},
         "publisher": {"@type": "Organization", "name": "Mahj Trainer"},
         "isPartOf": {"@type": "WebSite", "name": "Mahj Trainer", "url": BASE},
@@ -272,7 +273,7 @@ add("how-to-play-american-mahjong",
 <p>Play moves to the right (counter-clockwise). The game is a long sequence of keep-or-throw decisions, which is why Mahj Trainer drills that judgment so hard.</p>
 
 <h2>Calling a discard</h2>
-<p>When someone throws a tile you need to complete a pung, kong or quint, you may call it (say "call" or "take") before the next player draws. You then expose that whole group face up on top of your rack and discard. The exposure is public information for the rest of the hand.</p>
+<p>When someone throws a tile you need to complete a pung, kong or quint, you may call it (say "call" or "take") until the next player racks the tile they drew. You then expose that whole group face up on top of your rack and discard. The exposure is public information for the rest of the hand.</p>
 <p>Two limits: you cannot call for a pair or a single unless that tile completes your mah jongg, and a hand marked concealed on the card cannot call at all except for the winning tile. Once you have discarded after an exposure, the group is locked; the only change still allowed is someone swapping a real tile for a joker sitting in it.</p>
 
 <h2>Jokers</h2>
@@ -355,7 +356,7 @@ add("charleston",
 <p>That is the first Charleston, and it is required. A second Charleston happens only if all four players agree. It runs the other way: Left, Across, Right. Then comes the courtesy pass: an optional exchange across the table of anywhere from zero to three tiles, and both players must pass the same number, so ask first.</p>
 
 <h2>Blind passes and stealing</h2>
-<p>Every pass except the last one of each Charleston must come from tiles you have looked at. On the last pass (First Left, and Second Right), you may pass blind: take some or all of the three tiles you were just handed and send them straight on without looking. That is what you do when you genuinely have nothing to spare. You may also "steal" on those passes: keep one or two of the incoming tiles and substitute your own.</p>
+<p>Every pass except the last one of each Charleston must come from tiles you have looked at. On the last pass (First Left, and Second Right), you may pass blind: take some or all of the three tiles you were just handed and send them straight on without looking. That is what you do when you genuinely have nothing to spare. Many players call this stealing.</p>
 
 <h2>The one hard rule</h2>
 <div class="note"><strong>Jokers never pass.</strong> Not in any Charleston pass, not blind, not in the courtesy pass. Passing a joker is illegal.</div>
@@ -442,18 +443,18 @@ add("scoring-and-table-rules",
 <li><strong>Self-picked.</strong> If the winner drew the winning tile from the wall, nobody fed it, so everyone pays double.</li>
 <li><strong>Jokerless.</strong> A winning hand with no jokers in it doubles the payment again. Singles and Pairs hands are the exception: they can never hold a joker, so they get no jokerless bonus.</li>
 </ul>
-<p>The bonuses stack. Self-picked and jokerless means each player pays four times the printed value.</p>
+<p>The bonuses stack. Outside Singles and Pairs, self-picked and jokerless means each player pays four times the printed value.</p>
 
 <h2>Calling: how late is too late</h2>
 <p>You may call a discard until the next player has drawn a tile and racked it. After that the discard is gone. Speak up quickly, and say the tile's name when you throw so others have the chance to call.</p>
 <p>Calling replaces your draw. Lay the completed pung, kong or quint face up on your rack, then discard, and play continues to your right from you.</p>
-<p>When two players want the same discard for an exposure, it goes to whoever is next in turn after the discarder. A call for mah jongg beats any exposure.</p>
+<p>When two players want the same discard for an exposure, it goes to whoever is next in turn after the discarder, unless the other caller has already put the tile on their rack or exposed tiles for it. A call for mah jongg beats any exposure.</p>
 
 <h2>Exposures are final</h2>
 <p>Once you have discarded after exposing a group, it is locked. A pung never becomes a kong later; the fourth tile stays on your rack or goes to the discards. The one change still allowed is a joker swap: someone hands you the real tile and takes the joker.</p>
 
 <h2>Dead hands</h2>
-<p>A hand that can no longer legally win is dead. The usual causes: an exposure that matches no hand on the card, exposing a group that makes the hand impossible, or declaring mah jongg with a hand that is wrong. A dead hand stays at the table to draw and discard, but cannot win, and still pays the winner like everyone else (double, if it threw the winning tile). Check the card before you expose, not after.</p>
+<p>A hand that can no longer legally win is dead. The usual causes: an exposure that matches no hand on the card, or laying down a wrong mah jongg. Once another player calls it dead and the tiles prove it, that player stops drawing and discarding but still pays the winner. Nobody calls their own hand dead: if you know yours is hopeless, keep playing and play defense. Check the card before you expose, not after.</p>
 
 <h2>A wrong mah jongg</h2>
 <p>Once a wrong hand is laid down, it is dead. The other three keep playing, and the player who called it still pays whoever eventually wins. Be sure before you say the word.</p>
@@ -469,7 +470,7 @@ add("scoring-and-table-rules",
         ("What if the winner picked the winning tile from the wall?", "Everyone pays double."),
         ("Is there a bonus for a hand with no jokers?", "Yes, payment doubles again. Singles and Pairs hands are excluded, since they can never contain a joker."),
         ("What happens on a wall game?", "Nobody pays. Reshuffle and deal the next hand."),
-        ("Can a dead hand still be charged?", "Yes. A dead hand stays at the table and pays the winner like everyone else."),
+        ("Can a dead hand still be charged?", "Yes. A dead hand stops playing but still pays the winner."),
     ],
     related=[("jokers", "Jokers in American Mah Jongg"), ("how-to-play-american-mahjong", "How to play American Mah Jongg"), ("glossary", "Mah Jongg glossary")])
 

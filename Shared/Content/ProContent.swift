@@ -99,11 +99,11 @@ enum ProContent {
         ),
         QuizQuestion(
             id: "pro-def-safe-discard",
-            prompt: "One opponent is clearly on Winds & Dragons: every exposure is winds and dragons. Which discard is safest against them?",
+            prompt: "One opponent has exposed a pung of North and a pung of Red, and has discarded since. You hold the fourth North. Which discard is safest against them?",
             tiles: [.wind(.north), .wind(.north), .wind(.north), .dragon(.red), .dragon(.red), .dragon(.red)],
-            choices: ["A 5 Bam", "North wind", "Red dragon", "Soap"],
+            choices: ["North wind", "A 5 Bam", "Soap", "A flower"],
             answerIndex: 0,
-            explanation: "Their hand is built from winds and dragons, so a middle number like the 5 Bam is the tile least likely to help them. Hold your winds, dragons, and soaps, and feed them numbers."
+            explanation: "Their North pung locked when they discarded, so it can never become a kong, and with three Norths on their rack and one in yours, nobody else holds a natural North to build with. A middle number or a soap can still fit a winds and dragons hand, and flowers fit many hands."
         ),
         QuizQuestion(
             id: "pro-def-hot-tile",
@@ -119,7 +119,7 @@ enum ProContent {
             tiles: [],
             choices: ["Draw and hope your own hand comes together", "Switch to defense: discard only tiles they cannot use, even if it breaks your hand", "Discard fast to end the game sooner"],
             answerIndex: 1,
-            explanation: "If you cannot win, your job is to not deal the winning tile. Break your own hand and throw tiles their exposures prove are safe. A blocked win is a good outcome when yours is dead."
+            explanation: "If you cannot win, your job is to not deal the winning tile. Break your own hand and throw tiles their exposures prove are safe. A blocked win is a good outcome when yours is hopeless."
         ),
         QuizQuestion(
             id: "pro-def-joker-swap",

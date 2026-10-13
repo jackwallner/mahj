@@ -247,17 +247,17 @@ enum MoreContent {
         ),
         QuizQuestion(
             id: "table-pay-jokerless",
-            prompt: "You win with no jokers anywhere in your hand. What changes?",
+            prompt: "You win with a hand outside Singles and Pairs, and it has no jokers. What changes?",
             choices: ["Nothing", "The hand pays double", "You deal the next hand", "Only the discarder pays"],
             answerIndex: 1,
             explanation: "A jokerless win pays double. Singles and Pairs hands are the exception: they can never hold a joker, so they earn no bonus for going without."
         ),
         QuizQuestion(
             id: "table-pay-stacked",
-            prompt: "You draw your own winning tile, and the hand has no jokers. What does each player pay?",
+            prompt: "You draw your own winning tile. The hand has no jokers and is not a Singles and Pairs hand. What does each player pay?",
             choices: ["The hand's value", "Double the value", "Four times the value", "Nothing extra, bonuses do not combine"],
             answerIndex: 2,
-            explanation: "Both bonuses apply. Drawing it yourself doubles the payment, and jokerless doubles it again, so each player pays four times the hand's value."
+            explanation: "Both bonuses apply. Drawing it yourself doubles the payment, and jokerless doubles it again, so each player pays four times the hand's value. Singles and Pairs earn no jokerless bonus, so the same win there pays double."
         ),
         QuizQuestion(
             id: "table-pay-wall",
@@ -271,7 +271,7 @@ enum MoreContent {
             prompt: "Your hand went dead earlier, and another player wins. Do you pay?",
             choices: ["No, a dead hand is out of the game", "Yes, like any other player", "Only if you are East", "You pay double"],
             answerIndex: 1,
-            explanation: "A dead hand cannot win, but you are still at the table, so you pay the winner like everyone else. Throw the winning tile and you pay double, as anyone would."
+            explanation: "A dead hand cannot win and stops drawing and discarding, but you are still at the table, so you pay the winner like everyone else."
         ),
         // Table procedure: the moments that start arguments.
         QuizQuestion(
@@ -303,12 +303,12 @@ enum MoreContent {
             prompt: "Two players call the same discard for a pung. Who gets it?",
             choices: ["Whoever spoke first", "The player whose turn comes next", "The player with fewer exposures", "Neither, it is dead"],
             answerIndex: 1,
-            explanation: "When two players want a tile for an exposure, it goes to the one next in turn after the discarder. A call for mah jongg still beats any exposure."
+            explanation: "When two players want a tile for an exposure, it goes to the one next in turn after the discarder, unless the other caller has already put the tile on their rack or exposed tiles for it. A call for mah jongg still beats any exposure."
         ),
         QuizQuestion(
             id: "table-exposure-locked",
             prompt: "You have an exposed pung of 5 Bams and draw the fourth. Can you add it to make a kong?",
-            choices: ["Yes, on your turn", "No, an exposure can never grow", "Only if it wins the hand", "Only before your next discard"],
+            choices: ["Yes, on your turn", "No, it locked when you discarded", "Only if it wins the hand", "Only before your next discard"],
             answerIndex: 1,
             explanation: "Once you have discarded after exposing it, a group is locked. The fourth 5 Bam stays on your rack or goes to the discards. The one change still allowed is someone swapping a real tile for a joker in it."
         ),

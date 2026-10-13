@@ -264,7 +264,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-steal", term: "Stealing the pass", aliases: ["steal"], group: .charleston,
-            definition: "Keeping a tile out of the three you were handed and substituting one of your own before passing them on. Legal only in the passes where a blind pass is legal."
+            definition: "Another name for the blind pass: sending on some or all of the tiles you were just handed without looking at them. Allowed only on the last pass of each Charleston (the first Left and the second Right)."
         ),
         GlossaryTerm(
             id: "g-no-jokers-passed", term: "Jokers are never passed", aliases: ["passing jokers"], group: .charleston,
@@ -275,11 +275,11 @@ enum ReferenceContent {
 
         GlossaryTerm(
             id: "g-call", term: "Call", aliases: ["calling", "take the discard"], group: .play,
-            definition: "Claiming the tile just discarded, before the next player picks, to complete a pung, kong or quint that you then expose. You cannot call a discard for a pair or a single unless it wins the hand for you."
+            definition: "Claiming the tile just discarded to complete a pung, kong or quint that you then expose, or to win. You can call until the next player racks the tile they drew (or discards, or starts a joker swap). You cannot call a discard for a pair or a single unless it wins the hand for you."
         ),
         GlossaryTerm(
             id: "g-dead-hand", term: "Dead hand", group: .play,
-            definition: "A hand that can no longer legally win, usually because of an illegal exposure or an exposure that no card hand can match. A dead hand stays in the game to discard, but cannot win."
+            definition: "A hand that can no longer legally win, usually because of an exposure that no card hand can match or a wrong mah jongg laid down. Once another player calls it dead and the tiles prove it, you stop drawing and discarding for the rest of the hand, but you still pay the winner. Nobody calls their own hand dead: until someone does, keep playing and discard defensively."
         ),
         GlossaryTerm(
             id: "g-wall-game", term: "Wall game", aliases: ["draw", "no winner"], group: .play,
@@ -299,11 +299,11 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-mahjongg-call", term: "Mah Jongg", aliases: ["declaring", "win"], group: .play,
-            definition: "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure: an incorrect declaration kills your hand."
+            definition: "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure: laying down a wrong hand kills it."
         ),
         GlossaryTerm(
             id: "g-rack", term: "Rack", group: .play,
-            definition: "The stand holding your thirteen tiles, with the shelf in front where exposures go. Racked means in your hand, exposed means on the shelf where everyone can see it."
+            definition: "The stand holding your tiles. Your concealed tiles rest on the sloped front; exposures sit on top of the rack where everyone can see them. Racked means in your hand, exposed means on top of the rack."
         ),
         GlossaryTerm(
             id: "g-wall", term: "Wall", group: .play,

@@ -56,7 +56,7 @@ enum KeepDiscardContent {
             frontTiles: [.c(5), .c(5), .c(5), .c(5)],
             frontSubtitle: "And why should you care?",
             backTitle: "Four. Count Them.",
-            backBody: "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your pair of 5 Craks can never become a pung without a joker. Counting visible copies tells you when a hand is dead.",
+            backBody: "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your pair of 5 Craks can never become a pung without a joker. Counting visible copies tells you when a hand can no longer be made.",
             choice: CardChoice("Three", "Four", answerIndex: 1)
         ),
         Flashcard(
@@ -96,11 +96,11 @@ enum KeepDiscardContent {
         ),
         Flashcard(
             id: "kd-dead-joker",
-            frontTitle: "Your hand is dead and you hold three jokers.",
+            frontTitle: "Your hand looks hopeless and you hold three jokers.",
             frontTiles: [.joker, .joker, .joker],
             frontSubtitle: "Just throw a joker?",
             backTitle: "Almost Never",
-            backBody: "A discarded joker is dead: nobody can call it, so it's not even dangerous, just wasted. Three jokers is enough to resurrect almost any hand: pungs of anything you hold two of, kongs, quints. Rebuild instead.",
+            backBody: "A discarded joker cannot be called, so it is safe, but it is gone for good. Three jokers can rescue a slow hand: pungs of anything you hold two of, kongs, even quints. Look for a new line before you give one up.",
             choice: CardChoice("Throw a joker", "Rebuild instead", answerIndex: 1)
         ),
         Flashcard(

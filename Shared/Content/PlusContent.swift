@@ -79,11 +79,11 @@ enum PlusContent {
             choices: [
                 "Nothing, you just take it back",
                 "You lose a turn",
-                "Your hand is dead: you keep playing but cannot win",
+                "Anyone can call your hand dead, and then you stop playing",
                 "You swap it for a joker",
             ],
             answerIndex: 2,
-            explanation: "Dead hand. Every exposure has to belong to a real hand on the card, so look before you call. You keep discarding but you can no longer win the round."
+            explanation: "Every exposure has to belong to a real hand on the card. Once another player calls your hand dead and the exposure proves it, you stop drawing and discarding for the rest of the hand, and you still pay the winner. Check the card before you call."
         ),
         QuizQuestion(
             id: "plus-tq-call-kong",
@@ -195,7 +195,7 @@ enum PlusContent {
             frontTiles: [.d(6), .d(6), .d(6)],
             frontSubtitle: "You just drew the fourth 6 Dot. Keep or throw?",
             backTitle: "Throw It",
-            backBody: "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else is collecting them either. It is one of the safest discards you have.",
+            backBody: "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else can be building a pair or pung of them. It is one of the safest discards you have.",
             choice: CardChoice("Hold it", "Throw it", answerIndex: 1)
         ),
         Flashcard(

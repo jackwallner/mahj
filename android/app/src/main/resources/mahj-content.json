@@ -297,7 +297,7 @@
       "aliases" : [
         "steal"
       ],
-      "definition" : "Keeping a tile out of the three you were handed and substituting one of your own before passing them on. Legal only in the passes where a blind pass is legal.",
+      "definition" : "Another name for the blind pass: sending on some or all of the tiles you were just handed without looking at them. Allowed only on the last pass of each Charleston (the first Left and the second Right).",
       "group" : "charleston",
       "id" : "g-steal",
       "term" : "Stealing the pass"
@@ -316,7 +316,7 @@
         "calling",
         "take the discard"
       ],
-      "definition" : "Claiming the tile just discarded, before the next player picks, to complete a pung, kong or quint that you then expose. You cannot call a discard for a pair or a single unless it wins the hand for you.",
+      "definition" : "Claiming the tile just discarded to complete a pung, kong or quint that you then expose, or to win. You can call until the next player racks the tile they drew (or discards, or starts a joker swap). You cannot call a discard for a pair or a single unless it wins the hand for you.",
       "group" : "play",
       "id" : "g-call",
       "term" : "Call"
@@ -325,7 +325,7 @@
       "aliases" : [
 
       ],
-      "definition" : "A hand that can no longer legally win, usually because of an illegal exposure or an exposure that no card hand can match. A dead hand stays in the game to discard, but cannot win.",
+      "definition" : "A hand that can no longer legally win, usually because of an exposure that no card hand can match or a wrong mah jongg laid down. Once another player calls it dead and the tiles prove it, you stop drawing and discarding for the rest of the hand, but you still pay the winner. Nobody calls their own hand dead: until someone does, keep playing and discard defensively.",
       "group" : "play",
       "id" : "g-dead-hand",
       "term" : "Dead hand"
@@ -373,7 +373,7 @@
         "declaring",
         "win"
       ],
-      "definition" : "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure: an incorrect declaration kills your hand.",
+      "definition" : "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure: laying down a wrong hand kills it.",
       "group" : "play",
       "id" : "g-mahjongg-call",
       "term" : "Mah Jongg"
@@ -382,7 +382,7 @@
       "aliases" : [
 
       ],
-      "definition" : "The stand holding your thirteen tiles, with the shelf in front where exposures go. Racked means in your hand, exposed means on the shelf where everyone can see it.",
+      "definition" : "The stand holding your tiles. Your concealed tiles rest on the sloped front; exposures sit on top of the rack where everyone can see them. Racked means in your hand, exposed means on top of the rack.",
       "group" : "play",
       "id" : "g-rack",
       "term" : "Rack"
@@ -1172,10 +1172,10 @@
               "choices" : [
                 "Nothing, you just take it back",
                 "You lose a turn",
-                "Your hand is dead: you keep playing but cannot win",
+                "Anyone can call your hand dead, and then you stop playing",
                 "You swap it for a joker"
               ],
-              "explanation" : "Dead hand. Every exposure has to belong to a real hand on the card, so look before you call. You keep discarding but you can no longer win the round.",
+              "explanation" : "Every exposure has to belong to a real hand on the card. Once another player calls your hand dead and the exposure proves it, you stop drawing and discarding for the rest of the hand, and you still pay the winner. Check the card before you call.",
               "id" : "plus-tq-dead-hand",
               "prompt" : "You expose a pung that fits no hand on the card. What happens?",
               "tiles" : [
@@ -2788,7 +2788,7 @@
               "id" : "kd-sp-joker"
             },
             {
-              "backBody" : "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your pair of 5 Craks can never become a pung without a joker. Counting visible copies tells you when a hand is dead.",
+              "backBody" : "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your pair of 5 Craks can never become a pung without a joker. Counting visible copies tells you when a hand can no longer be made.",
               "backTitle" : "Four. Count Them.",
               "choice" : {
                 "answerIndex" : 1,
@@ -2881,7 +2881,7 @@
               "id" : "kd-flower-vs-wind"
             },
             {
-              "backBody" : "A discarded joker is dead: nobody can call it, so it's not even dangerous, just wasted. Three jokers is enough to resurrect almost any hand: pungs of anything you hold two of, kongs, quints. Rebuild instead.",
+              "backBody" : "A discarded joker cannot be called, so it is safe, but it is gone for good. Three jokers can rescue a slow hand: pungs of anything you hold two of, kongs, even quints. Look for a new line before you give one up.",
               "backTitle" : "Almost Never",
               "choice" : {
                 "answerIndex" : 1,
@@ -2896,7 +2896,7 @@
                 "J",
                 "J"
               ],
-              "frontTitle" : "Your hand is dead and you hold three jokers.",
+              "frontTitle" : "Your hand looks hopeless and you hold three jokers.",
               "id" : "kd-dead-joker"
             },
             {
@@ -3074,7 +3074,7 @@
               ],
               "explanation" : "A jokerless win pays double. Singles and Pairs hands are the exception: they can never hold a joker, so they earn no bonus for going without.",
               "id" : "table-pay-jokerless",
-              "prompt" : "You win with no jokers anywhere in your hand. What changes?",
+              "prompt" : "You win with a hand outside Singles and Pairs, and it has no jokers. What changes?",
               "tiles" : [
 
               ]
@@ -3087,9 +3087,9 @@
                 "Four times the value",
                 "Nothing extra, bonuses do not combine"
               ],
-              "explanation" : "Both bonuses apply. Drawing it yourself doubles the payment, and jokerless doubles it again, so each player pays four times the hand's value.",
+              "explanation" : "Both bonuses apply. Drawing it yourself doubles the payment, and jokerless doubles it again, so each player pays four times the hand's value. Singles and Pairs earn no jokerless bonus, so the same win there pays double.",
               "id" : "table-pay-stacked",
-              "prompt" : "You draw your own winning tile, and the hand has no jokers. What does each player pay?",
+              "prompt" : "You draw your own winning tile. The hand has no jokers and is not a Singles and Pairs hand. What does each player pay?",
               "tiles" : [
 
               ]
@@ -3117,7 +3117,7 @@
                 "Only if you are East",
                 "You pay double"
               ],
-              "explanation" : "A dead hand cannot win, but you are still at the table, so you pay the winner like everyone else. Throw the winning tile and you pay double, as anyone would.",
+              "explanation" : "A dead hand cannot win and stops drawing and discarding, but you are still at the table, so you pay the winner like everyone else.",
               "id" : "table-pay-dead-hand",
               "prompt" : "Your hand went dead earlier, and another player wins. Do you pay?",
               "tiles" : [
@@ -3162,7 +3162,7 @@
                 "The player with fewer exposures",
                 "Neither, it is dead"
               ],
-              "explanation" : "When two players want a tile for an exposure, it goes to the one next in turn after the discarder. A call for mah jongg still beats any exposure.",
+              "explanation" : "When two players want a tile for an exposure, it goes to the one next in turn after the discarder, unless the other caller has already put the tile on their rack or exposed tiles for it. A call for mah jongg still beats any exposure.",
               "id" : "table-call-priority",
               "prompt" : "Two players call the same discard for a pung. Who gets it?",
               "tiles" : [
@@ -3173,7 +3173,7 @@
               "answerIndex" : 1,
               "choices" : [
                 "Yes, on your turn",
-                "No, an exposure can never grow",
+                "No, it locked when you discarded",
                 "Only if it wins the hand",
                 "Only before your next discard"
               ],
@@ -3209,7 +3209,7 @@
           "isPlus" : true,
           "items" : [
             {
-              "backBody" : "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else is collecting them either. It is one of the safest discards you have.",
+              "backBody" : "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else can be building a pair or pung of them. It is one of the safest discards you have.",
               "backTitle" : "Throw It",
               "choice" : {
                 "answerIndex" : 1,
@@ -3701,14 +3701,14 @@
             {
               "answerIndex" : 0,
               "choices" : [
-                "A 5 Bam",
                 "North wind",
-                "Red dragon",
-                "Soap"
+                "A 5 Bam",
+                "Soap",
+                "A flower"
               ],
-              "explanation" : "Their hand is built from winds and dragons, so a middle number like the 5 Bam is the tile least likely to help them. Hold your winds, dragons, and soaps, and feed them numbers.",
+              "explanation" : "Their North pung locked when they discarded, so it can never become a kong, and with three Norths on their rack and one in yours, nobody else holds a natural North to build with. A middle number or a soap can still fit a winds and dragons hand, and flowers fit many hands.",
               "id" : "pro-def-safe-discard",
-              "prompt" : "One opponent is clearly on Winds & Dragons: every exposure is winds and dragons. Which discard is safest against them?",
+              "prompt" : "One opponent has exposed a pung of North and a pung of Red, and has discarded since. You hold the fourth North. Which discard is safest against them?",
               "tiles" : [
                 "N",
                 "N",
@@ -3745,7 +3745,7 @@
                 "Switch to defense: discard only tiles they cannot use, even if it breaks your hand",
                 "Discard fast to end the game sooner"
               ],
-              "explanation" : "If you cannot win, your job is to not deal the winning tile. Break your own hand and throw tiles their exposures prove are safe. A blocked win is a good outcome when yours is dead.",
+              "explanation" : "If you cannot win, your job is to not deal the winning tile. Break your own hand and throw tiles their exposures prove are safe. A blocked win is a good outcome when yours is hopeless.",
               "id" : "pro-def-break-hand",
               "prompt" : "Your hand is hopeless, and an opponent is one tile away from mah jongg on an obvious hand. What is the right play?",
               "tiles" : [
