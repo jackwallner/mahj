@@ -1,0 +1,148 @@
+CAL gregorian key 2026-10 title October 2026 theme rackReading archiveCount 0
+CAL buddhist key 2569-10 title October 2569 theme rackReading archiveCount 6516
+CAL hebrew key 5787-02 title Heshvan 5787 theme charleston archiveCount 46510
+CAL islamic-umalqura key 1448-05 title Jumada I 1448 theme charleston archiveCount 0
+CAL indian key 1948-07 title Asvina 1948 theme rackReading archiveCount 0
+CAL japanese key 0008-10 title October 8 theme rackReading archiveCount 0
+MONTH 2026-10 rackReading count 12 closers plus-hm-quints,plus-hm-sp,plus-hm-year section ["Quints", "Singles & Pairs", "Year Hands"]
+MONTH 2026-11 charleston count 12 closers monthly-charleston-2026-11-21,monthly-charleston-2026-11-3,monthly-charleston-2026-11-18 section []
+MONTH 2026-12 defense count 12 closers more-table-exposure-read,monthly-def-run-trap,more-judge-third-copy section []
+MONTH 2027-01 rackReading count 12 closers hm-like,hm-quints,hm-sp section ["Any Like Numbers", "Quints", "Singles & Pairs"]
+MONTH 2027-02 charleston count 12 closers monthly-charleston-2027-02-20,monthly-charleston-2027-02-0,monthly-charleston-2027-02-12 section []
+MONTH 2027-03 defense count 12 closers more-table-safe-discard,monthly-def-just-passed,plus-kd-fourth-tile section []
+MONTH 2027-04 rackReading count 12 closers hm-year,more-rack-like,plus-hm-quints section ["Year Hands", "Any Like Numbers", "Quints"]
+REPEAT 2027-04 plus-hm-quints previous 2026-10
+MONTH 2027-05 charleston count 12 closers monthly-charleston-2027-05-8,monthly-charleston-2027-05-16,monthly-charleston-2027-05-11 section []
+MONTH 2027-06 defense count 12 closers monthly-def-dead-joker,more-table-exposure-read,plus-kd-safe-discard section []
+REPEAT 2027-06 more-table-exposure-read previous 2026-12
+MONTH 2027-07 rackReading count 12 closers plus-hm-sp,plus-hm-year,hm-like section ["Singles & Pairs", "Year Hands", "Any Like Numbers"]
+REPEAT 2027-07 plus-hm-sp previous 2026-10
+REPEAT 2027-07 plus-hm-year previous 2026-10
+REPEAT 2027-07 hm-like previous 2027-01
+MONTH 2027-08 charleston count 12 closers monthly-charleston-2027-08-19,monthly-charleston-2027-08-9,monthly-charleston-2027-08-5 section []
+MONTH 2027-09 defense count 12 closers monthly-def-run-trap,more-table-safe-discard,plus-kd-lone-wind section []
+REPEAT 2027-09 monthly-def-run-trap previous 2026-12
+REPEAT 2027-09 more-table-safe-discard previous 2027-03
+MONTH 2027-10 rackReading count 12 closers hm-quints,hm-sp,hm-year section ["Quints", "Singles & Pairs", "Year Hands"]
+REPEAT 2027-10 hm-quints previous 2027-01
+REPEAT 2027-10 hm-sp previous 2027-01
+REPEAT 2027-10 hm-year previous 2027-04
+MONTH 2027-11 charleston count 12 closers monthly-charleston-2027-11-2,monthly-charleston-2027-11-14,monthly-charleston-2027-11-1 section []
+MONTH 2027-12 defense count 12 closers monthly-def-just-passed,monthly-def-dead-joker,kd-exposed-pung section []
+REPEAT 2027-12 monthly-def-just-passed previous 2027-03
+REPEAT 2027-12 monthly-def-dead-joker previous 2027-06
+MONTH 2028-01 rackReading count 12 closers more-rack-like,plus-hm-quints,plus-hm-sp section ["Any Like Numbers", "Quints", "Singles & Pairs"]
+REPEAT 2028-01 more-rack-like previous 2027-04
+REPEAT 2028-01 plus-hm-quints previous 2027-04
+REPEAT 2028-01 plus-hm-sp previous 2027-07
+MONTH 2028-02 charleston count 12 closers monthly-charleston-2028-02-17,monthly-charleston-2028-02-6,monthly-charleston-2028-02-7 section []
+MONTH 2028-03 defense count 12 closers more-table-exposure-read,monthly-def-run-trap,more-judge-third-copy section []
+REPEAT 2028-03 more-table-exposure-read previous 2027-06
+REPEAT 2028-03 monthly-def-run-trap previous 2027-09
+REPEAT 2028-03 more-judge-third-copy previous 2026-12
+MONTH 2028-04 rackReading count 12 closers plus-hm-year,hm-like,hm-quints section ["Year Hands", "Any Like Numbers", "Quints"]
+REPEAT 2028-04 plus-hm-year previous 2027-07
+REPEAT 2028-04 hm-like previous 2027-07
+REPEAT 2028-04 hm-quints previous 2027-10
+MONTH 2028-05 charleston count 12 closers monthly-charleston-2028-05-15,monthly-charleston-2028-05-10,monthly-charleston-2028-05-13 section []
+MONTH 2028-06 defense count 12 closers more-table-safe-discard,monthly-def-just-passed,plus-kd-fourth-tile section []
+REPEAT 2028-06 more-table-safe-discard previous 2027-09
+REPEAT 2028-06 monthly-def-just-passed previous 2027-12
+REPEAT 2028-06 plus-kd-fourth-tile previous 2027-03
+MONTH 2028-07 rackReading count 12 closers hm-sp,hm-year,more-rack-like section ["Singles & Pairs", "Year Hands", "Any Like Numbers"]
+REPEAT 2028-07 hm-sp previous 2027-10
+REPEAT 2028-07 hm-year previous 2027-10
+REPEAT 2028-07 more-rack-like previous 2028-01
+MONTH 2028-08 charleston count 12 closers monthly-charleston-2028-08-4,monthly-charleston-2028-08-21,monthly-charleston-2028-08-3 section []
+REPEAT 2028-08 21 previous 2026-11
+REPEAT 2028-08 3 previous 2026-11
+MONTH 2028-09 defense count 12 closers monthly-def-dead-joker,more-table-exposure-read,plus-kd-safe-discard section []
+REPEAT 2028-09 monthly-def-dead-joker previous 2027-12
+REPEAT 2028-09 more-table-exposure-read previous 2028-03
+REPEAT 2028-09 plus-kd-safe-discard previous 2027-06
+MONTH 2028-10 rackReading count 12 closers plus-hm-quints,plus-hm-sp,plus-hm-year section ["Quints", "Singles & Pairs", "Year Hands"]
+REPEAT 2028-10 plus-hm-quints previous 2028-01
+REPEAT 2028-10 plus-hm-sp previous 2028-01
+REPEAT 2028-10 plus-hm-year previous 2028-04
+MONTH 2028-11 charleston count 12 closers monthly-charleston-2028-11-18,monthly-charleston-2028-11-20,monthly-charleston-2028-11-0 section []
+REPEAT 2028-11 18 previous 2026-11
+REPEAT 2028-11 20 previous 2027-02
+REPEAT 2028-11 0 previous 2027-02
+MONTH 2028-12 defense count 12 closers monthly-def-run-trap,more-table-safe-discard,plus-kd-lone-wind section []
+REPEAT 2028-12 monthly-def-run-trap previous 2028-03
+REPEAT 2028-12 more-table-safe-discard previous 2028-06
+REPEAT 2028-12 plus-kd-lone-wind previous 2027-09
+MONTH 2029-01 rackReading count 12 closers hm-like,hm-quints,hm-sp section ["Any Like Numbers", "Quints", "Singles & Pairs"]
+REPEAT 2029-01 hm-like previous 2028-04
+REPEAT 2029-01 hm-quints previous 2028-04
+REPEAT 2029-01 hm-sp previous 2028-07
+MONTH 2029-02 charleston count 12 closers monthly-charleston-2029-02-12,monthly-charleston-2029-02-8,monthly-charleston-2029-02-16 section []
+REPEAT 2029-02 12 previous 2027-02
+REPEAT 2029-02 8 previous 2027-05
+REPEAT 2029-02 16 previous 2027-05
+MONTH 2029-03 defense count 12 closers monthly-def-just-passed,monthly-def-dead-joker,kd-exposed-pung section []
+REPEAT 2029-03 monthly-def-just-passed previous 2028-06
+REPEAT 2029-03 monthly-def-dead-joker previous 2028-09
+REPEAT 2029-03 kd-exposed-pung previous 2027-12
+MONTH 2029-04 rackReading count 12 closers hm-year,more-rack-like,plus-hm-quints section ["Year Hands", "Any Like Numbers", "Quints"]
+REPEAT 2029-04 hm-year previous 2028-07
+REPEAT 2029-04 more-rack-like previous 2028-07
+REPEAT 2029-04 plus-hm-quints previous 2028-10
+MONTH 2029-05 charleston count 12 closers monthly-charleston-2029-05-11,monthly-charleston-2029-05-19,monthly-charleston-2029-05-9 section []
+REPEAT 2029-05 11 previous 2027-05
+REPEAT 2029-05 19 previous 2027-08
+REPEAT 2029-05 9 previous 2027-08
+MONTH 2029-06 defense count 12 closers more-table-exposure-read,monthly-def-run-trap,more-judge-third-copy section []
+REPEAT 2029-06 more-table-exposure-read previous 2028-09
+REPEAT 2029-06 monthly-def-run-trap previous 2028-12
+REPEAT 2029-06 more-judge-third-copy previous 2028-03
+MONTH 2029-07 rackReading count 12 closers plus-hm-sp,plus-hm-year,hm-like section ["Singles & Pairs", "Year Hands", "Any Like Numbers"]
+REPEAT 2029-07 plus-hm-sp previous 2028-10
+REPEAT 2029-07 plus-hm-year previous 2028-10
+REPEAT 2029-07 hm-like previous 2029-01
+MONTH 2029-08 charleston count 12 closers monthly-charleston-2029-08-5,monthly-charleston-2029-08-2,monthly-charleston-2029-08-14 section []
+REPEAT 2029-08 5 previous 2027-08
+REPEAT 2029-08 2 previous 2027-11
+REPEAT 2029-08 14 previous 2027-11
+MONTH 2029-09 defense count 12 closers more-table-safe-discard,monthly-def-just-passed,plus-kd-fourth-tile section []
+REPEAT 2029-09 more-table-safe-discard previous 2028-12
+REPEAT 2029-09 monthly-def-just-passed previous 2029-03
+REPEAT 2029-09 plus-kd-fourth-tile previous 2028-06
+MONTH 2029-10 rackReading count 12 closers hm-quints,hm-sp,hm-year section ["Quints", "Singles & Pairs", "Year Hands"]
+REPEAT 2029-10 hm-quints previous 2029-01
+REPEAT 2029-10 hm-sp previous 2029-01
+REPEAT 2029-10 hm-year previous 2029-04
+MONTH 2029-11 charleston count 12 closers monthly-charleston-2029-11-1,monthly-charleston-2029-11-17,monthly-charleston-2029-11-6 section []
+REPEAT 2029-11 1 previous 2027-11
+REPEAT 2029-11 17 previous 2028-02
+REPEAT 2029-11 6 previous 2028-02
+MONTH 2029-12 defense count 12 closers monthly-def-dead-joker,more-table-exposure-read,plus-kd-safe-discard section []
+REPEAT 2029-12 monthly-def-dead-joker previous 2029-03
+REPEAT 2029-12 more-table-exposure-read previous 2029-06
+REPEAT 2029-12 plus-kd-safe-discard previous 2028-09
+DECEMBER 1 gen-defense-monthly-2026-12-0 Only one player has tiles out: a pung of 7 Bam and a pung of 1 Dot. Which discard is safest? ANSWER 8 Crak EXPLANATION A pung of 7 Bam and a pung of 1 Dot both sit inside 13579 (Odds), so that is the family this player is building. The 8 Crak fits none of it: 13579 (Odds) never uses an 8. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.
+DECEMBER 2 gen-charlestonPass-monthly-2026-12-0 The first pass is coming. Which tile is the first to go? ANSWER 4 Bam EXPLANATION This rack is pointed at Winds & Dragons. The 4 Bam is your only single tile. It might fit some hand, but every other choice is part of a group you have already built, so it is the one tile you can pass without breaking anything. Junk goes on the first pass.
+DECEMBER 3 gen-defense-monthly-2026-12-1 Only one player has tiles out: a pung of 6 Dot and a pung of 3 Bam. Which discard is safest? ANSWER 1 Bam EXPLANATION A pung of 6 Dot and a pung of 3 Bam both sit inside 369, so that is the family this player is building. A Consecutive Run from 3 to 6 could hold both, too. The 1 Bam fits none of it: 369 never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.
+DECEMBER 4 gen-rackReading-monthly-2026-12-0 Which section is this rack chasing? ANSWER 369 EXPLANATION Every number here is a 3, 6 or 9. The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read.
+DECEMBER 5 gen-defense-monthly-2026-12-2 Only one player has tiles out: a pung of 2 Bam and a pung of 4 Crak. Which discard is safest? ANSWER 7 Dot EXPLANATION A pung of 2 Bam and a pung of 4 Crak both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 2 to 4 could hold both, too. The 7 Dot fits none of it: 2468 (Evens) never uses a 7, and no run through both of them reaches a 7. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.
+DECEMBER 6 gen-charlestonPass-monthly-2026-12-1 The first pass is coming. Which tile is the first to go? ANSWER South Wind EXPLANATION This rack is pointed at 2468 (Evens). The South Wind is your only single tile. It might fit some hand, but every other choice is part of a group you have already built, so it is the one tile you can pass without breaking anything. Junk goes on the first pass.
+DECEMBER 7 gen-defense-monthly-2026-12-3 Only one player has tiles out: a pung of 5 Crak and a pung of 7 Crak. Which discard is safest? ANSWER 2 Bam EXPLANATION A pung of 5 Crak and a pung of 7 Crak both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 7 could hold both, too. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.
+DECEMBER 8 gen-rackReading-monthly-2026-12-1 Which section is this rack chasing? ANSWER 2468 (Evens) EXPLANATION Every number on this rack is even (2, 4, 6, 8), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it.
+DECEMBER 9 gen-defense-monthly-2026-12-4 Only one player has tiles out: a pung of 3 Dot and a pung of 1 Dot. Which discard is safest? ANSWER 6 Bam EXPLANATION A pung of 3 Dot and a pung of 1 Dot both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 1 to 3 could hold both, too. The 6 Bam fits none of it: 13579 (Odds) never uses a 6, and no run through both of them reaches a 6. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.
+DECEMBER 10 more-table-exposure-read An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures? ANSWER An evens hand EXPLANATION Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need.
+DECEMBER 11 monthly-def-run-trap Late in the hand, one opponent has exposed a pung of 5 Bams and a pung of 7 Dots. Which discard is safest? ANSWER 2 Crak EXPLANATION 5s and 7s read as 13579 (Odds), and with a 6 between them they could sit in a run too. The 9 Crak feeds the odds read, the 6 Bam feeds the run, and winds turn up in odds hands on real cards. The 2 Crak is even and too far from 5 and 7 for a run through both.
+DECEMBER 12 more-judge-third-copy You hold two 5 Craks
+Two more are already exposed elsewhere. Keep waiting? ANSWER Let it go EXPLANATION All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. Only a joker can grow this pair into a pung now, so build on it only if jokers are in reach. Count before you commit.
+RUNCOUNTEREXAMPLE 1 ["1C", "5C", "5C", "6C", "7C", "8C", "8C", "3B", "4B", "5B", "3D", "RD", "W", "N"] range 3...6 off ["RD", "8C", "N", "1C", "7C", "W"] best ["3B", "4B", "3D"]
+DISCARD 1C value 4.699999999999999 range 3...6 note That tile was already outside Consecutive Run, so the throw was not wrong so much as second best. The cheapest throw here was the 3 Bam.
+DISCARD 5C value 3.6 range 3...6 note That was half a pair. A pair is the cheapest route to a pung, so it is worth more than the two loose tiles it looks like. The cheapest throw here was the 3 Bam.
+DISCARD 6C value 4.1 range 2...5 note The 6 Crak fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 3 Bam.
+DISCARD 7C value 4.699999999999999 range 3...6 note That tile was already outside Consecutive Run, so the throw was not wrong so much as second best. The cheapest throw here was the 3 Bam.
+DISCARD 8C value 4.699999999999999 range 3...6 note That was half a pair. A pair is the cheapest route to a pung, so it is worth more than the two loose tiles it looks like. The cheapest throw here was the 3 Bam.
+DISCARD 3B value 5.199999999999999 range 5...8 note Good throw. It fits Consecutive Run, but you were holding only one of it, so it was the cheapest thing on your rack.
+DISCARD 4B value 5.2 range 5...8 note Good throw. It fits Consecutive Run, but you were holding only one of it, so it was the cheapest thing on your rack.
+DISCARD 5B value 4.1 range 3...6 note The 5 Bam fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 3 Bam.
+DISCARD 3D value 5.2 range 5...8 note Good throw. It fits Consecutive Run, but you were holding only one of it, so it was the cheapest thing on your rack.
+DISCARD RD value 4.699999999999999 range 3...6 note That tile was already outside Consecutive Run, so the throw was not wrong so much as second best. The cheapest throw here was the 3 Bam.
+DISCARD N value 4.699999999999999 range 3...6 note That tile was already outside Consecutive Run, so the throw was not wrong so much as second best. The cheapest throw here was the 3 Bam.
+DISCARD W value 4.699999999999999 range 3...6 note That tile was already outside Consecutive Run, so the throw was not wrong so much as second best. The cheapest throw here was the 3 Bam.

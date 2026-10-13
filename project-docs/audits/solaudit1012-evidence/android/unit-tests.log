@@ -1,0 +1,43 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:javaPreCompileDebug FROM-CACHE
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources FROM-CACHE
+> Task :app:parseDebugLocalResources
+> Task :app:checkDebugAarMetadata
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:generateDebugRFile
+> Task :app:mergeDebugResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest FROM-CACHE
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:compileDebugKotlin
+w: file:///private/tmp/mahj-audit1012.t7u220/android/app/src/main/java/com/jackwallner/mahj/ui/components/Symbols.kt:104:48 'val Icons.Filled.Help: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.Help.
+w: file:///private/tmp/mahj-audit1012.t7u220/android/app/src/main/java/com/jackwallner/mahj/ui/components/Symbols.kt:123:35 'val Icons.Filled.DirectionsWalk: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.DirectionsWalk.
+w: file:///private/tmp/mahj-audit1012.t7u220/android/app/src/main/java/com/jackwallner/mahj/ui/screens/SettingsScreen.kt:271:20 'interface ClipboardManager : Any' is deprecated. Use Clipboard instead, which supports suspend functions.
+w: file:///private/tmp/mahj-audit1012.t7u220/android/app/src/main/java/com/jackwallner/mahj/ui/screens/SettingsScreen.kt:271:39 'val LocalClipboardManager: ProvidableCompositionLocal<ClipboardManager>' is deprecated. Use LocalClipboard instead which supports suspend functions.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :app:testDebugUnitTest
+
+[Incubating] Problems report is available at: file:///private/tmp/mahj-audit1012.t7u220/android/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 52s
+26 actionable tasks: 23 executed, 3 from cache
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.0/userguide/configuration_cache_enabling.html

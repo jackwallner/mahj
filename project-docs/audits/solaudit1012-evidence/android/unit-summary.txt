@@ -1,0 +1,4 @@
+com.jackwallner.mahj.ContentTest: 9 tests, 0 failures, 0 errors, 0 skipped
+com.jackwallner.mahj.GeneratorParityTest: 8 tests, 0 failures, 0 errors, 0 skipped
+com.jackwallner.mahj.StoreTest: 13 tests, 0 failures, 0 errors, 0 skipped
+TOTAL:30 tests,0 failures,0 errors,0 skipped

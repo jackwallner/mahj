@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.jackwallner.mahj.ContentTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-13T02:45:51.585Z" hostname="Jacks-MacBook-Pro-2.local" time="0.725">
+  <properties/>
+  <testcase name="noEmDashesAnywhereInTheExportedCopy" classname="com.jackwallner.mahj.ContentTest" time="0.131"/>
+  <testcase name="dealsAndPassesAreLegal" classname="com.jackwallner.mahj.ContentTest" time="0.006"/>
+  <testcase name="generatedPassesOfferExactlyOneFreeTile" classname="com.jackwallner.mahj.ContentTest" time="0.159"/>
+  <testcase name="handPlayNeverThrowsAJokerAndCostsAreNonNegative" classname="com.jackwallner.mahj.ContentTest" time="0.25"/>
+  <testcase name="generatedRacksAreUnambiguousAndLegal" classname="com.jackwallner.mahj.ContentTest" time="0.056"/>
+  <testcase name="defenseSafeDiscardIsNeverAnHonorOrExposed" classname="com.jackwallner.mahj.ContentTest" time="0.048"/>
+  <testcase name="everyEndlessSkillProducesUsableItems" classname="com.jackwallner.mahj.ContentTest" time="0.038"/>
+  <testcase name="quickSessionPrioritisesMissesAndRespectsTheLock" classname="com.jackwallner.mahj.ContentTest" time="0.019"/>
+  <testcase name="libraryMatchesTheIosShape" classname="com.jackwallner.mahj.ContentTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

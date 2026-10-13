@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.jackwallner.mahj.GeneratorParityTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-13T02:45:52.317Z" hostname="Jacks-MacBook-Pro-2.local" time="0.246">
+  <properties/>
+  <testcase name="mahjMinuteMatchesSwift" classname="com.jackwallner.mahj.GeneratorParityTest" time="0.067"/>
+  <testcase name="defenseBatchesMatchSwift" classname="com.jackwallner.mahj.GeneratorParityTest" time="0.022"/>
+  <testcase name="passBatchesMatchSwift" classname="com.jackwallner.mahj.GeneratorParityTest" time="0.018"/>
+  <testcase name="rackBatchesMatchSwift" classname="com.jackwallner.mahj.GeneratorParityTest" time="0.019"/>
+  <testcase name="seededStreamMatchesSwift" classname="com.jackwallner.mahj.GeneratorParityTest" time="0.014"/>
+  <testcase name="permutationsMatchSwift" classname="com.jackwallner.mahj.GeneratorParityTest" time="0.017"/>
+  <testcase name="preparedChoicePoolMatchesSwift" classname="com.jackwallner.mahj.GeneratorParityTest" time="0.036"/>
+  <testcase name="handPlayMatchesSwift" classname="com.jackwallner.mahj.GeneratorParityTest" time="0.049"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

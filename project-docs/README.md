@@ -4,6 +4,7 @@ Developer notes and historical audits for this repository. The published site re
 
 ## Audits
 
+- [solaudit1012.md](audits/solaudit1012.md): Independent build 42 audit across content, challenge persistence, accessibility, iPad, membership and Android
 - [aso827.md](audits/aso827.md): Mahj Trainer ASO Audit
 - [growth-2026-10-11.md](audits/growth-2026-10-11.md): Growth review: funnel, retention, Apple Ads economics, competitors, feedback prompt
 - [audit823.md](audits/audit823.md): Mahj Trainer audit823

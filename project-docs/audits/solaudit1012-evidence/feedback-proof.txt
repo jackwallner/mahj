@@ -1,0 +1,6 @@
+submit 1 queued
+submit 2 queued
+submit 3 queued
+before retry 3
+after offline retry 1
+[{"os_version":"iOS 27.0.1","app_version":"? (?)","kind":"question","message":"offline report 1","context":{},"is_member":false,"locale":"en_US","app":"mahj","device":"arm64"}]

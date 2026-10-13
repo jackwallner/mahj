@@ -1,0 +1,109 @@
+{
+  "monthlyChallenge.progress": {},
+  "monthlyChallenge.results": {
+    "2026-10": {
+      "title": "October",
+      "theme": "rackReading",
+      "completedAt": 813551491.39448,
+      "answers": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true
+      ],
+      "picks": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "monthKey": "2026-10"
+    }
+  },
+  "progress.totalSessions": null,
+  "progress.streakCount": null,
+  "practice.records": {
+    "plus-hm-quints": {
+      "streak": 0,
+      "attempts": 1,
+      "dueDate": 813551417.576176,
+      "roomID": "card-room",
+      "ease": 2.3,
+      "reviewSuppressed": false,
+      "correct": 0,
+      "lastAnswered": 813551417.576176,
+      "intervalDays": 0
+    },
+    "charlestonPass": {
+      "correct": 0,
+      "streak": 0,
+      "attempts": 2,
+      "dueDate": -63114076800,
+      "roomID": "charleston-room",
+      "reviewSuppressed": true,
+      "lastAnswered": 813551294.562953,
+      "intervalDays": 0,
+      "ease": 2.5
+    },
+    "defense": {
+      "streak": 0,
+      "attempts": 2,
+      "dueDate": -63114076800,
+      "roomID": "table-room",
+      "ease": 2.5,
+      "reviewSuppressed": true,
+      "correct": 0,
+      "lastAnswered": 813551321.786055,
+      "intervalDays": 0
+    },
+    "plus-hm-year": {
+      "streak": 1,
+      "attempts": 1,
+      "dueDate": 813637891.414698,
+      "roomID": "card-room",
+      "ease": 2.6,
+      "reviewSuppressed": false,
+      "correct": 1,
+      "lastAnswered": 813551491.414698,
+      "intervalDays": 1
+    },
+    "plus-hm-sp": {
+      "streak": 1,
+      "attempts": 1,
+      "dueDate": 813637837.712616,
+      "roomID": "card-room",
+      "ease": 2.6,
+      "reviewSuppressed": false,
+      "correct": 1,
+      "lastAnswered": 813551437.712616,
+      "intervalDays": 1
+    },
+    "rackReading": {
+      "correct": 2,
+      "streak": 2,
+      "attempts": 5,
+      "dueDate": -63114076800,
+      "roomID": "card-room",
+      "reviewSuppressed": true,
+      "lastAnswered": 813551369.100353,
+      "intervalDays": 0,
+      "ease": 2.5
+    }
+  }
+}

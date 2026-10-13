@@ -1,0 +1,12 @@
+1 gen-rackReading-monthly-2026-10-1 13579 (Odds)|369|2468 (Evens)|Winds & Dragons ANSWER 0
+2 gen-rackReading-monthly-2026-10-3 369|13579 (Odds)|Winds & Dragons|2468 (Evens) ANSWER 0
+3 gen-defense-monthly-2026-10-1 5 Crak|7 Dot|8 Crak|9 Bam ANSWER 2
+4 gen-rackReading-monthly-2026-10-0 369|Consecutive Run|13579 (Odds)|Winds & Dragons ANSWER 1
+5 gen-defense-monthly-2026-10-0 2 Dot|1 Crak|8 Crak|6 Crak ANSWER 1
+6 gen-rackReading-monthly-2026-10-2 Winds & Dragons|369|Consecutive Run|13579 (Odds) ANSWER 2
+7 gen-rackReading-monthly-2026-10-4 Winds & Dragons|13579 (Odds)|2468 (Evens)|Consecutive Run ANSWER 2
+8 plus-kd-call-single Wait for your draw|Call it ANSWER 1
+9 gen-charlestonPass-monthly-2026-10-0 Red Dragon|East Wind|Green Dragon|4 Crak ANSWER 3
+10 gen-rackReading-monthly-2026-10-5 Winds & Dragons|369|13579 (Odds)|2468 (Evens) ANSWER 0
+11 kd-hot-late Throw dead tiles|Gut feel is fine ANSWER 0
+12 gen-charlestonPass-monthly-2026-10-1 9 Bam|3 Crak|5 Bam|East Wind ANSWER 3

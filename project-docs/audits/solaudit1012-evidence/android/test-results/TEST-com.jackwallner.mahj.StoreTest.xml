@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.jackwallner.mahj.StoreTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-10-13T02:45:52.568Z" hostname="Jacks-MacBook-Pro-2.local" time="0.094">
+  <properties/>
+  <testcase name="whatsNewNeverShowsOnAFreshInstall" classname="com.jackwallner.mahj.StoreTest" time="0.004"/>
+  <testcase name="legacyMigrationSeedsEngagementOnlyOnce" classname="com.jackwallner.mahj.StoreTest" time="0.034"/>
+  <testcase name="seenAndMissedPersistAndUndoRestoresThem" classname="com.jackwallner.mahj.StoreTest" time="0.003"/>
+  <testcase name="masteryLevelsAndStaleness" classname="com.jackwallner.mahj.StoreTest" time="0.003"/>
+  <testcase name="missedItemEntersAndLeavesTheQueueWorstFirst" classname="com.jackwallner.mahj.StoreTest" time="0.005"/>
+  <testcase name="conversionAttributesStayEmptyUntilAPitchAndFreezeAtConversion" classname="com.jackwallner.mahj.StoreTest" time="0.003"/>
+  <testcase name="generatedItemsCollapseAndOneOffsStayOutOfReview" classname="com.jackwallner.mahj.StoreTest" time="0.003"/>
+  <testcase name="undoThenReanswerDoesNotCreateMastery" classname="com.jackwallner.mahj.StoreTest" time="0.009"/>
+  <testcase name="mahjMinuteKeepsOnlyTheFirstAttempt" classname="com.jackwallner.mahj.StoreTest" time="0.02"/>
+  <testcase name="reviewCardWaitsForEnoughUseAndHonoursCooldowns" classname="com.jackwallner.mahj.StoreTest" time="0.002"/>
+  <testcase name="streakCountsConsecutiveDaysAndResetsOnAGap" classname="com.jackwallner.mahj.StoreTest" time="0.001"/>
+  <testcase name="handPlayGivesOneFreeHandADayAndResumesAStartedOne" classname="com.jackwallner.mahj.StoreTest" time="0.004"/>
+  <testcase name="resetKeepsOnboardingAndTheQuickSessionRestsForTheDay" classname="com.jackwallner.mahj.StoreTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

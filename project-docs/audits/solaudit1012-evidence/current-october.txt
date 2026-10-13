@@ -1,0 +1,12 @@
+1 gen-rackReading-monthly-2026-10-0 369|Winds & Dragons|2468 (Evens)|Consecutive Run ANSWER 2
+2 gen-charlestonPass-monthly-2026-10-0 Red Dragon|East Wind|Green Dragon|4 Crak ANSWER 3
+3 gen-rackReading-monthly-2026-10-1 Winds & Dragons|2468 (Evens)|13579 (Odds)|Consecutive Run ANSWER 3
+4 gen-defense-monthly-2026-10-0 2 Dot|1 Crak|8 Crak|6 Crak ANSWER 1
+5 gen-rackReading-monthly-2026-10-2 Consecutive Run|Winds & Dragons|13579 (Odds)|2468 (Evens) ANSWER 2
+6 gen-charlestonPass-monthly-2026-10-1 9 Bam|3 Crak|5 Bam|East Wind ANSWER 3
+7 gen-rackReading-monthly-2026-10-3 Winds & Dragons|369|13579 (Odds)|Consecutive Run ANSWER 0
+8 gen-defense-monthly-2026-10-1 5 Crak|7 Dot|8 Crak|9 Bam ANSWER 2
+9 gen-rackReading-monthly-2026-10-4 369|Consecutive Run|2468 (Evens)|Winds & Dragons ANSWER 0
+10 plus-hm-quints 13579 (Odds)|369|Any Like Numbers|Quints ANSWER 3
+11 plus-hm-sp Singles & Pairs|Consecutive Run|2468 (Evens)|Quints ANSWER 0
+12 plus-hm-year Year Hands|Any Like Numbers|2468 (Evens)|369 ANSWER 0
