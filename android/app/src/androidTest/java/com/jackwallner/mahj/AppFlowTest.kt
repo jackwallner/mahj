@@ -61,7 +61,7 @@ class AppFlowTest {
         repeat(3) { tag("onboarding-primary") }
         tag("skill-played")
         tag("onboarding-primary")
-        waitFor("Try Mahj+ free")
+        waitFor("Get Started") // the trial page; its title depends on Play eligibility
         tag("soft-exit")
         waitFor("Four rooms, four skills")
         tag("tour-skip")

@@ -118,7 +118,7 @@ fun FeatureTourScreen(onDone: () -> Unit) {
             TourPage(
                 "YOURS NOW",
                 "${Membership.NAME} is open",
-                "Your trial already includes Mahj Minute, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables.",
+                "${if (graph.subscriptions.isTrialing) "Your free week" else "Your membership"} already includes Mahj Minute, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables.",
                 gold = true,
             ) { ProHero(locked = false) }
         } else {

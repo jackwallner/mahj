@@ -1,5 +1,6 @@
 import Foundation
 import RevenueCat
+import StoreKit
 
 enum RevenueCatConfig {
     #if DEBUG
@@ -34,7 +35,22 @@ final class SubscriptionService: NSObject, ObservableObject {
     static let shared = SubscriptionService()
 
     @Published private(set) var isPro = false
+    /// False until a customer record has actually been read, from
+    /// RevenueCat's on-device cache or the network. `isPro` is false before
+    /// that for members too, so nothing may treat "not a member" as a lapse,
+    /// or sell a member a trial, until this is true.
+    @Published private(set) var membershipResolved = false
+    /// The active entitlement is the free week (RevenueCat `periodType`), not a
+    /// paid or lifetime membership.
+    @Published private(set) var isTrialing = false
+    /// When the current entitlement ends: the trial's real end while trialing.
+    @Published private(set) var expirationDate: Date?
     @Published private(set) var offerings: Offerings?
+    /// Apple's answer to "would this Apple Account get the free week on this
+    /// plan?", per subscription plan. One introductory offer per subscription
+    /// group per Apple Account, ever, so anyone who has trialled monthly or
+    /// yearly before is charged on day one. Missing means not known yet.
+    @Published private(set) var introEligibility: [PaywallPlan: IntroEligibilityStatus] = [:]
     /// Set when a trial or membership was just seen turning toward the exit,
     /// and not yet asked about. Home presents the one-question prompt and
     /// clears it. Survives a launch: the ask is stored, not just published.
@@ -45,7 +61,9 @@ final class SubscriptionService: NSObject, ObservableObject {
     private let snapshotKey = "membership.lastSnapshot"
     private let churnAskSpentKey = "membership.churnAskSpent"
     private let pendingChurnKey = "membership.pendingChurnMoment"
+    private let reinstallSyncKey = "membership.reinstallSyncDone"
     private var paywallImpressionsThisSession: Set<String> = []
+    private var isRecoveringMembership = false
 
     override private init() {
         super.init()
@@ -62,11 +80,83 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     func start() {
         configureIfNeeded()
-        guard isConfigured else { return }
+        guard isConfigured else {
+            // No store at all (simulator, screenshots): nothing will ever
+            // load, so what we have is the answer.
+            membershipResolved = true
+            return
+        }
+        // The last record RevenueCat saw, from the first frame: a member is a
+        // member before the network answers.
+        if let cached = Purchases.shared.cachedCustomerInfo { apply(cached) }
         Task {
             await refreshCustomerInfo()
+            // In parallel with offerings: a reinstalled member should be
+            // recognised before the trial page can be reached.
+            async let recovered: Void = recoverReinstalledMembershipIfNeeded()
             await loadOfferings()
+            await recovered
         }
+    }
+
+    /// Whether the purchase surfaces may promise the free week for `plan`.
+    ///
+    /// Only on Apple's own "eligible". Ineligible, no offer, or not known yet
+    /// all get plain pricing (RevenueCat's guidance for unknown): telling a
+    /// returning subscriber "7 days free" and then charging them on day one
+    /// is the bait-and-switch 3.1.2(a) forbids, and a refund request.
+    func offersFreeTrial(_ plan: PaywallPlan) -> Bool {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("-mahj.previewTrialEligible") { return plan != .lifetime }
+        #endif
+        return Self.offersFreeTrial(plan, eligibility: introEligibility[plan])
+    }
+
+    nonisolated static func offersFreeTrial(_ plan: PaywallPlan, eligibility: IntroEligibilityStatus?) -> Bool {
+        plan != .lifetime && eligibility == .eligible
+    }
+
+    /// Asks StoreKit (through RevenueCat) which subscription plans would
+    /// start with the free week for this Apple Account. On-device, no
+    /// RevenueCat request; RevenueCat caches the answer and clears it whenever
+    /// the customer record changes, so it is asked again then.
+    func refreshIntroEligibility() async {
+        guard isConfigured else { return }
+        let plans: [PaywallPlan] = [.monthly, .yearly]
+        let products = plans.compactMap { plan in package(for: plan).map { (plan, $0.storeProduct) } }
+        guard !products.isEmpty else { return }
+        var answers: [PaywallPlan: IntroEligibilityStatus] = [:]
+        for (plan, product) in products {
+            answers[plan] = await Purchases.shared.checkTrialOrIntroDiscountEligibility(product: product)
+        }
+        introEligibility = answers
+    }
+
+    /// A reinstall is a new anonymous RevenueCat user, and iOS does not bring
+    /// an existing subscription across on its own, so a paying member looked
+    /// like a stranger (and was offered a trial) until they found Restore.
+    /// StoreKit already knows what this Apple Account owns: if it holds a
+    /// current entitlement and RevenueCat does not, sync once per install.
+    /// `syncPurchases` never shows an Apple Account sign-in prompt.
+    ///
+    /// Retried (from `ensureOfferings`, so before any purchase) until one sync
+    /// succeeds: a failed sync on a bad network must not lose it for good.
+    func recoverReinstalledMembershipIfNeeded() async {
+        guard isConfigured, !isPro, !isRecoveringMembership,
+              !UserDefaults.standard.bool(forKey: reinstallSyncKey) else { return }
+        isRecoveringMembership = true
+        defer { isRecoveringMembership = false }
+        var ownsSomething = false
+        for await result in Transaction.currentEntitlements {
+            if case .verified = result {
+                ownsSomething = true
+                break
+            }
+        }
+        guard ownsSomething else { return }
+        guard let info = try? await Purchases.shared.syncPurchases() else { return }
+        UserDefaults.standard.set(true, forKey: reinstallSyncKey)
+        apply(info)
     }
 
     /// Dev/testing switch: flips Pro without a live RC key (Settings toggle).
@@ -151,9 +241,13 @@ final class SubscriptionService: NSObject, ObservableObject {
         Purchases.shared.attribution.setAttributes(attributes)
     }
 
-    func refreshCustomerInfo() async {
+    /// `fetchCurrent` when the answer has to be new (right after a purchase):
+    /// the default policy hands back a cached record for five minutes, so a
+    /// "confirm" loop on it re-read the same stale record three times.
+    func refreshCustomerInfo(fetchCurrent: Bool = false) async {
         guard isConfigured else { return }
-        if let info = try? await Purchases.shared.customerInfo() {
+        let policy: CacheFetchPolicy = fetchCurrent ? .fetchCurrent : .cachedOrFetched
+        if let info = try? await Purchases.shared.customerInfo(fetchPolicy: policy) {
             apply(info)
         }
     }
@@ -161,6 +255,7 @@ final class SubscriptionService: NSObject, ObservableObject {
     func loadOfferings() async {
         guard isConfigured else { return }
         offerings = try? await Purchases.shared.offerings()
+        await refreshIntroEligibility()
     }
 
     func package(for plan: PaywallPlan) -> Package? {
@@ -187,6 +282,8 @@ final class SubscriptionService: NSObject, ObservableObject {
     @discardableResult
     func ensureOfferings() async -> Bool {
         guard isConfigured else { return false }
+        await recoverReinstalledMembershipIfNeeded()
+        if introEligibility.isEmpty, offerings?.current != nil { await refreshIntroEligibility() }
         if offerings?.current != nil { return true }
         await loadOfferings()
         return offerings?.current != nil
@@ -197,13 +294,15 @@ final class SubscriptionService: NSObject, ObservableObject {
             throw PurchaseError.productsUnavailable
         }
         guard let package else { throw PurchaseError.productsUnavailable }
-        let startedTrial = package.storeProduct.introductoryDiscount?.paymentMode == .freeTrial
         let result = try await Purchases.shared.purchase(package: package)
         // RevenueCat reports a user backing out of Apple's sheet as a normal
         // result, not an error. Treating it as a failure is what used to shove
         // a second paywall in front of someone who just said "not now".
         if result.userCancelled { return .cancelled }
         apply(result.customerInfo)
+        // What Apple actually sold, not what the product offers: a returning
+        // subscriber buying a plan with a trial is charged on day one.
+        let startedTrial = result.customerInfo.entitlements["pro"]?.periodType == .trial
         ConversionDiagnostics.recordConversion(
             plan: package.storeProduct.productIdentifier,
             startedTrial: startedTrial,
@@ -220,7 +319,7 @@ final class SubscriptionService: NSObject, ObservableObject {
     func confirmEntitlement(attempts: Int = 3) async -> Bool {
         guard isConfigured else { return isPro }
         for attempt in 0..<attempts {
-            await refreshCustomerInfo()
+            await refreshCustomerInfo(fetchCurrent: true)
             if isPro { return true }
             if attempt < attempts - 1 {
                 try? await Task.sleep(nanoseconds: 1_200_000_000)
@@ -240,6 +339,15 @@ final class SubscriptionService: NSObject, ObservableObject {
         let entitled = entitlement?.isActive == true
         let override = UserDefaults.standard.bool(forKey: localOverrideKey)
         isPro = entitled || override
+        membershipResolved = true
+        isTrialing = entitled && entitlement?.periodType == .trial
+        expirationDate = entitled ? entitlement?.expirationDate : nil
+        // The trial-end reminder promises "keep it and nothing changes". Once
+        // the trial has converted, been switched off, or ended, that is no
+        // longer true, so it must not fire.
+        if !(isTrialing && entitlement?.willRenew == true) {
+            AppSettings.cancelTrialEndReminder()
+        }
         observe(MembershipSnapshot.observed(
             isActive: entitled,
             isTrial: entitlement?.periodType == .trial,
@@ -274,6 +382,8 @@ extension SubscriptionService: PurchasesDelegate {
     nonisolated func purchases(_ purchases: Purchases, receivedUpdated customerInfo: CustomerInfo) {
         Task { @MainActor in
             self.apply(customerInfo)
+            // RevenueCat drops its eligibility cache on every customer change.
+            await self.refreshIntroEligibility()
         }
     }
 }

@@ -56,6 +56,11 @@ struct QuestionPager<Choices: View>: View {
     var reportID: String? = nil
     /// Where the question came from, for the report. Falls back to the eyebrow.
     var reportSource: String? = nil
+    /// The choices exactly as shown, so a report on a generated question
+    /// (random id) still says what was on screen.
+    var reportChoices: [String] = []
+    var reportAnswerIndex: Int? = nil
+    var reportPickedIndex: Int? = nil
     @ViewBuilder let choices: () -> Choices
 
     var body: some View {
@@ -103,7 +108,11 @@ struct QuestionPager<Choices: View>: View {
                                 itemID: reportID,
                                 prompt: prompt,
                                 source: reportSource ?? eyebrow ?? "",
-                                tiles: tiles.map(\.shortLabel).joined(separator: " ")
+                                tiles: tiles.map(\.shortLabel).joined(separator: " "),
+                                choices: reportChoices,
+                                answer: reportAnswerIndex.flatMap { reportChoices.indices.contains($0) ? reportChoices[$0] : nil },
+                                picked: reportPickedIndex.flatMap { reportChoices.indices.contains($0) ? reportChoices[$0] : nil },
+                                explanation: explanation
                             ))
                         }
                     }
@@ -157,6 +166,7 @@ struct ChoiceList: View {
     let answerIndex: Int
     let onPick: (Int) -> Void
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var shineTrigger = 0
     @State private var landed = false
     @State private var shakes: CGFloat = 0
@@ -176,6 +186,10 @@ struct ChoiceList: View {
                 shakes = 0
                 return
             }
+            announceGrade()
+            // Reduce Motion keeps the colours, icons and border that carry
+            // the grade, and drops the pop, the shine and the shake.
+            guard !reduceMotion else { return }
             withAnimation(.spring(response: 0.35, dampingFraction: 0.5).delay(0.05)) {
                 landed = true
             }
@@ -241,6 +255,27 @@ struct ChoiceList: View {
         }
         .buttonStyle(.plain)
         .allowsHitTesting(!answered)
+        // The grade is otherwise colour, a border and an icon: say it.
+        .accessibilityValue(gradeDescription(isAnswer: isAnswer, isPick: index == selection))
+        .accessibilityAddTraits(index == selection ? .isSelected : [])
+    }
+
+    private func gradeDescription(isAnswer: Bool, isPick: Bool) -> String {
+        guard answered else { return "" }
+        switch (isAnswer, isPick) {
+        case (true, true): return "Your answer, correct"
+        case (true, false): return "Correct answer"
+        case (false, true): return "Your answer, wrong"
+        case (false, false): return ""
+        }
+    }
+
+    private func announceGrade() {
+        guard let selection, labels.indices.contains(answerIndex) else { return }
+        let message = selection == answerIndex
+            ? "Correct."
+            : "Not quite. The answer is \(labels[answerIndex])."
+        AccessibilityNotification.Announcement(message).post()
     }
 
     /// Always returns something 22pt wide so the label's width never changes

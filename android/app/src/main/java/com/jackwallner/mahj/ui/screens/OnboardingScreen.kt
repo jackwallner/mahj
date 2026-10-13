@@ -228,7 +228,7 @@ private fun OnboardingPages(skillLevel: String, onSkill: (String) -> Unit, onDon
                         listOf(Tile.DragonTile(Dragon.RED), Tile.DragonTile(Dragon.GREEN), Tile.Flower),
                     )
                     3 -> SkillPage(skillLevel, onSkill)
-                    else -> TrialPage()
+                    else -> TrialPage(offersTrial = !isPro && service.offersFreeTrial(PaywallPlan.MONTHLY))
                 }
             }
         }
@@ -256,18 +256,18 @@ private fun OnboardingPages(skillLevel: String, onSkill: (String) -> Unit, onDon
                 ) {
                     Text(if (isPro) "" else PaywallPricing.priceText(service, PaywallPlan.MONTHLY), style = MahjType.display(22.sp), color = colors.ink)
                     Text(
-                        when {
-                            isPro -> ""
-                            PaywallPricing.price(service, PaywallPlan.MONTHLY) == null -> "Includes 7 days free. Auto-renews until canceled."
-                            else -> "7 days free, then ${PaywallPricing.price(service, PaywallPlan.MONTHLY)}. Auto-renews until canceled in Google Play."
-                        },
+                        if (isPro) "" else PaywallPricing.terms(service, PaywallPlan.MONTHLY),
                         style = MahjType.caption2,
                         color = colors.inkTertiary,
                         textAlign = TextAlign.Center,
                     )
                 }
                 PrimaryCTA(
-                    if (onTrialPage) (if (isPro) "Continue" else "Start 7-day free trial") else "Continue",
+                    when {
+                        !onTrialPage || isPro -> "Continue"
+                        service.offersFreeTrial(PaywallPlan.MONTHLY) -> "Start 7-day free trial"
+                        else -> "Subscribe"
+                    },
                     Modifier.testTag("onboarding-primary"),
                     enabled = !purchasing && !restoring && !(page == SKILL_PAGE && skillLevel.isEmpty()),
                     loading = purchasing || restoring,
@@ -362,7 +362,7 @@ private fun SkillPage(selected: String, onSelect: (String) -> Unit) {
 }
 
 @Composable
-private fun TrialPage() {
+private fun TrialPage(offersTrial: Boolean) {
     val colors = Mahj.colors
     Column(
         Modifier.fillMaxSize().padding(horizontal = 28.dp),
@@ -370,7 +370,7 @@ private fun TrialPage() {
         verticalArrangement = Arrangement.spacedBy(22.dp, Alignment.CenterVertically),
     ) {
         IconBadge("sparkles", colors.gold, size = 92.dp, iconSize = 42.dp, alpha = 0.14f)
-        Text("Try ${Membership.NAME} free", style = MahjType.display(30.sp), color = colors.ink, textAlign = TextAlign.Center)
+        Text(if (offersTrial) "Try ${Membership.NAME} free" else "Get ${Membership.NAME}", style = MahjType.display(30.sp), color = colors.ink, textAlign = TextAlign.Center)
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             listOf(
                 "Every beginner room is free, forever",

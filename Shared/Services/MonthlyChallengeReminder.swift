@@ -36,13 +36,17 @@ enum MonthlyChallengeReminder {
         schedule()
     }
 
-    private static func schedule(now: Date = Date(), calendar: Calendar = .current) {
+    private static func schedule(now: Date = Date(), calendar: Calendar = .gregorianLocal) {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: identifiers())
         var challenge = MonthlyChallengeContent.challenge(for: now, calendar: calendar)
         for _ in 0..<monthsAhead {
             challenge = MonthlyChallengeContent.next(after: challenge, calendar: calendar)
             var parts = calendar.dateComponents([.year, .month, .day], from: challenge.start)
+            // The trigger matches in the system calendar unless told
+            // otherwise, and a Buddhist or Japanese year never equals 2026.
+            parts.calendar = calendar
+            parts.timeZone = calendar.timeZone
             parts.hour = 10
             parts.minute = 0
             let content = UNMutableNotificationContent()
@@ -56,7 +60,7 @@ enum MonthlyChallengeReminder {
     }
 
     /// Every id this could have scheduled around now, so a disable clears them.
-    private static func identifiers(now: Date = Date(), calendar: Calendar = .current) -> [String] {
+    private static func identifiers(now: Date = Date(), calendar: Calendar = .gregorianLocal) -> [String] {
         (-1...monthsAhead + 1).compactMap { offset -> String? in
             guard let date = calendar.date(byAdding: .month, value: offset, to: now) else { return nil }
             let parts = calendar.dateComponents([.year, .month], from: date)

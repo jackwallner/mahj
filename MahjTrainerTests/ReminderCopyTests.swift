@@ -13,12 +13,4 @@ final class ReminderCopyTests: XCTestCase {
         XCTAssertFalse(AppSettings.gameNightReminderBody(weeklyGain: 0).contains("locked in"))
         XCTAssertTrue(AppSettings.gameNightReminderBody(weeklyGain: 6).contains("6 questions locked in"))
     }
-
-    func testReviewOutcomesThatWantTheSystemPrompt() {
-        XCTAssertTrue(ReviewPromptDismissOutcome.enjoyed.wantsSystemReviewPrompt)
-        XCTAssertTrue(ReviewPromptDismissOutcome.enjoyedMaybeLater.wantsSystemReviewPrompt)
-        XCTAssertFalse(ReviewPromptDismissOutcome.notNow.wantsSystemReviewPrompt)
-        XCTAssertFalse(ReviewPromptDismissOutcome.feedbackSubmitted.wantsSystemReviewPrompt)
-        XCTAssertFalse(ReviewPromptDismissOutcome.openedWriteReview.wantsSystemReviewPrompt)
-    }
 }

@@ -6,11 +6,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.jackwallner.mahj.BuildConfig
+import com.revenuecat.purchases.CacheFetchPolicy
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.LogLevel
 import com.revenuecat.purchases.Offering
 import com.revenuecat.purchases.Package
+import com.revenuecat.purchases.PeriodType
 import com.revenuecat.purchases.PurchaseParams
+import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.PurchasesConfiguration
 import com.revenuecat.purchases.PurchasesTransactionException
@@ -32,10 +35,17 @@ object Membership {
     const val NAME = "Mahj+"
 }
 
-enum class PaywallPlan(val ctaTitle: String) {
-    YEARLY("Start 7-Day Free Trial"),
-    LIFETIME("Unlock ${Membership.NAME} Forever"),
-    MONTHLY("Start 7-Day Free Trial"),
+enum class PaywallPlan {
+    YEARLY,
+    LIFETIME,
+    MONTHLY;
+
+    /** The free week is named only when Play offers it to this account (`offersFreeTrial`). */
+    fun ctaTitle(freeTrial: Boolean): String = when {
+        this == LIFETIME -> "Unlock ${Membership.NAME} Forever"
+        freeTrial -> "Start 7-Day Free Trial"
+        else -> "Subscribe"
+    }
 }
 
 /** A store price: the localized label plus the amount for arithmetic. */
@@ -59,6 +69,19 @@ class SubscriptionService(
     var offering by mutableStateOf<Offering?>(null)
         private set
 
+    /**
+     * False until a customer record has actually been read (from RevenueCat's
+     * cache or the network). `isPro` starts false on every launch, so acting
+     * on `!isPro` before this is true treats every paid member as lapsed
+     * while the record is still loading, or for the whole session offline.
+     */
+    var membershipResolved by mutableStateOf(false)
+        private set
+
+    /** The active entitlement is the free week, not a paid or lifetime membership. */
+    var isTrialing by mutableStateOf(false)
+        private set
+
     private var isConfigured = false
     private var forcePro = false
     private val impressionsThisSession = mutableSetOf<String>()
@@ -68,6 +91,7 @@ class SubscriptionService(
         if (!BuildConfig.DEBUG) return
         forcePro = value
         isPro = value
+        membershipResolved = true
     }
 
     /** Debug-only Settings switch, like the iOS local override. */
@@ -78,14 +102,21 @@ class SubscriptionService(
     }
 
     suspend fun start() {
-        if (!configureIfNeeded()) return
+        if (!configureIfNeeded()) {
+            // No store at all (debug without a key, screenshots): nothing
+            // will ever load, so what we have is the answer.
+            membershipResolved = true
+            return
+        }
         refreshCustomerInfo()
         loadOfferings()
     }
 
-    suspend fun refreshCustomerInfo() {
+    /** `fetchCurrent` right after a purchase: the default policy can hand back a stale cached record. */
+    suspend fun refreshCustomerInfo(fetchCurrent: Boolean = false) {
         if (!configureIfNeeded()) return
-        runCatching { Purchases.sharedInstance.awaitCustomerInfo() }
+        val policy = if (fetchCurrent) CacheFetchPolicy.FETCH_CURRENT else CacheFetchPolicy.default()
+        runCatching { Purchases.sharedInstance.awaitCustomerInfo(policy) }
             .onSuccess(::apply)
             .onFailure { if (it is CancellationException) throw it }
     }
@@ -115,6 +146,15 @@ class SubscriptionService(
         PaywallPlan.LIFETIME -> offering?.lifetime
     }
 
+    /**
+     * Whether the purchase surfaces may promise the free week for `plan`.
+     * Play only returns the offers this account is eligible for, so a free
+     * phase on the default option is the eligibility answer; no offering yet
+     * means not known, and that gets plain pricing too.
+     */
+    fun offersFreeTrial(plan: PaywallPlan): Boolean =
+        plan != PaywallPlan.LIFETIME && packageFor(plan)?.product?.defaultOption?.freePhase != null
+
     fun paywallPrice(plan: PaywallPlan): PaywallPrice? {
         val price = packageFor(plan)?.product?.price ?: return null
         return PaywallPrice(BigDecimal.valueOf(price.amountMicros, 6), price.formatted, price.currencyCode)
@@ -140,17 +180,22 @@ class SubscriptionService(
     /** A cancel is an outcome, not an error. Throws only with a player-facing message. */
     suspend fun purchase(activity: Activity, pkg: Package?): PurchaseOutcome {
         if (!configureIfNeeded() || pkg == null) throw PurchaseException(UNAVAILABLE)
-        val startedTrial = pkg.product.defaultOption?.freePhase != null
         return try {
             val result = Purchases.sharedInstance.awaitPurchase(PurchaseParams.Builder(activity, pkg).build())
             apply(result.customerInfo)
-            if (!isPro) return PurchaseOutcome.PENDING
+            // What Play actually sold, not what the product offers. An entitlement
+            // that has not landed yet is lag for `confirmEntitlement`, not a pending
+            // payment: a real pending payment arrives as PaymentPendingError below.
+            val startedTrial = result.customerInfo.entitlements["pro"]?.periodType == PeriodType.TRIAL
             diagnostics.recordConversion(pkg.product.id, startedTrial, pkg.presentedOfferingContext.offeringIdentifier)
             syncConversionAttributes()
             PurchaseOutcome.PURCHASED
         } catch (error: PurchasesTransactionException) {
-            if (error.userCancelled) PurchaseOutcome.CANCELLED
-            else throw PurchaseException("Couldn't complete the purchase. Please try again.")
+            when {
+                error.userCancelled -> PurchaseOutcome.CANCELLED
+                error.code == PurchasesErrorCode.PaymentPendingError -> PurchaseOutcome.PENDING
+                else -> throw PurchaseException("Couldn't complete the purchase. Please try again.")
+            }
         }
     }
 
@@ -158,7 +203,7 @@ class SubscriptionService(
     suspend fun confirmEntitlement(attempts: Int = 3): Boolean {
         if (!isConfigured) return isPro
         repeat(attempts) { attempt ->
-            refreshCustomerInfo()
+            refreshCustomerInfo(fetchCurrent = true)
             if (isPro) return true
             if (attempt < attempts - 1) delay(1_200)
         }
@@ -181,11 +226,13 @@ class SubscriptionService(
         private set
 
     private fun apply(info: CustomerInfo) {
+        membershipResolved = true
         if (forcePro) return
         val entitlement = info.entitlements["pro"]
         activeProductId = entitlement?.productIdentifier?.substringBefore(":")
         val override = BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE)
         isPro = entitlement?.isActive == true || override
+        isTrialing = entitlement?.isActive == true && entitlement.periodType == PeriodType.TRIAL
     }
 
     private fun configureIfNeeded(): Boolean {
@@ -252,13 +299,16 @@ object PaywallPricing {
     fun savingsBadge(service: SubscriptionService): String =
         savingsPercent(service)?.let { "SAVE $it%" } ?: "BEST VALUE"
 
-    fun terms(service: SubscriptionService, plan: PaywallPlan): String {
-        val amount = price(service, plan)
-        return when {
-            plan == PaywallPlan.LIFETIME && amount == null -> "One-time purchase. Not a subscription, nothing renews."
-            plan == PaywallPlan.LIFETIME -> "$amount one-time. Not a subscription, nothing renews."
-            amount == null -> "Includes 7 days free. Auto-renews until canceled."
-            else -> "7 days free, then $amount. Auto-renews until canceled in Google Play."
-        }
+    fun terms(service: SubscriptionService, plan: PaywallPlan): String =
+        terms(price(service, plan), plan, service.offersFreeTrial(plan))
+
+    /** The free week appears only when Play offers it to this account. */
+    fun terms(amount: String?, plan: PaywallPlan, freeTrial: Boolean): String = when {
+        plan == PaywallPlan.LIFETIME && amount == null -> "One-time purchase. Not a subscription, nothing renews."
+        plan == PaywallPlan.LIFETIME -> "$amount one-time. Not a subscription, nothing renews."
+        amount == null && freeTrial -> "Includes 7 days free. Auto-renews until canceled."
+        amount == null -> "Auto-renews until canceled."
+        freeTrial -> "7 days free, then $amount. Auto-renews until canceled in Google Play."
+        else -> "$amount. Auto-renews until canceled in Google Play."
     }
 }

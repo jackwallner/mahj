@@ -69,19 +69,19 @@ final class HandPlayStore: ObservableObject {
 
     /// The calendar-day key, shared with Mahj Minute's format so both features
     /// roll over at the same moment on the same device.
-    static func dayKey(for date: Date, calendar: Calendar = .current) -> String {
+    static func dayKey(for date: Date, calendar: Calendar = .gregorianLocal) -> String {
         MahjMinuteContent.key(for: date, calendar: calendar)
     }
 
     /// A hand already paid for is always playable. Otherwise: members always,
     /// free players once a calendar day.
-    func canPlay(isMember: Bool, now: Date = Date(), calendar: Calendar = .current) -> Bool {
+    func canPlay(isMember: Bool, now: Date = Date(), calendar: Calendar = .gregorianLocal) -> Bool {
         inProgress != nil || isMember || lastFreeHandDay != Self.dayKey(for: now, calendar: calendar)
     }
 
     /// Called when a hand actually starts, not when the screen opens. Backing
     /// out of the deal without playing must not spend the free hand.
-    func recordStart(isMember: Bool, now: Date = Date(), calendar: Calendar = .current) {
+    func recordStart(isMember: Bool, now: Date = Date(), calendar: Calendar = .gregorianLocal) {
         handsPlayed += 1
         defaults.set(handsPlayed, forKey: Keys.handsPlayed)
         guard !isMember else { return }

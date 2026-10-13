@@ -1,5 +1,4 @@
 import SwiftUI
-import StoreKit
 import UIKit
 
 struct SettingsView: View {
@@ -7,13 +6,12 @@ struct SettingsView: View {
     @EnvironmentObject private var settings: AppSettings
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.requestReview) private var requestReview
+    @Environment(\.openURL) private var openURL
     @State private var showPaywall = false
     @State private var showWhatsNew = false
     @State private var showResetConfirm = false
     @State private var restoreMessage: String?
-    /// Non-nil while the review funnel is up; the value is where it opens.
-    @State private var reviewPromptStep: ReviewPromptSheet.Step?
+    @State private var showFeedback = false
 
     var body: some View {
         NavigationStack {
@@ -50,14 +48,8 @@ struct SettingsView: View {
                     }
                 }
             }
-            .sheet(item: $reviewPromptStep) { step in
-                ReviewPromptSheet(initialStep: step) { outcome in
-                    guard outcome.wantsSystemReviewPrompt else { return }
-                    Task { @MainActor in
-                        try? await Task.sleep(nanoseconds: 700_000_000)
-                        requestReview()
-                    }
-                }
+            .sheet(isPresented: $showFeedback) {
+                ReviewPromptSheet(initialStep: .feedback)
             }
             .alert("Restore", isPresented: .init(
                 get: { restoreMessage != nil },
@@ -185,12 +177,16 @@ struct SettingsView: View {
                 }
             }
             Button {
-                reviewPromptStep = .reviewPitch
+                // A button never calls `requestReview()`: Apple may show
+                // nothing and the tap would look broken. It opens the
+                // write-review page, which always works.
+                ReviewPromptTracker.markOpenedWriteReview()
+                openURL(AppStoreLinks.writeReviewURL)
             } label: {
                 Label("Rate Mahj Trainer", systemImage: "star.fill")
             }
             Button {
-                reviewPromptStep = .feedback
+                showFeedback = true
             } label: {
                 Label("Send Feedback", systemImage: "envelope.fill")
             }

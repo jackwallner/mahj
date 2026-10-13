@@ -14,6 +14,8 @@ struct HomeView: View {
     @EnvironmentObject private var settings: AppSettings
     @EnvironmentObject private var router: AppRouter
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @State private var membershipWaitOver = false
     @StateObject private var records = PracticeRecordStore.shared
     @StateObject private var minuteStore = MahjMinuteStore.shared
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
@@ -109,11 +111,12 @@ struct HomeView: View {
             .task { presentWhatsNewIfNeeded() }
             .task { presentChurnPromptIfNeeded() }
             .sheet(item: $churnPrompt) { moment in
-                ReviewPromptSheet(initialStep: .churn(moment)) { _ in }
+                ReviewPromptSheet(initialStep: .churn(moment))
             }
             .onChange(of: subscriptions.pendingChurnMoment) { _, _ in presentChurnPromptIfNeeded() }
             .onChange(of: records.records.count) { _, _ in recordMastery() }
             .onChange(of: router.pendingDestination) { _, _ in consumePendingDestination() }
+            .onChange(of: subscriptions.membershipResolved) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.isPro) { _, isMember in
                 if isMember {
                     if let pendingAfterUpgrade {
@@ -227,6 +230,19 @@ struct HomeView: View {
     }
 
     private func consumePendingDestination() {
+        // A member opening a notification cold has isPro false until the
+        // customer record loads; wait for it rather than sell them a paywall.
+        if !subscriptions.membershipResolved, !membershipWaitOver,
+           let waiting = router.pendingDestination, !waiting.isFree {
+            // Offline with no cached record it may never resolve: give it a
+            // few seconds, then fall back to the normal paywall guard.
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 4_000_000_000)
+                membershipWaitOver = true
+                consumePendingDestination()
+            }
+            return
+        }
         guard let destination = router.consumePendingDestination() else { return }
         guard destination.isFree || subscriptions.isPro else {
             pendingAfterUpgrade = destination
@@ -360,17 +376,19 @@ struct HomeView: View {
         } label: {
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 4) {
+                    // `onFill`, not white: dark mode lightens the jade, and
+                    // white on it measured 2.45:1.
                     Text("Get Started")
                         .font(Theme.display(24))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Theme.onFill)
                     Text("A five-minute mix of what you need next")
                         .font(.subheadline)
-                        .foregroundStyle(.white.opacity(0.85))
+                        .foregroundStyle(Theme.onFill.opacity(0.9))
                 }
                 Spacer(minLength: 4)
                 Image(systemName: "play.circle.fill")
                     .font(.system(size: 44))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Theme.onFill)
             }
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -586,7 +604,7 @@ struct HomeView: View {
                 // indicators are off, so without a cue the visible cards read
                 // as the whole offering and Timed Challenge and Fix My
                 // Mistakes are never found.
-                if horizontalSizeClass != .regular {
+                if horizontalSizeClass != .regular, !dynamicTypeSize.isAccessibilitySize {
                     HStack(spacing: 3) {
                         Text("SWIPE FOR MORE")
                             .font(.caption2.weight(.heavy))
@@ -599,7 +617,14 @@ struct HomeView: View {
                 }
             }
             .padding(.horizontal, 4)
-            if horizontalSizeClass == .regular {
+            if dynamicTypeSize.isAccessibilitySize {
+                // One full-width column that grows with its text. Fixed-height
+                // tiles drew over each other at the largest sizes.
+                VStack(spacing: 10) {
+                    trainingTiles
+                }
+                .padding(.horizontal, 4)
+            } else if horizontalSizeClass == .regular {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 10)], spacing: 10) {
                     trainingTiles
                 }
@@ -772,8 +797,10 @@ struct HomeView: View {
             }
         }
         .padding(12)
-        .frame(width: horizontalSizeClass == .regular ? nil : 128, height: 118, alignment: .leading)
-        .frame(maxWidth: horizontalSizeClass == .regular ? .infinity : nil, alignment: .leading)
+        .modifier(TrainingTileFrame(
+            fullWidth: horizontalSizeClass == .regular || dynamicTypeSize.isAccessibilitySize,
+            fixedHeight: !dynamicTypeSize.isAccessibilitySize
+        ))
         .themedCard(corner: 16)
     }
 
@@ -960,6 +987,23 @@ extension DrillKind {
         case .quiz: return "questions"
         case .handMatch: return "racks"
         case .charleston: return "deals"
+        }
+    }
+}
+
+/// A training tile is a fixed 118pt card in the phone's scrolling row and the
+/// iPad grid, and grows with its text at accessibility sizes.
+private struct TrainingTileFrame: ViewModifier {
+    let fullWidth: Bool
+    let fixedHeight: Bool
+
+    func body(content: Content) -> some View {
+        if fixedHeight {
+            content
+                .frame(width: fullWidth ? nil : 128, height: 118, alignment: .leading)
+                .frame(maxWidth: fullWidth ? .infinity : nil, alignment: .leading)
+        } else {
+            content.frame(maxWidth: .infinity, minHeight: 118, alignment: .leading)
         }
     }
 }

@@ -17,16 +17,18 @@ content rules across ALL drills in `DrillLibrary` (13-tile deals/racks, 3-tile
 passes, no passing jokers, max 4 copies of a tile, no em dashes, unique ids,
 free/Mahj+ split).
 
-**App Store reviews and feedback (1.4):** the fleet funnel, with a different
-yes-path. `ReviewPromptTracker` (launches, positive moments, cooldowns,
-terminal outcome) gates `ReviewPromptSheet`: enjoying it? → yes fires Apple's
-native `requestReview()` (stars in one tap, soft 30-day cooldown, never
-terminal), no opens an in-app feedback box that posts to `FeedbackService`
-(Supabase insert-only table, offline queue). Unhappy players never see a
-rating ask. Fires after the 3rd finished drill (`DrillCompleteView`, 1.4s
-after the celebration lands); Settings' Rate / Send Feedback open the same
-sheet at their step. The same sheet hosts the per-question "Something wrong?"
-report and the one churn question. App Store ID `6790052126`. Details in
+**App Store reviews and feedback (1.4):** the fleet's no-gate policy (ios-dev
+skill, "App Store ratings and feedback"). A finished drill, Mahj Minute or a
+challenge scoring half or better calls Apple's `requestReview()` directly,
+3s later, via `.requestsReview(after:)` (`Views/Components/ReviewRequest.swift`),
+gated only by `ReviewPromptTracker`: second launch on, 30-day cooldown, and
+opening the write-review page ends the asks. NO "Enjoying it?" question: that
+gate got IM Tri Tracker rejected under 5.6.1 (2026-10-01). Settings has two
+separate rows: Rate opens the write-review page, Send Feedback opens
+`ReviewPromptSheet(.feedback)`, which posts to `FeedbackService` (Supabase
+insert-only table, offline queue). Feedback never stops rating asks. The same
+sheet hosts the per-question "Something wrong?" report and the one churn
+question. App Store ID `6790052126`. Details in
 `.claude/rules/feedback-and-retention.md`.
 
 ## Products & the Mahj+ model

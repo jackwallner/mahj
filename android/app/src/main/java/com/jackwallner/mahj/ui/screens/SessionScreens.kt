@@ -1,5 +1,6 @@
 package com.jackwallner.mahj.ui.screens
 
+import android.os.SystemClock
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -285,11 +286,17 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
         }
     }
 
+    // A deadline, as on iOS, not a count of ticks: a paused or backgrounded
+    // scheduler still counted one second per tick, so a run could last well
+    // past ninety real seconds and its best score meant nothing.
+    var clockEnd by remember { mutableStateOf<Long?>(null) }
     LaunchedEffect(timedStarted) {
         if (mode != PracticeMode.Timed || !timedStarted) return@LaunchedEffect
+        val end = clockEnd ?: (SystemClock.elapsedRealtime() + CHALLENGE_SECONDS * 1_000L).also { clockEnd = it }
         while (secondsLeft > 0 && !finished) {
-            delay(1_000)
-            secondsLeft -= 1
+            delay(250)
+            val remaining = end - SystemClock.elapsedRealtime()
+            secondsLeft = if (remaining <= 0) 0 else ((remaining + 999) / 1_000).toInt()
         }
         if (!finished) {
             Haptics.rigid()

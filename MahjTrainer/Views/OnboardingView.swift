@@ -3,9 +3,15 @@ import SwiftUI
 /// Onboarding: three value pages, a skill-level question, then the OT710-style
 /// trial step. The primary button keeps IDENTICAL geometry on every page (the
 /// zero-shift rule): the thumb rides Continue the whole way, and on the last
-/// page the same button becomes "Start 7-day free trial", one tap straight
-/// to Apple's confirm. No plan cards here; the full paywall is only a fallback
+/// page the same button becomes the purchase CTA, one tap straight
+/// to Apple's confirm ("Subscribe" when Apple says this Apple Account has
+/// already had its free week). No plan cards here; the full paywall is only a fallback
 /// when products failed to load.
+///
+/// The free week is promised only when Apple says this Apple Account gets it
+/// (`SubscriptionService.offersFreeTrial`). A reinstall by someone who has
+/// trialled before sees the same page with plain pricing and "Subscribe",
+/// because Apple charges them on day one.
 ///
 /// After the trial decision (either way), brand-new players get the How to
 /// Play quick start FIRST, then everyone gets the feature tour, whose finale
@@ -15,6 +21,7 @@ import SwiftUI
 struct OnboardingView: View {
     @EnvironmentObject private var progress: ProgressStore
     @EnvironmentObject private var subscriptions: SubscriptionService
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var page = 0
     @State private var purchasing = false
     @State private var restoring = false
@@ -24,7 +31,7 @@ struct OnboardingView: View {
 
     private enum Stage: Equatable { case pages, trialReminder, tour, howToPlay }
     @State private var stage: Stage = .pages
-    @State private var trialStartedAt: Date?
+    @State private var trialEndsAt: Date?
     @EnvironmentObject private var settings: AppSettings
 
     private let lastPage = 4
@@ -103,9 +110,28 @@ struct OnboardingView: View {
         }
     }
 
+    /// A page that sits a little above centre when it fits, as designed, and
+    /// scrolls when it does not: at the largest text sizes the heading and the
+    /// first skill choice used to sit above the screen with no way to reach them.
+    private func fittedPage<Content: View>(spacing: CGFloat, @ViewBuilder _ content: () -> Content) -> some View {
+        let content = content()
+        return ViewThatFits(in: .vertical) {
+            VStack(spacing: spacing) {
+                Spacer()
+                content
+                Spacer()
+                Spacer()
+            }
+            ScrollView {
+                VStack(spacing: spacing) { content }
+                    .padding(.vertical, 24)
+            }
+        }
+        .padding(.horizontal, 28)
+    }
+
     private func infoPage(icon: String, title: String, body bodyText: String, tiles: [Tile]) -> some View {
-        VStack(spacing: 26) {
-            Spacer()
+        fittedPage(spacing: 26) {
             Image(systemName: icon)
                 .font(.system(size: 40, weight: .semibold))
                 .foregroundStyle(Theme.jade)
@@ -121,10 +147,7 @@ struct OnboardingView: View {
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-            Spacer()
-            Spacer()
         }
-        .padding(.horizontal, 28)
     }
 
     // MARK: - Skill level
@@ -142,12 +165,12 @@ struct OnboardingView: View {
     ]
 
     private var skillLevelPage: some View {
-        VStack(spacing: 22) {
-            Spacer()
+        fittedPage(spacing: 22) {
             Text("Where are you starting from?")
                 .font(Theme.display(30))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
             Text("We'll point you at the right drills.")
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
@@ -159,10 +182,7 @@ struct OnboardingView: View {
             Text(skillLevel.isEmpty ? "Pick one to continue." : " ")
                 .font(.footnote)
                 .foregroundStyle(Theme.inkSecondary)
-            Spacer()
-            Spacer()
         }
-        .padding(.horizontal, 28)
     }
 
     private func skillCard(_ option: SkillOption) -> some View {
@@ -206,14 +226,13 @@ struct OnboardingView: View {
     // MARK: - Trial step (OT710: hero + bullets, zero plan cards)
 
     private var trialPage: some View {
-        VStack(spacing: 22) {
-            Spacer()
+        fittedPage(spacing: 22) {
             Image(systemName: "sparkles")
                 .font(.system(size: 40, weight: .semibold))
                 .foregroundStyle(Theme.gold)
                 .frame(width: 92, height: 92)
                 .background(Theme.gold.opacity(0.14), in: Circle())
-            Text("Try \(Membership.name) free")
+            Text(offersTrial ? "Try \(Membership.name) free" : "Get \(Membership.name)")
                 .font(Theme.display(30))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
@@ -224,10 +243,15 @@ struct OnboardingView: View {
                 trialBenefit("Fix My Mistakes brings back what you miss")
                 trialBenefit("Extra sets in all four rooms, plus the Master Tables")
             }
-            Spacer()
-            Spacer()
+            // At accessibility sizes the price, the free exit and the legal
+            // links scroll with the page; pinned in the footer they piled on
+            // top of each other and squeezed the CTA to "Start 7-day...".
+            if dynamicTypeSize.isAccessibilitySize, !subscriptions.isPro {
+                priceSlot
+                softExit
+                legalRow
+            }
         }
-        .padding(.horizontal, 28)
     }
 
     private func trialBenefit(_ text: String) -> some View {
@@ -237,7 +261,13 @@ struct OnboardingView: View {
             Text(text)
                 .font(.subheadline)
                 .foregroundStyle(Theme.ink)
+                .fixedSize(horizontal: false, vertical: true)
         }
+    }
+
+    /// Whether the CTA's plan starts with the free week for this Apple Account.
+    private var offersTrial: Bool {
+        !subscriptions.isPro && subscriptions.offersFreeTrial(.monthly)
     }
 
     /// The billed amount, shown larger than anything else about price on the
@@ -259,10 +289,11 @@ struct OnboardingView: View {
         // Nobody is being charged anything here, so quoting a price would be
         // a lie about the button next to it.
         if subscriptions.isPro { return "" }
-        guard let price = PaywallPricing.price(subscriptions, .monthly) else {
-            return "Includes 7 days free. Auto-renews until canceled."
-        }
-        return "7 days free, then \(price). Auto-renews until canceled."
+        return PaywallPricing.terms(
+            amount: PaywallPricing.price(subscriptions, .monthly),
+            plan: .monthly,
+            freeTrial: offersTrial
+        )
     }
 
     /// A player who already owns \(Membership.name) is not a trial prospect.
@@ -272,13 +303,19 @@ struct OnboardingView: View {
     /// they already hold, which Apple answers with its own confusing
     /// "you're already subscribed" sheet. Recognise them and just let them in.
     private var trialCTATitle: String {
-        subscriptions.isPro ? "Continue" : "Start 7-day free trial"
+        if subscriptions.isPro { return "Continue" }
+        return offersTrial ? "Start 7-day free trial" : "Subscribe"
     }
 
     // MARK: - Footer (identical geometry on every page: zero-shift CTA)
 
     private var footer: some View {
         let onTrialPage = page == lastPage
+        // The empty trial slots are reserved on every page so the CTA never
+        // moves. At accessibility sizes they grew to a third of the screen
+        // of invisible text and squeezed the page above into a sliver, so
+        // there they move into the trial page's own scrolling content.
+        let reservesTrialSlots = !dynamicTypeSize.isAccessibilitySize
         return VStack(spacing: 8) {
             pageDots
             // Soft free exit sits ABOVE the primary so the trial CTA owns the
@@ -286,39 +323,23 @@ struct OnboardingView: View {
             // matching the approved fleet apps: it's the free way in, worded so
             // it doesn't read as a loud "escape the offer" button. Height
             // reserved on every page.
-            Button {
-                startTour()
-            } label: {
-                Text("Get Started")
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(Theme.inkSecondary)
+            if reservesTrialSlots {
+                softExit
+                    .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
+                // Pricing slot, reserved on every page. The billed amount is the
+                // most conspicuous pricing element (App Review 3.1.2(c) flagged
+                // the trial outshining it); the disclosure under it stays small.
+                // Cribbage Trainer's approved fix, ported as-is. minHeight so the
+                // disclosure can wrap without moving the CTA on any page.
+                priceSlot
+                    .opacity(onTrialPage ? 1 : 0)
             }
-            .frame(height: 30)
-            .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
-            .disabled(!onTrialPage || subscriptions.isPro || purchasing || restoring)
-            // Pricing slot, reserved on every page. The billed amount is the
-            // most conspicuous pricing element (App Review 3.1.2(c) flagged
-            // the trial outshining it); the disclosure under it stays small.
-            // Cribbage Trainer's approved fix, ported as-is. minHeight so the
-            // disclosure can wrap without moving the CTA on any page.
-            VStack(spacing: 2) {
-                Text(trialPrice)
-                    .font(Theme.display(22))
-                    .foregroundStyle(Theme.ink)
-                Text(trialDisclosure)
-                    .font(.caption2)
-                    .foregroundStyle(Theme.inkTertiary)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .frame(minHeight: 48)
-            .opacity(onTrialPage ? 1 : 0)
             Button {
                 primaryAction()
             } label: {
                 Group {
                     if purchasing || restoring {
-                        ProgressView().tint(.white)
+                        ProgressView().tint(Theme.onFill)
                     } else {
                         Text(onTrialPage ? trialCTATitle : "Continue")
                     }
@@ -328,21 +349,61 @@ struct OnboardingView: View {
             .disabled(purchasing || restoring || (page == skillPage && skillLevel.isEmpty))
             .opacity(page == skillPage && skillLevel.isEmpty ? 0.5 : 1)
             // Legal footer slot, reserved on every page.
-            HStack(spacing: 14) {
-                Link("Terms", destination: PaywallLinks.terms)
-                Link("Privacy", destination: PaywallLinks.privacy)
-                Button("Restore") {
-                    restorePurchases()
-                }
+            if reservesTrialSlots {
+                legalRow
+                    .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
             }
-            .font(.caption2)
-            .foregroundStyle(Theme.inkTertiary)
-            .frame(height: 20)
-            .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
-            .disabled(!onTrialPage || subscriptions.isPro || purchasing || restoring)
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 10)
+    }
+
+    private var onTrialPageNow: Bool { page == lastPage }
+
+    /// The free way in. "Get Started" (not "Skip"/"No trial") on purpose,
+    /// matching the approved fleet apps.
+    private var softExit: some View {
+        Button {
+            startTour()
+        } label: {
+            Text("Get Started")
+                .font(.subheadline.weight(.medium))
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(minHeight: 30)
+        .disabled(!onTrialPageNow || subscriptions.isPro || purchasing || restoring)
+    }
+
+    private var priceSlot: some View {
+        VStack(spacing: 2) {
+            Text(trialPrice)
+                .font(Theme.display(22))
+                .foregroundStyle(Theme.ink)
+            Text(trialDisclosure)
+                .font(.caption2)
+                .foregroundStyle(Theme.inkTertiary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(minHeight: 48)
+    }
+
+    private var legalRow: some View {
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 8))
+            : AnyLayout(HStackLayout(spacing: 14))
+        return layout {
+            Link("Terms", destination: PaywallLinks.terms)
+            Link("Privacy", destination: PaywallLinks.privacy)
+            Button("Restore") {
+                restorePurchases()
+            }
+        }
+        .font(.caption2)
+        .foregroundStyle(Theme.inkTertiary)
+        .frame(minHeight: 20)
+        .disabled(!onTrialPageNow || subscriptions.isPro || purchasing || restoring)
     }
 
     private var pageDots: some View {
@@ -379,7 +440,13 @@ struct OnboardingView: View {
         purchasing = true
         Task {
             defer { purchasing = false }
+            // Also re-runs the reinstall check: a member StoreKit knows about
+            // must never be sold what they already own.
             await subscriptions.ensureOfferings()
+            guard !subscriptions.isPro else {
+                startTour()
+                return
+            }
             // Monthly, not yearly, and this is deliberate. Two different people
             // reach the two purchase surfaces: whoever taps through onboarding
             // has not used the app yet and is reacting to the number on Apple's
@@ -396,12 +463,18 @@ struct OnboardingView: View {
                 switch outcome {
                 case .purchased:
                     if await subscriptions.confirmEntitlement() {
-                        // A trial just started. Offer the reminder BEFORE the
-                        // tour: this is the one moment the player is thinking
-                        // about the week ahead, and a reminder they chose is
-                        // the opposite of the surprise charge they fear.
-                        trialStartedAt = Date()
-                        stage = .trialReminder
+                        // A trial just started: offer the reminder BEFORE the
+                        // tour, the one moment the player is thinking about
+                        // the week ahead. Only for a real trial, timed from
+                        // its real end; someone Apple charged today has no
+                        // free week to be reminded about.
+                        if subscriptions.isTrialing, let end = subscriptions.expirationDate,
+                           AppSettings.trialReminderFireDate(trialEndsAt: end) != nil {
+                            trialEndsAt = end
+                            stage = .trialReminder
+                        } else {
+                            startTour()
+                        }
                     } else {
                         purchaseError = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore."
                     }
@@ -442,8 +515,11 @@ struct OnboardingView: View {
     /// Permission is requested here, not earlier: the system prompt lands on
     /// a screen that has just explained exactly what the one notification is.
     private func acceptTrialReminder() {
-        let start = trialStartedAt ?? Date()
-        settings.requestTrialEndReminder(trialStartedAt: start) { _ in
+        guard let end = trialEndsAt else {
+            startTour()
+            return
+        }
+        settings.requestTrialEndReminder(trialEndsAt: end) { _ in
             startTour()
         }
     }

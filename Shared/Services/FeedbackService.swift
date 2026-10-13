@@ -6,8 +6,10 @@ import UIKit
 /// Why a piece of feedback was written. Stored as the `kind` column so the
 /// inbox can be sorted by moment rather than read as one pile.
 enum FeedbackKind: String, Codable, Sendable {
-    /// Settings > Send Feedback, or the "not really" branch of the review funnel.
+    /// Settings > Send Feedback.
     case general
+    /// The retired enjoyment funnel's "not really" branch. Nothing sends it
+    /// now; kept because the table still accepts it.
     case notEnjoying = "not_enjoying"
     /// "Something wrong with this question?" under a graded answer.
     case question
@@ -82,6 +84,7 @@ final class FeedbackService: ObservableObject {
     private let endpoint: FeedbackEndpoint
     private let defaults: UserDefaults
     private let session: URLSession
+    private var isFlushing = false
 
     init(
         endpoint: FeedbackEndpoint = .production,
@@ -114,12 +117,32 @@ final class FeedbackService: ObservableObject {
 
     /// Retries anything a previous launch could not send. Cheap when the
     /// queue is empty, which is nearly always.
+    ///
+    /// Each row leaves the stored queue only once the server has answered for
+    /// it, so a retry that is still offline keeps every report, and a report
+    /// queued while a flush is suspended is never overwritten.
     func flushPending() async {
-        let queue = pending
-        guard !queue.isEmpty else { return }
-        pending = []
-        for submission in queue {
-            if await deliver(submission) == .queued { return }
+        guard !isFlushing else { return }
+        isFlushing = true
+        defer { isFlushing = false }
+        // One pass over what was queued when the flush began. A row the
+        // server keeps failing (5xx) stays queued but does not block the rows
+        // behind it; the cap ages it out eventually.
+        for next in pending {
+            do {
+                // Accepted or refused, the server has answered: either way the
+                // row is done.
+                _ = try await post(next)
+            } catch let error as URLError where error.code == .badServerResponse {
+                continue
+            } catch {
+                return // Unreachable: try everything again next launch.
+            }
+            var queue = pending
+            if let index = queue.firstIndex(of: next) {
+                queue.remove(at: index)
+            }
+            pending = queue
         }
     }
 

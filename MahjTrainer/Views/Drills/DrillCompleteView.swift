@@ -1,5 +1,4 @@
 import SwiftUI
-import StoreKit
 
 struct DrillCompleteView: View {
     let drill: Drill
@@ -11,18 +10,44 @@ struct DrillCompleteView: View {
 
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.requestReview) private var requestReview
-    @State private var showReviewPrompt = false
     @State private var recorded = false
-    /// False once the player has left. Tapping Done inside the 1.4s wait used
-    /// to spend the review ask on a sheet that never appeared.
-    @State private var onScreen = true
+    /// Bumped once when the drill is banked: the rating prompt's cue.
+    @State private var reviewMoment = 0
     @State private var celebrate = false
     @State private var confettiTrigger = 0
 
     var body: some View {
+        VStack(spacing: 16) {
+            // Scrolls when it has to: at the largest text sizes the message
+            // used to truncate in a fixed stack.
+            CenteringScrollView {
+                summary
+            }
+            Button {
+                if let onDone { onDone() } else { dismiss() }
+            } label: {
+                Text("Done").primaryCTA()
+            }
+        }
+        .padding()
+        .background(Theme.background)
+        .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.3), particleCount: 44) }
+        .navigationBarBackButtonHidden(true)
+        .onAppear {
+            celebrate = true
+            confettiTrigger += 1
+            guard !recorded else { return }
+            recorded = true
+            Haptics.success()
+            SoundPlayer.play(.complete)
+            progress.recordSession(drillID: drill.id)
+            reviewMoment += 1
+        }
+        .requestsReview(after: reviewMoment)
+    }
+
+    private var summary: some View {
         VStack(spacing: 22) {
-            Spacer()
             ZStack {
                 Circle()
                     .fill(Theme.jade.opacity(0.12))
@@ -49,10 +74,13 @@ struct DrillCompleteView: View {
                 Text(headline)
                     .font(Theme.display(30))
                     .foregroundStyle(Theme.ink)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
                 Text(subheadline)
                     .font(.body)
                     .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             HStack(spacing: 6) {
                 Image(systemName: "flame.fill")
@@ -64,66 +92,8 @@ struct DrillCompleteView: View {
             .padding(.horizontal, 18)
             .padding(.vertical, 10)
             .themedCard(corner: 22)
-            Spacer()
-            Button {
-                if let onDone { onDone() } else { dismiss() }
-            } label: {
-                Text("Done").primaryCTA()
-            }
         }
-        .padding()
-        .background(Theme.background)
-        .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.3), particleCount: 44) }
-        .navigationBarBackButtonHidden(true)
-        .onAppear {
-            celebrate = true
-            confettiTrigger += 1
-            guard !recorded else { return }
-            recorded = true
-            Haptics.success()
-            SoundPlayer.play(.complete)
-            progress.recordSession(drillID: drill.id)
-            recordPositiveMoment()
-        }
-        .onDisappear { onScreen = false }
-        .sheet(isPresented: $showReviewPrompt) {
-            ReviewPromptSheet(onFinish: handleReviewOutcome)
-        }
-    }
-
-    /// A finished drill is the positive moment the funnel waits for. Let the
-    /// celebration land first: a sheet that lands on top of the confetti reads
-    /// as an interruption, not a thank-you.
-    ///
-    /// The ask is recorded when it is PRESENTED, not when it is answered.
-    /// Every button inside the sheet records something, but a drag indicator
-    /// is shown on purpose and swiping the sheet away recorded nothing at all:
-    /// no outcome, no last-shown date, so the very next finished drill passed
-    /// the same gate and asked again. A rating prompt that reappears after
-    /// every drill until you tap one of its buttons is exactly the nag the
-    /// cooldown exists to prevent. Marking it here means a dismissal of any
-    /// kind, including backgrounding the app with the sheet up, spends the
-    /// ask; the buttons inside still narrow the cooldown or retire it for good.
-    private func recordPositiveMoment() {
-        ReviewPromptTracker.recordPositiveMoment()
-        guard ReviewPromptTracker.shouldShowAfterPositiveMoment() else { return }
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 1_400_000_000)
-            guard onScreen else { return }
-            ReviewPromptTracker.markShown()
-            showReviewPrompt = true
-        }
-    }
-
-    private func handleReviewOutcome(_ outcome: ReviewPromptDismissOutcome) {
-        // A warm "yes" is the moment to spend Apple's native prompt: stars in
-        // one tap, without leaving the app. The short wait lets the sheet
-        // finish dismissing first, or the system prompt can be swallowed.
-        guard outcome.wantsSystemReviewPrompt else { return }
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 700_000_000)
-            requestReview()
-        }
+        .padding(.vertical, 8)
     }
 
     private var headline: String {

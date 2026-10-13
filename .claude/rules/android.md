@@ -48,14 +48,21 @@ holds only what is specific to this app.
 
 ## Deliberate differences from iOS
 
-- Review funnel: Google forbids an enjoyment question before the Play review
-  card. A finished drill calls `launchReviewFlow` directly behind the same
-  gates (`ReviewPromptTracker`), Settings "Rate" opens the Play listing, and
-  "Send Feedback" is its own sheet.
+- Review prompt: same rules as iOS. A finished drill calls `launchReviewFlow`
+  directly (no question first) from the second launch, at most every 30 days
+  (`ReviewPromptTracker` in `Funnel.kt`); only "Rate" (opens the Play listing)
+  ends the asks, and "Send Feedback" never does.
 - Settings is a pushed screen, not a sheet. Paywall, What's New and Feedback
   are sheets (`MahjSheet`).
-- Reminders use inexact repeating alarms plus a boot receiver;
-  `POST_NOTIFICATIONS` is asked only when a reminder is switched on.
+- Reminders use inexact ONE-SHOT alarms, re-laid at the chosen local time on
+  every delivery, boot, clock change and time-zone change
+  (`AppSettings.rescheduleAll`); fixed 24h/7d repeats drifted an hour at DST.
+  `POST_NOTIFICATIONS` is asked only when a reminder is switched on, and a
+  denial raises the "Notifications are off" alert from `RootScreen`, wherever
+  it was asked.
+- `SubscriptionService.membershipResolved`: `isPro` is false on every launch
+  until a customer record is read. Never act on a lapse (turning off the game
+  night reminder) before it is true.
 - No iPad layout; tablets get the readable-width column.
 
 ## Build, test, capture

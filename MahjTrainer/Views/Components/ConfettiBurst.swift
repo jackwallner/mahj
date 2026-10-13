@@ -1,7 +1,9 @@
 import SwiftUI
 
-/// A one-shot confetti burst. Bump `trigger` to fire. Drawn with Canvas so a
-/// burst costs nothing once it ends.
+/// A one-shot confetti burst. Bump `trigger` to fire. Drawn with Canvas, and
+/// the animation timeline is removed when the burst ends, so a finished burst
+/// costs nothing. With Reduce Motion on it never fires: the haptic, sound and
+/// the graded row already say "right".
 ///
 /// It launches from `sourceRect` when the host knows what was celebrated (the
 /// correct answer row, say), otherwise from `origin`. Firing from the winning
@@ -21,6 +23,7 @@ struct ConfettiBurst: View {
     /// The celebrated element, in the same coordinate space this view fills.
     var sourceRect: CGRect?
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var firedAt: Date?
     @State private var seed: Int = 0
     /// Snapshotted at fire time: the source can move (or vanish) mid-flight,
@@ -49,10 +52,16 @@ struct ConfettiBurst: View {
         }
         .allowsHitTesting(false)
         .onChange(of: trigger) { _, _ in
-            guard trigger > 0 else { return }
+            guard trigger > 0, !reduceMotion else { return }
+            let fired = Date()
             seed = trigger
             launchRect = sourceRect
-            firedAt = Date()
+            firedAt = fired
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: UInt64(Self.duration * 1_000_000_000))
+                // A newer burst owns the timeline now; leave it running.
+                if firedAt == fired { firedAt = nil }
+            }
         }
     }
 

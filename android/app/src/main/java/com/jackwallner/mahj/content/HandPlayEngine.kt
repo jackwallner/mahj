@@ -56,16 +56,24 @@ object HandPlayEngine {
         }
     }
 
-    /** The four adjacent numbers a rack's run is centred on. */
+    /**
+     * The run's four-number window where the rack's groups are worth the
+     * most, by the same arithmetic that grades a throw (iOS parity). Chosen by
+     * value, not raw count, so a useless discard can never "raise" the rack
+     * by flipping the window. Ties go to more tiles, then the lower window.
+     */
     fun bestRunRange(tiles: List<Tile>): IntRange {
         var best = 1..4
+        var bestValue = -1.0
         var bestCount = -1
         for (start in 1..6) {
             val range = start..start + 3
+            val value = scoredValue(tiles, HandCategory.CONSECUTIVE_RUN, range)
             val count = tiles.count { it is Tile.Suited && it.rank in range }
-            if (count > bestCount) {
-                bestCount = count
+            if (value > bestValue + 0.0001 || (kotlin.math.abs(value - bestValue) <= 0.0001 && count > bestCount)) {
                 best = range
+                bestValue = value
+                bestCount = count
             }
         }
         return best
@@ -75,8 +83,10 @@ object HandPlayEngine {
         if (target == HandCategory.CONSECUTIVE_RUN) bestRunRange(tiles) else null
 
     /** How much of a rack is doing work toward a section, scored by groups. */
-    fun value(tiles: List<Tile>, target: HandCategory): Double {
-        val range = runRangeFor(tiles, target)
+    fun value(tiles: List<Tile>, target: HandCategory): Double =
+        scoredValue(tiles, target, runRangeFor(tiles, target))
+
+    private fun scoredValue(tiles: List<Tile>, target: HandCategory, range: IntRange?): Double {
         var total = 0.0
         for ((tile, count) in tiles.groupingBy { it }.eachCount()) {
             if (tile == Tile.Joker) {

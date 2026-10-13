@@ -186,27 +186,45 @@ final class AppSettings: ObservableObject {
     // MARK: - Trial-end reminder
 
     /// One local notification two days before a free week ends. Offered right
-    /// after the trial starts, never scheduled silently: a reminder nobody
-    /// asked for reads as a nag, and the same reminder they chose reads as
-    /// honesty. Needs notification permission; the caller handles a refusal.
-    func scheduleTrialEndReminder(trialStartedAt start: Date, trialDays: Int = 7, daysBefore: Int = 2) {
+    /// after a trial ACTUALLY starts, never scheduled silently: a reminder
+    /// nobody asked for reads as a nag, and the same reminder they chose reads
+    /// as honesty. Timed from the trial's real end (RevenueCat's expiration
+    /// date), never from "now plus seven days". Needs notification
+    /// permission; the caller handles a refusal.
+    func scheduleTrialEndReminder(trialEndsAt end: Date, daysBefore: Int = 2, now: Date = Date()) {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: [Self.trialEndReminderID])
-        let fireDay = Calendar.current.date(byAdding: .day, value: trialDays - daysBefore, to: start) ?? start
-        var parts = Calendar.current.dateComponents([.year, .month, .day], from: fireDay)
-        parts.hour = 10
-        parts.minute = 0
+        guard let fireAt = Self.trialReminderFireDate(trialEndsAt: end, daysBefore: daysBefore, now: now) else { return }
         let content = UNMutableNotificationContent()
         content.title = "Your \(Membership.name) trial ends in \(daysBefore) days"
         content.body = "Keep it and nothing changes. Not for you? Cancel in Settings > Apple Account > Subscriptions and you won't be charged."
         content.sound = .default
+        let parts = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: fireAt)
         let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)
         center.add(UNNotificationRequest(identifier: Self.trialEndReminderID, content: content, trigger: trigger))
     }
 
+    /// 10am local, `daysBefore` days before the trial ends, or nil when that
+    /// moment has already passed (a "two days left" note after that is false).
+    static func trialReminderFireDate(trialEndsAt end: Date, daysBefore: Int = 2, now: Date = Date()) -> Date? {
+        let calendar = Calendar.current
+        guard let day = calendar.date(byAdding: .day, value: -daysBefore, to: end),
+              let fireAt = calendar.date(bySettingHour: 10, minute: 0, second: 0, of: day) else { return nil }
+        // Never later than the true "two days before" moment.
+        let latest = end.addingTimeInterval(-TimeInterval(daysBefore) * 86_400)
+        let chosen = min(fireAt, latest)
+        return chosen > now ? chosen : nil
+    }
+
+    /// The trial converted, ended, or will not renew: the reminder's promise
+    /// no longer holds.
+    static func cancelTrialEndReminder() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [trialEndReminderID])
+    }
+
     /// Asks for permission if needed, then schedules. `completion` reports
     /// whether the reminder is actually set.
-    func requestTrialEndReminder(trialStartedAt start: Date, completion: @escaping @MainActor (Bool) -> Void) {
+    func requestTrialEndReminder(trialEndsAt end: Date, completion: @escaping @MainActor (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
             Task { @MainActor in
                 guard granted else {
@@ -214,7 +232,7 @@ final class AppSettings: ObservableObject {
                     completion(false)
                     return
                 }
-                self.scheduleTrialEndReminder(trialStartedAt: start)
+                self.scheduleTrialEndReminder(trialEndsAt: end)
                 completion(true)
             }
         }

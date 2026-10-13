@@ -13,20 +13,24 @@ enum AppStoreLinks {
     static let feedbackEmail = "jackwallner+m@gmail.com"
 }
 
-/// How the player last resolved the review funnel. Either terminal outcome
-/// retires the prompt for good: we asked, they acted, we stop asking.
+/// What the player did about a review. Only opening the write-review page
+/// ends the passive asks: someone who sent feedback can still rate later.
 enum ReviewPromptOutcome: String, Sendable {
     case openedWriteReview
+    /// Written by the old enjoyment funnel (1.4 builds before 43). Kept so
+    /// those installs decode it; it no longer stops anything.
     case submittedFeedback
 }
 
-/// The review funnel's memory: when we last asked, what happened, and whether
-/// the player has done enough for the ask to be fair.
+/// When the app may put Apple's own rating prompt on screen.
 ///
-/// The funnel itself: a positive moment (a finished drill) leads to "Enjoying
-/// Mahj Trainer?" A yes leads to the App Store; a no leads to a feedback box
-/// that mails us instead. Unhappy players never get pushed at a star rating,
-/// which is the whole point of gating it.
+/// No question goes in front of it. An "Enjoying Mahj Trainer?" step that
+/// sent only the yeses to a rating is review gating under App Review 5.6.1,
+/// and the fleet's ratings come in high anyway, so the job is to ask early
+/// and often enough inside Apple's limits: from the second launch on, at a
+/// finished drill or challenge, at most once every 30 days. Apple shows the
+/// prompt at most three times a year and decides each time; a call it
+/// swallows costs nothing.
 @MainActor
 enum ReviewPromptTracker {
     private static let defaults = UserDefaults.standard
@@ -36,29 +40,19 @@ enum ReviewPromptTracker {
         static let firstOpen = "reviewPrompt.firstOpenDate"
         static let lastShown = "reviewPrompt.lastShownDate"
         static let outcome = "reviewPrompt.outcome"
+        // Retired with the enjoyment funnel; cleared by `resetForTesting`.
         static let positiveMoments = "reviewPrompt.positiveMomentCount"
         static let softDefer = "reviewPrompt.softDefer"
     }
 
-    /// Finished drills before we're willing to ask. Three is enough to know
-    /// whether the app is any good.
-    static let minimumPositiveMoments = 3
+    /// Not in the first session: a second cold start is the only tenure gate.
     static let minimumLaunchCount = 2
-    /// After a "Not now", don't ask again for months.
-    static let cooldownDays = 120
-    /// After a "Maybe later" on the review pitch we fired `requestReview()`,
-    /// which Apple often silently swallows. Short cooldown so that dead ask
-    /// doesn't cost us the next one.
-    static let softDeferCooldownDays = 30
+    /// Days between our calls. Paces the asks, not the player's answers.
+    static let cooldownDays = 30
 
     static var launchCount: Int {
         get { max(defaults.integer(forKey: Keys.launchCount), 0) }
         set { defaults.set(newValue, forKey: Keys.launchCount) }
-    }
-
-    static var positiveMomentCount: Int {
-        get { max(defaults.integer(forKey: Keys.positiveMoments), 0) }
-        set { defaults.set(newValue, forKey: Keys.positiveMoments) }
     }
 
     static var outcome: ReviewPromptOutcome? {
@@ -84,47 +78,23 @@ enum ReviewPromptTracker {
         launchCount += 1
     }
 
-    static func recordPositiveMoment() {
-        positiveMomentCount += 1
-    }
-
-    /// Eligibility for the enjoyment gate after a finished drill.
-    static func shouldShowAfterPositiveMoment(now: Date = Date()) -> Bool {
-        guard outcome == nil else { return false }
-        guard positiveMomentCount >= minimumPositiveMoments else { return false }
+    /// Whether a positive moment right now may call `requestReview()`.
+    static func shouldRequestReview(now: Date = Date()) -> Bool {
+        guard outcome != .openedWriteReview else { return false }
         guard launchCount >= minimumLaunchCount else { return false }
         guard let last = lastShownDate else { return true }
-        let days = defaults.bool(forKey: Keys.softDefer) ? softDeferCooldownDays : cooldownDays
-        return now.timeIntervalSince(last) >= TimeInterval(days) * 86_400
+        return now.timeIntervalSince(last) >= TimeInterval(cooldownDays) * 86_400
     }
 
+    /// Recorded when the call is made: Apple may show nothing, and there is
+    /// no answer to wait for.
     static func markShown(now: Date = Date()) {
         lastShownDate = now
-        defaults.set(false, forKey: Keys.softDefer)
     }
 
-    /// They said yes, then "Maybe later": we fired `requestReview()` and Apple
-    /// may well have shown nothing. Come back sooner than a hard dismissal.
-    static func markSoftDeferred(now: Date = Date()) {
-        lastShownDate = now
-        defaults.set(true, forKey: Keys.softDefer)
-    }
-
-    /// They said yes and the host fired `requestReview()`. Apple shows that
-    /// prompt at most three times a year and may show nothing at all, so this
-    /// is not a terminal outcome: the funnel can come back after the short
-    /// cooldown and ask again.
-    static func markEnjoyed(now: Date = Date()) {
-        markSoftDeferred(now: now)
-    }
-
+    /// Settings > Rate Mahj Trainer. The one thing that ends the asks.
     static func markOpenedWriteReview() {
         outcome = .openedWriteReview
-        markShown()
-    }
-
-    static func markFeedbackSubmitted() {
-        outcome = .submittedFeedback
         markShown()
     }
 

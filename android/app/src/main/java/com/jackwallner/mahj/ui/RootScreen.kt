@@ -45,6 +45,7 @@ import com.jackwallner.mahj.ui.screens.SettingsScreen
 import com.jackwallner.mahj.ui.screens.StatsScreen
 import com.jackwallner.mahj.ui.screens.WhatsNewSheet
 import com.jackwallner.mahj.ui.screens.gameNightPrepItems
+import com.jackwallner.mahj.ui.theme.MahjAlert
 import com.jackwallner.mahj.ui.theme.MahjSheet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -112,8 +113,17 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
     }
 
     // The game-night notification opens the prep session; a lapsed member gets the paywall first.
-    LaunchedEffect(pendingRoute, graph.progress.hasOnboarded) {
+    // A cold start has isPro false until the customer record loads, so wait for it (or a few
+    // seconds offline) rather than sell a member the paywall from their own reminder.
+    val membershipResolved = graph.subscriptions.membershipResolved
+    var membershipWaitOver by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        delay(4_000)
+        membershipWaitOver = true
+    }
+    LaunchedEffect(pendingRoute, graph.progress.hasOnboarded, membershipResolved, membershipWaitOver) {
         if (pendingRoute != AlarmReminderScheduler.GAME_NIGHT_PREP_VALUE || !graph.progress.hasOnboarded) return@LaunchedEffect
+        if (!membershipResolved && !membershipWaitOver) return@LaunchedEffect
         onRouteConsumed()
         if (isPro) {
             navigator.popToRoot()
@@ -123,11 +133,14 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
             paywallSource = "mahj_home_sheet"
         }
     }
-    LaunchedEffect(isPro) {
+    LaunchedEffect(isPro, membershipResolved) {
         if (isPro && prepAfterUpgrade) {
             prepAfterUpgrade = false
             navigator.push(Route.Session(gameNightPrepItems(graph), SessionPurpose.GameNightPrep))
-        } else if (!isPro && graph.settings.gameNightReminderEnabled) {
+        } else if (!isPro && membershipResolved && graph.settings.gameNightReminderEnabled) {
+            // Only on a customer record that says "not a member". Every launch
+            // starts with isPro false, and switching the reminder off then
+            // cancelled a paid member's alarm on a slow or offline start.
             graph.settings.updateGameNightReminderEnabled(false)
         }
     }
@@ -183,6 +196,24 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
         }
         MahjSheet(showFeedback, onDismiss = { showFeedback = false }) {
             FeedbackSheet(onClose = { showFeedback = false })
+        }
+        // Raised wherever the request was made (Settings or Game Night Prep),
+        // so a denied switch never just silently stays off.
+        if (graph.settings.reminderPermissionDenied) {
+            MahjAlert(
+                "Notifications are off",
+                "Mahj Trainer cannot send reminders until notifications are turned on in Android settings.",
+                confirmTitle = "Open Settings",
+                dismissTitle = "Not now",
+                onConfirm = {
+                    graph.settings.reminderPermissionDenied = false
+                    context.startActivity(
+                        android.content.Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                            .putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName),
+                    )
+                },
+                onDismiss = { graph.settings.reminderPermissionDenied = false },
+            )
         }
     }
 }

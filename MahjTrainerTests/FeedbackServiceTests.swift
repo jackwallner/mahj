@@ -96,6 +96,31 @@ final class FeedbackServiceTests: XCTestCase {
         XCTAssertEqual(StubURLProtocol.requestCount, 2)
     }
 
+    func testOfflineRetryKeepsEveryQueuedReport() async {
+        StubURLProtocol.fail = true
+        for i in 0..<3 {
+            _ = await service.submit(kind: .question, message: "report \(i)", isMember: false)
+        }
+        XCTAssertEqual(service.pendingCount, 3)
+
+        await service.flushPending()
+        XCTAssertEqual(service.pendingCount, 3, "a retry that is still offline must not lose reports")
+
+        StubURLProtocol.fail = false
+        await service.flushPending()
+        XCTAssertEqual(service.pendingCount, 0)
+    }
+
+    func testFlushDropsRefusedRowsAndKeepsGoing() async {
+        StubURLProtocol.fail = true
+        _ = await service.submit(kind: .general, message: "a", isMember: false)
+        _ = await service.submit(kind: .general, message: "b", isMember: false)
+        StubURLProtocol.fail = false
+        StubURLProtocol.statusCode = 400
+        await service.flushPending()
+        XCTAssertEqual(service.pendingCount, 0)
+    }
+
     func testRejectedSubmissionIsDroppedNotQueued() async {
         StubURLProtocol.statusCode = 401
         let outcome = await service.submit(kind: .general, message: "x", isMember: false)

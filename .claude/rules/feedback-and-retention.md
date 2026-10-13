@@ -29,22 +29,26 @@ read anything. Reading needs the management API or the dashboard:
 
 Delivery rules: 2xx is sent, a network error queues the row in UserDefaults
 (cap 20) and `flushPending()` retries on the next launch, a 4xx is dropped.
-Never retry a rejected row forever. Nothing personal is sent: counts, ids,
-the question prompt, tile labels, device model, locale.
+Never retry a rejected row forever. A flush removes each row only after the
+server answered for it (the first version cleared the queue up front and lost
+every report after the first offline failure). Nothing personal is sent:
+counts, ids, the question as shown (prompt, tiles, choices, answer, pick,
+coaching), device model, locale. Generated questions have random ids, so the
+report must carry the choices or it cannot be investigated. The public privacy
+policy describes these fields (updated 2026-10-12); keep it in step.
 
-## One sheet, five jobs
+## One sheet, three jobs
 
-`ReviewPromptSheet.Step`: `.enjoyment` / `.reviewPitch` / `.feedback` are the
-review funnel and touch `ReviewPromptTracker`; `.question(QuestionReport)` and
-`.churn(ChurnMoment)` do not. The enjoyment "Yes" calls
-`ReviewPromptTracker.markEnjoyed()` (a soft 30-day deferral, never terminal,
-because Apple may show nothing) and the host fires `requestReview()` after a
-0.7s delay so the sheet has finished dismissing. Sending warm players to the
-App Store write-review page was the leak: keep the native prompt as the yes
-path.
+`ReviewPromptSheet.Step`: `.feedback` (Settings > Send Feedback),
+`.question(QuestionReport)` and `.churn(ChurnMoment)`. None of them touches
+`ReviewPromptTracker`: ratings come only from Apple's prompt after a positive
+moment, never from this sheet. The enjoyment and review-pitch steps were
+removed 2026-10-12 (5.6.1 review gating). The composer scrolls, so Send stays
+reachable at AX5 and with the keyboard up.
 
 `QuestionPager(reportID:)` adds the "Something wrong with this question?"
-link under the coaching note. Every pager-based drill passes its item id.
+link under the coaching note. Every pager-based drill passes its item id and
+its choices (`reportChoices`, `reportAnswerIndex`, `reportPickedIndex`).
 Flashcards and the Charleston drill do not have it (yet).
 
 ## The churn question

@@ -41,7 +41,10 @@ discard for `turnCount` (12) turns while the coach grades every throw.
 Grading is arithmetic the player can check, not opinion: `value(of:target:)`
 scores a rack by GROUPS (kong 4.2, pung 3.2, pair 1.7, single 0.6, off-family
 0, joker 3.2 always), `bestDiscards` returns EVERY tile whose loss costs least
-and all of them grade correct. Ties are real; inventing a single answer to have
+and all of them grade correct. A run is scored in its best four-number
+window BY VALUE (`bestRunRange`), not by raw tile count: a count-chosen window
+flipped when an in-window single left, so a useless throw "raised" the rack
+and the equally useless tiles were graded second best (audit F03). Ties are real; inventing a single answer to have
 something to mark wrong is how a teaching app loses trust. Deliberately NO
 opponents or bots: "the AI feels rigged" is the category's most damaging
 complaint and a drill app structurally avoids it. Choosing a different target

@@ -79,6 +79,7 @@ struct QuickSessionView: View {
 
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @StateObject private var minuteStore = MahjMinuteStore.shared
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
 
@@ -108,8 +109,8 @@ struct QuickSessionView: View {
             completion
         } else if items.isEmpty {
             // Not a finished round. Falling through to the completion screen
-            // banked a streak day, a session count and a review-funnel
-            // positive moment for a session that asked nothing.
+            // banked a streak day, a session count and a rating ask for a
+            // session that asked nothing.
             emptySession
         } else {
             drillBody
@@ -193,7 +194,10 @@ struct QuickSessionView: View {
                     eyebrow: item.sourceLabel.uppercased(),
                     missNote: missNote,
                     requeued: requeued,
-                    reportID: item.id
+                    reportID: item.id,
+                    reportChoices: item.choices,
+                    reportAnswerIndex: item.answerIndex,
+                    reportPickedIndex: selection
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)
@@ -264,9 +268,15 @@ struct QuickSessionView: View {
         selection = pick
         let correct = pick == item.answerIndex
         answers.append(correct)
-        if case .monthlyChallenge(let challenge) = purpose,
-           let result = monthlyStore.recordAnswer(challenge: challenge, correct: correct, pick: pick) {
-            monthlyResult = result
+        if case .monthlyChallenge(let challenge) = purpose {
+            let wasOpen = monthlyStore.result(for: challenge) == nil
+            if let result = monthlyStore.recordAnswer(challenge: challenge, correct: correct, pick: pick) {
+                monthlyResult = result
+                // The last answer banks the run, so it banks the session and
+                // the streak day too. Crediting them on the result screen
+                // lost both whenever the app closed before Finish.
+                if wasOpen { progress.recordSession(drillID: MonthlyChallengeContent.drill.id) }
+            }
         }
         if item.isReviewable {
             progress.recordItem(id: item.id, correct: correct)
@@ -300,8 +310,10 @@ struct QuickSessionView: View {
         Haptics.correctAnswer()
         SoundPlayer.play(.success)
 
-        flashOpacity = 0.14
-        withAnimation(.easeOut(duration: 0.5)) { flashOpacity = 0 }
+        if !reduceMotion {
+            flashOpacity = 0.14
+            withAnimation(.easeOut(duration: 0.5)) { flashOpacity = 0 }
+        }
 
         guard Self.streakMilestones.contains(streak) else { return }
         Haptics.impact(.rigid, intensity: 1.0)
@@ -366,7 +378,7 @@ private struct StreakBanner: View {
             Text(text)
                 .font(.subheadline.weight(.heavy))
         }
-        .foregroundStyle(.white)
+        .foregroundStyle(Theme.onFill)
         .padding(.horizontal, 16)
         .padding(.vertical, 9)
         .background(Theme.coral, in: Capsule())

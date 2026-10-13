@@ -124,7 +124,7 @@ struct FeatureTourView: View {
                 ? TourPage(
                     eyebrow: "YOURS NOW",
                     title: "\(Membership.name) is open",
-                    body: "Your trial already includes Mahj Minute, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables.",
+                    body: "\(subscriptions.isTrialing ? "Your free week" : "Your membership") already includes Mahj Minute, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables.",
                     hero: AnyView(proHero(locked: false)),
                     accentGold: true
                 )
@@ -159,15 +159,15 @@ struct FeatureTourView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Get Started")
                         .font(Theme.display(20))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Theme.onFill)
                     Text("A five-minute mix of what you need next")
                         .font(.caption)
-                        .foregroundStyle(.white.opacity(0.85))
+                        .foregroundStyle(Theme.onFill.opacity(0.9))
                 }
                 Spacer(minLength: 4)
                 Image(systemName: "play.circle.fill")
                     .font(.system(size: 34))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Theme.onFill)
             }
             .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)

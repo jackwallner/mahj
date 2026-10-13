@@ -148,6 +148,48 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(MonthlyChallengeStore(defaults: defaults).result(for: challenge)?.score, challenge.items.count - 1)
     }
 
+    @MainActor
+    func testTheReviewIsOnlyOfferedForTheQuestionsThatWereAnswered() throws {
+        let defaults = UserDefaults(suiteName: "MonthlyChallengeFingerprints")!
+        defaults.removePersistentDomain(forName: "MonthlyChallengeFingerprints")
+        let store = MonthlyChallengeStore(defaults: defaults)
+        let november = MonthlyChallengeContent.challenge(for: date(2026, 11, 3), calendar: calendar)
+        var result: MonthlyChallengeResult?
+        for _ in november.items {
+            result = store.recordAnswer(challenge: november, correct: true, pick: 0)
+        }
+        let saved = try XCTUnwrap(MonthlyChallengeStore(defaults: defaults).result(for: november))
+        XCTAssertNotNil(result)
+        XCTAssertTrue(saved.matches(november))
+
+        // Content that changed under a saved result must not re-label it.
+        let december = MonthlyChallengeContent.challenge(for: date(2026, 12, 3), calendar: calendar)
+        let moved = MonthlyChallenge(
+            monthKey: november.monthKey, title: november.title, monthName: november.monthName,
+            theme: november.theme, start: november.start, end: november.end, items: december.items
+        )
+        XCTAssertFalse(saved.matches(moved))
+
+        // Results saved before fingerprints existed cannot be confirmed.
+        let legacy = MonthlyChallengeResult(
+            monthKey: saved.monthKey, title: saved.title, theme: saved.theme,
+            completedAt: saved.completedAt, answers: saved.answers, picks: saved.picks
+        )
+        XCTAssertFalse(legacy.matches(november))
+    }
+
+    /// A Buddhist or Hebrew system calendar must not change which month a
+    /// player is in, or stretch the archive back thousands of months.
+    func testTheChallengeIgnoresTheSystemCalendar() {
+        XCTAssertEqual(Calendar.gregorianLocal.identifier, .gregorian)
+        var gregorian = Calendar(identifier: .gregorian)
+        gregorian.timeZone = .current
+        let instant = gregorian.date(from: DateComponents(year: 2026, month: 10, day: 12, hour: 12))!
+        XCTAssertEqual(MonthlyChallengeContent.challenge(for: instant).monthKey, "2026-10")
+        XCTAssertEqual(MonthlyChallengeContent.pastMonths(before: instant).count, 0)
+        XCTAssertEqual(MahjMinuteContent.key(for: instant), "2026-10-12")
+    }
+
     func testTheThemeIsMostOfTheMonth() {
         for (month, theme) in [(11, MonthlyChallengeTheme.charleston), (12, .defense)] {
             let challenge = MonthlyChallengeContent.challenge(for: date(2026, month, 5), calendar: calendar)

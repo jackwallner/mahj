@@ -40,7 +40,7 @@ struct TrialReminderOfferView: View {
                 } label: {
                     Group {
                         if busy {
-                            ProgressView().tint(.white)
+                            ProgressView().tint(Theme.onFill)
                         } else {
                             Text("Remind me 2 days before")
                         }

@@ -1,4 +1,3 @@
-import StoreKit
 import SwiftUI
 
 struct MahjMinuteView: View {
@@ -84,7 +83,7 @@ struct MahjMinuteView: View {
                             if index < completed {
                                 Image(systemName: "checkmark")
                                     .font(.caption2.weight(.black))
-                                    .foregroundStyle(.white)
+                                    .foregroundStyle(Theme.onFill)
                             }
                         }
                         .frame(width: 34, height: 34)
@@ -158,10 +157,9 @@ struct MahjMinuteResultView: View {
 
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.requestReview) private var requestReview
     @StateObject private var store = MahjMinuteStore.shared
     @State private var recorded = false
-    @State private var showReviewPrompt = false
+    @State private var reviewMoment = 0
     @State private var confettiTrigger = 0
 
     var body: some View {
@@ -191,15 +189,7 @@ struct MahjMinuteResultView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(recordsCompletion)
         .onAppear { recordCompletionIfNeeded() }
-        .sheet(isPresented: $showReviewPrompt) {
-            ReviewPromptSheet { outcome in
-                guard outcome.wantsSystemReviewPrompt else { return }
-                Task { @MainActor in
-                    try? await Task.sleep(nanoseconds: 700_000_000)
-                    requestReview()
-                }
-            }
-        }
+        .requestsReview(after: reviewMoment)
     }
 
     private var scoreCard: some View {
@@ -292,11 +282,6 @@ struct MahjMinuteResultView: View {
         Haptics.success()
         SoundPlayer.play(.complete)
         progress.recordSession(drillID: MahjMinuteContent.drill.id)
-        ReviewPromptTracker.recordPositiveMoment()
-        guard ReviewPromptTracker.shouldShowAfterPositiveMoment() else { return }
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 1_400_000_000)
-            showReviewPrompt = true
-        }
+        reviewMoment += 1
     }
 }

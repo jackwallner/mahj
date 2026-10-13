@@ -45,7 +45,7 @@ final class MahjMinuteStore: ObservableObject {
         }
     }
 
-    func result(for day: Date, calendar: Calendar = .current) -> MahjMinuteResult? {
+    func result(for day: Date, calendar: Calendar = .gregorianLocal) -> MahjMinuteResult? {
         results[MahjMinuteContent.key(for: day, calendar: calendar)]
     }
 

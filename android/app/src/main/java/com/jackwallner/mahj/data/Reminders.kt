@@ -22,26 +22,25 @@ import java.time.ZoneId
 import java.time.temporal.TemporalAdjusters
 
 /**
- * Daily and weekly reminders on inexact repeating alarms. Exact alarms need a
+ * Daily and weekly reminders on inexact one-shot alarms. Exact alarms need a
  * Play declaration and a reminder a few minutes late costs nothing.
+ *
+ * One-shot, not repeating: a fixed 24-hour or seven-day interval drifts an
+ * hour off the chosen local time at every daylight-saving change. Each
+ * delivery, boot, clock change and time-zone change lays the next one at the
+ * chosen wall-clock time instead (`AppSettings.rescheduleAll`).
  */
 class AlarmReminderScheduler(private val context: Context) : ReminderScheduler {
     private val alarms = context.getSystemService(AlarmManager::class.java)
 
     override fun scheduleDaily(hour: Int, minute: Int) {
-        val now = LocalDateTime.now()
-        var next = now.withHour(hour).withMinute(minute).withSecond(0).withNano(0)
-        if (!next.isAfter(now)) next = next.plusDays(1)
-        alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP, next.millis(), AlarmManager.INTERVAL_DAY, pending(KIND_DAILY))
+        alarms.set(AlarmManager.RTC_WAKEUP, nextDaily(LocalDateTime.now(), hour, minute).millis(), pending(KIND_DAILY))
     }
 
     override fun cancelDaily() = alarms.cancel(pending(KIND_DAILY))
 
     override fun scheduleGameNight(day: DayOfWeek, hour: Int, minute: Int) {
-        val now = LocalDateTime.now()
-        var next = now.with(TemporalAdjusters.nextOrSame(day)).withHour(hour).withMinute(minute).withSecond(0).withNano(0)
-        if (!next.isAfter(now)) next = next.plusWeeks(1)
-        alarms.setInexactRepeating(AlarmManager.RTC_WAKEUP, next.millis(), AlarmManager.INTERVAL_DAY * 7, pending(KIND_GAME_NIGHT))
+        alarms.set(AlarmManager.RTC_WAKEUP, nextWeekly(LocalDateTime.now(), day, hour, minute).millis(), pending(KIND_GAME_NIGHT))
     }
 
     override fun cancelGameNight() = alarms.cancel(pending(KIND_GAME_NIGHT))
@@ -56,6 +55,18 @@ class AlarmReminderScheduler(private val context: Context) : ReminderScheduler {
     )
 
     companion object {
+        /** The next local wall-clock occurrence of hour:minute after `now`. */
+        fun nextDaily(now: LocalDateTime, hour: Int, minute: Int): LocalDateTime {
+            val today = now.withHour(hour).withMinute(minute).withSecond(0).withNano(0)
+            return if (today.isAfter(now)) today else today.plusDays(1)
+        }
+
+        /** The next local wall-clock occurrence of day at hour:minute after `now`. */
+        fun nextWeekly(now: LocalDateTime, day: DayOfWeek, hour: Int, minute: Int): LocalDateTime {
+            val candidate = now.with(TemporalAdjusters.nextOrSame(day)).withHour(hour).withMinute(minute).withSecond(0).withNano(0)
+            return if (candidate.isAfter(now)) candidate else candidate.plusWeeks(1)
+        }
+
         const val EXTRA_KIND = "mahj.reminderKind"
         const val KIND_DAILY = "daily"
         const val KIND_GAME_NIGHT = "gameNight"
@@ -78,6 +89,9 @@ class AlarmReminderScheduler(private val context: Context) : ReminderScheduler {
 
 class ReminderReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        // Lay the next one first: the alarm is one-shot, and a reminder that
+        // cannot post today must still come back next time.
+        (context.applicationContext as? MahjApplication)?.graph?.settings?.rescheduleAll()
         if (!AlarmReminderScheduler.canNotify(context)) return
         AlarmReminderScheduler.ensureChannel(context)
         val gameNight = intent.getStringExtra(AlarmReminderScheduler.EXTRA_KIND) == AlarmReminderScheduler.KIND_GAME_NIGHT
@@ -110,9 +124,18 @@ class ReminderReceiver : BroadcastReceiver() {
     }
 }
 
+/** Re-lays the reminders after a reboot, a clock change or a time-zone change. */
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action != Intent.ACTION_BOOT_COMPLETED) return
+        if (intent.action !in RESCHEDULE_ACTIONS) return
         (context.applicationContext as? MahjApplication)?.graph?.settings?.rescheduleAll()
+    }
+
+    private companion object {
+        val RESCHEDULE_ACTIONS = setOf(
+            Intent.ACTION_BOOT_COMPLETED,
+            Intent.ACTION_TIME_CHANGED,
+            Intent.ACTION_TIMEZONE_CHANGED,
+        )
     }
 }

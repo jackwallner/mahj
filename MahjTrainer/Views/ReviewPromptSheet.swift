@@ -1,41 +1,47 @@
 import SwiftUI
 import UIKit
 
-/// How the funnel ended, so the host knows whether to fire `requestReview()`.
-enum ReviewPromptDismissOutcome: Sendable {
-    case notNow
-    case feedbackSubmitted
-    case openedWriteReview
-    /// Said yes on the enjoyment step: the host fires `requestReview()`.
-    case enjoyed
-    /// Said yes, then "Maybe later": the host may fire `requestReview()` once.
-    case enjoyedMaybeLater
-
-    /// Whether the host should put Apple's own star prompt on screen.
-    var wantsSystemReviewPrompt: Bool {
-        self == .enjoyed || self == .enjoyedMaybeLater
-    }
-}
-
 /// What the player is reporting when they tap "Something wrong?" under a
 /// graded question. Carries enough to find the item without any typing.
+///
+/// Generated questions have random ids, so the id alone cannot rebuild one:
+/// the report carries the choices as shown, the answer, the pick and the
+/// coaching too. Nothing in it identifies the player.
 struct QuestionReport: Hashable, Sendable {
     let itemID: String
     let prompt: String
     let source: String
     let tiles: String
+    var choices: [String] = []
+    var answer: String? = nil
+    var picked: String? = nil
+    var explanation: String = ""
+
+    var context: [String: String] {
+        var context = [
+            "item_id": itemID,
+            "prompt": String(prompt.prefix(300)),
+            "source": source,
+            "tiles": tiles,
+        ]
+        if !choices.isEmpty { context["choices"] = choices.joined(separator: " | ") }
+        if let answer { context["answer"] = answer }
+        if let picked { context["picked"] = picked }
+        if !explanation.isEmpty { context["explanation"] = String(explanation.prefix(500)) }
+        return context
+    }
 }
 
-/// The review funnel and every other place the app asks the player to type:
-/// enjoying it? -> yes fires Apple's star prompt / no opens a feedback box;
-/// a question report; the one question asked when a membership is leaving.
+/// Every place the app asks the player to type: Settings > Send Feedback, a
+/// question report, and the one question asked when a membership is leaving.
 ///
-/// Nobody who says "not really" is ever shown a rating prompt. Unhappy
-/// players get a box that goes straight to the developer, which is why the
-/// App Store rating only ever hears from happy ones.
+/// It never asks about ratings. Sending only happy players to the App Store
+/// is review gating (5.6.1); ratings come from Apple's own prompt after a
+/// positive moment (`requestsReview(after:)`), and feedback is open to
+/// everyone without standing in front of it.
 struct ReviewPromptSheet: View {
     enum Step: Identifiable, Hashable {
-        case enjoyment, reviewPitch, feedback
+        case feedback
         case question(QuestionReport)
         case churn(ChurnMoment)
 
@@ -43,7 +49,6 @@ struct ReviewPromptSheet: View {
     }
 
     let initialStep: Step
-    let onFinish: (ReviewPromptDismissOutcome) -> Void
 
     @EnvironmentObject private var subscriptions: SubscriptionService
     @Environment(\.dismiss) private var dismiss
@@ -54,18 +59,17 @@ struct ReviewPromptSheet: View {
     @State private var sendOutcome: FeedbackService.Outcome?
     @FocusState private var feedbackFocused: Bool
 
-    init(initialStep: Step = .enjoyment, onFinish: @escaping (ReviewPromptDismissOutcome) -> Void) {
+    init(initialStep: Step) {
         self.initialStep = initialStep
-        self.onFinish = onFinish
         _step = State(initialValue: initialStep)
     }
 
     var body: some View {
         NavigationStack {
-            Group {
+            // Scrolls, so the largest text sizes and the keyboard can never
+            // push Send out of reach.
+            ScrollView {
                 switch step {
-                case .enjoyment: enjoymentContent
-                case .reviewPitch: reviewPitchContent
                 case .feedback:
                     composer(
                         kind: .general,
@@ -79,12 +83,7 @@ struct ReviewPromptSheet: View {
                         question: "What looks off about this question?",
                         chips: ["The answer seems wrong", "The explanation is confusing", "A typo or wording", "Something else"],
                         thanks: "Thanks. Every report is read, and the question gets fixed or explained better.",
-                        context: [
-                            "item_id": report.itemID,
-                            "prompt": String(report.prompt.prefix(160)),
-                            "source": report.source,
-                            "tiles": report.tiles,
-                        ]
+                        context: report.context
                     )
                 case .churn(let moment):
                     composer(
@@ -96,119 +95,28 @@ struct ReviewPromptSheet: View {
                     )
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Theme.background)
             .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(sendOutcome == nil ? "Not now" : "Done") {
-                        if sendOutcome == nil, isFunnelStep { ReviewPromptTracker.markShown() }
-                        finish(sendOutcome == nil ? .notNow : .feedbackSubmitted)
-                    }
+                    Button(sendOutcome == nil ? "Not now" : "Done") { dismiss() }
                     .foregroundStyle(Theme.inkSecondary)
                 }
             }
         }
-        .presentationDetents(isComposerStep ? [.large] : [.medium, .large])
+        .presentationDetents([.large])
         .presentationDragIndicator(.visible)
-    }
-
-    private var isComposerStep: Bool {
-        switch step {
-        case .enjoyment, .reviewPitch: return false
-        case .feedback, .question, .churn: return true
-        }
-    }
-
-    /// Only the review funnel's own steps touch the review tracker. A
-    /// question report or a churn question says nothing about whether the
-    /// player would rate the app.
-    private var isFunnelStep: Bool {
-        switch step {
-        case .enjoyment, .reviewPitch, .feedback: return true
-        case .question, .churn: return false
-        }
     }
 
     private var navigationTitle: String {
         switch step {
-        case .enjoyment: "Enjoying Mahj Trainer?"
-        case .reviewPitch: "Support an indie app"
         case .feedback: "Help us improve"
         case .question: "Something wrong?"
         case .churn(let moment): moment.isTrial ? "Before your trial ends" : "Before you go"
         }
-    }
-
-    // MARK: - Enjoyment
-
-    private var enjoymentContent: some View {
-        VStack(spacing: 20) {
-            icon("checkmark.seal.fill", Theme.jade)
-            Text("You've finished \(ReviewPromptTracker.positiveMomentCount) drills. If Mahj Trainer is helping the card stick between games, a quick rating helps other players find it.")
-                .font(.subheadline)
-                .foregroundStyle(Theme.inkSecondary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            VStack(spacing: 10) {
-                Button {
-                    // Apple's own prompt: stars in one tap, never leaves the
-                    // app. Sending warm players out to the App Store page was
-                    // the single biggest leak in the funnel.
-                    ReviewPromptTracker.markEnjoyed()
-                    finish(.enjoyed)
-                } label: {
-                    Text("Yes, I'm enjoying it").primaryCTA()
-                }
-                Button { step = .feedback } label: {
-                    Text("Not really")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Theme.inkSecondary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                }
-            }
-        }
-        .padding(24)
-    }
-
-    // MARK: - Review pitch (Settings > Rate)
-
-    private var reviewPitchContent: some View {
-        VStack(spacing: 18) {
-            icon("star.fill", Theme.gold)
-            Text("Mahj Trainer is built by one person. No ads, no accounts, and your practice history never leaves your phone.")
-                .font(.subheadline)
-                .foregroundStyle(Theme.inkSecondary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            Text("An honest App Store review takes a few seconds and is the single biggest thing that helps a small app like this reach new players.")
-                .font(.footnote)
-                .foregroundStyle(Theme.inkSecondary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            VStack(spacing: 10) {
-                Button {
-                    ReviewPromptTracker.markOpenedWriteReview()
-                    UIApplication.shared.open(AppStoreLinks.writeReviewURL)
-                    finish(.openedWriteReview)
-                } label: {
-                    Text("Write a review").primaryCTA()
-                }
-                Button {
-                    ReviewPromptTracker.markSoftDeferred()
-                    finish(.enjoyedMaybeLater)
-                } label: {
-                    Text("Just rate it")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Theme.inkSecondary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                }
-            }
-        }
-        .padding(24)
     }
 
     // MARK: - Composer (feedback, question report, churn)
@@ -256,7 +164,7 @@ struct ReviewPromptSheet: View {
                 } label: {
                     Group {
                         if sending {
-                            ProgressView().tint(.white)
+                            ProgressView().tint(Theme.onFill)
                         } else {
                             Text("Send")
                         }
@@ -266,7 +174,6 @@ struct ReviewPromptSheet: View {
                 .disabled(!canSend || sending)
                 .opacity(canSend ? 1 : 0.5)
             }
-            Spacer(minLength: 0)
         }
         .padding(24)
         .onAppear { if chips.isEmpty { feedbackFocused = true } }
@@ -287,6 +194,7 @@ struct ReviewPromptSheet: View {
                             .font(.subheadline.weight(.medium))
                             .foregroundStyle(Theme.ink)
                             .multilineTextAlignment(.leading)
+                            .fixedSize(horizontal: false, vertical: true)
                         Spacer(minLength: 0)
                     }
                     .padding(.horizontal, 14)
@@ -302,6 +210,7 @@ struct ReviewPromptSheet: View {
                     )
                 }
                 .buttonStyle(.plain)
+                .accessibilityAddTraits(selected ? .isSelected : [])
             }
         }
     }
@@ -339,7 +248,7 @@ struct ReviewPromptSheet: View {
                 }
             }
             Button {
-                finish(.feedbackSubmitted)
+                dismiss()
             } label: {
                 Text("Done").primaryCTA()
             }
@@ -373,9 +282,6 @@ struct ReviewPromptSheet: View {
                 isMember: isMember
             )
             sending = false
-            if outcome != .failed, isFunnelStep {
-                ReviewPromptTracker.markFeedbackSubmitted()
-            }
             if outcome == .sent { Haptics.success() }
             withAnimation(.easeOut(duration: 0.25)) { sendOutcome = outcome }
         }
@@ -409,11 +315,6 @@ struct ReviewPromptSheet: View {
             .background(color.opacity(0.13), in: Circle())
             .padding(.top, 6)
     }
-
-    private func finish(_ outcome: ReviewPromptDismissOutcome) {
-        onFinish(outcome)
-        dismiss()
-    }
 }
 
 /// The small "Something wrong with this question?" link under a graded
@@ -438,7 +339,7 @@ struct ReportQuestionLink: View {
         }
         .buttonStyle(.plain)
         .sheet(isPresented: $showing) {
-            ReviewPromptSheet(initialStep: .question(report)) { _ in }
+            ReviewPromptSheet(initialStep: .question(report))
         }
     }
 }

@@ -1,4 +1,3 @@
-import StoreKit
 import SwiftUI
 
 /// The monthly challenge: free for every player, the same twelve questions on
@@ -294,14 +293,12 @@ struct MonthlyChallengeResultView: View {
     var recordsCompletion = false
     var onDone: (() -> Void)?
 
-    @EnvironmentObject private var progress: ProgressStore
     @EnvironmentObject private var subscriptions: SubscriptionService
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.requestReview) private var requestReview
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @ScaledMetric(relativeTo: .largeTitle) private var circle: CGFloat = 122
     @State private var recorded = false
-    @State private var showReviewPrompt = false
+    @State private var reviewMoment = 0
     @State private var showPaywall = false
     @State private var confettiTrigger = 0
 
@@ -317,7 +314,7 @@ struct MonthlyChallengeResultView: View {
         ScrollView {
             VStack(spacing: 16) {
                 scoreCard
-                if let challenge, challenge.items.count == result.answers.count {
+                if let challenge, result.matches(challenge) {
                     breakdown(challenge)
                     NavigationLink {
                         MonthlyChallengeAnswersView(challenge: challenge, result: result)
@@ -325,6 +322,12 @@ struct MonthlyChallengeResultView: View {
                         Text(result.score == result.total ? "Review Your Answers" : "See What You Missed")
                             .primaryCTA(color: Theme.plum)
                     }
+                } else {
+                    Text("This month's questions were updated after you played, so your score is kept but the answer review is not.")
+                        .font(.caption)
+                        .foregroundStyle(Theme.inkSecondary)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 ShareLink(item: result.shareText) {
                     Label("Share Your Score", systemImage: "square.and.arrow.up")
@@ -357,15 +360,7 @@ struct MonthlyChallengeResultView: View {
         }
         .onAppear { recordCompletionIfNeeded() }
         .sheet(isPresented: $showPaywall) { PaywallView(source: "monthly_challenge_result") }
-        .sheet(isPresented: $showReviewPrompt) {
-            ReviewPromptSheet { outcome in
-                guard outcome.wantsSystemReviewPrompt else { return }
-                Task { @MainActor in
-                    try? await Task.sleep(nanoseconds: 700_000_000)
-                    requestReview()
-                }
-            }
-        }
+        .requestsReview(after: reviewMoment, isClear: { !showPaywall })
     }
 
     private var verdict: String {
@@ -516,14 +511,11 @@ struct MonthlyChallengeResultView: View {
             Haptics.success()
         }
         SoundPlayer.play(.complete)
-        progress.recordSession(drillID: MonthlyChallengeContent.drill.id)
+        // The session and streak were banked with the last answer
+        // (`QuickSessionView.grade`), so a run closed before this screen
+        // still counts.
         guard fraction >= 0.5 else { return }
-        ReviewPromptTracker.recordPositiveMoment()
-        guard ReviewPromptTracker.shouldShowAfterPositiveMoment() else { return }
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 1_400_000_000)
-            showReviewPrompt = true
-        }
+        reviewMoment += 1
     }
 }
 
@@ -533,6 +525,7 @@ struct MonthlyChallengeResultView: View {
 struct MonthlyChallengeAnswersView: View {
     let challenge: MonthlyChallenge
     let result: MonthlyChallengeResult
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var missedOnly: Bool
 
     init(challenge: MonthlyChallenge, result: MonthlyChallengeResult) {
@@ -573,19 +566,28 @@ struct MonthlyChallengeAnswersView: View {
     private func answerCard(index: Int, item: QuickItem) -> some View {
         let correct = result.answers.indices.contains(index) && result.answers[index]
         let pick = result.picks.flatMap { $0.indices.contains(index) ? $0[index] : nil }
+        // At the largest text sizes the header stacks, or "QUESTION 1" and
+        // the skill name break into word fragments beside each other.
+        let header = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout(spacing: 8))
         return VStack(alignment: .leading, spacing: 12) {
-            HStack(spacing: 8) {
-                Image(systemName: correct ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundStyle(correct ? Theme.jade : Theme.coral)
-                    .accessibilityHidden(true)
-                Text("QUESTION \(index + 1)")
-                    .font(.caption.weight(.heavy))
-                    .kerning(1.2)
-                    .foregroundStyle(Theme.inkSecondary)
-                Spacer()
+            header {
+                HStack(spacing: 8) {
+                    Image(systemName: correct ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundStyle(correct ? Theme.jade : Theme.coral)
+                        .accessibilityHidden(true)
+                    Text("QUESTION \(index + 1)")
+                        .font(.caption.weight(.heavy))
+                        .kerning(1.2)
+                        .foregroundStyle(Theme.inkSecondary)
+                        .fixedSize()
+                }
+                if !dynamicTypeSize.isAccessibilitySize { Spacer() }
                 Text(MonthlyChallengeContent.skill(of: item).skillTitle)
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Theme.inkTertiary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .accessibilityElement(children: .combine)
             .accessibilityLabel("Question \(index + 1), \(correct ? "right" : "missed"), \(MonthlyChallengeContent.skill(of: item).skillTitle)")
@@ -594,9 +596,12 @@ struct MonthlyChallengeAnswersView: View {
                 .foregroundStyle(Theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
             if !item.tiles.isEmpty {
-                TileRackView(tiles: item.tiles, tileWidth: 30)
+                TileRackView(tiles: item.tiles, tileWidth: dynamicTypeSize.isAccessibilitySize ? 36 : 30)
                     .frame(maxWidth: .infinity)
-                    .accessibilityLabel(item.tiles.map(\.spokenName).joined(separator: ", "))
+                    // One element: without this every tile inherited the
+                    // whole rack's label and VoiceOver read it 13 times over.
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel("Rack: " + item.tiles.map(\.spokenName).joined(separator: ", "))
             }
             VStack(alignment: .leading, spacing: 6) {
                 ForEach(Array(item.choices.enumerated()), id: \.offset) { choice, label in
@@ -624,14 +629,21 @@ struct MonthlyChallengeAnswersView: View {
                 .foregroundStyle(color)
                 .frame(width: 16)
                 .accessibilityHidden(true)
-            Text(label)
-                .font(.subheadline.weight(isAnswer || isPick ? .semibold : .regular))
-                .foregroundStyle(isAnswer || isPick ? color : Theme.inkSecondary)
-                .fixedSize(horizontal: false, vertical: true)
-            if isPick {
-                Text("your pick")
-                    .font(.caption2.weight(.semibold))
-                    .foregroundStyle(Theme.inkTertiary)
+            // "your pick" goes under the label at the largest sizes, where a
+            // third column leaves the answer a word per line.
+            let stack = dynamicTypeSize.isAccessibilitySize
+                ? AnyLayout(VStackLayout(alignment: .leading, spacing: 2))
+                : AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: 8))
+            stack {
+                Text(label)
+                    .font(.subheadline.weight(isAnswer || isPick ? .semibold : .regular))
+                    .foregroundStyle(isAnswer || isPick ? color : Theme.inkSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                if isPick {
+                    Text("your pick")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(Theme.inkTertiary)
+                }
             }
         }
         .accessibilityElement(children: .combine)

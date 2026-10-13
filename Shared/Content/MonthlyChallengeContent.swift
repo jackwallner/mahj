@@ -54,7 +54,7 @@ struct MonthlyChallenge: Identifiable, Sendable {
 
     var id: String { monthKey }
 
-    func daysLeft(now: Date = MonthlyChallengeContent.today, calendar: Calendar = .current) -> Int {
+    func daysLeft(now: Date = MonthlyChallengeContent.today, calendar: Calendar = .gregorianLocal) -> Int {
         let today = calendar.startOfDay(for: now)
         return max(0, calendar.dateComponents([.day], from: today, to: end).day ?? 0)
     }
@@ -103,7 +103,7 @@ enum MonthlyChallengeContent {
         if let index = arguments.firstIndex(of: "-ChallengeMonth"), index + 1 < arguments.count {
             let parts = arguments[index + 1].split(separator: "-").compactMap { Int($0) }
             if parts.count == 2,
-               let date = Calendar.current.date(from: DateComponents(year: parts[0], month: parts[1], day: 2)) {
+               let date = Calendar.gregorianLocal.date(from: DateComponents(year: parts[0], month: parts[1], day: 2)) {
                 return date
             }
         }
@@ -111,7 +111,7 @@ enum MonthlyChallengeContent {
         return Date()
     }
 
-    static func challenge(for date: Date = today, calendar: Calendar = .current) -> MonthlyChallenge {
+    static func challenge(for date: Date = today, calendar: Calendar = .gregorianLocal) -> MonthlyChallenge {
         let parts = calendar.dateComponents([.year, .month], from: date)
         let year = parts.year ?? 2026
         let month = parts.month ?? 1
@@ -136,7 +136,7 @@ enum MonthlyChallengeContent {
     }
 
     /// The challenge a stored result belongs to, rebuilt from its key.
-    static func challenge(monthKey: String, calendar: Calendar = .current) -> MonthlyChallenge? {
+    static func challenge(monthKey: String, calendar: Calendar = .gregorianLocal) -> MonthlyChallenge? {
         let parts = monthKey.split(separator: "-").compactMap { Int($0) }
         guard parts.count == 2,
               let date = calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: 15))
@@ -145,7 +145,7 @@ enum MonthlyChallengeContent {
     }
 
     /// The month after `challenge`, for the "next up" line and the reminder.
-    static func next(after challenge: MonthlyChallenge, calendar: Calendar = .current) -> MonthlyChallenge {
+    static func next(after challenge: MonthlyChallenge, calendar: Calendar = .gregorianLocal) -> MonthlyChallenge {
         let date = calendar.date(byAdding: .day, value: 1, to: challenge.end) ?? challenge.end
         return MonthlyChallengeContent.challenge(for: date, calendar: calendar)
     }
@@ -165,7 +165,7 @@ enum MonthlyChallengeContent {
 
     /// Every month from the first challenge up to, not including, `date`'s
     /// month, newest first.
-    static func pastMonths(before date: Date = today, calendar: Calendar = .current) -> [Date] {
+    static func pastMonths(before date: Date = today, calendar: Calendar = .gregorianLocal) -> [Date] {
         guard let first = calendar.date(from: firstMonth),
               let current = calendar.date(from: calendar.dateComponents([.year, .month], from: date))
         else { return [] }
@@ -363,17 +363,17 @@ enum MonthlyChallengeContent {
         ),
         QuickItem(
             id: "monthly-def-dead-joker",
-            prompt: "Your hand is dead, and an opponent with three exposures looks one tile away. What is the safest discard?",
+            prompt: "Your hand can no longer win, but nobody has called it dead, so you are still drawing and discarding. An opponent with three exposures looks one tile away. What is the safest discard?",
             tiles: [],
-            choices: ["A joker", "A tile that matches their exposures", "A flower", "A wind nobody has thrown yet"],
+            choices: ["A joker", "A tile that fits the pattern of their exposures", "A flower", "A wind nobody has thrown yet"],
             answerIndex: 0,
-            explanation: "Nobody can call a discarded joker, so it can never be the tile that hands someone the game, and with your own hand dead it costs you nothing. Flowers and unseen winds are wanted by many hands, and a tile matching their exposures is the worst throw of all.",
+            explanation: "Nobody can call a discarded joker, so it can never be the tile that hands someone the game, and with your own hand out of reach it costs you nothing. Flowers and unseen winds are wanted by many hands, and a tile that fits the pattern of their exposures is the riskiest throw.",
             sourceLabel: "Monthly Challenge",
             roomID: "table-room",
             isReviewable: false,
             choiceNotes: [
                 nil,
-                "A tile that matches their exposures is the one most likely to finish their hand.",
+                "A tile that fits the pattern their exposures show is the kind most likely to finish their hand.",
                 "Many hands use flowers, so a late flower is one of the riskiest throws.",
                 "A wind nobody has thrown is still live for anyone collecting winds.",
             ]
@@ -389,7 +389,7 @@ enum MonthlyChallengeContent {
                 "Safe only if you are East",
             ],
             answerIndex: 0,
-            explanation: "The player you fear passed on that exact tile a moment ago, so it is one of the safer throws you have. Not certain: they have drawn since and their hand may have changed. But a tile that just went around uncalled beats a fresh one.",
+            explanation: "The player you fear could have called that exact tile a moment ago for mah jongg and did not, and nobody has drawn since. That makes your 6 Dot one of the safest throws you have. Not certain, since a player can miss a tile or pass on it, but it beats a fresh tile.",
             sourceLabel: "Monthly Challenge",
             roomID: "table-room",
             isReviewable: false,

@@ -56,6 +56,7 @@ struct PracticeRunView: View {
     @State private var streak = 0
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     static let challengeSeconds = 90
     /// How many generated questions to mint at a time. Dealing is rejection
@@ -82,7 +83,7 @@ struct PracticeRunView: View {
         } else if items.isEmpty {
             // A run with nothing in it is not a finished run. Sending it to
             // the completion screen scored a 0/0 "Perfect round!", banked a
-            // streak day and spent a positive moment on the review funnel,
+            // streak day and asked for an App Store rating,
             // all for a round nobody played.
             emptyRunScreen
         } else if mode == .timed && !timedStarted {
@@ -197,7 +198,10 @@ struct PracticeRunView: View {
                     eyebrow: item.sourceLabel.uppercased(),
                     missNote: missNote,
                     requeued: requeued,
-                    reportID: item.id
+                    reportID: item.id,
+                    reportChoices: item.choices,
+                    reportAnswerIndex: item.answerIndex,
+                    reportPickedIndex: selection
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)
@@ -374,8 +378,10 @@ struct PracticeRunView: View {
         confettiTrigger += 1
         Haptics.correctAnswer()
         SoundPlayer.play(.success)
-        flashOpacity = 0.14
-        withAnimation(.easeOut(duration: 0.5)) { flashOpacity = 0 }
+        if !reduceMotion {
+            flashOpacity = 0.14
+            withAnimation(.easeOut(duration: 0.5)) { flashOpacity = 0 }
+        }
     }
 
     private func particleCount(forStreak streak: Int) -> Int {

@@ -187,17 +187,18 @@ class StoreTest {
     }
 
     @Test
-    fun reviewCardWaitsForEnoughUseAndHonoursCooldowns() {
+    fun reviewCardWaitsForTheSecondLaunchAndHonoursCooldowns() {
         val tracker = ReviewPromptTracker(defaults, clock)
         tracker.recordAppLaunch()
-        tracker.recordAppLaunch()
-        repeat(2) { tracker.recordPositiveMoment() }
-        assertFalse(tracker.shouldShowAfterPositiveMoment())
         tracker.recordPositiveMoment()
+        assertFalse("never in the first session", tracker.shouldShowAfterPositiveMoment())
+        tracker.recordAppLaunch()
         assertTrue(tracker.shouldShowAfterPositiveMoment())
         tracker.markStoreCardRequested()
         assertFalse(tracker.shouldShowAfterPositiveMoment())
-        advanceDays(31)
+        advanceDays(29)
+        assertFalse(tracker.shouldShowAfterPositiveMoment())
+        advanceDays(2)
         assertTrue(tracker.shouldShowAfterPositiveMoment())
         tracker.markOpenedWriteReview()
         advanceDays(400)

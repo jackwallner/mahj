@@ -53,7 +53,7 @@ enum MahjMinuteContent {
         isPlus: true
     )
 
-    static func challenge(for day: Date = Date(), calendar: Calendar = .current) -> MahjMinuteChallenge {
+    static func challenge(for day: Date = Date(), calendar: Calendar = .gregorianLocal) -> MahjMinuteChallenge {
         let dayKey = key(for: day, calendar: calendar)
         let racks = rackQuestions(dayKey: dayKey)
         let charleston = charlestonQuestion(dayKey: dayKey)
@@ -77,7 +77,7 @@ enum MahjMinuteContent {
         return MahjMinuteChallenge(day: day, dayKey: dayKey, shortDate: shortDate, questions: questions)
     }
 
-    static func key(for day: Date, calendar: Calendar = .current) -> String {
+    static func key(for day: Date, calendar: Calendar = .gregorianLocal) -> String {
         let parts = calendar.dateComponents([.year, .month, .day], from: day)
         return String(
             format: "%04d-%02d-%02d",

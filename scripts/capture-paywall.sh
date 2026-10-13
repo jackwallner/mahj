@@ -5,10 +5,10 @@
 # Usage:
 #   scripts/capture-paywall.sh <simulator-udid> <output-dir>
 #
-# Why a UI test and not simctl: SubscriptionService never configures RevenueCat
-# on a simulator, so a plain launch shows an empty paywall. The Debug-only
-# bridge reads the bundled StoreKit catalog and the shipping paywall renders
-# the scheduled prices. Headless: never opens Simulator.app.
+# Why a UI test and not simctl: the test drives the app to both surfaces and
+# passes -mahj.previewTrialEligible so the free-week copy renders (the real app
+# shows it only when Apple says the Apple Account is eligible). Headless:
+# never opens Simulator.app.
 set -euo pipefail
 
 UDID="${1:?usage: capture-paywall.sh <udid> <output-dir>}"

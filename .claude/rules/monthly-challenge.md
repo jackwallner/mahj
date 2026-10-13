@@ -45,6 +45,18 @@ app.
 - The What's New line is `isAppleOnly`, so the Android export skips it.
 - Month names are forced to English (`en_US_POSIX`): a bare `Calendar`
   answers "M11", and the app's copy is English.
+- Identity is Gregorian in the device's time zone (`Calendar.gregorianLocal`),
+  never `Calendar.current`: a Buddhist or Hebrew system calendar gave a
+  different month key, different questions and a 46,000-month archive. Mahj
+  Minute day keys and the local day keys use it too.
+- Saved runs carry `QuickItem.challengeFingerprint` per answer. The answer
+  review and skill breakdown are only shown while the fingerprints still
+  match the month's rebuilt questions; an update that changes a month keeps
+  the score but drops the review instead of re-labelling old answers.
+  Results without fingerprints (pre build 43) are score-only.
+- The last answer banks the run AND the session/streak credit
+  (`QuickSessionView.grade`); crediting on the result screen lost both when
+  the app closed before Finish.
 - DEBUG `-ChallengeMonth 2026-11` renders a coming month for store art.
 
 **Each month's App Store work:** an in-app event (badge CHALLENGE, deep link

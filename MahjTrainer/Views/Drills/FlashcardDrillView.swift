@@ -155,6 +155,16 @@ struct FlashcardDrillView: View {
                 .gesture(dragGesture(size: size))
                 .accessibilityAddTraits(.isButton)
                 .accessibilityHint(swipeAccessibilityHint)
+                // The deck is gestures; VoiceOver and Switch Control get the
+                // same moves as named actions. Activating flips, and a
+                // revealed plain card offers Knew It and Again.
+                .accessibilityAction { if slot == 0 { flip() } }
+                .accessibilityActions {
+                    if slot == 0, isFlipped, !choiceAnswered, !isFlinging {
+                        Button("Knew It") { fling(direction: 1, size: size) }
+                        Button("Again") { fling(direction: -1, size: size) }
+                    }
+                }
                 // Only the top card can be flipped or flung. The two behind it
                 // are scenery: left in the tree they give VoiceOver two cards
                 // that answer nothing, which reads as a broken deck.
@@ -180,10 +190,10 @@ struct FlashcardDrillView: View {
     }
 
     private var swipeAccessibilityHint: String {
-        guard isFlipped else { return "Tap to reveal the answer" }
+        guard isFlipped else { return "Reveals the answer" }
         return choiceAnswered
             ? "Tap Next to continue"
-            : "Swipe right if you knew it, left to see it again"
+            : "Swipe right if you knew it, left to see it again, or use the Knew It and Again actions"
     }
 
     /// KNEW IT / AGAIN stamps fade in with the drag so the swipe directions
@@ -438,16 +448,28 @@ struct FlipCardFace: View {
     /// The deck grades by swipe; the mixed session grades with buttons.
     var showsSwipeHints = true
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var shineTrigger = 0
 
     var body: some View {
-        FlipRotation(angle: isFlipped ? 180 : 0) {
-            front
-        } back: {
-            back
+        Group {
+            if reduceMotion {
+                // No half-turn in 3D: the faces cross-fade in place.
+                ZStack {
+                    if isFlipped { back.transition(.opacity) } else { front.transition(.opacity) }
+                }
+            } else {
+                FlipRotation(angle: isFlipped ? 180 : 0) {
+                    front
+                } back: {
+                    back
+                }
+            }
         }
-        .shine(trigger: shineTrigger, corner: Theme.deckCorner)
-        .accessibilityElement(children: isFlipped && onAdvance == nil ? .combine : .contain)
+        .shine(trigger: reduceMotion ? 0 : shineTrigger, corner: Theme.deckCorner)
+        // A plain card is one element, so the deck's flip and grading
+        // actions land on it. A choice card keeps its buttons reachable.
+        .accessibilityElement(children: card.choice == nil || (isFlipped && onAdvance == nil) ? .combine : .contain)
         .accessibilityLabel(isFlipped ? "\(card.backTitle). \(card.backBody)" : card.frontTitle)
         .task(id: isFlipped) {
             // A correct call earns the slot-machine gleam once the flip lands.

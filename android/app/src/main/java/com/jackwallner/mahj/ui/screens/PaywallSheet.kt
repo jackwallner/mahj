@@ -120,7 +120,7 @@ fun PaywallSheet(source: String, onClose: () -> Unit) {
             }
             Text(PaywallPricing.terms(service, plan), style = MahjType.caption, color = colors.inkSecondary, textAlign = TextAlign.Center)
             PrimaryCTA(
-                plan.ctaTitle,
+                plan.ctaTitle(service.offersFreeTrial(plan)),
                 Modifier.testTag("paywall-cta"),
                 enabled = priceReady && !purchasing && !restoring,
                 loading = purchasing || loading || (!attempted && !priceReady),
@@ -213,12 +213,15 @@ fun PaywallContent(service: SubscriptionService, selected: PaywallPlan, onSelect
             PlanCard(
                 PaywallPlan.YEARLY, "Yearly", PaywallPricing.priceText(service, PaywallPlan.YEARLY),
                 perMonth = PaywallPricing.perMonthEquivalent(service), anchor = PaywallPricing.monthlyAnchor(service),
-                detail = "7 days free, then billed yearly. Auto-renews.", badge = PaywallPricing.savingsBadge(service),
+                detail = if (service.offersFreeTrial(PaywallPlan.YEARLY)) "7 days free, then billed yearly. Auto-renews." else "Billed yearly. Auto-renews.",
+                badge = PaywallPricing.savingsBadge(service),
                 selected = selected == PaywallPlan.YEARLY, onSelect = onSelect,
             )
             PlanCard(
                 PaywallPlan.MONTHLY, "Monthly", PaywallPricing.priceText(service, PaywallPlan.MONTHLY),
-                perMonth = null, anchor = null, detail = "7 days free, then billed monthly. Auto-renews.", badge = null,
+                perMonth = null, anchor = null,
+                detail = if (service.offersFreeTrial(PaywallPlan.MONTHLY)) "7 days free, then billed monthly. Auto-renews." else "Billed monthly. Auto-renews.",
+                badge = null,
                 selected = selected == PaywallPlan.MONTHLY, onSelect = onSelect,
             )
             PlanCard(

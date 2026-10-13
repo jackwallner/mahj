@@ -17,10 +17,11 @@ object StoreLinks {
 }
 
 /**
- * The review funnel's memory. On Android the positive moment goes straight to
- * Google Play's in-app review card: Google's guidelines forbid asking an
- * enjoyment question first, so the iOS gate does not port. Feedback is its
- * own Settings row.
+ * When a positive moment may open Google Play's in-app review card, with no
+ * question in front of it (the iOS rules too: `ReviewPromptTracker.swift`).
+ * From the second launch on, at most once every 30 days; only opening the
+ * listing to rate ends the asks. Feedback is its own Settings row and never
+ * stops them.
  */
 class ReviewPromptTracker(private val defaults: KeyValueStore, private val clock: AppClock) {
     /** Tests and screenshot runs never trigger the store card. */
@@ -38,36 +39,27 @@ class ReviewPromptTracker(private val defaults: KeyValueStore, private val clock
     fun recordPositiveMoment() = defaults.putInt(Keys.POSITIVE_MOMENTS, positiveMomentCount + 1)
 
     fun shouldShowAfterPositiveMoment(): Boolean {
-        if (isAutomationRun || outcome != null) return false
-        if (positiveMomentCount < MINIMUM_POSITIVE_MOMENTS || launchCount < MINIMUM_LAUNCH_COUNT) return false
+        // "submittedFeedback" from older builds no longer stops anything.
+        if (isAutomationRun || outcome == OPENED_WRITE_REVIEW) return false
+        if (launchCount < MINIMUM_LAUNCH_COUNT) return false
         if (!defaults.contains(Keys.LAST_SHOWN)) return true
-        val days = if (defaults.getBoolean(Keys.SOFT_DEFER)) SOFT_DEFER_COOLDOWN_DAYS else COOLDOWN_DAYS
-        return clock.millis() - defaults.getLong(Keys.LAST_SHOWN) >= days * DAY_MS
+        return clock.millis() - defaults.getLong(Keys.LAST_SHOWN) >= COOLDOWN_DAYS * DAY_MS
     }
 
-    /** Play may show nothing (quota), so the in-app card only earns the short cooldown. */
+    /** Spent when requested: Play may show nothing (quota) and there is no answer to wait for. */
     fun markStoreCardRequested() {
         defaults.putLong(Keys.LAST_SHOWN, clock.millis())
-        defaults.putBoolean(Keys.SOFT_DEFER, true)
     }
 
     fun markOpenedWriteReview() {
-        defaults.putString(Keys.OUTCOME, "openedWriteReview")
+        defaults.putString(Keys.OUTCOME, OPENED_WRITE_REVIEW)
         defaults.putLong(Keys.LAST_SHOWN, clock.millis())
-        defaults.putBoolean(Keys.SOFT_DEFER, false)
-    }
-
-    fun markFeedbackSubmitted() {
-        defaults.putString(Keys.OUTCOME, "submittedFeedback")
-        defaults.putLong(Keys.LAST_SHOWN, clock.millis())
-        defaults.putBoolean(Keys.SOFT_DEFER, false)
     }
 
     companion object {
-        const val MINIMUM_POSITIVE_MOMENTS = 3
         const val MINIMUM_LAUNCH_COUNT = 2
-        const val COOLDOWN_DAYS = 120L
-        const val SOFT_DEFER_COOLDOWN_DAYS = 30L
+        const val COOLDOWN_DAYS = 30L
+        private const val OPENED_WRITE_REVIEW = "openedWriteReview"
     }
 
     private object Keys {

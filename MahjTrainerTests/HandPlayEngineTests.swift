@@ -59,6 +59,35 @@ final class HandPlayEngineTests: XCTestCase {
         XCTAssertEqual(HandPlayEngine.bestRunRange(for: tiles), 4...7)
     }
 
+    /// The audit's counterexample (seed "run-audit-1", first draw). The run
+    /// window used to be picked by raw tile count (3 to 6), so throwing an
+    /// in-window single flipped it to 5 to 8 and "raised" the rack, and the
+    /// honors and the 1 Crak, useless either way, were graded second best.
+    func testEquallyUselessRunDiscardsAllGradeCorrect() {
+        let rack: [Tile] = [.c(1), .c(5), .c(5), .c(6), .c(7), .c(8), .c(8),
+                            .b(3), .b(4), .b(5), .d(3), .dragon(.red), .wind(.west), .wind(.north)]
+        XCTAssertEqual(HandPlayEngine.bestRunRange(for: rack), 5...8)
+        let best = HandPlayEngine.bestDiscards(from: rack, target: .consecutiveRun)
+        XCTAssertEqual(best, [.c(1), .b(3), .b(4), .d(3), .dragon(.red), .wind(.west), .wind(.north)])
+        for tile in best {
+            XCTAssertEqual(HandPlayEngine.cost(of: tile, from: rack, target: .consecutiveRun), 0, accuracy: 0.0001)
+        }
+    }
+
+    /// No throw can raise a run rack's value: the value is the best window's.
+    func testNoDiscardEverRaisesARunRack() {
+        for seed in 0..<200 {
+            let deal = HandPlayEngine.deal(seed: "run-monotone-\(seed)")
+            let rack = deal.rack + [deal.wall[0]]
+            let whole = HandPlayEngine.value(of: rack, target: .consecutiveRun)
+            for tile in Set(rack) {
+                var rest = rack
+                rest.remove(at: rest.firstIndex(of: tile)!)
+                XCTAssertLessThanOrEqual(HandPlayEngine.value(of: rest, target: .consecutiveRun), whole + 0.0001)
+            }
+        }
+    }
+
     func testFlowersCountTowardEverySection() {
         for target in HandPlayEngine.playableTargets {
             XCTAssertTrue(HandPlayEngine.belongs(.flower, to: target), "\(target) should keep flowers")

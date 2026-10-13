@@ -98,22 +98,31 @@ enum HandPlayEngine {
         }
     }
 
-    /// The four adjacent numbers a rack's run is centred on, chosen to cover as
-    /// many of its tiles as possible. A run hand is only ever four numbers
-    /// wide, so scoring one against "any number at all" would make it the
-    /// right answer for every rack.
+    /// The four adjacent numbers a rack's run is centred on: the window where
+    /// its groups are worth the most, by the same arithmetic that grades a
+    /// throw. A run hand is only ever four numbers wide, so scoring one
+    /// against "any number at all" would make it the right answer for every
+    /// rack.
+    ///
+    /// Chosen by value, not by raw tile count. A count-chosen window could
+    /// flip when one in-window single left, so a useless discard "raised" the
+    /// rack and the coach marked the equally useless tiles wrong. Ties go to
+    /// the window holding more tiles, then the lower one.
     static func bestRunRange(for tiles: [Tile]) -> ClosedRange<Int> {
         var best = 1...4
+        var bestValue = -1.0
         var bestCount = -1
         for start in 1...6 {
             let range = start...(start + 3)
+            let value = scoredValue(of: tiles, target: .consecutiveRun, runRange: range)
             let count = tiles.filter { tile in
                 if case .suited(let rank, _) = tile { return range.contains(rank) }
                 return false
             }.count
-            if count > bestCount {
-                bestCount = count
+            if value > bestValue + 0.0001 || (abs(value - bestValue) <= 0.0001 && count > bestCount) {
                 best = range
+                bestValue = value
+                bestCount = count
             }
         }
         return best
@@ -126,8 +135,14 @@ enum HandPlayEngine {
     /// scattered singles of different numbers, and a pair is worth more than
     /// twice a single because it is halfway to a pung. Tiles outside the
     /// family score nothing, which is what makes the coach throw them first.
+    /// A run is scored in its best four-number window, so every throw is
+    /// judged against the strongest run the rack could still become.
     static func value(of tiles: [Tile], target: HandCategory) -> Double {
         let range = target == .consecutiveRun ? bestRunRange(for: tiles) : nil
+        return scoredValue(of: tiles, target: target, runRange: range)
+    }
+
+    private static func scoredValue(of tiles: [Tile], target: HandCategory, runRange range: ClosedRange<Int>?) -> Double {
         var counts: [Tile: Int] = [:]
         for tile in tiles { counts[tile, default: 0] += 1 }
 

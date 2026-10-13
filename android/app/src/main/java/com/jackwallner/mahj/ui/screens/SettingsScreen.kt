@@ -189,22 +189,8 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
             onDismiss = { confirmReset = false },
         )
     }
-    if (settings.reminderPermissionDenied) {
-        MahjAlert(
-            "Notifications are off",
-            "Mahj Trainer cannot send reminders until notifications are turned on in Android settings.",
-            confirmTitle = "Open Settings",
-            dismissTitle = "Not now",
-            onConfirm = {
-                settings.reminderPermissionDenied = false
-                context.startActivity(
-                    android.content.Intent(android.provider.Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-                        .putExtra(android.provider.Settings.EXTRA_APP_PACKAGE, context.packageName),
-                )
-            },
-            onDismiss = { settings.reminderPermissionDenied = false },
-        )
-    }
+    // The "Notifications are off" alert lives in RootScreen, next to the
+    // permission request, so Game Night Prep gets it too.
 }
 
 @Composable
@@ -314,7 +300,6 @@ fun FeedbackSheet(onClose: () -> Unit) {
             }
             PrimaryCTA("Send feedback", Modifier.testTag("send-feedback"), enabled = trimmed.isNotEmpty()) {
                 if (context.openFeedbackMail(trimmed)) {
-                    graph.review.markFeedbackSubmitted()
                     onClose()
                 } else {
                     mailFailed = true

@@ -109,7 +109,7 @@ struct WhatsNewSheet: View {
             } label: {
                 Text(lockedItems.isEmpty ? "Start practising" : "Keep practising free")
                     .font(.headline)
-                    .foregroundStyle(lockedItems.isEmpty ? .white : Theme.inkSecondary)
+                    .foregroundStyle(lockedItems.isEmpty ? Theme.onFill : Theme.inkSecondary)
                     .frame(maxWidth: .infinity)
                     .frame(height: lockedItems.isEmpty ? 56 : 44)
                     .background(
