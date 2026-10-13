@@ -49,6 +49,15 @@ struct CharlestonDrillView: View {
                             .shine(trigger: shineTrigger, corner: 16)
                             .winGlow(Theme.gold, active: matchCount == 3)
                             .transition(.scale(scale: 0.94).combined(with: .opacity))
+                        ReportQuestionLink(report: QuestionReport(
+                            itemID: scenario.id,
+                            prompt: scenario.situation,
+                            source: drill.title,
+                            tiles: rackedDeal.map(\.shortLabel).joined(separator: " "),
+                            answer: scenario.recommendedPass.map(\.shortLabel).joined(separator: " "),
+                            picked: selected.sorted().map { rackedDeal[$0].shortLabel }.joined(separator: " "),
+                            explanation: scenario.reasoning
+                        ))
                     } else {
                         Text("Selected \(selected.count) of 3")
                             .font(.subheadline)

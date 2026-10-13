@@ -76,7 +76,12 @@ the bodies are rewritten on every launch with the latest number.
 before the tour. Accepting requests notification permission THEN schedules
 one notification two days before the week ends
 (`AppSettings.scheduleTrialEndReminder`). Never schedule it silently; the
-whole point is that the player chose it.
+whole point is that the player chose it. `PaywallView` offers the same view
+when a purchase on the sheet starts a real trial (most later trials start
+there), keyed on `purchasing` so a restore never triggers it. A declined
+system prompt here does NOT set `reminderPermissionDenied`: that shared flag
+drives Settings' "Notifications are off" alert, which then fired unexplained
+on the player's first Settings visit.
 
 ## Game night card
 

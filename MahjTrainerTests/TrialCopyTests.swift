@@ -7,10 +7,10 @@ final class TrialCopyTests: XCTestCase {
     func testTermsNameTheFreeWeekOnlyWhenEligible() {
         XCTAssertEqual(
             PaywallPricing.terms(amount: "$9.99/month", plan: .monthly, freeTrial: true),
-            "7 days free, then $9.99/month. Auto-renews until canceled."
+            "7 days free, then $9.99/month. Auto-renews until canceled. Cancel anytime in Settings."
         )
         let plain = PaywallPricing.terms(amount: "$9.99/month", plan: .monthly, freeTrial: false)
-        XCTAssertEqual(plain, "$9.99/month. Auto-renews until canceled.")
+        XCTAssertEqual(plain, "$9.99/month. Auto-renews until canceled. Cancel anytime in Settings.")
         XCTAssertFalse(plain.localizedCaseInsensitiveContains("free"))
         XCTAssertFalse(PaywallPricing.terms(amount: nil, plan: .yearly, freeTrial: false).localizedCaseInsensitiveContains("free"))
         XCTAssertTrue(PaywallPricing.terms(amount: "$49.99", plan: .lifetime, freeTrial: true).contains("one-time"))

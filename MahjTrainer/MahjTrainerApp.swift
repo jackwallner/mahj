@@ -7,6 +7,7 @@ struct MahjTrainerApp: App {
     @StateObject private var progress = ProgressStore.shared
     @StateObject private var settings = AppSettings.shared
     @StateObject private var router = AppRouter.shared
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
@@ -18,6 +19,11 @@ struct MahjTrainerApp: App {
                 .preferredColorScheme(settings.appearance.colorScheme)
                 .onOpenURL { url in
                     if let destination = AppDestination(url: url) { router.route(to: destination) }
+                }
+                .onChange(of: scenePhase) { _, phase in
+                    // iOS rarely cold-launches an app, so a report queued
+                    // offline also retries every time the app comes back.
+                    if phase == .active { Task { await FeedbackService.shared.flushPending() } }
                 }
                 .onAppear {
                     // Before anything reads mastery: pre-1.1 installs carry

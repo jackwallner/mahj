@@ -94,6 +94,12 @@ struct OnboardingView: View {
         }
         .background(Theme.background)
         .onChange(of: page) { _, newPage in
+            // The TabView pages by swipe too, and only the Continue button is
+            // gated on a skill choice: a swipe must not skip the question.
+            if newPage > skillPage, skillLevel.isEmpty {
+                page = skillPage
+                return
+            }
             guard newPage == lastPage else { return }
             subscriptions.trackPaywallImpression(id: "mahj_onboarding_trial", oncePerSession: true)
         }
@@ -128,6 +134,8 @@ struct OnboardingView: View {
             }
         }
         .padding(.horizontal, 28)
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
     }
 
     private func infoPage(icon: String, title: String, body bodyText: String, tiles: [Tile]) -> some View {
@@ -221,6 +229,7 @@ struct OnboardingView: View {
             )
         }
         .buttonStyle(.plain)
+        .accessibilityAddTraits(selected ? .isSelected : [])
     }
 
     // MARK: - Trial step (OT710: hero + bullets, zero plan cards)
@@ -232,7 +241,7 @@ struct OnboardingView: View {
                 .foregroundStyle(Theme.gold)
                 .frame(width: 92, height: 92)
                 .background(Theme.gold.opacity(0.14), in: Circle())
-            Text(offersTrial ? "Try \(Membership.name) free" : "Get \(Membership.name)")
+            Text(trialPageTitle)
                 .font(Theme.display(30))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
@@ -263,6 +272,11 @@ struct OnboardingView: View {
                 .foregroundStyle(Theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
         }
+    }
+
+    private var trialPageTitle: String {
+        if subscriptions.isPro { return "\(Membership.name) is on your account" }
+        return offersTrial ? "Try \(Membership.name) free" : "Get \(Membership.name)"
     }
 
     /// Whether the CTA's plan starts with the free week for this Apple Account.
@@ -326,6 +340,7 @@ struct OnboardingView: View {
             if reservesTrialSlots {
                 softExit
                     .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
+                    .accessibilityHidden(!onTrialPage || subscriptions.isPro)
                 // Pricing slot, reserved on every page. The billed amount is the
                 // most conspicuous pricing element (App Review 3.1.2(c) flagged
                 // the trial outshining it); the disclosure under it stays small.
@@ -333,6 +348,7 @@ struct OnboardingView: View {
                 // disclosure can wrap without moving the CTA on any page.
                 priceSlot
                     .opacity(onTrialPage ? 1 : 0)
+                    .accessibilityHidden(!onTrialPage || subscriptions.isPro)
             }
             Button {
                 primaryAction()
@@ -352,10 +368,15 @@ struct OnboardingView: View {
             if reservesTrialSlots {
                 legalRow
                     .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
+                    .accessibilityHidden(!onTrialPage || subscriptions.isPro)
             }
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 10)
+        // Same column as the pages above: on a 13-inch iPad a full-width CTA
+        // and price line read as a different screen from the text they close.
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
     }
 
     private var onTrialPageNow: Bool { page == lastPage }

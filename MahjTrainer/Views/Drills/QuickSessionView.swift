@@ -123,7 +123,7 @@ struct QuickSessionView: View {
             Image(systemName: "tray")
                 .font(.system(size: 44))
                 .foregroundStyle(Theme.inkTertiary)
-            Text("Nothing to practise")
+            Text("Nothing to practice")
                 .font(Theme.display(26))
                 .foregroundStyle(Theme.ink)
             Text("No questions could be prepared for this session. Try again in a moment.")

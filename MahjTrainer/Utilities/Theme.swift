@@ -14,6 +14,10 @@ enum Theme {
     static let coral = Color(light: (0.86, 0.42, 0.31), dark: (0.94, 0.56, 0.45))
     /// Soft gold: locks, "best value", coach highlights.
     static let gold = Color(light: (0.76, 0.57, 0.18), dark: (0.88, 0.72, 0.38))
+    /// Gold for TEXT. The fill gold is about 2.5:1 on cream, under AA for the
+    /// small badge and caption text it was used for; this one clears 4.5:1 on
+    /// cream and on a gold-tinted pill.
+    static let goldText = Color(light: (0.52, 0.37, 0.08), dark: (0.88, 0.72, 0.38))
     /// Plum: Charleston room identity.
     static let plum = Color(light: (0.48, 0.28, 0.52), dark: (0.72, 0.53, 0.76))
 
@@ -111,7 +115,7 @@ struct PlusBadge: View {
     var body: some View {
         Text(text)
             .font(.caption.weight(.heavy))
-            .foregroundStyle(Theme.gold)
+            .foregroundStyle(Theme.goldText)
             .padding(.horizontal, 8)
             .padding(.vertical, 3)
             .background(Theme.gold.opacity(0.15), in: Capsule())

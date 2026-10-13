@@ -99,11 +99,11 @@ struct PracticeRunView: View {
             Image(systemName: "checkmark.circle")
                 .font(.system(size: 48))
                 .foregroundStyle(Theme.jade)
-            Text(mode == .review ? "Nothing due" : "Nothing to practise")
+            Text(mode == .review ? "Nothing due" : "Nothing to practice")
                 .font(Theme.display(28))
                 .foregroundStyle(Theme.ink)
             Text(mode == .review
-                 ? "You have no mistakes waiting right now. Keep practising and anything you miss will show up here."
+                 ? "You have no mistakes waiting right now. Keep practicing and anything you miss will show up here."
                  : "No questions could be prepared for this run. Try again in a moment.")
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)

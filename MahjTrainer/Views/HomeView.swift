@@ -793,7 +793,7 @@ struct HomeView: View {
             } else {
                 Text(locked ? Membership.name : " ")
                     .font(.caption2.weight(.semibold))
-                    .foregroundStyle(Theme.gold)
+                    .foregroundStyle(Theme.goldText)
             }
         }
         .padding(12)

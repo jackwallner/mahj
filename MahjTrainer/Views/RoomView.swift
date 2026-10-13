@@ -61,7 +61,7 @@ struct RoomView: View {
                 // preview, not a dead end. Say so, or the lock reads as a wall.
                 Text("Look around. Every drill here opens with \(Membership.name).")
                     .font(.caption.weight(.medium))
-                    .foregroundStyle(Theme.gold)
+                    .foregroundStyle(Theme.goldText)
                     .multilineTextAlignment(.center)
             }
         }

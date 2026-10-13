@@ -227,8 +227,10 @@ final class AppSettings: ObservableObject {
     func requestTrialEndReminder(trialEndsAt end: Date, completion: @escaping @MainActor (Bool) -> Void) {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
             Task { @MainActor in
+                // No "Notifications are off" alert here: the player just
+                // answered the system prompt on the offer screen, and the
+                // shared flag would otherwise fire on their first Settings visit.
                 guard granted else {
-                    self.reminderPermissionDenied = true
                     completion(false)
                     return
                 }

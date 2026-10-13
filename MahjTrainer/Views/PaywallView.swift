@@ -127,7 +127,7 @@ struct PaywallContent: View {
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
                                 .background(Theme.gold.opacity(0.18), in: Capsule())
-                                .foregroundStyle(Theme.gold)
+                                .foregroundStyle(Theme.goldText)
                         }
                     }
                     Text(detail)
@@ -173,7 +173,9 @@ struct PaywallContent: View {
         // Selection was carried by a border colour and a fill alone, and the
         // two subscription cards share a CTA title, so nothing told a VoiceOver
         // user which plan the button at the bottom would actually buy.
-        .accessibilityLabel("\(title), \(price). \(detail)")
+        .accessibilityLabel([title, badge, price, perMonth.map { "\($0) billed yearly" }, detail]
+            .compactMap { $0 }
+            .joined(separator: ", "))
         .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
         .accessibilityHint(isSelected ? "Selected plan" : "Double tap to choose this plan")
     }
@@ -270,13 +272,13 @@ enum PaywallPricing {
         case (.lifetime, let amount?, _):
             return "\(amount) one-time. Not a subscription, nothing renews."
         case (_, nil, true):
-            return "Includes 7 days free. Auto-renews until canceled."
+            return "Includes 7 days free. Auto-renews until canceled. Cancel anytime in Settings."
         case (_, nil, false):
-            return "Auto-renews until canceled."
+            return "Auto-renews until canceled. Cancel anytime in Settings."
         case (_, let amount?, true):
-            return "7 days free, then \(amount). Auto-renews until canceled."
+            return "7 days free, then \(amount). Auto-renews until canceled. Cancel anytime in Settings."
         case (_, let amount?, false):
-            return "\(amount). Auto-renews until canceled."
+            return "\(amount). Auto-renews until canceled. Cancel anytime in Settings."
         }
     }
 }
@@ -297,58 +299,47 @@ struct PaywallView: View {
     /// flashes a connection error at the customer.
     @State private var priceLoadAttempted = false
     @State private var message: String?
+    /// Set when a purchase just started a real free trial: the sheet offers
+    /// the trial-end reminder before it closes, as onboarding does.
+    @State private var trialReminderEnd: Date?
+    @EnvironmentObject private var settings: AppSettings
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
+        if let end = trialReminderEnd {
+            TrialReminderOfferView(
+                onAccept: { settings.requestTrialEndReminder(trialEndsAt: end) { _ in dismiss() } },
+                onDecline: { dismiss() }
+            )
+        } else {
+            purchaseScreen
+        }
+    }
+
+    private var purchaseScreen: some View {
         NavigationStack {
             ScrollView {
                 PaywallContent(selectedPlan: $selectedPlan)
                     .padding()
                     .frame(maxWidth: 680)
                     .frame(maxWidth: .infinity)
+                // At accessibility sizes a pinned footer covered most of the
+                // screen and clipped Restore, Terms and Privacy, so there it
+                // scrolls with the plans instead.
+                if dynamicTypeSize.isAccessibilitySize {
+                    purchaseFooter
+                        .padding()
+                        .frame(maxWidth: 680)
+                        .frame(maxWidth: .infinity)
+                }
             }
             .background(Theme.background)
             .safeAreaInset(edge: .bottom) {
-                VStack(spacing: 8) {
-                    if priceLoadAttempted && !priceReady && !loadingPrices {
-                        Text("Prices aren't available right now. Check your connection and try again.")
-                            .font(.caption)
-                            .foregroundStyle(Theme.inkSecondary)
-                            .multilineTextAlignment(.center)
-                        Button("Retry loading prices") {
-                            Task { await loadPrices() }
-                        }
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Theme.jade)
-                    }
-                    Text(PaywallPricing.terms(subscriptions, selectedPlan))
-                        .font(.caption)
-                        .foregroundStyle(Theme.inkSecondary)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Button {
-                        purchase()
-                    } label: {
-                        Group {
-                            if purchasing || loadingPrices || (!priceLoadAttempted && !priceReady) {
-                                ProgressView().tint(Theme.onFill)
-                            } else {
-                                Text(selectedPlan.ctaTitle(freeTrial: subscriptions.offersFreeTrial(selectedPlan)))
-                            }
-                        }
-                        .primaryCTA()
-                    }
-                    // Dead until there is a price. Enabled over an unresolved
-                    // product, this button ran a second offerings fetch and
-                    // then showed a generic "products unavailable" alert, which
-                    // reads as the app being broken rather than the store being
-                    // slow.
-                    .disabled(purchasing || restoring || !priceReady)
-                    .opacity(priceReady ? 1 : 0.75)
-                    .accessibilityHint(priceReady ? "" : "Waiting for the App Store to return prices")
-                    footerLinks
+                if !dynamicTypeSize.isAccessibilitySize {
+                    purchaseFooter
+                        .padding()
+                        .background(.thinMaterial)
                 }
-                .padding()
-                .background(.thinMaterial)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -365,12 +356,62 @@ struct PaywallView: View {
                 Text(message ?? "")
             }
             .onChange(of: subscriptions.isPro) { _, isPro in
-                if isPro { dismiss() }
+                guard isPro else { return }
+                // A trial started here, not a restore or a paid plan: offer
+                // the reminder first. Most later trials start on this sheet.
+                if purchasing, subscriptions.isTrialing, let end = subscriptions.expirationDate,
+                   AppSettings.trialReminderFireDate(trialEndsAt: end) != nil {
+                    trialReminderEnd = end
+                } else {
+                    dismiss()
+                }
             }
             .task {
                 subscriptions.trackPaywallImpression(id: source)
                 if !priceReady { await loadPrices() }
             }
+        }
+    }
+
+    private var purchaseFooter: some View {
+        VStack(spacing: 8) {
+            if priceLoadAttempted && !priceReady && !loadingPrices {
+                Text("Prices aren't available right now. Check your connection and try again.")
+                    .font(.caption)
+                    .foregroundStyle(Theme.inkSecondary)
+                    .multilineTextAlignment(.center)
+                Button("Retry loading prices") {
+                    Task { await loadPrices() }
+                }
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Theme.jade)
+            }
+            Text(PaywallPricing.terms(subscriptions, selectedPlan))
+                .font(.caption)
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            Button {
+                purchase()
+            } label: {
+                Group {
+                    if purchasing || loadingPrices || (!priceLoadAttempted && !priceReady) {
+                        ProgressView().tint(Theme.onFill)
+                    } else {
+                        Text(selectedPlan.ctaTitle(freeTrial: subscriptions.offersFreeTrial(selectedPlan)))
+                    }
+                }
+                .primaryCTA()
+            }
+            // Dead until there is a price. Enabled over an unresolved
+            // product, this button ran a second offerings fetch and
+            // then showed a generic "products unavailable" alert, which
+            // reads as the app being broken rather than the store being
+            // slow.
+            .disabled(purchasing || restoring || !priceReady)
+            .opacity(priceReady ? 1 : 0.75)
+            .accessibilityHint(priceReady ? "" : "Waiting for the App Store to return prices")
+            footerLinks
         }
     }
 
@@ -394,7 +435,10 @@ struct PaywallView: View {
     }
 
     private var footerLinks: some View {
-        HStack(spacing: 16) {
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(spacing: 10))
+            : AnyLayout(HStackLayout(spacing: 16))
+        return layout {
             Button("Restore") { restore() }
                 .disabled(restoring || purchasing)
             Link("Terms of Use", destination: PaywallLinks.terms)

@@ -234,16 +234,26 @@ struct ReviewPromptSheet: View {
                     .fixedSize(horizontal: false, vertical: true)
             case .failed:
                 icon("exclamationmark.triangle.fill", Theme.coral)
-                Text("That didn't go through. You can email it instead:")
+                Text("That didn't go through. Try again, or copy your message and email it to \(AppStoreLinks.feedbackEmail).")
                     .font(.subheadline)
                     .foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
                 Button {
-                    UIPasteboard.general.string = AppStoreLinks.feedbackEmail
+                    UIPasteboard.general.string = composedMessage
                     Haptics.success()
                 } label: {
-                    Label("Copy \(AppStoreLinks.feedbackEmail)", systemImage: "doc.on.doc")
+                    Label("Copy my message", systemImage: "doc.on.doc")
                         .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.jade)
+                }
+                // Back to the form with the text intact, so a refused send
+                // never costs the player what they wrote.
+                Button {
+                    withAnimation(.easeOut(duration: 0.25)) { sendOutcome = nil }
+                } label: {
+                    Text("Try again")
+                        .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Theme.jade)
                 }
             }
@@ -261,6 +271,12 @@ struct ReviewPromptSheet: View {
         feedbackText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    /// What gets sent: the chosen chip as a tag, then the player's words.
+    private var composedMessage: String {
+        guard let chosenChip else { return trimmedFeedback }
+        return trimmedFeedback.isEmpty ? chosenChip : "[\(chosenChip)] \(trimmedFeedback)"
+    }
+
     private var canSend: Bool {
         chosenChip != nil || !trimmedFeedback.isEmpty
     }
@@ -269,10 +285,7 @@ struct ReviewPromptSheet: View {
         guard canSend, !sending else { return }
         sending = true
         feedbackFocused = false
-        var message = trimmedFeedback
-        if let chosenChip {
-            message = message.isEmpty ? chosenChip : "[\(chosenChip)] \(message)"
-        }
+        let message = composedMessage
         let isMember = subscriptions.isPro
         Task { @MainActor in
             let outcome = await FeedbackService.shared.submit(

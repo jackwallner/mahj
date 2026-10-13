@@ -4310,7 +4310,7 @@
           "title" : "Timed Challenge"
         },
         {
-          "body" : "Accuracy for every room, your weakest area, and how much you have practised overall.",
+          "body" : "Accuracy for every room, your weakest area, and how much you have practiced overall.",
           "icon" : "chart.bar.fill",
           "id" : "stats",
           "isPlus" : false,

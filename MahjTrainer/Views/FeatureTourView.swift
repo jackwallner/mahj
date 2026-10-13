@@ -219,7 +219,7 @@ struct FeatureTourView: View {
                 Text(Membership.name.uppercased())
                     .font(.caption.weight(.heavy))
                     .kerning(1.6)
-                    .foregroundStyle(Theme.gold)
+                    .foregroundStyle(Theme.goldText)
                 Spacer()
                 if !locked {
                     Image(systemName: "checkmark.seal.fill")

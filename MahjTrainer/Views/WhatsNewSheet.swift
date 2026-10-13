@@ -92,7 +92,7 @@ struct WhatsNewSheet: View {
         }
     }
 
-    /// Members get a single "Start practising" button. Free players get the
+    /// Members get a single "Start practicing" button. Free players get the
     /// same button plus one line about the membership, never a plan picker.
     private var footer: some View {
         VStack(spacing: 10) {
@@ -107,7 +107,7 @@ struct WhatsNewSheet: View {
             Button {
                 close()
             } label: {
-                Text(lockedItems.isEmpty ? "Start practising" : "Keep practising free")
+                Text(lockedItems.isEmpty ? "Start practicing" : "Keep practicing free")
                     .font(.headline)
                     .foregroundStyle(lockedItems.isEmpty ? Theme.onFill : Theme.inkSecondary)
                     .frame(maxWidth: .infinity)

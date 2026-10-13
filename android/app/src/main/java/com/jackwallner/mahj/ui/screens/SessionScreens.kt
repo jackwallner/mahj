@@ -130,7 +130,7 @@ fun SessionScreen(items: List<QuickItem>, purpose: SessionPurpose, onClose: (() 
     if (items.isEmpty()) {
         // Not a finished round: it must not bank a streak day for a session that asked nothing.
         MahjScreen(purpose.drill.title, onBack = close) {
-            EmptyRunScreen("tray", "Nothing to practise", "No questions could be prepared for this session. Try again in a moment.", close)
+            EmptyRunScreen("tray", "Nothing to practice", "No questions could be prepared for this session. Try again in a moment.", close)
         }
         return
     }
@@ -311,9 +311,9 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
     if (items.isEmpty()) {
         MahjScreen(title, onBack = { navigator.pop() }) {
             if (mode == PracticeMode.Review) {
-                EmptyRunScreen("checkmark.circle", "Nothing due", "You have no mistakes waiting right now. Keep practising and anything you miss will show up here.") { navigator.pop() }
+                EmptyRunScreen("checkmark.circle", "Nothing due", "You have no mistakes waiting right now. Keep practicing and anything you miss will show up here.") { navigator.pop() }
             } else {
-                EmptyRunScreen("checkmark.circle", "Nothing to practise", "No questions could be prepared for this run. Try again in a moment.") { navigator.pop() }
+                EmptyRunScreen("checkmark.circle", "Nothing to practice", "No questions could be prepared for this run. Try again in a moment.") { navigator.pop() }
             }
         }
         return

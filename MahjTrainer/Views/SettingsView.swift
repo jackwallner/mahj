@@ -11,6 +11,7 @@ struct SettingsView: View {
     @State private var showWhatsNew = false
     @State private var showResetConfirm = false
     @State private var restoreMessage: String?
+    @State private var restoring = false
     @State private var showFeedback = false
 
     var body: some View {
@@ -134,7 +135,15 @@ struct SettingsView: View {
             if subscriptions.isPro {
                 Label("\(Membership.name) unlocked", systemImage: "checkmark.seal.fill")
                     .foregroundStyle(Theme.jade)
-                Link("Manage Subscription", destination: PaywallLinks.manageSubscriptions)
+                if subscriptions.isTrialing, let end = subscriptions.expirationDate {
+                    Text("Free trial ends \(end.formatted(date: .abbreviated, time: .omitted))")
+                        .font(.subheadline)
+                        .foregroundStyle(Theme.inkSecondary)
+                }
+                // Lifetime has no expiration and nothing to manage.
+                if subscriptions.expirationDate != nil {
+                    Link("Manage Subscription", destination: PaywallLinks.manageSubscriptions)
+                }
             } else {
                 Button {
                     showPaywall = true
@@ -142,8 +151,11 @@ struct SettingsView: View {
                     Label("Get \(Membership.name)", systemImage: "sparkles")
                 }
             }
-            Button("Restore Purchases") {
+            Button {
+                guard !restoring else { return }
+                restoring = true
                 Task {
+                    defer { restoring = false }
                     do {
                         try await subscriptions.restore()
                         restoreMessage = subscriptions.isPro
@@ -153,7 +165,16 @@ struct SettingsView: View {
                         restoreMessage = error.localizedDescription
                     }
                 }
+            } label: {
+                HStack {
+                    Text("Restore Purchases")
+                    if restoring {
+                        Spacer()
+                        ProgressView()
+                    }
+                }
             }
+            .disabled(restoring)
         }
     }
 
