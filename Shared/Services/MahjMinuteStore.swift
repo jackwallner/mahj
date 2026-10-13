@@ -78,7 +78,12 @@ final class MahjMinuteStore: ObservableObject {
 
     func completedThisWeek(now: Date = Date(), calendar: Calendar = .current) -> Int {
         guard let interval = calendar.dateInterval(of: .weekOfYear, for: now) else { return 0 }
-        return results.values.filter { interval.contains($0.completedAt) }.count
+        // Days, not runs: the goal says any five days count, and five archive
+        // replays in one sitting are one day of practice.
+        let days = results.values
+            .filter { interval.contains($0.completedAt) }
+            .map { calendar.startOfDay(for: $0.completedAt) }
+        return Set(days).count
     }
 
     func archiveDates(

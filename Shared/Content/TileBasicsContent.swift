@@ -173,7 +173,7 @@ enum TileBasicsContent {
             prompt: "Jokers in a Singles & Pairs hand?",
             choices: ["Allowed anywhere", "Only in the pairs", "Never allowed", "One per hand"],
             answerIndex: 2,
-            explanation: "Never. Singles & Pairs hands have no groups of 3+, and jokers only work in groups of 3+. That's why S&P pays the most."
+            explanation: "Never. Singles & Pairs hands have no groups of 3+, and jokers only work in groups of 3+. That's why S&P hands pay so well."
         ),
         QuizQuestion(
             id: "quiz-concealed",

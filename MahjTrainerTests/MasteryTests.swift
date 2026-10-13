@@ -65,6 +65,7 @@ final class MasteryTests: XCTestCase {
         XCTAssertEqual(MasteryLevel.level(known: 5, total: 10), .solid)
         XCTAssertEqual(MasteryLevel.level(known: 9, total: 10), .sharp)
         XCTAssertEqual(MasteryLevel.level(known: 0, total: 0), .untouched)
+        XCTAssertEqual(MasteryLevel.level(known: 0, total: 10, attempted: 4), .learning)
     }
 
     // MARK: - Rooms

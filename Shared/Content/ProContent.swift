@@ -33,7 +33,7 @@ enum ProContent {
             situation: "First Charleston, pass RIGHT. Eight even tiles plus a lonely pair of Norths. Pick 3.",
             deal: [.c(2), .c(4), .c(6), .c(8), .b(2), .b(4), .b(6), .b(8), .wind(.north), .wind(.north), .d(5), .flower, .joker],
             recommendedPass: [.wind(.north), .wind(.north), .d(5)],
-            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so nobody has settled on a hand yet and passing a pair is unlikely to help anyone much. Pass both Norths and the odd 5 Dot.",
+            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths rarely has a place in 2468, the hand you are clearly playing. It is the very first pass, so nobody has settled on a hand yet and passing a pair is unlikely to help anyone much. Pass both Norths and the odd 5 Dot.",
             tip: "Hold pairs by default, but a pair that fits none of your target section is fair to pass early, before opponents lock in."
         ),
         CharlestonScenario(
@@ -83,11 +83,11 @@ enum ProContent {
         ),
         QuizQuestion(
             id: "pro-def-count-copies",
-            prompt: "You need the last North for your pung. Two Norths sit in the discards and one is exposed on a rack. How many can still reach you?",
-            tiles: [.wind(.north), .wind(.north), .wind(.north)],
+            prompt: "You hold one North and want a pung. Two Norths already sit in the discards. How many more Norths can still reach you?",
+            tiles: [.wind(.north), .wind(.north)],
             choices: ["Two", "One at most", "Three", "None, it is truly impossible"],
             answerIndex: 1,
-            explanation: "Only four of any tile exist. Three Norths are already visible, so at most one is left, and it could be buried in the wall or stuck in a hand. Treat the pung as fragile and start lining up a backup."
+            explanation: "Only four of any tile exist. You hold one and two are in the discards, so at most one is left, and it could be buried in the wall or stuck in a hand. Even if it comes, that is a pair: the pung needs a joker. Start lining up a backup."
         ),
         QuizQuestion(
             id: "pro-def-quints-dead",

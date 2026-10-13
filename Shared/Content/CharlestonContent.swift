@@ -91,7 +91,7 @@ enum CharlestonContent {
             situation: "First Charleston, pass RIGHT. Pick 3 tiles to pass.",
             deal: [.wind(.north), .wind(.north), .wind(.north), .wind(.east), .wind(.west), .wind(.west), .wind(.south), .dragon(.red), .c(3), .d(6), .b(9), .flower, .joker],
             recommendedPass: [.c(3), .d(6), .b(9)],
-            reasoning: "Seven winds and a dragon: this is a Winds & Dragons hand. The three scattered number tiles (3C, 6D, 9B) are strays in three different suits; they can't grow into anything together. Easy passes.",
+            reasoning: "Seven winds and a dragon: this is a Winds & Dragons hand. The three scattered number tiles (3C, 6D, 9B) are strays in three different suits; none of them helps a Winds & Dragons hand. Easy passes.",
             tip: "A pung of winds is a commitment. Once you have one, feed it."
         ),
         CharlestonScenario(
@@ -99,7 +99,7 @@ enum CharlestonContent {
             situation: "First Charleston, pass ACROSS. Pick 3 tiles to pass.",
             deal: [.c(4), .c(5), .c(6), .b(5), .b(6), .b(7), .d(6), .d(6), .c(1), .d(9), .wind(.north), .flower, .joker],
             recommendedPass: [.c(1), .d(9), .wind(.north)],
-            reasoning: "Middle numbers 4-7 in every suit: a Consecutive Run dream. A 1 and a 9 can't join a 4-5-6-7 run, and the lone North is dead weight. Keep the 6 Dot pair: pairs anchor hands.",
+            reasoning: "Middle numbers 4 through 7 across all three suits: a Consecutive Run dream. A 1 and a 9 can't join a 4-5-6-7 run, and the lone North is dead weight. Keep the 6 Dot pair: pairs anchor hands.",
             tip: "For Consecutive Run hands, middle numbers (4-7) are the most flexible tiles in the game."
         ),
         CharlestonScenario(
@@ -115,7 +115,7 @@ enum CharlestonContent {
             situation: "First Charleston, pass RIGHT. Nothing looks good. Pick 3.",
             deal: [.wind(.west), .wind(.west), .wind(.north), .wind(.east), .wind(.south), .c(2), .b(5), .d(8), .c(9), .d(1), .joker, .joker, .flower],
             recommendedPass: [.d(1), .c(9), .b(5)],
-            reasoning: "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keeping the 2 Crak and 8 Dot leaves a thin evens thread if the winds dry up; keeping a 1 or a 9 instead is a fine call too, since most of these tiles will leave on later passes anyway. Jokers can never be passed.",
+            reasoning: "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keep the 2 Crak and 8 Dot: together they leave a thin evens thread if the winds dry up, which a lone 1 or 9 cannot. Jokers can never be passed.",
             tip: "With a junk deal, pass strays but keep tiles that preserve a second option."
         ),
         CharlestonScenario(
@@ -131,7 +131,7 @@ enum CharlestonContent {
             situation: "Second Charleston, pass LEFT. Pick 3 tiles to pass.",
             deal: [.c(6), .c(6), .b(6), .b(6), .b(6), .d(6), .d(6), .c(4), .b(8), .wind(.north), .wind(.east), .flower, .joker],
             recommendedPass: [.c(4), .b(8), .wind(.north)],
-            reasoning: "SEVEN sixes: Any Like Numbers is nearly built, and 6s keep 369 open as a backup. The 4C and 8B are decoys ('but they're even!'): you're not playing 2468 with seven sixes. Either lone wind plus the two stray numbers is the right bundle.",
+            reasoning: "SEVEN sixes: Any Like Numbers is nearly built, and 6s keep 369 open as a backup. The 4C and 8B are decoys ('but they're even!'): you're not playing 2468 with seven sixes. Pass the two stray numbers with the North, and the East can follow on the next pass.",
             tip: "Count your longest section, not your prettiest. Seven of one number beats four scattered evens."
         ),
         CharlestonScenario(
@@ -139,7 +139,7 @@ enum CharlestonContent {
             situation: "First Charleston, pass RIGHT. Two sections look possible. Pick 3.",
             deal: [.c(2), .c(2), .c(4), .c(6), .c(8), .b(3), .b(5), .b(7), .b(9), .flower, .joker, .wind(.north), .wind(.west)],
             recommendedPass: [.b(3), .b(5), .wind(.north)],
-            reasoning: "Evens in craks (five tiles with a pair) vs odds in bams (four loners): follow the count and commit to 2468. But don't ship 3B-5B-7B in one bundle to one player: that's a 13579 care package. Send two odds plus a lone wind; the rest go out over later passes.",
+            reasoning: "Evens in craks (five tiles with a pair) vs odds in bams (four loners): follow the count and commit to 2468. But don't ship 3B-5B-7B in one bundle to one player: that's a 13579 care package. Send the 3 and 5 Bam with the North now; the 7 and 9 Bam and the West go out over later passes.",
             tip: "When two sections compete, commit to the longer one, and split the losers' tiles across different passes."
         ),
         CharlestonScenario(

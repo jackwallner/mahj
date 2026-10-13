@@ -45,7 +45,7 @@ struct TileView: View {
         .accessibilityLabel(tile.spokenName)
         .accessibilityIdentifier(identifier ?? "")
         .accessibilityAddTraits(accessibilityTraits)
-        .accessibilityHint(action == nil ? "" : "Double tap to play this tile")
+        .accessibilityHint(action == nil ? "" : "Double tap to choose this tile")
     }
 
     private var accessibilityTraits: AccessibilityTraits {

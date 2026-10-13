@@ -65,8 +65,13 @@ struct RoomMastery: Identifiable, Sendable {
 extension MasteryLevel {
     /// Thresholds are on coverage, not raw accuracy: a player who has answered
     /// three questions perfectly does not know the room.
-    static func level(known: Int, total: Int) -> MasteryLevel {
-        guard total > 0, known > 0 else { return .untouched }
+    /// `attempted` is how many items have been answered at all. A room
+    /// practised but not yet locked in is Learning, not "New": quiz drills show
+    /// each question once a run, so a player could ace a whole room and still
+    /// see it read as untouched.
+    static func level(known: Int, total: Int, attempted: Int = 0) -> MasteryLevel {
+        guard total > 0 else { return .untouched }
+        guard known > 0 else { return attempted > 0 ? .learning : .untouched }
         let fraction = Double(known) / Double(total)
         switch fraction {
         case 0.85...: return .sharp
@@ -104,11 +109,12 @@ extension PracticeRecordStore {
             return RoomMastery(roomID: room.id, known: 0, total: 0, level: .untouched)
         }
         let known = ids.filter { records[$0]?.isKnown(now: now) == true }.count
+        let attempted = ids.filter { records[$0] != nil }.count
         return RoomMastery(
             roomID: room.id,
             known: known,
             total: ids.count,
-            level: MasteryLevel.level(known: known, total: ids.count)
+            level: MasteryLevel.level(known: known, total: ids.count, attempted: attempted)
         )
     }
 

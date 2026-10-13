@@ -449,6 +449,7 @@ struct FlipCardFace: View {
     var showsSwipeHints = true
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var shineTrigger = 0
 
     var body: some View {
@@ -470,7 +471,7 @@ struct FlipCardFace: View {
         // A plain card is one element, so the deck's flip and grading
         // actions land on it. A choice card keeps its buttons reachable.
         .accessibilityElement(children: card.choice == nil || (isFlipped && onAdvance == nil) ? .combine : .contain)
-        .accessibilityLabel(isFlipped ? "\(card.backTitle). \(card.backBody)" : card.frontTitle)
+        .accessibilityLabel(isFlipped ? backSpoken : frontSpoken)
         .task(id: isFlipped) {
             // A correct call earns the slot-machine gleam once the flip lands.
             guard isFlipped, verdict?.correct == true else { return }
@@ -529,18 +530,13 @@ struct FlipCardFace: View {
                     verdictBanner(verdict)
                 }
                 Spacer(minLength: 0)
-                Text(card.backTitle)
-                    .font(Theme.display(22))
-                    .foregroundStyle(accent)
-                    .multilineTextAlignment(.center)
-                Rectangle()
-                    .fill(Theme.rule)
-                    .frame(width: 44, height: 2)
-                Text(card.backBody)
-                    .font(.body)
-                    .foregroundStyle(Theme.ink)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
+                // The card has a fixed height, so at accessibility sizes a
+                // long answer scrolls inside it instead of spilling past it.
+                if dynamicTypeSize.isAccessibilitySize {
+                    ScrollView { answerText }
+                } else {
+                    answerText
+                }
                 Spacer(minLength: 0)
                 if showsSwipeHints {
                     if let onAdvance {
@@ -554,6 +550,39 @@ struct FlipCardFace: View {
                     }
                 }
             }
+        }
+    }
+
+    /// The whole front, not just its title: on a card like "How many
+    /// tiles?" the question lives in the subtitle and the tiles.
+    private var frontSpoken: String {
+        var parts = [card.frontTitle]
+        if let subtitle = card.frontSubtitle, !subtitle.isEmpty { parts.append(subtitle) }
+        if !card.frontTiles.isEmpty { parts.append(card.frontTiles.map(\.spokenName).joined(separator: ", ")) }
+        return parts.joined(separator: ". ")
+    }
+
+    /// Leads with the verdict on a graded card, so the grade is heard first.
+    private var backSpoken: String {
+        let answer = "\(card.backTitle). \(card.backBody)"
+        guard let verdict else { return answer }
+        return "\(verdict.correct ? "Right" : "Not this time"). \(answer)"
+    }
+
+    private var answerText: some View {
+        VStack(spacing: 14) {
+            Text(card.backTitle)
+                .font(Theme.display(22))
+                .foregroundStyle(accent)
+                .multilineTextAlignment(.center)
+            Rectangle()
+                .fill(Theme.rule)
+                .frame(width: 44, height: 2)
+            Text(card.backBody)
+                .font(.body)
+                .foregroundStyle(Theme.ink)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 

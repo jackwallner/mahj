@@ -147,7 +147,7 @@ enum MoreContent {
                    .flower, .flower,
                    .c(4), .b(7), .d(2), .d(8), .c(9)],
             recommendedPass: [.c(4), .b(7), .c(9)],
-            reasoning: "A pung of east, a pair of red and a green is a real Winds and Dragons start. The five loose numbers are the passable ones, so send the three that pair with nothing.",
+            reasoning: "A pung of east, a pair of red and a green is a real Winds and Dragons start. The five loose numbers are the passable ones. The 2 and 8 Dot are the only two that share a suit and an even family, so they are the last to go; send the other three first.",
             tip: "Keep the flowers. Almost every section uses them, and they cost you nothing to hold."
         ),
         CharlestonScenario(

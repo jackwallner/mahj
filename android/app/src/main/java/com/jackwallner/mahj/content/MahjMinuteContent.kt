@@ -109,8 +109,18 @@ object MahjMinuteContent {
         return "This pass gives away ${given.joinToString(" and ") { "the ${it.spokenName}" }}, which the strongest pass keeps."
     }
 
+    /**
+     * Strays are interchangeable, so a wrong choice has to give away something the rack is plainly
+     * keeping: part of a pair or pung, or a flower. Falls back only if a deal offers too few (iOS parity).
+     */
     private fun distractorPasses(scenario: CharlestonScenario, seed: String): List<Pair<String, List<Tile>>> {
+        val strict = distractorPasses(scenario, seed, givesAwayKeeper = true)
+        return if (strict.size >= 3) strict else distractorPasses(scenario, seed, givesAwayKeeper = false)
+    }
+
+    private fun distractorPasses(scenario: CharlestonScenario, seed: String, givesAwayKeeper: Boolean): List<Pair<String, List<Tile>>> {
         val passable = scenario.deal.filter { it != Tile.Joker }
+        val isKeeper: (Tile) -> Boolean = { tile -> tile == Tile.Flower || scenario.deal.count { it == tile } >= 2 }
         val labels = mutableMapOf<String, List<Tile>>()
         for (first in 0 until passable.size - 2) {
             for (second in first + 1 until passable.size - 1) {
@@ -118,6 +128,7 @@ object MahjMinuteContent {
                     val pass = listOf(passable[first], passable[second], passable[third])
                     // A distractor sharing two tiles with the answer would mark an equally good pass wrong.
                     if (overlap(pass, scenario.recommendedPass) > 1) continue
+                    if (givesAwayKeeper && pass.none(isKeeper)) continue
                     labels.getOrPut(passLabel(pass)) { pass }
                 }
             }

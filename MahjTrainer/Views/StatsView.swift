@@ -72,8 +72,12 @@ struct StatsView: View {
             metric(value: percent(records.overallAccuracy), caption: "accuracy", color: Theme.jade)
             divider
             metric(value: "\(records.totalAttempts)", caption: "answered", color: Theme.ink)
-            divider
-            metric(value: "\(records.bestChallengeScore)", caption: "best challenge", color: Theme.coral)
+            // A free player cannot reach the Timed Challenge, so a 0 here
+            // reads as a score they failed to earn.
+            if records.bestChallengeScore > 0 {
+                divider
+                metric(value: "\(records.bestChallengeScore)", caption: "best challenge", color: Theme.coral)
+            }
         }
         .padding(.vertical, 18)
         .frame(maxWidth: .infinity)

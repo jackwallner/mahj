@@ -30,7 +30,7 @@ struct MonthlyChallengeResult: Codable, Identifiable, Sendable {
         let grid = stride(from: 0, to: answers.count, by: 6).map { start in
             answers[start..<min(start + 6, answers.count)].map { $0 ? "🟩" : "⬜️" }.joined()
         }.joined(separator: "\n")
-        return "Mahj Trainer \(title) Challenge (\(theme.title)): \(score)/\(total)\n\(grid)\n🟩 = right. Everyone gets the same twelve questions this month. Try it free: \(AppStoreLinks.productURL.absoluteString)"
+        return "Mahj Trainer \(title) Challenge (\(theme.title)): \(score)/\(total)\n\(grid)\n🟩 = right. Everyone gets the same twelve questions each month. Try it free: \(AppStoreLinks.productURL.absoluteString)"
     }
 }
 

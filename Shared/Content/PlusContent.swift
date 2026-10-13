@@ -136,16 +136,16 @@ enum PlusContent {
         HandMatchQuestion(
             id: "plus-hm-quints",
             tiles: [.joker, .joker, .joker, .joker, .c(3), .c(3), .c(3), .b(3), .b(3), .b(3), .flower, .d(9), .wind(.east)],
-            choices: [.quints, .likeNumbers, .odds13579, .threeSixNine],
+            choices: [.quints, .windsDragons, .odds13579, .consecutiveRun],
             answer: .quints,
-            explanation: "Two pungs of 3s and FOUR jokers. Any Like Numbers would waste them: those jokers turn both pungs into quints, and Quints hands pay far more. Joker-rich racks look up, not sideways."
+            explanation: "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch both pungs into quints. Joker-rich racks look up, not sideways."
         ),
         HandMatchQuestion(
             id: "plus-hm-sp",
             tiles: [.c(2), .c(2), .c(4), .c(4), .b(6), .b(6), .b(8), .b(8), .d(2), .d(2), .dragon(.green), .dragon(.green), .wind(.east)],
-            choices: [.singlesAndPairs, .evens2468, .consecutiveRun, .quints],
+            choices: [.singlesAndPairs, .likeNumbers, .consecutiveRun, .quints],
             answer: .singlesAndPairs,
-            explanation: "Six natural pairs and zero jokers. 2468 is the obvious read and a fine backup, but a rack that is already ALL pairs is most of a Singles and Pairs hand, which pays the most on the card."
+            explanation: "Six natural pairs and zero jokers. A rack that is already all pairs is most of a Singles and Pairs hand, and that section never takes jokers, so pairs you were dealt are the only way in."
         ),
     ]
 

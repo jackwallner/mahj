@@ -193,7 +193,20 @@ enum MahjMinuteContent {
     }
 
     private static func distractorPasses(for scenario: CharlestonScenario, seed: String) -> [(label: String, tiles: [Tile])] {
+        // Strays are interchangeable: several coaches say so ("either lone
+        // wind", "keeping a 1 or 9 is fine"), so a pass of three OTHER strays
+        // can be just as good as the answer. A wrong choice has to give away
+        // something the rack is plainly keeping: part of a pair or pung, or
+        // a flower. Only if a deal offers too few of those does it fall back.
+        let strict = distractorPasses(for: scenario, seed: seed, givesAwayKeeper: true)
+        return strict.count >= 3 ? strict : distractorPasses(for: scenario, seed: seed, givesAwayKeeper: false)
+    }
+
+    private static func distractorPasses(for scenario: CharlestonScenario, seed: String, givesAwayKeeper: Bool) -> [(label: String, tiles: [Tile])] {
         let passable = scenario.deal.filter { $0 != .joker }
+        let isKeeper: (Tile) -> Bool = { tile in
+            tile == .flower || scenario.deal.filter { $0 == tile }.count >= 2
+        }
         var labels: [String: [Tile]] = [:]
         for first in 0..<(passable.count - 2) {
             for second in (first + 1)..<(passable.count - 1) {
@@ -204,6 +217,7 @@ enum MahjMinuteContent {
                     // lone wind"). A distractor sharing two tiles with the
                     // answer would mark that equally good pass wrong.
                     guard overlap(pass, scenario.recommendedPass) <= 1 else { continue }
+                    if givesAwayKeeper, !pass.contains(where: isKeeper) { continue }
                     let label = passLabel(pass)
                     if labels[label] == nil { labels[label] = pass }
                 }

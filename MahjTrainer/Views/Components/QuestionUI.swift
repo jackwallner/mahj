@@ -356,11 +356,15 @@ struct MissNoteCard: View {
 /// "We will ask you this again." A miss that visibly schedules itself reads as
 /// the app catching you rather than scoring you.
 struct RequeuedChip: View {
+    @EnvironmentObject private var subscriptions: SubscriptionService
+
     var body: some View {
         HStack(spacing: 7) {
             Image(systemName: "arrow.trianglehead.counterclockwise")
                 .font(.caption)
-            Text("Saved to Fix My Mistakes")
+            // Fix My Mistakes is a Mahj+ tile; a free player's misses still
+            // come back first in Get Started, so promise that instead.
+            Text(subscriptions.isPro ? "Saved to Fix My Mistakes" : "This one will come back")
                 .font(.caption.weight(.semibold))
             Spacer(minLength: 0)
         }
@@ -377,5 +381,16 @@ extension String {
     var capitalizedFirst: String {
         guard let first else { return self }
         return first.uppercased() + dropFirst()
+    }
+}
+
+extension AnyTransition {
+    /// The slide between questions. With Reduce Motion on, a plain cross-fade.
+    static func questionSlide(reduceMotion: Bool) -> AnyTransition {
+        guard !reduceMotion else { return .opacity }
+        return .asymmetric(
+            insertion: .move(edge: .trailing).combined(with: .opacity),
+            removal: .move(edge: .leading).combined(with: .opacity)
+        )
     }
 }

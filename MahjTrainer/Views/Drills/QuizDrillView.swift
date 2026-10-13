@@ -4,6 +4,7 @@ struct QuizDrillView: View {
     let drill: Drill
     let questions: [QuizQuestion]
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @EnvironmentObject private var progress: ProgressStore
 
     @State private var index = 0
@@ -54,10 +55,7 @@ struct QuizDrillView: View {
                 footer
             }
             .id(index)
-            .transition(.asymmetric(
-                insertion: .move(edge: .trailing).combined(with: .opacity),
-                removal: .move(edge: .leading).combined(with: .opacity)
-            ))
+            .transition(.questionSlide(reduceMotion: reduceMotion))
         }
         .padding()
         .frame(maxWidth: Theme.readableContentWidth)

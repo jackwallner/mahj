@@ -58,7 +58,7 @@
     },
     {
       "displayName" : "Singles & Pairs",
-      "howToSpot" : "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay the most.",
+      "howToSpot" : "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay so well.",
       "id" : "singlesAndPairs",
       "requires" : "singles and pairs means no pungs or kongs at all, and no jokers anywhere",
       "shortName" : "Singles & Pairs"
@@ -652,7 +652,7 @@
         "1D",
         "GD"
       ],
-      "watchOut" : "NO JOKERS, anywhere, ever. That is exactly why these hands pay the most and why you should not start one unless the tiles are already falling your way."
+      "watchOut" : "NO JOKERS, anywhere, ever. That is why these hands are among the best paid on the card, and why you should not start one unless the tiles are already falling your way."
     }
   ],
   "rooms" : [
@@ -967,7 +967,7 @@
                 "Never allowed",
                 "One per hand"
               ],
-              "explanation" : "Never. Singles & Pairs hands have no groups of 3+, and jokers only work in groups of 3+. That's why S&P pays the most.",
+              "explanation" : "Never. Singles & Pairs hands have no groups of 3+, and jokers only work in groups of 3+. That's why S&P hands pay so well.",
               "id" : "quiz-sp-jokers",
               "prompt" : "Jokers in a Singles & Pairs hand?",
               "tiles" : [
@@ -1429,7 +1429,7 @@
               "id" : "cat-369"
             },
             {
-              "backBody" : "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay the most. New players should admire it from a distance: every tile but the winning one must be drawn or come through the Charleston.",
+              "backBody" : "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay so well. New players should admire it from a distance: every tile but the winning one must be drawn or come through the Charleston.",
               "backTitle" : "Singles & Pairs",
               "frontSubtitle" : "The no-joker zone",
               "frontTiles" : [
@@ -1784,11 +1784,11 @@
               "answer" : "quints",
               "choices" : [
                 "quints",
-                "likeNumbers",
-                "odds13579",
+                "windsDragons",
+                "threeSixNine",
                 "consecutiveRun"
               ],
-              "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Without jokers you would read this as Like Numbers; with them, Quints is live and pays far more. Jokers decide.",
+              "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Only jokers can make a quint, so a joker-rich rack points at Quints. Jokers decide.",
               "id" : "hm-quints",
               "tiles" : [
                 "J",
@@ -1810,11 +1810,11 @@
               "answer" : "singlesAndPairs",
               "choices" : [
                 "singlesAndPairs",
-                "odds13579",
+                "likeNumbers",
                 "windsDragons",
                 "evens2468"
               ],
-              "explanation" : "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs is the one section where this rack is nearly home. (13579 is a fine backup.)",
+              "explanation" : "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs never takes jokers, so a rack dealt in pairs is the one way in, and this one is nearly home.",
               "id" : "hm-sp",
               "tiles" : [
                 "1C",
@@ -1949,11 +1949,11 @@
               "answer" : "quints",
               "choices" : [
                 "quints",
-                "likeNumbers",
+                "windsDragons",
                 "odds13579",
-                "threeSixNine"
+                "consecutiveRun"
               ],
-              "explanation" : "Two pungs of 3s and FOUR jokers. Any Like Numbers would waste them: those jokers turn both pungs into quints, and Quints hands pay far more. Joker-rich racks look up, not sideways.",
+              "explanation" : "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch both pungs into quints. Joker-rich racks look up, not sideways.",
               "id" : "plus-hm-quints",
               "tiles" : [
                 "J",
@@ -1975,11 +1975,11 @@
               "answer" : "singlesAndPairs",
               "choices" : [
                 "singlesAndPairs",
-                "evens2468",
+                "likeNumbers",
                 "consecutiveRun",
                 "quints"
               ],
-              "explanation" : "Six natural pairs and zero jokers. 2468 is the obvious read and a fine backup, but a rack that is already ALL pairs is most of a Singles and Pairs hand, which pays the most on the card.",
+              "explanation" : "Six natural pairs and zero jokers. A rack that is already all pairs is most of a Singles and Pairs hand, and that section never takes jokers, so pairs you were dealt are the only way in.",
               "id" : "plus-hm-sp",
               "tiles" : [
                 "2C",
@@ -2297,7 +2297,7 @@
                 "J"
               ],
               "id" : "cs-winds",
-              "reasoning" : "Seven winds and a dragon: this is a Winds & Dragons hand. The three scattered number tiles (3C, 6D, 9B) are strays in three different suits; they can't grow into anything together. Easy passes.",
+              "reasoning" : "Seven winds and a dragon: this is a Winds & Dragons hand. The three scattered number tiles (3C, 6D, 9B) are strays in three different suits; none of them helps a Winds & Dragons hand. Easy passes.",
               "recommendedPass" : [
                 "3C",
                 "6D",
@@ -2323,7 +2323,7 @@
                 "J"
               ],
               "id" : "cs-run",
-              "reasoning" : "Middle numbers 4-7 in every suit: a Consecutive Run dream. A 1 and a 9 can't join a 4-5-6-7 run, and the lone North is dead weight. Keep the 6 Dot pair: pairs anchor hands.",
+              "reasoning" : "Middle numbers 4 through 7 across all three suits: a Consecutive Run dream. A 1 and a 9 can't join a 4-5-6-7 run, and the lone North is dead weight. Keep the 6 Dot pair: pairs anchor hands.",
               "recommendedPass" : [
                 "1C",
                 "9D",
@@ -2375,7 +2375,7 @@
                 "F"
               ],
               "id" : "cs-junk",
-              "reasoning" : "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keeping the 2 Crak and 8 Dot leaves a thin evens thread if the winds dry up; keeping a 1 or a 9 instead is a fine call too, since most of these tiles will leave on later passes anyway. Jokers can never be passed.",
+              "reasoning" : "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keep the 2 Crak and 8 Dot: together they leave a thin evens thread if the winds dry up, which a lone 1 or 9 cannot. Jokers can never be passed.",
               "recommendedPass" : [
                 "1D",
                 "9C",
@@ -2427,7 +2427,7 @@
                 "J"
               ],
               "id" : "cs-like",
-              "reasoning" : "SEVEN sixes: Any Like Numbers is nearly built, and 6s keep 369 open as a backup. The 4C and 8B are decoys ('but they're even!'): you're not playing 2468 with seven sixes. Either lone wind plus the two stray numbers is the right bundle.",
+              "reasoning" : "SEVEN sixes: Any Like Numbers is nearly built, and 6s keep 369 open as a backup. The 4C and 8B are decoys ('but they're even!'): you're not playing 2468 with seven sixes. Pass the two stray numbers with the North, and the East can follow on the next pass.",
               "recommendedPass" : [
                 "4C",
                 "8B",
@@ -2453,7 +2453,7 @@
                 "W"
               ],
               "id" : "cs-commit",
-              "reasoning" : "Evens in craks (five tiles with a pair) vs odds in bams (four loners): follow the count and commit to 2468. But don't ship 3B-5B-7B in one bundle to one player: that's a 13579 care package. Send two odds plus a lone wind; the rest go out over later passes.",
+              "reasoning" : "Evens in craks (five tiles with a pair) vs odds in bams (four loners): follow the count and commit to 2468. But don't ship 3B-5B-7B in one bundle to one player: that's a 13579 care package. Send the 3 and 5 Bam with the North now; the 7 and 9 Bam and the West go out over later passes.",
               "recommendedPass" : [
                 "3B",
                 "5B",
@@ -2644,7 +2644,7 @@
                 "9C"
               ],
               "id" : "more-pass-honors",
-              "reasoning" : "A pung of east, a pair of red and a green is a real Winds and Dragons start. The five loose numbers are the passable ones, so send the three that pair with nothing.",
+              "reasoning" : "A pung of east, a pair of red and a green is a real Winds and Dragons start. The five loose numbers are the passable ones. The 2 and 8 Dot are the only two that share a suit and an even family, so they are the last to go; send the other three first.",
               "recommendedPass" : [
                 "4C",
                 "7B",
@@ -3529,7 +3529,7 @@
                 "J"
               ],
               "id" : "pro-ch-pass-pair",
-              "reasoning" : "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths does nothing for 2468, the hand you are clearly playing. It is the very first pass, so nobody has settled on a hand yet and passing a pair is unlikely to help anyone much. Pass both Norths and the odd 5 Dot.",
+              "reasoning" : "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths rarely has a place in 2468, the hand you are clearly playing. It is the very first pass, so nobody has settled on a hand yet and passing a pair is unlikely to help anyone much. Pass both Norths and the odd 5 Dot.",
               "recommendedPass" : [
                 "N",
                 "N",
@@ -3673,11 +3673,10 @@
                 "Three",
                 "None, it is truly impossible"
               ],
-              "explanation" : "Only four of any tile exist. Three Norths are already visible, so at most one is left, and it could be buried in the wall or stuck in a hand. Treat the pung as fragile and start lining up a backup.",
+              "explanation" : "Only four of any tile exist. You hold one and two are in the discards, so at most one is left, and it could be buried in the wall or stuck in a hand. Even if it comes, that is a pair: the pung needs a joker. Start lining up a backup.",
               "id" : "pro-def-count-copies",
-              "prompt" : "You need the last North for your pung. Two Norths sit in the discards and one is exposed on a rack. How many can still reach you?",
+              "prompt" : "You hold one North and want a pung. Two Norths already sit in the discards. How many more Norths can still reach you?",
               "tiles" : [
-                "N",
                 "N",
                 "N"
               ]

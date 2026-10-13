@@ -41,7 +41,11 @@ struct DrillCompleteView: View {
             Haptics.success()
             SoundPlayer.play(.complete)
             progress.recordSession(drillID: drill.id)
-            reviewMoment += 1
+            // The ask is for a good moment: half right or better (a deck has
+            // no score and always counts).
+            if score.map({ Double($0) / Double(max(total, 1)) >= 0.5 }) ?? true {
+                reviewMoment += 1
+            }
         }
         .requestsReview(after: reviewMoment)
     }
@@ -108,6 +112,10 @@ struct DrillCompleteView: View {
         if score == nil {
             return "All \(total) cards down. They'll stick a little better every pass."
         }
-        return "Every rack you read here is one you'll read faster at the table."
+        switch drill.kind {
+        case .charleston: return "Every pass you pick here is one you'll make faster at the table."
+        case .handMatch: return "Every rack you read here is one you'll read faster at the table."
+        case .quiz, .flashcards: return "Every call you make here is one you'll make faster at the table."
+        }
     }
 }

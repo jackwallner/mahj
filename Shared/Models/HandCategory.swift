@@ -62,7 +62,7 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .threeSixNine:
             return "Only 3s, 6s, and 9s. A small, focused family: if you hold several of those three numbers, look here."
         case .singlesAndPairs:
-            return "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay the most."
+            return "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay so well."
         }
     }
 

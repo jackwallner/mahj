@@ -275,7 +275,7 @@
         "Allowed anywhere",
         "Only in the pairs"
       ],
-      "explanation" : "Never. Singles & Pairs hands have no groups of 3+, and jokers only work in groups of 3+. That's why S&P pays the most.",
+      "explanation" : "Never. Singles & Pairs hands have no groups of 3+, and jokers only work in groups of 3+. That's why S&P hands pay so well.",
       "id" : "quiz-sp-jokers",
       "isReviewable" : true,
       "prompt" : "Jokers in a Singles & Pairs hand?",
@@ -1257,18 +1257,18 @@
     {
       "answerIndex" : 1,
       "choiceNotes" : [
-        "Any Like Numbers: like numbers means the SAME number across different suits, so a rack spread across several numbers is not it.",
+        "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
         null,
-        "13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out.",
+        "This rack holds 5s and 7s, and a finished 369 hand never uses them.",
         "A run needs three or more numbers in a row, and this rack only has 5s and 7s."
       ],
       "choices" : [
-        "Any Like Numbers",
+        "Winds & Dragons",
         "Quints",
-        "13579 (Odds)",
+        "369",
         "Consecutive Run"
       ],
-      "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Without jokers you would read this as Like Numbers; with them, Quints is live and pays far more. Jokers decide.",
+      "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Only jokers can make a quint, so a joker-rich rack points at Quints. Jokers decide.",
       "id" : "hm-quints",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1295,17 +1295,17 @@
       "answerIndex" : 2,
       "choiceNotes" : [
         "This rack holds 1s, 3s, 5s, 7s and 9s, and a finished 2468 hand never uses an odd number.",
-        "13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out.",
+        "Like Numbers repeats one number across the suits, and this rack spreads across 1s, 3s, 5s, 7s and 9s.",
         null,
         "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons."
       ],
       "choices" : [
         "2468 (Evens)",
-        "13579 (Odds)",
+        "Any Like Numbers",
         "Singles & Pairs",
         "Winds & Dragons"
       ],
-      "explanation" : "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs is the one section where this rack is nearly home. (13579 is a fine backup.)",
+      "explanation" : "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs never takes jokers, so a rack dealt in pairs is the one way in, and this one is nearly home.",
       "id" : "hm-sp",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1480,17 +1480,17 @@
       "answerIndex" : 3,
       "choiceNotes" : [
         "13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out.",
-        "There is no 6 here, and 369 needs the 6 to read as anything other than odds.",
-        "Any Like Numbers: like numbers means the SAME number across different suits, so a rack spread across several numbers is not it.",
+        "A run needs three or more numbers in a row, and this rack only has 3s and 9s.",
+        "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
         null
       ],
       "choices" : [
         "13579 (Odds)",
-        "369",
-        "Any Like Numbers",
+        "Consecutive Run",
+        "Winds & Dragons",
         "Quints"
       ],
-      "explanation" : "Two pungs of 3s and FOUR jokers. Any Like Numbers would waste them: those jokers turn both pungs into quints, and Quints hands pay far more. Joker-rich racks look up, not sideways.",
+      "explanation" : "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch both pungs into quints. Joker-rich racks look up, not sideways.",
       "id" : "plus-hm-quints",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1518,16 +1518,16 @@
       "choiceNotes" : [
         null,
         "The numbers here (2, 4, 6, 8) skip, and a run steps up with no gaps.",
-        "2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out.",
+        "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s, 6s and 8s.",
         "Quints need five of a kind, which takes jokers, and this rack has none."
       ],
       "choices" : [
         "Singles & Pairs",
         "Consecutive Run",
-        "2468 (Evens)",
+        "Any Like Numbers",
         "Quints"
       ],
-      "explanation" : "Six natural pairs and zero jokers. 2468 is the obvious read and a fine backup, but a rack that is already ALL pairs is most of a Singles and Pairs hand, which pays the most on the card.",
+      "explanation" : "Six natural pairs and zero jokers. A rack that is already all pairs is most of a Singles and Pairs hand, and that section never takes jokers, so pairs you were dealt are the only way in.",
       "id" : "plus-hm-sp",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -2803,14 +2803,13 @@
         "Three",
         "Two"
       ],
-      "explanation" : "Only four of any tile exist. Three Norths are already visible, so at most one is left, and it could be buried in the wall or stuck in a hand. Treat the pung as fragile and start lining up a backup.",
+      "explanation" : "Only four of any tile exist. You hold one and two are in the discards, so at most one is left, and it could be buried in the wall or stuck in a hand. Even if it comes, that is a pair: the pung needs a joker. Start lining up a backup.",
       "id" : "pro-def-count-copies",
       "isReviewable" : true,
-      "prompt" : "You need the last North for your pung. Two Norths sit in the discards and one is exposed on a rack. How many can still reach you?",
+      "prompt" : "You hold one North and want a pung. Two Norths already sit in the discards. How many more Norths can still reach you?",
       "roomID" : "pro-tables",
       "sourceLabel" : "The Master Tables",
       "tiles" : [
-        "N",
         "N",
         "N"
       ],
@@ -4679,10 +4678,10 @@
       "cost" : 0,
       "discard" : "3B",
       "fitting" : 5,
-      "note" : "Right. The 3 Bam does nothing for 2468 (Evens), and the tiles that do nothing are the ones to spend first.",
+      "note" : "Right. The 3 Bam is outside the 2468 (Evens) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-1",
       "target" : "evens2468",
-      "value" : 6.0999999999999996,
+      "value" : 6.1000000000000005,
       "working" : 3
     },
     {
@@ -4730,7 +4729,7 @@
       "cost" : 0,
       "discard" : "3B",
       "fitting" : 8,
-      "note" : "Right. The 3 Bam does nothing for Consecutive Run, and the tiles that do nothing are the ones to spend first.",
+      "note" : "Right. The 3 Bam is outside the Consecutive Run shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-1",
       "target" : "consecutiveRun",
       "value" : 8.4000000000000004,
@@ -4750,7 +4749,7 @@
       "cost" : 0,
       "discard" : "3B",
       "fitting" : 3,
-      "note" : "Right. The 3 Bam does nothing for Winds & Dragons, and the tiles that do nothing are the ones to spend first.",
+      "note" : "Right. The 3 Bam is outside the Winds & Dragons shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-1",
       "target" : "windsDragons",
       "value" : 4.4000000000000004,
@@ -4768,10 +4767,10 @@
       "cost" : 0,
       "discard" : "1D",
       "fitting" : 7,
-      "note" : "Right. The 1 Dot does nothing for 2468 (Evens), and the tiles that do nothing are the ones to spend first.",
+      "note" : "Right. The 1 Dot is outside the 2468 (Evens) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "evens2468",
-      "value" : 9.9000000000000004,
+      "value" : 9.8999999999999986,
       "working" : 4
     },
     {
@@ -4782,13 +4781,13 @@
         "GD",
         "E"
       ],
-      "cost" : 0.59999999999999787,
+      "cost" : 0.60000000000000142,
       "discard" : "1D",
       "fitting" : 8,
       "note" : "The 1 Dot fits 13579 (Odds), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 2 Crak.",
       "seed" : "deal-2",
       "target" : "odds13579",
-      "value" : 10.499999999999998,
+      "value" : 10.5,
       "working" : 4
     },
     {
@@ -4804,7 +4803,7 @@
       "cost" : 0,
       "discard" : "1D",
       "fitting" : 6,
-      "note" : "Right. The 1 Dot does nothing for 369, and the tiles that do nothing are the ones to spend first.",
+      "note" : "Right. The 1 Dot is outside the 369 shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "threeSixNine",
       "value" : 9.2999999999999989,
@@ -4838,7 +4837,7 @@
       "cost" : 0,
       "discard" : "1D",
       "fitting" : 6,
-      "note" : "Right. The 1 Dot does nothing for Winds & Dragons, and the tiles that do nothing are the ones to spend first.",
+      "note" : "Right. The 1 Dot is outside the Winds & Dragons shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "windsDragons",
       "value" : 9.2999999999999989,
@@ -4854,7 +4853,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 5,
       "note" : "The 6 Dot fits 2468 (Evens), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -4874,7 +4873,7 @@
       "cost" : 0,
       "discard" : "6D",
       "fitting" : 7,
-      "note" : "Right. The 6 Dot does nothing for 13579 (Odds), and the tiles that do nothing are the ones to spend first.",
+      "note" : "Right. The 6 Dot is outside the 13579 (Odds) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "odds13579",
       "value" : 7.2999999999999989,
@@ -4888,7 +4887,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -4904,7 +4903,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 8,
       "note" : "The 6 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 7 Bam.",
@@ -4922,10 +4921,10 @@
         "3D",
         "6D"
       ],
-      "cost" : 8.8817841970012523e-16,
+      "cost" : 0,
       "discard" : "6D",
       "fitting" : 7,
-      "note" : "Right. The 6 Dot does nothing for Winds & Dragons, and the tiles that do nothing are the ones to spend first.",
+      "note" : "Right. The 6 Dot is outside the Winds & Dragons shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "windsDragons",
       "value" : 7.7999999999999998,
@@ -5112,15 +5111,15 @@
             "answerIndex" : 0,
             "choiceNotes" : [
               null,
-              "This pass gives away the Flower and the 2 Bam and the 4 Bam, which the strongest pass keeps.",
+              "This pass gives away the Flower and the 2 Bam and the 6 Bam, which the strongest pass keeps.",
               "This pass gives away the Flower and the Flower and the 8 Bam, which the strongest pass keeps.",
-              "This pass gives away the 2 Bam and the 6 Bam, which the strongest pass keeps."
+              "This pass gives away the Flower and the 2 Bam, which the strongest pass keeps."
             ],
             "choices" : [
               "5 Crak, 9 Crak, North Wind",
-              "2 Bam, 4 Bam, Flower",
+              "2 Bam, 6 Bam, Flower",
               "8 Bam, Flower, Flower",
-              "9 Crak, 2 Bam, 6 Bam"
+              "9 Crak, 2 Bam, Flower"
             ],
             "explanation" : "Three flowers plus a wall of even bams: this deal wants an evens or year hand, and flowers feature in both. The odd Craks (9 Crak, 5 Crak) and lone North contribute nothing. Whatever you do, don't pass the flowers.",
             "id" : "mahj-minute-charleston-2026-02-28",
@@ -5289,15 +5288,15 @@
           "item" : {
             "answerIndex" : 3,
             "choiceNotes" : [
-              "This pass gives away the 4 Crak and the 6 Crak, which the strongest pass keeps.",
-              "This pass gives away the 6 Crak and the 6 Bam, which the strongest pass keeps.",
-              "This pass gives away the 6 Crak and the 2 Bam and the Flower, which the strongest pass keeps.",
+              "This pass gives away the Red Dragon and the Red Dragon, which the strongest pass keeps.",
+              "This pass gives away the 6 Crak and the Red Dragon, which the strongest pass keeps.",
+              "This pass gives away the 6 Crak and the 4 Bam and the Flower, which the strongest pass keeps.",
               null
             ],
             "choices" : [
-              "4 Crak, 6 Crak, 7 Dot",
-              "6 Crak, 6 Bam, 5 Dot",
-              "6 Crak, 2 Bam, Flower",
+              "5 Dot, Red Dragon, Red Dragon",
+              "6 Crak, 7 Dot, Red Dragon",
+              "6 Crak, 4 Bam, Flower",
               "3 Dot, 5 Dot, 7 Dot"
             ],
             "explanation" : "The three odd Dots (3, 5, 7) fit none of your even plan, so they are clean passes. Do NOT break the Red pair to make an easier bundle. Jokers can never build a pair, so natural pairs are precious, and shipping a pair could hand a neighbor half of a Singles and Pairs hand. Keep the Reds as a Winds and Dragons escape hatch.",
@@ -5464,16 +5463,16 @@
             "choiceNotes" : [
               "This pass gives away the West Wind and the West Wind, which the strongest pass keeps.",
               null,
-              "This pass gives away the South Wind and the 8 Dot, which the strongest pass keeps.",
-              "This pass gives away the West Wind and the East Wind and the 8 Dot, which the strongest pass keeps."
+              "This pass gives away the East Wind and the Flower, which the strongest pass keeps.",
+              "This pass gives away the West Wind and the West Wind and the 8 Dot, which the strongest pass keeps."
             ],
             "choices" : [
               "1 Dot, West Wind, West Wind",
               "9 Crak, 5 Bam, 1 Dot",
-              "1 Dot, 8 Dot, South Wind",
-              "8 Dot, East Wind, West Wind"
+              "1 Dot, East Wind, Flower",
+              "8 Dot, West Wind, West Wind"
             ],
-            "explanation" : "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keeping the 2 Crak and 8 Dot leaves a thin evens thread if the winds dry up; keeping a 1 or a 9 instead is a fine call too, since most of these tiles will leave on later passes anyway. Jokers can never be passed.",
+            "explanation" : "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keep the 2 Crak and 8 Dot: together they leave a thin evens thread if the winds dry up, which a lone 1 or 9 cannot. Jokers can never be passed.",
             "id" : "mahj-minute-charleston-2026-10-01",
             "isReviewable" : false,
             "prompt" : "First Charleston, pass RIGHT. Nothing looks good. Which three tiles make the strongest pass?",
@@ -5639,16 +5638,16 @@
           "item" : {
             "answerIndex" : 1,
             "choiceNotes" : [
-              "This pass gives away the 4 Crak and the 4 Dot and the 6 Dot, which the strongest pass keeps.",
+              "This pass gives away the 4 Crak and the 6 Bam and the Flower, which the strongest pass keeps.",
               null,
-              "This pass gives away the 4 Bam and the 4 Dot and the 6 Dot, which the strongest pass keeps.",
-              "This pass gives away the 2 Bam and the 6 Dot, which the strongest pass keeps."
+              "This pass gives away the 4 Bam and the 6 Bam and the Flower, which the strongest pass keeps.",
+              "This pass gives away the 2 Bam and the Flower, which the strongest pass keeps."
             ],
             "choices" : [
-              "4 Crak, 4 Dot, 6 Dot",
+              "4 Crak, 6 Bam, Flower",
               "9 Crak, 1 Dot, 3 Dot",
-              "4 Bam, 4 Dot, 6 Dot",
-              "2 Bam, 1 Dot, 6 Dot"
+              "4 Bam, 6 Bam, Flower",
+              "2 Bam, 1 Dot, Flower"
             ],
             "explanation" : "Nine even tiles against three odd ones. You are not committed yet, but the evens are clearly the majority, so pass the odd strays and see what comes back.",
             "id" : "mahj-minute-charleston-2027-01-15",

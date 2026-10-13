@@ -198,16 +198,16 @@ enum CategoryContent {
         HandMatchQuestion(
             id: "hm-quints",
             tiles: [.joker, .joker, .joker, .b(7), .b(7), .b(7), .d(7), .d(7), .d(7), .flower, .flower, .wind(.north), .c(5)],
-            choices: [.quints, .likeNumbers, .odds13579, .consecutiveRun],
+            choices: [.quints, .windsDragons, .threeSixNine, .consecutiveRun],
             answer: .quints,
-            explanation: "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Without jokers you would read this as Like Numbers; with them, Quints is live and pays far more. Jokers decide."
+            explanation: "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Only jokers can make a quint, so a joker-rich rack points at Quints. Jokers decide."
         ),
         HandMatchQuestion(
             id: "hm-sp",
             tiles: [.c(1), .c(1), .c(3), .c(3), .b(5), .b(5), .b(7), .b(7), .d(9), .d(9), .wind(.north), .wind(.north), .wind(.east)],
-            choices: [.singlesAndPairs, .odds13579, .windsDragons, .evens2468],
+            choices: [.singlesAndPairs, .likeNumbers, .windsDragons, .evens2468],
             answer: .singlesAndPairs,
-            explanation: "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs is the one section where this rack is nearly home. (13579 is a fine backup.)"
+            explanation: "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs never takes jokers, so a rack dealt in pairs is the one way in, and this one is nearly home."
         ),
     ]
 }

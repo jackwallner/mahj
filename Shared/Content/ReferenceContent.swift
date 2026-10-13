@@ -131,7 +131,7 @@ enum ReferenceContent {
             category: .singlesAndPairs,
             exampleRack: [.c(1), .c(2), .b(3), .b(4), .d(5), .d(6), .c(7), .c(8),
                           .b(9), .b(9), .d(1), .d(1), .dragon(.green)],
-            watchOut: "NO JOKERS, anywhere, ever. That is exactly why these hands pay the most and why you should not start one unless the tiles are already falling your way."
+            watchOut: "NO JOKERS, anywhere, ever. That is why these hands are among the best paid on the card, and why you should not start one unless the tiles are already falling your way."
         ),
     ]
 

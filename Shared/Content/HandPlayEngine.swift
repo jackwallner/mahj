@@ -236,7 +236,7 @@ enum HandPlayEngine {
                 return "That was the only throw available, but jokers are never junk. Hold them."
             }
             if !fits {
-                return "Right. The \(discard.spokenName) does nothing for \(target.displayName), and the tiles that do nothing are the ones to spend first."
+                return "Right. The \(discard.spokenName) is outside the \(target.displayName) shape you are building, and tiles that don't fit your shape are the ones to spend first."
             }
             return "Good throw. It fits \(target.displayName), but you were holding only \(copies == 1 ? "one" : "\(copies)") of it, so it was the cheapest thing on your rack."
         }

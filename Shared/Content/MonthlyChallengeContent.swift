@@ -131,9 +131,16 @@ enum MonthlyChallengeContent {
             theme: theme,
             start: start,
             end: end,
-            items: items(theme: theme, monthKey: monthKey, label: "\(monthName) Challenge", round: round(year: year, month: month))
+            items: itemCache.items(for: monthKey) {
+                items(theme: theme, monthKey: monthKey, label: "\(monthName) Challenge", round: round(year: year, month: month))
+            }
         )
     }
+
+    /// A month's questions never change, and Home and the challenge screen
+    /// ask for them on every render; generating them each time re-ran the
+    /// rack generators dozens of times a second.
+    private static let itemCache = ChallengeItemCache()
 
     /// The challenge a stored result belongs to, rebuilt from its key.
     static func challenge(monthKey: String, calendar: Calendar = .gregorianLocal) -> MonthlyChallenge? {
@@ -389,7 +396,7 @@ enum MonthlyChallengeContent {
                 "Safe only if you are East",
             ],
             answerIndex: 0,
-            explanation: "The player you fear could have called that exact tile a moment ago for mah jongg and did not, and nobody has drawn since. That makes your 6 Dot one of the safest throws you have. Not certain, since a player can miss a tile or pass on it, but it beats a fresh tile.",
+            explanation: "The player you fear could have called that exact tile a moment ago for mah jongg and did not, and the only tile drawn since is the one you just took. That makes your 6 Dot one of the safest throws you have. Not certain, since a player can miss a tile or pass on it, but it beats a fresh tile.",
             sourceLabel: "Monthly Challenge",
             roomID: "table-room",
             isReviewable: false,
@@ -427,5 +434,18 @@ enum MonthlyChallengeContent {
             isReviewable: item.isReviewable,
             choiceNotes: item.choiceNotes
         )
+    }
+}
+
+private final class ChallengeItemCache: @unchecked Sendable {
+    private let lock = NSLock()
+    private var byMonth: [String: [QuickItem]] = [:]
+
+    func items(for monthKey: String, build: () -> [QuickItem]) -> [QuickItem] {
+        if let cached = lock.withLock({ byMonth[monthKey] }) { return cached }
+        // Built outside the lock: deterministic, so a rare double build is harmless.
+        let built = build()
+        lock.withLock { byMonth[monthKey] = built }
+        return built
     }
 }

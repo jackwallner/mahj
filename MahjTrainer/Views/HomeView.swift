@@ -116,6 +116,8 @@ struct HomeView: View {
             .onChange(of: subscriptions.pendingChurnMoment) { _, _ in presentChurnPromptIfNeeded() }
             .onChange(of: records.records.count) { _, _ in recordMastery() }
             .onChange(of: router.pendingDestination) { _, _ in consumePendingDestination() }
+            .onChange(of: subscriptions.membershipResolved) { _, _ in recordMastery() }
+            .onChange(of: subscriptions.isPro) { _, _ in recordMastery() }
             .onChange(of: subscriptions.membershipResolved) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.isPro) { _, isMember in
                 if isMember {
@@ -185,6 +187,9 @@ struct HomeView: View {
     /// Today's mastery, written to the ledger so the week-over-week gain has
     /// something to measure from. Cheap, and idempotent within a day.
     private func recordMastery() {
+        // Before RevenueCat answers, a member reads as free and the day's
+        // entry would drop every Mahj+ item, faking a gain the next day.
+        guard subscriptions.membershipResolved else { return }
         ledger.record(records.masteryByRoom(isMember: subscriptions.isPro))
         settings.refreshReminderCopy(weeklyGain: ledger.weeklyGain())
     }
@@ -949,7 +954,7 @@ struct MasteryRing: View {
                     Image(systemName: "star.fill")
                         .font(.system(size: 11, weight: .black))
                         .foregroundStyle(color)
-                case .untouched:
+                case .untouched, .learning where mastery.known == 0:
                     // An empty ring already says nothing has been learned here.
                     // Printing a 0 inside it as well is the same fact twice,
                     // and it reads as a score rather than a starting point.
