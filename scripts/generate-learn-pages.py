@@ -147,7 +147,7 @@ def page(slug, title, description, h1, lead, body, faq=None, related=(), words_h
 {body}
 {faq_html}
 <aside class="cta">
-<h2>Practice it, not just read it</h2>
+<h2>Read it, then practice it in the app</h2>
 <p>Mahj Trainer turns everything on this page into five-minute drills: flashcards with the why on the back, racks to read, Charleston deals to pass, and keep-or-throw calls with a coach's reasoning. The four beginner rooms are free, no account needed.</p>
 <a class="button" href="{APP_URL}">Download for iPhone and iPad</a>
 </aside>
@@ -358,7 +358,7 @@ add("charleston",
 <p>Every pass except the last one of each Charleston must come from tiles you have looked at. On the last pass (First Left, and Second Right), you may pass blind: take some or all of the three tiles you were just handed and send them straight on without looking. That is what you do when you genuinely have nothing to spare. You may also "steal" on those passes: keep one or two of the incoming tiles and substitute your own.</p>
 
 <h2>The one hard rule</h2>
-<div class="note"><strong>Jokers never pass.</strong> Not in any Charleston pass, not blind, not in the courtesy pass. Passing a joker is not just a bad idea, it is illegal.</div>
+<div class="note"><strong>Jokers never pass.</strong> Not in any Charleston pass, not blind, not in the courtesy pass. Passing a joker is illegal.</div>
 
 <h2>How to choose three tiles</h2>
 <p>New players freeze because they try to decide on a hand before the first pass. Do not. The first pass is for clearing junk, and the hand reveals itself over the next two.</p>
