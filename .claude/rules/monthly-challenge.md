@@ -64,12 +64,12 @@ app.
 `~/football/scripts/asc-app-event.py`, and a NEW_CONTENT featuring nomination
 via `POST /v1/nominations` at least two weeks ahead.
 
-**State, 2026-10-12:** the challenge ships in 1.4.0 (build 41 on
-TestFlight). November event `6822009957` (CHALLENGE, Nov 1 to Dec 1,
-publishes from Oct 18) is a DRAFT with media; submit it in the same review
-submission as 1.4.0 (1.3.2 was released 2026-10-13, so the slot is free).
-Release 1.4.0 the moment it is approved: an approved event can go public
-while 1.4.0 waits, and 1.3.2 cannot open `mahj://challenge`. Featuring
+**State, 2026-10-13:** 1.4.0 (build 45) and the November event `6822009957`
+(CHALLENGE, Nov 1 to Dec 1, publishes from Oct 18) were submitted together
+(reviewSubmission `38d9d9ef-7167-429a-b856-43f26e373db3`, WAITING_FOR_REVIEW).
+The version is set to release automatically on approval (`AFTER_APPROVAL`):
+an approved event can go public while 1.4.0 waits, and 1.3.2 (live since
+2026-10-13) cannot open `mahj://challenge`. Featuring
 nomination `952638cd-10d2-4571-b10f-aa1ca0b1e427` (NEW_CONTENT, publish
 Nov 1) is SUBMITTED. Nominations API: create with `submitted: false`, then
 PATCH `submitted: true` (creating already-submitted returned 500), and a

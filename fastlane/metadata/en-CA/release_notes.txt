@@ -1,4 +1,6 @@
-Built around your week.
+A new challenge every month, free for everyone.
+
+Twelve questions on one skill, the same for every player, with a fresh set on the 1st. Your first run is your score, and if you leave midway it picks up where you stopped. Open it from Home.
 
 Home and Your Progress now show how many questions you locked in this week, so you can see the practice working instead of guessing.
 
