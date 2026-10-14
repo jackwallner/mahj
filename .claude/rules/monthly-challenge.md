@@ -74,3 +74,15 @@ nomination `952638cd-10d2-4571-b10f-aa1ca0b1e427` (NEW_CONTENT, publish
 Nov 1) is SUBMITTED. Nominations API: create with `submitted: false`, then
 PATCH `submitted: true` (creating already-submitted returned 500), and a
 DRAFT event cannot be linked through `inAppEvents` (400).
+
+**2026-10-14:** App Review rejected 1.4.0 under 2.3.4 (the App Preview
+showed a device frame; the event was not reviewed). The framed preview was
+replaced with a real screen recording (challenge, answered question,
+Charleston pass) built with `~/ios/app-previews/record_walkthrough.py` and
+`compose_captioned.py`; source and edit in
+`~/ios/app-previews/output/mahj-trainer-mahjong-practice/clean-2026-10-14/`.
+Resubmitting needs the version page's "Update Review" first: until then the
+reviewSubmission PATCH `submitted: true` returns 409 "Version is not ready
+to be submitted yet". Same submission, WAITING_FOR_REVIEW again. Never put a
+device frame in a preview; any framed video left in a PPO treatment gets the
+same rejection.
