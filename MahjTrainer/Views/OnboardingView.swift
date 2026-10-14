@@ -391,8 +391,9 @@ struct OnboardingView: View {
                 .font(.subheadline.weight(.medium))
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
+                .frame(minWidth: 160, minHeight: 44)
+                .contentShape(Rectangle())
         }
-        .frame(minHeight: 30)
         .disabled(!onTrialPageNow || subscriptions.isPro || purchasing || restoring)
     }
 

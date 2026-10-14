@@ -128,7 +128,9 @@ struct TileView: View {
     private func caption(_ text: String, color: Color) -> some View {
         Text(text)
             .font(.system(size: max(9.5, width * 0.16), weight: .heavy))
-            .minimumScaleFactor(0.9)
+            // One line always: on the small review tiles GREEN broke as GREE / N.
+            .lineLimit(1)
+            .minimumScaleFactor(0.7)
             .foregroundStyle(color)
     }
 
