@@ -86,3 +86,13 @@ reviewSubmission PATCH `submitted: true` returns 409 "Version is not ready
 to be submitted yet". Same submission, WAITING_FOR_REVIEW again. Never put a
 device frame in a preview; any framed video left in a PPO treatment gets the
 same rejection.
+
+**2026-10-15:** 1.4.0 was accepted but the November event was rejected under
+2.3.7: "free" in its short and long descriptions counts as a price
+reference. Event copy (name, short and long description, card and details
+art) never mentions price, "free", trials or discounts; say what the
+challenge is instead. The copy was rewritten without "free" and the same
+submission resubmitted by API: PATCH the rejected `reviewSubmissionItems`
+`resolved: true` (state READY_FOR_REVIEW), then the reviewSubmission
+`submitted: true` (WAITING_FOR_REVIEW). An accepted version in a submission
+with a rejected item is held until that item is accepted or removed.
