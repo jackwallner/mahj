@@ -12,3 +12,4 @@ Developer notes and historical audits for this repository. The published site re
 - [reg93.md](audits/reg93.md): REG93: 1.2.1 App Store release to 1.3.0 TestFlight audit
 - [reg94.md](audits/reg94.md): REG94: ASC release versus latest TestFlight audit
 - [in-app-events/2026-11-challenge/](marketing/in-app-events/2026-11-challenge/event.json): November 2026 Monthly Challenge event spec and art (event 6822009957)
+- [marketing/tiktok-kit/](marketing/tiktok-kit/build_kit.py): TikTok slideshow kit generator (42 posts, 7 formats) and posting guide; renders to iCloud Drive "Mahj TikTok Kit"
