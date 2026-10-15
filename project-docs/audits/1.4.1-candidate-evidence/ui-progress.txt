@@ -1,0 +1,17 @@
+Test Case '-[MahjTrainerScreenshots.PaywallRenderTests testOnboardingTrialStep]' started.
+    t =    26.26s Added attachment named 'onboarding_trial'
+    t =    26.51s Added attachment named 'tree_onboarding_trial'
+Test Case '-[MahjTrainerScreenshots.PaywallRenderTests testOnboardingTrialStep]' passed (27.114 seconds).
+Test Case '-[MahjTrainerScreenshots.PaywallRenderTests testPaywallPlanCards]' started.
+    t =    23.54s Added attachment named 'paywall_plans'
+    t =    24.95s Added attachment named 'tree_paywall'
+Test Case '-[MahjTrainerScreenshots.PaywallRenderTests testPaywallPlanCards]' passed (25.303 seconds).
+Test Suite 'PaywallRenderTests' passed at 2026-10-15 09:10:40.232.
+Test Case '-[MahjTrainerScreenshots.ScreenshotTests testCaptureAppStoreSet]' started.
+    t =    31.17s Added attachment named '06_home'
+    t =    31.55s Added attachment named 'tree_home'
+    t =    35.32s Added attachment named '01_quick_session'
+    t =    38.27s Added attachment named '01_quick_session_answered'
+    t =    55.23s Added attachment named '02_play_a_hand'
+    t =    68.42s Added attachment named '03_hand_match'
+    t =    71.16s Added attachment named '03_hand_match_answered'

@@ -1,0 +1,79 @@
+{
+  "actionTitle" : "Build \"MahjTrainer\"",
+  "analyzerWarningCount" : 0,
+  "analyzerWarnings" : [
+
+  ],
+  "destination" : {
+    "architecture" : "undefined_arch",
+    "deviceId" : "dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder",
+    "deviceName" : "Any iOS Simulator Device",
+    "modelName" : "GenericiOS SimulatorSimulator",
+    "osVersion" : "",
+    "platform" : "iOS Simulator"
+  },
+  "endTime" : 1792081278.165,
+  "errorCount" : 0,
+  "errors" : [
+
+  ],
+  "startTime" : 1792080939.468,
+  "status" : "succeeded",
+  "warningCount" : 9,
+  "warnings" : [
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "Swift Compiler Warning",
+      "message" : "'where' only applies to the second pattern match in this 'case'",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Views/HomeView.swift#EndingColumnNumber=43&EndingLineNumber=973&StartingColumnNumber=43&StartingLineNumber=973&Timestamp=813773739.4814219"
+    },
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "ActorIsolatedCall",
+      "message" : "Call to main actor-isolated instance method 'impactOccurred(intensity:)' in a synchronous nonisolated context",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Utilities/Theme.swift#EndingColumnNumber=50&EndingLineNumber=195&StartingColumnNumber=50&StartingLineNumber=195&Timestamp=813773739.4814219"
+    },
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "ActorIsolatedCall",
+      "message" : "Call to main actor-isolated initializer 'init(style:)' in a synchronous nonisolated context",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Utilities/Theme.swift#EndingColumnNumber=8&EndingLineNumber=195&StartingColumnNumber=8&StartingLineNumber=195&Timestamp=813773739.4814219"
+    },
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "ActorIsolatedCall",
+      "message" : "Call to main actor-isolated instance method 'notificationOccurred' in a synchronous nonisolated context",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Utilities/Theme.swift#EndingColumnNumber=42&EndingLineNumber=202&StartingColumnNumber=42&StartingLineNumber=202&Timestamp=813773739.4814219"
+    },
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "ActorIsolatedCall",
+      "message" : "Call to main actor-isolated initializer 'init()' in a synchronous nonisolated context",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Utilities/Theme.swift#EndingColumnNumber=8&EndingLineNumber=202&StartingColumnNumber=8&StartingLineNumber=202&Timestamp=813773739.4814219"
+    },
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "ActorIsolatedCall",
+      "message" : "Call to main actor-isolated instance method 'notificationOccurred' in a synchronous nonisolated context",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Utilities/Theme.swift#EndingColumnNumber=42&EndingLineNumber=209&StartingColumnNumber=42&StartingLineNumber=209&Timestamp=813773739.4814219"
+    },
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "ActorIsolatedCall",
+      "message" : "Call to main actor-isolated initializer 'init()' in a synchronous nonisolated context",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Utilities/Theme.swift#EndingColumnNumber=8&EndingLineNumber=209&StartingColumnNumber=8&StartingLineNumber=209&Timestamp=813773739.4814219"
+    },
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "NoUsage",
+      "message" : "Result of call to 'insert' is unused",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Views/Components/TileView.swift#EndingColumnNumber=34&EndingLineNumber=52&StartingColumnNumber=34&StartingLineNumber=52&Timestamp=813773739.4814219"
+    },
+    {
+      "className" : "DVTTextDocumentLocation",
+      "issueType" : "NoUsage",
+      "message" : "Result of call to 'insert' is unused",
+      "sourceURL" : "file:///var/folders/1k/k5xlf3hn0bn8fzw8hn78cc140000gn/T/mahj-audit-141-c68mkyh3/MahjTrainer/Views/Components/TileView.swift#EndingColumnNumber=31&EndingLineNumber=53&StartingColumnNumber=31&StartingLineNumber=53&Timestamp=813773739.4814219"
+    }
+  ]
+}

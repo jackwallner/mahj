@@ -1,0 +1,62 @@
+{
+  "versions": [
+    {
+      "versionString": "1.4.0",
+      "appStoreState": "ACCEPTED",
+      "releaseType": "MANUAL"
+    },
+    {
+      "versionString": "1.3.2",
+      "appStoreState": "READY_FOR_SALE",
+      "releaseType": "MANUAL"
+    },
+    {
+      "versionString": "1.3.1",
+      "appStoreState": "READY_FOR_SALE",
+      "releaseType": "MANUAL"
+    },
+    {
+      "versionString": "1.2.1",
+      "appStoreState": "READY_FOR_SALE",
+      "releaseType": "MANUAL"
+    },
+    {
+      "versionString": "1.2.0",
+      "appStoreState": "READY_FOR_SALE",
+      "releaseType": "MANUAL"
+    }
+  ],
+  "builds": [
+    {
+      "marketingVersion": "1.4.0",
+      "build": "45",
+      "uploadedDate": "2026-10-13T18:28:24-07:00",
+      "processingState": "VALID"
+    },
+    {
+      "marketingVersion": "1.4.0",
+      "build": "44",
+      "uploadedDate": "2026-10-13T13:19:00-07:00",
+      "processingState": "VALID"
+    },
+    {
+      "marketingVersion": "1.4.0",
+      "build": "43",
+      "uploadedDate": "2026-10-13T03:07:18-07:00",
+      "processingState": "VALID"
+    },
+    {
+      "marketingVersion": "1.4.0",
+      "build": "42",
+      "uploadedDate": "2026-10-12T13:35:32-07:00",
+      "processingState": "VALID"
+    },
+    {
+      "marketingVersion": "1.4.0",
+      "build": "41",
+      "uploadedDate": "2026-10-12T09:07:44-07:00",
+      "processingState": "VALID"
+    }
+  ],
+  "queriedAt": "2026-10-15T15:56:36.119105+00:00"
+}
