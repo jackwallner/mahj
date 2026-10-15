@@ -1,0 +1,8 @@
+{
+  "readoutSha256": "39a321c919e151912787e0fc9c97afb7bfd8348b9623ae6a0a741194aa9f7822",
+  "since": 200,
+  "included": [
+    "new"
+  ],
+  "existingCustomerExcluded": true
+}

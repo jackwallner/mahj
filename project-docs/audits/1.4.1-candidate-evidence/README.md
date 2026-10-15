@@ -21,14 +21,13 @@
 - `release-summary.json`: successful arm64 Release simulator compilation,
   using a generic destination after the interrupted UI run.
 
-Reproduce the reminder check from the repo root:
-
-```sh
-xcrun swiftc -parse-as-library Shared/Services/AppSettings.swift \
-  project-docs/audits/1.4.1-candidate-evidence/reminder-probe.swift \
-  -o /tmp/mahj-reminder-audit
-TZ=America/Los_Angeles /tmp/mahj-reminder-audit
-```
+The reminder probe targets the discarded, uncommitted finite-window
+candidate. Its planner API was removed before build 46. It does not compile
+against the current `AppSettings.swift`, and its recorded output is
+historical evidence, not a current regression check. The complete old
+AppSettings source is not retained in this directory; the source manifest
+contains its hash. Current checks and the corrected findings are in
+[the recheck evidence](../1.4.1-recheck-evidence/README.md).
 
 The full local build logs and result bundles are in `build/audit-1.4.1/` and
 are not committed. The initial build attempt used a newly resolved RevenueCat

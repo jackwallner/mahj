@@ -1,0 +1,13 @@
+Relay source SHA-256: 5f8c1e74bc59e89bc3ebe63f0c1f6cb5359787d9288cd737087a0c78165c802f
+[
+  {
+    "failure": "network",
+    "statusAfterFirstSweep": "error",
+    "revenueCatCallsAfterTwoSweeps": 1
+  },
+  {
+    "failure": "429",
+    "statusAfterFirstSweep": "error",
+    "revenueCatCallsAfterTwoSweeps": 1
+  }
+]

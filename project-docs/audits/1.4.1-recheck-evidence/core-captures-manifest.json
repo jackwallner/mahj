@@ -1,0 +1,50 @@
+[
+  {
+    "file": "01_quick_session.png",
+    "sha256": "8b60e6aa4249243c6a834d5fb02dfc745984694ad8f7bdc6634bbc87a08f9116"
+  },
+  {
+    "file": "01_quick_session_answered.png",
+    "sha256": "adea782a20cd06b89d46cd6ad40ea6d32794aad4fed3eb84f92b0cbaf98ca317"
+  },
+  {
+    "file": "02_play_a_hand.png",
+    "sha256": "2b10de07ecd2abcd11ca05ccfeef5d91e0d6c81f85705edd0c2198016ec5303c"
+  },
+  {
+    "file": "03_hand_match.png",
+    "sha256": "e8ea0a9da8d0ed484e3869657bcaadd92aff23c2eea30aca874675393f0f8f5f"
+  },
+  {
+    "file": "03_hand_match_answered.png",
+    "sha256": "a09453cb9fd2eac45151a0675f6bfae6ac9e7383a7fb883c63772712434d6266"
+  },
+  {
+    "file": "04_keep_or_throw.png",
+    "sha256": "8a8dbbd71b8ba8fdcee86b6d1daaa3c384e0de7d40d3737393d482329e9bb952"
+  },
+  {
+    "file": "04_keep_or_throw_answered.png",
+    "sha256": "cebe00cb2196ae72ae6340d5e61a492b3fc0965f235d4ea3cdbfd24bd0d34fe2"
+  },
+  {
+    "file": "05_charleston.png",
+    "sha256": "379c803f047af068122730952b03387c84e0adfea2bb60dfc7d5e8f2cf0ad328"
+  },
+  {
+    "file": "05_charleston_answered.png",
+    "sha256": "7bbafba51c2ae3c7efd020fa845f623937d0e3850e43b0045d9c4e989719d4b8"
+  },
+  {
+    "file": "06_home.png",
+    "sha256": "4f969feb93c7919f2d2b0a960ef2d8c13b6d5d6ca770dcce661c7ce6ff30644e"
+  },
+  {
+    "file": "07_reference.png",
+    "sha256": "0602be673767c238bec2e00bb242a518caba8291308017cdb5c522658ec8cb73"
+  },
+  {
+    "file": "08_tile_room.png",
+    "sha256": "f6f679db3a3340a8638f8d9e9001656c84cfb21a5f9ceeeef6bba962b5b07f39"
+  }
+]
