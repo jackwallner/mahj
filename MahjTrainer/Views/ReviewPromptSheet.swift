@@ -115,7 +115,7 @@ struct ReviewPromptSheet: View {
         switch step {
         case .feedback: "Help us improve"
         case .question: "Something wrong?"
-        case .churn(let moment): moment.isTrial ? "Before your trial ends" : "Before you go"
+        case .churn(let moment): moment == .trialRenewalOff ? "Before your trial ends" : "Before you go"
         }
     }
 

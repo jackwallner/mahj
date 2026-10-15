@@ -59,6 +59,8 @@ final class SubscriptionService: NSObject, ObservableObject {
     private var isConfigured = false
     private let localOverrideKey = "subscription.localProOverride"
     private let snapshotKey = "membership.lastSnapshot"
+    /// How old a customer record may be and still serve as the first baseline.
+    static let freshBaselineAge: TimeInterval = 300
     private let churnAskSpentKey = "membership.churnAskSpent"
     private let pendingChurnKey = "membership.pendingChurnMoment"
     private let reinstallSyncKey = "membership.reinstallSyncDone"
@@ -353,15 +355,27 @@ final class SubscriptionService: NSObject, ObservableObject {
             isTrial: entitlement?.periodType == .trial,
             willRenew: entitlement?.willRenew == true,
             expirationDate: entitlement?.expirationDate
-        ))
+        ), answeredAt: info.requestDate)
     }
 
     /// Compares this customer record with the last one seen and remembers a
     /// churn moment, once per departure. Both snapshots come from RevenueCat,
     /// never from the local override, so a debug toggle cannot fake a lapse.
-    func observe(_ current: MembershipSnapshot, defaults: UserDefaults = .standard) {
+    ///
+    /// The first record ever seen becomes the baseline only if RevenueCat
+    /// answered it recently. Launch applies the cached record first, which
+    /// can be months old: a member who lapsed on an older build read as
+    /// active there, then lapsed a second later, and was asked why they were
+    /// leaving about a departure the app never watched.
+    func observe(
+        _ current: MembershipSnapshot,
+        answeredAt: Date = Date(),
+        now: Date = Date(),
+        defaults: UserDefaults = .standard
+    ) {
         let previous = (defaults.data(forKey: snapshotKey))
             .flatMap { try? JSONDecoder().decode(MembershipSnapshot.self, from: $0) }
+        if previous == nil, now.timeIntervalSince(answeredAt) > Self.freshBaselineAge { return }
         defer {
             if let data = try? JSONEncoder().encode(current) {
                 defaults.set(data, forKey: snapshotKey)

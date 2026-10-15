@@ -73,6 +73,28 @@ final class MembershipTransitionsTests: XCTestCase {
         service.consumeChurnMoment()
     }
 
+    /// A months-old cached record must not become the first baseline: a
+    /// member who lapsed on an older build was asked "why are you leaving"
+    /// a second after launch.
+    @MainActor
+    func testStaleCachedRecordIsNeverTheFirstBaseline() {
+        let defaults = UserDefaults(suiteName: "MembershipTransitionsStale")!
+        defaults.removePersistentDomain(forName: "MembershipTransitionsStale")
+        let service = SubscriptionService.shared
+        service.consumeChurnMoment()
+        let now = Date()
+
+        service.observe(paidOn, answeredAt: now.addingTimeInterval(-60 * 86_400), now: now, defaults: defaults)
+        service.observe(gone, answeredAt: now, now: now, defaults: defaults)
+        XCTAssertNil(service.pendingChurnMoment)
+
+        // A fresh first record still counts, so a later departure is caught.
+        service.observe(paidOn, answeredAt: now, now: now, defaults: defaults)
+        service.observe(paidOff, answeredAt: now, now: now, defaults: defaults)
+        XCTAssertEqual(service.pendingChurnMoment, .paidRenewalOff)
+        service.consumeChurnMoment()
+    }
+
     /// Monthly to lifetime is an upgrade, not a departure. Lifetime reports
     /// willRenew false with no expiration date.
     func testUpgradingToLifetimeIsNotAChurnMoment() {
