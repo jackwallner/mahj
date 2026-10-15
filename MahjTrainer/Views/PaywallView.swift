@@ -6,9 +6,10 @@ enum PaywallPlan: String, CaseIterable {
 
     /// The free week is named only when Apple has said this Apple Account
     /// gets it (`SubscriptionService.offersFreeTrial`).
-    func ctaTitle(freeTrial: Bool) -> String {
+    /// The trial wording is the CTA test's arm (`CTAExperiment`).
+    func ctaTitle(freeTrial: Bool, arm: CTAExperiment.Arm = CTAExperiment.arm) -> String {
         if self == .lifetime { return "Unlock \(Membership.name) Forever" }
-        return freeTrial ? "Start 7-Day Free Trial" : "Subscribe"
+        return freeTrial ? CTAExperiment.trialCTATitleCase(arm) : "Subscribe"
     }
 
     var packageType: PackageType {

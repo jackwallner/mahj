@@ -17,7 +17,8 @@ final class TrialCopyTests: XCTestCase {
     }
 
     func testCTANamesTheTrialOnlyWhenEligible() {
-        XCTAssertEqual(PaywallPlan.monthly.ctaTitle(freeTrial: true), "Start 7-Day Free Trial")
+        XCTAssertEqual(PaywallPlan.monthly.ctaTitle(freeTrial: true, arm: .my), "Start My Free Trial")
+        XCTAssertEqual(PaywallPlan.yearly.ctaTitle(freeTrial: true, arm: .your), "Start Your Free Trial")
         XCTAssertEqual(PaywallPlan.yearly.ctaTitle(freeTrial: false), "Subscribe")
         XCTAssertFalse(PaywallPlan.lifetime.ctaTitle(freeTrial: true).contains("Trial"))
     }

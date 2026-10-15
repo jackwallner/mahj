@@ -110,6 +110,13 @@ struct HomeView: View {
             }
             .task { presentWhatsNewIfNeeded() }
             .task { presentChurnPromptIfNeeded() }
+            .task { await askForTrackingIfNeeded() }
+            .onChange(of: showWhatsNew) { _, isShowing in
+                if !isShowing { Task { await askForTrackingIfNeeded() } }
+            }
+            .onChange(of: churnPrompt) { _, moment in
+                if moment == nil { Task { await askForTrackingIfNeeded() } }
+            }
             .sheet(item: $churnPrompt) { moment in
                 ReviewPromptSheet(initialStep: .churn(moment))
             }
@@ -191,7 +198,6 @@ struct HomeView: View {
         // entry would drop every Mahj+ item, faking a gain the next day.
         guard subscriptions.membershipResolved else { return }
         ledger.record(records.masteryByRoom(isMember: subscriptions.isPro))
-        settings.refreshReminderCopy(weeklyGain: ledger.weeklyGain())
     }
 
     /// The one question asked when a membership turns toward the exit. Waits
@@ -265,6 +271,16 @@ struct HomeView: View {
             try? await Task.sleep(nanoseconds: 500_000_000)
             showWhatsNew = true
         }
+    }
+
+    /// Apple's tracking prompt (Meta ads), only once onboarding is done and
+    /// only on a bare Home: never at launch, never over a sheet. A sheet that
+    /// is up just defers it to that sheet's dismissal.
+    private func askForTrackingIfNeeded() async {
+        guard MetaAds.shouldAskForTracking, progress.hasOnboarded else { return }
+        try? await Task.sleep(nanoseconds: 1_200_000_000)
+        guard !showWhatsNew, !showPaywall, !showSettings, churnPrompt == nil else { return }
+        await MetaAds.requestTracking()
     }
 
     /// Consumes the one-shot recommendation hint: scrolls to and briefly

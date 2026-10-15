@@ -199,6 +199,8 @@ final class SubscriptionService: NSObject, ObservableObject {
         // campaign and keyword drove an install, so ad cohorts can be judged on
         // trials and revenue instead of installs alone.
         Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
+        // Meta ad measurement, off until the build carries a Meta app id.
+        MetaAds.linkRevenueCat()
         isConfigured = true
     }
 
@@ -234,6 +236,9 @@ final class SubscriptionService: NSObject, ObservableObject {
         if let offering = offerings?.current?.identifier {
             attributes["offering_id"] = offering
         }
+        // Trial CTA wording test arm. Sent with the funnel record, so only
+        // customers who were actually shown a pitch carry it.
+        attributes[CTAExperiment.attributeKey] = CTAExperiment.arm.rawValue
         // `setAttributes` only queues. RevenueCat uploads the queue when the app
         // backgrounds, or folds it into the POST that creates a customer, and a
         // customer-info fetch does NOT flush it (measured, not assumed). That is

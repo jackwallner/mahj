@@ -318,7 +318,7 @@ struct OnboardingView: View {
     /// "you're already subscribed" sheet. Recognise them and just let them in.
     private var trialCTATitle: String {
         if subscriptions.isPro { return "Continue" }
-        return offersTrial ? "Start 7-day free trial" : "Subscribe"
+        return offersTrial ? CTAExperiment.trialCTA() : "Subscribe"
     }
 
     // MARK: - Footer (identical geometry on every page: zero-shift CTA)

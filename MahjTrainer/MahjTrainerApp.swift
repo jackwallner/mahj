@@ -23,7 +23,9 @@ struct MahjTrainerApp: App {
                 .onChange(of: scenePhase) { _, phase in
                     // iOS rarely cold-launches an app, so a report queued
                     // offline also retries every time the app comes back.
-                    if phase == .active { Task { await FeedbackService.shared.flushPending() } }
+                    guard phase == .active else { return }
+                    Task { await FeedbackService.shared.flushPending() }
+                    MetaAds.activateApp()
                 }
                 .onAppear {
                     // Before anything reads mastery: pre-1.1 installs carry
