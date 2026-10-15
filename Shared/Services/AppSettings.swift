@@ -58,7 +58,9 @@ final class AppSettings: ObservableObject {
         static let gameNightDay = "settings.gameNightDay"
         static let gameNightHour = "settings.gameNightHour"
         static let gameNightMinute = "settings.gameNightMinute"
-        static let weeklyGain = "settings.reminderWeeklyGain"
+        /// 1.4.0 baked this count into the repeating reminders. Only read
+        /// to find those installs and rewrite their reminders.
+        static let legacyWeeklyGain = "settings.reminderWeeklyGain"
     }
 
     private static let reminderID = "mahj.dailyReminder"
@@ -148,39 +150,26 @@ final class AppSettings: ObservableObject {
         gameNightReminderTime = Calendar.current.date(
             from: DateComponents(hour: gameHour, minute: gameMinute)
         ) ?? Date()
+        replaceCountedReminders()
     }
 
-    // MARK: - Personalised copy
+    // MARK: - Reminder copy
 
-    /// Questions locked in this week, as of the last launch. Local
-    /// notifications are static text, so the body is rewritten with the
-    /// latest number every time the app opens rather than computed when it
-    /// fires. A reminder that knows what you did this week is worth opening;
-    /// a generic one gets swiped.
-    private var weeklyGain: Int {
-        defaults.integer(forKey: Keys.weeklyGain)
-    }
+    /// Generic on purpose. A repeating notification is static text, and 1.4.0
+    /// baked "You locked in 14 questions this week" into it: true the day it
+    /// was written, then repeated every day to exactly the player who had
+    /// stopped opening the app. The weekly count lives on Home and Your
+    /// Progress, where it is always current.
+    static let dailyReminderBody = "Five minutes of practice keeps your Charleston calm and your rack reading sharp."
+    static let gameNightReminderBody = "Five personalized minutes now can make the table feel calmer later."
 
-    func refreshReminderCopy(weeklyGain gain: Int?) {
-        let value = max(gain ?? 0, 0)
-        guard value != weeklyGain else { return }
-        defaults.set(value, forKey: Keys.weeklyGain)
+    /// Rewrites the reminders a 1.4.0 install scheduled with a count in them.
+    /// Runs once: the legacy key is the marker.
+    private func replaceCountedReminders() {
+        guard defaults.object(forKey: Keys.legacyWeeklyGain) != nil else { return }
+        defaults.removeObject(forKey: Keys.legacyWeeklyGain)
         if reminderEnabled { scheduleReminder() }
         if gameNightReminderEnabled { scheduleGameNightReminder() }
-    }
-
-    static func dailyReminderBody(weeklyGain: Int) -> String {
-        guard weeklyGain > 0 else {
-            return "Five minutes of practice keeps your Charleston calm and your rack reading sharp."
-        }
-        return "You locked in \(weeklyGain) question\(weeklyGain == 1 ? "" : "s") this week. Five minutes keeps them."
-    }
-
-    static func gameNightReminderBody(weeklyGain: Int) -> String {
-        guard weeklyGain > 0 else {
-            return "Five personalized minutes now can make the table feel calmer later."
-        }
-        return "\(weeklyGain) question\(weeklyGain == 1 ? "" : "s") locked in since last week. Five minutes now and you walk in ready."
     }
 
     // MARK: - Trial-end reminder
@@ -261,7 +250,7 @@ final class AppSettings: ObservableObject {
 
         let content = UNMutableNotificationContent()
         content.title = "Time for a quick drill"
-        content.body = Self.dailyReminderBody(weeklyGain: weeklyGain)
+        content.body = Self.dailyReminderBody
         content.sound = .default
 
         var parts = Calendar.current.dateComponents([.hour, .minute], from: reminderTime)
@@ -296,7 +285,7 @@ final class AppSettings: ObservableObject {
 
         let content = UNMutableNotificationContent()
         content.title = "Your game night prep is ready"
-        content.body = Self.gameNightReminderBody(weeklyGain: weeklyGain)
+        content.body = Self.gameNightReminderBody
         content.sound = .default
         content.userInfo = [AppNotification.routeKey: AppNotification.gameNightPrepValue]
 

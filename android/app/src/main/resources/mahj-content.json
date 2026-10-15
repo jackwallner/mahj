@@ -4179,7 +4179,7 @@
           "title" : "Your week, counted"
         },
         {
-          "body" : "Members can set their game night from Home. The prep reminder now says what you locked in since last week.",
+          "body" : "Members can set their game night from Home, and a prep reminder brings you back before you play.",
           "icon" : "person.2.fill",
           "id" : "game-night-card",
           "isPlus" : true,

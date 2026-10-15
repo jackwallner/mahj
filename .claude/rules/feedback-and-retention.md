@@ -65,10 +65,14 @@ never a moment: a lapse nobody watched is history, not a question.
 `MasteryLedger` records known-question counts per room once a day (Home's
 `onAppear` and whenever the record count changes). `weeklyGain()` is today
 minus the oldest day inside the 7-day window, positive only; nil on day one
-and on a backwards week. It drives the plum "+N" chip on Home, the "Up N this
-week" card on Your Progress, and the reminder bodies
-(`AppSettings.refreshReminderCopy`). Local notifications are static text, so
-the bodies are rewritten on every launch with the latest number.
+and on a backwards week. It drives the plum "+N" chip on Home and the "Up N this
+week" card on Your Progress. NOT the reminders: 1.4.0 baked the count into
+the repeating daily and game-night notifications, which then repeated a
+stale number every day to players who stopped opening the app. 1.4.1 went
+back to generic repeating copy (dated one-offs with fresh copy were tried and
+rejected: they run out, so a reminder the player turned on silently stops).
+`AppSettings.replaceCountedReminders` rewrites a 1.4.0 install's counted
+reminders once, keyed on the legacy `settings.reminderWeeklyGain`.
 
 ## Trial-end reminder
 

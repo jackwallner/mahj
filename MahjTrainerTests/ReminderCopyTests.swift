@@ -3,14 +3,20 @@ import XCTest
 
 @MainActor
 final class ReminderCopyTests: XCTestCase {
-    func testDailyBodyMentionsTheWeekOnlyWhenThereIsAGain() {
-        XCTAssertFalse(AppSettings.dailyReminderBody(weeklyGain: 0).contains("locked in"))
-        XCTAssertTrue(AppSettings.dailyReminderBody(weeklyGain: 1).contains("1 question "))
-        XCTAssertTrue(AppSettings.dailyReminderBody(weeklyGain: 14).contains("14 questions"))
+    /// Repeating reminders are static text: any number in them goes stale
+    /// for the player who stops opening the app.
+    func testRepeatingReminderCopyQuotesNoCount() {
+        for body in [AppSettings.dailyReminderBody, AppSettings.gameNightReminderBody] {
+            XCTAssertFalse(body.contains("locked in"))
+            XCTAssertNil(body.rangeOfCharacter(from: .decimalDigits), body)
+        }
     }
 
-    func testGameNightBodyMentionsTheWeekOnlyWhenThereIsAGain() {
-        XCTAssertFalse(AppSettings.gameNightReminderBody(weeklyGain: 0).contains("locked in"))
-        XCTAssertTrue(AppSettings.gameNightReminderBody(weeklyGain: 6).contains("6 questions locked in"))
+    func testCountedRemindersAreReplacedOnce() {
+        let defaults = UserDefaults(suiteName: "ReminderCopyTests")!
+        defaults.removePersistentDomain(forName: "ReminderCopyTests")
+        defaults.set(14, forKey: "settings.reminderWeeklyGain")
+        _ = AppSettings(defaults: defaults)
+        XCTAssertNil(defaults.object(forKey: "settings.reminderWeeklyGain"))
     }
 }

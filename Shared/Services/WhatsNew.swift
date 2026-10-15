@@ -65,7 +65,7 @@ enum WhatsNew {
                     id: "game-night-card",
                     icon: "person.2.fill",
                     title: "Game night, front and center",
-                    body: "Members can set their game night from Home. The prep reminder now says what you locked in since last week.",
+                    body: "Members can set their game night from Home, and a prep reminder brings you back before you play.",
                     isPlus: true
                 ),
                 WhatsNewItem(
