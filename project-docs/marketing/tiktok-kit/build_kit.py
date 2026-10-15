@@ -1,21 +1,26 @@
 #!/usr/bin/env python3
 """Render the Mahj TikTok slideshow kit into iCloud Drive.
 
-    python3 build_kit.py --backgrounds <dir of scene photos> [--out <dir>]
+    python3 build_kit.py [--out <dir>]
 
-Slides are 1080x1920 JPEGs. Scene photos (CC0/public-domain or free FLUX
-renders, never with tiles in them, since AI garbles mahjong tiles) only sit
-behind text; every tile and screen comes from real Mahj 1.4.0 captures.
+Slides are 1080x1920 JPEGs. Backgrounds are drawn here (gingham and linen
+tablecloths); every tile and screen is cut from real Mahj 1.4.0 captures, so
+nothing on a slide is AI art. All content stays inside the TikTok safe area
+(SAFE below): the top bar, the right icon rail and the bottom caption block
+cover everything outside it.
 """
 from __future__ import annotations
 
 import argparse
 import csv
+import functools
 import pathlib
 import random
 import shutil
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
+import numpy as np
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from scipy import ndimage
 
 import posts as P
 
@@ -24,9 +29,13 @@ CAPS = pathlib.Path.home() / "ios/appstore-screenshots/captures/mahj/cpp-2026101
 ICON = pathlib.Path.home() / "mahj/MahjTrainer/Assets.xcassets/AppIcon.appiconset/icon-1024.png"
 ICLOUD = pathlib.Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/Mahj TikTok Kit"
 W, H = 1080, 1920
+SAFE = (60, 150, 950, 1500)  # left, top, right, bottom
+CX = (SAFE[0] + SAFE[2]) // 2
 FONT = "/System/Library/Fonts/SFNS.ttf"
 SERIF = "/System/Library/Fonts/NewYork.ttf"
-CREAM, INK, SAGE = (246, 242, 233), (40, 48, 38), (91, 131, 96)
+CREAM, INK, SAGE, MUTED = (246, 242, 233), (40, 48, 38), (63, 107, 70), (93, 102, 86)
+# Tablecloth stripe colors: pastel pink, sage, blue, butter, lilac.
+CLOTHS = [(236, 168, 184), (150, 186, 152), (150, 182, 222), (238, 208, 128), (196, 176, 226)]
 
 SHOTS = {
     "hand_match": "03_hand_match.png", "hand_match_answered": "03_hand_match_answered.png",
@@ -39,17 +48,18 @@ SHOTS = {
 # Tile crops in raw 1206x2622 capture pixels: (file, left, top, right, bottom).
 RACKS = {
     "hand_match_rack": ("03_hand_match.png", 60, 880, 1146, 1300),
-    "charleston_rack": ("05_charleston.png", 70, 1200, 1136, 1600),
-    "quick_rack": ("01_quick_session.png", 60, 920, 1146, 1310),
-    "play_rack": ("02_play_a_hand.png", 100, 1110, 1106, 1460),
+    "charleston_rack": ("05_charleston.png", 70, 1200, 1136, 1625),
+    "quick_rack": ("01_quick_session.png", 60, 920, 1146, 1335),
+    "play_rack": ("02_play_a_hand.png", 100, 1110, 1106, 1485),
     "keep_card": ("04_keep_or_throw.png", 140, 1000, 1066, 1700),
 }
+TILE_SOURCES = ["hand_match_rack", "charleston_rack", "quick_rack", "play_rack"]
 
 
-def font(size: int, bold: bool = True, serif: bool = False) -> ImageFont.FreeTypeFont:
+def font(size: int, weight: str = "Bold", serif: bool = False) -> ImageFont.FreeTypeFont:
     f = ImageFont.truetype(SERIF if serif else FONT, size)
     try:
-        f.set_variation_by_name("Bold" if bold else "Regular")
+        f.set_variation_by_name(weight)
     except Exception:  # noqa: BLE001
         pass
     return f
@@ -70,157 +80,231 @@ def wrap(draw: ImageDraw.ImageDraw, text: str, f: ImageFont.FreeTypeFont, width:
     return lines
 
 
-def cover(img: Image.Image) -> Image.Image:
-    return ImageOps.fit(img.convert("RGB"), (W, H), Image.LANCZOS, centering=(0.5, 0.45))
-
-
 def rounded(img: Image.Image, radius: int) -> Image.Image:
     mask = Image.new("L", img.size, 0)
-    ImageDraw.Draw(mask).rounded_rectangle((0, 0, *img.size), radius, fill=255)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, img.width - 1, img.height - 1), radius, fill=255)
     out = img.convert("RGBA")
     out.putalpha(mask)
     return out
 
 
-def shadowed_paste(base: Image.Image, img: Image.Image, xy: tuple[int, int], blur: int = 24) -> None:
-    sh = Image.new("RGBA", (img.width + blur * 4, img.height + blur * 4), (0, 0, 0, 0))
-    ImageDraw.Draw(sh).rounded_rectangle((blur * 2, blur * 2, blur * 2 + img.width, blur * 2 + img.height),
-                                         40, fill=(0, 0, 0, 90))
+def shadow(base: Image.Image, img: Image.Image, xy: tuple[int, int], blur: int = 18,
+           alpha: int = 80, drop: int = 10) -> None:
+    """Paste img with a soft shadow shaped like its own alpha."""
+    pad = blur * 3
+    sh = Image.new("RGBA", (img.width + pad * 2, img.height + pad * 2), (0, 0, 0, 0))
+    a = img.getchannel("A").point(lambda v: v * alpha // 255)
+    sh.paste((0, 0, 0, 255), (pad, pad), a)
     sh = sh.filter(ImageFilter.GaussianBlur(blur))
-    base.alpha_composite(sh, (xy[0] - blur * 2, xy[1] - blur * 2 + 12))
+    base.alpha_composite(sh, (xy[0] - pad, xy[1] - pad + drop))
     base.alpha_composite(img, xy)
 
 
-def stroke_text(d: ImageDraw.ImageDraw, lines: list[str], f, y: int, fill=(255, 255, 255),
-                stroke=(0, 0, 0), sw: int = 6, gap: int = 14) -> int:
+def cloth(seed: int) -> Image.Image:
+    """A pastel gingham tablecloth with a faint weave, seeded per post."""
+    rng = np.random.default_rng(seed)
+    color = np.array(CLOTHS[seed % len(CLOTHS)], dtype=float)
+    base = np.array([252, 249, 243], dtype=float)
+    period = int(rng.choice([96, 120, 144]))
+    xs, ys = np.arange(W) % period < period // 2, np.arange(H) % period < period // 2
+    bands = xs[None, :].astype(float) * 0.45 + ys[:, None].astype(float) * 0.45
+    img = base * (1 - bands[..., None]) + color * bands[..., None]
+    weave = rng.normal(0, 5, (H // 3, W // 3))
+    weave = np.kron(weave, np.ones((3, 3)))[:H, :W]
+    img += weave[..., None]
+    yy, xx = np.mgrid[0:H, 0:W]
+    vignette = 1 - 0.10 * (((xx - W / 2) / W) ** 2 + ((yy - H / 2) / H) ** 2) * 4
+    img *= vignette[..., None]
+    return Image.fromarray(np.clip(img, 0, 255).astype("uint8")).convert("RGBA")
+
+
+@functools.cache
+def rack_tiles(key: str) -> tuple[Image.Image, ...]:
+    """Cut each tile out of a real rack capture, sorted left to right, top to bottom."""
+    name, *box = RACKS[key]
+    im = Image.open(CAPS / name).convert("RGB").crop(tuple(box))
+    a = np.asarray(im).astype(int)
+    bg = np.median(np.concatenate([a[0], a[-1]]), axis=0)
+    mask = ndimage.binary_fill_holes(ndimage.binary_closing(np.abs(a - bg).sum(2) > 18, iterations=3))
+    lab, _ = ndimage.label(mask)
+    boxes = [(s[1].start, s[0].start, s[1].stop, s[0].stop) for s in ndimage.find_objects(lab)]
+    boxes = [b for b in boxes if b[2] - b[0] > 60 and b[3] - b[1] > 80]
+    unit = float(np.median([b[2] - b[0] for b in boxes]))
+    tiles = []
+    for l, t, r, b in sorted(boxes, key=lambda b: (b[1] // 100, b[0])):
+        n = max(1, round((r - l) / unit))  # touching tiles come out as one box
+        step = (r - l) / n
+        for i in range(n):
+            tile = im.crop((int(l + i * step), t, int(l + (i + 1) * step), b - 6))
+            tiles.append(rounded(tile, 18))
+    return tuple(tiles)
+
+
+def text_boxes(im: Image.Image, lines: list[str], f, center_y: int, pad: int = 24) -> int:
+    """TikTok's native 'classic' caption look: dark text on white rounded boxes."""
+    d = ImageDraw.Draw(im)
+    lh = f.size + 2 * 12
+    y = center_y - len(lines) * lh // 2
     for line in lines:
         w = d.textlength(line, font=f)
-        d.text(((W - w) / 2, y), line, font=f, fill=fill, stroke_width=sw, stroke_fill=stroke)
-        y += f.size + gap
+        x = CX - w / 2
+        d.rounded_rectangle((x - pad, y, x + w + pad, y + lh + 2), 18, fill=(255, 255, 255))
+        d.text((x, y + 6), line, font=f, fill=(22, 22, 22))
+        y += lh
     return y
 
 
-def hook_slide(bg: Image.Image, text: str) -> Image.Image:
-    im = cover(bg).convert("RGBA")
-    shade = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    sd = ImageDraw.Draw(shade)
-    for y in range(H):  # gentle top-weighted shade so white text reads on any photo
-        a = int(110 * max(0.0, 1 - abs(y - 640) / 900))
-        sd.line([(0, y), (W, y)], fill=(0, 0, 0, a))
-    im.alpha_composite(shade)
+def hook_slide(post: dict, seed: int) -> Image.Image:
+    im = cloth(seed)
+    rng = random.Random(seed)
+    key = post.get("rack") if post.get("rack") in TILE_SOURCES else TILE_SOURCES[seed % len(TILE_SOURCES)]
+    tiles = list(rack_tiles(key))
+    rng.shuffle(tiles)
+    scale, slots = 1.45, []
+    for row in range(2):
+        for col in range(4 - row):
+            x = SAFE[0] + 40 + col * 215 + (107 if row else 0) + rng.randint(-12, 12)
+            y = 950 + row * 235 + rng.randint(-16, 16)
+            slots.append((x, y))
+    for (x, y), tile in zip(slots, tiles):
+        t = tile.resize((int(tile.width * scale), int(tile.height * scale)), Image.LANCZOS)
+        t = t.rotate(rng.uniform(-8, 8), resample=Image.BICUBIC, expand=True)
+        shadow(im, t, (x, y), blur=10, alpha=110, drop=8)
+    f = font(76)
     d = ImageDraw.Draw(im)
-    f = font(92)
-    lines = wrap(d, text, f, 860)
-    y = 560 - (len(lines) * 106) // 2
-    y = stroke_text(d, lines, f, y)
-    stroke_text(d, ["Swipe right ->"], font(42), y + 30, sw=4)
+    lines = wrap(d, post["hook"], f, 800)
+    y = text_boxes(im, lines, f, 540)
+    sf = font(38, "Semibold")
+    label = "swipe \u2192"
+    lw = d.textlength(label, font=sf)
+    d.rounded_rectangle((CX - lw / 2 - 26, y + 30, CX + lw / 2 + 26, y + 30 + 64), 32, fill=(22, 22, 22))
+    d.text((CX - lw / 2, y + 40), label, font=sf, fill=(255, 255, 255))
     return im.convert("RGB")
 
 
-def card_slide(bg: Image.Image, text: str, rack: str | None) -> Image.Image:
-    im = cover(bg).filter(ImageFilter.GaussianBlur(18)).convert("RGBA")
-    im.alpha_composite(Image.new("RGBA", (W, H), (246, 242, 233, 70)))
+def card_slide(seed: int, text: str, rack: str | None) -> Image.Image:
+    im = cloth(seed)
     d = ImageDraw.Draw(im)
-    f = font(66, bold=True)
-    lines = wrap(d, text, f, 800)
-    text_h = len(lines) * (f.size + 18)
+    f = font(62, "Semibold")
+    inner = SAFE[2] - SAFE[0] - 110
+    lines = wrap(d, text, f, inner)
+    lh = f.size + 20
     rack_img = None
     if rack:
         name, *box = RACKS[rack]
         rack_img = Image.open(CAPS / name).convert("RGB").crop(tuple(box))
-        rack_img = rack_img.resize((880, int(rack_img.height * 880 / rack_img.width)), Image.LANCZOS)
-    card_h = text_h + 140 + ((rack_img.height + 50) if rack_img else 0)
-    top = max(260, (H - card_h) // 2 - 120)
-    card = Image.new("RGBA", (920, card_h), (0, 0, 0, 0))
-    ImageDraw.Draw(card).rounded_rectangle((0, 0, 920, card_h), 44, fill=(*CREAM, 242))
-    im.alpha_composite(card, (80, top))
-    y = top + 70
+        rack_img = rack_img.resize((inner + 30, int(rack_img.height * (inner + 30) / rack_img.width)),
+                                   Image.LANCZOS)
+    card_h = len(lines) * lh + 120 + ((rack_img.height + 44) if rack_img else 0)
+    top = max(SAFE[1] + 40, (SAFE[1] + SAFE[3]) // 2 - card_h // 2 - 40)
+    card = Image.new("RGBA", (SAFE[2] - SAFE[0], card_h), (0, 0, 0, 0))
+    ImageDraw.Draw(card).rounded_rectangle((0, 0, card.width - 1, card_h - 1), 40, fill=(*CREAM, 248))
+    shadow(im, card, (SAFE[0], top), blur=22, alpha=60, drop=12)
+    y = top + 60
     if rack_img:
-        im.alpha_composite(rounded(rack_img, 28), (100, y))
-        y += rack_img.height + 50
+        im.alpha_composite(rounded(rack_img, 24), (SAFE[0] + 40, y))
+        y += rack_img.height + 44
     for line in lines:
-        d.text((130, y), line, font=f, fill=INK)
-        y += f.size + 18
+        d.text((SAFE[0] + 55, y), line, font=f, fill=INK)
+        y += lh
     return im.convert("RGB")
 
 
 def app_slide(text: str, shots: tuple[str, str]) -> Image.Image:
     im = Image.new("RGBA", (W, H), (*CREAM, 255))
     d = ImageDraw.Draw(im)
-    f = font(58)
-    lines = wrap(d, text, f, 900)
-    y = 190
+    f = font(54, "Semibold")
+    lines = wrap(d, text, f, SAFE[2] - SAFE[0] - 20)
+    y = SAFE[1] + 40
     for line in lines:
-        d.text(((W - d.textlength(line, font=f)) / 2, y), line, font=f, fill=INK)
-        y += f.size + 16
-    sw = 440
-    shot_top = max(y + 70, 560)
+        d.text((CX - d.textlength(line, font=f) / 2, y), line, font=f, fill=INK)
+        y += f.size + 14
+    badge_top = SAFE[3] - 150
+    sw, gap = 425, 36
+    shot_top = y + 50
+    shot_h = badge_top - 50 - shot_top
     for i, key in enumerate(shots):
         s = Image.open(CAPS / SHOTS[key]).convert("RGB")
         s = s.resize((sw, int(s.height * sw / s.width)), Image.LANCZOS)
-        s = s.crop((0, 0, sw, min(s.height, 960)))
-        shadowed_paste(im, rounded(s, 40), (70 + i * (sw + 60), shot_top))
-    icon = rounded(Image.open(ICON).convert("RGB").resize((96, 96), Image.LANCZOS), 22)
-    label_y = shot_top + 960 + 50
-    lf = font(40)
-    label = "Mahj Trainer"
-    lw = 96 + 24 + d.textlength(label, font=lf)
-    x = int((W - lw) / 2)
-    im.alpha_composite(icon, (x, label_y))
-    d.text((x + 120, label_y + 24), label, font=lf, fill=INK)
+        s = s.crop((0, 0, sw, min(s.height, shot_h)))
+        shadow(im, rounded(s, 36), (CX - sw - gap // 2 + i * (sw + gap), shot_top), blur=22, alpha=70)
+    icon = rounded(Image.open(ICON).convert("RGB").resize((120, 120), Image.LANCZOS), 27)
+    nf, sf = font(46), font(30, "Regular")
+    name, sub = "Mahj Trainer", "Free to start on the App Store · I made it"
+    tw = max(d.textlength(name, font=nf), d.textlength(sub, font=sf))
+    x = int(CX - (120 + 26 + tw) / 2)
+    shadow(im, icon, (x, badge_top), blur=10, alpha=60, drop=5)
+    d.text((x + 146, badge_top + 14), name, font=nf, fill=INK)
+    d.text((x + 146, badge_top + 72), sub, font=sf, fill=MUTED)
     return im.convert("RGB")
 
 
 def schedule() -> list[dict]:
     by_fmt = {k: [p for p in P.POSTS if p["fmt"] == k] for k in P.FORMATS}
-    order = []
-    for round_ in range(6):
-        for k in P.FORMATS:
-            order.append(by_fmt[k][round_])
-    return order
+    return [by_fmt[k][r] for r in range(6) for k in P.FORMATS]
+
+
+def cta_variant(post: dict) -> str:
+    """Alternate the two CTAs inside each format: 3 posts each, so formats compare fairly."""
+    same = [p["id"] for p in P.POSTS if p["fmt"] == post["fmt"]]
+    return "comment" if same.index(post["id"]) % 2 == 0 else "name"
+
+
+def caption_txt(post: dict, cta: str) -> str:
+    tags = " ".join(post["tags"])
+    return (
+        f"TITLE (photo mode title field):\n{post['hook']}\n\n"
+        f"CAPTION (paste as is):\n{post['caption']} {P.QUESTIONS[post['fmt']]}\n\n"
+        f"{P.CTAS[cta]}\n\n{tags}\n\n"
+        f"PINNED COMMENT (post it yourself, then pin):\n{P.PINNED}\n\n"
+        f"REPLY to every \"app\" or \"name?\" comment:\n{P.REPLY}\n\n"
+        f"BEFORE POSTING: More options > Disclose post content > Your brand.\n"
+        f"SOUND (Commercial Music Library): {P.SOUNDS[post['sound']]}\n\n"
+        f"FORMAT: {post['fmt']} {P.FORMATS[post['fmt']]}   CTA: {cta}\n"
+    )
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--backgrounds", required=True)
     ap.add_argument("--out", default=str(ICLOUD))
+    ap.add_argument("--only", help="render just these post ids, comma separated (for QA)")
     args = ap.parse_args()
     out = pathlib.Path(args.out)
-    bgs = sorted(p for p in pathlib.Path(args.backgrounds).iterdir() if p.suffix.lower() in (".jpg", ".jpeg", ".png"))
-    rng = random.Random(42)
-    rng.shuffle(bgs)
+    only = set(args.only.split(",")) if args.only else None
     slots = ["1 Morning", "2 Midday", "3 Evening"]
-    if out.exists():
+    if out.exists() and not only:
         for child in out.glob("Day *"):
             shutil.rmtree(child)
     rows = []
     for i, post in enumerate(schedule()):
         day, slot = i // 3 + 1, slots[i % 3]
+        cta = cta_variant(post)
+        rows.append({"day": day, "slot": slot, "post": post["id"],
+                     "format": f"{post['fmt']} {P.FORMATS[post['fmt']]}", "cta": cta,
+                     "hook": post["hook"], "account": "A" if (i % 3) != 1 else "B",
+                     "views_24h": "", "views_72h": "", "saves": "", "app_comments": "",
+                     "profile_views": "", "trials_next_72h": "", "call": ""})
+        if only and post["id"] not in only:
+            continue
         folder = out / f"Day {day:02d}" / f"{slot} - {post['id']} {P.FORMATS[post['fmt']]}"
         folder.mkdir(parents=True, exist_ok=True)
-        bg = Image.open(bgs[i % len(bgs)])
-        bg2 = Image.open(bgs[(i * 7 + 3) % len(bgs)])
+        rack = post.get("rack")
         slides = [
-            hook_slide(bg, post["hook"]),
-            card_slide(bg2, post["s2"], post.get("rack") if post["fmt"] == "C" else None),
-            card_slide(bg2, post["s3"], post.get("rack") if post["fmt"] != "C" else None),
+            hook_slide(post, i),
+            card_slide(i, post["s2"], rack if post["fmt"] == "C" else None),
+            card_slide(i, post["s3"], rack if post["fmt"] != "C" else None),
             app_slide(post["s4"], post["shots"]),
-            card_slide(bg2, post["s5"], None),
+            card_slide(i, post["s5"], None),
         ]
         for n, s in enumerate(slides, 1):
             s.save(folder / f"{n}.jpg", quality=92)
-        (folder / "caption.txt").write_text(
-            f"CAPTION (paste as is):\n{post['caption']}\n{P.CTA_CAPTION}\n\n"
-            f"SOUND: {P.SOUNDS[post['sound']]}\n\n"
-            f"FORMAT: {post['fmt']} {P.FORMATS[post['fmt']]}\nHOOK: {post['hook']}\n")
-        rows.append({"day": day, "slot": slot, "post": post["id"], "format": f"{post['fmt']} {P.FORMATS[post['fmt']]}",
-                     "hook": post["hook"], "account": "A" if (i % 3) != 1 else "B",
-                     "views_24h": "", "views_72h": "", "saves": "", "app_comments": "", "call": ""})
-    with open(out / "Tracker.csv", "w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0]))
-        w.writeheader()
-        w.writerows(rows)
-    print(f"wrote {len(rows)} posts to {out}")
+        (folder / "caption.txt").write_text(caption_txt(post, cta))
+    if not only:
+        with open(out / "Tracker.csv", "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+            w.writeheader()
+            w.writerows(rows)
+    print(f"wrote {len(only) if only else len(rows)} posts to {out}")
 
 
 if __name__ == "__main__":
