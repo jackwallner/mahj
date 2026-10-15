@@ -27,6 +27,7 @@
         "@graph": [
             {
                 "@type": "MobileApplication",
+                "dateModified": "2026-10-15",
                 "@id": "https://jackwallner.com/ios/mahj/#app",
                 "name": "Mahj Trainer: Mahjong Practice",
                 "description": "Mahj Trainer is a free American Mah Jongg practice app for iPhone and iPad. It teaches the tiles, the card sections, the Charleston and keep-or-throw decisions in five-minute drills across four practice rooms, plus Play a Hand, where a coach grades every discard. It needs no account and works offline.",
@@ -251,7 +252,7 @@
 
         .hero .platforms {
             font-size: 13px;
-            color: #86868b;
+            color: #6e6e73;
             letter-spacing: 0.3px;
             margin-bottom: 36px;
         }
@@ -339,20 +340,6 @@
         .feature-card {
             background: #fff;
             padding: 36px 32px;
-        }
-
-        .feature-card .label {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: #86868b;
-            margin-bottom: 10px;
-        }
-
-        .feature-card .label.mahj-plus {
-            color: #21594a;
         }
 
         .feature-card h3 {
@@ -460,7 +447,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            color: #86868b;
+            color: #6e6e73;
             margin-bottom: 12px;
         }
 
@@ -492,7 +479,7 @@
         }
 
         .specs-table td:first-child {
-            color: #86868b;
+            color: #6e6e73;
             width: 140px;
             font-size: 12px;
             text-transform: uppercase;
@@ -511,7 +498,7 @@
         .disclaimer p {
             font-size: 12px;
             line-height: 1.6;
-            color: #86868b;
+            color: #6e6e73;
             text-align: center;
         }
 
@@ -532,7 +519,7 @@
 
         .cta p {
             font-size: 15px;
-            color: #86868b;
+            color: #6e6e73;
             margin-bottom: 28px;
         }
 
@@ -541,11 +528,11 @@
             text-align: center;
             padding: 20px 24px;
             font-size: 12px;
-            color: #86868b;
+            color: #6e6e73;
         }
 
         footer a {
-            color: #86868b;
+            color: #6e6e73;
             text-decoration: none;
             margin: 0 10px;
         }
@@ -570,6 +557,12 @@
 
         @media (max-width: 480px) {
             .showcase-card img { height: 360px; }
+        }
+        .feature-card .tier {
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #21594a;
         }
     </style>
 </head>
@@ -633,57 +626,48 @@
         </div>
         <div class="features-grid">
             <div class="feature-card">
-                <span class="label">Tile Room</span>
                 <h3>Every tile family</h3>
                 <p>Craks, bams, dots, winds, dragons, flowers, and jokers, then quizzes on the rules everyone gets wrong.</p>
             </div>
             <div class="feature-card">
-                <span class="label">Card Room</span>
                 <h3>Read the card</h3>
                 <p>Learn the sections (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs) and how to spot them fast.</p>
             </div>
             <div class="feature-card">
-                <span class="label">Rack reading</span>
                 <h3>Name the section</h3>
                 <p>See 13 tiles and call the section they're chasing, over and over, until the pattern jumps out.</p>
             </div>
             <div class="feature-card">
-                <span class="label">Charleston Room</span>
                 <h3>Pass without panic</h3>
                 <p>Work real deals: choose three tiles to pass, then compare with the coach's pick and the reasoning behind it.</p>
             </div>
             <div class="feature-card">
-                <span class="label">Table Room</span>
                 <h3>Keep-or-throw calls</h3>
                 <p>When to hold a flower, when to swap for an exposed joker, what an opponent's exposure tells you, which discards are safe.</p>
             </div>
             <div class="feature-card">
-                <span class="label">Flashcards</span>
                 <h3>The why on the back</h3>
                 <p>Swipeable cards that explain the rule instead of just testing it.</p>
             </div>
             <div class="feature-card">
-                <span class="label">Play a Hand</span>
                 <h3>A coach for every discard</h3>
                 <p>Thirteen tiles off a real wall. Commit to a section, then draw and discard for twelve turns while the coach grades every throw and shows the arithmetic behind it. No opponents and no bots, so nothing can feel rigged. One free hand a day for everyone.</p>
             </div>
             <div class="feature-card">
-                <span class="label">Reference</span>
                 <h3>Look it up mid-game</h3>
                 <p>A searchable glossary and a page for every section of the card, one tap from the home screen. Free for everyone.</p>
             </div>
             <div class="feature-card">
-                <span class="label mahj-plus">Extra practice &middot; Mahj+</span>
                 <h3>More reps per room</h3>
                 <p>An additional practice set in all four rooms, with fresh questions, racks, and deals added through the year.</p>
+                <p class="tier">Included with Mahj+</p>
             </div>
             <div class="feature-card">
-                <span class="label mahj-plus">Master Tables &middot; Mahj+</span>
                 <h3>Past the basics</h3>
                 <p>Advanced Charleston strategy, a defense school, and expert rack-reading drills.</p>
+                <p class="tier">Included with Mahj+</p>
             </div>
             <div class="feature-card">
-                <span class="label">Streaks</span>
                 <h3>Practice between games</h3>
                 <p>Streaks and per-room progress keep skills warm between weekly games.</p>
             </div>
@@ -808,7 +792,7 @@
     </section>
 
     <footer>
-        <div class="divider">&copy; 2026 Jack Wallner</div>
+        <div class="divider">&copy; 2026 Jack Wallner · Last updated <time datetime="2026-10-15" data-updated>October 15, 2026</time></div>
         <div>
             <a href="learn/">Learn</a>
             <a href="best-american-mahjong-app.html">Best American mahjong app</a>
