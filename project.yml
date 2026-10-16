@@ -40,8 +40,8 @@ targets:
         # Meta SDK start, no ATT prompt. Fill both from the Meta app's
         # Settings > Basic and Advanced pages, in the same build that updates
         # the App Store privacy labels. See project-docs/marketing/meta-ads.md.
-        META_APP_ID: ""
-        META_CLIENT_TOKEN: ""
+        META_APP_ID: "987930193620309"
+        META_CLIENT_TOKEN: "9fbadb8693ddffb7ae0754d71bb2834c"
     dependencies:
       - package: RevenueCat
       - package: Facebook
