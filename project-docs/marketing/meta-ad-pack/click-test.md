@@ -20,6 +20,20 @@ the "Mahj Trainer" ad account (USD, Pacific), added a card and set a $60
 account spending limit. Next: Jack builds the campaign below as a draft (not
 published), sends screenshots, and publishes only after go in chat.
 
+Status 2026-10-16 (Part 2, via Meta's official Ads MCP, no browser): ad
+account `act_1842133493904848`. Campaign `120251564972370737` "Mahj US W40+
+click test 2610" (Traffic, auction, no special category, no campaign budget)
+and ad set `120251564975060737` "US W40+ iOS manual 6 placements" ($10/day,
+website, link clicks, highest volume, US women 40 to 65+, Advantage+ audience
+off, FB/IG Feed, Stories, Reels, mobile, iOS, no end date) created and read
+back, both PAUSED. Deviations: the API rejects a campaign spending limit under
+$100, so the $60 account limit is the only hard cap; the Page's ads ID is
+`1348505275016223` (61595624634024 is its profile ID). No ads yet: the MCP's
+local upload is not enabled for this account and the media library is empty,
+so Jack uploads the 8 files (C1, C3, C7 feed/story PNGs, both C3 mp4s and both
+C3 covers) to Ads Manager Media library, then Claude builds the 3 ads. No
+Instagram account is linked, so ads run under the Page-backed identity.
+
 ## Question
 
 Can Meta put Mahj Trainer in front of women 40+ who install, at under the
