@@ -36,14 +36,14 @@ final class MetaAndCTARenderTests: XCTestCase {
             ("your", "Start your free trial", "Start Your Free Trial"),
         ]
         for arm in arms {
-            launch(onboarded: false, extra: ["-mahj.trialCTA", arm.raw])
+            launch(onboarded: false, extra: ["-mahj.rc.trial_cta", arm.raw])
             walkToTrialPage()
             capture("cta_\(arm.raw)_onboarding")
             check("onboarding CTA reads '\(arm.onboarding)'",
                   app.buttons[arm.onboarding].waitForExistence(timeout: 4))
             app.terminate()
 
-            launch(onboarded: true, extra: ["-mahj.trialCTA", arm.raw])
+            launch(onboarded: true, extra: ["-mahj.rc.trial_cta", arm.raw])
             if openPaywall() {
                 settle()
                 capture("cta_\(arm.raw)_paywall")
@@ -54,6 +54,23 @@ final class MetaAndCTARenderTests: XCTestCase {
             }
             app.terminate()
         }
+    }
+
+    /// The trial page with every RevenueCat variant switched on at once.
+    func testTrialPageVariants() {
+        launch(onboarded: false, extra: [
+            "-mahj.rc.trial_title", "game_night",
+            "-mahj.rc.trial_benefits", "paid_first",
+            "-mahj.rc.onboarding_plan", "yearly",
+            "-mahj.rc.trial_cta", "my",
+        ])
+        walkToTrialPage()
+        capture("variants_onboarding")
+        check("title variant", app.staticTexts["Get ready for game night"].waitForExistence(timeout: 4))
+        check("benefits variant", app.staticTexts["Game Night Prep, five minutes built from your misses"].exists)
+        check("yearly price line", app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "/year")).firstMatch.exists)
+        check("button variant", app.buttons["Start my free trial"].exists)
+        app.terminate()
     }
 
     func testTrackingPromptAfterOnboarding() {

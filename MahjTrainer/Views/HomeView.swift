@@ -277,7 +277,7 @@ struct HomeView: View {
     /// only on a bare Home: never at launch, never over a sheet. A sheet that
     /// is up just defers it to that sheet's dismissal.
     private func askForTrackingIfNeeded() async {
-        guard MetaAds.shouldAskForTracking, progress.hasOnboarded else { return }
+        guard MetaAds.shouldAskForTracking, progress.hasOnboarded, subscriptions.isOn(.attPrompt) else { return }
         try? await Task.sleep(nanoseconds: 1_200_000_000)
         guard !showWhatsNew, !showPaywall, !showSettings, churnPrompt == nil else { return }
         await MetaAds.requestTracking()

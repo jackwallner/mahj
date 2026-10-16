@@ -198,9 +198,9 @@ final class SubscriptionService: NSObject, ObservableObject {
         if let offering = offerings?.current?.identifier {
             attributes["offering_id"] = offering
         }
-        // Which trial button wording this customer saw (`TrialCTA`), for
-        // reading a wording Experiment by attribute as well as by offering.
-        attributes[TrialCTA.metadataKey] = trialCTAArm.rawValue
+        // Which trial page variants this customer saw (`RemoteConfig`), for
+        // reading an Experiment by attribute as well as by offering.
+        attributes.merge(remoteVariantAttributes) { _, new in new }
         // `setAttributes` only queues. RevenueCat uploads the queue when the app
         // backgrounds, or folds it into the POST that creates a customer, and a
         // customer-info fetch does NOT flush it (measured, not assumed). That is

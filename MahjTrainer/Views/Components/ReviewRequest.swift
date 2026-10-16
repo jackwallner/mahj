@@ -29,11 +29,13 @@ private struct ReviewRequestModifier: ViewModifier {
     }
 
     private func schedule() {
-        guard ReviewPromptTracker.shouldRequestReview() else { return }
+        // RevenueCat's `rating_prompt: off` pauses the asks without a release.
+        guard SubscriptionService.shared.isOn(.ratingPrompt), ReviewPromptTracker.shouldRequestReview() else { return }
         Task { @MainActor in
             // Let the celebration land first.
             try? await Task.sleep(nanoseconds: 3_000_000_000)
-            guard onScreen, isClear(), ReviewPromptTracker.shouldRequestReview() else { return }
+            guard onScreen, isClear(), SubscriptionService.shared.isOn(.ratingPrompt),
+                  ReviewPromptTracker.shouldRequestReview() else { return }
             ReviewPromptTracker.markShown()
             requestReview()
         }

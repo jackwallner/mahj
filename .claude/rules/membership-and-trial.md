@@ -66,14 +66,32 @@ sizes may lay out differently, since they scroll. A reinstalled member is
 still synced from StoreKit before the purchase runs, and `startedTrial`
 comes from the entitlement, not the product.
 
-**The one remote knob is the button wording (`TrialCTA`).** Vitals'
-pattern: every wording ships in the binary (`seven_day` control, `my`,
-`your`) and the current offering's `trial_cta` metadata picks one; missing
-or unknown means the control. Test a wording as a RevenueCat Experiment
-(second offering, same packages, different `trial_cta`), promote the winner
-by making its offering the default. The arm also rides to RevenueCat as the
-`trial_cta` attribute. Any other change to the trial flow needs Jack's
-explicit go-ahead first, and goes through the same offering-metadata switch.
+**Remote knobs (`Shared/Services/RemoteConfig.swift`, 1.4.1).** Vitals'
+pattern: every variant ships in the binary and the current offering's
+metadata picks one; a missing or unknown value is the control, which is
+exactly 1.3.2. Every variant aims at paid value (LTV), never at the free
+path, and every one keeps the 3.1.2 disclosures.
+
+| Key | Control | Variants |
+|---|---|---|
+| `trial_cta` | `seven_day` ("Start 7-day free trial") | `my`, `your` |
+| `trial_title` | `try_free` ("Try Mahj+ free") | `game_night` ("Get ready for game night") |
+| `trial_benefits` | `reassure_first` (1.3.2 list, free rooms first) | `paid_first` (leads with Game Night Prep, no free-rooms line) |
+| `onboarding_plan` | `monthly` | `yearly` (price line, disclosure and purchase all follow) |
+
+Test one key at a time as a RevenueCat Experiment (second offering, same
+packages, only that key differs) and promote the winner by making its
+offering the default. Every picked value rides to RevenueCat as a customer
+attribute under its key.
+
+Off switches (`RemoteSwitch`), on unless the value is exactly `off`:
+`att_prompt` (Apple's tracking prompt for Meta) and `rating_prompt`
+(Apple's rating prompt). Set a switch the SAME on every offering, default
+and any experiment arm, or the experiment flips it as a side effect.
+
+DEBUG builds pin any key with the launch argument `-mahj.rc.<key> <value>`
+(`MetaAndCTARenderTests` uses it). Any change to the trial flow beyond
+these variants needs Jack's explicit go-ahead first.
 
 Running since 2026-10-16: experiment `expfa8555d5ee` ("Trial button: 7-day vs
 my (1.4.1+)") in project `proj28030dc2`, control `default` (no metadata) vs

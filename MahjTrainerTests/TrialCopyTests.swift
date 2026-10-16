@@ -42,6 +42,42 @@ final class TrialCopyTests: XCTestCase {
         }
     }
 
+    /// With no metadata every remote knob is the 1.3.2 behavior.
+    func testMissingMetadataIsTheShippedTrialPage() {
+        XCTAssertEqual(RemoteConfig.value(TrialTitle.metadataKey, in: nil, default: TrialTitle.tryFree), .tryFree)
+        XCTAssertEqual(TrialTitle.tryFree.text, "Try Mahj+ free")
+        XCTAssertEqual(TrialBenefits.reassureFirst.lines.first, "Every beginner room is free, forever")
+        XCTAssertEqual(RemoteConfig.value(OnboardingPlan.metadataKey, in: [:], default: OnboardingPlan.monthly).plan, .monthly)
+        XCTAssertEqual(RemoteConfig.value(OnboardingPlan.metadataKey, in: ["onboarding_plan": "weekly"], default: OnboardingPlan.monthly), .monthly)
+        XCTAssertEqual(RemoteConfig.value(OnboardingPlan.metadataKey, in: ["onboarding_plan": "yearly"], default: OnboardingPlan.monthly).plan, .yearly)
+        XCTAssertEqual(RemoteConfig.value(TrialBenefits.metadataKey, in: ["trial_benefits": "paid_first"], default: TrialBenefits.reassureFirst), .paidFirst)
+    }
+
+    /// Switches are on unless RevenueCat says exactly "off".
+    func testSwitchesDefaultOn() {
+        for remoteSwitch in RemoteSwitch.allCases {
+            XCTAssertTrue(RemoteConfig.isOn(remoteSwitch, in: nil))
+            XCTAssertTrue(RemoteConfig.isOn(remoteSwitch, in: [remoteSwitch.rawValue: "on"]))
+            XCTAssertTrue(RemoteConfig.isOn(remoteSwitch, in: [remoteSwitch.rawValue: false]))
+            XCTAssertFalse(RemoteConfig.isOn(remoteSwitch, in: [remoteSwitch.rawValue: "off"]))
+        }
+    }
+
+    /// Variant copy follows the content rules and fits the page like the control.
+    func testTrialPageVariantsFit() {
+        for benefits in TrialBenefits.allCases {
+            XCTAssertEqual(benefits.lines.count, 5)
+            for line in benefits.lines {
+                XCTAssertFalse(line.contains("\u{2014}"), line)
+                XCTAssertLessThanOrEqual(line.count, 54, line)
+            }
+        }
+        for title in TrialTitle.allCases {
+            XCTAssertFalse(title.text.contains("\u{2014}"))
+            XCTAssertLessThanOrEqual(title.text.count, 26, title.text)
+        }
+    }
+
     func testTrialReminderIsTimedFromTheRealEnd() throws {
         let calendar = Calendar.current
         let now = calendar.date(from: DateComponents(year: 2026, month: 10, day: 12, hour: 15))!

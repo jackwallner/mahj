@@ -233,11 +233,7 @@ struct OnboardingView: View {
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
             VStack(alignment: .leading, spacing: 12) {
-                trialBenefit("Every beginner room is free, forever")
-                trialBenefit("Mahj Minute and a personalized Game Night Prep")
-                trialBenefit("Endless Practice deals a fresh rack every time")
-                trialBenefit("Fix My Mistakes brings back what you miss")
-                trialBenefit("Extra sets in all four rooms, plus the Master Tables")
+                ForEach(subscriptions.trialBenefits.lines, id: \.self) { trialBenefit($0) }
             }
             // At accessibility sizes the price, the free exit and the legal
             // links scroll with the page; pinned in the footer they piled on
@@ -263,29 +259,33 @@ struct OnboardingView: View {
 
     private var trialPageTitle: String {
         if subscriptions.isPro { return "\(Membership.name) is on your account" }
-        return "Try \(Membership.name) free"
+        return subscriptions.trialTitle.text
     }
+
+    /// The plan this tap buys: monthly unless RevenueCat's `onboarding_plan`
+    /// says yearly. The price line and disclosure below always name it.
+    private var onboardingPlan: PaywallPlan { subscriptions.onboardingPlan.plan }
 
     /// The billed amount, shown larger than anything else about price on the
     /// trial page (App Review 3.1.2(c)). Same plan as the CTA buys; empty for
     /// a member, who is not being charged.
     private var trialPrice: String {
-        subscriptions.isPro ? "" : PaywallPricing.priceText(subscriptions, .monthly)
+        subscriptions.isPro ? "" : PaywallPricing.priceText(subscriptions, onboardingPlan)
     }
 
     /// One concise line, matching the approved fleet pattern (StatScout): trial
     /// length, price, that it renews, how to cancel. The EULA behind the Terms
     /// link carries the full legalese; this is the point-of-purchase micro copy.
     ///
-    /// Must name the SAME plan the CTA buys. This onboarding tap buys monthly
-    /// (see `primaryAction`), so quoting a yearly amount here would misstate
-    /// what the player is charged, which is a 3.1.2 problem and a refund magnet.
+    /// Must name the SAME plan the CTA buys (`onboardingPlan`), or it
+    /// misstates what the player is charged, which is a 3.1.2 problem and a
+    /// refund magnet.
     /// If the product has not loaded, drop the amount rather than invent one.
     private var trialDisclosure: String {
         // Nobody is being charged anything here, so quoting a price would be
         // a lie about the button next to it.
         if subscriptions.isPro { return "" }
-        return PaywallPricing.terms(amount: PaywallPricing.price(subscriptions, .monthly), plan: .monthly)
+        return PaywallPricing.terms(amount: PaywallPricing.price(subscriptions, onboardingPlan), plan: onboardingPlan)
     }
 
     /// A player who already owns \(Membership.name) is not a trial prospect.
@@ -449,19 +449,20 @@ struct OnboardingView: View {
                 startTour()
                 return
             }
-            // Monthly, not yearly, and this is deliberate. Two different people
+            // Monthly by default, and this is deliberate. Two different people
             // reach the two purchase surfaces: whoever taps through onboarding
             // has not used the app yet and is reacting to the number on Apple's
             // sheet, while whoever hits the paywall later has already decided the
             // app is worth something. The paywall still leads with yearly. Here
-            // the smaller recurring figure is what gets the trial started, and
-            // `trialDisclosure` above must keep naming this same plan.
-            guard let monthly = subscriptions.package(for: .monthly) else {
+            // the smaller recurring figure is what gets the trial started;
+            // yearly is a RevenueCat test (`onboarding_plan`), and
+            // `trialDisclosure` above always names the plan bought here.
+            guard let package = subscriptions.package(for: onboardingPlan) else {
                 showPaywallFallback = true
                 return
             }
             do {
-                let outcome = try await subscriptions.purchase(monthly)
+                let outcome = try await subscriptions.purchase(package)
                 switch outcome {
                 case .purchased:
                     if await subscriptions.confirmEntitlement() {
