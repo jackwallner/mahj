@@ -7,8 +7,13 @@ CAPI token is in `~/.mahj_credentials` and set as the relay's `META_DATASET_ID` 
 `META_CAPI_TOKEN` secrets. SDK on from build 50 (1.4.1, TestFlight; 49 superseded). RevenueCat Meta
 integration saved 2026-10-16 (CAPI, dataset above, ATT-unauthorized off, Trial
 Started and Qualified Trial not sent, Subscribe for conversions and renewals).
-Meta app icon uploaded. Left: privacy labels (step 7) before the App Store
-submission. One stray test
+Meta app icon uploaded. Privacy labels (step 7) published 2026-10-16 with
+build 52 uploaded, before the 1.4.1 submission (ASC publishes each type as it
+is set up; there is no draft). The live label had been "Data Not Collected",
+so all eight types were declared from scratch: the step 7 list, Purchase
+History with App Functionality and Analytics as well, Customer Support (App
+Functionality, not linked, no tracking), and Meta's manifest Other Data Types
+in place of Other Diagnostic Data. One stray test
 StartTrial was recorded as a live event on 2026-10-16 (wrong test code).
 
 Status 2026-10-15: code ready, relay live, **no Meta app, no ad account, no
