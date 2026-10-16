@@ -1,0 +1,4 @@
+PASS onboarding CTA reads 'Start my free trial'
+PASS paywall CTA reads 'Start My Free Trial'
+PASS onboarding CTA reads 'Start your free trial'
+PASS paywall CTA reads 'Start Your Free Trial'

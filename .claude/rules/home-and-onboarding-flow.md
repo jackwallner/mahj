@@ -13,6 +13,14 @@ paths:
 
 Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
+**Large-text first-run gap (2026-10-16 audit):** the pages/trial screen scroll
+at AX5, but the subsequent HowToPlayView primer does not. On iPhone 18 Pro
+the actual Brand new, Get Started route places Continue and Skip for now below
+the screen; six upward swipes and AX scroll-to-visible cannot reach them.
+The view is shared by builds 45 and 46. Do not treat the onboarding escape
+hatch as verified at accessibility sizes until the primer is repaired.
+Evidence: `project-docs/audits/release-experience-2026-10-16.md`.
+
 - `MahjTrainer/Views`: `RootView` branches onboarding vs `HomeView` on the
   `progress.hasOnboarded` defaults key (branch, NOT a fullScreenCover — the
   cover flashed Home behind onboarding on first launch). Navigation is a LOBBY:

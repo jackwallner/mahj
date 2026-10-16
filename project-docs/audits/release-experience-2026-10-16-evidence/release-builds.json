@@ -1,0 +1,19 @@
+{
+  "1.4.1": {
+    "configuration": "Release",
+    "platform": "iOS Simulator arm64",
+    "exitCode": 0,
+    "source": "acfff99",
+    "revenueCat": "5.80.3",
+    "facebook": "18.1.1",
+    "log": "/tmp/mahj141-release.log"
+  },
+  "1.4.0": {
+    "configuration": "Release",
+    "platform": "iOS Simulator",
+    "exitCode": 0,
+    "source": "437dc62",
+    "revenueCat": "5.80.3",
+    "log": "/tmp/mahj140-pinned-release.log"
+  }
+}

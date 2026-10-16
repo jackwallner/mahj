@@ -1,0 +1,52 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "819EE5E7-781B-4D58-AF7B-7BE8600C47DC",
+        "deviceName" : "agent-sim-5",
+        "modelName" : "iPhone 18 Pro",
+        "osBuildNumber" : "24A5390f",
+        "osVersion" : "27.0",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 1,
+      "passedTests" : 0,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Configuration 1"
+      }
+    }
+  ],
+  "environmentDescription" : "Screenshots · Built with macOS 27.0.1",
+  "expectedFailures" : 0,
+  "failedTests" : 1,
+  "finishTime" : 1792159726.313,
+  "passedTests" : 0,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1792159621.605,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "Failed to failed to scroll to visible (by AX action) Button, {{69.3, 1461.0}, {263.3, 58.7}}, label: 'Skip for now', error: Error kAXErrorFailure performing AXAction kAXScrollToVisibleAction on element AX element pid: 61493, elementOrHash.elementID: 4849998560.132. (Underlying Error: Error kAXErrorFailure performing AXAction kAXScrollToVisibleAction on element AX element pid: 61493, elementOrHash.elementID: 4849998560.132)",
+      "targetName" : "MahjTrainerScreenshots",
+      "testIdentifier" : 1,
+      "testIdentifierString" : "ReleaseJourneyTests/testNewPlayerAX5FreeExit()",
+      "testIdentifierURL" : "test://com.apple.xcode/MahjTrainer/MahjTrainerScreenshots/ReleaseJourneyTests/testNewPlayerAX5FreeExit",
+      "testName" : "testNewPlayerAX5FreeExit()"
+    }
+  ],
+  "title" : "Test - Screenshots",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 1
+}

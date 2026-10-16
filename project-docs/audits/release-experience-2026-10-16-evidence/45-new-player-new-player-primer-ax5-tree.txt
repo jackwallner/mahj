@@ -1,0 +1,33 @@
+Attributes: Application, 0x10a68e080, pid: 61493, label: 'Mahj Trainer'
+Element subtree:
+ →Application, 0x10a68e080, pid: 61493, label: 'Mahj Trainer'
+    Window (Main), 0x10a68c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x10a68ee40, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x10a68ea80, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x10a68ebc0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x10a68d7c0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x10a68d680, {{15.3, -568.7}, {370.0, 1927.7}}
+              Image, 0x10a68d540, {{187.0, -522.3}, {28.7, 31.3}}, identifier: 'flag.checkered', label: 'Checkered Flag'
+              StaticText, 0x10a68d900, {{110.6, -452.7}, {179.3, 51.7}}, label: 'The goal'
+              Other, 0x10a68d180, {{125.3, -385.0}, {46.0, 62.0}}, identifier: 'rack-tile-0', label: '3 Crak'
+                StaticText, 0x10a68db80, {{141.6, -376.6}, {13.3, 27.7}}, label: '3'
+                StaticText, 0x10a68dcc0, {{141.3, -348.0}, {14.0, 16.7}}, label: '萬'
+              Other, 0x10a68de00, {{177.3, -385.0}, {46.0, 62.0}}, identifier: 'rack-tile-1', label: '3 Crak'
+                StaticText, 0x10a68da40, {{193.6, -376.6}, {13.3, 27.7}}, label: '3'
+                StaticText, 0x10a68ef80, {{193.3, -348.0}, {14.0, 16.7}}, label: '萬'
+              Other, 0x10a68e1c0, {{229.3, -385.0}, {46.0, 62.0}}, identifier: 'rack-tile-2', label: '3 Crak'
+                StaticText, 0x10a68f700, {{245.6, -376.6}, {13.3, 27.7}}, label: '3'
+                StaticText, 0x10a68f480, {{245.3, -348.0}, {14.0, 16.7}}, label: '萬'
+              StaticText, 0x10a68f5c0, {{39.3, -306.9}, {322.0, 1241.3}}, label: 'Every player races to build a 14-tile hand that exactly matches one of the hands printed on the yearly card. Thirteen tiles live on your rack; the fourteenth is the tile you draw or call that completes the pattern. Complete it first and you call mahj.'
+              Image, 0x10a68f200, {{56.0, 965.0}, {34.7, 60.3}}, identifier: 'lightbulb.fill', label: 'Lightbulb'
+              StaticText, 0x10a68f340, {{105.3, 960.4}, {223.7, 364.7}}, label: 'Three of a kind is a pung. Most hands are built from groups like this.'
+              Button, 0x10a68f0c0, {{15.3, 1395.0}, {56.0, 56.0}}, identifier: 'chevron.left', label: 'Previous page', Disabled
+              Button, 0x10a68c500, {{81.3, 1395.0}, {304.0, 56.0}}, label: 'Continue'
+              Button, 0x10a68c640, {{68.6, 1461.0}, {263.3, 58.7}}, label: 'Skip for now'
+Path to element:
+ →Application, 0x10a68e080, pid: 61493, label: 'Mahj Trainer'
+Query chain:
+ →Find: Target Application 'com.jackwallner.mahj'
+  Output: {
+    Application, 0x10a68f840, pid: 61493, label: 'Mahj Trainer'
+  }

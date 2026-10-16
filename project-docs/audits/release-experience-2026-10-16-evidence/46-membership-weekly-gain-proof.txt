@@ -1,0 +1,1 @@
+An existing paid item was already known yesterday. Recording free membership yesterday and active membership today produces weeklyGain = 1 with zero additional answers. Re-exposing paid mastery is counted as new weekly learning.

@@ -1,0 +1,35 @@
+Attributes: Application, 0x1127e88c0, pid: 72872, label: 'Mahj Trainer'
+Element subtree:
+ →Application, 0x1127e88c0, pid: 72872, label: 'Mahj Trainer'
+    Window (Main), 0x1127e8a00, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1127e8b40, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1127e8c80, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1127e8dc0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1127e8f00, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1127e9040, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1127e9180, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1127e92c0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1127e9400, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1127e9540, {{0.0, 0.0}, {402.0, 874.0}}
+                        ScrollView, 0x1127e9680, {{16.0, 78.0}, {370.0, 674.0}}
+                          Other, 0x1127ea580, {{16.0, 78.0}, {370.0, 674.0}}
+                            StaticText, 0x1127e97c0, {{164.3, 301.0}, {73.3, 40.7}}, label: '4/10'
+                            StaticText, 0x1127e9900, {{187.0, 343.7}, {28.0, 14.3}}, label: 'right'
+                            StaticText, 0x1127e9a40, {{93.7, 417.5}, {214.7, 36.0}}, label: 'Good practice!'
+                            StaticText, 0x1127e9b80, {{35.3, 461.5}, {331.3, 42.3}}, label: 'Every call you make here is one you'll make faster at the table.'
+                            Image, 0x1127e9cc0, {{141.7, 537.3}, {14.0, 18.0}}, identifier: 'flame.fill', label: 'Flame'
+                            StaticText, 0x1127e9e00, {{163.0, 536.0}, {98.7, 20.3}}, label: '1-day streak'
+                          Other, 0x1127e9f40, {{353.0, 78.0}, {30.0, 674.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x1127ea080, {{380.0, 742.0}, {3.0, 7.0}}
+                          Other, 0x1127ea1c0, {{353.0, 78.0}, {30.0, 674.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x1127ea300, {{380.0, 742.0}, {3.0, 7.0}}
+                        Button, 0x1127ea440, {{16.0, 768.0}, {370.0, 56.0}}, label: 'Done'
+                Toolbar, 0x1127ea6c0, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'Toolbar', label: 'Toolbar'
+                  Other, 0x1127ea800, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x1127e88c0, pid: 72872, label: 'Mahj Trainer'
+Query chain:
+ →Find: Target Application 'com.jackwallner.mahj'
+  Output: {
+    Application, 0x1127e8640, pid: 72872, label: 'Mahj Trainer'
+  }

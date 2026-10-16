@@ -1,0 +1,61 @@
+Attributes: Application, 0x1088b5040, pid: 72548, label: 'Mahj Trainer'
+Element subtree:
+ →Application, 0x1088b5040, pid: 72548, label: 'Mahj Trainer'
+    Window (Main), 0x1088b52c0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1088b5540, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1088b7340, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1088b6080, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1088b6bc0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1088b4c80, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x1088b5400, {{0.0, 62.0}, {402.0, 54.0}}, identifier: 'October'
+                  Button, 0x1088b7700, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'October'
+                  StaticText, 0x1088b48c0, {{168.3, 73.7}, {65.3, 20.7}}, label: 'October'
+                Other, 0x1088b5900, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1088b5f40, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1088b5680, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1088b6440, {{0.0, 0.0}, {402.0, 874.0}}
+                        ScrollView, 0x1088b7200, {{0.0, 0.0}, {402.3, 874.0}}
+                          Other, 0x1088b70c0, {{0.0, 0.0}, {402.3, 874.0}}
+                            Other, 0x1088b6580, {{0.0, 0.0}, {402.3, 136.0}}
+                          Other, 0x1088b4dc0, {{0.0, 0.0}, {402.3, 874.0}}
+                          Other, 0x1088b7980, {{0.0, 116.0}, {402.2, 718.3}}
+                            StaticText, 0x1088b5cc0, {{164.5, 185.0}, {73.3, 40.7}}, label: '4/12'
+                            StaticText, 0x1088b6800, {{187.2, 226.7}, {28.0, 14.3}}, label: 'right'
+                            StaticText, 0x1088b66c0, {{118.5, 284.0}, {165.3, 33.7}}, label: 'A tough one'
+                            StaticText, 0x1088b6940, {{98.2, 327.7}, {206.0, 18.0}}, label: 'Every miss is explained below.'
+                            Other, 0x1088b6a80, {{134.8, 357.7}, {133.0, 41.0}}, label: '4 right, 8 missed'
+                            StaticText, 0x1088b6e40, {{32.0, 450.7}, {67.3, 14.3}}, label: 'BY SKILL'
+                            StaticText, 0x1088b7840, {{38.8, 479.3}, {331.5, 18.0}}, label: 'Reading Your Rack, 4/8'
+                              Image, 0x1088b75c0, {{38.8, 480.3}, {16.3, 16.0}}, identifier: 'square.grid.3x3.fill', label: 'Square Grid 3x3, Filled'
+                              StaticText, 0x1088b6f80, {{74.0, 479.3}, {133.7, 18.0}}, label: 'Reading Your Rack'
+                              StaticText, 0x1088b5e00, {{345.7, 479.3}, {24.7, 18.0}}, label: '4/8'
+                            StaticText, 0x1088b43c0, {{38.8, 513.0}, {331.5, 19.7}}, label: 'Charleston, 0/2'
+                              Image, 0x1088b7d40, {{38.8, 513.0}, {16.3, 19.7}}, identifier: 'arrow.left.arrow.right', label: 'Left And Right Arrows'
+                              StaticText, 0x1088b7e80, {{74.0, 513.8}, {78.3, 18.0}}, label: 'Charleston'
+                              StaticText, 0x1088b7c00, {{345.7, 513.8}, {24.7, 18.0}}, label: '0/2'
+                            StaticText, 0x1088b4140, {{40.2, 548.8}, {330.2, 18.0}}, label: 'Safe Discards, 0/2'
+                              Image, 0x1088b57c0, {{40.2, 549.3}, {14.0, 17.0}}, identifier: 'shield.lefthalf.filled', label: 'Shield With The Left Half Filled'
+                              StaticText, 0x105a8b480, {{74.0, 548.8}, {98.7, 18.0}}, label: 'Safe Discards'
+                              StaticText, 0x105a8b5c0, {{345.7, 548.8}, {24.7, 18.0}}, label: '0/2'
+                            Button, 0x105a8b840, {{16.2, 599.7}, {370.3, 56.0}}, label: 'See What You Missed'
+                            Button, 0x105a8b700, {{16.2, 671.7}, {370.3, 50.0}}, label: 'Share Your Score'
+                              StaticText, 0x105a89400, {{16.2, 671.7}, {370.3, 50.0}}, label: 'Share Your Score'
+                              Image, 0x105a89540, {{121.2, 686.3}, {15.3, 20.7}}, identifier: 'square.and.arrow.up', label: 'Share'
+                            Button, 0x109a70000, {{16.2, 737.7}, {370.3, 80.7}}, label: 'Want more like these?, Mahj+ deals fresh racks, passes and defense questions every day, without end.'
+                              Image, 0x109a70140, {{30.2, 759.0}, {38.0, 38.0}}, identifier: 'infinity', label: 'Infinity Symbol'
+                              StaticText, 0x109a70280, {{80.2, 751.7}, {174.7, 20.3}}, label: 'Want more like these?'
+                              StaticText, 0x109a703c0, {{80.2, 774.0}, {255.0, 30.3}}, label: 'Mahj+ deals fresh racks, passes and defense questions every day, without end.'
+                              Image, 0x109a70500, {{365.5, 772.7}, {6.3, 10.7}}, identifier: 'chevron.right', label: 'Forward'
+                          Other, 0x109a70640, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x109a70780, {{396.0, 124.7}, {3.0, 688.7}}
+                          Other, 0x109a708c0, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                            Other, 0x109a70a00, {{396.0, 124.7}, {3.0, 688.7}}
+                Toolbar, 0x109a70b40, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'Toolbar', label: 'Toolbar'
+                  Other, 0x109a70c80, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x1088b5040, pid: 72548, label: 'Mahj Trainer'
+Query chain:
+ →Find: Target Application 'com.jackwallner.mahj'
+  Output: {
+    Application, 0x109a70dc0, pid: 72548, label: 'Mahj Trainer'
+  }

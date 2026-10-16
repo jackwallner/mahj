@@ -1,0 +1,26 @@
+{
+  "1.4.0": {
+    "existingUnitTests": 221,
+    "auditProbes": 5,
+    "unitFailures": 0,
+    "releaseBuildExitCode": 0,
+    "legacyAndChallengeUICasesPassed": 5,
+    "newUserAX5": "fails at primer Skip for now",
+    "uiFixtureFailure": "initial empty skill preference override, corrected before the primer reproduction"
+  },
+  "1.4.1": {
+    "existingUnitTests": 226,
+    "auditProbes": 6,
+    "unitFailures": 0,
+    "releaseBuildExitCode": 0,
+    "uiCasesPassed": 3,
+    "ctaWordingChecksPassed": 4,
+    "ipadAX5": "initial Release Home captured, interactive automation timed out"
+  },
+  "hardwareAndStoreLimits": [
+    "real purchases and restore not exercised",
+    "physical VoiceOver not exercised",
+    "notification delivery not exercised",
+    "no full iPad or landscape pass"
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "819EE5E7-781B-4D58-AF7B-7BE8600C47DC",
+        "deviceName" : "agent-sim-5",
+        "modelName" : "iPhone 18 Pro",
+        "osBuildNumber" : "24A5390f",
+        "osVersion" : "27.0",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 1,
+      "passedTests" : 5,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Configuration 1"
+      }
+    }
+  ],
+  "environmentDescription" : "Screenshots · Built with macOS 27.0.1",
+  "expectedFailures" : 0,
+  "failedTests" : 1,
+  "finishTime" : 1792159726.344,
+  "passedTests" : 5,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "    AVAudioSession_iOS.mm:978   This method can lead to UI unresponsiveness if called on the main thread. Consider using the asynchronous activate/deactivate API instead for calls from the main thread."
+    },
+    {
+      "issueType" : "Runtime Warning",
+      "message" : "    AVAudioSession_iOS.mm:978   This method can lead to UI unresponsiveness if called on the main thread. Consider using the asynchronous activate/deactivate API instead for calls from the main thread."
+    }
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1792159056.423,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "XCTAssertTrue failed - Get Started",
+      "targetName" : "MahjTrainerScreenshots",
+      "testIdentifier" : 4,
+      "testIdentifierString" : "ReleaseJourneyTests/testNewPlayerAX5FreeExit()",
+      "testIdentifierURL" : "test://com.apple.xcode/MahjTrainer/MahjTrainerScreenshots/ReleaseJourneyTests/testNewPlayerAX5FreeExit",
+      "testName" : "testNewPlayerAX5FreeExit()"
+    }
+  ],
+  "title" : "Test - Screenshots",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 6
+}

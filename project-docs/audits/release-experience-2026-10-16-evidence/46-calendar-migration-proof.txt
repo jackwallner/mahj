@@ -1,0 +1,1 @@
+Legacy Buddhist key: 2569-10-16. Current lookup key: 2026-10-16. Stored results: 1. Current lookup: nil. Legacy-calendar lookup: found. The old app keyed by Calendar.current; the new app keys by gregorianLocal without migrating saved results.

@@ -9,6 +9,14 @@ paths:
 
 Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
+**AX5 main-column gap (2026-10-16):** a real build-46 Release render on iPad
+Air 11-inch keeps Home in two columns at the largest text size. Room names
+and the new challenge title break into fragments, with room descriptions
+truncated. The main-column layout is shared with build 45; adaptive training
+tiles alone do not solve it. Prefer one main column at accessibility sizes.
+See `project-docs/audits/release-experience-2026-10-16.md`. This was a rendered
+viewport check, not a complete interactive iPad pass.
+
 - `MahjTrainer/Utilities/Theme.swift`: the warm-modern design system: cream
   surfaces, jade primary, coral energy, per-room accents (`Room.accent`), serif
   display type (`Theme.display`), `themedCard()`/`primaryCTA()` styles,

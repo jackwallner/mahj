@@ -40,3 +40,15 @@ launch after an update. A FRESH install never sees it: onboarding calls
 is an upgrader from a pre-1.1 build and does get it. The sheet raises
 `onUpgrade` rather than presenting `PaywallView` itself, because a sheet cannot
 present another sheet while dismissing.
+
+**1.4.1 update notes (2026-10-16):** there is no matching release entry for
+1.4.1. A direct 1.3.2 to 1.4.1 update therefore skips the feature sheet even
+though it adds all the 1.4.0 features. Keep this distinct from an existing
+player who already saw the 1.4.0 sheet. The experience audit is in
+`project-docs/audits/release-experience-2026-10-16.md`.
+
+**Weekly gain access-change gap (2026-10-16):** the actual record-store/ledger
+probe reports new weekly learning when previously known paid questions become
+accessible again, without additional answers. Membership-filtered ring totals
+are correct for room coverage, but their delta is not always a learning delta.
+Both build 45 and 46 share this implementation. Proof is in the same audit.

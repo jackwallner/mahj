@@ -1,0 +1,142 @@
+Attributes: Application, 0x1090e3ac0, pid: 72872, label: 'Mahj Trainer'
+Element subtree:
+ →Application, 0x1090e3ac0, pid: 72872, label: 'Mahj Trainer'
+    Window (Main), 0x1090e1400, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1090e1900, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1090e1a40, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1090e1b80, {{-402.0, -874.0}, {1206.0, 2622.0}}
+          Other, 0x1090e1cc0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1090e1e00, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1090e2940, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x1090e2d00, {{0.0, 62.0}, {402.0, 54.0}}, identifier: 'Quick Session'
+                  Button, 0x1090e2bc0, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                  StaticText, 0x1090e2a80, {{144.7, 73.7}, {112.3, 20.7}}, label: 'Quick Session'
+                Other, 0x1090e2580, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1090e2800, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1090e26c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1090e21c0, {{0.0, 0.0}, {402.0, 874.0}}
+                        ProgressIndicator, 0x1090e1f40, {{16.0, 132.0}, {370.0, 4.0}}, value: 0%
+                          ProgressIndicator, 0x1090e2080, {{16.0, 122.0}, {370.0, 24.0}}, value: 0%
+                        ScrollView, 0x1090e1540, {{16.0, 152.0}, {370.0, 604.0}}
+                          Other, 0x1090e17c0, {{16.0, -58.7}, {370.0, 824.7}}
+                            StaticText, 0x1090e1680, {{143.0, -48.7}, {116.0, 13.3}}, label: 'THE CARD ROOM'
+                            StaticText, 0x1090e2300, {{85.0, -15.4}, {232.0, 52.7}}, label: 'Which section is this rack chasing?'
+                            Other, 0x1090e2440, {{29.0, 57.3}, {44.0, 59.3}}, identifier: 'rack-tile-0', label: '2 Crak'
+                              StaticText, 0x1090e2f80, {{45.2, 65.4}, {11.7, 26.3}}, label: '2'
+                              StaticText, 0x1090e3c00, {{44.3, 92.6}, {13.3, 16.0}}, label: '萬'
+                            Other, 0x1090e3e80, {{79.0, 57.3}, {44.0, 59.3}}, identifier: 'rack-tile-1', label: '2 Crak'
+                              StaticText, 0x1090e3d40, {{95.2, 65.4}, {11.7, 26.3}}, label: '2'
+                              StaticText, 0x1090e3840, {{94.3, 92.6}, {13.3, 16.0}}, label: '萬'
+                            Other, 0x109a70500, {{129.0, 57.3}, {44.0, 59.3}}, identifier: 'rack-tile-2', label: '4 Crak'
+                              StaticText, 0x109a70a00, {{144.2, 65.4}, {13.7, 26.3}}, label: '4'
+                              StaticText, 0x109a70780, {{144.3, 92.6}, {13.3, 16.0}}, label: '萬'
+                            Other, 0x109a70640, {{179.0, 57.3}, {44.0, 59.3}}, identifier: 'rack-tile-3', label: '4 Crak'
+                              StaticText, 0x109a70b40, {{194.2, 65.4}, {13.7, 26.3}}, label: '4'
+                              StaticText, 0x109a708c0, {{194.3, 92.6}, {13.3, 16.0}}, label: '萬'
+                            Other, 0x109a70c80, {{229.0, 57.3}, {44.0, 59.3}}, identifier: 'rack-tile-4', label: '4 Crak'
+                              StaticText, 0x109a703c0, {{244.2, 65.4}, {13.7, 26.3}}, label: '4'
+                              StaticText, 0x112488000, {{244.3, 92.6}, {13.3, 16.0}}, label: '萬'
+                            Other, 0x112488140, {{279.0, 57.3}, {44.0, 59.3}}, identifier: 'rack-tile-5', label: '6 Bam'
+                              StaticText, 0x112488280, {{296.7, 65.6}, {8.7, 16.0}}, label: '6'
+                            Other, 0x1124883c0, {{329.0, 57.3}, {44.0, 59.3}}, identifier: 'rack-tile-6', label: '6 Bam'
+                              StaticText, 0x112488500, {{346.7, 65.6}, {8.7, 16.0}}, label: '6'
+                            Other, 0x112488640, {{54.0, 126.7}, {44.0, 59.3}}, identifier: 'rack-tile-7', label: '8 Bam'
+                              StaticText, 0x112488780, {{71.7, 132.8}, {8.7, 16.0}}, label: '8'
+                            Other, 0x1124888c0, {{104.0, 126.7}, {44.0, 59.3}}, identifier: 'rack-tile-8', label: '8 Dot'
+                              StaticText, 0x112488a00, {{121.7, 135.7}, {8.7, 16.0}}, label: '8'
+                            Other, 0x112488b40, {{154.0, 126.7}, {44.0, 59.3}}, identifier: 'rack-tile-9', label: '8 Dot'
+                              StaticText, 0x112488c80, {{171.7, 135.7}, {8.7, 16.0}}, label: '8'
+                            Other, 0x112488dc0, {{204.0, 126.7}, {44.0, 59.3}}, identifier: 'rack-tile-10', label: 'Flower'
+                              Image, 0x112488f00, {{215.0, 140.0}, {22.0, 20.3}}, identifier: 'camera.macro', label: 'Camera Macro Close-Up Lens Flower'
+                              StaticText, 0x112489040, {{204.8, 162.8}, {42.3, 11.7}}, label: 'FLOWER'
+                            Other, 0x112489180, {{254.0, 126.7}, {44.0, 59.3}}, identifier: 'rack-tile-11', label: 'Flower'
+                              Image, 0x1124892c0, {{265.0, 140.0}, {22.0, 20.3}}, identifier: 'camera.macro', label: 'Camera Macro Close-Up Lens Flower'
+                              StaticText, 0x112489400, {{254.8, 162.8}, {42.3, 11.7}}, label: 'FLOWER'
+                            Other, 0x112489540, {{304.0, 126.7}, {44.0, 59.3}}, identifier: 'rack-tile-12', label: 'Joker'
+                              Image, 0x112489680, {{309.0, 138.7}, {32.3, 22.7}}, identifier: 'theatermasks.fill', label: 'Theater Masks, Filled'
+                              StaticText, 0x1124897c0, {{308.8, 164.0}, {34.3, 11.7}}, label: 'JOKER'
+                            Button, 0x112489900, {{26.0, 206.0}, {350.0, 52.3}}, label: 'Any Like Numbers', value: Your answer, wrong, Selected
+                              Other, 0x112489a40, {{26.0, 206.0}, {350.0, 52.3}}
+                              StaticText, 0x112489b80, {{42.0, 222.0}, {141.7, 20.3}}, label: 'Any Like Numbers'
+                              Image, 0x112489cc0, {{340.3, 223.3}, {17.7, 17.7}}, identifier: 'xmark.circle.fill', label: 'Close'
+                            Button, 0x112489e00, {{26.0, 268.3}, {350.0, 54.0}}, label: '13579 (Odds)'
+                              Other, 0x112489f40, {{26.0, 268.3}, {350.0, 54.0}}
+                              StaticText, 0x11248a080, {{42.0, 284.3}, {107.7, 20.3}}, label: '13579 (Odds)'
+                            Button, 0x11248a1c0, {{26.0, 332.3}, {350.0, 54.0}}, label: 'Consecutive Run'
+                              Other, 0x11248a300, {{26.0, 332.3}, {350.0, 54.0}}
+                              StaticText, 0x11248a440, {{42.0, 348.3}, {131.7, 20.3}}, label: 'Consecutive Run'
+                            Button, 0x11248a580, {{19.9, 395.4}, {362.2, 54.2}}, label: '2468 (Evens)', value: Correct answer, Selected
+                              Other, 0x11248a6c0, {{19.9, 395.4}, {362.2, 54.2}}
+                              StaticText, 0x11248a800, {{36.4, 412.0}, {111.4, 21.0}}, label: '2468 (Evens)'
+                              Image, 0x11248a940, {{343.4, 411.5}, {21.9, 21.9}}, identifier: 'checkmark.circle.fill', label: 'Selected', Selected
+                            Image, 0x11248aa80, {{42.0, 484.0}, {11.3, 19.3}}, identifier: 'lightbulb.fill', label: 'Lightbulb'
+                            StaticText, 0x11248abc0, {{65.3, 482.7}, {289.3, 58.0}}, label: 'Every number tile is even: 2s, 4s, 6s, 8s across suits, plus flowers and a joker that fit anywhere. This rack is screaming 2468.'
+                            Image, 0x11248ad00, {{41.3, 580.0}, {17.0, 17.0}}, identifier: 'questionmark.circle.fill', label: 'Question Mark In A Filled Circle'
+                            StaticText, 0x11248ae40, {{67.7, 579.6}, {200.3, 18.0}}, label: 'Why not Any Like Numbers?'
+                            StaticText, 0x11248af80, {{40.0, 604.4}, {315.3, 58.0}}, label: 'Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s, 6s and 8s.'
+                            Image, 0x11248b0c0, {{39.0, 696.3}, {12.0, 13.3}}, identifier: 'arrow.trianglehead.counterclockwise', label: 'Counterclockwise Triangle-Headed Arrow'
+                            StaticText, 0x11248b200, {{59.0, 695.9}, {140.3, 14.3}}, label: 'This one will come back'
+                            Button, 0x11248b340, {{89.7, 735.7}, {224.3, 14.3}}, label: 'Something wrong with this question?'
+                              Image, 0x11248b480, {{89.7, 737.7}, {9.7, 10.7}}, identifier: 'flag', label: 'Flag'
+                              StaticText, 0x11248b5c0, {{105.3, 735.7}, {208.7, 14.3}}, label: 'Something wrong with this question?'
+                          Other, 0x11248b700, {{353.0, 152.0}, {30.0, 604.0}}, label: 'Vertical scroll bar, 2 pages', value: 95%
+                            Other, 0x11248b840, {{380.0, 307.7}, {3.0, 438.0}}
+                          Other, 0x11248b980, {{353.0, 152.0}, {30.0, 604.0}}, label: 'Vertical scroll bar, 2 pages', value: 95%
+                            Other, 0x11248bac0, {{380.0, 307.7}, {3.0, 438.0}}
+                        Button, 0x11248bc00, {{16.0, 768.0}, {370.0, 56.0}}, label: 'Next'
+                Toolbar, 0x11248bd40, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'Toolbar', label: 'Toolbar'
+                  Other, 0x11248be80, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x11248c000, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11248c140, {{-402.0, -874.0}, {1206.0, 2622.0}}
+        Other, 0x11248c280, {{0.0, 62.0}, {402.0, 812.0}}
+          Button, 0x11248c3c0, {{151.0, 58.0}, {100.0, 24.0}}, label: 'Sheet Grabber', value: Expanded
+          Other, 0x11248c500, {{0.0, 62.0}, {402.0, 812.0}}
+            Other, 0x11248c640, {{0.0, 62.0}, {402.0, 812.0}}
+              Other, 0x11248c780, {{0.0, 62.0}, {402.0, 812.0}}
+                Other, 0x11248c8c0, {{0.0, 62.0}, {402.0, 812.0}}
+                  NavigationBar, 0x11248ca00, {{0.0, 78.0}, {402.0, 54.0}}, identifier: 'Something wrong?'
+                    Other, 0x11248cb40, {{20.0, 82.0}, {87.7, 36.0}}
+                      Other, 0x11248cc80, {{20.0, 82.0}, {87.7, 36.0}}
+                        Button, 0x11248cdc0, {{20.0, 82.0}, {87.7, 36.0}}, label: 'Not now'
+                    StaticText, 0x11248cf00, {{126.3, 89.7}, {149.3, 20.7}}, label: 'Something wrong?'
+                  Other, 0x11248d040, {{0.0, 62.0}, {402.0, 812.0}}
+                    Other, 0x11248d180, {{0.0, 62.0}, {402.0, 812.0}}
+                      Other, 0x11248d2c0, {{0.0, 62.0}, {402.0, 812.0}}
+                        Other, 0x11248d400, {{0.0, 62.0}, {402.0, 812.0}}
+                          ScrollView, 0x11248d540, {{0.0, 62.0}, {402.0, 812.0}}
+                            Other, 0x11248d680, {{0.0, 62.0}, {402.0, 812.0}}
+                              Other, 0x11248d7c0, {{0.0, 62.0}, {402.0, 90.0}}
+                            Other, 0x11248d900, {{0.0, 62.0}, {402.0, 812.0}}
+                            Other, 0x11248da40, {{0.0, 132.0}, {402.0, 517.3}}
+                              StaticText, 0x11248db80, {{24.0, 156.0}, {280.7, 20.3}}, label: 'What looks off about this question?'
+                              Button, 0x11248dcc0, {{24.0, 190.3}, {354.0, 41.7}}, label: 'The answer seems wrong'
+                                Image, 0x11248de00, {{39.3, 202.7}, {17.0, 17.0}}, identifier: 'circle', label: 'Circle'
+                                StaticText, 0x11248df40, {{67.7, 202.2}, {178.7, 18.0}}, label: 'The answer seems wrong'
+                              Button, 0x11248e080, {{24.0, 240.0}, {354.0, 41.7}}, label: 'The explanation is confusing'
+                                Image, 0x11248e1c0, {{39.3, 252.3}, {17.0, 17.0}}, identifier: 'circle', label: 'Circle'
+                                StaticText, 0x11248e300, {{67.7, 251.8}, {200.7, 18.0}}, label: 'The explanation is confusing'
+                              Button, 0x11248e440, {{24.0, 289.7}, {354.0, 41.7}}, label: 'A typo or wording'
+                                Image, 0x11248e580, {{39.3, 302.0}, {17.0, 17.0}}, identifier: 'circle', label: 'Circle'
+                                StaticText, 0x11248e6c0, {{67.7, 301.5}, {124.7, 18.0}}, label: 'A typo or wording'
+                              Button, 0x11248e800, {{24.0, 339.3}, {354.0, 41.7}}, label: 'Something else'
+                                Image, 0x11248e940, {{39.3, 351.7}, {17.0, 17.0}}, identifier: 'circle', label: 'Circle'
+                                StaticText, 0x11248ea80, {{67.7, 351.2}, {108.7, 18.0}}, label: 'Something else'
+                              StaticText, 0x11248ebc0, {{39.0, 413.0}, {206.3, 20.3}}, label: 'Add a few words if you like.'
+                              TextView, 0x11248ed00, {{34.0, 405.0}, {334.0, 96.0}}
+                                Other, 0x11248ee40, {{335.0, 405.0}, {30.0, 96.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                  Other, 0x11248ef80, {{362.0, 466.0}, {3.0, 32.0}}
+                              StaticText, 0x11248f0c0, {{24.0, 525.0}, {347.7, 30.3}}, label: 'Goes straight to the developer, a real person. No account, no email needed.'
+                              Button, 0x11248f200, {{24.0, 569.3}, {354.0, 56.0}}, label: 'Send', Disabled
+                            Other, 0x11248f340, {{369.0, 132.0}, {30.0, 680.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                              Other, 0x11248f480, {{396.0, 325.7}, {3.0, 483.3}}
+                            Other, 0x11248f5c0, {{369.0, 132.0}, {30.0, 680.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                              Other, 0x11248f700, {{396.0, 325.7}, {3.0, 483.3}}
+                  Toolbar, 0x11248f840, {{0.0, 62.0}, {402.0, 812.0}}, identifier: 'Toolbar', label: 'Toolbar'
+                    Other, 0x11248f980, {{0.0, 62.0}, {402.0, 812.0}}
+Path to element:
+ →Application, 0x1090e3ac0, pid: 72872, label: 'Mahj Trainer'
+Query chain:
+ →Find: Target Application 'com.jackwallner.mahj'
+  Output: {
+    Application, 0x11248fac0, pid: 72872, label: 'Mahj Trainer'
+  }

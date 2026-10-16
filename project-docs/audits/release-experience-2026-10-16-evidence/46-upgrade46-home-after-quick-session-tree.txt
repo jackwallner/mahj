@@ -1,0 +1,133 @@
+Attributes: Application, 0x1127e8640, pid: 72872, label: 'Mahj Trainer'
+Element subtree:
+ →Application, 0x1127e8640, pid: 72872, label: 'Mahj Trainer'
+    Window (Main), 0x1127e8780, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1127e8500, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1127e8280, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1127e83c0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1127e8000, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1127e8140, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x1127ebe80, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                  Other, 0x1127ea940, {{20.0, 66.0}, {41.7, 36.0}}
+                    Other, 0x1127eaa80, {{20.0, 66.0}, {41.7, 36.0}}
+                      Button, 0x1127eb340, {{20.0, 66.0}, {41.7, 36.0}}, identifier: 'book', label: 'Reference and glossary'
+                  Other, 0x1127eb200, {{346.0, 66.0}, {36.0, 36.0}}
+                    Other, 0x1127eb480, {{346.0, 66.0}, {36.0, 36.0}}
+                      Button, 0x1127eabc0, {{348.3, 66.0}, {31.3, 36.0}}, identifier: 'gearshape', label: 'Settings'
+                Other, 0x1127ead00, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1127ebd40, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1127eae40, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1127ebac0, {{0.0, 0.0}, {402.0, 874.0}}
+                        ScrollView, 0x1127ebc00, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1127eb840, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x1127eb980, {{0.0, 0.0}, {402.0, 136.0}}
+                          Other, 0x1127eaf80, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1127eb700, {{0.0, 116.0}, {402.0, 1187.0}}
+                            StaticText, 0x1127eb5c0, {{16.0, 118.0}, {202.7, 38.3}}, label: 'Mahj Trainer'
+                            StaticText, 0x1127eb0c0, {{16.0, 160.3}, {150.0, 18.0}}, label: 'Your seat at the table.'
+                            Button, 0x1127bbc00, {{16.0, 188.3}, {102.0, 30.0}}, label: '1 day streak, 2 drills done'
+                              Other, 0x1127bbac0, {{16.0, 188.3}, {45.0, 30.0}}, label: '1 day streak'
+                                Image, 0x1127cdf40, {{26.0, 197.0}, {10.0, 13.0}}, identifier: 'flame.fill', label: 'Flame'
+                                StaticText, 0x1127cd040, {{42.0, 194.3}, {10.0, 18.0}}, label: '1'
+                              Other, 0x1127cd180, {{69.0, 188.3}, {49.0, 30.0}}, label: '2 drills done'
+                                Image, 0x1127cd2c0, {{79.0, 196.3}, {14.0, 14.0}}, identifier: 'checkmark.seal.fill', label: 'Verified', Selected
+                                StaticText, 0x1127cd400, {{99.0, 194.3}, {10.0, 18.0}}, label: '2'
+                            StaticText, 0x1127cd540, {{90.0, 248.3}, {187.7, 20.3}}, label: 'Today's session is done'
+                            Image, 0x1127cd680, {{39.0, 264.0}, {30.0, 30.0}}, identifier: 'checkmark.circle.fill', label: 'Selected', Selected
+                            StaticText, 0x1127cdb80, {{90.0, 271.7}, {233.0, 38.0}}, label: 'A fresh mix lands tomorrow. Keep going in any room below.'
+                            Button, 0x1127cdcc0, {{16.0, 339.7}, {370.0, 76.0}}, label: 'OCTOBER CHALLENGE, Reading Your Rack, 4/12 · November opens in 16 days'
+                              Image, 0x1127cde00, {{28.0, 358.7}, {38.0, 38.0}}, identifier: 'checkmark.seal.fill', label: 'Verified', Selected
+                              StaticText, 0x1127ce300, {{78.0, 351.7}, {150.0, 13.3}}, label: 'OCTOBER CHALLENGE'
+                              StaticText, 0x1127ce6c0, {{78.0, 367.0}, {148.7, 20.3}}, label: 'Reading Your Rack'
+                              Image, 0x1127ce800, {{367.0, 372.3}, {6.3, 10.7}}, identifier: 'chevron.right', label: 'Forward'
+                              StaticText, 0x1127cfe80, {{78.0, 389.3}, {190.3, 14.3}}, label: '4/12 · November opens in 16 days'
+                            StaticText, 0x1127cfd40, {{20.0, 429.7}, {73.3, 14.3}}, label: 'TRAINING'
+                            ScrollView, 0x1127cfc00, {{16.0, 452.0}, {370.0, 122.0}}
+                              Other, 0x1127cfac0, {{16.0, 452.0}, {826.0, 122.0}}
+                                Button, 0x1127cf980, {{20.0, 454.0}, {128.0, 118.0}}, label: 'Play a
+Hand, Resume'
+                                  Image, 0x1127cf480, {{33.7, 463.7}, {25.0, 23.0}}, identifier: 'hand.draw.fill', label: 'Hand Drawing A Line, Filled'
+                                  StaticText, 0x1127cf840, {{32.0, 504.5}, {43.7, 38.0}}, label: 'Play a
+Hand'
+                                  StaticText, 0x1127cf700, {{32.0, 550.5}, {43.7, 13.3}}, label: 'Resume'
+                                Button, 0x1127cf5c0, {{158.0, 454.0}, {128.0, 118.0}}, label: 'Endless
+Practice, Mahj+'
+                                  Image, 0x1127cef80, {{171.7, 467.7}, {27.0, 12.7}}, identifier: 'infinity', label: 'Infinity Symbol'
+                                  Image, 0x1127cf340, {{265.0, 468.7}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock'
+                                  StaticText, 0x1127cf200, {{170.0, 500.7}, {60.7, 38.0}}, label: 'Endless
+Practice'
+                                  StaticText, 0x1127cf0c0, {{170.0, 546.7}, {33.7, 13.3}}, label: 'Mahj+'
+                                Button, 0x1127cebc0, {{296.0, 454.0}, {128.0, 118.0}}, label: 'Mahj
+Minute, Daily'
+                                  Image, 0x1127cee40, {{310.3, 464.7}, {25.7, 21.7}}, identifier: 'calendar.badge.clock', label: 'Date And Time'
+                                  Image, 0x1127ced00, {{403.0, 470.0}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock'
+                                  StaticText, 0x1127cea80, {{308.0, 503.8}, {50.7, 38.0}}, label: 'Mahj
+Minute'
+                                  StaticText, 0x1127ce940, {{308.0, 549.8}, {27.3, 13.3}}, label: 'Daily'
+                                Button, 0x1127ce440, {{434.0, 454.0}, {128.0, 118.0}}, label: 'Game Night
+Prep, Weekly'
+                                  Image, 0x1127ce580, {{448.3, 465.7}, {28.3, 19.3}}, identifier: 'person.2.fill', label: 'Two People, Filled'
+                                  Image, 0x1127cd7c0, {{541.0, 470.0}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock'
+                                  StaticText, 0x1127cda40, {{446.0, 502.7}, {86.0, 38.0}}, label: 'Game Night
+Prep'
+                                  StaticText, 0x1127cd900, {{446.0, 548.7}, {39.7, 13.3}}, label: 'Weekly'
+                                Button, 0x1127ccf00, {{572.0, 454.0}, {128.0, 118.0}}, label: 'Timed
+Challenge, Mahj+'
+                                  Image, 0x11248c000, {{585.7, 465.0}, {20.7, 20.7}}, identifier: 'timer', label: 'Timer'
+                                  Image, 0x11248c280, {{679.0, 470.0}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock'
+                                  StaticText, 0x11248c500, {{584.0, 503.3}, {73.3, 38.0}}, label: 'Timed
+Challenge'
+                                  StaticText, 0x11248c640, {{584.0, 549.3}, {33.7, 13.3}}, label: 'Mahj+'
+                                Button, 0x11248c780, {{710.0, 454.0}, {128.0, 118.0}}, label: 'Fix My
+Mistakes, 6 due'
+                                  Image, 0x11248c8c0, {{723.7, 464.0}, {20.7, 22.7}}, identifier: 'arrow.trianglehead.counterclockwise', label: 'Counterclockwise Triangle-Headed Arrow'
+                                  Image, 0x11248f840, {{817.0, 470.0}, {7.3, 10.7}}, identifier: 'lock.fill', label: 'Lock'
+                                  StaticText, 0x11248f980, {{722.0, 504.3}, {65.7, 38.0}}, label: 'Fix My
+Mistakes'
+                                  StaticText, 0x11248d040, {{722.0, 550.3}, {31.0, 13.3}}, label: '6 due'
+                            StaticText, 0x11248d180, {{20.0, 594.0}, {88.3, 14.3}}, label: 'THE ROOMS'
+                            Button, 0x11248d2c0, {{16.0, 622.3}, {370.0, 89.3}}, label: 'The Tile Room, Meet the tiles and talk the talk'
+                              StaticText, 0x11248d400, {{92.0, 636.3}, {113.0, 20.3}}, label: 'The Tile Room'
+                              StaticText, 0x11248d540, {{329.0, 642.5}, {40.0, 47.5}}, label: 'Learning'
+                              Image, 0x11248f5c0, {{43.7, 657.0}, {20.7, 20.0}}, identifier: 'square.grid.3x3.fill', label: 'Square Grid 3x3, Filled'
+                              StaticText, 0x11248f700, {{92.0, 659.7}, {155.3, 38.0}}, label: 'Meet the tiles and talk the talk'
+                            Button, 0x11248f340, {{16.0, 725.7}, {370.0, 89.3}}, label: 'The Card Room, Learn to read the card and your rack'
+                              StaticText, 0x11248f480, {{92.0, 739.7}, {122.7, 20.3}}, label: 'The Card Room'
+                              StaticText, 0x11248da40, {{329.0, 745.8}, {40.0, 47.5}}, label: 'Learning'
+                              Image, 0x11248f200, {{45.7, 758.7}, {16.7, 23.3}}, identifier: 'menucard.fill', label: 'Menu Card, Filled'
+                              StaticText, 0x11248f0c0, {{92.0, 763.0}, {185.0, 38.0}}, label: 'Learn to read the card and your rack'
+                            Button, 0x11248ed00, {{16.0, 829.0}, {370.0, 89.3}}, label: 'The Charleston Room, Practice the pass without the pressure'
+                              StaticText, 0x11248ee40, {{92.0, 843.0}, {171.3, 20.3}}, label: 'The Charleston Room'
+                              StaticText, 0x11248ef80, {{329.0, 849.2}, {40.0, 47.5}}, label: 'Learning'
+                              Image, 0x11248ebc0, {{41.7, 863.3}, {24.7, 20.7}}, identifier: 'arrow.triangle.2.circlepath', label: 'Syncing'
+                              StaticText, 0x11248e800, {{92.0, 866.3}, {177.7, 38.0}}, label: 'Practice the pass without the pressure'
+                            Button, 0x11248ea80, {{16.0, 932.3}, {370.0, 89.3}}, label: 'The Table Room, Keep-or-throw judgment for real games'
+                              StaticText, 0x11248e940, {{92.0, 946.3}, {127.0, 20.3}}, label: 'The Table Room'
+                              StaticText, 0x11248e440, {{329.0, 952.5}, {40.0, 47.5}}, label: 'Learning'
+                              Image, 0x11248e6c0, {{45.3, 967.0}, {18.7, 19.7}}, identifier: 'hand.point.up.left.fill', label: 'Hand Pointing Up And To The Left, Filled'
+                              StaticText, 0x11248e580, {{92.0, 969.7}, {196.3, 38.0}}, label: 'Keep-or-throw judgment for real games'
+                            Button, 0x11248e080, {{16.0, 1035.7}, {370.0, 89.3}}, label: 'The Master Tables, Mahj+, Advanced Charleston, defense, and expert rack reading'
+                              StaticText, 0x11248e300, {{92.0, 1049.7}, {145.7, 20.3}}, label: 'The Master Tables'
+                              StaticText, 0x11248e1c0, {{251.7, 1052.7}, {38.3, 14.3}}, label: 'Mahj+'
+                              Image, 0x11248dcc0, {{41.0, 1070.0}, {26.0, 20.3}}, identifier: 'crown.fill', label: 'Crown, Filled'
+                              StaticText, 0x11248df40, {{92.0, 1073.0}, {218.0, 38.0}}, label: 'Advanced Charleston, defense, and expert rack reading'
+                              Image, 0x11248de00, {{361.7, 1074.0}, {8.7, 12.7}}, identifier: 'lock.fill', label: 'Lock'
+                            Button, 0x11248db80, {{16.0, 1141.0}, {370.0, 76.7}}, label: 'Get Mahj+, Mahj Minute, Game Night Prep, endless modes, and 8 more drills across every room'
+                              StaticText, 0x11248d900, {{78.0, 1153.0}, {81.7, 20.3}}, label: 'Get Mahj+'
+                              Image, 0x11248d680, {{39.0, 1169.7}, {16.0, 19.3}}, identifier: 'sparkles', label: 'Sparkle'
+                              StaticText, 0x11248d7c0, {{78.0, 1175.3}, {247.3, 30.3}}, label: 'Mahj Minute, Game Night Prep, endless modes, and 8 more drills across every room'
+                              Image, 0x11248ca00, {{366.7, 1173.7}, {6.7, 11.7}}, identifier: 'chevron.right', label: 'Forward'
+                            StaticText, 0x11248cf00, {{16.0, 1239.7}, {370.0, 39.3}}, label: 'Mahj Trainer teaches skills for American Mah Jongg with original practice hands. It is not affiliated with the National Mah Jongg League. For official hands and values, get the current NMJL card.'
+                          Other, 0x11248cb40, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                            Other, 0x11248cc80, {{396.0, 119.0}, {3.0, 445.3}}
+                          Other, 0x11248cdc0, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                            Other, 0x11248c3c0, {{396.0, 119.0}, {3.0, 445.3}}
+                Toolbar, 0x11248c140, {{0.0, 0.0}, {402.0, 874.0}}, identifier: 'Toolbar', label: 'Toolbar'
+                  Other, 0x109a70c80, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x1127e8640, pid: 72872, label: 'Mahj Trainer'
+Query chain:
+ →Find: Target Application 'com.jackwallner.mahj'
+  Output: {
+    Application, 0x109a703c0, pid: 72872, label: 'Mahj Trainer'
+  }

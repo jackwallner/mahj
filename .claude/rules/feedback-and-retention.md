@@ -49,7 +49,19 @@ reachable at AX5 and with the keyboard up.
 `QuestionPager(reportID:)` adds the "Something wrong with this question?"
 link under the coaching note. Every pager-based drill passes its item id and
 its choices (`reportChoices`, `reportAnswerIndex`, `reportPickedIndex`).
-Flashcards and the Charleston drill do not have it (yet).
+The Charleston drill also reports the recommended and selected three-tile
+passes. Ordinary flashcard decks do not have it yet; the 1.4 What's New
+claim that every graded question has a link is broader than the implementation.
+
+## Release experience audit, October 16, 2026
+
+See `project-docs/audits/release-experience-2026-10-16.md`. Both build 45 and
+46 have an unscrollable trial-reminder offer whose actions disappear at AX5.
+Both also retain a pending cancellation question when renewal turns back on;
+the fresh-baseline fix in 46 does not fix that separate sequence. These were
+verified with the actual view/service using inert callbacks and isolated
+preferences, not real App Store transactions. Home consumes the question
+before its delay and does not revalidate the membership at presentation.
 
 ## The churn question
 

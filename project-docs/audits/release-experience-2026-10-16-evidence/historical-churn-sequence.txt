@@ -1,0 +1,1 @@
+Replaying cached active membership, followed by current inactive membership, creates paidLapsed. Build 45 passes cachedCustomerInfo into this same observation path without request-date validation. This proves the observation sequence, not a real account or elapsed network response.

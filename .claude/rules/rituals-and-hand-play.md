@@ -21,6 +21,15 @@ paths:
 
 Moved verbatim from AGENTS.md. Loads when a matching file is read; update it here.
 
+**Release experience audit (2026-10-16):** 1.4's Gregorian date keys fix shared
+daily identity but do not migrate old non-Gregorian Mahj Minute results. An
+actual Buddhist-keyed result remains stored and disappears from normal date
+lookups in both build 45 and 46. Also, weekly Minute credit now counts actual
+completion days, so several archived runs in one sitting count once. The
+remaining "catch up from the archive" copy can suggest a different rule.
+Proof and the complete change inventory are in
+`project-docs/audits/release-experience-2026-10-16.md`.
+
 **Game-night rhythm (1.2, 2026-08-08):** Mahj+ now owns two recurring practice
 rituals. `MahjMinuteContent` deterministically builds the same five questions
 for every member on a local calendar day: two generated rack reads, one
