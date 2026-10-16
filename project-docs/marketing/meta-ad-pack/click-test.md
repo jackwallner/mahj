@@ -12,6 +12,9 @@ review by hand (179-day window). Claude does no more browser work in Meta
 Business Suite or Ads Manager; once the portfolio is cleared, Jack builds the
 campaign by hand from the setup below.
 
+Status 2026-10-16 (later): portfolio reinstated after Jack's review request.
+Jack drives every Meta screen by hand; Claude gives step-by-step instructions.
+
 ## Question
 
 Can Meta put Mahj Trainer in front of women 40+ who install, at under the
