@@ -75,3 +75,13 @@ by making its offering the default. The arm also rides to RevenueCat as the
 `trial_cta` attribute. Any other change to the trial flow needs Jack's
 explicit go-ahead first, and goes through the same offering-metadata switch.
 
+Running since 2026-10-16: experiment `expfa8555d5ee` ("Trial button: 7-day vs
+my (1.4.1+)") in project `proj28030dc2`, control `default` (no metadata) vs
+`cta_my` (`trial_cta: my`, same three packages and products). New customers
+only, 100%, pinned audience App Store app `app171fd011b0` with app version
+>= 1.4.1, so 1.3.2 and Android never enrol. It went live with TestFlight
+build 47, so a few test installs are in the counts. Primary metric initial
+conversion; read trials started per viewer. Created through `rc api POST
+/projects/<id>/experiments` and `.../actions/start` (targeting is immutable
+once started; RevenueCat stores it as `pinned_audience`).
+
