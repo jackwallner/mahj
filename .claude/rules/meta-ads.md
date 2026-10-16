@@ -33,6 +33,14 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
 - StartTrial belongs to `supabase/functions/meta-trial-relay`, never to
   RevenueCat's Meta integration: RevenueCat cannot hold an event 15 minutes.
   If the RC integration ever sends StartTrial, the filter is defeated.
+- Relay failures (2026-10-16): a network error, 429 or 5xx from RevenueCat
+  or Meta is `Transient`: the row stays `pending`, `attempts` goes up and
+  `retry_at` holds it (2, 4, 8 ... capped at 60 min); the 8th gives up as
+  `error`. Any other 4xx is `error` at once. Before this, one blip dropped the
+  trial's StartTrial for good. Retries resend the same `event_id`, which Meta
+  deduplicates. Apply `20261016120000_meta_trial_relay_retries.sql` BEFORE
+  deploying the function (it selects the new columns). Test:
+  `deno test -A supabase/functions/meta-trial-relay` (all network faked).
 - The in-app 50/50 `CTAExperiment` was removed in build 47: it had no
   control arm and needed a release to change. The wording is now `TrialCTA`,
   picked by offering metadata `trial_cta` (see `membership-and-trial.md`).

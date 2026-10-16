@@ -39,6 +39,11 @@ const HOLD_MINUTES = 15;
 const CONSENT_WAIT_HOURS = 24;
 // A trial whose subscription RevenueCat cannot find after this is an error.
 const LOOKUP_WAIT_HOURS = 2;
+// A network error, 429 or 5xx from RevenueCat or Meta leaves the trial
+// pending and retries with backoff (2, 4, 8 ... capped at 60 minutes). After
+// this many it is an error. Any other 4xx is an error at once.
+const MAX_ATTEMPTS = 8;
+const MAX_BACKOFF_MINUTES = 60;
 
 const db = createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), {
   auth: { persistSession: false },
@@ -54,7 +59,11 @@ type Row = {
   environment: string | null;
   trial_started_at: string;
   cancelled_at: string | null;
+  attempts: number;
 };
+
+/** A failure worth retrying: the request never landed, or the server said later. */
+class Transient extends Error {}
 
 type Verdict = {
   status: "pending" | "sent" | "would_send" | "cancelled" | "no_consent" | "error";
@@ -112,26 +121,43 @@ async function record(event: Record<string, any>): Promise<string> {
 
 /** Cron side: decide every trial whose 15 minutes are up. */
 async function sweep() {
+  const now = new Date().toISOString();
   const due = new Date(Date.now() - HOLD_MINUTES * 60_000).toISOString();
   const { data, error } = await db.from("meta_trial_relay")
-    .select("id, app_user_id, original_transaction_id, transaction_id, product_id, store, environment, trial_started_at, cancelled_at")
+    .select("id, app_user_id, original_transaction_id, transaction_id, product_id, store, environment, trial_started_at, cancelled_at, attempts")
     .eq("status", "pending").lte("trial_started_at", due)
+    .or(`retry_at.is.null,retry_at.lte."${now}"`)
     .order("trial_started_at").limit(50);
   if (error) throw error;
 
   const results: Record<string, string> = {};
   for (const row of (data ?? []) as Row[]) {
     let verdict: Verdict;
+    let retryAt: string | null = null;
+    let transient = false;
+    const attempts = (row.attempts ?? 0) + 1;
     try {
       verdict = await decide(row);
     } catch (e) {
-      verdict = { status: "error", detail: String(e).slice(0, 500) };
+      const detail = String(e).slice(0, 500);
+      transient = e instanceof Transient;
+      if (!transient) {
+        verdict = { status: "error", detail };
+      } else if (attempts >= MAX_ATTEMPTS) {
+        verdict = { status: "error", detail: `gave up after ${attempts} attempts: ${detail}` };
+      } else {
+        verdict = { status: "pending", detail: `retry ${attempts}/${MAX_ATTEMPTS}: ${detail}` };
+        const minutes = Math.min(2 ** attempts, MAX_BACKOFF_MINUTES);
+        retryAt = new Date(Date.now() + minutes * 60_000).toISOString();
+      }
     }
     const update: Record<string, unknown> = {
       status: verdict.status,
       detail: verdict.detail,
       checked_at: new Date().toISOString(),
+      retry_at: retryAt,
     };
+    if (transient) update.attempts = attempts;
     if (verdict.meta_response !== undefined) update.meta_response = verdict.meta_response;
     if (verdict.status === "sent") update.sent_at = new Date().toISOString();
     await db.from("meta_trial_relay").update(update).eq("id", row.id);
@@ -184,7 +210,9 @@ async function decide(row: Row): Promise<Verdict> {
 
   const payload: Record<string, unknown> = { data: [event], access_token: META_CAPI_TOKEN };
   if (!live) payload.test_event_code = META_TEST_EVENT_CODE;
-  const response = await fetch(`https://graph.facebook.com/${META_GRAPH_VERSION}/${META_DATASET_ID}/events`, {
+  // A retry resends the same event_id, which Meta deduplicates, so a 5xx
+  // that Meta did in fact record cannot count twice.
+  const response = await call("Meta", `https://graph.facebook.com/${META_GRAPH_VERSION}/${META_DATASET_ID}/events`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(payload),
@@ -195,8 +223,23 @@ async function decide(row: Row): Promise<Verdict> {
     : { status: "error", detail: `Meta HTTP ${response.status}`, meta_response: answer };
 }
 
+/** fetch that throws Transient on a network error, 429 or 5xx. */
+async function call(name: string, url: string, init: RequestInit) {
+  let response: Response;
+  try {
+    response = await fetch(url, init);
+  } catch (e) {
+    throw new Transient(`${name} network: ${String(e).slice(0, 200)}`);
+  }
+  if (response.status === 429 || response.status >= 500) {
+    const body = (await response.text().catch(() => "")).slice(0, 200);
+    throw new Transient(`${name} HTTP ${response.status} ${body}`.trim());
+  }
+  return response;
+}
+
 async function rc(path: string) {
-  const response = await fetch(`https://api.revenuecat.com/v2/projects/${RC_PROJECT_ID}${path}`, {
+  const response = await call("RevenueCat", `https://api.revenuecat.com/v2/projects/${RC_PROJECT_ID}${path}`, {
     headers: { authorization: `Bearer ${RC_SECRET_KEY}` },
   });
   if (!response.ok) throw new Error(`RevenueCat ${path} HTTP ${response.status}`);

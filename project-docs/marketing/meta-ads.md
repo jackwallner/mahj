@@ -63,6 +63,12 @@ function's `?sweep` only when a trial is 15 minutes old. The sweep then:
    (`sent`), or records it as `would_send` while Meta is not configured.
    Sandbox/TestFlight rows are only ever sent with `META_TEST_EVENT_CODE`.
 
+A network error, 429 or 5xx from RevenueCat or Meta leaves the row `pending`
+with `attempts` + 1 and `retry_at` 2, 4, 8 ... (max 60) minutes out; the 8th
+such failure is `error`. Any other 4xx is `error` at once. Migration
+`20261016120000_meta_trial_relay_retries.sql` adds both columns and must be
+applied before the function is deployed.
+
 Function secrets (project-wide, all `META_` prefixed so they cannot collide
 with Sports' functions): `META_RELAY_RC_WEBHOOK_AUTH`, `META_RELAY_CRON_SECRET`
 (also vault `meta_relay_cron_secret`, with `meta_relay_url`),
