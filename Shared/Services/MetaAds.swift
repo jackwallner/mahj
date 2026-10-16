@@ -115,14 +115,13 @@ enum MetaAds {
     /// Meta's 16-slot `extinfo` array for app events, as a JSON string:
     /// version, bundle id, build, version, OS, model, locale, timezone
     /// abbreviation, carrier, screen width, height, density, CPU cores,
-    /// storage size and free storage in GB, timezone.
+    /// storage size and free storage in GB (left empty: reading disk space is
+    /// an Apple required-reason API with no reason that covers sending it to
+    /// an ad network), timezone.
     static var extinfo: String {
         let bundle = Bundle.main
         let screen = UIScreen.main
         let timeZone = TimeZone.current
-        let storage = try? URL(fileURLWithPath: NSHomeDirectory())
-            .resourceValues(forKeys: [.volumeTotalCapacityKey, .volumeAvailableCapacityKey])
-        let gigabyte = 1_073_741_824.0
         let slots: [String] = [
             "i2",
             bundle.bundleIdentifier ?? "",
@@ -137,8 +136,8 @@ enum MetaAds {
             String(Int(screen.nativeBounds.height)),
             String(format: "%.2f", screen.scale),
             String(ProcessInfo.processInfo.activeProcessorCount),
-            String(Int(Double(storage?.volumeTotalCapacity ?? 0) / gigabyte)),
-            String(Int(Double(storage?.volumeAvailableCapacity ?? 0) / gigabyte)),
+            "",
+            "",
             timeZone.identifier,
         ]
         let data = (try? JSONSerialization.data(withJSONObject: slots)) ?? Data()

@@ -30,7 +30,10 @@ private struct ReviewRequestModifier: ViewModifier {
 
     private func schedule() {
         // RevenueCat's `rating_prompt: off` pauses the asks without a release.
-        guard SubscriptionService.shared.isOn(.ratingPrompt), ReviewPromptTracker.shouldRequestReview() else { return }
+        // Never inside onboarding: the tour ends in a real session, and a
+        // player who relaunched mid-onboarding is already past launch two.
+        guard ProgressStore.shared.hasOnboarded, SubscriptionService.shared.isOn(.ratingPrompt),
+              ReviewPromptTracker.shouldRequestReview() else { return }
         Task { @MainActor in
             // Let the celebration land first.
             try? await Task.sleep(nanoseconds: 3_000_000_000)

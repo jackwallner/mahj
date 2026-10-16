@@ -37,8 +37,10 @@ struct HowToPlayView: View {
             if dynamicTypeSize.isAccessibilitySize {
                 // At the largest sizes a page outgrows the screen and pushed
                 // Continue and Skip below it with no way to reach them. The
-                // page scrolls there; the footer stays put.
+                // page scrolls there, from the top on every page; the footer
+                // stays put.
                 ScrollView { movingCard }
+                    .id(page.id)
             } else {
                 Spacer(minLength: 0)
                 movingCard

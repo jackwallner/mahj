@@ -60,7 +60,7 @@ final class SubscriptionService: NSObject, ObservableObject {
     private let pendingChurnKey = "membership.pendingChurnMoment"
     private let reinstallSyncKey = "membership.reinstallSyncDone"
     private var paywallImpressionsThisSession: Set<String> = []
-    private var isRecoveringMembership = false
+    private var membershipRecovery: Task<Void, Never>?
 
     override private init() {
         super.init()
@@ -68,6 +68,10 @@ final class SubscriptionService: NSObject, ObservableObject {
         pendingChurnMoment = UserDefaults.standard.string(forKey: pendingChurnKey)
             .flatMap(ChurnMoment.init(rawValue:))
     }
+
+    /// The offering's metadata (the remote switches) is known: loaded, or
+    /// there is no store to ask at all (simulator, screenshots).
+    var remoteConfigKnown: Bool { offerings != nil || !isConfigured }
 
     /// The churn prompt was shown (or dismissed). One ask per departure.
     func consumeChurnMoment() {
@@ -105,11 +109,27 @@ final class SubscriptionService: NSObject, ObservableObject {
     ///
     /// Retried (from `ensureOfferings`, so before any purchase) until one sync
     /// succeeds: a failed sync on a bad network must not lose it for good.
+    /// A second caller (the trial button) waits for a sync already running
+    /// instead of skipping it, so a slow sync cannot let a member be sold,
+    /// but never holds the button more than a few seconds on a stalled one.
     func recoverReinstalledMembershipIfNeeded() async {
-        guard isConfigured, !isPro, !isRecoveringMembership,
-              !UserDefaults.standard.bool(forKey: reinstallSyncKey) else { return }
-        isRecoveringMembership = true
-        defer { isRecoveringMembership = false }
+        if let running = membershipRecovery {
+            await withTaskGroup(of: Void.self) { group in
+                group.addTask { await running.value }
+                group.addTask { try? await Task.sleep(nanoseconds: 3_000_000_000) }
+                await group.next()
+                group.cancelAll()
+            }
+            return
+        }
+        guard isConfigured, !isPro, !UserDefaults.standard.bool(forKey: reinstallSyncKey) else { return }
+        let recovery = Task { await recoverReinstalledMembership() }
+        membershipRecovery = recovery
+        await recovery.value
+        membershipRecovery = nil
+    }
+
+    private func recoverReinstalledMembership() async {
         var ownsSomething = false
         for await result in Transaction.currentEntitlements {
             if case .verified = result {
@@ -318,7 +338,9 @@ final class SubscriptionService: NSObject, ObservableObject {
         observe(MembershipSnapshot.observed(
             isActive: entitled,
             isTrial: entitlement?.periodType == .trial,
-            willRenew: entitlement?.willRenew == true,
+            // A card problem turns willRenew off too, but nobody chose to
+            // leave: Apple is still retrying, so it is not a churn moment.
+            willRenew: entitlement?.willRenew == true || entitlement?.billingIssueDetectedAt != nil,
             expirationDate: entitlement?.expirationDate
         ), answeredAt: info.requestDate)
     }

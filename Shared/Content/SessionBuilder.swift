@@ -133,6 +133,11 @@ enum SessionBuilder {
         includePro ? memberReviewableIDs : freeReviewableIDs
     }
 
+    /// In a member's review pool but not a free player's: a Mahj+ question.
+    static func isMemberOnly(_ id: String) -> Bool {
+        memberReviewableIDs.contains(id) && !freeReviewableIDs.contains(id)
+    }
+
     private static let freeReviewableIDs = Set(choicePool(includePro: false).map(\.id))
     private static let memberReviewableIDs = Set(choicePool(includePro: true).map(\.id))
 

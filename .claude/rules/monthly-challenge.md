@@ -41,7 +41,14 @@ app.
   answer finishes it. Same questions for everyone, so a replay would be a
   memory test, and a shared score has to mean one attempt.
 - `MonthlyChallengeReminder`: opt-in, one notification on the 1st of each
-  of the next three months, re-laid on launch.
+  of the next three months, re-laid on launch. The button checks the real
+  notification permission on appear and says notifications are off rather
+  than show "Reminder On" for nothing.
+- The hero reads the month once per render, so a Resume tapped after
+  midnight on the 1st finishes the month its saved answers belong to.
+- The closers can be Mahj+ questions. A free player who misses one never gets
+  "This one will come back" (`SessionBuilder.isMemberOnly`): free sessions
+  never bring Mahj+ questions back.
 - The What's New line is `isAppleOnly`, so the Android export skips it.
 - Month names are forced to English (`en_US_POSIX`): a bare `Calendar`
   answers "M11", and the app's copy is English.

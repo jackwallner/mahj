@@ -41,10 +41,10 @@ is an upgrader from a pre-1.1 build and does get it. The sheet raises
 `onUpgrade` rather than presenting `PaywallView` itself, because a sheet cannot
 present another sheet while dismissing.
 
-**1.4.1 update notes (2026-10-16):** there is no matching release entry for
-1.4.1. A direct 1.3.2 to 1.4.1 update therefore skips the feature sheet even
-though it adds all the 1.4.0 features. Keep this distinct from an existing
-player who already saw the 1.4.0 sheet. The experience audit is in
+**1.4.1 update notes (2026-10-16):** 1.4.0 was pulled before release, so its
+release entry was renamed to 1.4.1 (build 47): a 1.3.2 player sees the 1.4
+features once. A TestFlight install that saw the 1.4.0 sheet sees it again,
+which is fine. The experience audit is in
 `project-docs/audits/release-experience-2026-10-16.md`.
 
 **Weekly gain access-change gap (2026-10-16):** the actual record-store/ledger

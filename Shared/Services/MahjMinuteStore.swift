@@ -46,7 +46,11 @@ final class MahjMinuteStore: ObservableObject {
     }
 
     func result(for day: Date, calendar: Calendar = .gregorianLocal) -> MahjMinuteResult? {
-        results[MahjMinuteContent.key(for: day, calendar: calendar)]
+        if let result = results[MahjMinuteContent.key(for: day, calendar: calendar)] { return result }
+        // Before 1.4 days were keyed in the system calendar, so a Buddhist or
+        // Japanese calendar device saved them as "2569-10-16". Still find those.
+        guard Calendar.current.identifier != .gregorian else { return nil }
+        return results[MahjMinuteContent.key(for: day, calendar: .current)]
     }
 
     @discardableResult

@@ -198,7 +198,9 @@ struct PracticeRunView: View {
                     eyebrow: item.sourceLabel.uppercased(),
                     missNote: missNote,
                     requeued: requeued,
-                    reportID: item.id,
+                    // Not against the clock: the sheet would eat the run's
+                    // seconds and close when time runs out.
+                    reportID: mode == .timed ? nil : item.id,
                     reportChoices: item.choices,
                     reportAnswerIndex: item.answerIndex,
                     reportPickedIndex: selection

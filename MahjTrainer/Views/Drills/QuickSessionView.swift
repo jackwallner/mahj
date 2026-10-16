@@ -178,7 +178,10 @@ struct QuickSessionView: View {
 
     private var requeued: Bool {
         guard let selection, selection != item.answerIndex else { return false }
-        return item.isReviewable && PracticeSkill.skill(forItemID: item.id) == nil
+        guard item.isReviewable, PracticeSkill.skill(forItemID: item.id) == nil else { return false }
+        // The free challenge can close on a Mahj+ question; a free player's
+        // sessions never bring those back, so don't promise it.
+        return SubscriptionService.shared.isPro || !SessionBuilder.isMemberOnly(item.id)
     }
 
     private var drillBody: some View {

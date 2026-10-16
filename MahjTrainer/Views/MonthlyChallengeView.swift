@@ -1,4 +1,5 @@
 import SwiftUI
+import UserNotifications
 
 /// The monthly challenge: free for every player, the same twelve questions on
 /// every device, one attempt a month. The App Store in-app event for each
@@ -35,6 +36,9 @@ struct MonthlyChallengeView: View {
     }
 
     private var hero: some View {
+        // One month for the whole card: a Resume tapped just after midnight
+        // on the 1st must finish the month its saved answers belong to.
+        let challenge = challenge
         let result = store.result(for: challenge)
         let progress = store.progress(for: challenge)
         return VStack(spacing: 14) {
@@ -103,7 +107,7 @@ struct MonthlyChallengeView: View {
         }
         if progress != nil {
             let last = challenge.end.addingTimeInterval(-1).formatted(.dateTime.month(.wide).day())
-            return "Your answers are saved. Pick up any time before \(last)."
+            return "Your answers are saved. Pick up any time through \(last)."
         }
         return "Each answer counts as soon as you tap it. Stop any time and your answers are saved. \(left)."
     }
@@ -278,6 +282,16 @@ private struct MonthlyChallengeReminderButton: View {
             }
             .buttonStyle(.plain)
             .accessibilityHint(isOn ? "Turns the monthly reminder off" : "Sends one notification on the 1st of each month")
+            .task {
+                // Notifications switched off in iOS Settings: say so rather
+                // than show a reminder that will never arrive.
+                guard isOn else { return }
+                let settings = await UNUserNotificationCenter.current().notificationSettings()
+                if settings.authorizationStatus == .denied {
+                    isOn = false
+                    denied = true
+                }
+            }
             if denied {
                 Text("Notifications are off for Mahj Trainer. Turn them on in Settings > Notifications to get the reminder.")
                     .font(.caption)

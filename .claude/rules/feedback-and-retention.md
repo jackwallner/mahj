@@ -49,8 +49,10 @@ reachable at AX5 and with the keyboard up.
 link under the coaching note. Every pager-based drill passes its item id and
 its choices (`reportChoices`, `reportAnswerIndex`, `reportPickedIndex`).
 The Charleston drill also reports the recommended and selected three-tile
-passes. Ordinary flashcard decks do not have it yet; the 1.4 What's New
-claim that every graded question has a link is broader than the implementation.
+passes. Ordinary flashcard decks and Play a Hand do not have it, so the
+What's New and release notes say "most questions". The Timed Challenge
+leaves it out (`reportID: nil`): the sheet ate the run's seconds and was torn
+down when time ran out.
 
 ## Release experience audit, October 16, 2026
 
@@ -59,17 +61,27 @@ See `project-docs/audits/release-experience-2026-10-16.md`. Both build 45 and
 Both also retain a pending cancellation question when renewal turns back on;
 the fresh-baseline fix in 46 does not fix that separate sequence. These were
 verified with the actual view/service using inert callbacks and isolated
-preferences, not real App Store transactions. Home consumes the question
-before its delay and does not revalidate the membership at presentation.
+preferences, not real App Store transactions. Fixed in build 51: Home now
+re-reads the question after its delay and spends it only when it is shown.
 
 ## The churn question
 
 `SubscriptionService.observe(_:)` compares each RevenueCat customer record
 with the last one seen (`MembershipTransitions.churnMoment`) and stores at
 most ONE `ChurnMoment` per departure (`membership.churnAskSpent`, cleared
-when renewal turns back on). Home presents it once, 0.9s after it draws,
-never on top of What's New or the paywall. The first observation ever is
-never a moment: a lapse nobody watched is history, not a question.
+when renewal turns back on). Home presents it once, 0.9s after it is bare
+(`HomeView.homeIsBare`: Home on screen, nothing pushed, no sheet up), and
+spends it only when it is actually shown; a covered Home retries when a
+sheet closes or the player comes back. The first observation ever is never a
+moment: a lapse nobody watched is history, not a question. A billing issue
+(`billingIssueDetectedAt`) turns RevenueCat's `willRenew` off too, but Apple
+is still retrying and nobody chose to leave, so `apply` counts it as
+renewing.
+
+Apple's rating prompt is never requested before onboarding finishes
+(`ReviewRequest` checks `hasOnboarded`): the tour ends in a real session, and
+a player who relaunched mid-onboarding is already past launch two. Mahj
+Minute asks only at half right or better, like drills and the challenge.
 
 ## Weekly gain
 

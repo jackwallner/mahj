@@ -6,7 +6,7 @@ Home and Your Progress now show how many questions you locked in this week, so y
 
 Members can set their game night straight from Home, and the prep reminder now says what you locked in since last week.
 
-Every graded question has a "Something wrong?" link. Flag a wrong answer or a confusing explanation and it goes straight to the developer.
+Most questions have a "Something wrong?" link. Flag a wrong answer or a confusing explanation and it goes straight to the developer.
 
 Send Feedback is a text box and one button now. No mail app, no account.
 

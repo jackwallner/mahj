@@ -27,6 +27,9 @@ struct HomeView: View {
     @State private var showWhatsNew = false
     /// Non-nil while the one churn question is up.
     @State private var churnPrompt: ChurnMoment?
+    /// False while a room, drill or deep-linked screen is pushed over Home.
+    /// Room links are view-based, so `path` alone cannot tell.
+    @State private var homeOnScreen = false
     /// "When's your game night?" is shown to members until they set one or
     /// wave it off. The reminder is the hook that matches how people play,
     /// and it was buried two taps deep in a tile nobody opened in week one.
@@ -52,10 +55,13 @@ struct HomeView: View {
                     .padding(.bottom, 24)
                 }
                 .onAppear {
+                    homeOnScreen = true
                     consumeRecommendedRoomHint(proxy: proxy)
                     consumePendingDestination()
                     recordMastery()
+                    homeIsBareAgain()
                 }
+                .onDisappear { homeOnScreen = false }
                 .onChange(of: showSettings) { _, isShowing in
                     if !isShowing { consumeRecommendedRoomHint(proxy: proxy) }
                 }
@@ -109,10 +115,15 @@ struct HomeView: View {
                 }
             }
             .task { presentWhatsNewIfNeeded() }
-            .task { presentChurnPromptIfNeeded() }
-            .task { await askForTrackingIfNeeded() }
             .onChange(of: showWhatsNew) { _, isShowing in
-                if !isShowing { Task { await askForTrackingIfNeeded() } }
+                if !isShowing { homeIsBareAgain() }
+            }
+            .onChange(of: showSettings) { _, isShowing in
+                if !isShowing { homeIsBareAgain() }
+            }
+            .onChange(of: subscriptions.offerings != nil) { _, loaded in
+                // The tracking switch rides on the offering: ask once it is known.
+                if loaded { Task { await askForTrackingIfNeeded() } }
             }
             .onChange(of: churnPrompt) { _, moment in
                 if moment == nil { Task { await askForTrackingIfNeeded() } }
@@ -201,15 +212,28 @@ struct HomeView: View {
     }
 
     /// The one question asked when a membership turns toward the exit. Waits
-    /// for a drawn Home, and never stacks on the What's New sheet.
+    /// for a drawn, bare Home (no drill pushed, no sheet up) and is only spent
+    /// once it is actually shown; a covered Home retries when it is bare again.
     private func presentChurnPromptIfNeeded() {
-        guard let moment = subscriptions.pendingChurnMoment, progress.hasOnboarded else { return }
-        guard !showWhatsNew, !showPaywall, churnPrompt == nil else { return }
-        subscriptions.consumeChurnMoment()
+        guard subscriptions.pendingChurnMoment != nil, progress.hasOnboarded else { return }
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 900_000_000)
+            guard let moment = subscriptions.pendingChurnMoment, homeIsBare else { return }
+            subscriptions.consumeChurnMoment()
             churnPrompt = moment
         }
+    }
+
+    /// Nothing pushed and no sheet up: the only state Home may put a prompt on.
+    private var homeIsBare: Bool {
+        homeOnScreen && path.isEmpty && !showWhatsNew && !showPaywall && !showSettings && churnPrompt == nil
+    }
+
+    /// A sheet closed or the player came back to Home: anything that waited
+    /// for a bare Home gets its turn (the churn question first, then ATT).
+    private func homeIsBareAgain() {
+        presentChurnPromptIfNeeded()
+        Task { await askForTrackingIfNeeded() }
     }
 
     private var roomsColumn: some View {
@@ -274,12 +298,17 @@ struct HomeView: View {
     }
 
     /// Apple's tracking prompt (Meta ads), only once onboarding is done and
-    /// only on a bare Home: never at launch, never over a sheet. A sheet that
-    /// is up just defers it to that sheet's dismissal.
+    /// only on a bare Home: never at launch, never over a sheet or a pushed
+    /// screen (a deep-linked challenge). Anything covering Home just defers it
+    /// until Home is bare again.
+    ///
+    /// The `att_prompt` switch lives in the offering, which a cold launch may
+    /// not have yet; with no offering there is no ask, and the offering
+    /// arriving tries again.
     private func askForTrackingIfNeeded() async {
-        guard MetaAds.shouldAskForTracking, progress.hasOnboarded, subscriptions.isOn(.attPrompt) else { return }
+        guard MetaAds.shouldAskForTracking, progress.hasOnboarded else { return }
         try? await Task.sleep(nanoseconds: 1_200_000_000)
-        guard !showWhatsNew, !showPaywall, !showSettings, churnPrompt == nil else { return }
+        guard subscriptions.remoteConfigKnown, subscriptions.isOn(.attPrompt), homeIsBare else { return }
         await MetaAds.requestTracking()
     }
 

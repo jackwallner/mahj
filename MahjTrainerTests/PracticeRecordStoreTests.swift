@@ -128,6 +128,10 @@ final class PracticeRecordStoreTests: XCTestCase {
         XCTAssertFalse(free.isEmpty)
         XCTAssertTrue(free.isSubset(of: member))
         XCTAssertGreaterThan(member.count, free.count, "Mahj+ adds askable items")
+        // "This one will come back" is withheld from free players exactly
+        // for the Mahj+ questions their sessions can never bring back.
+        XCTAssertFalse(free.contains(where: SessionBuilder.isMemberOnly))
+        XCTAssertEqual(member.filter(SessionBuilder.isMemberOnly).count, member.count - free.count)
 
         for room in DrillLibrary.rooms {
             for drill in room.drills {

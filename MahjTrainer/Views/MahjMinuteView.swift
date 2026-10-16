@@ -89,7 +89,7 @@ struct MahjMinuteView: View {
                         .frame(width: 34, height: 34)
                 }
             }
-            Text("Any five days count. Miss one, catch up from the archive, and keep the week alive.")
+            Text("Any five days of the seven count, so a missed day never breaks the week.")
                 .font(.caption)
                 .foregroundStyle(Theme.inkSecondary)
         }
@@ -282,6 +282,7 @@ struct MahjMinuteResultView: View {
         Haptics.success()
         SoundPlayer.play(.complete)
         progress.recordSession(drillID: MahjMinuteContent.drill.id)
-        reviewMoment += 1
+        // The ask is for a good moment, as in drills: half right or better.
+        if result.score * 2 >= result.total { reviewMoment += 1 }
     }
 }

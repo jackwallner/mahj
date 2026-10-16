@@ -74,7 +74,7 @@ enum WhatsNew {
                     id: "report-question",
                     icon: "flag",
                     title: "Something wrong? Say so",
-                    body: "Every graded question has a link to flag a wrong answer or a confusing explanation. It goes straight to the developer."
+                    body: "Most questions have a link to flag a wrong answer or a confusing explanation. It goes straight to the developer."
                 ),
                 WhatsNewItem(
                     id: "feedback",
