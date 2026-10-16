@@ -1,4 +1,4 @@
-# Meta $50 click test (planned, not launched)
+# Meta $50 click test (launched 2026-10-16)
 
 Status 2026-10-15: planned. **Nothing is built in Ads Manager and nothing is
 spent.** Launch only on Jack's explicit go-ahead in chat.
@@ -96,6 +96,31 @@ store URL. The first App Store Connect campaign readout after launch settles
 it; if `meta-c*-2610` shows no downloads, use the RevenueCat lift cross-check.
 To launch, Jack sets the dates and publishes campaign `120251566262580737`
 after go in chat.
+
+Status 2026-10-16 (Part 6, launched): Jack said go in chat. About 16:42 PT,
+via the Meta Ads MCP, campaign `120251566262580737`, ad set
+`120251566264100737` and ads C1, C3 and C7 were set ACTIVE. Meta refused
+to move the ad set's start (subcode 1487057, "cannot be edited if the Ad Set
+has already started"), so the stored start stays 2026-10-16 10:45 PT, which
+predates the real activation; delivery runs from activation. End time set to
+**2026-10-21 16:45 PT** (the campaign stop time follows it). Read back right
+after activation:
+
+| Object | status | effective_status | Delivery |
+|---|---|---|---|
+| Campaign `120251566262580737` | ACTIVE | ACTIVE | waiting on ads |
+| Ad set `120251566264100737` | ACTIVE | ACTIVE | waiting on ads |
+| C1 `120251566327090737` | ACTIVE | IN_PROCESS | pending review |
+| C3 `120251566333710737` | ACTIVE | IN_PROCESS | pending review |
+| C7 `120251566331180737` | ACTIVE | IN_PROCESS | pending review |
+
+Ad set unchanged otherwise: $10/day, Facebook Feed, Stories and Reels only,
+mobile, iOS, US women 40 to 65, Advantage+ audience off. No errors, no
+disapprovals, $0 spent so far. The ads start delivering once Meta's review
+clears them. The old Traffic campaign `120251564972370737` is still PAUSED.
+The $60 account spending limit was not read back (the MCP does not expose it);
+it was set by hand in Part 1 and nothing has changed it since. Readout day 7:
+2026-10-23 or later.
 
 ## Question
 
