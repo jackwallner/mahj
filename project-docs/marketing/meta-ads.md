@@ -1,5 +1,14 @@
 # Meta (Facebook and Instagram) ads: prep
 
+Status 2026-10-16: **turned on.** Meta app `987930193620309` (Live, E3 Fitness LLC,
+iOS bundle + store ID, ad account `1842133493904848` authorized, App Page Mahj
+Trainer, automatic in-app event logging off). Dataset `1445876447511793`; its
+CAPI token is in `~/.mahj_credentials` and set as the relay's `META_DATASET_ID` /
+`META_CAPI_TOKEN` secrets. SDK on from build 49 (1.4.1, TestFlight). Left:
+RevenueCat Meta integration (Jack, step 6), app icon on the Meta app (Jack),
+privacy labels (step 7) before the App Store submission. One stray test
+StartTrial was recorded as a live event on 2026-10-16 (wrong test code).
+
 Status 2026-10-15: code ready, relay live, **no Meta app, no ad account, no
 spend**. Approved as prep only ([decisions](../../../ios/growth/2026-10-15-growth-decisions.md),
 research in `~/ios/growth/2026-10-14-x-likes-ads-research.md`). A real test is
