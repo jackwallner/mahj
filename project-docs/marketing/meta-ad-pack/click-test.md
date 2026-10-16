@@ -69,6 +69,34 @@ one) to the ad account, or approves Facebook-only placements; then the
 creatives are rebuilt with that identity and the 3 ads created. Whether Meta
 keeps the `ct` parameter is unknown until an ad exists.
 
+Status 2026-10-16 (Part 5, Facebook only): the parent session decided to run
+the click test on Facebook placements only (Instagram returns for the install
+test once an Instagram identity exists). Ad set `120251566264100737` renamed
+"US W40+ iOS FB 3 placements" and read back: Facebook Feed, Stories and Reels
+only, mobile, iOS, US women 40 to 65, Advantage+ audience off, LINK_CLICKS,
+$10/day, destination APP, PAUSED. Three ads created and read back, all PAUSED
+(effective status IN_PROCESS while Meta reviews), $0 spent:
+
+| Ad | Ad ID | Creative ID |
+|---|---|---|
+| C1 charleston-pass | `120251566327090737` | `1896386585067602` |
+| C3 read-the-rack-reel | `120251566333710737` | `2868680573531536` |
+| C7 every-april | `120251566331180737` | `1987105995266961` |
+
+All three use Install Now, the per-ad `ct` link, the copy above, 4:5 media in
+Feed and 9:16 in Stories and Reels (C3 uses the cover PNGs as video
+thumbnails), and have Advantage+ creative enhancements, music, site links and
+multi-advertiser ads off. Previews (Feed and Stories, each ad) checked by eye:
+right asset per placement, right copy, Install Now button; the ad header shows
+the app name "Mahj Trainer: Mahjong Practice" and no Page photo. **`ct`
+survival is not verified:** Meta accepted each link as sent with no rewrite,
+but the MCP read-back does not return the link of these placement-customized
+creatives, and App Promotion ads may send clicks to the promoted app's plain
+store URL. The first App Store Connect campaign readout after launch settles
+it; if `meta-c*-2610` shows no downloads, use the RevenueCat lift cross-check.
+To launch, Jack sets the dates and publishes campaign `120251566262580737`
+after go in chat.
+
 ## Question
 
 Can Meta put Mahj Trainer in front of women 40+ who install, at under the
