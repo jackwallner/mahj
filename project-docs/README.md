@@ -14,4 +14,5 @@ Developer notes and historical audits for this repository. The published site re
 - [in-app-events/2026-11-challenge/](marketing/in-app-events/2026-11-challenge/event.json): November 2026 Monthly Challenge event spec and art (event 6822009957)
 - [marketing/meta-ads.md](marketing/meta-ads.md): Meta ads prep: SDK, ATT, 15-minute StartTrial relay, turn-on steps and ASC privacy-label clicks
 - [marketing/meta-ad-pack/](marketing/meta-ad-pack/ads.md): Meta app-install ad pack: research, 5 buyer personas, persona scoring, final 5 ads (statics, carousel, Reel) with copy and Ads Manager checklist; `build_pack.py` renders to iCloud Drive "Mahj Meta Ads"
+- [marketing/meta-ad-pack/click-test.md](marketing/meta-ad-pack/click-test.md): planned $50 Meta Traffic click test (3 ads, women 40+, iOS), App Store campaign links, go/stop rules; not launched
 - [marketing/tiktok-kit/](marketing/tiktok-kit/build_kit.py): TikTok slideshow kit generator (42 posts, 7 formats, drawn tablecloths with real tiles, disclosed CTA A/B) and posting guide with trial tracking; renders to iCloud Drive "Mahj TikTok Kit"
