@@ -3,6 +3,15 @@
 Status 2026-10-15: planned. **Nothing is built in Ads Manager and nothing is
 spent.** Launch only on Jack's explicit go-ahead in chat.
 
+Status 2026-10-16: "Mahj Trainer" Page created (ID 61595624634024, app icon,
+App Store link). Business portfolio "E3 Fitness LLC" (ID 2346140409473669)
+was restricted by Meta within minutes of creation for "automation that
+doesn't follow our rules" (Account Integrity), because Claude filled the setup
+forms through Chrome automation. No ad account exists yet. Jack requests the
+review by hand (179-day window). Claude does no more browser work in Meta
+Business Suite or Ads Manager; once the portfolio is cleared, Jack builds the
+campaign by hand from the setup below.
+
 ## Question
 
 Can Meta put Mahj Trainer in front of women 40+ who install, at under the
