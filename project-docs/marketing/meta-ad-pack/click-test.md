@@ -15,6 +15,11 @@ campaign by hand from the setup below.
 Status 2026-10-16 (later): portfolio reinstated after Jack's review request.
 Jack drives every Meta screen by hand; Claude gives step-by-step instructions.
 
+Status 2026-10-16 (Part 1 done): Jack added the Page to the portfolio, created
+the "Mahj Trainer" ad account (USD, Pacific), added a card and set a $60
+account spending limit. Next: Jack builds the campaign below as a draft (not
+published), sends screenshots, and publishes only after go in chat.
+
 ## Question
 
 Can Meta put Mahj Trainer in front of women 40+ who install, at under the
@@ -104,7 +109,8 @@ $55 all in. No other spend.
    (USD, Pacific time), payment method, and a "Mahj Trainer" Facebook Page.
    These are his to create; Claude does not create accounts, accept terms or
    enter payment details.
-2. Claude: build the campaign above in Ads Manager, everything **paused**,
-   preview every placement, send Jack screenshots.
-3. Jack: says go in chat. Claude publishes; spending starts then.
+2. Jack: builds the campaign above in Ads Manager by hand from Claude's
+   steps, left as an unpublished draft, and sends screenshots.
+3. Jack: says go in chat, sets the start and end dates and publishes;
+   spending starts then.
 4. Day 7: readout above, decision written into this file.
