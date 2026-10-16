@@ -34,6 +34,20 @@ so Jack uploads the 8 files (C1, C3, C7 feed/story PNGs, both C3 mp4s and both
 C3 covers) to Ads Manager Media library, then Claude builds the 3 ads. No
 Instagram account is linked, so ads run under the Page-backed identity.
 
+Status 2026-10-16 (Part 3): all 8 files are in the ad account library via
+URL upload. Image hashes: C1 feed `f8870b6d36365688cfe271bb1fcb4010`, C1 story
+`f9cb0efd3ec9aa0899907e5dcaf17284`, C7 feed `caea0efde9e4e13a26ba0fc8422b72c3`,
+C7 story `5e01bf5ab1150bc0d22c59393e33f09c`, C3 cover 4:5
+`0cc272ed70872dbc25b8c96c33ea60cc`, C3 cover 9:16
+`a63225a296fc26df913359b964982bb2` (all pixel-identical to the local files).
+Videos ready: C3 4:5 `2202054177402819`, C3 9:16 `2258993131616688`. **Ads are
+blocked:** Meta rejects every ad in this Traffic campaign whose link is an
+apps.apple.com URL ("App Url is only supported by App Installs objective").
+Placement-customized creatives C1 `1090472490279204` and C7
+`1122747526886495` exist but carry that link and cannot be used. Next: Jack
+picks a website destination (a mahj site page that sends people on to the
+App Store with the per-ad `ct` link), then new creatives and the 3 ads.
+
 ## Question
 
 Can Meta put Mahj Trainer in front of women 40+ who install, at under the
