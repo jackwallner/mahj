@@ -136,7 +136,7 @@ enum PlusContent {
         HandMatchQuestion(
             id: "plus-hm-quints",
             tiles: [.joker, .joker, .joker, .joker, .c(3), .c(3), .c(3), .b(3), .b(3), .b(3), .flower, .d(9), .wind(.east)],
-            choices: [.quints, .windsDragons, .odds13579, .consecutiveRun],
+            choices: [.quints, .windsDragons, .evens2468, .consecutiveRun],
             answer: .quints,
             explanation: "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch both pungs into quints. Joker-rich racks look up, not sideways."
         ),
@@ -204,7 +204,7 @@ enum PlusContent {
             frontTiles: [.wind(.north)],
             frontSubtitle: "Nobody has exposed a wind. Keep or throw?",
             backTitle: "Throw It",
-            backBody: "A lone North with no partner needs two of the three remaining Norths just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+            backBody: "A lone North with no partner needs two more Norths or jokers just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
             choice: CardChoice("Keep it", "Throw it", answerIndex: 1)
         ),
         Flashcard(

@@ -202,7 +202,8 @@ final class FeedbackService: ObservableObject {
         guard let http = response as? HTTPURLResponse else { throw URLError(.badServerResponse) }
         switch http.statusCode {
         case 200..<300: return true
-        case 500..<600: throw URLError(.badServerResponse)
+        // Timeouts and rate limits pass; keep the row and retry later.
+        case 408, 429, 500..<600: throw URLError(.badServerResponse)
         default: return false
         }
     }

@@ -113,12 +113,12 @@ final class SubscriptionService: NSObject, ObservableObject {
     /// instead of skipping it, so a slow sync cannot let a member be sold,
     /// but never holds the button more than a few seconds on a stalled one.
     func recoverReinstalledMembershipIfNeeded() async {
-        if let running = membershipRecovery {
-            await withTaskGroup(of: Void.self) { group in
-                group.addTask { await running.value }
-                group.addTask { try? await Task.sleep(nanoseconds: 3_000_000_000) }
-                await group.next()
-                group.cancelAll()
+        if membershipRecovery != nil {
+            // Poll rather than await the task: an await on it cannot be cut
+            // short, and a task group waits for every child before it returns.
+            let deadline = Date().addingTimeInterval(3)
+            while membershipRecovery != nil, Date() < deadline {
+                try? await Task.sleep(nanoseconds: 100_000_000)
             }
             return
         }

@@ -421,6 +421,8 @@ struct PaywallView: View {
             defer { purchasing = false }
             do {
                 await subscriptions.ensureOfferings()
+                // A reinstalled member recovered just now: nothing to sell.
+                guard !subscriptions.isPro else { return }
                 let outcome = try await subscriptions.purchase(subscriptions.package(for: selectedPlan))
                 guard outcome == .purchased else { return }
                 Haptics.success()

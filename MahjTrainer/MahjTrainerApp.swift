@@ -25,6 +25,9 @@ struct MahjTrainerApp: App {
                     // offline also retries every time the app comes back.
                     guard phase == .active else { return }
                     Task { await FeedbackService.shared.flushPending() }
+                    // Keeps "1st of each month" true for players who never
+                    // cold-launch: the three scheduled months roll forward.
+                    MonthlyChallengeReminder.refresh()
                     MetaAds.activateApp()
                 }
                 .onAppear {

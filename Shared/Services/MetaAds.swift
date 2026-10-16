@@ -32,6 +32,9 @@ enum MetaAds {
         // Captures only: shows the real ATT prompt without a Meta app.
         if ProcessInfo.processInfo.arguments.contains("-mahj.previewMetaATT") { return true }
         #endif
+        // Never on a simulator: the SDK does not start there, and the alert
+        // would land in every App Store screenshot run.
+        guard !isSimulator else { return false }
         return !infoString("FacebookAppID").isEmpty && !infoString("FacebookClientToken").isEmpty
     }
 

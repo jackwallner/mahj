@@ -395,7 +395,7 @@ struct MonthlyChallengeResultView: View {
                 VStack(spacing: 1) {
                     Text("\(result.score)/\(result.total)")
                         .font(Theme.display(34))
-                        .foregroundStyle(tone)
+                        .foregroundStyle(fraction >= 0.5 && fraction < 0.75 ? Theme.goldText : tone)
                         .monospacedDigit()
                     Text("right")
                         .font(.caption.weight(.semibold))

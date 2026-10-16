@@ -62,7 +62,9 @@ Apple-eligibility gating ("Subscribe" / "Get Mahj+" for ineligible or
 unknown accounts) and a trial-end reminder screen after purchase; build 47
 removed both and verified the trial page pixel-identical to 1.3.2 at default
 text size (paywall identical bar the Home behind the sheet). Accessibility
-sizes may lay out differently, since they scroll. A reinstalled member is
+sizes may lay out differently, since they scroll. iPad keeps 1.3.2's full
+width too: build 52 removed a 760pt readable-width cap from the onboarding
+pages and footer that had narrowed the trial CTA on large iPads. A reinstalled member is
 still synced from StoreKit before the purchase runs, and `startedTrial`
 comes from the entitlement, not the product.
 

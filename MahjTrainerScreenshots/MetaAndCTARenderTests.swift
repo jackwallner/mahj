@@ -2,9 +2,9 @@ import XCTest
 
 /// Captures for the October 2026 Meta prep and the trial button wordings.
 ///
-/// - Every `TrialCTA` wording on both purchase surfaces (`-mahj.trialCTA`).
+/// - Every `TrialCTA` wording on both purchase surfaces (`-mahj.rc.trial_cta`).
 /// - Apple's tracking prompt: absent through onboarding, shown on Home after
-///   it (`-mahj.previewMetaATT` stands in for a Meta app id).
+///   it (`-mahj.previewMetaATT` turns it on in the simulator).
 ///
 /// Run: scripts/capture-meta-cta.sh <udid> <out-dir>. Reinstall first: the
 /// ATT answer survives relaunches of the same install.

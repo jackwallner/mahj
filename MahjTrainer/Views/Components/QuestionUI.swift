@@ -189,7 +189,10 @@ struct ChoiceList: View {
             announceGrade()
             // Reduce Motion keeps the colours, icons and border that carry
             // the grade, and drops the pop, the shine and the shake.
-            guard !reduceMotion else { return }
+            guard !reduceMotion else {
+                landed = true
+                return
+            }
             withAnimation(.spring(response: 0.35, dampingFraction: 0.5).delay(0.05)) {
                 landed = true
             }

@@ -44,6 +44,9 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
 - The in-app 50/50 `CTAExperiment` was removed in build 47: it had no
   control arm and needed a release to change. The wording is now `TrialCTA`,
   picked by offering metadata `trial_cta` (see `membership-and-trial.md`).
+- `MetaAds.isEnabled` is false on a simulator (the SDK never starts there,
+  and the ATT alert would land in every screenshot run); captures opt in
+  with `-mahj.previewMetaATT`.
 - `MetaAds.extinfo` leaves the two storage slots empty: disk space is an
   Apple required-reason API, and no listed reason covers sending it to an ad
   network.

@@ -4,12 +4,10 @@ Twelve questions on one skill, the same for every player, with a fresh set on th
 
 Home and Your Progress now show how many questions you locked in this week, so you can see the practice working instead of guessing.
 
-Members can set their game night straight from Home, and the prep reminder now says what you locked in since last week.
+Members can set their game night straight from Home, and a prep reminder brings you back before you play.
 
 Most questions have a "Something wrong?" link. Flag a wrong answer or a confusing explanation and it goes straight to the developer.
 
 Send Feedback is a text box and one button now. No mail app, no account.
-
-If you start a free trial, the app offers one reminder two days before it ends.
 
 Thank you for the notes and the ratings. They are how a one-person app gets found.

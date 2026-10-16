@@ -114,7 +114,6 @@ struct HomeView: View {
                     }
                 }
             }
-            .task { presentWhatsNewIfNeeded() }
             .onChange(of: showWhatsNew) { _, isShowing in
                 if !isShowing { homeIsBareAgain() }
             }
@@ -151,6 +150,7 @@ struct HomeView: View {
             }
             .onChange(of: showPaywall) { _, isShowing in
                 if !isShowing, !subscriptions.isPro { pendingAfterUpgrade = nil }
+                if !isShowing { homeIsBareAgain() }
             }
         }
         .tint(Theme.jade)
@@ -232,6 +232,7 @@ struct HomeView: View {
     /// A sheet closed or the player came back to Home: anything that waited
     /// for a bare Home gets its turn (the churn question first, then ATT).
     private func homeIsBareAgain() {
+        presentWhatsNewIfNeeded()
         presentChurnPromptIfNeeded()
         Task { await askForTrackingIfNeeded() }
     }
@@ -288,11 +289,17 @@ struct HomeView: View {
     }
 
     /// The post-update note, once. Deliberately deferred a beat so it lands on
-    /// a drawn Home rather than racing the first frame.
+    /// a drawn Home rather than racing the first frame, and never over a
+    /// screen the player opened from a notification or the challenge link;
+    /// it waits for them to come back to Home.
     private func presentWhatsNewIfNeeded() {
         guard WhatsNew.shouldPresent(hasOnboarded: progress.hasOnboarded) else { return }
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 500_000_000)
+            guard homeIsBare, WhatsNew.shouldPresent(hasOnboarded: progress.hasOnboarded) else { return }
+            // Seen once shown: a swipe-down dismiss must not bring it back
+            // every time Home is bare again.
+            WhatsNew.markSeen()
             showWhatsNew = true
         }
     }
@@ -390,7 +397,7 @@ struct HomeView: View {
                 // worth a chip; the ring already says where things stand.
                 if let gain = ledger.weeklyGain() {
                     statChip(value: gain, icon: "arrow.up.right", color: Theme.plum,
-                             label: "\(gain) questions locked in this week", prefix: "+")
+                             label: "\(gain) \(gain == 1 ? "question" : "questions") locked in this week", prefix: "+")
                 }
             }
         }

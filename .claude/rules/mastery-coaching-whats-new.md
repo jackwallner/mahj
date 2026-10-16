@@ -39,7 +39,11 @@ launch after an update. A FRESH install never sees it: onboarding calls
 `WhatsNew.markCurrentAsBaseline()`. An onboarded player with no stored marker
 is an upgrader from a pre-1.1 build and does get it. The sheet raises
 `onUpgrade` rather than presenting `PaywallView` itself, because a sheet cannot
-present another sheet while dismissing.
+present another sheet while dismissing. Home shows it only on a bare Home
+(`homeIsBare`), so a notification or `mahj://challenge` launch opens its
+screen first and the sheet waits for the player to come back, and it is
+marked seen as it is shown (a swipe-down dismiss would otherwise bring it
+back every time Home is bare again).
 
 **1.4.1 update notes (2026-10-16):** 1.4.0 was pulled before release, so its
 release entry was renamed to 1.4.1 (build 47): a 1.3.2 player sees the 1.4

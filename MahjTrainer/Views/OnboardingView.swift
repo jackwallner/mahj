@@ -121,8 +121,6 @@ struct OnboardingView: View {
             }
         }
         .padding(.horizontal, 28)
-        .frame(maxWidth: Theme.readableContentWidth)
-        .frame(maxWidth: .infinity)
     }
 
     private func infoPage(icon: String, title: String, body bodyText: String, tiles: [Tile]) -> some View {
@@ -351,10 +349,7 @@ struct OnboardingView: View {
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 10)
-        // Same column as the pages above: on a 13-inch iPad a full-width CTA
-        // and price line read as a different screen from the text they close.
-        .frame(maxWidth: Theme.readableContentWidth)
-        .frame(maxWidth: .infinity)
+        // Full width as in 1.3.2: the trial flow's layout is frozen, iPad too.
     }
 
     private var onTrialPageNow: Bool { page == lastPage }

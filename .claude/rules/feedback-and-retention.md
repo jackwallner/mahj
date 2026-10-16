@@ -26,8 +26,9 @@ publishable key in the binary can only INSERT rows where `app = 'mahj'` and
 read anything. Reading needs the management API or the dashboard:
 `scripts/feedback-inbox.sh` prints unread rows and marks them read.
 
-Delivery rules: 2xx is sent, a network error queues the row in UserDefaults
-(cap 20) and `flushPending()` retries on the next launch, a 4xx is dropped.
+Delivery rules: 2xx is sent, a network error, 408, 429 or 5xx queues the row
+in UserDefaults (cap 20) and `flushPending()` retries on the next launch or
+return to the app, any other 4xx is dropped.
 Never retry a rejected row forever. A flush removes each row only after the
 server answered for it (the first version cleared the queue up front and lost
 every report after the first offline failure). Nothing personal is sent:

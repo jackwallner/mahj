@@ -120,7 +120,7 @@ struct StatsView: View {
                 Text("Up \(gain) question\(gain == 1 ? "" : "s") this week")
                     .font(.headline)
                     .foregroundStyle(Theme.ink)
-                Text(strongest.map { "Most of it in \($0.name). Keep that pace and it holds." }
+                Text(strongest.map { "Biggest jump in \($0.name). Keep that pace and it holds." }
                      ?? "Questions you have now answered right twice running.")
                     .font(.caption)
                     .foregroundStyle(Theme.inkSecondary)
