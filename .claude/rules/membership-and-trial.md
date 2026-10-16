@@ -85,3 +85,9 @@ conversion; read trials started per viewer. Created through `rc api POST
 /projects/<id>/experiments` and `.../actions/start` (targeting is immutable
 once started; RevenueCat stores it as `pinned_audience`).
 
+Decision rule (Jack, 2026-10-16): no 95% bar. The control is proven and a
+winner flips back remotely, so after about 3 weeks live take the arm
+RevenueCat shows at 75% chance to win or better on initial conversion; if
+neither gets there by about 5 weeks, stop and keep 7-day. Promote "my" by
+setting `cta_my` as the default offering.
+
