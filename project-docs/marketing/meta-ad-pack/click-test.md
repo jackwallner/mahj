@@ -48,6 +48,27 @@ Placement-customized creatives C1 `1090472490279204` and C7
 picks a website destination (a mahj site page that sends people on to the
 App Store with the per-ad `ct` link), then new creatives and the 3 ads.
 
+Status 2026-10-16 (Part 4, App Promotion rebuild): Jack registered Mahj as
+Meta app `987930193620309` (bundle com.jackwallner.mahj, store ID
+6790052126). New campaign `120251566262580737` "Mahj US W40+ app click test
+2610" (OUTCOME_APP_PROMOTION, auction, no special category, no campaign
+budget) and ad set `120251566264100737` "US W40+ iOS manual 6 placements"
+(promoted app 987930193620309 with store URL
+https://apps.apple.com/us/app/id6790052126, destination APP, LINK_CLICKS
+accepted, IMPRESSIONS billing, highest volume, $10/day, no end date, US women
+40 to 65, Advantage+ audience off, FB Feed/Stories/Reels and IG
+Feed/Stories/Reels, mobile, iOS) created and read back, both PAUSED, $0
+spent. The Traffic campaign and its ad set are untouched and still PAUSED.
+C1 creative `1896386585067602` (4:5 feed, 9:16 Stories/Reels, Install Now,
+per-ad `ct` link, enhancements, music and site links off) exists. **Ads are
+blocked:** Meta refuses the ad with "Instagram Account Is Missing" (subcode
+1772103) because the ad set includes Instagram placements and the ad account
+has no Instagram account, not even a Page-backed one, and the MCP cannot
+create one. Next: Jack either links an Instagram account (or the Page-backed
+one) to the ad account, or approves Facebook-only placements; then the
+creatives are rebuilt with that identity and the 3 ads created. Whether Meta
+keeps the `ct` parameter is unknown until an ad exists.
+
 ## Question
 
 Can Meta put Mahj Trainer in front of women 40+ who install, at under the
