@@ -4,9 +4,11 @@ Status 2026-10-16: **turned on.** Meta app `987930193620309` (Live, E3 Fitness L
 iOS bundle + store ID, ad account `1842133493904848` authorized, App Page Mahj
 Trainer, automatic in-app event logging off). Dataset `1445876447511793`; its
 CAPI token is in `~/.mahj_credentials` and set as the relay's `META_DATASET_ID` /
-`META_CAPI_TOKEN` secrets. SDK on from build 50 (1.4.1, TestFlight; 49 superseded). Left:
-RevenueCat Meta integration (Jack, step 6), app icon on the Meta app (Jack),
-privacy labels (step 7) before the App Store submission. One stray test
+`META_CAPI_TOKEN` secrets. SDK on from build 50 (1.4.1, TestFlight; 49 superseded). RevenueCat Meta
+integration saved 2026-10-16 (CAPI, dataset above, ATT-unauthorized off, Trial
+Started and Qualified Trial not sent, Subscribe for conversions and renewals).
+Meta app icon uploaded. Left: privacy labels (step 7) before the App Store
+submission. One stray test
 StartTrial was recorded as a live event on 2026-10-16 (wrong test code).
 
 Status 2026-10-15: code ready, relay live, **no Meta app, no ad account, no
