@@ -73,6 +73,28 @@ final class MembershipTransitionsTests: XCTestCase {
         service.consumeChurnMoment()
     }
 
+    /// Renewal off, then back on before Home asked: the queued question
+    /// would now be false, so it goes.
+    @MainActor
+    func testComingBackDropsAQueuedQuestion() {
+        let defaults = UserDefaults(suiteName: "MembershipTransitionsReturn")!
+        defaults.removePersistentDomain(forName: "MembershipTransitionsReturn")
+        let service = SubscriptionService.shared
+        service.consumeChurnMoment()
+
+        service.observe(trialOn, defaults: defaults)
+        service.observe(trialOff, defaults: defaults)
+        XCTAssertEqual(service.pendingChurnMoment, .trialRenewalOff)
+        service.observe(trialOn, defaults: defaults)
+        XCTAssertNil(service.pendingChurnMoment)
+        XCTAssertNil(defaults.string(forKey: "membership.pendingChurnMoment"))
+
+        // Leaving again later still gets its one ask.
+        service.observe(trialOff, defaults: defaults)
+        XCTAssertEqual(service.pendingChurnMoment, .trialRenewalOff)
+        service.consumeChurnMoment()
+    }
+
     /// A months-old cached record must not become the first baseline: a
     /// member who lapsed on an older build was asked "why are you leaving"
     /// a second after launch.

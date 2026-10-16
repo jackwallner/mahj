@@ -7,8 +7,7 @@
 #   scripts/capture-meta-cta.sh <simulator-udid> <output-dir>
 #
 # Why a UI test and not simctl: the test drives the app to both surfaces and
-# passes -mahj.previewTrialEligible so the free-week copy renders (the real app
-# shows it only when Apple says the Apple Account is eligible). Headless:
+# captures the trial copy exactly as it ships. Headless:
 # never opens Simulator.app.
 set -euo pipefail
 
@@ -63,7 +62,7 @@ if (( test_status != 0 )); then
   exit "$test_status"
 fi
 
-for expected in ${EXPECTED:-cta_my_onboarding.png cta_your_paywall.png att_prompt_home.png}; do
+for expected in ${EXPECTED:-cta_seven_day_onboarding.png cta_my_onboarding.png cta_your_paywall.png att_prompt_home.png}; do
   if [[ ! -f "$OUT/$expected" ]]; then
     echo "missing required capture: $expected" >&2
     exit 1

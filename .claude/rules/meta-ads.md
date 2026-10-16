@@ -1,14 +1,14 @@
 ---
 paths:
   - "Shared/Services/MetaAds.swift"
-  - "Shared/Services/CTAExperiment.swift"
+  - "Shared/Services/TrialCTA.swift"
   - "supabase/**"
   - "MahjTrainer/Views/HomeView.swift"
   - "MahjTrainerScreenshots/MetaAndCTARenderTests.swift"
   - "project-docs/marketing/meta-ads.md"
 ---
 
-# Mahj: Meta ads prep and the CTA wording test (2026-10-15)
+# Mahj: Meta ads prep and the trial button wording (2026-10-15)
 
 Full write-up: `project-docs/marketing/meta-ads.md`.
 
@@ -27,8 +27,8 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
 - StartTrial belongs to `supabase/functions/meta-trial-relay`, never to
   RevenueCat's Meta integration: RevenueCat cannot hold an event 15 minutes.
   If the RC integration ever sends StartTrial, the filter is defeated.
-- `CTAExperiment` (`cta_wording` attribute, 50/50, sticky per install) drives
-  every trial CTA. Method and decision rule: `~/ios/growth/cta-wording-test.md`.
-  After the readout, delete it and hardcode the winner.
-- Captures: `scripts/capture-meta-cta.sh <udid> <out-dir>` (reinstalls, both
-  arms on both surfaces, ATT timing, `checks_*` PASS/FAIL attachments).
+- The in-app 50/50 `CTAExperiment` was removed in build 47: it had no
+  control arm and needed a release to change. The wording is now `TrialCTA`,
+  picked by offering metadata `trial_cta` (see `membership-and-trial.md`).
+- Captures: `scripts/capture-meta-cta.sh <udid> <out-dir>` (reinstalls, every
+  `TrialCTA` wording on both surfaces, ATT timing, `checks_*` PASS/FAIL attachments).

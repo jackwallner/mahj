@@ -72,6 +72,7 @@ Terms of Use, and Privacy Policy. Don't trim any of them for layout.
 Condensed from the deep notes below; the reasoning and the bugs behind each one live there.
 - Generated racks are ORIGINAL structures, never card hands, and `RackGenerator` throws away any rack that reads as more than one section.
 - `Room.isLocked(_:isMember:)` is the single source of truth for locking.
+- The trial flow (onboarding trial page, paywall, purchase to tour) is frozen at 1.3.2: it converts. Only the button wording varies, through RevenueCat offering metadata (`TrialCTA`). Any other change needs Jack's go-ahead.
 - `OnboardingView.trialDisclosure` must always name the same plan the CTA buys (3.1.2). A player backing out of Apple's sheet is `PurchaseOutcome.cancelled`, not an error: never answer it with another paywall.
 - `QuickItem.choiceNotes` rides the same permutation as `choices` in `SessionBuilder.prepared`.
 - `RootView` branches onboarding vs `HomeView` on `progress.hasOnboarded`, never a fullScreenCover. The primer and the tour always keep an escape hatch straight to Home.
@@ -90,9 +91,9 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/home-and-onboarding-flow.md` | Views: the lobby, onboarding branch, primer and tour | `RootView`, Home, rooms, onboarding |
 | `.claude/rules/design-and-ipad.md` | Theme and haptics, iPad layout, no illustration | `Theme`, components, drill layouts |
 | `.claude/rules/screenshots.md` | Screenshots: captured, not hand-shot | Capture scripts, the `Screenshots` scheme |
-| `.claude/rules/feedback-and-retention.md` | Feedback sink, question reports, churn question, weekly gain ledger, personalised reminders, trial-end reminder (1.4) | `FeedbackService`, `ReviewPromptSheet`, `MasteryLedger`, churn prompts, reminder copy |
+| `.claude/rules/feedback-and-retention.md` | Feedback sink, question reports, churn question, weekly gain ledger, personalised reminders (1.4) | `FeedbackService`, `ReviewPromptSheet`, `MasteryLedger`, churn prompts, reminder copy |
 | `.claude/rules/monthly-challenge.md` | The free monthly challenge, its rotation and the monthly event + nomination | `MonthlyChallengeContent`, `mahj://challenge`, in-app events |
-| `.claude/rules/meta-ads.md` | Meta SDK + ATT (inert until a Meta app exists), the 15-minute StartTrial relay, the CTA wording test | `MetaAds`, `CTAExperiment`, `supabase/`, ATT timing |
+| `.claude/rules/meta-ads.md` | Meta SDK + ATT (inert until a Meta app exists), the 15-minute StartTrial relay | `MetaAds`, `TrialCTA`, `supabase/`, ATT timing |
 | `.claude/rules/android.md` | The Android port: exported content, RNG parity, Play identity, deliberate differences | Anything under `android/` or the content export |
 
 ## Flashcard deck (signature interaction)

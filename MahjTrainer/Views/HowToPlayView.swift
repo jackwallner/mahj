@@ -13,6 +13,7 @@ struct HowToPlayView: View {
     var onSkip: (() -> Void)?
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
     @AppStorage("mahj.recommendedRoomHint") private var recommendedRoomHint = ""
     /// Read to the end once: Home stops showing the primer card, and the
@@ -33,23 +34,16 @@ struct HowToPlayView: View {
     var body: some View {
         VStack(spacing: 18) {
             progressDots
-            Spacer(minLength: 0)
-            pageCard
-                .id(page.id)
-                .offset(x: drag)
-                .rotationEffect(.degrees(Double(drag / 40)), anchor: .bottom)
-                .transition(goingForward
-                    ? .asymmetric(
-                        insertion: .move(edge: .trailing).combined(with: .opacity),
-                        removal: .move(edge: .leading).combined(with: .opacity)
-                    )
-                    : .asymmetric(
-                        insertion: .move(edge: .leading).combined(with: .opacity),
-                        removal: .move(edge: .trailing).combined(with: .opacity)
-                    )
-                )
-                .gesture(pageSwipe)
-            Spacer(minLength: 0)
+            if dynamicTypeSize.isAccessibilitySize {
+                // At the largest sizes a page outgrows the screen and pushed
+                // Continue and Skip below it with no way to reach them. The
+                // page scrolls there; the footer stays put.
+                ScrollView { movingCard }
+            } else {
+                Spacer(minLength: 0)
+                movingCard
+                Spacer(minLength: 0)
+            }
             footer
         }
         .padding()
@@ -60,6 +54,27 @@ struct HowToPlayView: View {
         .navigationTitle("How to Play")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { fireShine() }
+    }
+
+    /// The page card with its swipe, tilt and page transition.
+    private var movingCard: some View {
+        pageCard
+            .id(page.id)
+            .offset(x: drag)
+            .rotationEffect(.degrees(Double(drag / 40)), anchor: .bottom)
+            .transition(goingForward
+                ? .asymmetric(
+                    insertion: .move(edge: .trailing).combined(with: .opacity),
+                    removal: .move(edge: .leading).combined(with: .opacity)
+                )
+                : .asymmetric(
+                    insertion: .move(edge: .leading).combined(with: .opacity),
+                    removal: .move(edge: .trailing).combined(with: .opacity)
+                )
+            )
+            // Inside the accessibility-size scroll view a drag must scroll;
+            // Back and Continue still page there.
+            .gesture(pageSwipe, including: dynamicTypeSize.isAccessibilitySize ? .subviews : .all)
     }
 
     /// Swipe left for the next page, right for the previous one. The card

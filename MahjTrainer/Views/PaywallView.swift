@@ -4,12 +4,9 @@ import RevenueCat
 enum PaywallPlan: String, CaseIterable {
     case yearly, lifetime, monthly
 
-    /// The free week is named only when Apple has said this Apple Account
-    /// gets it (`SubscriptionService.offersFreeTrial`).
-    /// The trial wording is the CTA test's arm (`CTAExperiment`).
-    func ctaTitle(freeTrial: Bool, arm: CTAExperiment.Arm = CTAExperiment.arm) -> String {
-        if self == .lifetime { return "Unlock \(Membership.name) Forever" }
-        return freeTrial ? CTAExperiment.trialCTATitleCase(arm) : "Subscribe"
+    /// `trialTitle` is the subscription plans' button (`TrialCTA`).
+    func ctaTitle(trialTitle: String = TrialCTA.sevenDay.title(.paywall)) -> String {
+        self == .lifetime ? "Unlock \(Membership.name) Forever" : trialTitle
     }
 
     var packageType: PackageType {
@@ -93,16 +90,11 @@ struct PaywallContent: View {
             planCard(.yearly, title: "Yearly", price: PaywallPricing.priceText(subscriptions, .yearly),
                      perMonth: PaywallPricing.perMonthEquivalent(subscriptions),
                      anchor: PaywallPricing.monthlyAnchor(subscriptions),
-                     detail: subscriptions.offersFreeTrial(.yearly)
-                        ? "7 days free, then billed yearly. Auto-renews."
-                        : "Billed yearly. Auto-renews.",
+                     detail: "7 days free, then billed yearly. Auto-renews.",
                      badge: PaywallPricing.savingsBadge(subscriptions))
             planCard(.monthly, title: "Monthly", price: PaywallPricing.priceText(subscriptions, .monthly),
                      perMonth: nil, anchor: nil,
-                     detail: subscriptions.offersFreeTrial(.monthly)
-                        ? "7 days free, then billed monthly. Auto-renews."
-                        : "Billed monthly. Auto-renews.",
-                     badge: nil)
+                     detail: "7 days free, then billed monthly. Auto-renews.", badge: nil)
             planCard(.lifetime, title: "Lifetime", price: PaywallPricing.priceText(subscriptions, .lifetime),
                      perMonth: nil, anchor: nil,
                      detail: "One payment. No subscription, nothing renews.", badge: "NO SUBSCRIPTION")
@@ -128,7 +120,7 @@ struct PaywallContent: View {
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
                                 .background(Theme.gold.opacity(0.18), in: Capsule())
-                                .foregroundStyle(Theme.goldText)
+                                .foregroundStyle(Theme.gold)
                         }
                     }
                     Text(detail)
@@ -260,26 +252,25 @@ enum PaywallPricing {
     }
 
     /// One concise point-of-purchase line: price, trial, auto-renew, cancel.
-    /// The full legalese lives in the EULA behind the Terms link. The free
-    /// week appears only when Apple says this Apple Account gets it.
+    /// The full legalese lives in the EULA behind the Terms link.
     static func terms(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String {
-        terms(amount: price(subscriptions, plan), plan: plan, freeTrial: subscriptions.offersFreeTrial(plan))
+        terms(amount: price(subscriptions, plan), plan: plan)
     }
 
-    static func terms(amount: String?, plan: PaywallPlan, freeTrial: Bool) -> String {
-        switch (plan, amount, freeTrial) {
-        case (.lifetime, nil, _):
-            return "One-time purchase. Not a subscription, nothing renews."
-        case (.lifetime, let amount?, _):
+    static func terms(amount: String?, plan: PaywallPlan) -> String {
+        guard let amount else {
+            switch plan {
+            case .lifetime:
+                return "One-time purchase. Not a subscription, nothing renews."
+            case .yearly, .monthly:
+                return "Includes 7 days free. Auto-renews until canceled."
+            }
+        }
+        switch plan {
+        case .lifetime:
             return "\(amount) one-time. Not a subscription, nothing renews."
-        case (_, nil, true):
-            return "Includes 7 days free. Auto-renews until canceled. Cancel anytime in Settings."
-        case (_, nil, false):
-            return "Auto-renews until canceled. Cancel anytime in Settings."
-        case (_, let amount?, true):
-            return "7 days free, then \(amount). Auto-renews until canceled. Cancel anytime in Settings."
-        case (_, let amount?, false):
-            return "\(amount). Auto-renews until canceled. Cancel anytime in Settings."
+        case .yearly, .monthly:
+            return "7 days free, then \(amount). Auto-renews until canceled."
         }
     }
 }
@@ -300,24 +291,9 @@ struct PaywallView: View {
     /// flashes a connection error at the customer.
     @State private var priceLoadAttempted = false
     @State private var message: String?
-    /// Set when a purchase just started a real free trial: the sheet offers
-    /// the trial-end reminder before it closes, as onboarding does.
-    @State private var trialReminderEnd: Date?
-    @EnvironmentObject private var settings: AppSettings
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
-        if let end = trialReminderEnd {
-            TrialReminderOfferView(
-                onAccept: { settings.requestTrialEndReminder(trialEndsAt: end) { _ in dismiss() } },
-                onDecline: { dismiss() }
-            )
-        } else {
-            purchaseScreen
-        }
-    }
-
-    private var purchaseScreen: some View {
         NavigationStack {
             ScrollView {
                 PaywallContent(selectedPlan: $selectedPlan)
@@ -357,15 +333,7 @@ struct PaywallView: View {
                 Text(message ?? "")
             }
             .onChange(of: subscriptions.isPro) { _, isPro in
-                guard isPro else { return }
-                // A trial started here, not a restore or a paid plan: offer
-                // the reminder first. Most later trials start on this sheet.
-                if purchasing, subscriptions.isTrialing, let end = subscriptions.expirationDate,
-                   AppSettings.trialReminderFireDate(trialEndsAt: end) != nil {
-                    trialReminderEnd = end
-                } else {
-                    dismiss()
-                }
+                if isPro { dismiss() }
             }
             .task {
                 subscriptions.trackPaywallImpression(id: source)
@@ -399,7 +367,7 @@ struct PaywallView: View {
                     if purchasing || loadingPrices || (!priceLoadAttempted && !priceReady) {
                         ProgressView().tint(Theme.onFill)
                     } else {
-                        Text(selectedPlan.ctaTitle(freeTrial: subscriptions.offersFreeTrial(selectedPlan)))
+                        Text(selectedPlan.ctaTitle(trialTitle: subscriptions.trialCTA(.paywall)))
                     }
                 }
                 .primaryCTA()
@@ -430,8 +398,6 @@ struct PaywallView: View {
             loadingPrices = false
             priceLoadAttempted = true
         }
-        // `loadOfferings` asks for eligibility again too; an unknown answer
-        // is never cached, so a retry here can still turn the free week on.
         await subscriptions.loadOfferings()
     }
 

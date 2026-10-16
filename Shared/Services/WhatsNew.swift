@@ -45,7 +45,9 @@ enum WhatsNew {
 
     static let releases: [WhatsNewRelease] = [
         WhatsNewRelease(
-            version: "1.4.0",
+            // Shipping as 1.4.1: 1.4.0 was pulled before release, and this
+            // matches CFBundleShortVersionString exactly.
+            version: "1.4.1",
             headline: "Built around your week",
             items: [
                 WhatsNewItem(

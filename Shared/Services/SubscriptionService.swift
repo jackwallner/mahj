@@ -46,11 +46,6 @@ final class SubscriptionService: NSObject, ObservableObject {
     /// When the current entitlement ends: the trial's real end while trialing.
     @Published private(set) var expirationDate: Date?
     @Published private(set) var offerings: Offerings?
-    /// Apple's answer to "would this Apple Account get the free week on this
-    /// plan?", per subscription plan. One introductory offer per subscription
-    /// group per Apple Account, ever, so anyone who has trialled monthly or
-    /// yearly before is charged on day one. Missing means not known yet.
-    @Published private(set) var introEligibility: [PaywallPlan: IntroEligibilityStatus] = [:]
     /// Set when a trial or membership was just seen turning toward the exit,
     /// and not yet asked about. Home presents the one-question prompt and
     /// clears it. Survives a launch: the ask is stored, not just published.
@@ -99,39 +94,6 @@ final class SubscriptionService: NSObject, ObservableObject {
             await loadOfferings()
             await recovered
         }
-    }
-
-    /// Whether the purchase surfaces may promise the free week for `plan`.
-    ///
-    /// Only on Apple's own "eligible". Ineligible, no offer, or not known yet
-    /// all get plain pricing (RevenueCat's guidance for unknown): telling a
-    /// returning subscriber "7 days free" and then charging them on day one
-    /// is the bait-and-switch 3.1.2(a) forbids, and a refund request.
-    func offersFreeTrial(_ plan: PaywallPlan) -> Bool {
-        #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("-mahj.previewTrialEligible") { return plan != .lifetime }
-        #endif
-        return Self.offersFreeTrial(plan, eligibility: introEligibility[plan])
-    }
-
-    nonisolated static func offersFreeTrial(_ plan: PaywallPlan, eligibility: IntroEligibilityStatus?) -> Bool {
-        plan != .lifetime && eligibility == .eligible
-    }
-
-    /// Asks StoreKit (through RevenueCat) which subscription plans would
-    /// start with the free week for this Apple Account. On-device, no
-    /// RevenueCat request; RevenueCat caches the answer and clears it whenever
-    /// the customer record changes, so it is asked again then.
-    func refreshIntroEligibility() async {
-        guard isConfigured else { return }
-        let plans: [PaywallPlan] = [.monthly, .yearly]
-        let products = plans.compactMap { plan in package(for: plan).map { (plan, $0.storeProduct) } }
-        guard !products.isEmpty else { return }
-        var answers: [PaywallPlan: IntroEligibilityStatus] = [:]
-        for (plan, product) in products {
-            answers[plan] = await Purchases.shared.checkTrialOrIntroDiscountEligibility(product: product)
-        }
-        introEligibility = answers
     }
 
     /// A reinstall is a new anonymous RevenueCat user, and iOS does not bring
@@ -236,9 +198,9 @@ final class SubscriptionService: NSObject, ObservableObject {
         if let offering = offerings?.current?.identifier {
             attributes["offering_id"] = offering
         }
-        // Trial CTA wording test arm. Sent with the funnel record, so only
-        // customers who were actually shown a pitch carry it.
-        attributes[CTAExperiment.attributeKey] = CTAExperiment.arm.rawValue
+        // Which trial button wording this customer saw (`TrialCTA`), for
+        // reading a wording Experiment by attribute as well as by offering.
+        attributes[TrialCTA.metadataKey] = trialCTAArm.rawValue
         // `setAttributes` only queues. RevenueCat uploads the queue when the app
         // backgrounds, or folds it into the POST that creates a customer, and a
         // customer-info fetch does NOT flush it (measured, not assumed). That is
@@ -262,7 +224,6 @@ final class SubscriptionService: NSObject, ObservableObject {
     func loadOfferings() async {
         guard isConfigured else { return }
         offerings = try? await Purchases.shared.offerings()
-        await refreshIntroEligibility()
     }
 
     func package(for plan: PaywallPlan) -> Package? {
@@ -290,7 +251,6 @@ final class SubscriptionService: NSObject, ObservableObject {
     func ensureOfferings() async -> Bool {
         guard isConfigured else { return false }
         await recoverReinstalledMembershipIfNeeded()
-        if introEligibility.isEmpty, offerings?.current != nil { await refreshIntroEligibility() }
         if offerings?.current != nil { return true }
         await loadOfferings()
         return offerings?.current != nil
@@ -388,6 +348,10 @@ final class SubscriptionService: NSObject, ObservableObject {
         }
         if MembershipTransitions.resetsAsk(from: previous, to: current) {
             defaults.removeObject(forKey: churnAskSpentKey)
+            // They came back before Home asked: a queued "why are you
+            // leaving?" is now false, so drop it.
+            pendingChurnMoment = nil
+            defaults.removeObject(forKey: pendingChurnKey)
         }
         guard pendingChurnMoment == nil, !defaults.bool(forKey: churnAskSpentKey) else { return }
         guard let moment = MembershipTransitions.churnMoment(from: previous, to: current) else { return }
@@ -401,8 +365,6 @@ extension SubscriptionService: PurchasesDelegate {
     nonisolated func purchases(_ purchases: Purchases, receivedUpdated customerInfo: CustomerInfo) {
         Task { @MainActor in
             self.apply(customerInfo)
-            // RevenueCat drops its eligibility cache on every customer change.
-            await self.refreshIntroEligibility()
         }
     }
 }

@@ -95,7 +95,6 @@ final class PaywallRenderTests: XCTestCase {
             "-subscription.localProOverride", "NO",
             // Review captures show the eligible (free week) copy; the real
             // app shows it only when Apple says the account is eligible.
-            "-mahj.previewTrialEligible",
         ]
         if onboarded {
             app.launchArguments += ["-mahj.skillLevel", "some"]

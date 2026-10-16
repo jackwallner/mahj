@@ -3,15 +3,10 @@ import SwiftUI
 /// Onboarding: three value pages, a skill-level question, then the OT710-style
 /// trial step. The primary button keeps IDENTICAL geometry on every page (the
 /// zero-shift rule): the thumb rides Continue the whole way, and on the last
-/// page the same button becomes the purchase CTA, one tap straight
-/// to Apple's confirm ("Subscribe" when Apple says this Apple Account has
-/// already had its free week). No plan cards here; the full paywall is only a fallback
-/// when products failed to load.
-///
-/// The free week is promised only when Apple says this Apple Account gets it
-/// (`SubscriptionService.offersFreeTrial`). A reinstall by someone who has
-/// trialled before sees the same page with plain pricing and "Subscribe",
-/// because Apple charges them on day one.
+/// page the same button becomes "Start 7-day free trial", one tap straight
+/// to Apple's confirm. No plan cards here; the full paywall is only a fallback
+/// when products failed to load. This page is the proven trial flow: change
+/// the button's wording through a RevenueCat Experiment (`TrialCTA`), not here.
 ///
 /// After the trial decision (either way), brand-new players get the How to
 /// Play quick start FIRST, then everyone gets the feature tour, whose finale
@@ -29,10 +24,8 @@ struct OnboardingView: View {
     @State private var purchaseError: String?
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
 
-    private enum Stage: Equatable { case pages, trialReminder, tour, howToPlay }
+    private enum Stage: Equatable { case pages, tour, howToPlay }
     @State private var stage: Stage = .pages
-    @State private var trialEndsAt: Date?
-    @EnvironmentObject private var settings: AppSettings
 
     private let lastPage = 4
     private let skillPage = 3
@@ -42,12 +35,6 @@ struct OnboardingView: View {
             switch stage {
             case .pages:
                 pagesBody
-            case .trialReminder:
-                TrialReminderOfferView(
-                    onAccept: { acceptTrialReminder() },
-                    onDecline: { startTour() }
-                )
-                .transition(.move(edge: .trailing).combined(with: .opacity))
             case .howToPlay:
                 // Skip lands on Home, not on the next onboarding step: the
                 // whole point of an escape hatch is that it escapes.
@@ -276,12 +263,7 @@ struct OnboardingView: View {
 
     private var trialPageTitle: String {
         if subscriptions.isPro { return "\(Membership.name) is on your account" }
-        return offersTrial ? "Try \(Membership.name) free" : "Get \(Membership.name)"
-    }
-
-    /// Whether the CTA's plan starts with the free week for this Apple Account.
-    private var offersTrial: Bool {
-        !subscriptions.isPro && subscriptions.offersFreeTrial(.monthly)
+        return "Try \(Membership.name) free"
     }
 
     /// The billed amount, shown larger than anything else about price on the
@@ -303,11 +285,7 @@ struct OnboardingView: View {
         // Nobody is being charged anything here, so quoting a price would be
         // a lie about the button next to it.
         if subscriptions.isPro { return "" }
-        return PaywallPricing.terms(
-            amount: PaywallPricing.price(subscriptions, .monthly),
-            plan: .monthly,
-            freeTrial: offersTrial
-        )
+        return PaywallPricing.terms(amount: PaywallPricing.price(subscriptions, .monthly), plan: .monthly)
     }
 
     /// A player who already owns \(Membership.name) is not a trial prospect.
@@ -318,7 +296,7 @@ struct OnboardingView: View {
     /// "you're already subscribed" sheet. Recognise them and just let them in.
     private var trialCTATitle: String {
         if subscriptions.isPro { return "Continue" }
-        return offersTrial ? CTAExperiment.trialCTA() : "Subscribe"
+        return subscriptions.trialCTA(.onboarding)
     }
 
     // MARK: - Footer (identical geometry on every page: zero-shift CTA)
@@ -391,9 +369,11 @@ struct OnboardingView: View {
                 .font(.subheadline.weight(.medium))
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
-                .frame(minWidth: 160, minHeight: 44)
-                .contentShape(Rectangle())
         }
+        // 30pt, as shipped in 1.3.2: the trial page's geometry is the proven
+        // one. Only the accessibility-size layout, where it scrolls, grows it.
+        .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 44 : 30)
+        .frame(height: dynamicTypeSize.isAccessibilitySize ? nil : 30)
         .disabled(!onTrialPageNow || subscriptions.isPro || purchasing || restoring)
     }
 
@@ -485,18 +465,7 @@ struct OnboardingView: View {
                 switch outcome {
                 case .purchased:
                     if await subscriptions.confirmEntitlement() {
-                        // A trial just started: offer the reminder BEFORE the
-                        // tour, the one moment the player is thinking about
-                        // the week ahead. Only for a real trial, timed from
-                        // its real end; someone Apple charged today has no
-                        // free week to be reminded about.
-                        if subscriptions.isTrialing, let end = subscriptions.expirationDate,
-                           AppSettings.trialReminderFireDate(trialEndsAt: end) != nil {
-                            trialEndsAt = end
-                            stage = .trialReminder
-                        } else {
-                            startTour()
-                        }
+                        startTour()
                     } else {
                         purchaseError = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore."
                     }
@@ -532,18 +501,6 @@ struct OnboardingView: View {
     /// they see a tile; everyone else goes straight to the tour.
     private func startTour() {
         stage = skillLevel == "new" ? .howToPlay : .tour
-    }
-
-    /// Permission is requested here, not earlier: the system prompt lands on
-    /// a screen that has just explained exactly what the one notification is.
-    private func acceptTrialReminder() {
-        guard let end = trialEndsAt else {
-            startTour()
-            return
-        }
-        settings.requestTrialEndReminder(trialEndsAt: end) { _ in
-            startTour()
-        }
     }
 
     /// A successful purchase in the products-failed fallback must rejoin the

@@ -1,37 +1,45 @@
 import XCTest
 @testable import MahjTrainer
 
-/// The free week is only ever promised to an Apple Account that gets it.
+/// The trial flow's copy is the 1.3.2 copy; only the button wording varies,
+/// and only among the wordings compiled in (`TrialCTA`).
 @MainActor
 final class TrialCopyTests: XCTestCase {
-    func testTermsNameTheFreeWeekOnlyWhenEligible() {
+    func testTermsAreTheShippedLines() {
         XCTAssertEqual(
-            PaywallPricing.terms(amount: "$9.99/month", plan: .monthly, freeTrial: true),
-            "7 days free, then $9.99/month. Auto-renews until canceled. Cancel anytime in Settings."
+            PaywallPricing.terms(amount: "$9.99/month", plan: .monthly),
+            "7 days free, then $9.99/month. Auto-renews until canceled."
         )
-        let plain = PaywallPricing.terms(amount: "$9.99/month", plan: .monthly, freeTrial: false)
-        XCTAssertEqual(plain, "$9.99/month. Auto-renews until canceled. Cancel anytime in Settings.")
-        XCTAssertFalse(plain.localizedCaseInsensitiveContains("free"))
-        XCTAssertFalse(PaywallPricing.terms(amount: nil, plan: .yearly, freeTrial: false).localizedCaseInsensitiveContains("free"))
-        XCTAssertTrue(PaywallPricing.terms(amount: "$49.99", plan: .lifetime, freeTrial: true).contains("one-time"))
+        XCTAssertEqual(PaywallPricing.terms(amount: nil, plan: .yearly), "Includes 7 days free. Auto-renews until canceled.")
+        XCTAssertEqual(PaywallPricing.terms(amount: "$49.99", plan: .lifetime), "$49.99 one-time. Not a subscription, nothing renews.")
     }
 
-    func testCTANamesTheTrialOnlyWhenEligible() {
-        XCTAssertEqual(PaywallPlan.monthly.ctaTitle(freeTrial: true, arm: .my), "Start My Free Trial")
-        XCTAssertEqual(PaywallPlan.yearly.ctaTitle(freeTrial: true, arm: .your), "Start Your Free Trial")
-        XCTAssertEqual(PaywallPlan.yearly.ctaTitle(freeTrial: false), "Subscribe")
-        XCTAssertFalse(PaywallPlan.lifetime.ctaTitle(freeTrial: true).contains("Trial"))
+    func testControlIsTheShippedButton() {
+        XCTAssertEqual(PaywallPlan.yearly.ctaTitle(), "Start 7-Day Free Trial")
+        XCTAssertEqual(PaywallPlan.monthly.ctaTitle(), "Start 7-Day Free Trial")
+        XCTAssertFalse(PaywallPlan.lifetime.ctaTitle().contains("Trial"))
+        XCTAssertEqual(TrialCTA.sevenDay.title(.onboarding), "Start 7-day free trial")
     }
 
-    /// Unknown eligibility (no RevenueCat, as on every simulator run) is not
-    /// "eligible": plain pricing until Apple answers.
-    func testOnlyAppleSaysEligibleOffersATrial() {
-        XCTAssertTrue(SubscriptionService.offersFreeTrial(.monthly, eligibility: .eligible))
-        XCTAssertFalse(SubscriptionService.offersFreeTrial(.monthly, eligibility: nil))
-        XCTAssertFalse(SubscriptionService.offersFreeTrial(.monthly, eligibility: .unknown))
-        XCTAssertFalse(SubscriptionService.offersFreeTrial(.yearly, eligibility: .ineligible))
-        XCTAssertFalse(SubscriptionService.offersFreeTrial(.yearly, eligibility: .noIntroOfferExists))
-        XCTAssertFalse(SubscriptionService.offersFreeTrial(.lifetime, eligibility: .eligible))
+    /// No metadata, a typo, or a non-string all mean the control.
+    func testOfferingMetadataPicksOnlyAKnownArm() {
+        XCTAssertEqual(TrialCTA.from(metadata: nil), .sevenDay)
+        XCTAssertEqual(TrialCTA.from(metadata: [:]), .sevenDay)
+        XCTAssertEqual(TrialCTA.from(metadata: ["trial_cta": "mine"]), .sevenDay)
+        XCTAssertEqual(TrialCTA.from(metadata: ["trial_cta": 1]), .sevenDay)
+        XCTAssertEqual(TrialCTA.from(metadata: ["trial_cta": "my"]), .my)
+        XCTAssertEqual(TrialCTA.from(metadata: ["trial_cta": "your"]), .your)
+        XCTAssertEqual(TrialCTA.from(metadata: ["trial_cta": "seven_day"]), .sevenDay)
+    }
+
+    func testEveryArmNamesTheTrialOnBothSurfaces() {
+        for arm in TrialCTA.allCases {
+            for surface in [TrialCTA.Surface.onboarding, .paywall] {
+                let title = arm.title(surface)
+                XCTAssertTrue(title.localizedCaseInsensitiveContains("free trial"), title)
+                XCTAssertLessThanOrEqual(title.count, 24, title)
+            }
+        }
     }
 
     func testTrialReminderIsTimedFromTheRealEnd() throws {

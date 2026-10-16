@@ -5,7 +5,6 @@ paths:
   - "Shared/Services/MasteryLedger.swift"
   - "Shared/Services/ReviewPromptTracker.swift"
   - "MahjTrainer/Views/ReviewPromptSheet.swift"
-  - "MahjTrainer/Views/TrialReminderOfferView.swift"
   - "MahjTrainer/Views/StatsView.swift"
 ---
 
@@ -88,16 +87,12 @@ reminders once, keyed on the legacy `settings.reminderWeeklyGain`.
 
 ## Trial-end reminder
 
-`TrialReminderOfferView` appears right after an onboarding trial purchase and
-before the tour. Accepting requests notification permission THEN schedules
-one notification two days before the week ends
-(`AppSettings.scheduleTrialEndReminder`). Never schedule it silently; the
-whole point is that the player chose it. `PaywallView` offers the same view
-when a purchase on the sheet starts a real trial (most later trials start
-there), keyed on `purchasing` so a restore never triggers it. A declined
-system prompt here does NOT set `reminderPermissionDenied`: that shared flag
-drives Settings' "Notifications are off" alert, which then fired unexplained
-on the player's first Settings visit.
+Removed in build 47 (2026-10-16): the offer screen after a trial purchase
+changed the frozen trial flow (`membership-and-trial.md`). The scheduling
+and cancel code in `AppSettings` stays so a reminder a TestFlight install
+already scheduled is still cancelled when the trial converts or stops
+renewing. Bringing it back is a RevenueCat Experiment behind offering
+metadata, measured on trial conversion, and only with Jack's go-ahead.
 
 ## Game night card
 

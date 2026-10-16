@@ -1,8 +1,8 @@
 import XCTest
 
-/// Captures for the October 2026 Meta prep and CTA wording test.
+/// Captures for the October 2026 Meta prep and the trial button wordings.
 ///
-/// - Both CTA arms on both purchase surfaces (`-cta.arm`).
+/// - Every `TrialCTA` wording on both purchase surfaces (`-mahj.trialCTA`).
 /// - Apple's tracking prompt: absent through onboarding, shown on Home after
 ///   it (`-mahj.previewMetaATT` stands in for a Meta app id).
 ///
@@ -30,19 +30,24 @@ final class MetaAndCTARenderTests: XCTestCase {
     }
 
     func testCTAArms() {
-        for arm in ["my", "your"] {
-            launch(onboarded: false, extra: ["-cta.arm", arm])
+        let arms: [(raw: String, onboarding: String, paywall: String)] = [
+            ("seven_day", "Start 7-day free trial", "Start 7-Day Free Trial"),
+            ("my", "Start my free trial", "Start My Free Trial"),
+            ("your", "Start your free trial", "Start Your Free Trial"),
+        ]
+        for arm in arms {
+            launch(onboarded: false, extra: ["-mahj.trialCTA", arm.raw])
             walkToTrialPage()
-            capture("cta_\(arm)_onboarding")
-            check("onboarding CTA reads 'Start \(arm) free trial'",
-                  app.buttons["Start \(arm) free trial"].waitForExistence(timeout: 4))
+            capture("cta_\(arm.raw)_onboarding")
+            check("onboarding CTA reads '\(arm.onboarding)'",
+                  app.buttons[arm.onboarding].waitForExistence(timeout: 4))
             app.terminate()
 
-            launch(onboarded: true, extra: ["-cta.arm", arm])
+            launch(onboarded: true, extra: ["-mahj.trialCTA", arm.raw])
             if openPaywall() {
                 settle()
-                capture("cta_\(arm)_paywall")
-                let title = "Start \(arm.capitalized) Free Trial"
+                capture("cta_\(arm.raw)_paywall")
+                let title = arm.paywall
                 check("paywall CTA reads '\(title)'", app.buttons[title].waitForExistence(timeout: 4))
             } else {
                 check("paywall opened", false)
@@ -89,7 +94,6 @@ final class MetaAndCTARenderTests: XCTestCase {
             "-mahj.hasReadPrimer", "YES",
             "-mahj.suppressWhatsNew",
             "-subscription.localProOverride", "NO",
-            "-mahj.previewTrialEligible",
         ] + (onboarded ? ["-mahj.skillLevel", "some"] : []) + extra
         app.launch()
         _ = app.wait(for: .runningForeground, timeout: 30)

@@ -52,21 +52,26 @@ changed. Cribbage, Skat and Sheepshead all passed with this pattern, and it
 did not track with lower trial rates across the card apps (Aug 13 to Sep 26:
 Mahj 31% small line, Bridge 9% small line, Cribbage 24% big price).
 
-**Trial copy follows Apple's eligibility, not the product (2026-10-12, audit
-F05).** One introductory offer per subscription group per Apple Account, so
-anyone who has trialled monthly or yearly is charged on day one.
-`SubscriptionService.offersFreeTrial(_:)` is true only on RevenueCat's
-`checkTrialOrIntroDiscountEligibility` == `.eligible` (StoreKit 2
-`isEligibleForIntroOffer`, re-asked after offerings load and on every customer
-change); ineligible, no offer and unknown all get plain pricing, "Subscribe",
-and the "Get Mahj+" title. Android reads `defaultOption.freePhase` (Play returns
-only offers the account is eligible for). `startedTrial` and the trial-end
-reminder come from the purchased entitlement (`periodType == .trial`,
-`expirationDate`), never from the product or `Date() + 7`, and the reminder is
-cancelled when the trial converts or stops renewing. `membershipResolved` gates
-anything that acts on "not a member" (deep-link paywall, Android reminder
-cancel). A reinstall syncs once (StoreKit `currentEntitlements` +
-`syncPurchases`) so a member is not sold a trial. DEBUG/test_ keys always read
-eligible; captures pass `-mahj.previewTrialEligible`. Verify eligible and
-ineligible on a physical device with two sandbox accounts.
+**The trial flow is frozen at 1.3.2 (2026-10-16).** Jack's ruling after the
+1.4 audit: the onboarding trial page and the paywall convert well, so their
+copy, layout and order stay exactly as shipped in 1.3.2. "Try Mahj+ free",
+"Start 7-day free trial" / "Start 7-Day Free Trial", "7 days free, then
+$X. Auto-renews until canceled." for every account, and nothing between the
+purchase and the tour. 1.4.0 (build 45, pulled before release) had added
+Apple-eligibility gating ("Subscribe" / "Get Mahj+" for ineligible or
+unknown accounts) and a trial-end reminder screen after purchase; build 47
+removed both and verified the trial page pixel-identical to 1.3.2 at default
+text size (paywall identical bar the Home behind the sheet). Accessibility
+sizes may lay out differently, since they scroll. A reinstalled member is
+still synced from StoreKit before the purchase runs, and `startedTrial`
+comes from the entitlement, not the product.
+
+**The one remote knob is the button wording (`TrialCTA`).** Vitals'
+pattern: every wording ships in the binary (`seven_day` control, `my`,
+`your`) and the current offering's `trial_cta` metadata picks one; missing
+or unknown means the control. Test a wording as a RevenueCat Experiment
+(second offering, same packages, different `trial_cta`), promote the winner
+by making its offering the default. The arm also rides to RevenueCat as the
+`trial_cta` attribute. Any other change to the trial flow needs Jack's
+explicit go-ahead first, and goes through the same offering-metadata switch.
 

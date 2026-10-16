@@ -6,8 +6,7 @@
 #   scripts/capture-paywall.sh <simulator-udid> <output-dir>
 #
 # Why a UI test and not simctl: the test drives the app to both surfaces and
-# passes -mahj.previewTrialEligible so the free-week copy renders (the real app
-# shows it only when Apple says the Apple Account is eligible). Headless:
+# captures the trial copy exactly as it ships. Headless:
 # never opens Simulator.app.
 set -euo pipefail
 

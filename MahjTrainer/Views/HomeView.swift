@@ -163,8 +163,8 @@ struct HomeView: View {
             VStack(spacing: 14) {
                 header
                 todaySession
-                monthlyChallengeCard
                 if showsPrimerCard { howToPlayCard }
+                monthlyChallengeCard
                 if showsGameNightCard { gameNightCard }
                 trainingSection
                 roomsColumn
@@ -178,8 +178,8 @@ struct HomeView: View {
     private var todayColumn: some View {
         VStack(spacing: 14) {
             todaySession
-            monthlyChallengeCard
             if showsPrimerCard { howToPlayCard }
+            monthlyChallengeCard
             if showsGameNightCard { gameNightCard }
             trainingSection
             if !subscriptions.isPro { upgradeCard }
@@ -485,8 +485,9 @@ struct HomeView: View {
     /// Members who have not picked a game night yet. One card, one tap to
     /// set it, one tap to never see it again.
     /// This month's shared challenge, free for everyone. It sits right under
-    /// Get Started because it changes every month and the App Store event for
-    /// it sends people straight here. Two lines in every state, so Home does
+    /// Get Started (under the How to Play card for a brand-new player, who
+    /// sees the 1.3.2 order first) because it changes every month and the
+    /// App Store event for it sends people straight here. Two lines in every state, so Home does
     /// not jump when the run starts or ends.
     private var monthlyChallengeCard: some View {
         let challenge = MonthlyChallengeContent.challenge()
