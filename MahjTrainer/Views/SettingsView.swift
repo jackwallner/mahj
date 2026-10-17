@@ -135,11 +135,6 @@ struct SettingsView: View {
             if subscriptions.isPro {
                 Label("\(Membership.name) unlocked", systemImage: "checkmark.seal.fill")
                     .foregroundStyle(Theme.jade)
-                if subscriptions.isTrialing, let end = subscriptions.expirationDate {
-                    Text("Free trial ends \(end.formatted(date: .abbreviated, time: .omitted))")
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.inkSecondary)
-                }
                 // Lifetime has no expiration and nothing to manage.
                 if subscriptions.expirationDate != nil {
                     Link("Manage Subscription", destination: PaywallLinks.manageSubscriptions)

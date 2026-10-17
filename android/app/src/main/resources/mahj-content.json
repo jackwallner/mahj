@@ -1950,7 +1950,7 @@
               "choices" : [
                 "quints",
                 "windsDragons",
-                "odds13579",
+                "evens2468",
                 "consecutiveRun"
               ],
               "explanation" : "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch both pungs into quints. Joker-rich racks look up, not sideways.",
@@ -3228,7 +3228,7 @@
               "id" : "plus-kd-fourth-tile"
             },
             {
-              "backBody" : "A lone North with no partner needs two of the three remaining Norths just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+              "backBody" : "A lone North with no partner needs two more Norths or jokers just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
               "backTitle" : "Throw It",
               "choice" : {
                 "answerIndex" : 1,
@@ -4186,13 +4186,6 @@
           "title" : "Game night, front and center"
         },
         {
-          "body" : "Every graded question has a link to flag a wrong answer or a confusing explanation. It goes straight to the developer.",
-          "icon" : "flag",
-          "id" : "report-question",
-          "isPlus" : false,
-          "title" : "Something wrong? Say so"
-        },
-        {
           "body" : "Send Feedback is a text box and one button now. No mail app, no account.",
           "icon" : "paperplane.fill",
           "id" : "feedback",
@@ -4200,7 +4193,7 @@
           "title" : "Feedback without the email"
         }
       ],
-      "version" : "1.4.0"
+      "version" : "1.4.1"
     },
     {
       "headline" : "Play a hand, not just a flashcard",

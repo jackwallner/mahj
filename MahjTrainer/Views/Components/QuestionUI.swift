@@ -50,17 +50,6 @@ struct QuestionPager<Choices: View>: View {
     /// True when this miss just went back into the review schedule. Saying so
     /// turns a wrong answer from a score into a plan.
     var requeued: Bool = false
-    /// When set, a small "Something wrong with this question?" link appears
-    /// under the graded answer. Players who spot a bad answer used to have no
-    /// way to say so except a one-star review quoting the rulebook.
-    var reportID: String? = nil
-    /// Where the question came from, for the report. Falls back to the eyebrow.
-    var reportSource: String? = nil
-    /// The choices exactly as shown, so a report on a generated question
-    /// (random id) still says what was on screen.
-    var reportChoices: [String] = []
-    var reportAnswerIndex: Int? = nil
-    var reportPickedIndex: Int? = nil
     @ViewBuilder let choices: () -> Choices
 
     var body: some View {
@@ -102,18 +91,6 @@ struct QuestionPager<Choices: View>: View {
                         }
                         if requeued {
                             RequeuedChip()
-                        }
-                        if let reportID {
-                            ReportQuestionLink(report: QuestionReport(
-                                itemID: reportID,
-                                prompt: prompt,
-                                source: reportSource ?? eyebrow ?? "",
-                                tiles: tiles.map(\.shortLabel).joined(separator: " "),
-                                choices: reportChoices,
-                                answer: reportAnswerIndex.flatMap { reportChoices.indices.contains($0) ? reportChoices[$0] : nil },
-                                picked: reportPickedIndex.flatMap { reportChoices.indices.contains($0) ? reportChoices[$0] : nil },
-                                explanation: explanation
-                            ))
                         }
                     }
                     .id(questionExplanationID)

@@ -74,8 +74,9 @@ enum MetaAds {
         isEnabled && ATTrackingManager.trackingAuthorizationStatus == .notDetermined
     }
 
-    /// Apple's prompt, once. Asked on Home after onboarding, never at launch:
-    /// a player who has not seen the app yet has no reason to say yes.
+    /// Apple's prompt, once. Asked on Home after the first finished practice,
+    /// never at launch or in onboarding: a player who has not used the app
+    /// yet has no reason to say yes.
     /// Nothing in the app depends on the answer.
     static func requestTracking() async {
         guard shouldAskForTracking else { return }

@@ -27,8 +27,9 @@ gate got IM Tri Tracker rejected under 5.6.1 (2026-10-01). Settings has two
 separate rows: Rate opens the write-review page, Send Feedback opens
 `ReviewPromptSheet(.feedback)`, which posts to `FeedbackService` (Supabase
 insert-only table, offline queue). Feedback never stops rating asks. The same
-sheet hosts the per-question "Something wrong?" report and the one churn
-question. App Store ID `6790052126`. Details in
+sheet hosts the one churn question. No per-question report link: Jack cut it
+before 1.4.1 shipped because a flag under every answer casts doubt on the
+right one; question problems come in through Send Feedback. App Store ID `6790052126`. Details in
 `.claude/rules/feedback-and-retention.md`.
 
 ## Products & the Mahj+ model
@@ -91,7 +92,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/home-and-onboarding-flow.md` | Views: the lobby, onboarding branch, primer and tour | `RootView`, Home, rooms, onboarding |
 | `.claude/rules/design-and-ipad.md` | Theme and haptics, iPad layout, no illustration | `Theme`, components, drill layouts |
 | `.claude/rules/screenshots.md` | Screenshots: captured, not hand-shot | Capture scripts, the `Screenshots` scheme |
-| `.claude/rules/feedback-and-retention.md` | Feedback sink, question reports, churn question, weekly gain ledger, personalised reminders (1.4) | `FeedbackService`, `ReviewPromptSheet`, `MasteryLedger`, churn prompts, reminder copy |
+| `.claude/rules/feedback-and-retention.md` | Feedback sink, churn question, weekly gain ledger, personalised reminders (1.4) | `FeedbackService`, `ReviewPromptSheet`, `MasteryLedger`, churn prompts, reminder copy |
 | `.claude/rules/monthly-challenge.md` | The free monthly challenge, its rotation and the monthly event + nomination | `MonthlyChallengeContent`, `mahj://challenge`, in-app events |
 | `.claude/rules/meta-ads.md` | Meta SDK + ATT (inert until a Meta app exists), the 15-minute StartTrial relay | `MetaAds`, `TrialCTA`, `supabase/`, ATT timing |
 | `.claude/rules/android.md` | The Android port: exported content, RNG parity, Play identity, deliberate differences | Anything under `android/` or the content export |

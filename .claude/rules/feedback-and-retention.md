@@ -22,7 +22,7 @@ the days 4 to 5 trial-cancel window with proof the practice is working.
 `FeedbackService` POSTs to a Supabase table (`app_feedback`, project
 `ucoveqbyfuxqvpysmixu`, the "Sports" project, shared across the fleet). The
 publishable key in the binary can only INSERT rows where `app = 'mahj'` and
-`kind` is one of `general`, `not_enjoying`, `question`, `churn`; it cannot
+`kind` is one of `general`, `not_enjoying`, `question` (retired), `churn`; it cannot
 read anything. Reading needs the management API or the dashboard:
 `scripts/feedback-inbox.sh` prints unread rows and marks them read.
 
@@ -32,28 +32,23 @@ return to the app, any other 4xx is dropped.
 Never retry a rejected row forever. A flush removes each row only after the
 server answered for it (the first version cleared the queue up front and lost
 every report after the first offline failure). Nothing personal is sent:
-counts, ids, the question as shown (prompt, tiles, choices, answer, pick,
-coaching), device model, locale. Generated questions have random ids, so the
-report must carry the choices or it cannot be investigated. The public privacy
-policy describes these fields (updated 2026-10-12); keep it in step.
+counts, ids, device model, locale. The public privacy policy describes these
+fields (updated 2026-10-16); keep it in step.
 
-## One sheet, three jobs
+## One sheet, two jobs
 
-`ReviewPromptSheet.Step`: `.feedback` (Settings > Send Feedback),
-`.question(QuestionReport)` and `.churn(ChurnMoment)`. None of them touches
-`ReviewPromptTracker`: ratings come only from Apple's prompt after a positive
-moment, never from this sheet. The enjoyment and review-pitch steps were
-removed 2026-10-12 (5.6.1 review gating). The composer scrolls, so Send stays
-reachable at AX5 and with the keyboard up.
+`ReviewPromptSheet.Step`: `.feedback` (Settings > Send Feedback) and
+`.churn(ChurnMoment)`. None of them touches `ReviewPromptTracker`: ratings
+come only from Apple's prompt after a positive moment, never from this sheet.
+The enjoyment and review-pitch steps were removed 2026-10-12 (5.6.1 review
+gating). The composer scrolls, so Send stays reachable at AX5 and with the
+keyboard up.
 
-`QuestionPager(reportID:)` adds the "Something wrong with this question?"
-link under the coaching note. Every pager-based drill passes its item id and
-its choices (`reportChoices`, `reportAnswerIndex`, `reportPickedIndex`).
-The Charleston drill also reports the recommended and selected three-tile
-passes. Ordinary flashcard decks and Play a Hand do not have it, so the
-What's New and release notes say "most questions". The Timed Challenge
-leaves it out (`reportID: nil`): the sheet ate the run's seconds and was torn
-down when time ran out.
+No per-question report link (removed 2026-10-16, build 53, before 1.4.1
+shipped). Jack's call: a "Something wrong with this question?" link under
+every graded answer casts doubt on the right answer. Question problems come
+in through Send Feedback. The `question` kind stays in `FeedbackKind` only so
+rows queued on a TestFlight build still decode.
 
 ## Release experience audit, October 16, 2026
 

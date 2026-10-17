@@ -304,16 +304,20 @@ struct HomeView: View {
         }
     }
 
-    /// Apple's tracking prompt (Meta ads), only once onboarding is done and
-    /// only on a bare Home: never at launch, never over a sheet or a pushed
-    /// screen (a deep-linked challenge). Anything covering Home just defers it
-    /// until Home is bare again.
+    /// Apple's tracking prompt (Meta ads), only once the player has finished
+    /// a practice (any drill, session, challenge, Mahj Minute or hand) and is
+    /// back on a bare Home: never at launch, never in onboarding, never over a
+    /// sheet or a pushed screen. A stranger asked to be tracked before they
+    /// have used the app is spooked; someone who just finished a drill has a
+    /// reason to say yes. The trial relay waits up to 24 hours for the answer,
+    /// so asking later costs Meta nothing. Anything covering Home just defers
+    /// it until Home is bare again.
     ///
     /// The `att_prompt` switch lives in the offering, which a cold launch may
     /// not have yet; with no offering there is no ask, and the offering
     /// arriving tries again.
     private func askForTrackingIfNeeded() async {
-        guard MetaAds.shouldAskForTracking, progress.hasOnboarded else { return }
+        guard MetaAds.shouldAskForTracking, progress.hasOnboarded, progress.totalSessions > 0 else { return }
         try? await Task.sleep(nanoseconds: 1_200_000_000)
         guard subscriptions.remoteConfigKnown, subscriptions.isOn(.attPrompt), homeIsBare else { return }
         await MetaAds.requestTracking()

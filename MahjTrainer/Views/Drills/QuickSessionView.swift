@@ -196,11 +196,7 @@ struct QuickSessionView: View {
                     answered: answered,
                     eyebrow: item.sourceLabel.uppercased(),
                     missNote: missNote,
-                    requeued: requeued,
-                    reportID: item.id,
-                    reportChoices: item.choices,
-                    reportAnswerIndex: item.answerIndex,
-                    reportPickedIndex: selection
+                    requeued: requeued
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)

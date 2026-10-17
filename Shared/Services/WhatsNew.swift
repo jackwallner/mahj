@@ -71,12 +71,6 @@ enum WhatsNew {
                     isPlus: true
                 ),
                 WhatsNewItem(
-                    id: "report-question",
-                    icon: "flag",
-                    title: "Something wrong? Say so",
-                    body: "Most questions have a link to flag a wrong answer or a confusing explanation. It goes straight to the developer."
-                ),
-                WhatsNewItem(
                     id: "feedback",
                     icon: "paperplane.fill",
                     title: "Feedback without the email",

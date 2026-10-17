@@ -55,12 +55,7 @@ struct HandMatchDrillView: View {
                     explanation: question.explanation,
                     answered: answered,
                     missNote: missNote,
-                    requeued: answered && selection != question.answer,
-                    reportID: question.id,
-                    reportSource: drill.title,
-                    reportChoices: shuffled.categories.map(\.displayName),
-                    reportAnswerIndex: shuffled.answerIndex,
-                    reportPickedIndex: shuffled.categories.firstIndex(where: { $0 == selection })
+                    requeued: answered && selection != question.answer
                 ) {
                     ChoiceList(
                         labels: shuffled.categories.map(\.displayName),

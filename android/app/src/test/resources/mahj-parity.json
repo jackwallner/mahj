@@ -1479,13 +1479,13 @@
     {
       "answerIndex" : 3,
       "choiceNotes" : [
-        "13579 (Odds): an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out.",
+        "This rack holds 3s and 9s, and a finished 2468 hand never uses an odd number.",
         "A run needs three or more numbers in a row, and this rack only has 3s and 9s.",
         "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
         null
       ],
       "choices" : [
-        "13579 (Odds)",
+        "2468 (Evens)",
         "Consecutive Run",
         "Winds & Dragons",
         "Quints"
@@ -2477,7 +2477,7 @@
         "Throw it",
         "Keep it"
       ],
-      "explanation" : "A lone North with no partner needs two of the three remaining Norths just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+      "explanation" : "A lone North with no partner needs two more Norths or jokers just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
       "id" : "plus-kd-lone-wind",
       "isReviewable" : true,
       "prompt" : "Turn 3. You hold one North and no other winds.\nNobody has exposed a wind. Keep or throw?",
@@ -4681,7 +4681,7 @@
       "note" : "Right. The 3 Bam is outside the 2468 (Evens) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-1",
       "target" : "evens2468",
-      "value" : 6.1000000000000005,
+      "value" : 6.0999999999999996,
       "working" : 3
     },
     {
@@ -4876,7 +4876,7 @@
       "note" : "Right. The 6 Dot is outside the 13579 (Odds) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "odds13579",
-      "value" : 7.2999999999999989,
+      "value" : 7.2999999999999998,
       "working" : 3
     },
     {
@@ -4887,7 +4887,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.60000000000000053,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -5576,7 +5576,7 @@
               "Throw it",
               "Keep it"
             ],
-            "explanation" : "A lone North with no partner needs two of the three remaining Norths just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
+            "explanation" : "A lone North with no partner needs two more Norths or jokers just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
             "id" : "plus-kd-lone-wind",
             "isReviewable" : true,
             "prompt" : "Turn 3. You hold one North and no other winds.\nNobody has exposed a wind. Keep or throw?",

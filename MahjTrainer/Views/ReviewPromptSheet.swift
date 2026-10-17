@@ -1,39 +1,8 @@
 import SwiftUI
 import UIKit
 
-/// What the player is reporting when they tap "Something wrong?" under a
-/// graded question. Carries enough to find the item without any typing.
-///
-/// Generated questions have random ids, so the id alone cannot rebuild one:
-/// the report carries the choices as shown, the answer, the pick and the
-/// coaching too. Nothing in it identifies the player.
-struct QuestionReport: Hashable, Sendable {
-    let itemID: String
-    let prompt: String
-    let source: String
-    let tiles: String
-    var choices: [String] = []
-    var answer: String? = nil
-    var picked: String? = nil
-    var explanation: String = ""
-
-    var context: [String: String] {
-        var context = [
-            "item_id": itemID,
-            "prompt": String(prompt.prefix(300)),
-            "source": source,
-            "tiles": tiles,
-        ]
-        if !choices.isEmpty { context["choices"] = choices.joined(separator: " | ") }
-        if let answer { context["answer"] = answer }
-        if let picked { context["picked"] = picked }
-        if !explanation.isEmpty { context["explanation"] = String(explanation.prefix(500)) }
-        return context
-    }
-}
-
-/// Every place the app asks the player to type: Settings > Send Feedback, a
-/// question report, and the one question asked when a membership is leaving.
+/// Every place the app asks the player to type: Settings > Send Feedback and
+/// the one question asked when a membership is leaving.
 ///
 /// It never asks about ratings. Sending only happy players to the App Store
 /// is review gating (5.6.1); ratings come from Apple's own prompt after a
@@ -42,7 +11,6 @@ struct QuestionReport: Hashable, Sendable {
 struct ReviewPromptSheet: View {
     enum Step: Identifiable, Hashable {
         case feedback
-        case question(QuestionReport)
         case churn(ChurnMoment)
 
         var id: Self { self }
@@ -77,14 +45,6 @@ struct ReviewPromptSheet: View {
                         chips: [],
                         thanks: "Thanks. It went straight to the developer."
                     )
-                case .question(let report):
-                    composer(
-                        kind: .question,
-                        question: "What looks off about this question?",
-                        chips: ["The answer seems wrong", "The explanation is confusing", "A typo or wording", "Something else"],
-                        thanks: "Thanks. Every report is read, and the question gets fixed or explained better.",
-                        context: report.context
-                    )
                 case .churn(let moment):
                     composer(
                         kind: .churn,
@@ -114,12 +74,11 @@ struct ReviewPromptSheet: View {
     private var navigationTitle: String {
         switch step {
         case .feedback: "Help us improve"
-        case .question: "Something wrong?"
         case .churn(let moment): moment == .trialRenewalOff ? "Before your trial ends" : "Before you go"
         }
     }
 
-    // MARK: - Composer (feedback, question report, churn)
+    // MARK: - Composer (feedback, churn)
 
     private func composer(
         kind: FeedbackKind,
@@ -327,32 +286,5 @@ struct ReviewPromptSheet: View {
             .frame(width: 68, height: 68)
             .background(color.opacity(0.13), in: Circle())
             .padding(.top, 6)
-    }
-}
-
-/// The small "Something wrong with this question?" link under a graded
-/// answer. Owns its own sheet so every drill gets it by passing a report.
-struct ReportQuestionLink: View {
-    let report: QuestionReport
-    @State private var showing = false
-
-    var body: some View {
-        Button {
-            showing = true
-        } label: {
-            HStack(spacing: 5) {
-                Image(systemName: "flag")
-                    .font(.caption2)
-                Text("Something wrong with this question?")
-                    .font(.caption)
-            }
-            .foregroundStyle(Theme.inkTertiary)
-            .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.vertical, 6)
-        }
-        .buttonStyle(.plain)
-        .sheet(isPresented: $showing) {
-            ReviewPromptSheet(initialStep: .question(report))
-        }
     }
 }

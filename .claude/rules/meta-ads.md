@@ -20,7 +20,9 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
 - Meta's SDK must get `ApplicationDelegate.application(_:didFinishLaunching...)`
   before any other call, so `MetaAds.start` sits in `AppDelegate`, and
   `linkRevenueCat()` runs right after `Purchases.configure`.
-- ATT is asked by `HomeView.askForTrackingIfNeeded`: onboarded, bare Home,
+- ATT is asked by `HomeView.askForTrackingIfNeeded`: onboarded, at least one
+  finished practice (`progress.totalSessions > 0`, Jack 2026-10-16: asking
+  before the player has used the app spooks people), bare Home,
   1.2s settle, re-asked whenever Home is bare again (a sheet closes, a pushed
   screen pops, the offering arrives). Bare means `HomeView.homeIsBare`: Home
   on screen, nothing pushed (a deep-linked challenge counts), no sheet. It

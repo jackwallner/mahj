@@ -197,13 +197,7 @@ struct PracticeRunView: View {
                     answered: answered,
                     eyebrow: item.sourceLabel.uppercased(),
                     missNote: missNote,
-                    requeued: requeued,
-                    // Not against the clock: the sheet would eat the run's
-                    // seconds and close when time runs out.
-                    reportID: mode == .timed ? nil : item.id,
-                    reportChoices: item.choices,
-                    reportAnswerIndex: item.answerIndex,
-                    reportPickedIndex: selection
+                    requeued: requeued
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)
