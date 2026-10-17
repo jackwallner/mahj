@@ -42,9 +42,19 @@ struct HowToPlayView: View {
                 ScrollView { movingCard }
                     .id(page.id)
             } else {
-                Spacer(minLength: 0)
-                movingCard
-                Spacer(minLength: 0)
+                // Centred as designed where it fits. On an iPhone SE the
+                // longest pages are taller than the screen and pushed the
+                // dots under the status bar and Skip off the bottom, so
+                // those scroll instead.
+                ViewThatFits(in: .vertical) {
+                    VStack(spacing: 0) {
+                        Spacer(minLength: 0)
+                        movingCard
+                        Spacer(minLength: 0)
+                    }
+                    ScrollView { movingCard }
+                        .id(page.id)
+                }
             }
             footer
         }
@@ -164,7 +174,14 @@ struct HowToPlayView: View {
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
             if !page.tiles.isEmpty {
-                TileRackView(tiles: page.tiles, tileWidth: 46)
+                // Seven tiles at 46pt are wider than the card on every
+                // iPhone and pushed the card, Back and Continue off the
+                // screen. Take the largest size that fits.
+                ViewThatFits(in: .horizontal) {
+                    ForEach([46, 40, 36, 32], id: \.self) { width in
+                        TileRackView(tiles: page.tiles, tileWidth: CGFloat(width))
+                    }
+                }
             }
             Text(page.body)
                 .font(.body)

@@ -15,6 +15,7 @@ struct HandPlayView: View {
     @StateObject private var handPlay = HandPlayStore.shared
     @StateObject private var records = PracticeRecordStore.shared
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     enum Phase: Equatable {
         case choosing
@@ -297,19 +298,23 @@ struct HandPlayView: View {
         return [index]
     }
 
+    /// Turn count and target on one line, or stacked at accessibility sizes,
+    /// where side by side the section name broke into "24 / 68".
     private var statusBar: some View {
-        HStack(spacing: 10) {
+        let stacked = dynamicTypeSize.isAccessibilitySize
+        return (stacked ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6)) : AnyLayout(HStackLayout(spacing: 10))) {
             Text("Turn \(min(turn, HandPlayEngine.turnCount)) of \(HandPlayEngine.turnCount)")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(Theme.inkSecondary)
                 .monospacedDigit()
-            Spacer()
+            if !stacked { Spacer() }
             if let target {
                 HStack(spacing: 5) {
                     Image(systemName: "target")
                         .font(.caption2)
                     Text(target.shortName)
                         .font(.caption.weight(.bold))
+                        .fixedSize()
                 }
                 .foregroundStyle(Theme.jade)
                 .padding(.horizontal, 9)
@@ -322,6 +327,7 @@ struct HandPlayView: View {
                     .monospacedDigit()
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     /// Tiles that FIT, not tiles already grouped. The choose screen and the

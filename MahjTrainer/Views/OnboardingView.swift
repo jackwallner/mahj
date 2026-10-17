@@ -123,17 +123,49 @@ struct OnboardingView: View {
         .padding(.horizontal, 28)
     }
 
+    /// On an iPhone SE the full page is one line taller than the space above
+    /// the footer, and the first screen anyone sees ended in a half-cut line.
+    /// There the icon goes, which is decoration; the words and tiles stay.
+    /// Every larger phone and iPad still gets the full page, as in 1.3.2.
     private func infoPage(icon: String, title: String, body bodyText: String, tiles: [Tile]) -> some View {
-        fittedPage(spacing: 26) {
-            Image(systemName: icon)
-                .font(.system(size: 40, weight: .semibold))
-                .foregroundStyle(Theme.jade)
-                .frame(width: 92, height: 92)
-                .background(Theme.jade.opacity(0.12), in: Circle())
+        let full = VStack(spacing: 26) {
+            infoIcon(icon)
+            infoText(title: title, body: bodyText, tiles: tiles)
+        }
+        return ViewThatFits(in: .vertical) {
+            VStack(spacing: 26) {
+                Spacer()
+                full
+                Spacer()
+                Spacer()
+            }
+            VStack(spacing: 26) {
+                Spacer()
+                infoText(title: title, body: bodyText, tiles: tiles)
+                Spacer()
+            }
+            ScrollView {
+                full.padding(.vertical, 24)
+            }
+        }
+        .padding(.horizontal, 28)
+    }
+
+    private func infoIcon(_ icon: String) -> some View {
+        Image(systemName: icon)
+            .font(.system(size: 40, weight: .semibold))
+            .foregroundStyle(Theme.jade)
+            .frame(width: 92, height: 92)
+            .background(Theme.jade.opacity(0.12), in: Circle())
+    }
+
+    private func infoText(title: String, body bodyText: String, tiles: [Tile]) -> some View {
+        VStack(spacing: 26) {
             Text(title)
                 .font(Theme.display(32))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
             TileRackView(tiles: tiles, tileWidth: 54)
             Text(bodyText)
                 .font(.body)
@@ -157,17 +189,42 @@ struct OnboardingView: View {
         SkillOption(id: "played", title: "Played real games", detail: "Comfortable, want sharper instincts"),
     ]
 
+    /// Full page as in 1.3.2. On an iPhone SE it overflowed by a card's last
+    /// line, so there the subtitle goes and the gaps tighten before it falls
+    /// back to scrolling.
     private var skillLevelPage: some View {
-        fittedPage(spacing: 22) {
+        ViewThatFits(in: .vertical) {
+            VStack(spacing: 22) {
+                Spacer()
+                skillContent(compact: false)
+                Spacer()
+                Spacer()
+            }
+            VStack(spacing: 0) {
+                Spacer(minLength: 0)
+                skillContent(compact: true)
+                Spacer(minLength: 0)
+            }
+            ScrollView {
+                skillContent(compact: false).padding(.vertical, 24)
+            }
+        }
+        .padding(.horizontal, 28)
+    }
+
+    private func skillContent(compact: Bool) -> some View {
+        VStack(spacing: compact ? 14 : 22) {
             Text("Where are you starting from?")
                 .font(Theme.display(30))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-            Text("We'll point you at the right drills.")
-                .font(.subheadline)
-                .foregroundStyle(Theme.inkSecondary)
-            VStack(spacing: 12) {
+            if !compact {
+                Text("We'll point you at the right drills.")
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.inkSecondary)
+            }
+            VStack(spacing: compact ? 10 : 12) {
                 ForEach(skillOptions, id: \.id) { option in
                     skillCard(option)
                 }

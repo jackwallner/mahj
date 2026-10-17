@@ -110,8 +110,11 @@ struct WhatsNewSheet: View {
                 Text(lockedItems.isEmpty ? "Start practicing" : "Keep practicing free")
                     .font(.headline)
                     .foregroundStyle(lockedItems.isEmpty ? Theme.onFill : Theme.inkSecondary)
+                    .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)
-                    .frame(height: lockedItems.isEmpty ? 56 : 44)
+                    // A floor, not a fixed height: at accessibility sizes the
+                    // label wraps instead of cutting to "Keep practic...".
+                    .frame(minHeight: lockedItems.isEmpty ? 56 : 44)
                     .background(
                         lockedItems.isEmpty ? Theme.jade : .clear,
                         in: RoundedRectangle(cornerRadius: 18, style: .continuous)

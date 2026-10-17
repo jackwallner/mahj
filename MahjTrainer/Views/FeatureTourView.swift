@@ -46,9 +46,17 @@ struct FeatureTourView: View {
                 ScrollView { card(page) }
                     .id(index)
             } else {
-                Spacer(minLength: 0)
-                card(page)
-                Spacer(minLength: 0)
+                // Centred where it fits; scrolls on a small phone rather than
+                // pushing the buttons off the screen.
+                ViewThatFits(in: .vertical) {
+                    VStack(spacing: 0) {
+                        Spacer(minLength: 0)
+                        card(page)
+                        Spacer(minLength: 0)
+                    }
+                    ScrollView { card(page) }
+                        .id(index)
+                }
             }
             buttons(isLast: isLast, pageCount: pages.count)
         }
@@ -252,13 +260,16 @@ struct FeatureTourView: View {
             // Master Tables are carried by the page body, so the hero does not
             // have to say everything.
             ForEach(["Mahj Minute, one shared daily challenge", "Game Night Prep, built around your weak spots", "Endless Practice, never repeats"], id: \.self) { line in
-                HStack(spacing: 8) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: locked ? "sparkles" : "checkmark.circle.fill")
                         .font(.footnote)
                         .foregroundStyle(locked ? Theme.gold : Theme.jade)
+                    // Wrap, never truncate: on an iPhone SE and at larger
+                    // sizes all three lines lost their second half.
                     Text(line)
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(Theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }

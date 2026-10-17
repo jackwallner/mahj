@@ -90,7 +90,10 @@ struct HomeView: View {
                     .accessibilityLabel("Settings")
                 }
             }
-            .toolbarBackground(.hidden, for: .navigationBar)
+            // No `.toolbarBackground(.hidden)`: it also removed the system's
+            // scroll-edge blur, and scrolled rooms ran straight under the
+            // clock and the book and gear buttons. The bar is still clear at
+            // the top of Home.
             .navigationDestination(for: AppDestination.self) { destination in
                 switch destination {
                 case .gameNightPrepSession:
@@ -158,7 +161,10 @@ struct HomeView: View {
 
     @ViewBuilder
     private var homeContent: some View {
-        if horizontalSizeClass == .regular {
+        // Two columns only while the type fits them. At accessibility sizes
+        // an iPad's half-width columns broke room names into fragments
+        // ("Th / e / Ma / ste / r"), so it gets the phone's single column.
+        if horizontalSizeClass == .regular, !dynamicTypeSize.isAccessibilitySize {
             VStack(spacing: 18) {
                 header
                 HStack(alignment: .top, spacing: 20) {
@@ -183,6 +189,8 @@ struct HomeView: View {
                 disclaimerFooter
             }
             .padding(.horizontal)
+            .frame(maxWidth: Theme.wideContentWidth)
+            .frame(maxWidth: .infinity)
         }
     }
 
@@ -568,8 +576,8 @@ struct HomeView: View {
                     Text(monthlyChallengeLine(challenge, result: result, run: run))
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
-                        .lineLimit(2)
                         .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer(minLength: 4)
                 Image(systemName: "chevron.right")
@@ -889,6 +897,13 @@ struct HomeView: View {
     /// running rewards the thing the app is for. The denominator still counts
     /// only what this player can actually reach, because a ring that can never
     /// close is a nag dressed up as progress.
+    /// Name and Mahj+ badge side by side, or stacked at accessibility sizes.
+    private var titleLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout(spacing: 6))
+    }
+
     private func roomCard(_ room: Room) -> some View {
         let locked = !room.isFree && !subscriptions.isPro
         let highlighted = highlightedRoomID == room.id
@@ -897,13 +912,17 @@ struct HomeView: View {
             RoomView(room: room)
         } label: {
             HStack(spacing: 14) {
-                Image(systemName: room.icon)
-                    .font(.title3.weight(.semibold))
-                    .foregroundStyle(room.accent)
-                    .frame(width: 48, height: 48)
-                    .background(room.accent.opacity(0.12), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                // At accessibility sizes the icon and a badge beside the name
+                // left the name a word's width, and it broke mid-word.
+                if !dynamicTypeSize.isAccessibilitySize {
+                    Image(systemName: room.icon)
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(room.accent)
+                        .frame(width: 48, height: 48)
+                        .background(room.accent.opacity(0.12), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                }
                 VStack(alignment: .leading, spacing: 3) {
-                    HStack(spacing: 6) {
+                    titleLayout {
                         Text(room.name)
                             .font(.headline)
                             .foregroundStyle(Theme.ink)
@@ -914,8 +933,8 @@ struct HomeView: View {
                     Text(room.tagline)
                         .font(.subheadline)
                         .foregroundStyle(Theme.inkSecondary)
-                        .lineLimit(2)
                         .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer(minLength: 4)
                 if locked {

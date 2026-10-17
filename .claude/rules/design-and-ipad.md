@@ -17,6 +17,21 @@ tiles alone do not solve it. Prefer one main column at accessibility sizes.
 See `project-docs/audits/release-experience-2026-10-16.md`. This was a rendered
 viewport check, not a complete interactive iPad pass.
 
+**Layout sweep fixes (1.4.1, 2026-10-17):** a seven-device sweep (iPhone
+SE, 13 mini, 17, 17 Pro Max, iPad mini, Air 11, Pro 13; L, XXXL, AX3, AX5,
+landscape) drove these. Home and the Room drill grid drop to ONE column at
+accessibility sizes (this closes the AX5 gap above), the Mahj+ badge stacks
+under a title there, and the room/drill icon tile hides there so the name
+gets the width. Subtitles wrap (`fixedSize`), never `lineLimit`. Pages that
+centre a card (`HowToPlayView`, `FeatureTourView`, the onboarding info and
+skill pages) use `ViewThatFits(in: .vertical)`: the designed layout first,
+then (onboarding only) a compact one without the icon or subtitle, then a
+ScrollView, so an iPhone SE never clips the first screen. The primer's
+7-tile row takes the largest of 46/40/36/32pt that fits. Home no longer
+hides the toolbar background, which had also removed iOS 26's scroll-edge
+blur. The trial page and paywall were left alone (frozen). Harness:
+`MahjTrainerScreenshots/LayoutSweepTests.swift` + `scripts/layout-sweep.sh`.
+
 - `MahjTrainer/Utilities/Theme.swift`: the warm-modern design system: cream
   surfaces, jade primary, coral energy, per-room accents (`Room.accent`), serif
   display type (`Theme.display`), `themedCard()`/`primaryCTA()` styles,

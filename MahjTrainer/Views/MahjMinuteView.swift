@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MahjMinuteView: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @StateObject private var store = MahjMinuteStore.shared
 
     private var today: Date { Date() }
@@ -131,7 +132,10 @@ struct MahjMinuteView: View {
                 Image(systemName: result == nil ? "play.circle" : "checkmark.circle.fill")
                     .foregroundStyle(result == nil ? Theme.coral : Theme.jade)
                     .frame(width: 28)
-                Text(date, format: .dateTime.weekday(.wide).month(.abbreviated).day())
+                // "Wed" at accessibility sizes, where "Wednesday" broke mid-word.
+                Text(date, format: .dateTime
+                    .weekday(dynamicTypeSize.isAccessibilitySize ? .abbreviated : .wide)
+                    .month(.abbreviated).day())
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(Theme.ink)
                 Spacer()
