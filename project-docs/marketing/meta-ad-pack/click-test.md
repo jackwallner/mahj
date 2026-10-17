@@ -246,3 +246,28 @@ Instagram account: on 2026-10-17, Instagram had 30 impressions, 1 link click
 and $0.60 (24 of the impressions in Reels, 6 in Feed, none in Stories), and
 Facebook had 57 impressions, 3 link clicks and $0.80. Total so far: $1.40,
 4 link clicks, $0.35 per link click.
+
+Audit 2026-10-17 (about 11:20 PT, read-only, $5.37 spent, 12 link clicks):
+- Spend went almost entirely to women 65+: 307 of 353 impressions and 10 of 12
+  clicks. 55 to 64 had 28 impressions and 2 clicks; under 55 barely served.
+  The link-click goal buys the cheapest clickers, and Meta logged only 2
+  `app_store_visit` against 12 link clicks.
+- C3 has no Instagram placement asset, so it serves only on Facebook and has
+  had 9 impressions and $0.08. C1 has 82% of spend, so "the winning ad leads"
+  can only pick C1. Left as is (a new ad resets learning).
+- Only C1's creative carries an Instagram identity (`instagram_user_id`).
+- No changes mid-test. The women 40+ audience is a hunch: research.md
+  supports women but measures no age. The install test runs it as an A/B
+  instead (below).
+
+Install test plan from the audit (needs 1.4.1 live with SKAN/AEM, StartTrial
+ranked first, and the account spending cap raised by Jack):
+- Two campaigns, each $10/day for 14 days ($140 each), same ads and manual
+  Facebook and Instagram feed, Stories and Reels, each with its own `ct`.
+  A: women 40 to 65+, Advantage+ audience off. B: Advantage+ audience on,
+  18 to 65+, all genders.
+- Optimize for app installs (StartTrial once about 50 a week). Every ad gets
+  the Instagram identity and Instagram assets. New ad sets built fresh via
+  the API with home location only.
+- Decision rule: if B's cost per install is at least 20% lower and each arm
+  has 30 or more installs, drop the age and gender limits.
