@@ -239,3 +239,10 @@ $55 all in. No other spend.
 3. Jack: says go in chat, sets the start and end dates and publishes;
    spending starts then.
 4. Day 7: readout above, decision written into this file.
+
+Update 2026-10-17 (later): review cleared and all 3 ads are ACTIVE with no
+errors. **Instagram is serving** under the Page identity even without an
+Instagram account: on 2026-10-17, Instagram had 30 impressions, 1 link click
+and $0.60 (24 of the impressions in Reels, 6 in Feed, none in Stories), and
+Facebook had 57 impressions, 3 link clicks and $0.80. Total so far: $1.40,
+4 link clicks, $0.35 per link click.
