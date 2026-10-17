@@ -122,6 +122,29 @@ The $60 account spending limit was not read back (the MCP does not expose it);
 it was set by hand in Part 1 and nothing has changed it since. Readout day 7:
 2026-10-23 or later.
 
+Status 2026-10-17 (Part 7, Instagram added mid-test): Jack asked for Instagram
+too. Ads Manager would not publish any edit to the ad set: error #1870194
+("location targeting option that has been removed"). Cause: the targeting
+carries a hidden `geo_locations.location_types` of `frequently_in` that the
+UI never shows, so removing and re-adding United States there does not clear
+it. Through the Meta Ads MCP, two targeting writes on ad set
+`120251566264100737`: publisher platforms now Facebook and Instagram, with
+Instagram stream, story and reels added to the existing Facebook feed, story
+and Reels. The second write set `location_types` to `home, recent`, but Meta
+merges this field, so it now reads `frequently_in, home, recent` and Ads
+Manager still blocks UI edits. Each write force-paused the ad set and the MCP
+reactivated it. All 3 ads went back into review (PENDING_REVIEW, no errors).
+Budget, bid, schedule and audience are unchanged. The stale Ads Manager draft
+was discarded.
+
+Open: the creatives have no Instagram identity (no `instagram_user_id`, no
+Page-backed account), and Part 4 saw "Instagram Account Is Missing" with
+Instagram placements. If the placement breakdown shows no Instagram
+impressions once review clears, Instagram is not serving. Further edits to
+this ad set have to go through the API, or into a new ad set without
+`location_types`. The readout covers both platforms combined; the day 1
+Facebook-only result was 1 link click at $0.44.
+
 ## Question
 
 Can Meta put Mahj Trainer in front of women 40+ who install, at under the
