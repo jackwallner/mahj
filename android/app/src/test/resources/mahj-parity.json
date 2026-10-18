@@ -1223,7 +1223,7 @@
         "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
         null,
         "This rack holds three or more Flower, and Singles & Pairs never uses a pung.",
-        "2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out."
+        "2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so look for it when those four numbers fill the rack."
       ],
       "choices" : [
         "Winds & Dragons",
@@ -3155,7 +3155,7 @@
       "answerIndex" : 2,
       "choiceNotes" : [
         "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
-        "2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out.",
+        "2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so look for it when those four numbers fill the rack.",
         null
       ],
       "choices" : [
@@ -4781,13 +4781,13 @@
         "GD",
         "E"
       ],
-      "cost" : 0.60000000000000142,
+      "cost" : 0.59999999999999964,
       "discard" : "1D",
       "fitting" : 8,
       "note" : "The 1 Dot fits 13579 (Odds), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 2 Crak.",
       "seed" : "deal-2",
       "target" : "odds13579",
-      "value" : 10.5,
+      "value" : 10.499999999999998,
       "working" : 4
     },
     {
@@ -4815,7 +4815,7 @@
         "GD",
         "E"
       ],
-      "cost" : 0.60000000000000142,
+      "cost" : 0.59999999999999964,
       "discard" : "1D",
       "fitting" : 10,
       "note" : "The 1 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 6 Bam.",

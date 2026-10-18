@@ -1,87 +1,85 @@
 import SwiftUI
 import UserNotifications
 
-/// The monthly challenge: free for every player, the same twelve questions on
-/// every device, one attempt a month. The App Store in-app event for each
-/// month opens here through `mahj://challenge`. Past months open the same
-/// screen for their own month.
+/// The monthly challenge: free for every player, three new questions every
+/// day of the month, the same for everyone. The best 20 days make the month
+/// score. The App Store in-app event for each month opens here through
+/// `mahj://challenge`, and before the first month opens it says when.
 struct MonthlyChallengeView: View {
-    /// Nil for the current month.
-    var month: Date?
-
     @StateObject private var store = MonthlyChallengeStore.shared
 
-    private var challenge: MonthlyChallenge {
-        MonthlyChallengeContent.challenge(for: month ?? MonthlyChallengeContent.today)
-    }
-    private var isCurrent: Bool { challenge.monthKey == MonthlyChallengeContent.challenge().monthKey }
-    private var pastMonths: [Date] { isCurrent ? MonthlyChallengeContent.pastMonths() : [] }
-
     var body: some View {
+        // One read of "today" per render: a round tapped just after midnight
+        // still opens the day it was showing.
+        let round = MonthlyChallengeContent.currentRound()
         ScrollView {
             VStack(spacing: 16) {
-                hero
-                if isCurrent, store.result(for: challenge) != nil {
-                    MonthlyChallengeNextUp(after: challenge)
+                if let round {
+                    hero(round)
+                    if round.month.daysLeft() <= 3 { MonthlyChallengeNextUp(after: round.month) }
+                } else {
+                    upcoming
                 }
-                if !pastMonths.isEmpty { archive }
+                let past = round.map { MonthlyChallengeContent.pastMonths(before: $0.month.start) } ?? []
+                if !past.isEmpty { archive(past) }
             }
             .padding()
             .frame(maxWidth: Theme.readableContentWidth)
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
-        .navigationTitle(isCurrent ? challenge.monthName : challenge.title)
+        .navigationTitle("\(round?.month.monthName ?? MonthlyChallengeContent.firstChallenge().monthName) Challenge")
         .navigationBarTitleDisplayMode(.inline)
+        .task {
+            store.closeEarlierRounds(than: round)
+            if let round { await ChallengeStandingService.refresh(monthKey: round.monthKey) }
+        }
     }
 
-    private var hero: some View {
-        // One month for the whole card: a Resume tapped just after midnight
-        // on the 1st must finish the month its saved answers belong to.
-        let challenge = challenge
-        let result = store.result(for: challenge)
-        let progress = store.progress(for: challenge)
+    private func hero(_ round: ChallengeRound) -> some View {
+        let month = round.month
+        let score = store.monthScore(month.monthKey)
+        let result = store.result(for: round)
+        let progress = store.progress(for: round)
         return VStack(spacing: 14) {
-            Image(systemName: result == nil ? challenge.theme.icon : "checkmark.seal.fill")
+            Image(systemName: month.theme.icon)
                 .font(.system(size: 28, weight: .semibold))
-                .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
+                .foregroundStyle(Theme.plum)
                 .frame(width: 68, height: 68)
-                .background((result == nil ? Theme.plum : Theme.jade).opacity(0.13), in: Circle())
+                .background(Theme.plum.opacity(0.13), in: Circle())
                 .accessibilityHidden(true)
             VStack(spacing: 5) {
-                Text("\(challenge.monthName.uppercased()) CHALLENGE")
+                Text("\(month.monthName.uppercased()) CHALLENGE")
                     .font(.caption.weight(.heavy))
                     .kerning(1.4)
                     .foregroundStyle(Theme.plum)
-                Text(challenge.theme.title)
+                Text(month.theme.title)
                     .font(Theme.display(27))
                     .foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.center)
-                if result == nil {
-                    Text(challenge.theme.blurb)
+                if score.daysPlayed == 0 {
+                    Text(month.theme.blurb)
                         .font(.subheadline)
                         .foregroundStyle(Theme.inkSecondary)
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
+            if score.daysPlayed > 0 {
+                MonthScoreSummary(score: score, standing: store.standing(for: month.monthKey))
+            }
+            MonthDaysStrip(month: month, today: round.day, results: store.results(inMonth: month.monthKey))
             if let result {
-                MonthlyChallengeGrid(answers: result.answers)
-                NavigationLink {
-                    MonthlyChallengeResultView(result: result)
-                } label: {
-                    Text("See Your Results").primaryCTA()
-                }
+                todayDone(round, result)
             } else {
-                MonthlyChallengeMix(challenge: challenge)
                 NavigationLink {
-                    QuickSessionView(monthlyChallenge: challenge, resume: progress)
+                    QuickSessionView(monthlyRound: round, resume: progress)
                 } label: {
-                    Text(progress.map { "Resume at Question \($0.answers.count + 1)" } ?? "Start the Challenge")
+                    Text(progress == nil ? "Play Today's Round" : "Resume Today's Round")
                         .primaryCTA(color: Theme.plum)
                 }
             }
-            Text(footnote(result: result, progress: progress))
+            Text(footnote(month))
                 .font(.caption)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -91,28 +89,86 @@ struct MonthlyChallengeView: View {
         .themedCard()
     }
 
-    private func footnote(result: MonthlyChallengeResult?, progress: MonthlyChallengeProgress?) -> String {
-        guard isCurrent else {
-            return result == nil
-                ? "From \(challenge.title). Each answer counts as soon as you tap it, and your answers are saved if you stop."
-                : "From \(challenge.title). Your score is final."
+    private func todayDone(_ round: ChallengeRound, _ result: MonthlyChallengeResult) -> some View {
+        let lastDay = round.day >= round.month.dayCount
+        return VStack(spacing: 10) {
+            HStack(spacing: 10) {
+                Text("Today")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.ink)
+                MonthlyChallengeGrid(answers: result.answers)
+                Text("\(result.score)/\(result.total)")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(result.score == result.total ? Theme.jade : Theme.ink)
+                    .monospacedDigit()
+            }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("Today: \(result.score) of \(result.total) right")
+            Text(lastDay
+                 ? "That was the last round of \(round.month.monthName)."
+                 : "Day \(round.day + 1) opens tomorrow.")
+                .font(.subheadline)
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.center)
+            if result.matches(round) {
+                NavigationLink {
+                    MonthlyChallengeAnswersView(round: round, result: result)
+                } label: {
+                    Text(result.score == result.total ? "Review Today's Answers" : "See What You Missed")
+                        .font(.headline)
+                        .foregroundStyle(Theme.plum)
+                        .padding(.vertical, 10)
+                        .frame(maxWidth: .infinity, minHeight: 50)
+                        .background(Theme.plum.opacity(0.1), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                }
+            }
         }
-        let next = MonthlyChallengeContent.next(after: challenge)
-        let days = challenge.daysLeft()
-        let left = days <= 1 ? "Last day" : "\(days)\u{00A0}days left"
-        if result != nil {
-            return days <= 1
-                ? "Your score is final. \(next.monthName) opens tomorrow."
-                : "Your score is final. \(next.monthName) opens in \(days)\u{00A0}days."
-        }
-        if progress != nil {
-            let last = challenge.end.addingTimeInterval(-1).formatted(.dateTime.month(.wide).day())
-            return "Your answers are saved. Pick up any time through \(last)."
-        }
-        return "Each answer counts as soon as you tap it. Stop any time and your answers are saved. \(left)."
     }
 
-    private var archive: some View {
+    private func footnote(_ month: MonthlyChallenge) -> String {
+        let days = month.daysLeft()
+        let end = days <= 1 ? "Today is the last day." : "Runs through \(month.monthName)\u{00A0}\(month.dayCount)."
+        return "Each square is a day of three new questions, the same for every player. Every right answer is a point, and your best \(MonthlyChallengeContent.countedDays) days make your month score, up to \(MonthlyChallengeContent.maxMonthPoints). Missed days are fine. \(end)"
+    }
+
+    /// Before the first month: what it is and when it starts, plus the one
+    /// reminder. The App Store event can send people here early.
+    private var upcoming: some View {
+        let first = MonthlyChallengeContent.firstChallenge()
+        return VStack(spacing: 14) {
+            Image(systemName: first.theme.icon)
+                .font(.system(size: 28, weight: .semibold))
+                .foregroundStyle(Theme.plum)
+                .frame(width: 68, height: 68)
+                .background(Theme.plum.opacity(0.13), in: Circle())
+                .accessibilityHidden(true)
+            VStack(spacing: 5) {
+                Text("\(first.monthName.uppercased()) CHALLENGE")
+                    .font(.caption.weight(.heavy))
+                    .kerning(1.4)
+                    .foregroundStyle(Theme.plum)
+                Text(first.theme.title)
+                    .font(Theme.display(27))
+                    .foregroundStyle(Theme.ink)
+                    .multilineTextAlignment(.center)
+                Text(first.theme.blurb)
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.inkSecondary)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Text("Starts \(first.start.formatted(.dateTime.weekday(.wide).month(.wide).day())). Three new questions every day, the same for every player.")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Theme.ink)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            MonthlyChallengeReminderButton(nextMonthName: first.monthName)
+        }
+        .padding(20)
+        .themedCard()
+    }
+
+    private func archive(_ months: [Date]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("PAST MONTHS")
                 .font(.caption.weight(.heavy))
@@ -120,9 +176,9 @@ struct MonthlyChallengeView: View {
                 .foregroundStyle(Theme.inkSecondary)
                 .padding(.horizontal, 4)
             VStack(spacing: 0) {
-                ForEach(pastMonths, id: \.self) { month in
+                ForEach(months, id: \.self) { month in
                     archiveRow(month)
-                    if month != pastMonths.last {
+                    if month != months.last {
                         Divider().overlay(Theme.rule)
                     }
                 }
@@ -133,62 +189,123 @@ struct MonthlyChallengeView: View {
 
     private func archiveRow(_ month: Date) -> some View {
         let past = MonthlyChallengeContent.challenge(for: month)
-        let result = store.result(for: past)
-        let progress = store.progress(for: past)
-        return NavigationLink {
-            MonthlyChallengeView(month: month)
-        } label: {
-            HStack(spacing: 12) {
-                Image(systemName: result == nil ? past.theme.icon : "checkmark.seal.fill")
-                    .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
-                    .frame(width: 28)
-                    .accessibilityHidden(true)
-                VStack(alignment: .leading, spacing: 1) {
-                    Text(past.title)
-                        .font(.subheadline.weight(.medium))
-                        .foregroundStyle(Theme.ink)
-                    Text(past.theme.title)
+        let score = store.monthScore(past.monthKey)
+        return HStack(spacing: 12) {
+            Image(systemName: past.theme.icon)
+                .foregroundStyle(score.daysPlayed > 0 ? Theme.plum : Theme.inkTertiary)
+                .frame(width: 28)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(past.title)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(Theme.ink)
+                Text(past.theme.title)
+                    .font(.caption)
+                    .foregroundStyle(Theme.inkSecondary)
+            }
+            Spacer(minLength: 8)
+            VStack(alignment: .trailing, spacing: 1) {
+                Text(score.daysPlayed > 0 ? "\(score.points)\u{00A0}points" : "Not played")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(score.daysPlayed > 0 ? Theme.plum : Theme.inkTertiary)
+                    .monospacedDigit()
+                if score.daysPlayed > 0 {
+                    Text("\(score.daysPlayed)\u{00A0}\(score.daysPlayed == 1 ? "day" : "days")")
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
                 }
-                Spacer()
-                Text(result.map { "\($0.score)/\($0.total)" } ?? (progress == nil ? "Play" : "Resume"))
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
-                    .monospacedDigit()
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(Theme.inkTertiary)
-                    .accessibilityHidden(true)
             }
-            .padding(14)
-            .contentShape(Rectangle())
         }
-        .buttonStyle(.plain)
+        .padding(14)
+        .accessibilityElement(children: .combine)
     }
 }
 
-/// What the twelve questions are made of, so the theme is a promise the
-/// player can count: "8 Charleston · 2 Safe Discards · 2 Reading Your Rack", the theme
-/// first and in its colour. Plain text, so it wraps at any text size.
-private struct MonthlyChallengeMix: View {
-    let challenge: MonthlyChallenge
+/// Points, days played and, once enough people have played, the standing.
+/// Side by side, or stacked when large text will not fit them in a row.
+private struct MonthScoreSummary: View {
+    let score: MonthScore
+    let standing: ChallengeStanding?
 
     var body: some View {
-        let counts = Dictionary(grouping: challenge.items, by: MonthlyChallengeContent.skill(of:)).mapValues(\.count)
-        let others = MonthlyChallengeTheme.allCases
-            .filter { $0 != challenge.theme && counts[$0, default: 0] > 0 }
-            .map { "\(counts[$0, default: 0])\u{00A0}\($0.skillTitle.replacingOccurrences(of: " ", with: "\u{00A0}"))" }
-        let lead = "\(counts[challenge.theme, default: 0])\u{00A0}\(challenge.theme.skillTitle.replacingOccurrences(of: " ", with: "\u{00A0}"))"
-        (Text(lead).foregroundStyle(Theme.plum).fontWeight(.bold)
-            + Text(others.map { " · \($0)" }.joined()).foregroundStyle(Theme.inkSecondary))
-            .font(.subheadline.weight(.semibold))
-            .multilineTextAlignment(.center)
-            .accessibilityLabel(([lead] + others).joined(separator: ", ").replacingOccurrences(of: "\u{00A0}", with: " "))
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 8) { pills }
+            VStack(spacing: 8) { pills }
+        }
+    }
+
+    @ViewBuilder
+    private var pills: some View {
+        pill("\(score.points)", "of \(MonthlyChallengeContent.maxMonthPoints) points")
+        pill("\(score.daysPlayed)", score.daysPlayed == 1 ? "day played" : "days played")
+        if let top = standing?.topPercent {
+            pill("Top \(top)%", "this month")
+        }
+    }
+
+    private func pill(_ value: String, _ label: String) -> some View {
+        VStack(spacing: 1) {
+            Text(value)
+                .font(.headline)
+                .foregroundStyle(Theme.ink)
+                .monospacedDigit()
+            Text(label)
+                .font(.caption)
+                .foregroundStyle(Theme.inkSecondary)
+        }
+        .fixedSize()
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(Theme.plum.opacity(0.08), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .accessibilityElement(children: .combine)
     }
 }
 
-/// Twelve squares in two rows of six, the same shape as the shared text.
+/// The month at a glance: one square per day. Played days fill with their
+/// score, today is ringed, and days still to come are faint. A missed day
+/// stays empty and costs nothing while fewer than 20 count.
+private struct MonthDaysStrip: View {
+    let month: MonthlyChallenge
+    let today: Int
+    let results: [MonthlyChallengeResult]
+    @ScaledMetric(relativeTo: .body) private var side: CGFloat = 16
+
+    var body: some View {
+        let scores = Dictionary(uniqueKeysWithValues: results.map { ($0.day, $0.score) })
+        let rows = stride(from: 1, through: month.dayCount, by: 10).map { Array($0...min($0 + 9, month.dayCount)) }
+        VStack(spacing: 5) {
+            ForEach(rows, id: \.first) { row in
+                HStack(spacing: 5) {
+                    ForEach(row, id: \.self) { day in
+                        square(day: day, score: scores[day])
+                    }
+                    // Keeps a short last row aligned under the full ones.
+                    ForEach(row.count..<10, id: \.self) { _ in Color.clear.frame(width: side, height: side) }
+                }
+            }
+        }
+        .accessibilityElement()
+        .accessibilityLabel("\(results.count) of \(today) days played so far")
+    }
+
+    private func square(day: Int, score: Int?) -> some View {
+        let fill: Color = {
+            // A day not played looks like one still to come: nothing to
+            // make up, and a late starter is not shown as behind.
+            guard let score else { return Theme.rule.opacity(0.25) }
+            return score == 0 ? Theme.coral.opacity(0.14) : Theme.jade.opacity([0.35, 0.65, 1][min(score, 3) - 1])
+        }()
+        return RoundedRectangle(cornerRadius: 4, style: .continuous)
+            .fill(fill)
+            .overlay(
+                RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    .strokeBorder(day == today ? Theme.plum : (score == 0 ? Theme.coral : .clear), lineWidth: day == today ? 2 : 1.5)
+            )
+            .frame(width: side, height: side)
+    }
+}
+
+/// One square per answer, the same shape as the shared text.
 /// Misses are outlined in coral so a low score reads as what it is.
 struct MonthlyChallengeGrid: View {
     let answers: [Bool]
@@ -303,11 +420,13 @@ private struct MonthlyChallengeReminderButton: View {
 }
 
 struct MonthlyChallengeResultView: View {
+    let round: ChallengeRound
     let result: MonthlyChallengeResult
     var recordsCompletion = false
     var onDone: (() -> Void)?
 
     @EnvironmentObject private var subscriptions: SubscriptionService
+    @StateObject private var store = MonthlyChallengeStore.shared
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @ScaledMetric(relativeTo: .largeTitle) private var circle: CGFloat = 122
@@ -316,34 +435,27 @@ struct MonthlyChallengeResultView: View {
     @State private var showPaywall = false
     @State private var confettiTrigger = 0
 
-    private var challenge: MonthlyChallenge? { MonthlyChallengeContent.challenge(monthKey: result.monthKey) }
     private var fraction: Double { Double(result.score) / Double(max(result.total, 1)) }
     private var tone: Color {
         if fraction >= 0.75 { return Theme.jade }
         if fraction >= 0.5 { return Theme.gold }
         return Theme.coral
     }
+    private var month: MonthScore { store.monthScore(round.monthKey) }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
                 scoreCard
-                if let challenge, result.matches(challenge) {
-                    breakdown(challenge)
+                if result.matches(round) {
                     NavigationLink {
-                        MonthlyChallengeAnswersView(challenge: challenge, result: result)
+                        MonthlyChallengeAnswersView(round: round, result: result)
                     } label: {
                         Text(result.score == result.total ? "Review Your Answers" : "See What You Missed")
                             .primaryCTA(color: Theme.plum)
                     }
-                } else {
-                    Text("This month's questions were updated after you played, so your score is kept but the answer review is not.")
-                        .font(.caption)
-                        .foregroundStyle(Theme.inkSecondary)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
                 }
-                ShareLink(item: result.shareText) {
+                ShareLink(item: shareText) {
                     Label("Share Your Score", systemImage: "square.and.arrow.up")
                         .font(.headline)
                         .foregroundStyle(Theme.plum)
@@ -351,7 +463,9 @@ struct MonthlyChallengeResultView: View {
                         .frame(maxWidth: .infinity, minHeight: 50)
                         .background(Theme.plum.opacity(0.1), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
-                if !subscriptions.isPro { memberCard }
+                // Once a month and then every fifth round, not every day:
+                // a daily pitch under a three-question round is a nag.
+                if !subscriptions.isPro, month.daysPlayed > 0, month.daysPlayed % 5 == 0 { memberCard }
             }
             .padding()
             .frame(maxWidth: 620)
@@ -373,17 +487,30 @@ struct MonthlyChallengeResultView: View {
             }
         }
         .onAppear { recordCompletionIfNeeded() }
+        .task { await ChallengeStandingService.refresh(monthKey: round.monthKey, force: recordsCompletion) }
         .sheet(isPresented: $showPaywall) { PaywallView(source: "monthly_challenge_result") }
         .requestsReview(after: reviewMoment, isClear: { !showPaywall })
     }
 
     private var verdict: String {
-        switch fraction {
-        case 1: return "A perfect month!"
-        case 0.75...: return "Sharp play"
-        case 0.5...: return "Solid month"
+        switch result.score {
+        case result.total: return "A perfect round!"
+        case 2...: return "Solid round"
         default: return "A tough one"
         }
+    }
+
+    private var monthLine: String {
+        let points = "\(month.points)\u{00A0}\(month.points == 1 ? "point" : "points") this month"
+        if let top = store.standing(for: round.monthKey)?.topPercent {
+            return "+\(result.score) today · \(points) · Top\u{00A0}\(top)%"
+        }
+        return "+\(result.score) today · \(points)"
+    }
+
+    private var shareText: String {
+        let squares = result.answers.map { $0 ? "🟩" : "⬜️" }.joined()
+        return "Mahj Trainer \(result.monthName) Challenge, day \(result.day)\n\(squares) today · \(month.points) points this month\nThree new questions a day, the same for every player: \(AppStoreLinks.productURL.absoluteString)"
     }
 
     private var scoreCard: some View {
@@ -406,67 +533,27 @@ struct MonthlyChallengeResultView: View {
                 .font(Theme.display(28))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
-            Text(fraction < 0.5 ? "Every miss is explained below." : result.theme.title)
+            Text(monthLine)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Theme.plum)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            MonthlyChallengeGrid(answers: result.answers)
+                .padding(.top, 2)
+            Text(round.day >= round.month.dayCount
+                 ? "That was the last round of \(round.month.monthName)."
+                 : "Three new questions tomorrow.")
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
-            MonthlyChallengeGrid(answers: result.answers)
-                .padding(.top, 2)
         }
         .frame(maxWidth: .infinity)
         .padding(20)
         .themedCard()
     }
 
-    private func breakdown(_ challenge: MonthlyChallenge) -> some View {
-        let pairs = zip(challenge.items, result.answers).map { (MonthlyChallengeContent.skill(of: $0.0), $0.1) }
-        let ordered = [challenge.theme] + MonthlyChallengeTheme.allCases.filter { $0 != challenge.theme }
-        return VStack(alignment: .leading, spacing: 14) {
-            Text("BY SKILL")
-                .font(.caption.weight(.heavy))
-                .kerning(1.4)
-                .foregroundStyle(Theme.inkSecondary)
-            ForEach(ordered, id: \.self) { skill in
-                let rows = pairs.filter { $0.0 == skill }
-                if !rows.isEmpty {
-                    let right = rows.filter(\.1).count
-                    let line = dynamicTypeSize.isAccessibilitySize
-                        ? AnyLayout(VStackLayout(alignment: .leading, spacing: 2))
-                        : AnyLayout(HStackLayout(spacing: 12))
-                    line {
-                        if !dynamicTypeSize.isAccessibilitySize {
-                            Image(systemName: skill.icon)
-                                .foregroundStyle(Theme.inkSecondary)
-                                .frame(width: 30)
-                                .accessibilityHidden(true)
-                        }
-                        Text(skill.skillTitle)
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(Theme.ink)
-                            .fixedSize(horizontal: false, vertical: true)
-                        if !dynamicTypeSize.isAccessibilitySize { Spacer(minLength: 8) }
-                        Text("\(right)/\(rows.count)")
-                            .font(.subheadline.weight(.bold))
-                            .foregroundStyle(color(right, of: rows.count))
-                            .monospacedDigit()
-                            .fixedSize()
-                    }
-                    .accessibilityElement(children: .combine)
-                }
-            }
-        }
-        .padding(16)
-        .themedCard(corner: 16)
-    }
-
-    private func color(_ right: Int, of total: Int) -> Color {
-        if right == total { return Theme.jade }
-        if right * 2 >= total { return Theme.ink }
-        return Theme.coral
-    }
-
-    /// Free players just finished a real session of member-grade questions;
-    /// this is the honest moment to say where more of them live.
+    /// Free players just finished member-grade questions; this is the honest
+    /// moment to say where more of them live.
     private var memberCard: some View {
         Button { showPaywall = true } label: {
             Group {
@@ -506,10 +593,10 @@ struct MonthlyChallengeResultView: View {
 
     private var memberText: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text("Want more like these?")
+            Text("Want more than three a day?")
                 .font(.headline)
                 .foregroundStyle(Theme.ink)
-            Text("\(Membership.name) deals fresh racks, passes and defense questions every day, without end.")
+            Text("\(Membership.name) adds Endless Practice: fresh racks, passes and defense questions, as many as you like.")
                 .font(.caption)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.leading)
@@ -526,30 +613,30 @@ struct MonthlyChallengeResultView: View {
         }
         SoundPlayer.play(.complete)
         // The session and streak were banked with the last answer
-        // (`QuickSessionView.grade`), so a run closed before this screen
+        // (`QuickSessionView.grade`), so a round closed before this screen
         // still counts.
         guard fraction >= 0.5 else { return }
         reviewMoment += 1
     }
 }
 
-/// Every question of a finished month with all its choices marked, the
+/// Every question of a finished round with all its choices marked, the
 /// coaching, and why the player's pick was wrong. The score is locked, so
-/// this is where a run turns into something learned.
+/// this is where a round turns into something learned.
 struct MonthlyChallengeAnswersView: View {
-    let challenge: MonthlyChallenge
+    let round: ChallengeRound
     let result: MonthlyChallengeResult
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var missedOnly: Bool
 
-    init(challenge: MonthlyChallenge, result: MonthlyChallengeResult) {
-        self.challenge = challenge
+    init(round: ChallengeRound, result: MonthlyChallengeResult) {
+        self.round = round
         self.result = result
         _missedOnly = State(initialValue: result.score < result.total)
     }
 
     private var shown: [(index: Int, item: QuickItem)] {
-        challenge.items.enumerated()
+        round.items.prefix(result.total).enumerated()
             .map { (index: $0.offset, item: $0.element) }
             .filter { !missedOnly || !(result.answers.indices.contains($0.index) && result.answers[$0.index]) }
     }

@@ -184,7 +184,7 @@ struct HomeView: View {
                 header
                 todaySession
                 if showsPrimerCard { howToPlayCard }
-                if showsMonthlyChallenge { monthlyChallengeCard }
+                if let round = challengeCardRound { monthlyChallengeCard(round) }
                 if showsGameNightCard { gameNightCard }
                 trainingSection
                 roomsColumn
@@ -201,7 +201,7 @@ struct HomeView: View {
         VStack(spacing: 14) {
             todaySession
             if showsPrimerCard { howToPlayCard }
-            if showsMonthlyChallenge { monthlyChallengeCard }
+            if let round = challengeCardRound { monthlyChallengeCard(round) }
             if showsGameNightCard { gameNightCard }
             trainingSection
             if !subscriptions.isPro { upgradeCard }
@@ -313,6 +313,7 @@ struct HomeView: View {
             // Seen once shown: a swipe-down dismiss must not bring it back
             // every time Home is bare again.
             WhatsNew.markSeen()
+            WhatsNew.shownThisLaunch = true
             showWhatsNew = true
         }
     }
@@ -324,13 +325,15 @@ struct HomeView: View {
     /// have used the app is spooked; someone who just finished a drill has a
     /// reason to say yes. The trial relay waits up to 24 hours for the answer,
     /// so asking later costs Meta nothing. Anything covering Home just defers
-    /// it until Home is bare again.
+    /// it until Home is bare again, and a launch that showed What's New
+    /// defers it to the next launch (every updater has finished practices).
     ///
     /// The `att_prompt` switch lives in the offering, which a cold launch may
     /// not have yet; with no offering there is no ask, and the offering
     /// arriving tries again.
     private func askForTrackingIfNeeded() async {
-        guard MetaAds.shouldAskForTracking, progress.hasOnboarded, progress.totalSessions > 0 else { return }
+        guard MetaAds.shouldAskForTracking, progress.hasOnboarded, progress.totalSessions > 0,
+              !WhatsNew.shownThisLaunch else { return }
         try? await Task.sleep(nanoseconds: 1_200_000_000)
         guard subscriptions.remoteConfigKnown, subscriptions.isOn(.attPrompt), homeIsBare else { return }
         await MetaAds.requestTracking()
@@ -373,14 +376,14 @@ struct HomeView: View {
             HStack(alignment: .top) {
                 headerTitle
                 Spacer(minLength: 8)
-                statsLink
+                statsRow
                     .padding(.top, 4)
             }
             .padding(.top, 2)
         } else {
             VStack(alignment: .leading, spacing: 10) {
                 headerTitle
-                statsLink
+                statsRow
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, 2)
@@ -422,12 +425,33 @@ struct HomeView: View {
         .accessibilityHint("Opens your progress breakdown")
     }
 
+    /// The stats, then the challenge chip once today's round is played. The
+    /// chip drops to its own line when large text leaves no room beside them.
+    private var statsRow: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 8) {
+                statsLink
+                challengeChip
+            }
+            VStack(alignment: .leading, spacing: 8) {
+                statsLink
+                challengeChip
+            }
+        }
+    }
+
     private func statChip(value: Int, icon: String, color: Color, label: String, prefix: String = "") -> some View {
+        chipBody(text: "\(prefix)\(value)", icon: icon, color: color)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(label)
+    }
+
+    private func chipBody(text: String, icon: String, color: Color) -> some View {
         HStack(spacing: 5) {
             Image(systemName: icon)
                 .font(.caption)
                 .foregroundStyle(color)
-            Text("\(prefix)\(value)")
+            Text(text)
                 .font(.subheadline.weight(.bold))
                 .foregroundStyle(Theme.ink)
                 .monospacedDigit()
@@ -435,8 +459,6 @@ struct HomeView: View {
         .padding(.horizontal, 9)
         .padding(.vertical, 6)
         .background(color.opacity(0.12), in: Capsule())
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(label)
     }
 
     /// The one-tap way in: builds a short mixed session, no browsing needed.
@@ -535,54 +557,61 @@ struct HomeView: View {
         .buttonStyle(PressableCardStyle())
     }
 
-    /// Members who have not picked a game night yet. One card, one tap to
-    /// set it, one tap to never see it again.
     /// `monthly_challenge: off` in the offering metadata pulls the challenge
     /// without a release.
     private var showsMonthlyChallenge: Bool { subscriptions.isOn(.monthlyChallenge) }
 
-    /// This month's shared challenge, free for everyone. It sits right under
-    /// Get Started (under the How to Play card for a brand-new player, who
-    /// sees the 1.3.2 order first) because it changes every month and the
-    /// App Store event for it sends people straight here. Two lines in every state, so Home does
-    /// not jump when the run starts or ends.
-    private var monthlyChallengeCard: some View {
-        let challenge = MonthlyChallengeContent.challenge()
-        let result = monthlyStore.result(for: challenge)
-        let run = monthlyStore.progress(for: challenge)
-        return NavigationLink {
-            MonthlyChallengeView()
-        } label: {
+    /// Today's challenge round, for players who have finished a practice:
+    /// a brand-new player's Home stays the 1.3.2 lobby, with Get Started the
+    /// obvious first tap. The event link opens the challenge for anyone.
+    private var homeChallengeRound: ChallengeRound? {
+        guard showsMonthlyChallenge, progress.totalSessions > 0 else { return nil }
+        return MonthlyChallengeContent.currentRound()
+    }
+
+    /// The card asks for today's round only while it is open; once played,
+    /// the challenge shrinks to a chip beside the stats until tomorrow.
+    private var challengeCardRound: ChallengeRound? {
+        guard let round = homeChallengeRound, monthlyStore.result(for: round) == nil else { return nil }
+        return round
+    }
+
+    /// Today's three questions, under Get Started (and under How to Play for
+    /// a new player). Two lines in every state, so Home does not jump when a
+    /// round starts.
+    private func monthlyChallengeCard(_ round: ChallengeRound) -> some View {
+        let run = monthlyStore.progress(for: round)
+        return NavigationLink(value: AppDestination.monthlyChallenge) {
             HStack(spacing: 12) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill((result == nil ? Theme.plum : Theme.jade).opacity(0.13))
+                        .fill(Theme.plum.opacity(0.13))
                     if let run {
                         Circle()
                             .stroke(Theme.plum.opacity(0.2), lineWidth: 3)
                             .padding(7)
                         Circle()
-                            .trim(from: 0, to: Double(run.answers.count) / Double(max(challenge.items.count, 1)))
+                            .trim(from: 0, to: Double(run.answers.count) / Double(max(round.items.count, 1)))
                             .stroke(Theme.plum, style: StrokeStyle(lineWidth: 3, lineCap: .round))
                             .rotationEffect(.degrees(-90))
                             .padding(7)
                     } else {
-                        Image(systemName: result == nil ? challenge.theme.icon : "checkmark.seal.fill")
+                        Image(systemName: round.month.theme.icon)
                             .font(.body.weight(.semibold))
-                            .foregroundStyle(result == nil ? Theme.plum : Theme.jade)
+                            .foregroundStyle(Theme.plum)
                     }
                 }
                 .frame(width: 38, height: 38)
                 .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("\(challenge.monthName.uppercased()) CHALLENGE")
+                    Text("\(round.month.monthName.uppercased()) CHALLENGE · DAY\u{00A0}\(round.day)")
                         .font(.caption2.weight(.heavy))
                         .kerning(1.2)
                         .foregroundStyle(Theme.plum)
-                    Text(challenge.theme.title)
+                    Text(round.month.theme.title)
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
-                    Text(monthlyChallengeLine(challenge, result: result, run: run))
+                    Text(monthlyChallengeLine(round, run: run))
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
                         .multilineTextAlignment(.leading)
@@ -601,23 +630,38 @@ struct HomeView: View {
         .themedCard(corner: 16)
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(Theme.plum.opacity(result == nil ? 0.3 : 0), lineWidth: 1)
+                .strokeBorder(Theme.plum.opacity(0.3), lineWidth: 1)
         )
     }
 
-    private func monthlyChallengeLine(_ challenge: MonthlyChallenge, result: MonthlyChallengeResult?, run: MonthlyChallengeProgress?) -> String {
-        let days = challenge.daysLeft()
-        let left = days <= 1 ? "last day" : "\(days)\u{00A0}days left"
-        if let result {
-            let next = MonthlyChallengeContent.next(after: challenge)
-            return "\(result.score)/\(result.total) · \(next.monthName) opens in \(days)\u{00A0}\(days == 1 ? "day" : "days")"
-        }
+    private func monthlyChallengeLine(_ round: ChallengeRound, run: MonthlyChallengeProgress?) -> String {
         if let run {
-            return "\(run.answers.count) of \(challenge.items.count) answered · \(left)"
+            return "\(run.answers.count) of \(round.items.count) answered today"
         }
-        return "\(challenge.items.count)\u{00A0}questions · \(left)"
+        let score = monthlyStore.monthScore(round.monthKey)
+        if score.daysPlayed == 0 {
+            return "\(round.items.count) new questions a day, the same for every player"
+        }
+        return "Today's \(round.items.count) questions · \(score.points)\u{00A0}\(score.points == 1 ? "point" : "points") so far"
     }
 
+    /// Today's round is done: the month score rides beside the stats instead
+    /// of holding a card, and opens the challenge.
+    @ViewBuilder
+    private var challengeChip: some View {
+        if let round = homeChallengeRound, monthlyStore.result(for: round) != nil {
+            let points = monthlyStore.monthScore(round.monthKey).points
+            NavigationLink(value: AppDestination.monthlyChallenge) {
+                chipBody(text: "\(points)\u{00A0}pts", icon: "calendar", color: Theme.plum)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("\(round.month.monthName) challenge: \(points) \(points == 1 ? "point" : "points"). Today's round is done.")
+            .accessibilityHint("Opens the challenge")
+        }
+    }
+
+    /// Members who have not picked a game night yet. One card, one tap to
+    /// set it, one tap to never see it again.
     private var gameNightCard: some View {
         HStack(spacing: 12) {
             NavigationLink {

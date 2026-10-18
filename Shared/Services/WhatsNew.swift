@@ -56,8 +56,8 @@ enum WhatsNew {
                 WhatsNewItem(
                     id: monthlyChallengeItemID,
                     icon: "calendar",
-                    title: "A new challenge every month",
-                    body: "Twelve questions, the same for every player, free for everyone. Your first run is the one that counts, so share your score.",
+                    title: "A challenge every month",
+                    body: "Three new questions every day, the same for every player and free for everyone. Your best 20 days make your month score, and a strong month shows where you rank.",
                     isAppleOnly: true
                 ),
                 WhatsNewItem(
@@ -220,6 +220,10 @@ enum WhatsNew {
     static func markSeen(defaults: UserDefaults = .standard) {
         defaults.set(currentVersion, forKey: lastSeenKey)
     }
+
+    /// Set when the sheet shows. Apple's tracking prompt waits for the next
+    /// launch, so an updating player is not hit with both back to back.
+    @MainActor static var shownThisLaunch = false
 
     /// Called when onboarding finishes so a new player is never shown notes
     /// for a version they have only ever run.

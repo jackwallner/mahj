@@ -74,7 +74,7 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .year:
             return "a year hand is built from the year's digits, with soaps for zeros, so it wants 2s and soaps rather than a spread of numbers"
         case .evens2468:
-            return "an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out"
+            return "an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so look for it when those four numbers fill the rack"
         case .likeNumbers:
             return "like numbers means the SAME number across different suits, so a rack spread across several numbers is not it"
         case .quints:
@@ -82,7 +82,7 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .consecutiveRun:
             return "a run needs numbers stepping up in order with no gaps, which always mixes odd and even"
         case .odds13579:
-            return "an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out"
+            return "an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so look for it when odd numbers fill the rack"
         case .windsDragons:
             return "this section is built mostly from winds and dragons, so a rack full of number tiles is not it"
         case .threeSixNine:

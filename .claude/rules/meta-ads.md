@@ -25,7 +25,9 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
   before the player has used the app spooks people), bare Home,
   1.2s settle, re-asked whenever Home is bare again (a sheet closes, a pushed
   screen pops, the offering arrives). Bare means `HomeView.homeIsBare`: Home
-  on screen, nothing pushed (a deep-linked challenge counts), no sheet. It
+  on screen, nothing pushed (a deep-linked challenge counts), no sheet. Never in a
+  launch that showed What's New (`WhatsNew.shownThisLaunch`, Jack
+  2026-10-18): updaters already have practices, so it waits a launch. It
   also waits for `remoteConfigKnown`, or `att_prompt: off` could not stop a
   cold launch, which asks before the offering loads. Never move it
   to launch or onboarding. `askApple()` stays `nonisolated` (ATT answers off

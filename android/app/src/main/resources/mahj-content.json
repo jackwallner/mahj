@@ -11,7 +11,7 @@
       "displayName" : "2468 (Evens)",
       "howToSpot" : "Only even numbers: 2, 4, 6, 8. Every odd tile in your hand is dead weight for this section.",
       "id" : "evens2468",
-      "requires" : "an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so a single odd number tile rules it out",
+      "requires" : "an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so look for it when those four numbers fill the rack",
       "shortName" : "2468"
     },
     {
@@ -39,7 +39,7 @@
       "displayName" : "13579 (Odds)",
       "howToSpot" : "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, with one more number to build from.",
       "id" : "odds13579",
-      "requires" : "an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so a single even number tile rules it out",
+      "requires" : "an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so look for it when odd numbers fill the rack",
       "shortName" : "13579"
     },
     {

@@ -204,7 +204,7 @@ struct SettingsView: View {
             Button {
                 showFeedback = true
             } label: {
-                Label("Send Feedback", systemImage: "envelope.fill")
+                Label("Send Feedback", systemImage: "bubble.left.fill")
             }
         }
     }

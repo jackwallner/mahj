@@ -73,6 +73,13 @@ final class LayoutSweepTests: XCTestCase {
             step("quiz") { quiz() }
             step("challenge") { challenge() }
             step("playhand") { playHand() }
+        case "new":
+            // Only the 1.4 screens, for a loaded Mac that cannot finish a full run.
+            step("whatsnew") { whatsNew() }
+            step("home_free") { homeFree() }
+            step("settings_free") { settings(member: false) }
+            step("challenge") { challenge() }
+            step("home_member") { memberScreens(full: false) }
         case "probe":
             step("probe") { probe() }
         case "flashcard":
@@ -292,11 +299,12 @@ final class LayoutSweepTests: XCTestCase {
     }
 
     private func challenge() {
-        launch(onboarded: true, member: false)
+        // The Home card waits for a first finished practice.
+        launch(onboarded: true, member: false, sessions: 1)
         guard openContaining("CHALLENGE") else { return }
         settle()
         captureScrolled("challenge_intro", max: 6)
-        let start = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Start the Challenge")).firstMatch
+        let start = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Today's Round")).firstMatch
         guard reach(start, swipes: 8) else { note("challenge: Start not reachable"); return }
         start.tap()
         settle()
@@ -319,6 +327,14 @@ final class LayoutSweepTests: XCTestCase {
         }
         settle(2.0)
         captureScrolled("challenge_result", max: 8)
+        // Done goes back to the challenge, which now shows today as played,
+        // and Home trades the card for the chip.
+        if tapButton("Done") {
+            settle(1.5)
+            captureScrolled("challenge_done", max: 6)
+        }
+        launch(onboarded: true, member: false, sessions: 1)
+        capture("home_after_round")
     }
 
     private func memberScreens(full: Bool) {
@@ -472,7 +488,7 @@ final class LayoutSweepTests: XCTestCase {
 
     // MARK: - Launch
 
-    private func launch(fresh: Bool = false, onboarded: Bool = true, member: Bool = false, whatsNew: Bool = false) {
+    private func launch(fresh: Bool = false, onboarded: Bool = true, member: Bool = false, whatsNew: Bool = false, sessions: Int? = nil) {
         app.terminate()
         var args: [String] = ["-reviewPrompt.launchCount", "0", "-ChallengeMonth", "2026-11"]
         if !fresh {
@@ -484,6 +500,7 @@ final class LayoutSweepTests: XCTestCase {
             ]
             // An upgrader: onboarded, no stored marker.
             args += whatsNew ? ["-whatsnew.lastSeenVersion", ""] : ["-mahj.suppressWhatsNew"]
+            if let sessions { args += ["-progress.totalSessions", "\(sessions)"] }
         } else {
             args += ["-subscription.localProOverride", "NO"]
         }

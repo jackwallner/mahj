@@ -3,7 +3,7 @@ import SwiftUI
 private enum QuickSessionPurpose {
     case quickSession(isDaily: Bool)
     case mahjMinute(MahjMinuteChallenge)
-    case monthlyChallenge(MonthlyChallenge)
+    case monthlyChallenge(ChallengeRound)
     case gameNightPrep
 
     var drill: Drill {
@@ -16,7 +16,7 @@ private enum QuickSessionPurpose {
     }
 
     var navigationTitle: String {
-        if case .monthlyChallenge(let challenge) = self { return "\(challenge.monthName) Challenge" }
+        if case .monthlyChallenge(let round) = self { return "\(round.month.monthName) Challenge" }
         return drill.title
     }
 }
@@ -58,13 +58,13 @@ struct QuickSessionView: View {
         self.onClose = onClose
     }
 
-    /// Picks up a started run where it stopped: the challenge counts the first
-    /// run, so leaving mid-way must neither lose answers nor offer a reset.
-    init(monthlyChallenge challenge: MonthlyChallenge, resume: MonthlyChallengeProgress? = nil, onClose: (() -> Void)? = nil) {
-        _items = State(initialValue: challenge.items)
-        purpose = .monthlyChallenge(challenge)
+    /// Picks up a started round where it stopped: the challenge counts the
+    /// first run, so leaving mid-way must neither lose answers nor offer a reset.
+    init(monthlyRound round: ChallengeRound, resume: MonthlyChallengeProgress? = nil, onClose: (() -> Void)? = nil) {
+        _items = State(initialValue: round.items)
+        purpose = .monthlyChallenge(round)
         self.onClose = onClose
-        if let resume, resume.answers.count < challenge.items.count {
+        if let resume, resume.answers.count < round.items.count {
             _index = State(initialValue: resume.answers.count)
             _answers = State(initialValue: resume.answers)
             _score = State(initialValue: resume.answers.filter { $0 }.count)
@@ -151,8 +151,8 @@ struct QuickSessionView: View {
     private var completion: some View {
         if case .mahjMinute = purpose, let minuteResult {
             MahjMinuteResultView(result: minuteResult, recordsCompletion: true, onDone: onClose)
-        } else if case .monthlyChallenge = purpose, let monthlyResult {
-            MonthlyChallengeResultView(result: monthlyResult, recordsCompletion: true, onDone: onClose)
+        } else if case .monthlyChallenge(let round) = purpose, let monthlyResult {
+            MonthlyChallengeResultView(round: round, result: monthlyResult, recordsCompletion: true, onDone: onClose)
         } else {
             DrillCompleteView(drill: purpose.drill, score: score, total: items.count, onDone: onClose)
         }
@@ -264,9 +264,9 @@ struct QuickSessionView: View {
         selection = pick
         let correct = pick == item.answerIndex
         answers.append(correct)
-        if case .monthlyChallenge(let challenge) = purpose {
-            let wasOpen = monthlyStore.result(for: challenge) == nil
-            if let result = monthlyStore.recordAnswer(challenge: challenge, correct: correct, pick: pick) {
+        if case .monthlyChallenge(let round) = purpose {
+            let wasOpen = monthlyStore.result(for: round) == nil
+            if let result = monthlyStore.recordAnswer(round: round, correct: correct, pick: pick) {
                 monthlyResult = result
                 // The last answer banks the run, so it banks the session and
                 // the streak day too. Crediting them on the result screen
@@ -344,8 +344,8 @@ struct QuickSessionView: View {
             if isDaily { progress.markQuickSessionCompleted() }
         case .mahjMinute(let challenge):
             minuteResult = minuteStore.record(challenge: challenge, answers: answers)
-        case .monthlyChallenge(let challenge):
-            monthlyResult = monthlyResult ?? monthlyStore.record(challenge: challenge, answers: answers)
+        case .monthlyChallenge(let round):
+            monthlyResult = monthlyResult ?? monthlyStore.record(round: round, answers: answers)
         case .gameNightPrep:
             break
         }

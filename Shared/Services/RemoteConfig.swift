@@ -82,7 +82,7 @@ enum TrialBenefits: String, CaseIterable, Sendable {
                 "Game Night Prep, five minutes built from your misses",
                 "Fix My Mistakes brings back what you miss",
                 "Endless Practice deals a fresh rack every time",
-                "Mahj Minute, a shared daily challenge",
+                "Mahj Minute, a shared daily set",
                 "Extra sets in all four rooms, plus the Master Tables",
             ]
         }

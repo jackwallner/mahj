@@ -50,25 +50,65 @@ struct MonthlyChallenge: Identifiable, Sendable {
     let theme: MonthlyChallengeTheme
     let start: Date
     let end: Date
-    let items: [QuickItem]
+    /// How many months have shared this theme before, for the authored rotation.
+    let rotation: Int
+    let calendar: Calendar
 
     var id: String { monthKey }
 
-    func daysLeft(now: Date = MonthlyChallengeContent.today, calendar: Calendar = .gregorianLocal) -> Int {
+    /// Days in the month, so rounds 1...dayCount.
+    var dayCount: Int { calendar.dateComponents([.day], from: start, to: end).day ?? 30 }
+
+    /// Days still to play, today included: 30 on November 1, 1 on the 30th.
+    func daysLeft(now: Date = MonthlyChallengeContent.today) -> Int {
         let today = calendar.startOfDay(for: now)
         return max(0, calendar.dateComponents([.day], from: today, to: end).day ?? 0)
     }
+
+    /// Which round `date` is, or nil outside this month.
+    func day(of date: Date) -> Int? {
+        guard date >= start, date < end else { return nil }
+        return calendar.component(.day, from: date)
+    }
+
+    func round(day: Int) -> ChallengeRound {
+        ChallengeRound(
+            month: self,
+            day: day,
+            items: MonthlyChallengeContent.roundItems(for: self, day: day)
+        )
+    }
 }
 
-/// One shared set per calendar month, free for everyone: the same twelve
-/// questions on every device, eight on the month's theme and four across the
-/// other skills. Generated questions come from the seeded generators, so
-/// nothing new has to be authored to keep a month fresh, and the authored
-/// ones are picked from the app's own teaching content.
+/// One day of a month's challenge: three questions, the same for everyone
+/// that day. The month score is built from these.
+struct ChallengeRound: Identifiable, Sendable {
+    let month: MonthlyChallenge
+    let day: Int
+    let items: [QuickItem]
+
+    var key: String { MonthlyChallengeContent.roundKey(monthKey: month.monthKey, day: day) }
+    var id: String { key }
+    var monthKey: String { month.monthKey }
+    /// "November 5"
+    var title: String { "\(month.monthName) \(day)" }
+}
+
+/// A month-long challenge, free for everyone: three new questions every day,
+/// the same three on every device, two on the month's skill and one from
+/// another. A player's best `countedDays` rounds make the month score, so a
+/// few missed days cost nothing and coming back keeps paying. Generated
+/// questions come from the seeded generators; every third day the last
+/// question is a hand-written one from the app's own teaching content.
 enum MonthlyChallengeContent {
-    static let questionCount = 12
+    static let questionsPerRound = 3
+    /// Rounds that count toward the month score.
+    static let countedDays = 20
+    static var maxMonthPoints: Int { questionsPerRound * countedDays }
 
     /// The first month the challenge existed. Earlier months are not offered.
+    /// October 2026 opens it so the release (and App Review) has rounds to
+    /// play before November's App Store event.
     static let firstMonth = DateComponents(year: 2026, month: 10)
 
     /// November 2026 opens the rotation on the Charleston.
@@ -77,7 +117,7 @@ enum MonthlyChallengeContent {
     static let drill = Drill(
         id: "monthly-challenge",
         title: "Monthly Challenge",
-        subtitle: "The same twelve questions for every player this month",
+        subtitle: "Three new questions a day, the same for every player",
         kind: .quiz([])
     )
 
@@ -95,15 +135,17 @@ enum MonthlyChallengeContent {
         return cases[((offset % cases.count) + cases.count) % cases.count]
     }
 
-    /// Today, or in DEBUG the month passed as `-ChallengeMonth 2026-11`, so
-    /// store art for a coming month can be captured before it starts.
+    /// Now, or in DEBUG the day passed as `-ChallengeMonth 2026-11` (the 2nd)
+    /// or `-ChallengeMonth 2026-11-30`, so store art and late-month states can
+    /// be captured on any date.
     static var today: Date {
         #if DEBUG
         let arguments = ProcessInfo.processInfo.arguments
         if let index = arguments.firstIndex(of: "-ChallengeMonth"), index + 1 < arguments.count {
             let parts = arguments[index + 1].split(separator: "-").compactMap { Int($0) }
-            if parts.count == 2,
-               let date = Calendar.gregorianLocal.date(from: DateComponents(year: parts[0], month: parts[1], day: 2)) {
+            if parts.count >= 2,
+               let date = Calendar.gregorianLocal.date(from: DateComponents(
+                year: parts[0], month: parts[1], day: parts.count > 2 ? parts[2] : 2, hour: 12)) {
                 return date
             }
         }
@@ -111,11 +153,28 @@ enum MonthlyChallengeContent {
         return Date()
     }
 
+    /// True once the first month has begun in the player's own time zone.
+    static func isOpen(on date: Date = today, calendar: Calendar = .gregorianLocal) -> Bool {
+        guard let first = calendar.date(from: firstMonth) else { return false }
+        return date >= first
+    }
+
+    /// The month the challenge opens with, for the "starts on" screen.
+    static func firstChallenge(calendar: Calendar = .gregorianLocal) -> MonthlyChallenge {
+        challenge(for: calendar.date(from: firstMonth) ?? today, calendar: calendar)
+    }
+
+    /// Today's round, or nil before the challenge opens.
+    static func currentRound(now: Date = today, calendar: Calendar = .gregorianLocal) -> ChallengeRound? {
+        guard isOpen(on: now, calendar: calendar) else { return nil }
+        let month = challenge(for: now, calendar: calendar)
+        return month.day(of: now).map { month.round(day: $0) }
+    }
+
     static func challenge(for date: Date = today, calendar: Calendar = .gregorianLocal) -> MonthlyChallenge {
         let parts = calendar.dateComponents([.year, .month], from: date)
         let year = parts.year ?? 2026
         let month = parts.month ?? 1
-        let monthKey = key(year: year, month: month)
         let start = calendar.date(from: DateComponents(year: year, month: month, day: 1)) ?? date
         let end = calendar.date(byAdding: .month, value: 1, to: start) ?? date
         // The app's copy is English, so the month name is too, whatever the
@@ -123,32 +182,38 @@ enum MonthlyChallengeContent {
         var english = calendar
         english.locale = Locale(identifier: "en_US_POSIX")
         let monthName = english.standaloneMonthSymbols[month - 1]
-        let theme = theme(year: year, month: month)
         return MonthlyChallenge(
-            monthKey: monthKey,
+            monthKey: key(year: year, month: month),
             title: "\(monthName) \(year)",
             monthName: monthName,
-            theme: theme,
+            theme: theme(year: year, month: month),
             start: start,
             end: end,
-            items: itemCache.items(for: monthKey) {
-                items(theme: theme, monthKey: monthKey, label: "\(monthName) Challenge", round: round(year: year, month: month))
-            }
+            rotation: round(year: year, month: month),
+            calendar: calendar
         )
     }
 
-    /// A month's questions never change, and Home and the challenge screen
+    /// A day's questions never change, and Home and the challenge screen
     /// ask for them on every render; generating them each time re-ran the
     /// rack generators dozens of times a second.
     private static let itemCache = ChallengeItemCache()
 
-    /// The challenge a stored result belongs to, rebuilt from its key.
+    /// The challenge a stored month key belongs to.
     static func challenge(monthKey: String, calendar: Calendar = .gregorianLocal) -> MonthlyChallenge? {
         let parts = monthKey.split(separator: "-").compactMap { Int($0) }
-        guard parts.count == 2,
+        guard parts.count >= 2,
               let date = calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: 15))
         else { return nil }
         return challenge(for: date, calendar: calendar)
+    }
+
+    /// The round a stored round key belongs to ("2026-11-05").
+    static func round(key: String, calendar: Calendar = .gregorianLocal) -> ChallengeRound? {
+        let parts = key.split(separator: "-").compactMap { Int($0) }
+        guard parts.count == 3, let month = challenge(monthKey: key, calendar: calendar),
+              (1...month.dayCount).contains(parts[2]) else { return nil }
+        return month.round(day: parts[2])
     }
 
     /// The month after `challenge`, for the "next up" line and the reminder.
@@ -157,7 +222,7 @@ enum MonthlyChallengeContent {
         return MonthlyChallengeContent.challenge(for: date, calendar: calendar)
     }
 
-    /// Which skill row an item counts toward on the result screen.
+    /// Which skill row an item counts toward.
     static func skill(of item: QuickItem) -> MonthlyChallengeTheme {
         if item.id.hasPrefix(PracticeSkill.rackReading.itemPrefix) || item.roomID == "card-room" { return .rackReading }
         if item.id.hasPrefix(PracticeSkill.charlestonPass.itemPrefix) || item.roomID == "charleston-room" {
@@ -168,6 +233,10 @@ enum MonthlyChallengeContent {
 
     static func key(year: Int, month: Int) -> String {
         String(format: "%04d-%02d", year, month)
+    }
+
+    static func roundKey(monthKey: String, day: Int) -> String {
+        monthKey + String(format: "-%02d", day)
     }
 
     /// Every month from the first challenge up to, not including, `date`'s
@@ -185,102 +254,89 @@ enum MonthlyChallengeContent {
         return months
     }
 
-    /// Twelve questions, easiest first: five generated on the theme
-    /// interleaved with two of each other skill, then three hand-written
-    /// questions on the theme to close. Generated questions are picked so no
-    /// two in a month share a shape, and the hand-written ones rotate through
-    /// their pool so a theme does not repeat one until the pool is used up.
-    private static func items(theme: MonthlyChallengeTheme, monthKey: String, label: String, round: Int) -> [QuickItem] {
-        let seed = "monthly-\(monthKey)"
-        func count(_ skill: MonthlyChallengeTheme) -> Int { skill == theme ? 5 : 2 }
+    static func roundItems(for month: MonthlyChallenge, day: Int) -> [QuickItem] {
+        let key = roundKey(monthKey: month.monthKey, day: day)
+        return itemCache.items(for: key) {
+            items(month: month, day: day, roundKey: key, label: "\(month.monthName) Challenge")
+        }
+    }
 
-        let racks = distinct(
-            RackGenerator.batch(count: count(.rackReading) * 3, seed: "\(seed)-racks")
-                // An all-honors rack is free points; a themed month gets one at most.
-                .filter { theme == .rackReading || $0.answer != .windsDragons },
-            by: { "\($0.answer)" },
-            count: count(.rackReading)
-        ).enumerated().map { index, rack in
-            EndlessPractice.rackItem(rack, id: PracticeSkill.rackReading.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
-        }
-        // A Charleston month mixes the one-stray pass with the harder two-singles
-        // read, easiest first; other months get the plain one.
-        let plainPasses = distinct(
-            CharlestonGenerator.batch(count: 15, seed: "\(seed)-passes"),
-            by: { "\($0.section)" },
-            count: theme == .charleston ? 2 : count(.charleston)
-        )
-        let readPasses = theme == .charleston
-            ? distinct(CharlestonGenerator.twoSinglesBatch(count: 12, seed: "\(seed)-two-singles"), by: { "\($0.section)" }, count: 3)
-            : []
-        let plain = plainPasses.map { (pass: $0, twoSingles: false) }
-        let reads = readPasses.map { (pass: $0, twoSingles: true) }
-        let passOrder = reads.isEmpty
-            ? plain
-            : [plain.first, reads.first, plain.dropFirst().first, reads.dropFirst().first, reads.dropFirst(2).first].compactMap { $0 }
-        let passes = passOrder.enumerated().map { index, entry in
-            EndlessPractice.passItem(
-                entry.pass,
-                id: PracticeSkill.charlestonPass.itemPrefix + "\(seed)-\(index)",
-                sourceLabel: label,
-                prompt: entry.twoSingles ? "Two of these tiles are singles. Which one should you pass?" : nil
-            )
-        }
-        // Distinct families first, then distinct pungs; a defense month swaps a
-        // run-trap tile into every question whose pungs sit two apart.
-        let defenseBatch = DefenseGenerator.batch(count: 20, seed: "\(seed)-defense")
-        let byFamily = distinct(defenseBatch, by: { "\($0.impliedSection)" }, count: 3)
-        let defensePicked = distinct(
-            byFamily + defenseBatch,
-            by: { question in
-                question.exposures.compactMap(\.first).compactMap { tile -> Int? in
-                    if case .suited(let rank, _) = tile { return rank }
-                    return nil
-                }.sorted().map(String.init).joined(separator: "-")
-            },
-            count: count(.defense)
-        ).map { theme == .defense ? (DefenseGenerator.withRunBait($0) ?? $0) : $0 }
-        let defense = defensePicked.enumerated().map { index, question in
-            EndlessPractice.defenseItem(question, id: PracticeSkill.defense.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
-        }
-
-        // Generated ids are one-off, so they never land in Fix My Mistakes.
-        func oneOff(_ item: QuickItem) -> QuickItem {
-            SessionBuilder.prepared(QuickItem(
-                id: item.id,
-                prompt: item.prompt,
-                tiles: item.tiles,
-                choices: item.choices,
-                answerIndex: item.answerIndex,
-                explanation: item.explanation,
-                sourceLabel: item.sourceLabel,
-                roomID: item.roomID,
-                trackingID: PracticeSkill.skill(forItemID: item.id)?.rawValue,
-                isReviewable: false,
-                choiceNotes: item.choiceNotes
-            ))
-        }
-        let byTheme: [MonthlyChallengeTheme: [QuickItem]] = [
-            .rackReading: racks.map(oneOff),
-            .charleston: passes.map(oneOff),
-            .defense: defense.map(oneOff),
-        ]
+    /// Three questions, easiest first: one on the theme, one from another
+    /// skill (the other two take turns by day), then a harder one on the
+    /// theme. Every third day that last one is hand-written, rotating through
+    /// its pool so a month does not repeat one until the pool is used up.
+    private static func items(month: MonthlyChallenge, day: Int, roundKey: String, label: String) -> [QuickItem] {
+        let seed = "monthly-\(roundKey)"
+        let theme = month.theme
         let others = MonthlyChallengeTheme.allCases.filter { $0 != theme }
-        let onTheme = byTheme[theme] ?? []
-        let first = byTheme[others[0]] ?? []
-        let second = byTheme[others[1]] ?? []
-
-        // T A T B T A T B T, then the authored three.
-        var ordered: [QuickItem] = []
-        let pattern: [(MonthlyChallengeTheme, Int)] = [
-            (theme, 0), (others[0], 0), (theme, 1), (others[1], 0), (theme, 2),
-            (others[0], 1), (theme, 3), (others[1], 1), (theme, 4),
-        ]
-        for (skill, index) in pattern {
-            let list = skill == theme ? onTheme : (skill == others[0] ? first : second)
-            if list.indices.contains(index) { ordered.append(list[index]) }
+        let other = others[(day - 1) % others.count]
+        let themed = generated(theme, onTheme: true, seed: seed, label: label)
+        let side = generated(other, onTheme: false, seed: "\(seed)-\(other.rawValue)", label: label)
+        var closer = themed.count > 1 ? themed[1] : nil
+        if day % 3 == 0 {
+            let pool = authoredSequence(for: month, label: label)
+            if !pool.isEmpty { closer = pool[(day / 3 - 1) % pool.count] }
         }
-        return ordered + authored(theme: theme, monthKey: monthKey, label: label, round: round)
+        return [themed.first, side.first, closer].compactMap { $0 }
+    }
+
+    /// Generated questions for one skill: two for the theme (the second the
+    /// harder read where the skill has one), one otherwise.
+    private static func generated(_ skill: MonthlyChallengeTheme, onTheme: Bool, seed: String, label: String) -> [QuickItem] {
+        let count = onTheme ? 2 : 1
+        let items: [QuickItem]
+        switch skill {
+        case .rackReading:
+            // Distinct sections, and an all-honors rack only on a rack month.
+            items = distinct(
+                RackGenerator.batch(count: count * 4, seed: "\(seed)-racks")
+                    .filter { onTheme || $0.answer != .windsDragons },
+                by: { "\($0.answer)" },
+                count: count
+            ).enumerated().map { index, rack in
+                EndlessPractice.rackItem(rack, id: PracticeSkill.rackReading.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
+            }
+        case .charleston:
+            // A Charleston month follows the one-stray pass with the harder
+            // two-singles read.
+            let plain = CharlestonGenerator.batch(count: 4, seed: "\(seed)-passes").prefix(1).map { (pass: $0, twoSingles: false) }
+            let read = onTheme
+                ? CharlestonGenerator.twoSinglesBatch(count: 4, seed: "\(seed)-two-singles").prefix(1).map { (pass: $0, twoSingles: true) }
+                : []
+            items = (plain + read).enumerated().map { index, entry in
+                EndlessPractice.passItem(
+                    entry.pass,
+                    id: PracticeSkill.charlestonPass.itemPrefix + "\(seed)-\(index)",
+                    sourceLabel: label,
+                    prompt: entry.twoSingles ? "Two of these tiles are singles. Which one should you pass?" : nil
+                )
+            }
+        case .defense:
+            // Distinct families; a defense month swaps in the run-trap tile.
+            items = distinct(DefenseGenerator.batch(count: 8, seed: "\(seed)-defense"), by: { "\($0.impliedSection)" }, count: count)
+                .map { onTheme ? (DefenseGenerator.withRunBait($0) ?? $0) : $0 }
+                .enumerated().map { index, question in
+                    EndlessPractice.defenseItem(question, id: PracticeSkill.defense.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
+                }
+        }
+        return items.map(oneOff)
+    }
+
+    /// Generated ids are one-off, so they never land in Fix My Mistakes.
+    private static func oneOff(_ item: QuickItem) -> QuickItem {
+        SessionBuilder.prepared(QuickItem(
+            id: item.id,
+            prompt: item.prompt,
+            tiles: item.tiles,
+            choices: item.choices,
+            answerIndex: item.answerIndex,
+            explanation: item.explanation,
+            sourceLabel: item.sourceLabel,
+            roomID: item.roomID,
+            trackingID: PracticeSkill.skill(forItemID: item.id)?.rawValue,
+            isReviewable: false,
+            choiceNotes: item.choiceNotes
+        ))
     }
 
     /// Picks `count` items with distinct keys where the batch allows, then
@@ -295,10 +351,15 @@ enum MonthlyChallengeContent {
         return picked + rest.prefix(max(0, count - picked.count))
     }
 
-    /// The hand-written closers, rotating through each theme's pool.
-    private static func authored(theme: MonthlyChallengeTheme, monthKey: String, label: String, round: Int) -> [QuickItem] {
-        let count = 3
-        switch theme {
+    /// Hand-written questions per month on the theme, one for every third day.
+    private static let authoredPerMonth = 10
+
+    /// The month's hand-written questions, in the order the days use them.
+    private static func authoredSequence(for month: MonthlyChallenge, label: String) -> [QuickItem] {
+        let count = authoredPerMonth
+        let round = month.rotation
+        let monthKey = month.monthKey
+        switch month.theme {
         case .charleston:
             let scenarios = MahjMinuteContent.allCharlestonScenarios
             return rotation(poolSize: scenarios.count, seed: "monthly-charleston-pool", round: round, count: count).map { index in
@@ -311,18 +372,16 @@ enum MonthlyChallengeContent {
                 )
             }
         case .defense:
-            // Two four-choice reads, then one quick judgment call.
-            let pool = SessionBuilder.choiceItems(in: "table-room", includePro: true)
-            let fourChoice = defenseQuestions + defenseItemIDs.compactMap { id in pool.first { $0.id == id && $0.choices.count >= 4 } }
-            let judgment = defenseItemIDs.compactMap { id in pool.first { $0.id == id && $0.choices.count < 4 } }
-            let reads = rotation(poolSize: fourChoice.count, seed: "monthly-defense-reads", round: round, count: 2).map { fourChoice[$0] }
-            let calls = rotation(poolSize: judgment.count, seed: "monthly-defense-calls", round: round, count: 1).map { judgment[$0] }
-            return (reads + calls).map { relabeled(SessionBuilder.prepared($0), label) }
+            // The four-choice reads and the quicker judgment calls, mixed.
+            let table = SessionBuilder.choiceItems(in: "table-room", includePro: true)
+            let pool = defenseQuestions + defenseItemIDs.compactMap { id in table.first { $0.id == id } }
+            return rotation(poolSize: pool.count, seed: "monthly-defense-pool", round: round, count: count)
+                .map { relabeled(SessionBuilder.prepared(pool[$0]), label) }
         case .rackReading:
             // The generated racks already cover the five sections a generator
-            // can deal, so the closers are the sections it cannot: Like
-            // Numbers, Year, Quints, Singles & Pairs. Dealt round-robin by
-            // section, so any three in a row read as three different hands.
+            // can deal, so these are the sections it cannot: Like Numbers,
+            // Year, Quints, Singles & Pairs. Dealt round-robin by section, so
+            // neighbouring days read as different hands.
             let generatable = Set(RackGenerator.generatableCategories.map(\.displayName))
             let pool = SessionBuilder.choiceItems(in: "card-room", includePro: true)
                 .filter { $0.prompt == "Which section is this rack chasing?" && !generatable.contains($0.choices[$0.answerIndex]) }

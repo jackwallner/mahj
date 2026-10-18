@@ -161,7 +161,7 @@ struct FeatureTourView: View {
                 : TourPage(
                     eyebrow: "BEHIND THE GOLD DOOR",
                     title: "\(Membership.name) adds more of it",
-                    body: "Mahj Minute gives every member the same daily challenge, Game Night Prep targets your weak spots before you play, and Endless Practice never runs out. Nothing you have now goes away. Unlock any time from Home or Settings.",
+                    body: "Mahj Minute gives every member the same daily set, Game Night Prep targets your weak spots before you play, and Endless Practice never runs out. Nothing you have now goes away. Unlock any time from Home or Settings.",
                     hero: AnyView(proHero(locked: true)),
                     accentGold: true
                 ),
@@ -259,7 +259,7 @@ struct FeatureTourView: View {
             // The same three modes the paywall leads with. Extra sets and the
             // Master Tables are carried by the page body, so the hero does not
             // have to say everything.
-            ForEach(["Mahj Minute, one shared daily challenge", "Game Night Prep, built around your weak spots", "Endless Practice, never repeats"], id: \.self) { line in
+            ForEach(["Mahj Minute, one shared daily set", "Game Night Prep, built around your weak spots", "Endless Practice, never repeats"], id: \.self) { line in
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: locked ? "sparkles" : "checkmark.circle.fill")
                         .font(.footnote)

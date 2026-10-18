@@ -6,7 +6,8 @@ import XCTest
 ///
 /// Off: no Home card, `mahj://challenge` (the App Store event's link) stays
 /// on Home, and the What's New sheet drops the challenge line. On, or with
-/// no value at all: all three are back.
+/// no value at all: all three are back. Runs pinned to November 5, 2026
+/// (`-ChallengeMonth`, DEBUG only), so it does not depend on today's date.
 @MainActor
 final class ChallengeSwitchTests: XCTestCase {
     private var app: XCUIApplication!
@@ -49,21 +50,39 @@ final class ChallengeSwitchTests: XCTestCase {
             let anchor = app.staticTexts["Your week, counted"]
             XCTAssertTrue(anchor.waitForExistence(timeout: 20), "What's New did not show (\(value))")
             attachScreenshot("whatsnew_\(value)")
-            XCTAssertEqual(app.staticTexts["A new challenge every month"].exists, expected, "challenge line with switch \(value)")
+            XCTAssertEqual(app.staticTexts["A challenge every month"].exists, expected, "challenge line with switch \(value)")
             app.terminate()
         }
     }
 
+    /// A brand-new player's Home stays the 1.3.2 lobby until a first
+    /// practice; the event link still opens the challenge for them.
+    func testCardWaitsForAFirstPractice() {
+        launch(switchValue: nil, sessions: 0)
+        XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 20), "Home did not load")
+        attachScreenshot("new_player_home")
+        XCTAssertFalse(challengeCard.exists, "challenge card shown before any practice")
+
+        app.open(URL(string: "mahj://challenge")!)
+        XCTAssertTrue(challengeScreen.waitForExistence(timeout: 10), "the event link did not open the challenge for a new player")
+        attachScreenshot("new_player_after_link")
+    }
+
+    /// Before the first month (October 2026) the link says when it starts
+    /// rather than showing nothing.
+    func testBeforeTheFirstMonthTheLinkSaysWhenItStarts() {
+        launch(switchValue: nil, day: "2026-09-28")
+        XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 20), "Home did not load")
+        XCTAssertFalse(challengeCard.exists, "challenge card shown before it opens")
+        app.open(URL(string: "mahj://challenge")!)
+        let starts = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "Starts ")).firstMatch
+        XCTAssertTrue(starts.waitForExistence(timeout: 10), "no start date before the first month")
+        attachScreenshot("before_first_month")
+    }
+
     // MARK: - Helpers
 
-    /// "OCTOBER CHALLENGE" on Home's card, for whatever month the run lands in.
-    private var monthName: String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.calendar = Calendar(identifier: .gregorian)
-        formatter.dateFormat = "LLLL"
-        return formatter.string(from: Date())
-    }
+    private let monthName = "November"
 
     private var challengeCard: XCUIElement {
         app.descendants(matching: .any)
@@ -72,16 +91,18 @@ final class ChallengeSwitchTests: XCTestCase {
     }
 
     private var challengeScreen: XCUIElement {
-        app.navigationBars[monthName]
+        app.navigationBars["\(monthName) Challenge"]
     }
 
-    private func launch(switchValue: String?, showWhatsNew: Bool = false) {
+    private func launch(switchValue: String?, showWhatsNew: Bool = false, sessions: Int = 1, day: String = "2026-11-05") {
         app.launchArguments = [
             "-progress.hasOnboarded", "YES",
             "-mahj.hasReadPrimer", "YES",
             "-mahj.skillLevel", "some",
             "-subscription.localProOverride", "NO",
-            "-progress.totalSessions", "0",
+            "-progress.totalSessions", "\(sessions)",
+            "-ChallengeMonth", day,
+            "-reviewPrompt.launchCount", "0",
         ]
         app.launchArguments += showWhatsNew ? ["-whatsnew.lastSeenVersion", "1.3.2"] : ["-mahj.suppressWhatsNew"]
         if let switchValue { app.launchArguments += ["-mahj.rc.monthly_challenge", switchValue] }
