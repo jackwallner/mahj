@@ -48,8 +48,9 @@ def shadowed(canvas: Image.Image, layer: Image.Image, xy: tuple[int, int]) -> No
 def card(intro: Path, question: Path, out: Path) -> None:
     canvas = gradient(1920, 1080).convert("RGBA")
     # Two screens on the right half; the left keeps clear for Apple's overlay.
-    left = panel(intro, 470, 300, 1700, 44)
-    right = panel(question, 470, 300, 1900, 44)
+    # Crops skip the navigation bar (raw 1206x2622 capture rows).
+    left = panel(intro, 470, 385, 1390, 44)
+    right = panel(question, 470, 560, 1600, 44)
     shadowed(canvas, left, (870, (1080 - left.height) // 2 + 30))
     shadowed(canvas, right, (1390, (1080 - right.height) // 2 - 20))
     canvas.convert("RGB").save(out / "event-card-1920x1080.png")
