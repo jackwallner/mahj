@@ -30,9 +30,16 @@ enum MonthlyChallengeReminder {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers())
     }
 
-    /// Called on launch: keeps the next three months scheduled while on.
+    /// Called on launch and when the offering arrives: keeps the next three
+    /// months scheduled while on. With the challenge switched off remotely
+    /// (`monthly_challenge: off`) the pending ones are taken down instead,
+    /// and the player's choice is kept for when it comes back.
     static func refresh() {
         guard isOn else { return }
+        guard SubscriptionService.shared.isOn(.monthlyChallenge) else {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers())
+            return
+        }
         schedule()
     }
 

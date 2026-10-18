@@ -133,20 +133,27 @@ struct OnboardingView: View {
             infoText(title: title, body: bodyText, tiles: tiles)
         }
         return ViewThatFits(in: .vertical) {
-            VStack(spacing: 26) {
-                Spacer()
-                full
-                Spacer()
-                Spacer()
+            ContentFit(margin: 26 + 8) {
+                full.hidden().accessibilityHidden(true)
+                VStack(spacing: 26) {
+                    Spacer()
+                    full
+                    Spacer()
+                    Spacer()
+                }
             }
-            VStack(spacing: 26) {
-                Spacer()
+            // No icon, and no padding around the spacers either: on an SE
+            // at XXXL those 70pt were the difference between the whole page
+            // and a two-line sliver that scrolled.
+            VStack(spacing: 0) {
+                Spacer(minLength: 0)
                 infoText(title: title, body: bodyText, tiles: tiles)
-                Spacer()
+                Spacer(minLength: 0)
             }
             ScrollView {
                 full.padding(.vertical, 24)
             }
+            .scrollIndicatorsFlash(trigger: page)
         }
         .padding(.horizontal, 28)
     }
@@ -194,20 +201,26 @@ struct OnboardingView: View {
     /// back to scrolling.
     private var skillLevelPage: some View {
         ViewThatFits(in: .vertical) {
-            VStack(spacing: 22) {
-                Spacer()
-                skillContent(compact: false)
-                Spacer()
-                Spacer()
+            ContentFit(margin: 22 + 8) {
+                skillContent(compact: false).hidden().accessibilityHidden(true)
+                VStack(spacing: 22) {
+                    Spacer()
+                    skillContent(compact: false)
+                    Spacer()
+                    Spacer()
+                }
             }
             VStack(spacing: 0) {
                 Spacer(minLength: 0)
                 skillContent(compact: true)
                 Spacer(minLength: 0)
             }
+            // The bar flashes as the page arrives: a cut-off last choice
+            // is the only other sign that there is more below.
             ScrollView {
                 skillContent(compact: false).padding(.vertical, 24)
             }
+            .scrollIndicatorsFlash(trigger: page)
         }
         .padding(.horizontal, 28)
     }
@@ -276,28 +289,51 @@ struct OnboardingView: View {
 
     // MARK: - Trial step (OT710: hero + bullets, zero plan cards)
 
+    /// Frozen at 1.3.2. Below the accessibility sizes this is 1.3.2's page
+    /// exactly: same stack, same spacers, benefit lines on one line each.
+    /// Only at accessibility sizes, where 1.3.2 pushed the heading off the
+    /// screen and squeezed the CTA, does the page scroll and carry the price,
+    /// the free exit and the legal links.
+    @ViewBuilder
     private var trialPage: some View {
-        fittedPage(spacing: 22) {
-            Image(systemName: "sparkles")
-                .font(.system(size: 40, weight: .semibold))
-                .foregroundStyle(Theme.gold)
-                .frame(width: 92, height: 92)
-                .background(Theme.gold.opacity(0.14), in: Circle())
-            Text(trialPageTitle)
-                .font(Theme.display(30))
-                .foregroundStyle(Theme.ink)
-                .multilineTextAlignment(.center)
-            VStack(alignment: .leading, spacing: 12) {
-                ForEach(subscriptions.trialBenefits.lines, id: \.self) { trialBenefit($0) }
+        if dynamicTypeSize.isAccessibilitySize {
+            fittedPage(spacing: 22) {
+                trialHeader
+                trialBenefits
+                if !subscriptions.isPro {
+                    priceSlot
+                    softExit
+                    legalRow
+                }
             }
-            // At accessibility sizes the price, the free exit and the legal
-            // links scroll with the page; pinned in the footer they piled on
-            // top of each other and squeezed the CTA to "Start 7-day...".
-            if dynamicTypeSize.isAccessibilitySize, !subscriptions.isPro {
-                priceSlot
-                softExit
-                legalRow
+        } else {
+            VStack(spacing: 22) {
+                Spacer()
+                trialHeader
+                trialBenefits
+                Spacer()
+                Spacer()
             }
+            .padding(.horizontal, 28)
+        }
+    }
+
+    @ViewBuilder
+    private var trialHeader: some View {
+        Image(systemName: "sparkles")
+            .font(.system(size: 40, weight: .semibold))
+            .foregroundStyle(Theme.gold)
+            .frame(width: 92, height: 92)
+            .background(Theme.gold.opacity(0.14), in: Circle())
+        Text(trialPageTitle)
+            .font(Theme.display(30))
+            .foregroundStyle(Theme.ink)
+            .multilineTextAlignment(.center)
+    }
+
+    private var trialBenefits: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ForEach(subscriptions.trialBenefits.lines, id: \.self) { trialBenefit($0) }
         }
     }
 
@@ -308,7 +344,8 @@ struct OnboardingView: View {
             Text(text)
                 .font(.subheadline)
                 .foregroundStyle(Theme.ink)
-                .fixedSize(horizontal: false, vertical: true)
+                // Wraps only where the page scrolls; elsewhere one line, as in 1.3.2.
+                .fixedSize(horizontal: false, vertical: dynamicTypeSize.isAccessibilitySize)
         }
     }
 
@@ -570,5 +607,35 @@ struct OnboardingView: View {
         // the update sheet off a fresh install.
         WhatsNew.markCurrentAsBaseline()
         progress.hasOnboarded = true
+    }
+}
+
+/// Draws its second view, the page exactly as 1.3.2 laid it out, but tells
+/// `ViewThatFits` that it needs only the first view's height (the content on
+/// its own) plus `margin`. The 1.3.2 page asks for room for its spacers and
+/// the gaps around them too, and on a 13 mini it only fit by squeezing those
+/// out, so a plain `ViewThatFits` swapped in the compact page there. With
+/// `margin` at one gap plus a spacer's minimum, the content can still never
+/// be pushed off the top.
+private struct ContentFit: Layout {
+    let margin: CGFloat
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard subviews.count == 2 else { return .zero }
+        if let height = proposal.height, height.isFinite {
+            return CGSize(width: proposal.width ?? subviews[1].sizeThatFits(proposal).width, height: height)
+        }
+        let content = subviews[0].sizeThatFits(ProposedViewSize(width: proposal.width, height: nil))
+        return CGSize(width: proposal.width ?? content.width, height: content.height + margin)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard subviews.count == 2 else { return }
+        // The measuring copy is laid out but never drawn or reachable.
+        // Centred, as ViewThatFits places its pick: content narrower than
+        // the page (an iPad) would otherwise hug the leading edge.
+        let centre = CGPoint(x: bounds.midX, y: bounds.midY)
+        subviews[0].place(at: centre, anchor: .center, proposal: ProposedViewSize(width: bounds.width, height: nil))
+        subviews[1].place(at: centre, anchor: .center, proposal: ProposedViewSize(bounds.size))
     }
 }

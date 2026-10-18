@@ -124,8 +124,11 @@ struct HomeView: View {
                 if !isShowing { homeIsBareAgain() }
             }
             .onChange(of: subscriptions.offerings != nil) { _, loaded in
-                // The tracking switch rides on the offering: ask once it is known.
-                if loaded { Task { await askForTrackingIfNeeded() } }
+                // The tracking and challenge switches ride on the offering:
+                // act on them once it is known.
+                guard loaded else { return }
+                MonthlyChallengeReminder.refresh()
+                Task { await askForTrackingIfNeeded() }
             }
             .onChange(of: churnPrompt) { _, moment in
                 if moment == nil { Task { await askForTrackingIfNeeded() } }
@@ -181,7 +184,7 @@ struct HomeView: View {
                 header
                 todaySession
                 if showsPrimerCard { howToPlayCard }
-                monthlyChallengeCard
+                if showsMonthlyChallenge { monthlyChallengeCard }
                 if showsGameNightCard { gameNightCard }
                 trainingSection
                 roomsColumn
@@ -198,7 +201,7 @@ struct HomeView: View {
         VStack(spacing: 14) {
             todaySession
             if showsPrimerCard { howToPlayCard }
-            monthlyChallengeCard
+            if showsMonthlyChallenge { monthlyChallengeCard }
             if showsGameNightCard { gameNightCard }
             trainingSection
             if !subscriptions.isPro { upgradeCard }
@@ -288,6 +291,8 @@ struct HomeView: View {
             return
         }
         guard let destination = router.consumePendingDestination() else { return }
+        // Switched off remotely: the event link and an old reminder just open Home.
+        if destination == .monthlyChallenge, !showsMonthlyChallenge { return }
         guard destination.isFree || subscriptions.isPro else {
             pendingAfterUpgrade = destination
             showPaywall = true
@@ -532,6 +537,10 @@ struct HomeView: View {
 
     /// Members who have not picked a game night yet. One card, one tap to
     /// set it, one tap to never see it again.
+    /// `monthly_challenge: off` in the offering metadata pulls the challenge
+    /// without a release.
+    private var showsMonthlyChallenge: Bool { subscriptions.isOn(.monthlyChallenge) }
+
     /// This month's shared challenge, free for everyone. It sits right under
     /// Get Started (under the How to Play card for a brand-new player, who
     /// sees the 1.3.2 order first) because it changes every month and the
@@ -1015,6 +1024,11 @@ struct MasteryRing: View {
     let mastery: RoomMastery
     var color: Color
 
+    /// 9pt at the default size, as designed, and growing a little with the
+    /// player's text size. Capped at 12pt: any wider and "Learning" took the
+    /// width from the room name beside it ("The / Charleston / Room").
+    @ScaledMetric(relativeTo: .caption2) private var captionSize: CGFloat = 9
+
     var body: some View {
         VStack(spacing: 3) {
             ZStack {
@@ -1044,10 +1058,11 @@ struct MasteryRing: View {
             }
             .frame(width: 32, height: 32)
             Text(mastery.level == .untouched ? "New" : mastery.level.title)
-                .font(.system(size: 9, weight: .semibold))
+                .font(.system(size: min(captionSize, 12), weight: .semibold))
                 .foregroundStyle(Theme.inkTertiary)
+                .fixedSize()
         }
-        .frame(width: 46)
+        .frame(minWidth: 46)
         .accessibilityHidden(true)
     }
 }

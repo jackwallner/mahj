@@ -31,6 +31,12 @@ ScrollView, so an iPhone SE never clips the first screen. The primer's
 hides the toolbar background, which had also removed iOS 26's scroll-edge
 blur. The trial page and paywall were left alone (frozen). Harness:
 `MahjTrainerScreenshots/LayoutSweepTests.swift` + `scripts/layout-sweep.sh`.
+Home's mastery-ring caption scales with `.caption2` but caps at 12pt: a
+larger cap squeezed room names into one word per line at XXXL. At AX sizes
+the flashcard back scrolls its answer (scroll bar flashed) with Next pinned
+below, and the deck takes the full width instead of 520pt. The What's New buttons scroll with the list at AX sizes (pinned, they covered two thirds of an SE at AX5); Done stays in the toolbar. Every change was
+pixel-diffed against the pre-fix build on all seven devices; default-size
+screens must stay identical.
 
 - `MahjTrainer/Utilities/Theme.swift`: the warm-modern design system: cream
   surfaces, jade primary, coral energy, per-room accents (`Room.accent`), serif

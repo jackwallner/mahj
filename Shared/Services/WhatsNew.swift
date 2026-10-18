@@ -43,6 +43,9 @@ enum WhatsNew {
 
     private static let lastSeenKey = "whatsnew.lastSeenVersion"
 
+    /// Hidden with the challenge itself (`monthly_challenge: off`).
+    static let monthlyChallengeItemID = "monthly-challenge"
+
     static let releases: [WhatsNewRelease] = [
         WhatsNewRelease(
             // Shipping as 1.4.1: 1.4.0 was pulled before release, and this
@@ -51,7 +54,7 @@ enum WhatsNew {
             headline: "Built around your week",
             items: [
                 WhatsNewItem(
-                    id: "monthly-challenge",
+                    id: monthlyChallengeItemID,
                     icon: "calendar",
                     title: "A new challenge every month",
                     body: "Twelve questions, the same for every player, free for everyone. Your first run is the one that counts, so share your score.",

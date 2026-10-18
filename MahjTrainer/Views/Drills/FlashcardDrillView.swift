@@ -12,6 +12,7 @@ struct FlashcardDrillView: View {
     var accent: Color = Theme.jade
 
     @EnvironmentObject private var progress: ProgressStore
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     @State private var queue: [Flashcard] = []
     @State private var isFlipped = false
@@ -76,7 +77,9 @@ struct FlashcardDrillView: View {
                 // 520pt keeps the card close to the proportions it has on a
                 // phone, where the face was designed. Widening it to the full
                 // readable width just spreads the same few words thinner.
-                let width = min(geo.size.width, 520)
+                // At accessibility sizes the words need the room more than
+                // the card needs its proportions, so it takes the full width.
+                let width = dynamicTypeSize.isAccessibilitySize ? geo.size.width : min(geo.size.width, 520)
                 let capped = CGSize(
                     width: width,
                     height: min(geo.size.height, width * 1.5)
@@ -525,32 +528,67 @@ struct FlipCardFace: View {
 
     private var back: some View {
         MahjCardFace(accent: accent, eyebrow: "THE CALL") {
-            VStack(spacing: 14) {
-                if let verdict {
-                    verdictBanner(verdict)
-                }
-                Spacer(minLength: 0)
-                // The card has a fixed height, so at accessibility sizes a
-                // long answer scrolls inside it instead of spilling past it.
-                if dynamicTypeSize.isAccessibilitySize {
-                    ScrollView { answerText }
-                } else {
+            if dynamicTypeSize.isAccessibilitySize {
+                accessibleBack
+            } else {
+                VStack(spacing: 14) {
+                    if let verdict {
+                        verdictBanner(verdict)
+                    }
+                    Spacer(minLength: 0)
                     answerText
-                }
-                Spacer(minLength: 0)
-                if showsSwipeHints {
-                    if let onAdvance {
-                        Button(action: onAdvance) {
-                            Text("Next").primaryCTA(color: accent)
+                    Spacer(minLength: 0)
+                    if showsSwipeHints {
+                        if let onAdvance {
+                            nextButton(onAdvance)
+                        } else {
+                            swipeHint
                         }
-                    } else {
-                        Label("Knew it? Swipe right · Again? Swipe left", systemImage: "hand.draw.fill")
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(Theme.inkTertiary)
                     }
                 }
             }
         }
+    }
+
+    /// The card has a fixed height, and at accessibility sizes the verdict,
+    /// the title and the hint left room for a line or two of the answer, cut
+    /// off with nothing to say there was more. Here everything but Next
+    /// scrolls as one, with the indicator shown and flashed on the flip.
+    private var accessibleBack: some View {
+        VStack(spacing: 14) {
+            ScrollView {
+                VStack(spacing: 14) {
+                    if let verdict {
+                        verdictBanner(verdict)
+                    }
+                    answerText
+                    if showsSwipeHints, onAdvance == nil {
+                        swipeHint
+                    }
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .scrollIndicators(.visible)
+            .scrollIndicatorsFlash(onAppear: true)
+            .scrollBounceBehavior(.basedOnSize)
+            .hidesScrollEdgeEffect()
+            if showsSwipeHints, let onAdvance {
+                nextButton(onAdvance)
+            }
+        }
+    }
+
+    private func nextButton(_ onAdvance: @escaping () -> Void) -> some View {
+        Button(action: onAdvance) {
+            Text("Next").primaryCTA(color: accent)
+        }
+    }
+
+    private var swipeHint: some View {
+        Label("Knew it? Swipe right · Again? Swipe left", systemImage: "hand.draw.fill")
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(Theme.inkTertiary)
+            .fixedSize(horizontal: false, vertical: true)
     }
 
     /// The whole front, not just its title: on a card like "How many
@@ -597,6 +635,7 @@ struct FlipCardFace: View {
             Image(systemName: verdict.correct ? "checkmark.circle.fill" : "xmark.circle.fill")
             Text(verdict.correct ? "\(verdict.text). Right!" : "\(verdict.text). Not this time.")
                 .font(.footnote.weight(.semibold))
+                .fixedSize(horizontal: false, vertical: true)
         }
         .foregroundStyle(verdict.correct ? Theme.jade : Theme.coral)
         .padding(.horizontal, 12)
@@ -723,5 +762,19 @@ private struct FlipRotation<Front: View, Back: View>: View, @preconcurrency Anim
             }
         }
         .rotation3DEffect(.degrees(angle), axis: (x: 0, y: 1, z: 0), perspective: 0.35)
+    }
+}
+
+private extension View {
+    /// iOS 26 hangs the navigation bar's scroll-edge blur on the first
+    /// scroll view it finds. On the flashcard back that is the answer's
+    /// scroll view inside the card, so the blur sat over the card's title.
+    @ViewBuilder
+    func hidesScrollEdgeEffect() -> some View {
+        if #available(iOS 26, *) {
+            scrollEdgeEffectHidden(true, for: .all)
+        } else {
+            self
+        }
     }
 }

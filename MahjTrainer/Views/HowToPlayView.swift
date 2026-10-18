@@ -39,7 +39,7 @@ struct HowToPlayView: View {
                 // Continue and Skip below it with no way to reach them. The
                 // page scrolls there, from the top on every page; the footer
                 // stays put.
-                ScrollView { movingCard }
+                ScrollView { movingCard(swipes: false) }
                     .id(page.id)
             } else {
                 // Centred as designed where it fits. On an iPhone SE the
@@ -49,10 +49,10 @@ struct HowToPlayView: View {
                 ViewThatFits(in: .vertical) {
                     VStack(spacing: 0) {
                         Spacer(minLength: 0)
-                        movingCard
+                        movingCard(swipes: true)
                         Spacer(minLength: 0)
                     }
-                    ScrollView { movingCard }
+                    ScrollView { movingCard(swipes: false) }
                         .id(page.id)
                 }
             }
@@ -68,8 +68,11 @@ struct HowToPlayView: View {
         .onAppear { fireShine() }
     }
 
-    /// The page card with its swipe, tilt and page transition.
-    private var movingCard: some View {
+    /// The page card with its swipe, tilt and page transition. Inside a
+    /// scroll view the swipe is off: it took every drag, vertical ones too,
+    /// so the end of a long page on an iPhone SE could not be scrolled to.
+    /// Back and Continue still page there.
+    private func movingCard(swipes: Bool) -> some View {
         pageCard
             .id(page.id)
             .offset(x: drag)
@@ -84,9 +87,7 @@ struct HowToPlayView: View {
                     removal: .move(edge: .trailing).combined(with: .opacity)
                 )
             )
-            // Inside the accessibility-size scroll view a drag must scroll;
-            // Back and Continue still page there.
-            .gesture(pageSwipe, including: dynamicTypeSize.isAccessibilitySize ? .subviews : .all)
+            .gesture(pageSwipe, including: swipes ? .all : .subviews)
     }
 
     /// Swipe left for the next page, right for the previous one. The card

@@ -103,3 +103,25 @@ submission resubmitted by API: PATCH the rejected `reviewSubmissionItems`
 `resolved: true` (state READY_FOR_REVIEW), then the reviewSubmission
 `submitted: true` (WAITING_FOR_REVIEW). An accepted version in a submission
 with a rejected item is held until that item is accepted or removed.
+
+**Submit the version and the event SEPARATELY (2026-10-17).** In one
+submission an accepted version is held until every item is accepted, and
+Apple has passed a version while leaving the event unreviewed. 1.4.1 (build
+53) went in as reviewSubmission `6285fdb7-6fda-4c59-840f-8e8fc41a0975`
+(version only, MANUAL release) and the November event as `9563ec21-be0a-4ed7-bb06-8a0c26b7ebd3`
+(event only); Apple allows one extra submission beside a version in review.
+The version submission was then cancelled to add the off switch below and
+resubmitted with build 54; the event submission was left in review.
+An item already submitted cannot be removed (`items-remove` answers "Item was
+already submitted"): cancel the whole submission (`asc review
+submissions-cancel`), wait for COMPLETE, then create the two. The event's
+link works from 1.4.0 on, so it never needs the new version.
+
+**Remote off switch (1.4.1, build 54):** offering metadata `monthly_challenge: off`
+hides the Home card and drops `mahj://challenge` (event and reminder taps
+just open Home). Saved runs stay. Set it on every offering, like the other
+switches. Players reach a month's questions only from the 1st of that month
+in their own time zone. The What's New line for the challenge
+(`WhatsNew.monthlyChallengeItemID`) and the monthly reminder follow the same
+switch. `MahjTrainerScreenshots/ChallengeSwitchTests.swift` checks off, on and
+unset on a real build through `-mahj.rc.monthly_challenge`.

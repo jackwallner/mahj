@@ -22,6 +22,21 @@ the screen, a dead end even for a player who had just started a trial.
 Default text sizes keep the 1.3.2 layout exactly. Evidence for the original
 gap: `project-docs/audits/release-experience-2026-10-16.md`.
 
+**Fit fixes (1.4.1 build 54):** every fix is conditional on fit or text
+size, never on device, so the designed layout still runs wherever it fits.
+The primer's page swipe is off inside its ScrollView fallbacks
+(`movingCard(swipes:)`): a drag gesture on the scroll content swallowed the
+scroll, so an SE could not reach the "Play a turn" tip. The trial page keeps
+the exact 1.3.2 layout below accessibility sizes (an earlier fit change had
+moved it at L and XXXL on the SE, which the freeze forbids) and only scrolls
+at AX sizes. The onboarding info and skill pages pick their designed 1.3.2
+layout through `ContentFit`, which measures the content alone plus one gap:
+a plain `ViewThatFits` also demanded room for the spacers, and on a 13 mini
+(where 1.3.2 fit only by squeezing them out) it swapped in the compact page
+at default text size. The onboarding info page without an icon packs its text with
+zero spacers, and the info/skill ScrollView fallbacks flash their scroll bar
+per page so a player can see there is more.
+
 - `MahjTrainer/Views`: `RootView` branches onboarding vs `HomeView` on the
   `progress.hasOnboarded` defaults key (branch, NOT a fullScreenCover — the
   cover flashed Home behind onboarding on first launch). Navigation is a LOBBY:

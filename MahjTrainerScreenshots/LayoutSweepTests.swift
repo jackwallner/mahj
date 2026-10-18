@@ -11,9 +11,10 @@ import XCTest
 /// xcodebuild as `TEST_RUNNER_<NAME>`):
 /// - `SWEEP_SIZE`: `L` (default), `XXXL`, `AX3` or `AX5`.
 /// - `SWEEP_ORIENT`: `portrait` (default) or `landscape`.
-/// - `SWEEP_SCOPE`: `full` (default), `compare` (trial page, paywall and Home
-///   only, for the 1.3.2 side by side) or `att` (the real first-run tracking
-///   prompt flow; needs a fresh install).
+/// - `SWEEP_SCOPE`: `full` (default), `compare` (trial page, paywall, Home and What's New
+///   only, for the 1.3.2 side by side), `att` (the real first-run tracking
+///   prompt flow; needs a fresh install), `flashcard` (the Tile Room and one
+///   flashcard, front and back) or `rest` (everything after Settings).
 ///
 /// Like the other capture tests it never calls XCTFail: a failing UI test
 /// spends ten minutes collecting diagnostics. Anything it could not reach,
@@ -60,6 +61,7 @@ final class LayoutSweepTests: XCTestCase {
             step("onboarding") { onboardingToTrial(continueThrough: false) }
             step("paywall") { paywall() }
             step("home_free") { homeFree() }
+            step("whatsnew") { whatsNew() }
         case "att":
             step("att") { attFlow() }
         case "rerun":
@@ -73,6 +75,15 @@ final class LayoutSweepTests: XCTestCase {
             step("playhand") { playHand() }
         case "probe":
             step("probe") { probe() }
+        case "flashcard":
+            step("room") { roomAndFlashcards() }
+        case "rest":
+            // Everything after Settings, for a full run that stopped there.
+            step("room") { roomAndFlashcards() }
+            step("quiz") { quiz() }
+            step("charleston") { charleston() }
+            step("challenge") { challenge() }
+            step("member") { memberScreens(full: true) }
         case "ipad_landscape":
             step("onboarding") { onboardingToTrial(continueThrough: false) }
             step("paywall") { paywall() }
@@ -115,7 +126,7 @@ final class LayoutSweepTests: XCTestCase {
         capture("onb_4_skill_picked")
         guard tapButton("Continue") else { note("no Continue before the trial page"); return }
         settle()
-        captureScrolled("onb_5_trial", max: 6)
+        captureScrolled("onb_5_trial", max: 12)
         guard continueThrough else { return }
 
         // Back to the top of the trial page before reaching for the soft exit.
@@ -187,6 +198,11 @@ final class LayoutSweepTests: XCTestCase {
         guard !member else { return }
         let feedback = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Send Feedback")).firstMatch
         guard reach(feedback, swipes: 10) else { note("settings: Send Feedback not reachable"); return }
+        // The row can scroll away between the check and the tap; a tap on a
+        // vanished element fails the whole run, so look again first.
+        guard feedback.waitForExistence(timeout: 2), feedback.isHittable else {
+            note("settings: Send Feedback gone before the tap"); return
+        }
         feedback.tap()
         settle()
         captureScrolled("feedback_sheet", max: 4)

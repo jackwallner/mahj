@@ -87,8 +87,9 @@ offering the default. Every picked value rides to RevenueCat as a customer
 attribute under its key.
 
 Off switches (`RemoteSwitch`), on unless the value is exactly `off`:
-`att_prompt` (Apple's tracking prompt for Meta) and `rating_prompt`
-(Apple's rating prompt). Set a switch the SAME on every offering, default
+`att_prompt` (Apple's tracking prompt for Meta), `rating_prompt`
+(Apple's rating prompt) and `monthly_challenge` (the challenge card and
+its link, from 1.4.1 build 54). Set a switch the SAME on every offering, default
 and any experiment arm, or the experiment flips it as a side effect.
 
 DEBUG builds pin any key with the launch argument `-mahj.rc.<key> <value>`

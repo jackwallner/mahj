@@ -98,6 +98,7 @@ for run in "$@"; do
       -destination "id=$UDID" \
       -resultBundlePath "$RESULT" \
       -only-testing:MahjTrainerScreenshots/LayoutSweepTests/testSweep \
+      -collect-test-diagnostics never \
       >"$WORK/log.txt" 2>&1 || status=$?
 
   xcrun xcresulttool get test-results summary --path "$RESULT" --compact >"$OUT/summary.json" 2>/dev/null || true
@@ -140,4 +141,4 @@ PY
   fi
   rm -rf "$RESULT" "$STAGE"
 done
-echo "[$LABEL] finished; deleting $UDID"
+if [[ -n "${SWEEP_UDID:-}" ]]; then echo "[$LABEL] finished; kept $UDID"; else echo "[$LABEL] finished; deleting $UDID"; fi

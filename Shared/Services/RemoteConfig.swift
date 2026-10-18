@@ -107,13 +107,16 @@ enum OnboardingPlan: String, CaseIterable, Sendable {
     }
 }
 
-/// Remote off switches, for the two prompts worth pausing without a
-/// release. On unless the metadata says "off".
+/// Remote off switches, for what is worth pausing without a release. On
+/// unless the metadata says "off".
 enum RemoteSwitch: String, CaseIterable, Sendable {
     /// Apple's tracking prompt for Meta ads.
     case attPrompt = "att_prompt"
     /// Apple's rating prompt after a good drill.
     case ratingPrompt = "rating_prompt"
+    /// The monthly challenge: its Home card and the `mahj://challenge` link.
+    /// Saved runs are kept, so switching it back on loses nothing.
+    case monthlyChallenge = "monthly_challenge"
 }
 
 enum RemoteConfig {

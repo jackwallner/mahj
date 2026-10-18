@@ -16,9 +16,16 @@ struct WhatsNewSheet: View {
 
     @EnvironmentObject private var subscriptions: SubscriptionService
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var typeSize
+
+    /// The challenge line goes when the challenge is switched off remotely,
+    /// so the sheet never announces something Home no longer shows.
+    private var items: [WhatsNewItem] {
+        release.items.filter { $0.id != WhatsNew.monthlyChallengeItemID || subscriptions.isOn(.monthlyChallenge) }
+    }
 
     private var lockedItems: [WhatsNewItem] {
-        subscriptions.isPro ? [] : release.items.filter(\.isPlus)
+        subscriptions.isPro ? [] : items.filter(\.isPlus)
     }
 
     var body: some View {
@@ -26,15 +33,25 @@ struct WhatsNewSheet: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
                     header
-                    ForEach(release.items) { item in
+                    ForEach(items) { item in
                         row(item)
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
+                // At accessibility sizes a pinned footer covered most of a
+                // small phone, so the buttons scroll with the list there.
+                // Done stays in the toolbar either way.
+                if typeSize.isAccessibilitySize {
+                    footer
+                }
             }
             .background(Theme.background)
-            .safeAreaInset(edge: .bottom) { footer }
+            .safeAreaInset(edge: .bottom) {
+                if !typeSize.isAccessibilitySize {
+                    footer
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") { close() }
