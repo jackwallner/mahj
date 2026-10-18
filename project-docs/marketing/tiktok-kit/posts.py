@@ -157,8 +157,11 @@ POSTS = [
          tags=("#mahjong", "#mahjongcharleston", "#americanmahjong", "#mahjongtiktok"), sound="upbeat"),
     # ------------------------------------------------------------------ C
     dict(id="C1", fmt="C", hook="Which section is this rack chasing? Answer on slide 3",
+         quiz_q="Which section is this rack chasing?",
+         options=("Like Numbers", "13579", "2468", "Consecutive Run"),
+         question="Comment A, B, C or D before you swipe.",
          s2="Hint: look at the numbers, not the suits.",
-         s3="2468. Every number tile is even, plus flowers and a joker that fit anywhere.",
+         s3="Answer: C, 2468. Every number tile is even, plus flowers and a joker that fit anywhere.",
          s4="I built an app that drills racks like this, so reading hands gets automatic.",
          s5="Got it in under 5 seconds? Send this to your mahj group and see who gets it.",
          shots=("hand_match", "hand_match_answered"), rack="hand_match_rack",

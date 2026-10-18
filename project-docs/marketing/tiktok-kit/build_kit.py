@@ -182,6 +182,51 @@ def hook_slide(post: dict, seed: int) -> Image.Image:
     return im.convert("RGB")
 
 
+def quiz_slide(post: dict, seed: int) -> Image.Image:
+    """Quiz hook: the real rack and lettered options on slide 1, so answering takes one comment.
+
+    Post 1 (Oct 18) held viewers 6.4s and only 15% reached the last slide, so the
+    puzzle can't wait for slide 2.
+    """
+    im = cloth(seed)
+    d = ImageDraw.Draw(im)
+    f = font(72)
+    y = text_boxes(im, wrap(d, post["quiz_q"], f, 820), f, SAFE[1] + 260)
+    inner = SAFE[2] - SAFE[0] - 60
+    name, *box = RACKS[post["rack"]]
+    rack = Image.open(CAPS / name).convert("RGB").crop(tuple(box))
+    rack = rack.resize((inner, int(rack.height * inner / rack.width)), Image.LANCZOS)
+    card = Image.new("RGBA", (SAFE[2] - SAFE[0], rack.height + 60), (0, 0, 0, 0))
+    ImageDraw.Draw(card).rounded_rectangle((0, 0, card.width - 1, card.height - 1), 40, fill=(*CREAM, 248))
+    top = y + 50
+    shadow(im, card, (SAFE[0], top), blur=22, alpha=60, drop=12)
+    im.alpha_composite(rounded(rack, 24), (SAFE[0] + 30, top + 30))
+    y = top + card.height + 40
+    lf, of = font(50), font(46, "Semibold")
+    cw, ch, gap = (SAFE[2] - SAFE[0] - 30) // 2, 112, 30
+    for i, opt in enumerate(post["options"]):
+        x0 = SAFE[0] + (i % 2) * (cw + gap)
+        y0 = y + (i // 2) * (ch + 24)
+        chip = Image.new("RGBA", (cw, ch), (0, 0, 0, 0))
+        ImageDraw.Draw(chip).rounded_rectangle((0, 0, cw - 1, ch - 1), 30, fill=(255, 255, 255, 250))
+        shadow(im, chip, (x0, y0), blur=12, alpha=50, drop=6)
+        letter = "ABCD"[i]
+        d.text((x0 + 30, y0 + ch / 2), letter, font=lf, fill=SAGE, anchor="lm")
+        size = 46
+        while d.textlength(opt, font=of) > cw - 120:
+            size -= 2
+            of = font(size, "Semibold")
+        d.text((x0 + 90, y0 + ch / 2), opt, font=of, fill=INK, anchor="lm")
+        of = font(46, "Semibold")
+    y += 2 * ch + 24 + 44
+    sf = font(40, "Semibold")
+    label = "Comment A, B, C or D. Answer on slide 3 →"
+    lw = d.textlength(label, font=sf)
+    d.rounded_rectangle((CX - lw / 2 - 30, y, CX + lw / 2 + 30, y + 72), 36, fill=(22, 22, 22))
+    d.text((CX, y + 36), label, font=sf, fill=(255, 255, 255), anchor="mm")
+    return im.convert("RGB")
+
+
 def card_slide(seed: int, text: str, rack: str | None) -> Image.Image:
     im = cloth(seed)
     d = ImageDraw.Draw(im)
@@ -250,11 +295,20 @@ def cta_variant(post: dict) -> str:
     return "comment" if same.index(post["id"]) % 2 == 0 else "name"
 
 
-def caption_txt(post: dict, cta: str) -> str:
+def caption_txt(post: dict, cta: str, value_only: bool = False) -> str:
     tags = " ".join(post["tags"])
+    if value_only:
+        return (
+            f"VALUE-ONLY VERSION: no app slide, no app mention, so no disclosure toggle.\n\n"
+            f"TITLE (photo mode title field):\n{post.get('quiz_q', post['hook'])}\n\n"
+            f"CAPTION (paste as is):\n{post['caption']} {post.get('question', P.QUESTIONS[post['fmt']])}\n\n"
+            f"{tags}\n\n"
+            f"If someone asks how to practice, reply: I made an app for this, it's Mahj Trainer on the App Store.\n"
+            f"SOUND (Commercial Music Library): {P.SOUNDS[post['sound']]}\n"
+        )
     return (
         f"TITLE (photo mode title field):\n{post['hook']}\n\n"
-        f"CAPTION (paste as is):\n{post['caption']} {P.QUESTIONS[post['fmt']]}\n\n"
+        f"CAPTION (paste as is):\n{post['caption']} {post.get('question', P.QUESTIONS[post['fmt']])}\n\n"
         f"{P.CTAS[cta]}\n\n{tags}\n\n"
         f"PINNED COMMENT (post it yourself, then pin):\n{P.PINNED}\n\n"
         f"REPLY to every \"app\" or \"name?\" comment:\n{P.REPLY}\n\n"
@@ -268,9 +322,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(ICLOUD))
     ap.add_argument("--only", help="render just these post ids, comma separated (for QA)")
+    ap.add_argument("--value-only", action="store_true",
+                    help="with --only: drop the app slide and the CTA, into a '(value only)' folder")
     args = ap.parse_args()
     out = pathlib.Path(args.out)
     only = set(args.only.split(",")) if args.only else None
+    if args.value_only and not only:
+        ap.error("--value-only needs --only")
     slots = ["1 Morning", "2 Midday", "3 Evening"]
     if out.exists() and not only:
         for child in out.glob("Day *"):
@@ -286,19 +344,24 @@ def main() -> None:
                      "profile_views": "", "trials_next_72h": "", "call": ""})
         if only and post["id"] not in only:
             continue
-        folder = out / f"Day {day:02d}" / f"{slot} - {post['id']} {P.FORMATS[post['fmt']]}"
+        suffix = " (value only)" if args.value_only else ""
+        folder = out / f"Day {day:02d}" / f"{slot} - {post['id']} {P.FORMATS[post['fmt']]}{suffix}"
         folder.mkdir(parents=True, exist_ok=True)
         rack = post.get("rack")
         slides = [
-            hook_slide(post, i),
+            quiz_slide(post, i) if post.get("options") else hook_slide(post, i),
             card_slide(i, post["s2"], rack if post["fmt"] == "C" else None),
             card_slide(i, post["s3"], rack if post["fmt"] != "C" else None),
             app_slide(post["s4"], post["shots"]),
             card_slide(i, post["s5"], None),
         ]
+        if args.value_only:
+            del slides[3]
+            for old in folder.glob("*.jpg"):
+                old.unlink()
         for n, s in enumerate(slides, 1):
             s.save(folder / f"{n}.jpg", quality=92)
-        (folder / "caption.txt").write_text(caption_txt(post, cta))
+        (folder / "caption.txt").write_text(caption_txt(post, cta, args.value_only))
     if not only:
         with open(out / "Tracker.csv", "w", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=list(rows[0]))
