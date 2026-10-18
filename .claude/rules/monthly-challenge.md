@@ -111,7 +111,7 @@ Apple has passed a version while leaving the event unreviewed. 1.4.1 (build
 (version only, MANUAL release) and the November event as `9563ec21-be0a-4ed7-bb06-8a0c26b7ebd3`
 (event only); Apple allows one extra submission beside a version in review.
 The version submission was then cancelled to add the off switch below and
-resubmitted with build 54; the event submission was left in review.
+resubmitted with build 54 (reviewSubmission `1bac690f-ea0e-46db-b2b8-4353a4c7c1fb`, version only, MANUAL, 2026-10-18); the event submission was left in review. Adding the version through `asc review items-add` returned 500 twice; `~/ios/release/release.py submit --apply` reused the same empty submission and went through.
 An item already submitted cannot be removed (`items-remove` answers "Item was
 already submitted"): cancel the whole submission (`asc review
 submissions-cancel`), wait for COMPLETE, then create the two. The event's
