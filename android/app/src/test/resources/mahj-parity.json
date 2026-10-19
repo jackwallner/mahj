@@ -1000,7 +1000,7 @@
       "choiceNotes" : [
         "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s, 6s and 8s.",
         "This rack holds 2s, 4s, 6s and 8s, and a finished 13579 hand never uses an even number.",
-        "The numbers here (2, 4, 6, 8) skip, and a run steps up with no gaps.",
+        "The numbers here (2, 4, 6, 8) never make three in a row, and a run steps up with no gaps.",
         null
       ],
       "choices" : [
@@ -1009,7 +1009,7 @@
         "Consecutive Run",
         "2468 (Evens)"
       ],
-      "explanation" : "Every number tile is even: 2s, 4s, 6s, 8s across suits, plus flowers and a joker that fit anywhere. This rack is screaming 2468.",
+      "explanation" : "Every number tile is even: 2s, 4s, 6s, 8s across suits. The flowers and the joker do not point anywhere else, so the numbers decide: this rack is screaming 2468.",
       "id" : "hm-2468",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1036,13 +1036,13 @@
       "answerIndex" : 3,
       "choiceNotes" : [
         "This rack holds 4s, 5s and 7s, and a finished 369 hand never uses them.",
-        "A year hand uses Soaps for its zeros, and this rack has none.",
+        "This rack holds 4s and 6s, and a finished 13579 hand never uses an even number.",
         "This rack holds 3s, 5s and 7s, and a finished 2468 hand never uses an odd number.",
         null
       ],
       "choices" : [
         "369",
-        "Year Hands",
+        "13579 (Odds)",
         "2468 (Evens)",
         "Consecutive Run"
       ],
@@ -1083,7 +1083,7 @@
         "Quints",
         "2468 (Evens)"
       ],
-      "explanation" : "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2D and lone wind are your first passes.",
+      "explanation" : "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2 Dot and lone wind are your first passes.",
       "id" : "hm-odds",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1110,15 +1110,15 @@
       "answerIndex" : 0,
       "choiceNotes" : [
         null,
-        "Any Like Numbers: like numbers means the SAME number across different suits, so a rack spread across several numbers is not it.",
+        "Like Numbers is built from one number in several suits, and this rack has only 1 number tile.",
         "This rack holds 4s, and a finished 13579 hand never uses an even number.",
-        "A year hand uses Soaps for its zeros, and this rack has none."
+        "This rack holds three or more North Wind, and Singles & Pairs never uses a pung."
       ],
       "choices" : [
         "Winds & Dragons",
         "Any Like Numbers",
         "13579 (Odds)",
-        "Year Hands"
+        "Singles & Pairs"
       ],
       "explanation" : "Eight winds including a pung of Norths, plus two dragons. Only one number tile in the whole rack. This is a Winds & Dragons hand waiting to happen.",
       "id" : "hm-winds",
@@ -1147,7 +1147,7 @@
       "answerIndex" : 0,
       "choiceNotes" : [
         null,
-        "The numbers here (2, 3, 6, 9) skip, and a run steps up with no gaps.",
+        "The numbers here (2, 3, 6, 9) never make three in a row, and a run steps up with no gaps.",
         "This rack holds 3s and 9s, and a finished 2468 hand never uses an odd number.",
         "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 3s, 6s and 9s."
       ],
@@ -1184,17 +1184,17 @@
       "answerIndex" : 0,
       "choiceNotes" : [
         null,
-        "This rack holds 2s and 8s, and a finished 13579 hand never uses an even number.",
-        "The numbers here (2, 5, 8) skip, and a run steps up with no gaps.",
+        "This rack holds 5s, and a finished 2468 hand never uses an odd number.",
+        "The numbers here (2, 5, 8) never make three in a row, and a run steps up with no gaps.",
         "Quints need five of a kind, which takes jokers, and this rack has just one."
       ],
       "choices" : [
         "Any Like Numbers",
-        "13579 (Odds)",
+        "2468 (Evens)",
         "Consecutive Run",
         "Quints"
       ],
-      "explanation" : "EIGHT fives across all three suits. When one number floods your rack like this, Any Like Numbers is the shortest road home.",
+      "explanation" : "EIGHT fives across all three suits. When one number floods your rack like this, Any Like Numbers is the read.",
       "id" : "hm-like",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1220,10 +1220,10 @@
     {
       "answerIndex" : 1,
       "choiceNotes" : [
-        "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
+        "This rack has 7 numbered tiles and only 2 winds or dragons, so it has little to build a Winds & Dragons hand from.",
         null,
-        "This rack holds three or more Flower, and Singles & Pairs never uses a pung.",
-        "2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so look for it when those four numbers fill the rack."
+        "Singles & Pairs never takes jokers, so the joker on this rack could not help it.",
+        "2468 (Evens) could use some of these tiles, but more of them point to Year Hands."
       ],
       "choices" : [
         "Winds & Dragons",
@@ -1257,10 +1257,10 @@
     {
       "answerIndex" : 1,
       "choiceNotes" : [
-        "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
+        "This rack has 7 numbered tiles and only one wind or dragon, so it has little to build a Winds & Dragons hand from.",
         null,
         "This rack holds 5s and 7s, and a finished 369 hand never uses them.",
-        "A run needs three or more numbers in a row, and this rack only has 5s and 7s."
+        "A run steps up with no gaps, and this rack only has 5s and 7s."
       ],
       "choices" : [
         "Winds & Dragons",
@@ -1294,10 +1294,10 @@
     {
       "answerIndex" : 2,
       "choiceNotes" : [
-        "This rack holds 1s, 3s, 5s, 7s and 9s, and a finished 2468 hand never uses an odd number.",
-        "Like Numbers repeats one number across the suits, and this rack spreads across 1s, 3s, 5s, 7s and 9s.",
+        "This rack holds 1s, 3s, 5s and 7s, and a finished 2468 hand never uses an odd number.",
+        "Like Numbers repeats one number across the suits, and this rack spreads across 1s, 3s, 5s, 7s and 8s.",
         null,
-        "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons."
+        "This rack has 10 numbered tiles and only 3 winds or dragons, so it has little to build a Winds & Dragons hand from."
       ],
       "choices" : [
         "2468 (Evens)",
@@ -1305,7 +1305,7 @@
         "Singles & Pairs",
         "Winds & Dragons"
       ],
-      "explanation" : "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs never takes jokers, so a rack dealt in pairs is the one way in, and this one is nearly home.",
+      "explanation" : "Six natural pairs and zero jokers, mixing odd and even numbers. Every pair in Singles & Pairs must be natural, since it never takes jokers, so a rack that already holds this many pairs is a strong start.",
       "id" : "hm-sp",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1320,8 +1320,8 @@
         "5B",
         "7B",
         "7B",
-        "9D",
-        "9D",
+        "8D",
+        "8D",
         "N",
         "N",
         "E"
@@ -1334,7 +1334,7 @@
         "This rack holds 1s, 5s and 7s, and a finished 369 hand never uses them.",
         null,
         "Like Numbers repeats one number across the suits, and this rack spreads across 1s, 3s, 5s, 7s and 9s.",
-        "The numbers here (1, 3, 5, 7, 9) skip, and a run steps up with no gaps."
+        "The numbers here (1, 3, 5, 7, 9) never make three in a row, and a run steps up with no gaps."
       ],
       "choices" : [
         "369",
@@ -1342,7 +1342,7 @@
         "Any Like Numbers",
         "Consecutive Run"
       ],
-      "explanation" : "Every number tile is odd: 1s, 3s, 5s, 7s, 9s, with a pung of 3 Craks already down. Two flowers and a joker go anywhere. This is a 13579 rack.",
+      "explanation" : "Every number tile is odd: 1s, 3s, 5s, 7s, 9s, with a pung of 3 Craks in hand. The flowers and the joker do not point anywhere else, so the numbers decide: this is a 13579 rack.",
       "id" : "plus-hm-odds",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1407,16 +1407,16 @@
       "choiceNotes" : [
         null,
         "This rack holds three or more East Wind, and Singles & Pairs never uses a pung.",
-        "A year hand uses Soaps for its zeros, and this rack has none.",
+        "This rack has no numbered tiles at all, and 13579 (Odds) is built from numbers.",
         "This rack has no numbered tiles at all, and Any Like Numbers is built from numbers."
       ],
       "choices" : [
         "Winds & Dragons",
         "Singles & Pairs",
-        "Year Hands",
+        "13579 (Odds)",
         "Any Like Numbers"
       ],
-      "explanation" : "Eight winds, a pung of Easts, and three dragons, with not one number tile on the rack. Nothing else on the card can use this. Winds and Dragons it is.",
+      "explanation" : "Eight winds, a pung of Easts, and three dragons, with not one number tile on the rack. Any section built on numbers would be starting from nothing. Winds and Dragons it is.",
       "id" : "plus-hm-winds",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1480,8 +1480,8 @@
       "answerIndex" : 3,
       "choiceNotes" : [
         "This rack holds 3s and 9s, and a finished 2468 hand never uses an odd number.",
-        "A run needs three or more numbers in a row, and this rack only has 3s and 9s.",
-        "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
+        "A run steps up with no gaps, and this rack only has 3s and 9s.",
+        "This rack has 7 numbered tiles and only one wind or dragon, so it has little to build a Winds & Dragons hand from.",
         null
       ],
       "choices" : [
@@ -1490,7 +1490,7 @@
         "Winds & Dragons",
         "Quints"
       ],
-      "explanation" : "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch both pungs into quints. Joker-rich racks look up, not sideways.",
+      "explanation" : "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch either pung into a quint, or both. Joker-rich racks with big groups point at Quints.",
       "id" : "plus-hm-quints",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1517,8 +1517,8 @@
       "answerIndex" : 0,
       "choiceNotes" : [
         null,
-        "The numbers here (2, 4, 6, 8) skip, and a run steps up with no gaps.",
-        "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s, 6s and 8s.",
+        "The numbers here (2, 4, 6, 7) never make three in a row, and a run steps up with no gaps.",
+        "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s, 6s and 7s.",
         "Quints need five of a kind, which takes jokers, and this rack has none."
       ],
       "choices" : [
@@ -1527,7 +1527,7 @@
         "Any Like Numbers",
         "Quints"
       ],
-      "explanation" : "Six natural pairs and zero jokers. A rack that is already all pairs is most of a Singles and Pairs hand, and that section never takes jokers, so pairs you were dealt are the only way in.",
+      "explanation" : "Six natural pairs and zero jokers, odd and even mixed. A rack that is already all pairs is a good start for Singles and Pairs, and every pair in that section must be natural, since it never takes jokers.",
       "id" : "plus-hm-sp",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1540,8 +1540,8 @@
         "4C",
         "6B",
         "6B",
-        "8B",
-        "8B",
+        "7B",
+        "7B",
         "2D",
         "2D",
         "GD",
@@ -1556,7 +1556,7 @@
         "This rack holds 2s, 4s, 6s and 8s, and a finished 13579 hand never uses an even number.",
         "This rack holds 2s, 4s and 8s, and a finished 369 hand never uses them.",
         null,
-        "The numbers here (2, 4, 6, 8) skip, and a run steps up with no gaps."
+        "The numbers here (2, 4, 6, 8) never make three in a row, and a run steps up with no gaps."
       ],
       "choices" : [
         "13579 (Odds)",
@@ -1564,7 +1564,7 @@
         "2468 (Evens)",
         "Consecutive Run"
       ],
-      "explanation" : "Every number on this rack is even and there is not an odd tile in sight. Pass anything odd and commit to 2468.",
+      "explanation" : "Every number on this rack is even, with not an odd tile in sight, so 2468 is the read.",
       "id" : "more-rack-evens",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1638,7 +1638,7 @@
         "Winds & Dragons",
         "369"
       ],
-      "explanation" : "Not one numbered tile on the rack. When honors pile up like this, Winds and Dragons is the only section that fits.",
+      "explanation" : "Not one numbered tile on the rack. When honors pile up like this, Winds and Dragons is the clear read: any section built on numbers would be starting from nothing.",
       "id" : "more-rack-winds",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1667,7 +1667,7 @@
         "This rack holds 3s and 9s, and a finished 2468 hand never uses an odd number.",
         null,
         "This rack holds 6s, and a finished 13579 hand never uses an even number.",
-        "The numbers here (3, 6, 9) skip, and a run steps up with no gaps."
+        "The numbers here (3, 6, 9) never make three in a row, and a run steps up with no gaps."
       ],
       "choices" : [
         "2468 (Evens)",
@@ -1703,7 +1703,7 @@
       "choiceNotes" : [
         null,
         "This rack holds 7s, and a finished 369 hand never uses them.",
-        "A run needs three or more numbers in a row, and this rack only has 7s.",
+        "A run steps up with no gaps, and this rack only has 7s.",
         "Quints need five of a kind, which takes jokers, and this rack has none."
       ],
       "choices" : [
@@ -1876,10 +1876,10 @@
         null
       ],
       "choices" : [
-        "Their section is showing",
+        "It narrows their hand",
         "Nothing useful"
       ],
-      "explanation" : "An exposure narrows their hand to the card lines that use it: an even hand, a run, or like numbers built around 4s and dots could all fit. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
+      "explanation" : "An exposure narrows their hand to the card lines that use it: an evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and check what their exposure could belong to.",
       "id" : "kd-exposed-pung",
       "isReviewable" : true,
       "prompt" : "Your left opponent exposes a pung of 4 Dots.\nWhat did you just learn?",
@@ -2103,12 +2103,12 @@
         null
       ],
       "choices" : [
-        "A tile already discarded twice with no takers",
+        "A tile of a kind already discarded twice with no takers",
         "A flower",
-        "A tile that matches an opponent's exposure",
-        "A tile nobody has exposed"
+        "A tile that fits the pattern of an opponent's exposures",
+        "A tile you have not seen anyone discard"
       ],
-      "explanation" : "A tile that has gone around twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats feeding an exposure or giving up a flower.",
+      "explanation" : "A tile discarded twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower.",
       "id" : "more-table-safe-discard",
       "isReviewable" : true,
       "prompt" : "Late in the hand, which discard is usually safest?",
@@ -2130,13 +2130,13 @@
       "choices" : [
         "An odds hand",
         "An evens hand",
-        "Winds and Dragons",
+        "A 369 hand",
         "Singles and Pairs"
       ],
-      "explanation" : "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need.",
+      "explanation" : "Two even pungs point toward 2468. An odds hand cannot use them, a 369 hand cannot use the 4s, and Singles and Pairs never uses a pung. Stop feeding them even tiles and watch which numbers they still need.",
       "id" : "more-table-exposure-read",
       "isReviewable" : true,
-      "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures?",
+      "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections do they most likely point toward?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2454,10 +2454,10 @@
         "Hold it",
         "Throw it"
       ],
-      "explanation" : "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else can be building a pair or pung of them. It is one of the safest discards you have.",
+      "explanation" : "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three exposed and one in your hand, all four 6 Dots are accounted for, so nobody can hold a natural pair of them. Only a player waiting on it as a single, or one ready to back it with jokers, could still want one. It is one of the safer discards you have.",
       "id" : "plus-kd-fourth-tile",
       "isReviewable" : true,
-      "prompt" : "An opponent has an exposed PUNG of 6 Dots.\nYou just drew the fourth 6 Dot. Keep or throw?",
+      "prompt" : "An opponent has an exposed PUNG of three natural 6 Dots.\nYou just drew the fourth 6 Dot, and your hand does not need it. Keep or throw?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2480,7 +2480,7 @@
       "explanation" : "A lone North with no partner needs two more Norths or jokers just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
       "id" : "plus-kd-lone-wind",
       "isReviewable" : true,
-      "prompt" : "Turn 3. You hold one North and no other winds.\nNobody has exposed a wind. Keep or throw?",
+      "prompt" : "Turn 3. You hold one North and no other winds.\nYour hand is built on numbers, and nobody has exposed a wind. Keep or throw?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2522,7 +2522,7 @@
         "The twice-thrown wind",
         "The spare flower"
       ],
-      "explanation" : "A tile the table has already passed on twice is far safer than the flower, though not safe: it can still be someone's last tile, and jokers can still finish a group. Flowers are the opposite: nearly every section wants them, so a late flower is one of the most dangerous tiles you can put down.",
+      "explanation" : "A tile the table has already passed on twice is safer than the flower, though not safe: it can still be someone's last tile, and jokers can still finish a group. Flowers are the opposite: many hands use them, so a late flower can easily be the tile someone is waiting for.",
       "id" : "plus-kd-safe-discard",
       "isReviewable" : true,
       "prompt" : "Late game. You must discard: a spare flower, or a wind already thrown twice?\nWhich is the safer throw?",
@@ -2651,12 +2651,12 @@
       ],
       "choices" : [
         "Keep waiting",
-        "Let it go"
+        "Stop waiting"
       ],
-      "explanation" : "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. Only a joker can grow this pair into a pung now, so build on it only if jokers are in reach. Count before you commit.",
+      "explanation" : "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. The pair is still a pair, but it can only become a pung with a joker, so do not count on a third copy. Count before you commit.",
       "id" : "more-judge-third-copy",
       "isReviewable" : true,
-      "prompt" : "You hold two 5 Craks\nTwo more are already exposed elsewhere. Keep waiting?",
+      "prompt" : "You hold two 5 Craks\nThe other two are already exposed elsewhere. Keep waiting for a third?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2773,7 +2773,7 @@
         "369",
         "Quints"
       ],
-      "explanation" : "3 and 9 sit too far apart to belong to one run, so Consecutive Run is out. Threes and nines together are a 369 tell (an odds hand can use them too). Treat 3s, 6s, and 9s as hot tiles against this player.",
+      "explanation" : "A run through both 3 and 9 would have to cover seven numbers, so Consecutive Run is a long shot. Threes and nines together are a 369 tell (an odds hand can use them too). Treat 3s, 6s, and 9s as hot tiles against this player.",
       "id" : "pro-def-read-369",
       "isReviewable" : true,
       "prompt" : "An opponent exposes a pung of 3 Dots and a pung of 9 Dots. Which of these sections fits?",
@@ -3049,7 +3049,7 @@
     {
       "answerIndex" : 2,
       "choiceNotes" : [
-        "This rack holds 3s, 5s, 7s and 9s, and a finished 2468 hand never uses an odd number.",
+        "This rack holds 5s, 7s and 9s, and a finished 2468 hand never uses an odd number.",
         "This rack holds 4s, 5s, 7s and 8s, and a finished 369 hand never uses them.",
         null
       ],
@@ -3058,7 +3058,7 @@
         "369",
         "Consecutive Run"
       ],
-      "explanation" : "369 is the decoy: you have 3s, 6s, and 9s scattered around. But 4 Crak, 5 Crak, 7 Bam, and 8 Bam are dead weight for 369, while they finish 4-5-6 and 6-7-8 runs in two suits. Stepping numbers in every suit make this Consecutive Run.",
+      "explanation" : "369 is the decoy: there is a 6 in every suit and a 9 Bam. But the 4 and 5 Crak, the 7 and 8 Bam, and the 5 and 7 Dots are dead weight for 369, while they make 4-5-6, 6-7-8-9 and 5-6-7 runs, one in each suit. Stepping numbers like these make this Consecutive Run.",
       "id" : "pro-rack-1",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -3072,10 +3072,10 @@
         "7B",
         "8B",
         "9B",
-        "3D",
+        "5D",
         "6D",
-        "9D",
-        "9D",
+        "7D",
+        "7D",
         "F",
         "J"
       ],
@@ -3084,16 +3084,16 @@
     {
       "answerIndex" : 1,
       "choiceNotes" : [
-        "The numbers here (3, 4, 5, 6, 9) skip, and a run steps up with no gaps.",
+        "The numbers here (3, 5, 6, 9) never make three in a row, and a run steps up with no gaps.",
         null,
-        "Like Numbers repeats one number across the suits, and this rack spreads across 3s, 4s, 5s, 6s and 9s."
+        "Like Numbers repeats one number across the suits, and this rack spreads across 3s, 5s, 6s and 9s."
       ],
       "choices" : [
         "Consecutive Run",
         "369",
         "Any Like Numbers"
       ],
-      "explanation" : "Consecutive Run is the decoy, tempted by the 3-4-5-6 in bams. But 4 Bam and 5 Bam are the only run-only tiles here. Everything else is a 3, 6, or 9, including three pairs. Count the pure tiles and this is 369.",
+      "explanation" : "Consecutive Run is the decoy, tempted by the 3, 5 and 6 Bams. But ten of your eleven numbers are 3s, 6s and 9s, including three pairs, and the 5 Bam is the only number 369 cannot use. This is 369.",
       "id" : "pro-rack-2",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -3104,8 +3104,8 @@
         "3C",
         "6C",
         "6C",
+        "9C",
         "3B",
-        "4B",
         "5B",
         "6B",
         "9B",
@@ -3119,7 +3119,7 @@
     {
       "answerIndex" : 1,
       "choiceNotes" : [
-        "A year hand uses Soaps for its zeros, and this rack has none.",
+        "Year Hands could use some of these tiles, but more of them point to 2468 (Evens).",
         null,
         "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s, 6s and 8s."
       ],
@@ -3154,8 +3154,8 @@
     {
       "answerIndex" : 2,
       "choiceNotes" : [
-        "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons.",
-        "2468 (Evens): an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so look for it when those four numbers fill the rack.",
+        "This rack has 7 numbered tiles and only 2 winds or dragons, so it has little to build a Winds & Dragons hand from.",
+        "2468 (Evens) could use some of these tiles, but more of them point to Year Hands.",
         null
       ],
       "choices" : [
@@ -3191,14 +3191,14 @@
       "choiceNotes" : [
         null,
         "This rack holds three or more 5 Bam, and Singles & Pairs never uses a pung.",
-        "The numbers here (1, 3, 5, 7, 9) skip, and a run steps up with no gaps."
+        "The numbers here (1, 3, 5, 7, 9) never make three in a row, and a run steps up with no gaps."
       ],
       "choices" : [
         "13579 (Odds)",
         "Singles & Pairs",
         "Consecutive Run"
       ],
-      "explanation" : "Singles and Pairs is the decoy, since you have several pairs. But that section allows only singles and pairs and no jokers, and this rack has a pung of 5 Bams plus a joker. Both break the S and P rules, so read it as 13579.",
+      "explanation" : "Singles and Pairs is the decoy, since you have several pairs. But a Singles and Pairs hand has no pungs and no jokers, and this rack has a pung of 5 Bams and a joker, so it does not fit. Read it as 13579.",
       "id" : "pro-rack-5",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -3233,7 +3233,7 @@
         "2468 (Evens)",
         "13579 (Odds)"
       ],
-      "explanation" : "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape. The lone North is your first pass.",
+      "explanation" : "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape.",
       "id" : "pro-rack-6",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -3261,14 +3261,14 @@
       "choiceNotes" : [
         null,
         "Quints need five of a kind, which takes jokers, and this rack has just one.",
-        "The numbers here (2, 7, 9) skip, and a run steps up with no gaps."
+        "The numbers here (2, 7, 9) never make three in a row, and a run steps up with no gaps."
       ],
       "choices" : [
         "Any Like Numbers",
         "Quints",
         "Consecutive Run"
       ],
-      "explanation" : "Quints is the decoy, dreaming of five 7s in a suit. But a quint needs heavy joker support, and you hold just one joker. Eight 7s spread across all three suits is a straight shot at Any Like Numbers instead.",
+      "explanation" : "Quints is the decoy, dreaming of five 7s in a suit. But your 7s sit in pungs and pairs, which need two or three jokers each to reach five, and you hold just one. Eight 7s spread across all three suits reads as Any Like Numbers instead.",
       "id" : "pro-rack-7",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -3294,9 +3294,9 @@
     {
       "answerIndex" : 1,
       "choiceNotes" : [
-        "Singles & Pairs: singles and pairs means no pungs or kongs at all, and no jokers anywhere.",
+        "Singles & Pairs never takes jokers, so the joker on this rack could not help it.",
         null,
-        "Year Hands: a year hand is built from the year's digits, with soaps for zeros, so it wants 2s and soaps rather than a spread of numbers."
+        "Year Hands could use some of these tiles, but more of them point to Winds & Dragons."
       ],
       "choices" : [
         "Singles & Pairs",
@@ -3983,6 +3983,374 @@
       ]
     }
   },
+  "defenseFilter" : {
+    "filter-1" : [
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+    ],
+    "filter-2" : [
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "filter-3" : [
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
   "defenses" : {
     "daily-2026-10-01" : [
       {
@@ -3999,7 +4367,7 @@
           "3D",
           "6B"
         ],
-        "explanation" : "A pung of 9 Bam and a pung of 6 Crak both sit inside 369, so that is the family this player is building. A Consecutive Run from 6 to 9 could hold both, too. The 4 Crak fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Bam and a pung of 6 Crak both sit inside 369, so that is the family their exposures point to. The 4 Crak fits none of it: 369 never uses a 4. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "9B",
@@ -4028,7 +4396,7 @@
           "9C",
           "9B"
         ],
-        "explanation" : "A pung of 6 Crak and a pung of 9 Dot both sit inside 369, so that is the family this player is building. A Consecutive Run from 6 to 9 could hold both, too. The 4 Dot fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 6 Crak and a pung of 9 Dot both sit inside 369, so that is the family their exposures point to. The 4 Dot fits none of it: 369 never uses a 4. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "6C",
@@ -4057,7 +4425,7 @@
           "9D",
           "1D"
         ],
-        "explanation" : "A pung of 3 Dot and a pung of 6 Crak both sit inside 369, so that is the family this player is building. A Consecutive Run from 3 to 6 could hold both, too. The 1 Dot fits none of it: 369 never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 3 Dot and a pung of 6 Crak both sit inside 369, so that is the family their exposures point to. The 1 Dot fits none of it: 369 never uses a 1. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "3D",
@@ -4086,7 +4454,7 @@
           "9D",
           "6B"
         ],
-        "explanation" : "A pung of 7 Crak and a pung of 1 Bam both sit inside 13579 (Odds), so that is the family this player is building. The 6 Bam fits none of it: 13579 (Odds) never uses a 6. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 7 Crak and a pung of 1 Bam both sit inside 13579 (Odds), so that is the family their exposures point to. The 6 Bam fits none of it: 13579 (Odds) never uses a 6. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "7C",
@@ -4115,7 +4483,7 @@
           "1D",
           "2B"
         ],
-        "explanation" : "A pung of 8 Bam and a pung of 4 Crak both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 4 to 8 could hold both, too. The 1 Dot fits none of it: 2468 (Evens) never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 8 Bam and a pung of 4 Crak both sit inside 2468 (Evens), so that is the family their exposures point to. The 1 Dot fits none of it: 2468 (Evens) never uses a 1. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "8B",
@@ -4144,7 +4512,7 @@
           "3D",
           "3C"
         ],
-        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family this player is building. A Consecutive Run from 6 to 9 could hold both, too. The 4 Crak fits none of it: 369 never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family their exposures point to. The 4 Crak fits none of it: 369 never uses a 4. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "9D",
@@ -4173,7 +4541,7 @@
           "4D",
           "9C"
         ],
-        "explanation" : "A pung of 7 Crak and a pung of 9 Dot both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 7 to 9 could hold both, too. The 4 Dot fits none of it: 13579 (Odds) never uses a 4, and no run through both of them reaches a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 7 Crak and a pung of 9 Dot both sit inside 13579 (Odds), so that is the family their exposures point to. The 4 Dot fits none of it: 13579 (Odds) never uses a 4. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "7C",
@@ -4204,7 +4572,7 @@
           "3B",
           "6C"
         ],
-        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family this player is building. A Consecutive Run from 6 to 9 could hold both, too. The 1 Crak fits none of it: 369 never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Dot and a pung of 6 Bam both sit inside 369, so that is the family their exposures point to. The 1 Crak fits none of it: 369 never uses a 1. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "9D",
@@ -4233,7 +4601,7 @@
           "4C",
           "7B"
         ],
-        "explanation" : "A pung of 2 Crak and a pung of 6 Dot both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 2 to 6 could hold both, too. The 7 Bam fits none of it: 2468 (Evens) never uses a 7, and no run through both of them reaches a 7. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 2 Crak and a pung of 6 Dot both sit inside 2468 (Evens), so that is the family their exposures point to. The 7 Bam fits none of it: 2468 (Evens) never uses a 7. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "2C",
@@ -4262,7 +4630,7 @@
           "3D",
           "7D"
         ],
-        "explanation" : "A pung of 5 Bam and a pung of 7 Bam both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 7 could hold both, too. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 5 Bam and a pung of 7 Bam both sit inside 13579 (Odds), so that is the family their exposures point to. A Consecutive Run in Bams from 5 to 7 could hold both, too. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "5B",
@@ -4291,7 +4659,7 @@
           "9C",
           "3B"
         ],
-        "explanation" : "A pung of 6 Crak and a pung of 3 Dot both sit inside 369, so that is the family this player is building. A Consecutive Run from 3 to 6 could hold both, too. The 8 Dot fits none of it: 369 never uses an 8, and no run through both of them reaches an 8. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 6 Crak and a pung of 3 Dot both sit inside 369, so that is the family their exposures point to. The 8 Dot fits none of it: 369 never uses an 8. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "6C",
@@ -4320,7 +4688,7 @@
           "1B",
           "1D"
         ],
-        "explanation" : "A pung of 9 Dot and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 9 could hold both, too. The 2 Crak fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Dot and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family their exposures point to. The 2 Crak fits none of it: 13579 (Odds) never uses a 2. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "9D",
@@ -4349,7 +4717,7 @@
           "4D",
           "2B"
         ],
-        "explanation" : "A pung of 6 Crak and a pung of 2 Dot both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 2 to 6 could hold both, too. The 1 Crak fits none of it: 2468 (Evens) never uses a 1, and no run through both of them reaches a 1. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 6 Crak and a pung of 2 Dot both sit inside 2468 (Evens), so that is the family their exposures point to. The 1 Crak fits none of it: 2468 (Evens) never uses a 1. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "6C",
@@ -4378,7 +4746,7 @@
           "3D",
           "6B"
         ],
-        "explanation" : "A pung of 8 Crak and a pung of 2 Bam both sit inside 2468 (Evens), so that is the family this player is building. The 3 Dot fits none of it: 2468 (Evens) never uses a 3. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 8 Crak and a pung of 2 Bam both sit inside 2468 (Evens), so that is the family their exposures point to. The 3 Dot fits none of it: 2468 (Evens) never uses a 3. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "8C",
@@ -4409,7 +4777,7 @@
           "3D",
           "9B"
         ],
-        "explanation" : "A pung of 7 Dot and a pung of 5 Bam both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 7 could hold both, too. The 2 Dot fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 7 Dot and a pung of 5 Bam both sit inside 13579 (Odds), so that is the family their exposures point to. The 2 Dot fits none of it: 13579 (Odds) never uses a 2. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "7D",
@@ -4438,7 +4806,7 @@
           "9D",
           "3C"
         ],
-        "explanation" : "A pung of 9 Bam and a pung of 3 Bam fit both 13579 (Odds) and 369, so read the table both ways. The 4 Crak fits none of it: 13579 (Odds) never uses a 4, and 369 never uses a 4. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Bam and a pung of 3 Bam fit both 13579 (Odds) and 369, so read the table both ways. The 4 Crak fits none of it: 13579 (Odds) never uses a 4, and 369 never uses a 4. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "9B",
@@ -4467,7 +4835,7 @@
           "2B",
           "7C"
         ],
-        "explanation" : "A pung of 7 Bam and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family this player is building. A Consecutive Run from 5 to 7 could hold both, too. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and no run through both of them reaches a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 7 Bam and a pung of 5 Crak both sit inside 13579 (Odds), so that is the family their exposures point to. The 2 Bam fits none of it: 13579 (Odds) never uses a 2. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "7B",
@@ -4496,7 +4864,7 @@
           "7C",
           "6C"
         ],
-        "explanation" : "A pung of 4 Bam and a pung of 2 Bam both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 2 to 4 could hold both, too. The 7 Crak fits none of it: 2468 (Evens) never uses a 7, and no run through both of them reaches a 7. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 4 Bam and a pung of 2 Bam both sit inside 2468 (Evens), so that is the family their exposures point to. A Consecutive Run in Bams from 2 to 4 could hold both, too. The 7 Crak fits none of it: 2468 (Evens) never uses a 7, and no run through both of them reaches a 7. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "4B",
@@ -4525,7 +4893,7 @@
           "6C",
           "8C"
         ],
-        "explanation" : "A pung of 3 Bam and a pung of 6 Dot both sit inside 369, so that is the family this player is building. A Consecutive Run from 3 to 6 could hold both, too. The 8 Crak fits none of it: 369 never uses an 8, and no run through both of them reaches an 8. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 3 Bam and a pung of 6 Dot both sit inside 369, so that is the family their exposures point to. The 8 Crak fits none of it: 369 never uses an 8. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "3B",
@@ -4554,7 +4922,7 @@
           "4D",
           "8C"
         ],
-        "explanation" : "A pung of 4 Bam and a pung of 6 Bam both sit inside 2468 (Evens), so that is the family this player is building. A Consecutive Run from 4 to 6 could hold both, too. The 9 Bam fits none of it: 2468 (Evens) never uses a 9, and no run through both of them reaches a 9. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 4 Bam and a pung of 6 Bam both sit inside 2468 (Evens), so that is the family their exposures point to. A Consecutive Run in Bams from 4 to 6 could hold both, too. The 9 Bam fits none of it: 2468 (Evens) never uses a 9, and no run through both of them reaches a 9. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "4B",
@@ -4583,7 +4951,7 @@
           "9C",
           "3D"
         ],
-        "explanation" : "A pung of 9 Bam and a pung of 3 Bam fit both 13579 (Odds) and 369, so read the table both ways. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and 369 never uses a 2. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting.",
+        "explanation" : "A pung of 9 Bam and a pung of 3 Bam fit both 13579 (Odds) and 369, so read the table both ways. The 2 Bam fits none of it: 13579 (Odds) never uses a 2, and 369 never uses a 2. Of these four it is the safest throw, because every other choice feeds what they are showing.",
         "exposures" : [
           [
             "9B",
@@ -4690,13 +5058,13 @@
         "2D",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "3B",
       "fitting" : 9,
       "note" : "The 3 Bam fits 13579 (Odds), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 4 Crak.",
       "seed" : "deal-1",
       "target" : "odds13579",
-      "value" : 8.5,
+      "value" : 8.4999999999999982,
       "working" : 3
     },
     {
@@ -4821,7 +5189,7 @@
       "note" : "The 1 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 6 Bam.",
       "seed" : "deal-2",
       "target" : "consecutiveRun",
-      "value" : 11.699999999999999,
+      "value" : 11.699999999999998,
       "working" : 4
     },
     {
@@ -4876,7 +5244,7 @@
       "note" : "Right. The 6 Dot is outside the 13579 (Odds) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "odds13579",
-      "value" : 7.2999999999999998,
+      "value" : 7.2999999999999989,
       "working" : 3
     },
     {
@@ -4887,13 +5255,13 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
       "seed" : "deal-3",
       "target" : "threeSixNine",
-      "value" : 7.2999999999999998,
+      "value" : 7.2999999999999989,
       "working" : 3
     },
     {
@@ -5111,9 +5479,9 @@
             "answerIndex" : 0,
             "choiceNotes" : [
               null,
-              "This pass gives away the Flower and the 2 Bam and the 6 Bam, which the strongest pass keeps.",
-              "This pass gives away the Flower and the Flower and the 8 Bam, which the strongest pass keeps.",
-              "This pass gives away the Flower and the 2 Bam, which the strongest pass keeps."
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the 2 Bam and the 6 Bam, which the strongest pass holds back.",
+              "This pass gives away two Flowers and the 8 Bam, which the strongest pass keeps.",
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the 2 Bam, which the strongest pass holds back."
             ],
             "choices" : [
               "5 Crak, 9 Crak, North Wind",
@@ -5121,10 +5489,10 @@
               "8 Bam, Flower, Flower",
               "9 Crak, 2 Bam, Flower"
             ],
-            "explanation" : "Three flowers plus a wall of even bams: this deal wants an evens or year hand, and flowers feature in both. The odd Craks (9 Crak, 5 Crak) and lone North contribute nothing. Whatever you do, don't pass the flowers.",
+            "explanation" : "Three flowers plus a wall of even bams: this deal wants an evens hand, and many hands use flowers, so keep them. The odd Craks (9 Crak, 5 Crak) and the lone North do not fit an evens plan.",
             "id" : "mahj-minute-charleston-2026-02-28",
             "isReviewable" : false,
-            "prompt" : "First Charleston, pass ACROSS. Pick 3 tiles to pass. Which three tiles make the strongest pass?",
+            "prompt" : "First Charleston, pass ACROSS. Which three tiles make the strongest pass?",
             "roomID" : "charleston-room",
             "sourceLabel" : "Mahj Minute: Charleston",
             "tiles" : [
@@ -5223,13 +5591,13 @@
             "choices" : [
               "An odds hand",
               "An evens hand",
-              "Winds and Dragons",
+              "A 369 hand",
               "Singles and Pairs"
             ],
-            "explanation" : "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need.",
+            "explanation" : "Two even pungs point toward 2468. An odds hand cannot use them, a 369 hand cannot use the 4s, and Singles and Pairs never uses a pung. Stop feeding them even tiles and watch which numbers they still need.",
             "id" : "more-table-exposure-read",
             "isReviewable" : true,
-            "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures?",
+            "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections do they most likely point toward?",
             "roomID" : "table-room",
             "sourceLabel" : "The Table Room",
             "tiles" : [
@@ -5288,9 +5656,9 @@
           "item" : {
             "answerIndex" : 3,
             "choiceNotes" : [
-              "This pass gives away the Red Dragon and the Red Dragon, which the strongest pass keeps.",
-              "This pass gives away the 6 Crak and the Red Dragon, which the strongest pass keeps.",
-              "This pass gives away the 6 Crak and the 4 Bam and the Flower, which the strongest pass keeps.",
+              "This pass gives away two Red Dragons, which the strongest pass keeps.",
+              "This pass gives away the Red Dragon, which the strongest pass keeps. It also sends the 6 Crak, which the strongest pass holds back.",
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the 6 Crak and the 4 Bam, which the strongest pass holds back.",
               null
             ],
             "choices" : [
@@ -5299,10 +5667,10 @@
               "6 Crak, 4 Bam, Flower",
               "3 Dot, 5 Dot, 7 Dot"
             ],
-            "explanation" : "The three odd Dots (3, 5, 7) fit none of your even plan, so they are clean passes. Do NOT break the Red pair to make an easier bundle. Jokers can never build a pair, so natural pairs are precious, and shipping a pair could hand a neighbor half of a Singles and Pairs hand. Keep the Reds as a Winds and Dragons escape hatch.",
+            "explanation" : "The three odd Dots (3, 5, 7) fit none of your even plan, so they are clean passes. Your 2468 lean is only six tiles so far, so the Reds stay as a backup. Do NOT break the Red pair when you have cleaner tiles to give. Jokers can never build a pair, so a natural pair is hard to rebuild once it is gone.",
             "id" : "mahj-minute-charleston-2026-09-30",
             "isReviewable" : false,
-            "prompt" : "First Charleston, pass RIGHT. You are deep in 2468, but you also hold a spare pair of Red Dragons. Which three tiles make the strongest pass?",
+            "prompt" : "First Charleston, pass RIGHT. You lean toward 2468, and you also hold a pair of Red Dragons. Which three tiles make the strongest pass?",
             "roomID" : "charleston-room",
             "sourceLabel" : "Mahj Minute: Charleston",
             "tiles" : [
@@ -5461,10 +5829,10 @@
           "item" : {
             "answerIndex" : 1,
             "choiceNotes" : [
-              "This pass gives away the West Wind and the West Wind, which the strongest pass keeps.",
+              "This pass gives away two West Winds, which the strongest pass keeps.",
               null,
-              "This pass gives away the East Wind and the Flower, which the strongest pass keeps.",
-              "This pass gives away the West Wind and the West Wind and the 8 Dot, which the strongest pass keeps."
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the East Wind, which the strongest pass holds back.",
+              "This pass gives away two West Winds, which the strongest pass keeps. It also sends the 8 Dot, which the strongest pass holds back."
             ],
             "choices" : [
               "1 Dot, West Wind, West Wind",
@@ -5472,10 +5840,10 @@
               "1 Dot, East Wind, Flower",
               "8 Dot, West Wind, West Wind"
             ],
-            "explanation" : "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keep the 2 Crak and 8 Dot: together they leave a thin evens thread if the winds dry up, which a lone 1 or 9 cannot. Jokers can never be passed.",
+            "explanation" : "Five winds plus two jokers is the start of a Winds & Dragons hand, so the five scattered number tiles are the likeliest passes. Send the 1 Dot, 9 Crak and 5 Bam now, and pass the 2 Crak and 8 Dot next. Keep the West pair, and the flower too, since many hands use flowers. Jokers can never be passed.",
             "id" : "mahj-minute-charleston-2026-10-01",
             "isReviewable" : false,
-            "prompt" : "First Charleston, pass RIGHT. Nothing looks good. Which three tiles make the strongest pass?",
+            "prompt" : "First Charleston, pass RIGHT. Five winds and five scattered numbers. Which three tiles make the strongest pass?",
             "roomID" : "charleston-room",
             "sourceLabel" : "Mahj Minute: Charleston",
             "tiles" : [
@@ -5579,7 +5947,7 @@
             "explanation" : "A lone North with no partner needs two more Norths or jokers just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
             "id" : "plus-kd-lone-wind",
             "isReviewable" : true,
-            "prompt" : "Turn 3. You hold one North and no other winds.\nNobody has exposed a wind. Keep or throw?",
+            "prompt" : "Turn 3. You hold one North and no other winds.\nYour hand is built on numbers, and nobody has exposed a wind. Keep or throw?",
             "roomID" : "table-room",
             "sourceLabel" : "The Table Room",
             "tiles" : [
@@ -5638,10 +6006,10 @@
           "item" : {
             "answerIndex" : 1,
             "choiceNotes" : [
-              "This pass gives away the 4 Crak and the 6 Bam and the Flower, which the strongest pass keeps.",
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the 4 Crak and the 6 Bam, which the strongest pass holds back.",
               null,
-              "This pass gives away the 4 Bam and the 6 Bam and the Flower, which the strongest pass keeps.",
-              "This pass gives away the 2 Bam and the Flower, which the strongest pass keeps."
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the 4 Bam and the 6 Bam, which the strongest pass holds back.",
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the 2 Bam, which the strongest pass holds back."
             ],
             "choices" : [
               "4 Crak, 6 Bam, Flower",
@@ -5649,10 +6017,10 @@
               "4 Bam, 6 Bam, Flower",
               "2 Bam, 1 Dot, Flower"
             ],
-            "explanation" : "Nine even tiles against three odd ones. You are not committed yet, but the evens are clearly the majority, so pass the odd strays and see what comes back.",
+            "explanation" : "Nine even tiles against three odd ones. You are not committed yet, but the evens are clearly the majority and no pair or flower has to go, so pass the odd strays and see what comes back.",
             "id" : "mahj-minute-charleston-2027-01-15",
             "isReviewable" : false,
-            "prompt" : "Nothing has taken shape yet. First pass, and you want to stay flexible. Which three tiles make the strongest pass?",
+            "prompt" : "Mostly evens, no pairs yet. First pass. Which three tiles make the strongest pass?",
             "roomID" : "charleston-room",
             "sourceLabel" : "Mahj Minute: Charleston",
             "tiles" : [
@@ -5753,10 +6121,10 @@
               "Hold it",
               "Throw it"
             ],
-            "explanation" : "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else can be building a pair or pung of them. It is one of the safest discards you have.",
+            "explanation" : "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three exposed and one in your hand, all four 6 Dots are accounted for, so nobody can hold a natural pair of them. Only a player waiting on it as a single, or one ready to back it with jokers, could still want one. It is one of the safer discards you have.",
             "id" : "plus-kd-fourth-tile",
             "isReviewable" : true,
-            "prompt" : "An opponent has an exposed PUNG of 6 Dots.\nYou just drew the fourth 6 Dot. Keep or throw?",
+            "prompt" : "An opponent has an exposed PUNG of three natural 6 Dots.\nYou just drew the fourth 6 Dot, and your hand does not need it. Keep or throw?",
             "roomID" : "table-room",
             "sourceLabel" : "The Table Room",
             "tiles" : [
@@ -6451,6 +6819,374 @@
       }
     ]
   },
+  "passFilter" : {
+    "filter-1" : [
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "filter-2" : [
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false
+    ],
+    "filter-3" : [
+      true,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true
+    ]
+  },
   "permutations" : {
     "|2" : [
       1,
@@ -6659,6 +7395,17 @@
           "odds13579"
         ],
         "explanation" : "Every number here is odd (5, 7, 9). That points straight at 13579, the mirror image of the evens section.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 13579 (Odds).",
+          "This rack holds 5s, 7s and 9s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 5s, 7s and 9s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (5, 7, 9) never make three in a row, and a run steps up with no gaps.",
+          null,
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 5s and 7s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 5 Bam, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "5C",
           "5C",
@@ -6684,6 +7431,17 @@
           "threeSixNine"
         ],
         "explanation" : "Every number here is a 3, 6 or 9. The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 369.",
+          "This rack holds 3s and 9s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 3s, 6s and 9s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (3, 6, 9) never make three in a row, and a run steps up with no gaps.",
+          "This rack holds 6s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          null,
+          "This rack holds three or more 3 Dot, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "9C",
           "9C",
@@ -6709,6 +7467,17 @@
           "consecutiveRun"
         ],
         "explanation" : "The numbers step up in order (5, 6, 7, 8). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to Consecutive Run.",
+          "This rack holds 5s and 7s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 5s, 6s, 7s and 8s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          null,
+          "This rack holds 6s and 8s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 5s, 7s and 8s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 6 Dot, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "8C",
           "8C",
@@ -6734,6 +7503,17 @@
           "threeSixNine"
         ],
         "explanation" : "Every number on this rack is even (2, 4, 6, 8), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 2468 (Evens).",
+          null,
+          "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s, 6s and 8s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (2, 4, 6, 8) never make three in a row, and a run steps up with no gaps.",
+          "This rack holds 2s, 4s, 6s and 8s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 2s, 4s and 8s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 2 Crak, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "2C",
           "2C",
@@ -6759,6 +7539,17 @@
           "consecutiveRun"
         ],
         "explanation" : "Every number here is odd (1, 3, 5, 7). That points straight at 13579, the mirror image of the evens section.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 13579 (Odds).",
+          "This rack holds 1s, 3s, 5s and 7s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 1s, 3s, 5s and 7s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (1, 3, 5, 7) never make three in a row, and a run steps up with no gaps.",
+          null,
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 1s, 5s and 7s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 3 Dot, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "1C",
           "1C",
@@ -6784,6 +7575,17 @@
           "windsDragons"
         ],
         "explanation" : "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look.",
+        "missNotes" : [
+          "This rack has no numbered tiles at all, and Year Hands is built from numbers.",
+          "This rack has no numbered tiles at all, and 2468 (Evens) is built from numbers.",
+          "This rack has no numbered tiles at all, and Any Like Numbers is built from numbers.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "A run is all numbers stepping up in order, and this rack has no numbered tiles.",
+          "This rack has no numbered tiles at all, and 13579 (Odds) is built from numbers.",
+          null,
+          "This rack has no numbered tiles at all, and 369 is built from numbers.",
+          "This rack holds three or more Green Dragon, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "RD",
           "RD",
@@ -6809,6 +7611,17 @@
           "windsDragons"
         ],
         "explanation" : "Every number on this rack is even (2, 4, 8), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 2468 (Evens).",
+          null,
+          "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s and 8s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (2, 4, 8) never make three in a row, and a run steps up with no gaps.",
+          "This rack holds 2s, 4s and 8s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 2s, 4s and 8s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 2 Bam, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "4C",
           "4C",
@@ -6836,6 +7649,17 @@
           "threeSixNine"
         ],
         "explanation" : "The numbers step up in order (4, 5, 6, 7). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to Consecutive Run.",
+          "This rack holds 5s and 7s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 4s, 5s, 6s and 7s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          null,
+          "This rack holds 4s and 6s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 4s, 5s and 7s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 4 Crak, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "4C",
           "4C",
@@ -6861,6 +7685,17 @@
           "windsDragons"
         ],
         "explanation" : "Every number here is odd (3, 5, 7, 9). That points straight at 13579, the mirror image of the evens section.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 13579 (Odds).",
+          "This rack holds 3s, 5s, 7s and 9s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 3s, 5s, 7s and 9s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (3, 5, 7, 9) never make three in a row, and a run steps up with no gaps.",
+          null,
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 5s and 7s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 3 Dot, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "5C",
           "5C",
@@ -6886,6 +7721,17 @@
           "windsDragons"
         ],
         "explanation" : "Every number on this rack is even (2, 6, 8), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 2468 (Evens).",
+          null,
+          "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 6s and 8s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (2, 6, 8) never make three in a row, and a run steps up with no gaps.",
+          "This rack holds 2s, 6s and 8s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 2s and 8s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 2 Bam, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "2C",
           "2C",
@@ -6911,6 +7757,17 @@
           "odds13579"
         ],
         "explanation" : "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look.",
+        "missNotes" : [
+          "This rack has no numbered tiles at all, and Year Hands is built from numbers.",
+          "This rack has no numbered tiles at all, and 2468 (Evens) is built from numbers.",
+          "This rack has no numbered tiles at all, and Any Like Numbers is built from numbers.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "A run is all numbers stepping up in order, and this rack has no numbered tiles.",
+          "This rack has no numbered tiles at all, and 13579 (Odds) is built from numbers.",
+          null,
+          "This rack has no numbered tiles at all, and 369 is built from numbers.",
+          "This rack holds three or more Green Dragon, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "GD",
           "GD",
@@ -6936,6 +7793,17 @@
           "threeSixNine"
         ],
         "explanation" : "Every number here is a 3, 6 or 9. The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 369.",
+          "This rack holds 3s and 9s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 3s, 6s and 9s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (3, 6, 9) never make three in a row, and a run steps up with no gaps.",
+          "This rack holds 6s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          null,
+          "This rack holds three or more 3 Bam, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "6C",
           "6C",
@@ -6961,6 +7829,17 @@
           "threeSixNine"
         ],
         "explanation" : "The numbers step up in order (3, 4, 5, 6). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to Consecutive Run.",
+          "This rack holds 3s and 5s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 3s, 4s, 5s and 6s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          null,
+          "This rack holds 4s and 6s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 4s and 5s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 4 Bam, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "6C",
           "6C",
@@ -6986,6 +7865,17 @@
           "threeSixNine"
         ],
         "explanation" : "Every number on this rack is even (2, 4, 6, 8), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 2468 (Evens).",
+          null,
+          "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s, 6s and 8s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (2, 4, 6, 8) never make three in a row, and a run steps up with no gaps.",
+          "This rack holds 2s, 4s, 6s and 8s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 2s, 4s and 8s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 2 Dot, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "6C",
           "6C",
@@ -7013,6 +7903,17 @@
           "consecutiveRun"
         ],
         "explanation" : "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look.",
+        "missNotes" : [
+          "This rack has no numbered tiles at all, and Year Hands is built from numbers.",
+          "This rack has no numbered tiles at all, and 2468 (Evens) is built from numbers.",
+          "This rack has no numbered tiles at all, and Any Like Numbers is built from numbers.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "A run is all numbers stepping up in order, and this rack has no numbered tiles.",
+          "This rack has no numbered tiles at all, and 13579 (Odds) is built from numbers.",
+          null,
+          "This rack has no numbered tiles at all, and 369 is built from numbers.",
+          "This rack holds three or more Red Dragon, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "RD",
           "RD",
@@ -7038,6 +7939,17 @@
           "evens2468"
         ],
         "explanation" : "Every number on this rack is even (2, 4, 8), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 2468 (Evens).",
+          null,
+          "Like Numbers repeats one number across the suits, and this rack spreads across 2s, 4s and 8s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (2, 4, 8) never make three in a row, and a run steps up with no gaps.",
+          "This rack holds 2s, 4s and 8s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 2s, 4s and 8s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 2 Bam, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "4C",
           "4C",
@@ -7063,6 +7975,17 @@
           "consecutiveRun"
         ],
         "explanation" : "The numbers step up in order (6, 7, 8). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to Consecutive Run.",
+          "This rack holds 7s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 6s, 7s and 8s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          null,
+          "This rack holds 6s and 8s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 7s and 8s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 6 Dot, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "6C",
           "6C",
@@ -7088,6 +8011,17 @@
           "consecutiveRun"
         ],
         "explanation" : "Every number here is odd (1, 5, 7, 9). That points straight at 13579, the mirror image of the evens section.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 13579 (Odds).",
+          "This rack holds 1s, 5s, 7s and 9s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 1s, 5s, 7s and 9s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (1, 5, 7, 9) never make three in a row, and a run steps up with no gaps.",
+          null,
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 1s, 5s and 7s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 1 Bam, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "5C",
           "5C",
@@ -7113,6 +8047,17 @@
           "windsDragons"
         ],
         "explanation" : "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look.",
+        "missNotes" : [
+          "This rack has no numbered tiles at all, and Year Hands is built from numbers.",
+          "This rack has no numbered tiles at all, and 2468 (Evens) is built from numbers.",
+          "This rack has no numbered tiles at all, and Any Like Numbers is built from numbers.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "A run is all numbers stepping up in order, and this rack has no numbered tiles.",
+          "This rack has no numbered tiles at all, and 13579 (Odds) is built from numbers.",
+          null,
+          "This rack has no numbered tiles at all, and 369 is built from numbers.",
+          "This rack holds three or more East Wind, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "RD",
           "RD",
@@ -7138,6 +8083,17 @@
           "threeSixNine"
         ],
         "explanation" : "Every number here is odd (1, 3, 5, 7). That points straight at 13579, the mirror image of the evens section.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 13579 (Odds).",
+          "This rack holds 1s, 3s, 5s and 7s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 1s, 3s, 5s and 7s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (1, 3, 5, 7) never make three in a row, and a run steps up with no gaps.",
+          null,
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          "This rack holds 1s, 5s and 7s, and a finished 369 hand never uses them.",
+          "This rack holds three or more 1 Bam, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "3C",
           "3C",
@@ -7163,6 +8119,17 @@
           "windsDragons"
         ],
         "explanation" : "Every number here is a 3, 6 or 9. The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read.",
+        "missNotes" : [
+          "Year Hands could use some of these tiles, but more of them point to 369.",
+          "This rack holds 3s and 9s, and a finished 2468 hand never uses an odd number.",
+          "Like Numbers repeats one number across the suits, and this rack spreads across 3s, 6s and 9s.",
+          "Quints need five of a kind, which takes jokers, and this rack has none.",
+          "The numbers here (3, 6, 9) never make three in a row, and a run steps up with no gaps.",
+          "This rack holds 6s, and a finished 13579 hand never uses an even number.",
+          "This rack has 13 numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.",
+          null,
+          "This rack holds three or more 3 Crak, and Singles & Pairs never uses a pung."
+        ],
         "tiles" : [
           "3C",
           "3C",

@@ -82,7 +82,7 @@ object MahjMinuteContent {
         val distractors = distractorPasses(scenario, dayKey)
         val item = QuickItem(
             id = "mahj-minute-charleston-$dayKey",
-            prompt = "${scenario.situation.replace(" Pick 3.", "")} Which three tiles make the strongest pass?",
+            prompt = "${scenario.situation.replace(" Pick 3 tiles to pass.", "").replace(" Pick 3.", "")} Which three tiles make the strongest pass?",
             tiles = scenario.deal.racked,
             choices = listOf(answer) + distractors.map { it.first },
             answerIndex = 0,
@@ -91,7 +91,7 @@ object MahjMinuteContent {
             roomID = "charleston-room",
             trackingID = "mahj-minute-charleston",
             isReviewable = false,
-            choiceNotes = listOf<String?>(null) + distractors.map { missNote(it.second, scenario.recommendedPass) },
+            choiceNotes = listOf<String?>(null) + distractors.map { missNote(it.second, scenario.recommendedPass, scenario.deal) },
         )
         return MahjMinuteQuestion(MahjMinuteCategory.CHARLESTON, SessionBuilder.prepared(item))
     }
@@ -102,11 +102,32 @@ object MahjMinuteContent {
         return indices.take(2).map { MahjMinuteQuestion(MahjMinuteCategory.TABLE_JUDGMENT, SessionBuilder.prepared(pool[it])) }
     }
 
-    /** What a wrong pass gives up that the strongest pass keeps (iOS parity). */
-    private fun missNote(pass: List<Tile>, answer: List<Tile>): String {
+    /**
+     * What a wrong pass gives up that the strongest pass keeps. Keepers (part of a pair or more,
+     * or a flower) are "kept"; any other tile it sends is only "held back", because the
+     * explanation may call it a stray that goes on a later pass (iOS parity).
+     */
+    private fun missNote(pass: List<Tile>, answer: List<Tile>, deal: List<Tile>): String {
         val pool = answer.toMutableList()
         val given = pass.filter { tile -> !pool.remove(tile) }
-        return "This pass gives away ${given.joinToString(" and ") { "the ${it.spokenName}" }}, which the strongest pass keeps."
+        val isKeeper: (Tile) -> Boolean = { tile -> tile == Tile.Flower || deal.count { it == tile } >= 2 }
+        val keepers = given.filter(isKeeper)
+        val others = given.filterNot(isKeeper)
+        if (keepers.isEmpty()) return "This pass sends ${phrase(others)}, which the strongest pass holds back."
+        val note = "This pass gives away ${phrase(keepers)}, which the strongest pass keeps."
+        return if (others.isEmpty()) note else "$note It also sends ${phrase(others)}, which the strongest pass holds back."
+    }
+
+    /** "the 7 Bam", "two Flowers", "the 6 Dot and the Flower". */
+    private fun phrase(tiles: List<Tile>): String {
+        val groups = mutableListOf<Pair<Tile, Int>>()
+        for (tile in tiles) {
+            val index = groups.indexOfFirst { it.first == tile }
+            if (index >= 0) groups[index] = tile to groups[index].second + 1 else groups += tile to 1
+        }
+        return groups.joinToString(" and ") { (tile, count) ->
+            if (count == 1) "the ${tile.spokenName}" else "${if (count == 2) "two" else "three"} ${tile.spokenName}s"
+        }
     }
 
     /**

@@ -4,6 +4,7 @@ import com.jackwallner.mahj.model.Dragon
 import com.jackwallner.mahj.model.HandCategory
 import com.jackwallner.mahj.model.RandomSource
 import com.jackwallner.mahj.model.StableSeededGenerator
+import com.jackwallner.mahj.model.Suit
 import com.jackwallner.mahj.model.SystemRandomSource
 import com.jackwallner.mahj.model.Tile
 import com.jackwallner.mahj.model.nextInt
@@ -147,11 +148,11 @@ object RackGenerator {
 
     /** Why a wrong section does not fit THIS rack, naming the tiles that rule it out. */
     fun missNotes(tiles: List<Tile>, choices: List<HandCategory>, answer: HandCategory): List<String?> =
-        choices.map { if (it == answer) null else missNote(tiles, it) }
+        choices.map { if (it == answer) null else missNote(tiles, it, answer) }
 
-    fun missNote(tiles: List<Tile>, choice: HandCategory): String {
+    fun missNote(tiles: List<Tile>, choice: HandCategory, answer: HandCategory): String {
         val ranks = suitedRanks(tiles).sorted()
-        val generic = "${choice.displayName}: ${choice.requires}."
+        val generic = "${choice.displayName} could use some of these tiles, but more of them point to ${answer.displayName}."
         val noNumbers = "This rack has no numbered tiles at all, and ${choice.displayName} is built from numbers."
         return when (choice) {
             HandCategory.EVENS_2468 -> {
@@ -181,30 +182,46 @@ object RackGenerator {
             }
             HandCategory.CONSECUTIVE_RUN -> when {
                 ranks.isEmpty() -> "A run is all numbers stepping up in order, and this rack has no numbered tiles."
-                ranks.size < 3 -> "A run needs three or more numbers in a row, and this rack only has ${plural(ranks)}."
-                ranks.last() - ranks.first() != ranks.size - 1 -> "The numbers here (${ranks.joinToString(", ")}) skip, and a run steps up with no gaps."
+                ranks.size < 3 -> "A run steps up with no gaps, and this rack only has ${plural(ranks)}."
+                // Any three numbers in a row is the start of a run, so only a rack
+                // without one is ruled out by its gaps.
+                ranks.none { (it + 1) in ranks && (it + 2) in ranks } -> "The numbers here (${ranks.joinToString(", ")}) never make three in a row, and a run steps up with no gaps."
                 else -> generic
             }
             HandCategory.WINDS_DRAGONS -> {
                 val suited = tiles.count { it is Tile.Suited }
                 val honors = tiles.count { it.isHonor }
-                if (suited > honors) "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons." else generic
+                val honorCount = when (honors) {
+                    0 -> "no winds or dragons"
+                    1 -> "only one wind or dragon"
+                    else -> "only $honors winds or dragons"
+                }
+                if (suited > honors) "This rack has $suited numbered tiles and $honorCount, so it has little to build a Winds & Dragons hand from." else generic
             }
             HandCategory.LIKE_NUMBERS -> when {
                 ranks.isEmpty() -> noNumbers
                 ranks.size >= 3 -> "Like Numbers repeats one number across the suits, and this rack spreads across ${plural(ranks)}."
+                tiles.count { it is Tile.Suited } < 5 -> {
+                    val numbered = tiles.count { it is Tile.Suited }
+                    "Like Numbers is built from one number in several suits, and this rack has only $numbered number tile${if (numbered == 1) "" else "s"}."
+                }
                 else -> generic
             }
-            HandCategory.YEAR ->
-                if (Tile.DragonTile(Dragon.SOAP) in tiles) generic else "A year hand uses Soaps for its zeros, and this rack has none."
+            // The digits change with every card, so the note never names them.
+            HandCategory.YEAR -> if (ranks.isEmpty()) noNumbers else generic
             HandCategory.QUINTS -> {
                 val jokers = tiles.count { it == Tile.Joker }
                 if (jokers < 2) "Quints need five of a kind, which takes jokers, and this rack has ${if (jokers == 0) "none" else "just one"}." else generic
             }
             HandCategory.SINGLES_AND_PAIRS -> {
-                val pung = tiles.filter { it != Tile.Joker }.groupingBy { it }.eachCount()
+                // Flowers are left out: a third flower is just a spare, not a pung.
+                val pung = tiles.filter { it != Tile.Joker && it != Tile.Flower }.groupingBy { it }.eachCount()
                     .filter { it.value >= 3 }.keys.sortedBy { it.spokenName }.firstOrNull()
-                if (pung != null) "This rack holds three or more ${pung.spokenName}, and Singles & Pairs never uses a pung." else generic
+                when {
+                    pung != null -> "This rack holds three or more ${pung.spokenName}, and Singles & Pairs never uses a pung."
+                    Tile.Joker in tiles -> "Singles & Pairs never takes jokers, so the joker on this rack could not help it."
+                    else -> generic
+                }
             }
         }
     }
@@ -301,6 +318,45 @@ object CharlestonGenerator {
             if (tile == answer) null else note(tile, rack.count { it == tile })
         }
         return GeneratedPass(rack, section, answer, choices, explain(rack, section, answer), notes)
+    }
+
+    /**
+     * The stricter test Endless Practice applies on top of `build` (iOS 2026-10-18 answer
+     * audit): the stray must be nothing to any hand a player could argue for.
+     * - Addition hands: not when a number stray and every other number on the rack are digits
+     *   of one sum (4, 9, 1 and 3 read as 4 + 9 = 13), with or without a two-singles keeper.
+     * - Year hands: never a Soap stray beside a 2, 6 or 7, since the Soap writes the year's
+     *   zero, never a 2, 6 or 7 stray beside Soaps or on a Winds & Dragons rack, and never a
+     *   wind or dragon stray beside a 2 and a 6 or 7 (2026, 2027).
+     */
+    fun isUnarguable(pass: GeneratedPass): Boolean {
+        val ranks = suitedRanks(pass.tiles)
+        val strayRank = (pass.answer as? Tile.Suited)?.rank
+        if (strayRank != null && ranks.size >= 3 && DefenseGenerator.fitsOneSum(ranks)) return false
+        // A two-singles rack must not fit one sum without its keeper either: 4 + 8 = 12 holds a
+        // stray 1 once the keeper 6 goes, and then passing the keeper is just as right.
+        if (strayRank != null) {
+            val otherSingles = pass.tiles.filter { tile -> tile != pass.answer && pass.tiles.count { it == tile } == 1 }
+            for (single in otherSingles) {
+                val rest = pass.tiles.toMutableList().apply { remove(single) }
+                val restRanks = suitedRanks(rest)
+                if (restRanks.size >= 3 && DefenseGenerator.fitsOneSum(restRanks)) return false
+            }
+        }
+        val yearDigits = setOf(2, 6, 7)
+        val hasYearStart = 2 in ranks && (6 in ranks || 7 in ranks)
+        val strayIsYearDigit = strayRank != null && strayRank in yearDigits
+        if (pass.answer == Tile.DragonTile(Dragon.SOAP) && ranks.any { it in yearDigits }) return false
+        // A 2 with a 6 or 7 on the rack is two of the year's digits, so neither is a stray.
+        if (strayIsYearDigit && hasYearStart) return false
+        // A 2, 6 or 7 on an honors rack could be a year written beside winds.
+        if (pass.section == HandCategory.WINDS_DRAGONS && strayIsYearDigit) return false
+        // The mirror case: a 2, 6 or 7 stray beside Soaps reads as a year start.
+        if (Tile.DragonTile(Dragon.SOAP) in pass.tiles && strayIsYearDigit) return false
+        // And a wind or dragon stray beside a 2 and a 6 or 7: the year can be written beside
+        // honors, so the stray is not nothing.
+        if ((pass.answer is Tile.WindTile || pass.answer is Tile.DragonTile) && hasYearStart) return false
+        return true
     }
 
     /** Flowers and jokers are never strays. */
@@ -417,6 +473,44 @@ object DefenseGenerator {
         else -> emptyList()
     }
 
+    /**
+     * The stricter test Endless Practice applies on top of `build`, for readings a card can
+     * still hold (iOS 2026-10-18 content audit):
+     * - Addition hands: no safe tile that makes a sum with the two exposed numbers (5 and 7
+     *   with a 2, or 1 and 7 with a 2, read as 5 + 7 = 12).
+     * - Runs: the safe tile and both exposures span seven numbers or more, wider than any run
+     *   that has room for two pungs.
+     * - Year: never pungs of 2s and 6s, which also spell 2026.
+     */
+    fun isUnarguable(question: GeneratedDefense): Boolean {
+        val exposed = question.exposures.mapNotNull { (it.firstOrNull() as? Tile.Suited)?.rank }
+        val safe = (question.answer as? Tile.Suited)?.rank
+        if (exposed.size != 2 || safe == null) return false
+        val all = exposed + safe
+        if (all.max() - all.min() < 6) return false
+        if (exposed.toSet() == setOf(2, 6)) return false
+        return !makesSum(exposed[0], exposed[1], safe)
+    }
+
+    private fun sumDigits(a: Int, b: Int): List<Int> = listOf(a, b) + (a + b).toString().map { it.digitToInt() }
+
+    /**
+     * Whether three numbers can all sit in one written sum a + b = c, the digits of c included:
+     * 5 + 7 = 12 holds a 1, 2, 5 and 7, so any three of those can be argued into an addition hand.
+     */
+    fun makesSum(x: Int, y: Int, z: Int): Boolean = (1..9).any { a ->
+        (a..9).any { b ->
+            val digits = sumDigits(a, b).toMutableList()
+            listOf(x, y, z).all { digits.remove(it) }
+        }
+    }
+
+    /** Whether every number on a rack is a digit of one written sum (4, 9, 1 and 3 are 4 + 9 = 13). */
+    fun fitsOneSum(ranks: Set<Int>): Boolean {
+        if (ranks.isEmpty()) return false
+        return (1..9).any { a -> (a..9).any { b -> sumDigits(a, b).toSet().containsAll(ranks) } }
+    }
+
     /** Every readable section that holds all the exposed tiles. */
     fun sectionsFitting(exposed: List<Tile>): List<HandCategory> =
         readableSections.filter { section -> exposed.all { fits(it, section) } }
@@ -451,6 +545,13 @@ object DefenseGenerator {
         return pool.firstOrNull()
     }
 
+    /** The suit both tiles are in, or null when they differ. */
+    private fun sharedSuit(tiles: List<Tile>): Suit? {
+        val suits = tiles.mapNotNull { (it as? Tile.Suited)?.suit }
+        if (suits.size != tiles.size || suits.isEmpty() || suits.any { it != suits[0] }) return null
+        return suits[0]
+    }
+
     /** "369", or "369 and 13579 (Odds)" when the exposures fit both. */
     fun readingNames(readings: List<HandCategory>): String = readings.joinToString(" and ") { it.displayName }
 
@@ -458,15 +559,17 @@ object DefenseGenerator {
         val shown = exposures.mapNotNull { it.firstOrNull() }.joinToString(" and a pung of ") { it.spokenName }
         val readings = sectionsFitting(exposures.mapNotNull { it.firstOrNull() })
         val exposedRanks = exposures.mapNotNull { (it.firstOrNull() as? Tile.Suited)?.rank }
-        // Pungs within five numbers can also sit in a run (iOS parity).
-        val runPossible = (exposedRanks.maxOrNull() ?: 0) - (exposedRanks.minOrNull() ?: 0) <= 4
+        // Pungs in one suit within five numbers of each other can also sit in a run. A run is
+        // one suit, so pungs in two suits get no run sentence (iOS parity).
+        val runSuit = sharedSuit(exposures.mapNotNull { it.firstOrNull() })
+        val runPossible = runSuit != null && (exposedRanks.maxOrNull() ?: 0) - (exposedRanks.minOrNull() ?: 0) <= 4
         var read = if (readings.size > 1) "A pung of $shown fit both ${readingNames(readings)}, so read the table both ways."
-        else "A pung of $shown both sit inside ${section.displayName}, so that is the family this player is building."
-        if (runPossible) read += " A Consecutive Run from ${exposedRanks.min()} to ${exposedRanks.max()} could hold both, too."
+        else "A pung of $shown both sit inside ${section.displayName}, so that is the family their exposures point to."
+        if (runPossible) read += " A Consecutive Run in ${runSuit.displayName}s from ${exposedRanks.min()} to ${exposedRanks.max()} could hold both, too."
         val value = (safe as? Tile.Suited)?.rank ?: 0
         val article = if (value == 8) "an" else "a"
         val never = readings.map { "${it.displayName} never uses $article $value" }.toMutableList()
         if (runPossible) never += "no run through both of them reaches $article $value"
-        return "$read The ${safe.spokenName} fits none of it: ${never.joinToString(", and ")}. Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
+        return "$read The ${safe.spokenName} fits none of it: ${never.joinToString(", and ")}. Of these four it is the safest throw, because every other choice feeds what they are showing."
     }
 }

@@ -131,7 +131,10 @@ object EndlessPractice {
         )
     }
 
-    private fun passItems(count: Int): List<QuickItem> = CharlestonGenerator.batch(count).map { pass ->
+    /** Topped up in rounds, because `isUnarguable` turns some deals away (iOS parity). */
+    private fun passItems(count: Int): List<QuickItem> = toppedUp(count) {
+        CharlestonGenerator.batch(count * 2).filter(CharlestonGenerator::isUnarguable)
+    }.map { pass ->
         QuickItem(
             id = newID(PracticeSkill.CHARLESTON_PASS),
             prompt = "The first pass is coming. Which tile is the first to go?",
@@ -145,7 +148,9 @@ object EndlessPractice {
         )
     }
 
-    private fun defenseItems(count: Int): List<QuickItem> = DefenseGenerator.batch(count).map { question ->
+    private fun defenseItems(count: Int): List<QuickItem> = toppedUp(count) {
+        DefenseGenerator.batch(count * 4).filter(DefenseGenerator::isUnarguable)
+    }.map { question ->
         val shown = question.exposures.mapNotNull { it.firstOrNull() }.joinToString(" and ") { "a pung of ${it.spokenName}" }
         QuickItem(
             id = newID(PracticeSkill.DEFENSE),
@@ -158,6 +163,12 @@ object EndlessPractice {
             roomID = PracticeSkill.DEFENSE.roomID,
             choiceNotes = question.choiceNotes,
         )
+    }
+
+    private fun <T> toppedUp(count: Int, round: () -> List<T>): List<T> {
+        val found = mutableListOf<T>()
+        repeat(20) { if (found.size < count) found += round() }
+        return found.take(count)
     }
 
     /** Flowers and jokers are excluded: eight of each exist. */

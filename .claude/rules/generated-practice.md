@@ -46,8 +46,9 @@ motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
   sum with the two exposures (Addition hands: 5 and 7 with a 2 is
   5 + 7 = 12), the three numbers span seven or more (no run with room for
   two pungs holds them all), and never pungs of 2s and 6s (2026). The
-  filter sits on top of `build`, so seeded output and the Android parity
-  fixture are unchanged; Android's Endless does not apply it yet.
+  filter sits on top of `build`, so seeded output is unchanged; Android's
+  Endless applies it too, and the parity fixture's `defenseFilter` holds the
+  Kotlin port to Swift's verdicts.
   Defense explanations hedge the read ("the family their exposures point
   to", "Of these four it is the safest throw"): the table is a judgment,
   not a proof. A run is one suit, so only pungs in ONE suit get the
@@ -60,7 +61,8 @@ motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
   tiles and honors instead of saying "mostly numbered" on joker-heavy
   racks, and ends "so it has little to build a Winds & Dragons hand
   from" (never "a Winds & Dragons hand is mostly winds and dragons":
-  some card lines carry numbers). Kotlin still has the older wording.
+  some card lines carry numbers). Kotlin matches, checked by the parity
+  fixture's rack `missNotes`.
   `CharlestonGenerator` likewise rejects any core that does not read as
   exactly its own section (`RackGenerator.category`): a 369 core with no 6 is
   just odds, and an odd stray then fit the hand.

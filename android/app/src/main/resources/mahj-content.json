@@ -1606,7 +1606,7 @@
                 "consecutiveRun",
                 "likeNumbers"
               ],
-              "explanation" : "Every number tile is even: 2s, 4s, 6s, 8s across suits, plus flowers and a joker that fit anywhere. This rack is screaming 2468.",
+              "explanation" : "Every number tile is even: 2s, 4s, 6s, 8s across suits. The flowers and the joker do not point anywhere else, so the numbers decide: this rack is screaming 2468.",
               "id" : "hm-2468",
               "tiles" : [
                 "2C",
@@ -1630,7 +1630,7 @@
                 "consecutiveRun",
                 "evens2468",
                 "threeSixNine",
-                "year"
+                "odds13579"
               ],
               "explanation" : "3-4-5, 4-5-6, 5-6-7: stepping numbers in all three suits. Mixed odds and evens rule out 2468 and 13579; Consecutive Run eats this deal up.",
               "id" : "hm-run",
@@ -1658,7 +1658,7 @@
                 "evens2468",
                 "quints"
               ],
-              "explanation" : "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2D and lone wind are your first passes.",
+              "explanation" : "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2 Dot and lone wind are your first passes.",
               "id" : "hm-odds",
               "tiles" : [
                 "1B",
@@ -1680,7 +1680,7 @@
               "answer" : "windsDragons",
               "choices" : [
                 "windsDragons",
-                "year",
+                "singlesAndPairs",
                 "likeNumbers",
                 "odds13579"
               ],
@@ -1732,11 +1732,11 @@
               "answer" : "likeNumbers",
               "choices" : [
                 "likeNumbers",
-                "odds13579",
+                "evens2468",
                 "quints",
                 "consecutiveRun"
               ],
-              "explanation" : "EIGHT fives across all three suits. When one number floods your rack like this, Any Like Numbers is the shortest road home.",
+              "explanation" : "EIGHT fives across all three suits. When one number floods your rack like this, Any Like Numbers is the read.",
               "id" : "hm-like",
               "tiles" : [
                 "5C",
@@ -1814,7 +1814,7 @@
                 "windsDragons",
                 "evens2468"
               ],
-              "explanation" : "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs never takes jokers, so a rack dealt in pairs is the one way in, and this one is nearly home.",
+              "explanation" : "Six natural pairs and zero jokers, mixing odd and even numbers. Every pair in Singles & Pairs must be natural, since it never takes jokers, so a rack that already holds this many pairs is a strong start.",
               "id" : "hm-sp",
               "tiles" : [
                 "1C",
@@ -1825,8 +1825,8 @@
                 "5B",
                 "7B",
                 "7B",
-                "9D",
-                "9D",
+                "8D",
+                "8D",
                 "N",
                 "N",
                 "E"
@@ -1849,7 +1849,7 @@
                 "likeNumbers",
                 "threeSixNine"
               ],
-              "explanation" : "Every number tile is odd: 1s, 3s, 5s, 7s, 9s, with a pung of 3 Craks already down. Two flowers and a joker go anywhere. This is a 13579 rack.",
+              "explanation" : "Every number tile is odd: 1s, 3s, 5s, 7s, 9s, with a pung of 3 Craks in hand. The flowers and the joker do not point anywhere else, so the numbers decide: this is a 13579 rack.",
               "id" : "plus-hm-odds",
               "tiles" : [
                 "1C",
@@ -1899,9 +1899,9 @@
                 "windsDragons",
                 "singlesAndPairs",
                 "likeNumbers",
-                "year"
+                "odds13579"
               ],
-              "explanation" : "Eight winds, a pung of Easts, and three dragons, with not one number tile on the rack. Nothing else on the card can use this. Winds and Dragons it is.",
+              "explanation" : "Eight winds, a pung of Easts, and three dragons, with not one number tile on the rack. Any section built on numbers would be starting from nothing. Winds and Dragons it is.",
               "id" : "plus-hm-winds",
               "tiles" : [
                 "E",
@@ -1953,7 +1953,7 @@
                 "evens2468",
                 "consecutiveRun"
               ],
-              "explanation" : "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch both pungs into quints. Joker-rich racks look up, not sideways.",
+              "explanation" : "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch either pung into a quint, or both. Joker-rich racks with big groups point at Quints.",
               "id" : "plus-hm-quints",
               "tiles" : [
                 "J",
@@ -1979,7 +1979,7 @@
                 "consecutiveRun",
                 "quints"
               ],
-              "explanation" : "Six natural pairs and zero jokers. A rack that is already all pairs is most of a Singles and Pairs hand, and that section never takes jokers, so pairs you were dealt are the only way in.",
+              "explanation" : "Six natural pairs and zero jokers, odd and even mixed. A rack that is already all pairs is a good start for Singles and Pairs, and every pair in that section must be natural, since it never takes jokers.",
               "id" : "plus-hm-sp",
               "tiles" : [
                 "2C",
@@ -1988,8 +1988,8 @@
                 "4C",
                 "6B",
                 "6B",
-                "8B",
-                "8B",
+                "7B",
+                "7B",
                 "2D",
                 "2D",
                 "GD",
@@ -2005,7 +2005,7 @@
                 "threeSixNine",
                 "consecutiveRun"
               ],
-              "explanation" : "Every number on this rack is even and there is not an odd tile in sight. Pass anything odd and commit to 2468.",
+              "explanation" : "Every number on this rack is even, with not an odd tile in sight, so 2468 is the read.",
               "id" : "more-rack-evens",
               "tiles" : [
                 "2C",
@@ -2057,7 +2057,7 @@
                 "singlesAndPairs",
                 "threeSixNine"
               ],
-              "explanation" : "Not one numbered tile on the rack. When honors pile up like this, Winds and Dragons is the only section that fits.",
+              "explanation" : "Not one numbered tile on the rack. When honors pile up like this, Winds and Dragons is the clear read: any section built on numbers would be starting from nothing.",
               "id" : "more-rack-winds",
               "tiles" : [
                 "N",
@@ -2236,7 +2236,7 @@
               "id" : "ch-watch"
             },
             {
-              "backBody" : "Avoid passing three tiles from the same section in one bundle (say, 2C 4C 6C): you might be handing one opponent a head start. Split related discards across different passes.",
+              "backBody" : "When your strays are equally useless to you, mix them across your passes rather than sending three of one family (say, 2C 4C 6C) to one player. It is a small edge: never keep a tile you need just to split a bundle.",
               "backTitle" : "Split Related Tiles",
               "frontSubtitle" : "Passing has a defense side too",
               "frontTiles" : [
@@ -2266,15 +2266,15 @@
                 "8D",
                 "F",
                 "J",
-                "5C",
-                "7B",
+                "1C",
+                "9B",
                 "N"
               ],
               "id" : "cs-evens",
-              "reasoning" : "This deal leans hard into 2468: three even pairs plus two more evens working on it, and a flower and a joker that fit anywhere. The 5 Crak, 7 Bam and lone North help none of that. The joker can never be passed, and the flower should stay early.",
+              "reasoning" : "This deal leans into 2468: eight even tiles with three pairs, plus a flower and a joker worth keeping. The 1 Crak and 9 Bam are odd, and they and the lone North help none of that. The joker can never be passed, and the flower should stay early.",
               "recommendedPass" : [
-                "5C",
-                "7B",
+                "1C",
+                "9B",
                 "N"
               ],
               "situation" : "First Charleston, pass RIGHT. Pick 3 tiles to pass.",
@@ -2297,7 +2297,7 @@
                 "J"
               ],
               "id" : "cs-winds",
-              "reasoning" : "Seven winds and a dragon: this is a Winds & Dragons hand. The three scattered number tiles (3C, 6D, 9B) are strays in three different suits; none of them helps a Winds & Dragons hand. Easy passes.",
+              "reasoning" : "Seven winds and a dragon: this is a Winds & Dragons hand. The three scattered number tiles (3 Crak, 6 Dot, 9 Bam) are strays in three different suits, with nothing to build on for a winds plan. Easy passes.",
               "recommendedPass" : [
                 "3C",
                 "6D",
@@ -2323,14 +2323,14 @@
                 "J"
               ],
               "id" : "cs-run",
-              "reasoning" : "Middle numbers 4 through 7 across all three suits: a Consecutive Run dream. A 1 and a 9 can't join a 4-5-6-7 run, and the lone North is dead weight. Keep the 6 Dot pair: pairs anchor hands.",
+              "reasoning" : "Middle numbers 4 through 7 across Craks and Bams, plus a pair of 6 Dots: a Consecutive Run dream. The 1 and the 9 are long shots for a run built on 4 through 7, and the lone North is dead weight. Keep the 6 Dot pair: pairs anchor hands.",
               "recommendedPass" : [
                 "1C",
                 "9D",
                 "N"
               ],
               "situation" : "First Charleston, pass ACROSS. Pick 3 tiles to pass.",
-              "tip" : "For Consecutive Run hands, middle numbers (4-7) are the most flexible tiles in the game."
+              "tip" : "For Consecutive Run hands, middle numbers (4-7) leave the most room to build in either direction."
             },
             {
               "deal" : [
@@ -2349,7 +2349,7 @@
                 "J"
               ],
               "id" : "cs-pairs",
-              "reasoning" : "Three natural pairs of odd numbers point at 13579 (or even Singles & Pairs). Keep every odd tile: the 5 Crak and 1 Bam still fit odd hands. Pass the evens (4 Dot, 8 Crak) and the lone wind. Keep the pairs, since jokers can never make a pair for you.",
+              "reasoning" : "Three natural pairs of odd numbers point at 13579. Keep every odd tile: the 5 Crak and 1 Bam still fit odd hands. Pass the evens (4 Dot, 8 Crak) and the lone wind. Keep the pairs, since jokers can never make a pair for you.",
               "recommendedPass" : [
                 "4D",
                 "8C",
@@ -2375,14 +2375,14 @@
                 "F"
               ],
               "id" : "cs-junk",
-              "reasoning" : "Five winds plus two jokers: leaning Winds & Dragons. All five number tiles are strays, and only three can go. Keep the 2 Crak and 8 Dot: together they leave a thin evens thread if the winds dry up, which a lone 1 or 9 cannot. Jokers can never be passed.",
+              "reasoning" : "Five winds plus two jokers is the start of a Winds & Dragons hand, so the five scattered number tiles are the likeliest passes. Send the 1 Dot, 9 Crak and 5 Bam now, and pass the 2 Crak and 8 Dot next. Keep the West pair, and the flower too, since many hands use flowers. Jokers can never be passed.",
               "recommendedPass" : [
                 "1D",
                 "9C",
                 "5B"
               ],
-              "situation" : "First Charleston, pass RIGHT. Nothing looks good. Pick 3.",
-              "tip" : "With a junk deal, pass strays but keep tiles that preserve a second option."
+              "situation" : "First Charleston, pass RIGHT. Five winds and five scattered numbers. Pick 3.",
+              "tip" : "With a junk deal, let the strongest group set the plan. Strays are interchangeable; pairs and flowers are not."
             },
             {
               "deal" : [
@@ -2401,14 +2401,14 @@
                 "5C"
               ],
               "id" : "cs-flowers",
-              "reasoning" : "Three flowers plus a wall of even bams: this deal wants an evens or year hand, and flowers feature in both. The odd Craks (9 Crak, 5 Crak) and lone North contribute nothing. Whatever you do, don't pass the flowers.",
+              "reasoning" : "Three flowers plus a wall of even bams: this deal wants an evens hand, and many hands use flowers, so keep them. The odd Craks (9 Crak, 5 Crak) and the lone North do not fit an evens plan.",
               "recommendedPass" : [
                 "9C",
                 "5C",
                 "N"
               ],
               "situation" : "First Charleston, pass ACROSS. Pick 3 tiles to pass.",
-              "tip" : "Flowers are the most re-usable tiles on the card. Early passes should almost never include one."
+              "tip" : "Flowers turn up in hands across the card. Early passes should almost never include one."
             },
             {
               "deal" : [
@@ -2422,12 +2422,12 @@
                 "4C",
                 "8B",
                 "N",
-                "E",
+                "F",
                 "F",
                 "J"
               ],
               "id" : "cs-like",
-              "reasoning" : "SEVEN sixes: Any Like Numbers is nearly built, and 6s keep 369 open as a backup. The 4C and 8B are decoys ('but they're even!'): you're not playing 2468 with seven sixes. Pass the two stray numbers with the North, and the East can follow on the next pass.",
+              "reasoning" : "SEVEN sixes anchor Like Numbers. The 4 Crak and 8 Bam do nothing for the 6s (at best a long-shot backup), and the North is a lone wind, so they are the cheapest tiles to spend. Every other pass breaks up the 6s or gives up a flower.",
               "recommendedPass" : [
                 "4C",
                 "8B",
@@ -2453,14 +2453,14 @@
                 "W"
               ],
               "id" : "cs-commit",
-              "reasoning" : "Evens in craks (five tiles with a pair) vs odds in bams (four loners): follow the count and commit to 2468. But don't ship 3B-5B-7B in one bundle to one player: that's a 13579 care package. Send the 3 and 5 Bam with the North now; the 7 and 9 Bam and the West go out over later passes.",
+              "reasoning" : "Evens in Craks vs odds in Bams: evens edge it, five tiles with a pair against four singles, so lean 2468. The two lone winds help neither plan, so both go now, with the 3 Bam to start letting the odds go. The other odd Bams can follow over later passes.",
               "recommendedPass" : [
-                "3B",
-                "5B",
-                "N"
+                "N",
+                "W",
+                "3B"
               ],
               "situation" : "First Charleston, pass RIGHT. Two sections look possible. Pick 3.",
-              "tip" : "When two sections compete, commit to the longer one, and split the losers' tiles across different passes."
+              "tip" : "When two sections compete, commit to the longer one and pass the other side's tiles over the next passes."
             },
             {
               "deal" : [
@@ -2566,7 +2566,7 @@
                 "J"
               ],
               "id" : "plus-ch-courtesy",
-              "reasoning" : "The courtesy pass is optional and both players must agree on the count. With a pung of 6 Craks and pairs of 3s and 9s you are deep in 369, so the only tiles that do nothing are 4 Bam, 5 Bam, and 7 Dot.",
+              "reasoning" : "The courtesy pass is optional: the players across each name 0 to 3 tiles, and if they differ the smaller number is passed. With a pung of 6 Craks and pairs of 3s and 9s you are deep in 369, so the cheapest tiles to give are 4 Bam, 5 Bam, and 7 Dot.",
               "recommendedPass" : [
                 "4B",
                 "5B",
@@ -2598,7 +2598,7 @@
                 "4D",
                 "6D"
               ],
-              "situation" : "First Charleston, pass ACROSS. You hold two flowers and they look like spares. Pick 3.",
+              "situation" : "First Charleston, pass ACROSS. You hold two flowers and are tempted to pass them. Pick 3.",
               "tip" : "Flowers are the last thing you pass. All eight are interchangeable and they turn up across many sections, so passing one hands over a tile your own hand may need later."
             },
             {
@@ -2613,18 +2613,18 @@
                 "9B",
                 "7D",
                 "9D",
-                "2C",
-                "4B",
+                "8C",
+                "6D",
                 "N"
               ],
               "id" : "more-pass-odds",
-              "reasoning" : "Ten odd tiles is a direction, not a coincidence. The 1-2-3-4-5 stretch across Craks and Bams could look like a run, but it leans on the lone 2 and 4, and ten odds is the far stronger read. The two evens and the lone wind are doing nothing for an odds hand, so they go first.",
+              "reasoning" : "Ten odd tiles is a direction, not a coincidence. The 8 Crak and 6 Dot are even, so an odds hand cannot use them, and the North is a lone wind with no partner. Those three go first.",
               "recommendedPass" : [
-                "2C",
-                "4B",
+                "8C",
+                "6D",
                 "N"
               ],
-              "situation" : "Your deal leans heavily odd. First pass, three tiles to the right.",
+              "situation" : "Your deal leans odd. First pass, three tiles to the right.",
               "tip" : "Pass what does not fit the story your rack is already telling."
             },
             {
@@ -2644,14 +2644,14 @@
                 "9C"
               ],
               "id" : "more-pass-honors",
-              "reasoning" : "A pung of east, a pair of red and a green is a real Winds and Dragons start. The five loose numbers are the passable ones. The 2 and 8 Dot are the only two that share a suit and an even family, so they are the last to go; send the other three first.",
+              "reasoning" : "A pung of Easts, a pair of Reds and a Green is a real Winds and Dragons start. The five loose numbers are scattered and unpaired, so they are the likeliest passes: send three now and the other two on the next pass.",
               "recommendedPass" : [
                 "4C",
                 "7B",
                 "9C"
               ],
               "situation" : "Honors are stacking up and the numbers are scattered. First pass, three tiles.",
-              "tip" : "Keep the flowers. Almost every section uses them, and they cost you nothing to hold."
+              "tip" : "Keep the flowers. Many hands use them, and they cost you nothing to hold."
             },
             {
               "deal" : [
@@ -2670,13 +2670,13 @@
                 "F"
               ],
               "id" : "more-pass-flexible",
-              "reasoning" : "Nine even tiles against three odd ones. You are not committed yet, but the evens are clearly the majority, so pass the odd strays and see what comes back.",
+              "reasoning" : "Nine even tiles against three odd ones. You are not committed yet, but the evens are clearly the majority and no pair or flower has to go, so pass the odd strays and see what comes back.",
               "recommendedPass" : [
                 "1D",
                 "3D",
                 "9C"
               ],
-              "situation" : "Nothing has taken shape yet. First pass, and you want to stay flexible.",
+              "situation" : "Mostly evens, no pairs yet. First pass.",
               "tip" : "Early passes are about narrowing, not deciding. Keep the majority and let the Charleston tell you the rest."
             }
           ],
@@ -2808,12 +2808,12 @@
               "id" : "kd-count-four"
             },
             {
-              "backBody" : "An exposure narrows their hand to the card lines that use it: an even hand, a run, or like numbers built around 4s and dots could all fit. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
-              "backTitle" : "Their Section Is Showing",
+              "backBody" : "An exposure narrows their hand to the card lines that use it: an evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and check what their exposure could belong to.",
+              "backTitle" : "It Narrows Their Hand",
               "choice" : {
                 "answerIndex" : 0,
                 "options" : [
-                  "Their section is showing",
+                  "It narrows their hand",
                   "Nothing useful"
                 ]
               },
@@ -2992,12 +2992,12 @@
             {
               "answerIndex" : 1,
               "choices" : [
-                "A tile nobody has exposed",
-                "A tile already discarded twice with no takers",
-                "A tile that matches an opponent's exposure",
+                "A tile you have not seen anyone discard",
+                "A tile of a kind already discarded twice with no takers",
+                "A tile that fits the pattern of an opponent's exposures",
                 "A flower"
               ],
-              "explanation" : "A tile that has gone around twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats feeding an exposure or giving up a flower.",
+              "explanation" : "A tile discarded twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower.",
               "id" : "more-table-safe-discard",
               "prompt" : "Late in the hand, which discard is usually safest?",
               "tiles" : [
@@ -3009,12 +3009,12 @@
               "choices" : [
                 "An odds hand",
                 "An evens hand",
-                "Winds and Dragons",
+                "A 369 hand",
                 "Singles and Pairs"
               ],
-              "explanation" : "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need.",
+              "explanation" : "Two even pungs point toward 2468. An odds hand cannot use them, a 369 hand cannot use the 4s, and Singles and Pairs never uses a pung. Stop feeding them even tiles and watch which numbers they still need.",
               "id" : "more-table-exposure-read",
-              "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures?",
+              "prompt" : "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections do they most likely point toward?",
               "tiles" : [
 
               ]
@@ -3209,7 +3209,7 @@
           "isPlus" : true,
           "items" : [
             {
-              "backBody" : "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else can be building a pair or pung of them. It is one of the safest discards you have.",
+              "backBody" : "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three exposed and one in your hand, all four 6 Dots are accounted for, so nobody can hold a natural pair of them. Only a player waiting on it as a single, or one ready to back it with jokers, could still want one. It is one of the safer discards you have.",
               "backTitle" : "Throw It",
               "choice" : {
                 "answerIndex" : 1,
@@ -3218,13 +3218,13 @@
                   "Throw it"
                 ]
               },
-              "frontSubtitle" : "You just drew the fourth 6 Dot. Keep or throw?",
+              "frontSubtitle" : "You just drew the fourth 6 Dot, and your hand does not need it. Keep or throw?",
               "frontTiles" : [
                 "6D",
                 "6D",
                 "6D"
               ],
-              "frontTitle" : "An opponent has an exposed PUNG of 6 Dots.",
+              "frontTitle" : "An opponent has an exposed PUNG of three natural 6 Dots.",
               "id" : "plus-kd-fourth-tile"
             },
             {
@@ -3237,7 +3237,7 @@
                   "Throw it"
                 ]
               },
-              "frontSubtitle" : "Nobody has exposed a wind. Keep or throw?",
+              "frontSubtitle" : "Your hand is built on numbers, and nobody has exposed a wind. Keep or throw?",
               "frontTiles" : [
                 "N"
               ],
@@ -3265,7 +3265,7 @@
               "id" : "plus-kd-commit"
             },
             {
-              "backBody" : "A tile the table has already passed on twice is far safer than the flower, though not safe: it can still be someone's last tile, and jokers can still finish a group. Flowers are the opposite: nearly every section wants them, so a late flower is one of the most dangerous tiles you can put down.",
+              "backBody" : "A tile the table has already passed on twice is safer than the flower, though not safe: it can still be someone's last tile, and jokers can still finish a group. Flowers are the opposite: many hands use them, so a late flower can easily be the tile someone is waiting for.",
               "backTitle" : "The Twice-Thrown Wind",
               "choice" : {
                 "answerIndex" : 1,
@@ -3372,16 +3372,16 @@
               "id" : "more-judge-lone-wind"
             },
             {
-              "backBody" : "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. Only a joker can grow this pair into a pung now, so build on it only if jokers are in reach. Count before you commit.",
-              "backTitle" : "Let it go",
+              "backBody" : "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. The pair is still a pair, but it can only become a pung with a joker, so do not count on a third copy. Count before you commit.",
+              "backTitle" : "Stop waiting",
               "choice" : {
                 "answerIndex" : 0,
                 "options" : [
-                  "Let it go",
+                  "Stop waiting",
                   "Keep waiting"
                 ]
               },
-              "frontSubtitle" : "Two more are already exposed elsewhere. Keep waiting?",
+              "frontSubtitle" : "The other two are already exposed elsewhere. Keep waiting for a third?",
               "frontTiles" : [
                 "5C",
                 "5C"
@@ -3462,26 +3462,26 @@
           "items" : [
             {
               "deal" : [
+                "1C",
+                "1C",
                 "3C",
-                "3C",
-                "5C",
-                "5C",
                 "7C",
+                "9C",
                 "9C",
                 "5B",
                 "6B",
                 "7B",
                 "2D",
-                "8D",
+                "4D",
                 "F",
                 "J"
               ],
               "id" : "pro-ch-two-sections",
-              "reasoning" : "Count both roads. The odds side has six tiles with two pairs (3s and 5s); the run side has just three (5-6-7 Bam). Commit to 13579. Keep 5 Bam and 7 Bam since they are odd, and pass the even tiles that fit neither pair: 6 Bam plus the 2 Dot and 8 Dot.",
+              "reasoning" : "Count both roads. The odds side has eight odd tiles with two pairs (1 and 9 Crak). The run side is only the 5-6-7 in Bams, three tiles, and your Craks (1, 3, 7, 9) have gaps, so they add little to it. Commit to 13579. Keep 5 Bam and 7 Bam since they are odd, and pass the evens an odds hand can't use: 6 Bam, 2 Dot and 4 Dot.",
               "recommendedPass" : [
                 "6B",
                 "2D",
-                "8D"
+                "4D"
               ],
               "situation" : "First Charleston, pass RIGHT. Your craks scream odds, your bams start a run. Pick 3.",
               "tip" : "When two sections compete, follow the count. The longer, paired side wins; the shorter side becomes your passes."
@@ -3503,14 +3503,14 @@
                 "J"
               ],
               "id" : "pro-ch-keep-pair",
-              "reasoning" : "The three odd Dots (3, 5, 7) fit none of your even plan, so they are clean passes. Do NOT break the Red pair to make an easier bundle. Jokers can never build a pair, so natural pairs are precious, and shipping a pair could hand a neighbor half of a Singles and Pairs hand. Keep the Reds as a Winds and Dragons escape hatch.",
+              "reasoning" : "The three odd Dots (3, 5, 7) fit none of your even plan, so they are clean passes. Your 2468 lean is only six tiles so far, so the Reds stay as a backup. Do NOT break the Red pair when you have cleaner tiles to give. Jokers can never build a pair, so a natural pair is hard to rebuild once it is gone.",
               "recommendedPass" : [
                 "3D",
                 "5D",
                 "7D"
               ],
-              "situation" : "First Charleston, pass RIGHT. You are deep in 2468, but you also hold a spare pair of Red Dragons. Pick 3.",
-              "tip" : "Hold natural pairs by default. Jokers cannot make pairs, and a pair you pass can complete an opponent."
+              "situation" : "First Charleston, pass RIGHT. You lean toward 2468, and you also hold a pair of Red Dragons. Pick 3.",
+              "tip" : "Hold natural pairs by default, and break one only when every other pass costs more."
             },
             {
               "deal" : [
@@ -3529,7 +3529,7 @@
                 "J"
               ],
               "id" : "pro-ch-pass-pair",
-              "reasoning" : "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths rarely has a place in 2468, the hand you are clearly playing. It is the very first pass, so nobody has settled on a hand yet and passing a pair is unlikely to help anyone much. Pass both Norths and the odd 5 Dot.",
+              "reasoning" : "Usually you protect pairs, but a pair of Norths does not fit the evens you are collecting, and you already hold eight even tiles and a joker, so here the pair is the cheapest thing to give. Pass both Norths and the odd 5 Dot rather than give up an even tile or a flower.",
               "recommendedPass" : [
                 "N",
                 "N",
@@ -3543,26 +3543,26 @@
                 "3C",
                 "6C",
                 "9C",
+                "9C",
                 "3B",
                 "6B",
                 "9B",
                 "6D",
                 "6D",
+                "9D",
                 "4B",
                 "5B",
-                "2C",
-                "F",
-                "J"
+                "N"
               ],
               "id" : "pro-ch-369-vs-run",
-              "reasoning" : "369 and Run overlap because 3, 6, and 9 live in both. So count the pure tiles. Eight of your number tiles are 3s, 6s, or 9s, including a 6 Dot pair; only 4 Bam and 5 Bam are run-only. Commit to 369, keep the 6 Dot pair, and pass the two run-only bams plus the stray 2 Crak.",
+              "reasoning" : "369 and a run overlap here. 369 uses ten of your twelve numbers, every 3, 6 and 9. A run on the 3-4-5-6 core uses eight, and it cannot reach your four 9s without 7s and 8s you do not hold. 369 is ahead, so commit to it, keep the 6 Dot and 9 Crak pairs, and pass the 4 Bam and 5 Bam, which 369 has no use for, with the lone North.",
               "recommendedPass" : [
                 "4B",
                 "5B",
-                "2C"
+                "N"
               ],
               "situation" : "First Charleston, pass ACROSS. Your hand reads as both 369 and Consecutive Run. Pick 3.",
-              "tip" : "When 369 and Run overlap, count the tiles that fit ONLY one of them. Commit to whichever has more locked in."
+              "tip" : "When 369 and Run overlap, count how many of your tiles each one can use. Commit to whichever uses more."
             },
             {
               "deal" : [
@@ -3581,14 +3581,14 @@
                 "J"
               ],
               "id" : "pro-ch-second-stop",
-              "reasoning" : "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out the tiles that do not serve it. The lone 9 Crak and 3 Dot only help a 369 hand, and with seven 6s Like Numbers is the stronger lead, so they go with the North. Keep both flowers, since many hands use them. Next time you are this far ahead after the first Charleston, consider stopping the second: any one player can, and extra passing helps the weaker hands more than yours.",
+              "reasoning" : "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out the tiles that do not serve it. The lone 9 Crak and 3 Dot do nothing for the 6s (at best a long-shot backup), and every other choice breaks up your 6s or gives up a flower, so they are the cheapest to give, with the North. Keep both flowers, since many hands use them. Remember that the second Charleston is optional: any one player can stop it.",
               "recommendedPass" : [
                 "9C",
                 "3D",
                 "N"
               ],
               "situation" : "Second Charleston, pass LEFT. Nobody stopped the second Charleston, so it goes ahead. You hold seven 6s across three suits. Pick 3.",
-              "tip" : "Any player can stop the second Charleston. When your hand is ahead after round one, stopping it keeps the others from catching up."
+              "tip" : "Any player can stop the second Charleston, so know before it starts whether you still want three more passes."
             },
             {
               "deal" : [
@@ -3607,14 +3607,14 @@
                 "J"
               ],
               "id" : "pro-ch-defend-late",
-              "reasoning" : "Your tiles cluster on 4s through 7s, the makings of a Consecutive Run with a 6 Dot pair, so the three strays go. But your LAST pass is also defense. Your right-hand neighbor passed you three winds, so an East going to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
+              "reasoning" : "Your tiles cluster on 4s through 7s, the makings of a Consecutive Run with a 6 Dot pair, so the 2 Bam, 9 Dot and East are the strays. Your LAST pass is also defense: your right-hand neighbor passed you three winds, so they are probably not collecting winds, which makes the East a fairly safe tile to send them.",
               "recommendedPass" : [
                 "2B",
                 "9D",
                 "E"
               ],
-              "situation" : "Second Charleston, the last pass, going RIGHT. On an earlier left pass your right-hand neighbor handed you three winds, so they are not on Winds and Dragons. Pick 3.",
-              "tip" : "Your final pass is a defensive tool. Feed a neighbor the kind of tile they have already shown they do not want."
+              "situation" : "Second Charleston, the last pass, going RIGHT. On an earlier left pass your right-hand neighbor handed you three winds, so they are probably not on Winds and Dragons. Pick 3.",
+              "tip" : "Your final pass is a defensive tool. Feed a neighbor the kind of tile they have hinted they do not want."
             }
           ],
           "kind" : "charleston",
@@ -3653,7 +3653,7 @@
                 "369",
                 "Quints"
               ],
-              "explanation" : "3 and 9 sit too far apart to belong to one run, so Consecutive Run is out. Threes and nines together are a 369 tell (an odds hand can use them too). Treat 3s, 6s, and 9s as hot tiles against this player.",
+              "explanation" : "A run through both 3 and 9 would have to cover seven numbers, so Consecutive Run is a long shot. Threes and nines together are a 369 tell (an odds hand can use them too). Treat 3s, 6s, and 9s as hot tiles against this player.",
               "id" : "pro-def-read-369",
               "prompt" : "An opponent exposes a pung of 3 Dots and a pung of 9 Dots. Which of these sections fits?",
               "tiles" : [
@@ -3842,7 +3842,7 @@
                 "threeSixNine",
                 "evens2468"
               ],
-              "explanation" : "369 is the decoy: you have 3s, 6s, and 9s scattered around. But 4 Crak, 5 Crak, 7 Bam, and 8 Bam are dead weight for 369, while they finish 4-5-6 and 6-7-8 runs in two suits. Stepping numbers in every suit make this Consecutive Run.",
+              "explanation" : "369 is the decoy: there is a 6 in every suit and a 9 Bam. But the 4 and 5 Crak, the 7 and 8 Bam, and the 5 and 7 Dots are dead weight for 369, while they make 4-5-6, 6-7-8-9 and 5-6-7 runs, one in each suit. Stepping numbers like these make this Consecutive Run.",
               "id" : "pro-rack-1",
               "tiles" : [
                 "4C",
@@ -3851,10 +3851,10 @@
                 "6B",
                 "7B",
                 "8B",
-                "3D",
+                "5D",
                 "6D",
-                "9D",
-                "9D",
+                "7D",
+                "7D",
                 "9B",
                 "F",
                 "J"
@@ -3867,7 +3867,7 @@
                 "consecutiveRun",
                 "likeNumbers"
               ],
-              "explanation" : "Consecutive Run is the decoy, tempted by the 3-4-5-6 in bams. But 4 Bam and 5 Bam are the only run-only tiles here. Everything else is a 3, 6, or 9, including three pairs. Count the pure tiles and this is 369.",
+              "explanation" : "Consecutive Run is the decoy, tempted by the 3, 5 and 6 Bams. But ten of your eleven numbers are 3s, 6s and 9s, including three pairs, and the 5 Bam is the only number 369 cannot use. This is 369.",
               "id" : "pro-rack-2",
               "tiles" : [
                 "3C",
@@ -3879,7 +3879,7 @@
                 "3B",
                 "6B",
                 "9B",
-                "4B",
+                "9C",
                 "5B",
                 "F",
                 "J"
@@ -3942,7 +3942,7 @@
                 "singlesAndPairs",
                 "consecutiveRun"
               ],
-              "explanation" : "Singles and Pairs is the decoy, since you have several pairs. But that section allows only singles and pairs and no jokers, and this rack has a pung of 5 Bams plus a joker. Both break the S and P rules, so read it as 13579.",
+              "explanation" : "Singles and Pairs is the decoy, since you have several pairs. But a Singles and Pairs hand has no pungs and no jokers, and this rack has a pung of 5 Bams and a joker, so it does not fit. Read it as 13579.",
               "id" : "pro-rack-5",
               "tiles" : [
                 "1C",
@@ -3967,7 +3967,7 @@
                 "odds13579",
                 "evens2468"
               ],
-              "explanation" : "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape. The lone North is your first pass.",
+              "explanation" : "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape.",
               "id" : "pro-rack-6",
               "tiles" : [
                 "1C",
@@ -3992,7 +3992,7 @@
                 "quints",
                 "consecutiveRun"
               ],
-              "explanation" : "Quints is the decoy, dreaming of five 7s in a suit. But a quint needs heavy joker support, and you hold just one joker. Eight 7s spread across all three suits is a straight shot at Any Like Numbers instead.",
+              "explanation" : "Quints is the decoy, dreaming of five 7s in a suit. But your 7s sit in pungs and pairs, which need two or three jokers each to reach five, and you hold just one. Eight 7s spread across all three suits reads as Any Like Numbers instead.",
               "id" : "pro-rack-7",
               "tiles" : [
                 "7C",

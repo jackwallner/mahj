@@ -43,6 +43,16 @@ holds only what is specific to this app.
   tiles as iOS, so the shared Mahj Minute is identical across platforms. If a
   Swift generator changes, port the change and resync before the parity test
   will pass.
+- The fixture also records the rack `missNotes` for every section and the
+  Endless filters' verdicts (`passFilter`, `defenseFilter`: 120 seeded deals
+  per seed through `CharlestonGenerator.isUnarguable` and
+  `DefenseGenerator.isUnarguable`), so a reworded note or a changed filter
+  rule fails `GeneratorParityTest` until it is ported.
+- Brought up to iOS 1.4.2 on 2026-10-19 (e2288ed, 77077ca, 3cf7e92).
+  Challenge-only generator code (`CharlestonGenerator.pass(section:seed:)`,
+  two-singles racks, `DefenseGenerator.withRunBait`, `RackGenerator.rack(for:seed:)`,
+  `MonthlyChallengeContent`/`Extras` and its `defensePlan` closers) is not
+  ported: the monthly challenge is iOS only.
 - Hand copy that is not in the export (screen text, paywall, onboarding) is
   ported by hand; keep it word for word with iOS.
 
@@ -64,6 +74,13 @@ holds only what is specific to this app.
   until a customer record is read. Never act on a lapse (turning off the game
   night reminder) before it is true.
 - No iPad layout; tablets get the readable-width column.
+- Home has none of iOS's gated extras yet (challenge card, game night card,
+  tracking prompt). `ProgressStore.hasPracticedSinceOnboarding` and the
+  `sessionsAtOnboarding` stamp in onboarding's `finish()` are ported, so any
+  Home extra added later must gate on it, never on `totalSessions > 0`.
+- What's New uses iOS's fallback: `WhatsNewTracker.currentRelease` is the
+  newest entry at or below `versionName`, shown once to anyone whose last
+  seen version is older than that entry.
 
 ## Build, test, capture
 
@@ -75,6 +92,12 @@ ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
 ./gradlew bundleRelease                # signed AAB, needs goog_ key + keystore
 ```
 
+- Never on the MacBook Air. Unit tests run on jmbp (ssh host `clawd-mac`):
+  rsync `android/` (excluding `build/`, `.gradle/`, `local.properties`,
+  keystores) to `~/fleet-work/android-ports/mahj/android`, write a
+  `local.properties` with only `sdk.dir=/Users/jackwallner/Library/Android/sdk`,
+  then `JAVA_HOME=~/.jdk/jdk-21.0.12.1+1/Contents/Home ./gradlew --no-daemon
+  testDebugUnitTest`. 39 tests green there on 2026-10-19.
 - Local AVD `mahj-api36` (Pixel 9, API 36 Google Play image), started
   headless on port 5586: `emulator -avd mahj-api36 -port 5586 -no-window
   -no-audio -no-boot-anim -no-metrics -gpu swiftshader_indirect`. Connected

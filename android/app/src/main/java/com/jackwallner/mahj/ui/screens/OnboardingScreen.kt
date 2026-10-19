@@ -99,6 +99,8 @@ fun OnboardingScreen() {
     fun finish() {
         // A new player has never run an older version, so there is nothing "new" to tell them.
         graph.whatsNew.markCurrentAsBaseline()
+        // The tour's closing practice does not count toward Home's extras.
+        graph.progress.sessionsAtOnboarding = graph.progress.totalSessions
         graph.progress.setOnboarded(true)
     }
 

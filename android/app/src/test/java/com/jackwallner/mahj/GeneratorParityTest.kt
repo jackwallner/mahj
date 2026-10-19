@@ -65,7 +65,25 @@ class GeneratorParityTest {
                 assertEquals(want.getString("answer"), got.answer.raw)
                 assertEquals(want.getJSONArray("choices").strings(), got.choices.map { it.raw })
                 assertEquals(want.getString("explanation"), got.explanation)
+                assertEquals(
+                    want.getJSONArray("missNotes").nullableStrings(),
+                    RackGenerator.missNotes(got.tiles, HandCategory.entries, got.answer),
+                )
             }
+        }
+    }
+
+    @Test
+    fun endlessFiltersMatchSwift() {
+        val passes = parity.getJSONObject("passFilter")
+        for (seed in passes.keys()) {
+            val want = (0 until passes.getJSONArray(seed).length()).map { passes.getJSONArray(seed).getBoolean(it) }
+            assertEquals(seed, want, CharlestonGenerator.batch(120, seed).map(CharlestonGenerator::isUnarguable))
+        }
+        val defenses = parity.getJSONObject("defenseFilter")
+        for (seed in defenses.keys()) {
+            val want = (0 until defenses.getJSONArray(seed).length()).map { defenses.getJSONArray(seed).getBoolean(it) }
+            assertEquals(seed, want, DefenseGenerator.batch(120, seed).map(DefenseGenerator::isUnarguable))
         }
     }
 

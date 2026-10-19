@@ -33,7 +33,7 @@ free from `HandCategory.requires` via `missNotes(for:answer:)`. Rack reads
 use `RackGenerator.missNotes`, which names the tiles that rule a section
 out; when nothing does, it says the answer is the stronger read (2026-10-18:
 the old fallback restated what the section wants, which on a rack that half
-fits it argued for the wrong answer). Not yet ported to Kotlin. The pager shows
+fits it argued for the wrong answer). Kotlin matches (parity fixture). The pager shows
 `MissNoteCard` ("Why not X?") only on a wrong pick, plus a `RequeuedChip` when
 the item genuinely re-enters the review schedule (never for generated items,
 which can never come back).

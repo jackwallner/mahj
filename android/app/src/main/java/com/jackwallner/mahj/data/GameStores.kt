@@ -232,19 +232,42 @@ class HandPlayStore(private val defaults: KeyValueStore, private val clock: AppC
  * marks the running version as the baseline.
  */
 class WhatsNewTracker(private val defaults: KeyValueStore, val currentVersion: String) {
+    /**
+     * The newest notes at or below the running version, so a patch release with no entry of its
+     * own (1.4.2) still carries 1.4.1's notes to a player updating straight from an older build.
+     */
     val currentRelease: WhatsNewRelease?
-        get() = MahjContent.library.whatsNew.firstOrNull { it.version == currentVersion }
+        get() = MahjContent.library.whatsNew
+            .filter { !isOlder(currentVersion, it.version) }
+            .maxWithOrNull { a, b -> compareVersions(a.version, b.version) }
 
     fun shouldPresent(hasOnboarded: Boolean): Boolean {
-        if (!hasOnboarded || currentRelease == null) return false
-        return (defaults.getString(KEY) ?: "") != currentVersion
+        val release = currentRelease
+        if (!hasOnboarded || release == null) return false
+        val lastSeen = defaults.getString(KEY) ?: ""
+        // Empty on an onboarded player means an update from a build before this feature. Anyone
+        // who last saw these notes' version or later has read them.
+        return lastSeen.isEmpty() || isOlder(lastSeen, release.version)
     }
 
     fun markSeen() = defaults.putString(KEY, currentVersion)
 
     fun markCurrentAsBaseline() = defaults.putString(KEY, currentVersion)
 
-    private companion object {
-        const val KEY = "whatsnew.lastSeenVersion"
+    companion object {
+        private const val KEY = "whatsnew.lastSeenVersion"
+
+        fun isOlder(version: String, other: String): Boolean = compareVersions(version, other) < 0
+
+        /** Numeric, part by part, like Swift's `.numeric` compare: "1.4.10" is newer than "1.4.9". */
+        fun compareVersions(a: String, b: String): Int {
+            val left = a.split(".").map { it.toIntOrNull() ?: 0 }
+            val right = b.split(".").map { it.toIntOrNull() ?: 0 }
+            for (index in 0 until maxOf(left.size, right.size)) {
+                val diff = left.getOrElse(index) { 0 }.compareTo(right.getOrElse(index) { 0 })
+                if (diff != 0) return diff
+            }
+            return 0
+        }
     }
 }

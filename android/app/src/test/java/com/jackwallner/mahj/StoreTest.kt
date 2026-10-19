@@ -230,6 +230,30 @@ class StoreTest {
         assertTrue("An onboarded player without a marker updated from an old build", tracker.shouldPresent(hasOnboarded = true))
         tracker.markCurrentAsBaseline()
         assertFalse(tracker.shouldPresent(hasOnboarded = true))
-        assertFalse(WhatsNewTracker(InMemoryStore(), "9.9").shouldPresent(hasOnboarded = true))
+        assertFalse("No notes at or below this version", WhatsNewTracker(InMemoryStore(), "0.9").shouldPresent(hasOnboarded = true))
+    }
+
+    /** 1.3.2 straight to 1.4.2 still sees 1.4.1's notes; a 1.4.1 player who saw them does not see them again. */
+    @Test
+    fun patchReleaseCarriesTheLastNotesOnce() {
+        val tracker = WhatsNewTracker(defaults, "1.4.2")
+        assertEquals("1.4.1", tracker.currentRelease?.version)
+        defaults.putString("whatsnew.lastSeenVersion", "1.3.2")
+        assertTrue(tracker.shouldPresent(hasOnboarded = true))
+        defaults.putString("whatsnew.lastSeenVersion", "1.4.1")
+        assertFalse(tracker.shouldPresent(hasOnboarded = true))
+        assertTrue(WhatsNewTracker.isOlder("1.4.1", "1.4.10"))
+    }
+
+    @Test
+    fun tourPracticeDoesNotUnlockHomeExtras() {
+        val progress = ProgressStore(defaults, clock)
+        progress.recordSession("tour")
+        progress.sessionsAtOnboarding = progress.totalSessions
+        assertFalse(progress.hasPracticedSinceOnboarding)
+        progress.recordSession("tile-basics")
+        assertTrue(progress.hasPracticedSinceOnboarding)
+        progress.resetAll()
+        assertEquals(0, progress.sessionsAtOnboarding)
     }
 }

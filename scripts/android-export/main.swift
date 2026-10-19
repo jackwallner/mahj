@@ -168,6 +168,8 @@ func parity() -> [String: Any] {
                 "answer": rack.answer.rawValue,
                 "choices": rack.choices.map(\.rawValue),
                 "explanation": rack.explanation,
+                "missNotes": RackGenerator.missNotes(tiles: rack.tiles, choices: HandCategory.allCases, answer: rack.answer)
+                    .map { $0 ?? NSNull() as Any },
             ] as [String: Any]
         }
         passes[seed] = CharlestonGenerator.batch(count: 7, seed: seed).map { pass in
@@ -190,6 +192,14 @@ func parity() -> [String: Any] {
                 "choiceNotes": question.choiceNotes.map { $0 ?? NSNull() as Any },
             ] as [String: Any]
         }
+    }
+
+    // The Endless filters, over enough deals that every rule turns some away.
+    var passFilter: [String: [Bool]] = [:]
+    var defenseFilter: [String: [Bool]] = [:]
+    for seed in ["filter-1", "filter-2", "filter-3"] {
+        passFilter[seed] = CharlestonGenerator.batch(count: 120, seed: seed).map(CharlestonGenerator.isUnarguable)
+        defenseFilter[seed] = DefenseGenerator.batch(count: 120, seed: seed).map(DefenseGenerator.isUnarguable)
     }
 
     var deals: [String: Any] = [:]
@@ -251,6 +261,8 @@ func parity() -> [String: Any] {
         "racks": racks,
         "passes": passes,
         "defenses": defenses,
+        "passFilter": passFilter,
+        "defenseFilter": defenseFilter,
         "deals": deals,
         "handPlay": handPlay,
         "verdicts": verdicts,

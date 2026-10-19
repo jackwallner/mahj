@@ -34,6 +34,17 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
         defaults.putBoolean(Keys.HAS_ONBOARDED, value)
     }
 
+    /** Sessions finished before onboarding ended: the tour's closing practice. Older installs have none stored (0). */
+    var sessionsAtOnboarding: Int
+        get() = defaults.getInt(Keys.SESSIONS_AT_ONBOARDING)
+        set(value) = defaults.putInt(Keys.SESSIONS_AT_ONBOARDING, value)
+
+    /**
+     * True once the player has finished a practice of their own after onboarding. Home's extras
+     * wait for it, so the first Home after the tour is the plain lobby (iOS parity).
+     */
+    val hasPracticedSinceOnboarding: Boolean get() = totalSessions > sessionsAtOnboarding
+
     fun completions(drillID: String): Int = completions[drillID] ?: 0
 
     fun roomProgress(room: Room): Double {
@@ -104,6 +115,7 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
         listOf(
             Keys.STREAK_COUNT, Keys.LAST_ACTIVE_DAY, Keys.TOTAL_SESSIONS, Keys.COMPLETIONS,
             Keys.SEEN_ITEMS, Keys.MISSED_ITEMS, Keys.REVIEW_GATE_SHOWN, Keys.LAST_QUICK_SESSION_DAY,
+            Keys.SESSIONS_AT_ONBOARDING,
         ).forEach(defaults::remove)
     }
 
@@ -123,5 +135,6 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
         const val SEEN_ITEMS = "progress.seenItems"
         const val MISSED_ITEMS = "progress.missedItems"
         const val LAST_QUICK_SESSION_DAY = "progress.lastQuickSessionDay"
+        const val SESSIONS_AT_ONBOARDING = "progress.sessionsAtOnboarding"
     }
 }
