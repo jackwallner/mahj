@@ -69,5 +69,10 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
   so a 1.4.x customer carrying `$fbAnonId` and `meta_extinfo` (plus
   `$attConsentStatus`) had the SDK live. Simulator customers (Test Store key)
   never carry them, by design. Whether Meta received the launches is only
-  visible in Events Manager (Jack, by hand: no browser automation on this
-  portfolio).
+  visible in Events Manager: the dataset's Overview page
+  (`events_manager2/list/dataset/1445876447511793/overview`) lists the SDK
+  events. Reading it in Jack's Chrome is fine; never click or change
+  anything there. A `read_insights` token is not an option: the Meta app's
+  use cases only offer `ads_read`. First confirmed 2026-10-19: App installs
+  5, ActivateApp and fb_mobile_deactivate_app from the Facebook SDK, Start
+  trial 1 (the relay's Conversions API test).
