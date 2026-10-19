@@ -281,3 +281,31 @@ SDK, and the last ~$25 would only add click data. Next: the ASC
 `meta-c*-2610` downloads for Oct 16 to 19 (a floor, and proof `ct`
 survives App Promotion ads). The real viability test is the install test
 above, once 1.4.1 (SDK) is live and Jack approves the $280 and a higher cap.
+
+Readout 2026-10-19 (ASC Analytics, App Downloads Standard and Detailed,
+daily, processing dates Oct 15 to 19, rows deduplicated across instances;
+Oct 19 not processed yet). Meta spend by day: Oct 16 $0.46 (1 click),
+Oct 17 $8.96 (27), Oct 18 $7.53 (25), Oct 19 $2.76 (11).
+
+| Date | First-time downloads | Search | App referrer | Web referrer |
+|---|---|---|---|---|
+| Oct 14 (before) | 31 | 20 | 10 | 1 |
+| Oct 15 (before) | 19 | 12 | 5 | 1 |
+| Oct 16 | 12 | 7 | 4 | 1 |
+| Oct 17 | 19 | 17 | 2 | 0 |
+| Oct 18 | 15 | 14 | 0 | 1 |
+
+- No `meta-c*-2610` campaign rows. Detailed's Campaign column is empty on
+  every row, and Detailed drops low-count rows, so `ct` survival is still
+  unproven either way.
+- A Meta install arrives as App referrer (the Facebook or Instagram app) or
+  Web referrer. On Oct 17 and 18, with $16.49 and 52 clicks, those two
+  sources had 3 first-time downloads combined, and App referrer was already
+  5 to 10 a day before launch (ChatGPT referrals). So Meta drove at most 3
+  installs and likely fewer: implied cost per install of $5.50 or more.
+- Total first-time downloads did not rise against Oct 14 and 15, so no lift.
+- **Decision rule result: stop.** Over $4.00 per install with no lift. The
+  52 clicks barely reached the App Store (most went to women 65+).
+  Under the rules fixed before launch this result stands and the same ads
+  are not rerun. The $280 install test is not justified by this data; it
+  goes ahead only as a fresh decision of Jack's after 1.4.1 ships.
