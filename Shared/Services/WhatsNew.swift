@@ -200,8 +200,17 @@ enum WhatsNew {
         )
     ]
 
+    /// The newest notes at or below the running version, so a patch release
+    /// with no entry of its own (1.4.2) still carries 1.4.1's notes to a
+    /// player updating straight from 1.3.2.
     static var currentRelease: WhatsNewRelease? {
-        releases.first { $0.version == currentVersion }
+        releases
+            .filter { !isOlder(currentVersion, than: $0.version) }
+            .max { isOlder($0.version, than: $1.version) }
+    }
+
+    static func isOlder(_ version: String, than other: String) -> Bool {
+        version.compare(other, options: .numeric) == .orderedAscending
     }
 
     /// True when this launch is the first one after an update and there are
@@ -210,11 +219,12 @@ enum WhatsNew {
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("-mahj.suppressWhatsNew") { return false }
         #endif
-        guard hasOnboarded, currentRelease != nil else { return false }
+        guard hasOnboarded, let release = currentRelease else { return false }
         let lastSeen = defaults.string(forKey: lastSeenKey) ?? ""
         // An empty marker on an onboarded player means they updated from a
         // build that predates this feature. That is exactly the audience.
-        return lastSeen != currentVersion
+        // Anyone who last saw these notes' version or later has read them.
+        return lastSeen.isEmpty || isOlder(lastSeen, than: release.version)
     }
 
     static func markSeen(defaults: UserDefaults = .standard) {
