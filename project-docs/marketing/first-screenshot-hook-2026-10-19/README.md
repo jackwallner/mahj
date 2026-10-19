@@ -94,3 +94,22 @@ three tiles. Side margins are trimmed so the tiles render larger.
 - `hook-b-v2-know-which-3-tiles-to-pass.png`
 - `hook-c-v2-practice-the-charleston-at-home.png`
 - `contact-sheet-v2.png`
+
+## v3: back in an iPhone, sunburst style (2026-10-19)
+
+Jack's read on v2: without the phone shape the screen is less believable. He
+pointed at Mahjong Trainer: Learn & Win (Cedar Theory, launched 2026-09-02,
+187 ratings at 4.6 in six weeks) as the winning style: dark teal sunburst,
+a tilted 3D tile icon, real iPhone frames. v3 (`render_hooks_v3.py`) takes
+the style, not the look, in Mahj's own palette:
+
+- Deep green sunburst background (the icon's green), cream serif headline.
+- The v2 screen (no coach paragraph or tip) back in the shotflow iPhone
+  frame at the true screen aspect; the cut space is filled with the app's own
+  background, so Next Deal sits where it does in the app.
+- `icon-concept-v3.png`: the current 2 Crak tile, tilted with depth, on the
+  sunburst with a terracotta sun. `icon-compare-v3.png` shows current, concept
+  and Learn & Win side by side. An icon change ships in a binary; to test it,
+  add it as an alternate icon in a build and run an icon PPO.
+
+Files: `hook-{a,b,c}-v3-*.png`, `contact-sheet-v3.png`. A is still the pick.
