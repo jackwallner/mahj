@@ -1,1 +1,11 @@
-Pequeñas correcciones y mejoras internas.
+Un reto nuevo cada mes, ya disponible.
+
+Tres preguntas nuevas al día, las mismas para todos los jugadores. Tus 20 mejores días forman tu puntuación del mes, y un buen mes te muestra en qué puesto estás. Aparece en la pantalla de inicio después de tu primera práctica.
+
+La pantalla de inicio y Your Progress ahora muestran cuántas preguntas has afianzado esta semana, para que veas que la práctica funciona sin tener que adivinarlo.
+
+Los miembros pueden fijar su noche de juego directamente desde la pantalla de inicio, y un recordatorio de preparación te avisa antes de jugar.
+
+Send Feedback ahora es un cuadro de texto y un botón. Sin app de correo, sin cuenta.
+
+Gracias por vuestros comentarios y valoraciones. Así es como se da a conocer una app hecha por una sola persona.

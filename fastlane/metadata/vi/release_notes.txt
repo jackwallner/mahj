@@ -1,1 +1,11 @@
-Các sửa lỗi nhỏ và cải tiến bên trong.
+Thử thách mới mỗi tháng, chơi được ngay.
+
+Mỗi ngày ba câu hỏi mới, giống nhau cho mọi người chơi. 20 ngày tốt nhất của bạn tạo nên điểm của tháng, và một tháng chơi tốt sẽ cho bạn thấy mình đứng ở đâu. Thử thách xuất hiện ở màn hình chính sau buổi luyện tập đầu tiên của bạn.
+
+Màn hình chính và Your Progress giờ hiển thị số câu hỏi bạn đã nắm chắc trong tuần, để bạn thấy việc luyện tập có hiệu quả thay vì phải đoán.
+
+Thành viên có thể đặt lịch đêm chơi ngay từ màn hình chính, và lời nhắc chuẩn bị sẽ gọi bạn quay lại trước khi chơi.
+
+Send Feedback giờ chỉ là một ô văn bản và một nút. Không cần ứng dụng email, không cần tài khoản.
+
+Cảm ơn những góp ý và đánh giá của bạn. Nhờ vậy mà một ứng dụng do một người làm mới được nhiều người biết đến.

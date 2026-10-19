@@ -1,1 +1,11 @@
-Sitni popravci i poboljšanja u pozadini.
+Novi izazov svaki mjesec, dostupan odmah.
+
+Tri nova pitanja dnevno, ista za sve igrače. Tvojih 20 najboljih dana čini mjesečni rezultat, a jak mjesec pokazuje gdje se nalaziš. Izazov se pojavljuje na početnom zaslonu nakon tvog prvog vježbanja.
+
+Početni zaslon i Your Progress sada pokazuju koliko pitanja ovaj tjedan znaš sigurno, pa vidiš da vježbanje djeluje umjesto da nagađaš.
+
+Članovi mogu postaviti večer igre izravno s početnog zaslona, a podsjetnik za pripremu vraća te prije igre.
+
+Send Feedback sada je jedno tekstualno polje i jedan gumb. Bez aplikacije za e-poštu, bez računa.
+
+Hvala na komentarima i ocjenama. Tako ljudi pronalaze aplikaciju koju radi jedna osoba.

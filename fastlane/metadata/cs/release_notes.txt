@@ -1,1 +1,11 @@
-Drobné opravy a vylepšení na pozadí.
+Nová výzva každý měsíc, dostupná hned teď.
+
+Tři nové otázky denně, pro všechny hráče stejné. Tvých 20 nejlepších dní tvoří skóre měsíce a silný měsíc ti ukáže, kde se umísťuješ. Výzva se objeví na úvodní obrazovce po tvém prvním tréninku.
+
+Úvodní obrazovka a Your Progress teď ukazují, kolik otázek máš tento týden pevně zvládnutých, takže vidíš, že trénink funguje, místo hádání.
+
+Členové si mohou nastavit herní večer přímo z úvodní obrazovky a připomínka přípravy tě přivede zpět ještě před hrou.
+
+Send Feedback je teď jedno textové pole a jedno tlačítko. Žádná e-mailová aplikace, žádný účet.
+
+Díky za připomínky a hodnocení. Právě díky nim lidé najdou aplikaci, kterou dělá jediný člověk.

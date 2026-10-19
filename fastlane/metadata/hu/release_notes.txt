@@ -1,1 +1,11 @@
-Kisebb javítások és háttérbeli fejlesztések.
+Minden hónapban új kihívás, már elérhető.
+
+Naponta három új kérdés, minden játékosnak ugyanaz. A 20 legjobb napod adja a havi pontszámodat, egy erős hónap pedig megmutatja, hol állsz. A kihívás az első gyakorlásod után jelenik meg a kezdőképernyőn.
+
+A kezdőképernyő és a Your Progress most megmutatja, hány kérdést rögzítettél ezen a héten, így látod, hogy a gyakorlás működik, és nem kell találgatnod.
+
+A tagok közvetlenül a kezdőképernyőről beállíthatják a játékestjüket, és egy felkészülési emlékeztető visszahív játék előtt.
+
+A Send Feedback most egyetlen szövegmező és egy gomb. Nincs levelezőalkalmazás, nincs fiók.
+
+Köszönjük a visszajelzéseket és az értékeléseket. Így találnak rá az emberek egy egyszemélyes fejlesztésű alkalmazásra.

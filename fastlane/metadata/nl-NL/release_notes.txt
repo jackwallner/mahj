@@ -1,1 +1,11 @@
-Kleine verbeteringen en aanpassingen achter de schermen.
+Elke maand een nieuwe uitdaging, nu beschikbaar.
+
+Drie nieuwe vragen per dag, voor iedere speler dezelfde. Je beste 20 dagen vormen je maandscore, en een sterke maand laat zien waar je staat. De uitdaging verschijnt op het beginscherm na je eerste oefening.
+
+Het beginscherm en Your Progress laten nu zien hoeveel vragen je deze week onder de knie hebt, zodat je ziet dat oefenen werkt in plaats van te gokken.
+
+Leden kunnen hun spelavond direct vanaf het beginscherm instellen, en een herinnering om je voor te bereiden haalt je terug voordat je speelt.
+
+Send Feedback is nu een tekstvak en één knop. Geen mailapp, geen account.
+
+Bedankt voor de opmerkingen en beoordelingen. Zo wordt een app van één persoon gevonden.

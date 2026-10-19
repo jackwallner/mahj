@@ -1,1 +1,11 @@
-Pembetulan kecil dan penambahbaikan di sebalik tabir.
+Cabaran baharu setiap bulan, kini dibuka.
+
+Tiga soalan baharu sehari, sama untuk semua pemain. 20 hari terbaik anda menjadi skor bulanan, dan bulan yang kuat menunjukkan kedudukan anda. Cabaran ini muncul di skrin utama selepas latihan pertama anda.
+
+Skrin utama dan Your Progress kini menunjukkan berapa banyak soalan yang anda kuasai minggu ini, jadi anda nampak latihan berkesan tanpa perlu meneka.
+
+Ahli boleh menetapkan malam permainan terus dari skrin utama, dan peringatan persediaan akan memanggil anda kembali sebelum bermain.
+
+Send Feedback kini hanya satu kotak teks dan satu butang. Tiada aplikasi e-mel, tiada akaun.
+
+Terima kasih atas ulasan dan penilaian anda. Begitulah aplikasi yang dibuat oleh seorang diri ditemui.

@@ -1,1 +1,11 @@
-Küçük düzeltmeler ve arka planda iyileştirmeler.
+Her ay yeni bir meydan okuma, şimdi açık.
+
+Günde üç yeni soru, tüm oyuncular için aynı. En iyi 20 günün aylık puanını oluşturur ve güçlü bir ay sana nerede olduğunu gösterir. Meydan okuma, ilk alıştırmandan sonra ana ekranda görünür.
+
+Ana ekran ve Your Progress artık bu hafta kaç soruyu sağlamlaştırdığını gösteriyor. Böylece tahmin etmek yerine alıştırmanın işe yaradığını görürsün.
+
+Üyeler oyun gecelerini doğrudan ana ekrandan ayarlayabilir ve bir hazırlık hatırlatıcısı oynamadan önce seni geri çağırır.
+
+Send Feedback artık bir metin kutusu ve tek bir düğme. E-posta uygulaması yok, hesap yok.
+
+Yorumlarınız ve puanlarınız için teşekkürler. Tek kişinin yaptığı bir uygulama böyle bulunuyor.

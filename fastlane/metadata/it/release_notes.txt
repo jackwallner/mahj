@@ -1,1 +1,11 @@
-Piccole correzioni e miglioramenti dietro le quinte.
+Una nuova sfida ogni mese, già disponibile.
+
+Tre nuove domande al giorno, uguali per tutti i giocatori. I tuoi 20 giorni migliori formano il punteggio del mese, e un mese forte ti mostra la tua posizione in classifica. La sfida compare nella schermata Home dopo il tuo primo allenamento.
+
+La schermata Home e Your Progress ora mostrano quante domande hai consolidato questa settimana, così vedi che l'allenamento funziona invece di tirare a indovinare.
+
+I membri possono fissare la serata di gioco direttamente dalla Home, e un promemoria di preparazione ti richiama prima di giocare.
+
+Send Feedback ora è una casella di testo e un pulsante. Niente app di posta, niente account.
+
+Grazie per i commenti e le valutazioni. È così che un'app fatta da una sola persona viene scoperta.

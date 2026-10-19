@@ -1,1 +1,11 @@
-Pequenas correções e melhorias nos bastidores.
+Um desafio novo todo mês, já liberado.
+
+Três perguntas novas por dia, as mesmas para todo mundo. Seus 20 melhores dias formam a pontuação do mês, e um mês bom mostra em que posição você está. Ele aparece na tela inicial depois do seu primeiro treino.
+
+A tela inicial e Your Progress agora mostram quantas perguntas você fixou nesta semana, para você ver o treino dando resultado em vez de ficar no chute.
+
+Membros podem marcar a noite de jogo direto da tela inicial, e um lembrete de preparação chama você de volta antes de jogar.
+
+Send Feedback agora é uma caixa de texto e um botão. Sem app de e-mail, sem conta.
+
+Obrigado pelos comentários e pelas avaliações. É assim que um app feito por uma pessoa só é encontrado.

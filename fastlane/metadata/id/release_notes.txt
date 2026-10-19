@@ -1,1 +1,11 @@
-Perbaikan kecil dan peningkatan di balik layar.
+Tantangan baru setiap bulan, sudah bisa dimainkan.
+
+Tiga soal baru setiap hari, sama untuk semua pemain. 20 hari terbaikmu menjadi skor bulananmu, dan bulan yang bagus menunjukkan peringkatmu. Tantangan ini muncul di layar utama setelah latihan pertamamu.
+
+Layar utama dan Your Progress kini menampilkan berapa soal yang sudah kamu kuasai minggu ini, jadi kamu bisa melihat latihanmu membuahkan hasil, bukan cuma menebak.
+
+Anggota bisa mengatur malam main langsung dari layar utama, dan pengingat persiapan akan mengajakmu kembali sebelum bermain.
+
+Send Feedback sekarang cukup satu kotak teks dan satu tombol. Tanpa aplikasi email, tanpa akun.
+
+Terima kasih atas ulasan dan rating kalian. Dari situlah aplikasi buatan satu orang bisa ditemukan.

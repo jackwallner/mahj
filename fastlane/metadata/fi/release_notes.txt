@@ -1,1 +1,11 @@
-Pieniä korjauksia ja parannuksia kulissien takana.
+Uusi haaste joka kuukausi, nyt auki.
+
+Kolme uutta kysymystä päivässä, samat kaikille pelaajille. Parhaat 20 päivääsi muodostavat kuukauden pisteesi, ja vahva kuukausi näyttää sijoituksesi. Haaste näkyy aloitusnäytöllä ensimmäisen harjoituksesi jälkeen.
+
+Aloitusnäyttö ja Your Progress näyttävät nyt, kuinka monta kysymystä osaat tällä viikolla varmasti, joten näet harjoittelun tuottavan tulosta arvailun sijaan.
+
+Jäsenet voivat asettaa peli-iltansa suoraan aloitusnäytöltä, ja valmistautumismuistutus kutsuu sinut takaisin ennen peliä.
+
+Send Feedback on nyt yksi tekstikenttä ja yksi painike. Ei sähköpostisovellusta, ei tiliä.
+
+Kiitos palautteesta ja arvioista. Niiden ansiosta yhden ihmisen tekemä sovellus löydetään.

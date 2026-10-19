@@ -1,1 +1,11 @@
-Manjši popravki in izboljšave v ozadju.
+Nov izziv vsak mesec, na voljo zdaj.
+
+Tri nova vprašanja na dan, enaka za vse igralce. Tvojih 20 najboljših dni sestavlja mesečni rezultat, močan mesec pa pokaže, kje si. Izziv se prikaže na začetnem zaslonu po tvoji prvi vadbi.
+
+Začetni zaslon in Your Progress zdaj pokažeta, koliko vprašanj ta teden obvladaš zanesljivo, zato vidiš, da vadba deluje, namesto da ugibaš.
+
+Člani lahko večer igre nastavijo neposredno z začetnega zaslona, opomnik za pripravo pa te pokliče nazaj pred igro.
+
+Send Feedback je zdaj eno besedilno polje in en gumb. Brez poštne aplikacije, brez računa.
+
+Hvala za pripombe in ocene. Tako ljudje najdejo aplikacijo, ki jo dela ena sama oseba.

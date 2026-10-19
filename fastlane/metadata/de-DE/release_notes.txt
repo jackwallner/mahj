@@ -1,1 +1,11 @@
-Kleine Fehlerbehebungen und Verbesserungen im Hintergrund.
+Jeden Monat eine neue Challenge, ab sofort.
+
+Drei neue Fragen pro Tag, für alle Spieler dieselben. Deine besten 20 Tage ergeben deine Monatswertung, und ein starker Monat zeigt dir, wo du stehst. Die Challenge erscheint auf dem Startbildschirm nach deiner ersten Übung.
+
+Startbildschirm und Your Progress zeigen jetzt, wie viele Fragen du diese Woche sicher beherrschst. So siehst du, dass das Üben wirkt, statt zu raten.
+
+Mitglieder können ihren Spieleabend direkt vom Startbildschirm aus festlegen, und eine Erinnerung zur Vorbereitung holt dich vor dem Spiel zurück.
+
+Send Feedback ist jetzt ein Textfeld und ein Knopf. Keine Mail-App, kein Konto.
+
+Danke für eure Hinweise und Bewertungen. So wird eine App gefunden, die eine einzelne Person baut.

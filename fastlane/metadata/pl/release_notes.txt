@@ -1,1 +1,11 @@
-Drobne poprawki i usprawnienia w tle.
+Nowe wyzwanie co miesiąc, już dostępne.
+
+Trzy nowe pytania dziennie, te same dla wszystkich graczy. Twoich 20 najlepszych dni tworzy wynik miesiąca, a mocny miesiąc pokazuje, na którym miejscu jesteś. Wyzwanie pojawia się na ekranie głównym po pierwszym treningu.
+
+Ekran główny i Your Progress pokazują teraz, ile pytań masz już opanowanych w tym tygodniu, więc widzisz, że trening działa, zamiast zgadywać.
+
+Członkowie mogą ustawić wieczór gry prosto z ekranu głównego, a przypomnienie o przygotowaniu przywoła cię przed grą.
+
+Send Feedback to teraz jedno pole tekstowe i jeden przycisk. Bez aplikacji pocztowej, bez konta.
+
+Dziękujemy za uwagi i oceny. Dzięki nim aplikację tworzoną przez jedną osobę da się znaleźć.

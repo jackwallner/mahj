@@ -1,1 +1,11 @@
-Små rettelser og forbedringer bag kulisserne.
+En ny udfordring hver måned, klar nu.
+
+Tre nye spørgsmål om dagen, de samme for alle spillere. Dine 20 bedste dage udgør din månedsscore, og en stærk måned viser, hvor du ligger. Udfordringen dukker op på startskærmen efter din første træning.
+
+Startskærmen og Your Progress viser nu, hvor mange spørgsmål du har låst fast i denne uge, så du kan se træningen virke i stedet for at gætte.
+
+Medlemmer kan sætte deres spilleaften direkte fra startskærmen, og en påmindelse om at forberede dig henter dig tilbage, før I spiller.
+
+Send Feedback er nu et tekstfelt og én knap. Ingen mailapp, ingen konto.
+
+Tak for jeres kommentarer og bedømmelser. Det er sådan, en app lavet af én person bliver fundet.

@@ -1,1 +1,11 @@
-Små rättningar och förbättringar bakom kulisserna.
+En ny utmaning varje månad, öppen nu.
+
+Tre nya frågor om dagen, samma för alla spelare. Dina 20 bästa dagar blir din månadspoäng, och en stark månad visar var du placerar dig. Utmaningen dyker upp på startskärmen efter din första övning.
+
+Startskärmen och Your Progress visar nu hur många frågor du har satt den här veckan, så att du ser att övningen ger resultat i stället för att gissa.
+
+Medlemmar kan ställa in sin spelkväll direkt från startskärmen, och en påminnelse om att förbereda dig tar dig tillbaka innan ni spelar.
+
+Send Feedback är nu en textruta och en knapp. Ingen mejlapp, inget konto.
+
+Tack för era kommentarer och betyg. Det är så en app som en enda person bygger blir hittad.

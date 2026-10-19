@@ -1,1 +1,11 @@
-Petites correccions i millores internes.
+Un repte nou cada mes, ja disponible.
+
+Tres preguntes noves cada dia, les mateixes per a tothom. Els teus 20 millors dies fan la puntuació del mes, i un bon mes et mostra en quina posició estàs. Apareix a la pantalla d'inici després de la teva primera pràctica.
+
+La pantalla d'inici i Your Progress ara mostren quantes preguntes has consolidat aquesta setmana, perquè vegis que la pràctica funciona en lloc d'endevinar-ho.
+
+Els membres poden fixar la nit de joc directament des de la pantalla d'inici, i un recordatori de preparació et fa tornar abans de jugar.
+
+Send Feedback ara és un quadre de text i un botó. Sense app de correu, sense compte.
+
+Gràcies pels comentaris i les valoracions. Així és com es descobreix una app feta per una sola persona.
