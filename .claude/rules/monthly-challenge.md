@@ -166,3 +166,10 @@ unset on a real build through `-mahj.rc.monthly_challenge`.
 Home gate in the same 1.4.1. The version stays 1.4.1 because Apple approved
 1.4.0 and takes no more builds under it; players never saw either. The event
 copy must be rewritten for daily rounds before it goes back in.
+
+**2026-10-18 resubmission:** 1.4.1 build 55 attached (MANUAL, review notes
+and What's New uploaded); the November event went in alone as
+reviewSubmission `19ec41d8-6e86-4e09-8ca6-1b007b3159bc` (WAITING_FOR_REVIEW)
+with new card and details art (`scripts/compose-event-art.py`). The version
+waits on the "bold search image" PPO, which was in review and blocks a version
+submission. 1.4.1 must be live before the event publishes on Oct 25.
