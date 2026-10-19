@@ -42,7 +42,7 @@ Reading Your Rack from the rotation.
   `TEST_RUNNER_CHALLENGE_DUMP=<path>` on `MonthlyChallengeDumpTests`.
 - Free for everyone. `AppDestination.isFree` lets `mahj://challenge` through
   the Home paywall guard. The result screen shows one Mahj+ pointer to free
-  players on days 1, 6, 11... played; no lock anywhere in the flow.
+  players on every fifth day played (5, 10, 15...); no lock anywhere in the flow.
 - Home: the card appears only after a first finished practice
   (`progress.totalSessions > 0`), so a brand-new player's Home is the 1.3.2
   lobby; the event link still opens the challenge for them. The card shows
