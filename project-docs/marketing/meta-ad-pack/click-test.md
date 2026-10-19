@@ -271,3 +271,13 @@ ranked first, and the account spending cap raised by Jack):
   the API with home location only.
 - Decision rule: if B's cost per install is at least 20% lower and each arm
   has 30 or more installs, drop the age and gender limits.
+
+Status 2026-10-19 (paused early): Jack paused campaign `120251566262580737`
+about 3 days in, ahead of the Oct 21 end, read back PAUSED. Final: $19.64,
+1,111 impressions, 64 link clicks at $0.31 (C1 $17.65 and 62 clicks, C3
+$0.42, C7 $1.57). Women 65+ took $16.55 and 59 of the clicks. Clicks pass
+the $1.00 stop rule, but installs are unproven: Meta saw none without the
+SDK, and the last ~$25 would only add click data. Next: the ASC
+`meta-c*-2610` downloads for Oct 16 to 19 (a floor, and proof `ct`
+survives App Promotion ads). The real viability test is the install test
+above, once 1.4.1 (SDK) is live and Jack approves the $280 and a higher cap.
