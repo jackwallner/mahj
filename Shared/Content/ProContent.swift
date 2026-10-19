@@ -15,50 +15,50 @@ enum ProContent {
         CharlestonScenario(
             id: "pro-ch-two-sections",
             situation: "First Charleston, pass RIGHT. Your craks scream odds, your bams start a run. Pick 3.",
-            deal: [.c(3), .c(3), .c(5), .c(5), .c(7), .c(9), .b(5), .b(6), .b(7), .d(2), .d(8), .flower, .joker],
-            recommendedPass: [.b(6), .d(2), .d(8)],
-            reasoning: "Count both roads. The odds side has six tiles with two pairs (3s and 5s); the run side has just three (5-6-7 Bam). Commit to 13579. Keep 5 Bam and 7 Bam since they are odd, and pass the even tiles that fit neither pair: 6 Bam plus the 2 Dot and 8 Dot.",
+            deal: [.c(1), .c(1), .c(3), .c(7), .c(9), .c(9), .b(5), .b(6), .b(7), .d(2), .d(4), .flower, .joker],
+            recommendedPass: [.b(6), .d(2), .d(4)],
+            reasoning: "Count both roads. The odds side has eight odd tiles with two pairs (1 and 9 Crak). The run side is only the 5-6-7 in Bams, three tiles, and your Craks (1, 3, 7, 9) have gaps, so they add little to it. Commit to 13579. Keep 5 Bam and 7 Bam since they are odd, and pass the evens an odds hand can't use: 6 Bam, 2 Dot and 4 Dot.",
             tip: "When two sections compete, follow the count. The longer, paired side wins; the shorter side becomes your passes."
         ),
         CharlestonScenario(
             id: "pro-ch-keep-pair",
-            situation: "First Charleston, pass RIGHT. You are deep in 2468, but you also hold a spare pair of Red Dragons. Pick 3.",
+            situation: "First Charleston, pass RIGHT. You lean toward 2468, and you also hold a pair of Red Dragons. Pick 3.",
             deal: [.c(2), .c(4), .c(6), .b(2), .b(4), .b(6), .dragon(.red), .dragon(.red), .d(3), .d(5), .d(7), .flower, .joker],
             recommendedPass: [.d(3), .d(5), .d(7)],
-            reasoning: "The three odd Dots (3, 5, 7) fit none of your even plan, so they are clean passes. Do NOT break the Red pair to make an easier bundle. Jokers can never build a pair, so natural pairs are precious, and shipping a pair could hand a neighbor half of a Singles and Pairs hand. Keep the Reds as a Winds and Dragons escape hatch.",
-            tip: "Hold natural pairs by default. Jokers cannot make pairs, and a pair you pass can complete an opponent."
+            reasoning: "The three odd Dots (3, 5, 7) fit none of your even plan, so they are clean passes. Your 2468 lean is only six tiles so far, so the Reds stay as a backup. Do NOT break the Red pair when you have cleaner tiles to give. Jokers can never build a pair, so a natural pair is hard to rebuild once it is gone.",
+            tip: "Hold natural pairs by default, and break one only when every other pass costs more."
         ),
         CharlestonScenario(
             id: "pro-ch-pass-pair",
             situation: "First Charleston, pass RIGHT. Eight even tiles plus a lonely pair of Norths. Pick 3.",
             deal: [.c(2), .c(4), .c(6), .c(8), .b(2), .b(4), .b(6), .b(8), .wind(.north), .wind(.north), .d(5), .flower, .joker],
             recommendedPass: [.wind(.north), .wind(.north), .d(5)],
-            reasoning: "Usually you protect pairs, but this one earns an exception. Eight evens make 2468 your clear lean, and a pair of Norths rarely has a place in 2468, the hand you are clearly playing. It is the very first pass, so nobody has settled on a hand yet and passing a pair is unlikely to help anyone much. Pass both Norths and the odd 5 Dot.",
+            reasoning: "Usually you protect pairs, but a pair of Norths does not fit the evens you are collecting, and you already hold eight even tiles and a joker, so here the pair is the cheapest thing to give. Pass both Norths and the odd 5 Dot rather than give up an even tile or a flower.",
             tip: "Hold pairs by default, but a pair that fits none of your target section is fair to pass early, before opponents lock in."
         ),
         CharlestonScenario(
             id: "pro-ch-369-vs-run",
             situation: "First Charleston, pass ACROSS. Your hand reads as both 369 and Consecutive Run. Pick 3.",
-            deal: [.c(3), .c(6), .c(9), .b(3), .b(6), .b(9), .d(6), .d(6), .b(4), .b(5), .c(2), .flower, .joker],
-            recommendedPass: [.b(4), .b(5), .c(2)],
-            reasoning: "369 and Run overlap because 3, 6, and 9 live in both. So count the pure tiles. Eight of your number tiles are 3s, 6s, or 9s, including a 6 Dot pair; only 4 Bam and 5 Bam are run-only. Commit to 369, keep the 6 Dot pair, and pass the two run-only bams plus the stray 2 Crak.",
-            tip: "When 369 and Run overlap, count the tiles that fit ONLY one of them. Commit to whichever has more locked in."
+            deal: [.c(3), .c(6), .c(9), .c(9), .b(3), .b(6), .b(9), .d(6), .d(6), .d(9), .b(4), .b(5), .wind(.north)],
+            recommendedPass: [.b(4), .b(5), .wind(.north)],
+            reasoning: "369 and a run overlap here. 369 uses ten of your twelve numbers, every 3, 6 and 9. A run on the 3-4-5-6 core uses eight, and it cannot reach your four 9s without 7s and 8s you do not hold. 369 is ahead, so commit to it, keep the 6 Dot and 9 Crak pairs, and pass the 4 Bam and 5 Bam, which 369 has no use for, with the lone North.",
+            tip: "When 369 and Run overlap, count how many of your tiles each one can use. Commit to whichever uses more."
         ),
         CharlestonScenario(
             id: "pro-ch-second-stop",
             situation: "Second Charleston, pass LEFT. Nobody stopped the second Charleston, so it goes ahead. You hold seven 6s across three suits. Pick 3.",
             deal: [.c(6), .c(6), .b(6), .b(6), .b(6), .d(6), .d(6), .c(9), .d(3), .flower, .flower, .wind(.north), .joker],
             recommendedPass: [.c(9), .d(3), .wind(.north)],
-            reasoning: "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out the tiles that do not serve it. The lone 9 Crak and 3 Dot only help a 369 hand, and with seven 6s Like Numbers is the stronger lead, so they go with the North. Keep both flowers, since many hands use them. Next time you are this far ahead after the first Charleston, consider stopping the second: any one player can, and extra passing helps the weaker hands more than yours.",
-            tip: "Any player can stop the second Charleston. When your hand is ahead after round one, stopping it keeps the others from catching up."
+            reasoning: "Seven 6s across three suits is a strong Like Numbers start, so this pass is a chance to clear out the tiles that do not serve it. The lone 9 Crak and 3 Dot do nothing for the 6s (at best a long-shot backup), and every other choice breaks up your 6s or gives up a flower, so they are the cheapest to give, with the North. Keep both flowers, since many hands use them. Remember that the second Charleston is optional: any one player can stop it.",
+            tip: "Any player can stop the second Charleston, so know before it starts whether you still want three more passes."
         ),
         CharlestonScenario(
             id: "pro-ch-defend-late",
-            situation: "Second Charleston, the last pass, going RIGHT. On an earlier left pass your right-hand neighbor handed you three winds, so they are not on Winds and Dragons. Pick 3.",
+            situation: "Second Charleston, the last pass, going RIGHT. On an earlier left pass your right-hand neighbor handed you three winds, so they are probably not on Winds and Dragons. Pick 3.",
             deal: [.c(4), .c(5), .c(6), .b(5), .b(6), .b(7), .d(6), .d(6), .b(2), .d(9), .wind(.east), .flower, .joker],
             recommendedPass: [.b(2), .d(9), .wind(.east)],
-            reasoning: "Your tiles cluster on 4s through 7s, the makings of a Consecutive Run with a 6 Dot pair, so the three strays go. But your LAST pass is also defense. Your right-hand neighbor passed you three winds, so an East going to them is the safest tile you own: they have already shown they do not want winds. Pair it with the two other strays, 2 Bam and 9 Dot.",
-            tip: "Your final pass is a defensive tool. Feed a neighbor the kind of tile they have already shown they do not want."
+            reasoning: "Your tiles cluster on 4s through 7s, the makings of a Consecutive Run with a 6 Dot pair, so the 2 Bam, 9 Dot and East are the strays. Your LAST pass is also defense: your right-hand neighbor passed you three winds, so they are probably not collecting winds, which makes the East a fairly safe tile to send them.",
+            tip: "Your final pass is a defensive tool. Feed a neighbor the kind of tile they have hinted they do not want."
         ),
     ]
 
@@ -79,7 +79,7 @@ enum ProContent {
             tiles: [.d(3), .d(3), .d(3), .d(9), .d(9), .d(9)],
             choices: ["Consecutive Run", "369", "Quints"],
             answerIndex: 1,
-            explanation: "3 and 9 sit too far apart to belong to one run, so Consecutive Run is out. Threes and nines together are a 369 tell (an odds hand can use them too). Treat 3s, 6s, and 9s as hot tiles against this player."
+            explanation: "A run through both 3 and 9 would have to cover seven numbers, so Consecutive Run is a long shot. Threes and nines together are a 369 tell (an odds hand can use them too). Treat 3s, 6s, and 9s as hot tiles against this player."
         ),
         QuizQuestion(
             id: "pro-def-count-copies",
@@ -168,17 +168,17 @@ enum ProContent {
     static let expertRackReading: [HandMatchQuestion] = [
         HandMatchQuestion(
             id: "pro-rack-1",
-            tiles: [.c(4), .c(5), .c(6), .b(6), .b(7), .b(8), .d(3), .d(6), .d(9), .d(9), .b(9), .flower, .joker],
+            tiles: [.c(4), .c(5), .c(6), .b(6), .b(7), .b(8), .d(5), .d(6), .d(7), .d(7), .b(9), .flower, .joker],
             choices: [.consecutiveRun, .threeSixNine, .evens2468],
             answer: .consecutiveRun,
-            explanation: "369 is the decoy: you have 3s, 6s, and 9s scattered around. But 4 Crak, 5 Crak, 7 Bam, and 8 Bam are dead weight for 369, while they finish 4-5-6 and 6-7-8 runs in two suits. Stepping numbers in every suit make this Consecutive Run."
+            explanation: "369 is the decoy: there is a 6 in every suit and a 9 Bam. But the 4 and 5 Crak, the 7 and 8 Bam, and the 5 and 7 Dots are dead weight for 369, while they make 4-5-6, 6-7-8-9 and 5-6-7 runs, one in each suit. Stepping numbers like these make this Consecutive Run."
         ),
         HandMatchQuestion(
             id: "pro-rack-2",
-            tiles: [.c(3), .c(3), .c(6), .c(6), .d(9), .d(9), .b(3), .b(6), .b(9), .b(4), .b(5), .flower, .joker],
+            tiles: [.c(3), .c(3), .c(6), .c(6), .d(9), .d(9), .b(3), .b(6), .b(9), .c(9), .b(5), .flower, .joker],
             choices: [.threeSixNine, .consecutiveRun, .likeNumbers],
             answer: .threeSixNine,
-            explanation: "Consecutive Run is the decoy, tempted by the 3-4-5-6 in bams. But 4 Bam and 5 Bam are the only run-only tiles here. Everything else is a 3, 6, or 9, including three pairs. Count the pure tiles and this is 369."
+            explanation: "Consecutive Run is the decoy, tempted by the 3, 5 and 6 Bams. But ten of your eleven numbers are 3s, 6s and 9s, including three pairs, and the 5 Bam is the only number 369 cannot use. This is 369."
         ),
         HandMatchQuestion(
             id: "pro-rack-3",
@@ -199,21 +199,21 @@ enum ProContent {
             tiles: [.c(1), .c(1), .c(3), .c(3), .b(5), .b(5), .b(5), .d(7), .d(9), .d(9), .b(1), .flower, .joker],
             choices: [.odds13579, .singlesAndPairs, .consecutiveRun],
             answer: .odds13579,
-            explanation: "Singles and Pairs is the decoy, since you have several pairs. But that section allows only singles and pairs and no jokers, and this rack has a pung of 5 Bams plus a joker. Both break the S and P rules, so read it as 13579."
+            explanation: "Singles and Pairs is the decoy, since you have several pairs. But a Singles and Pairs hand has no pungs and no jokers, and this rack has a pung of 5 Bams and a joker, so it does not fit. Read it as 13579."
         ),
         HandMatchQuestion(
             id: "pro-rack-6",
             tiles: [.c(1), .c(1), .b(2), .b(2), .d(3), .d(3), .c(5), .c(5), .b(6), .b(6), .d(8), .d(8), .wind(.north)],
             choices: [.singlesAndPairs, .odds13579, .evens2468],
             answer: .singlesAndPairs,
-            explanation: "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape. The lone North is your first pass."
+            explanation: "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape."
         ),
         HandMatchQuestion(
             id: "pro-rack-7",
             tiles: [.c(7), .c(7), .b(7), .b(7), .b(7), .d(7), .d(7), .d(7), .c(2), .b(9), .d(9), .flower, .joker],
             choices: [.likeNumbers, .quints, .consecutiveRun],
             answer: .likeNumbers,
-            explanation: "Quints is the decoy, dreaming of five 7s in a suit. But a quint needs heavy joker support, and you hold just one joker. Eight 7s spread across all three suits is a straight shot at Any Like Numbers instead."
+            explanation: "Quints is the decoy, dreaming of five 7s in a suit. But your 7s sit in pungs and pairs, which need two or three jokers each to reach five, and you hold just one. Eight 7s spread across all three suits reads as Any Like Numbers instead."
         ),
         HandMatchQuestion(
             id: "pro-rack-8",

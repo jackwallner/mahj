@@ -64,9 +64,9 @@ enum KeepDiscardContent {
             frontTitle: "Your left opponent exposes a pung of 4 Dots.",
             frontTiles: [.d(4), .d(4), .d(4)],
             frontSubtitle: "What did you just learn?",
-            backTitle: "Their Section Is Showing",
-            backBody: "An exposure narrows their hand to the card lines that use it: an even hand, a run, or like numbers built around 4s and dots could all fit. Before discarding 4s, dots, or even 2-6-8 dots, pause and check what their exposure could belong to.",
-            choice: CardChoice("Their section is showing", "Nothing useful", answerIndex: 0)
+            backTitle: "It Narrows Their Hand",
+            backBody: "An exposure narrows their hand to the card lines that use it: an evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and check what their exposure could belong to.",
+            choice: CardChoice("It narrows their hand", "Nothing useful", answerIndex: 0)
         ),
         Flashcard(
             id: "kd-follow-count",

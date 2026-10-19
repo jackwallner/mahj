@@ -95,6 +95,126 @@ final class MonthlyChallengeTests: XCTestCase {
         }
     }
 
+    /// Each theme's pool covers the four months it gets in a year, so no
+    /// hand-written closer comes back for a year (October 2026 to
+    /// September 2027 checked). Charleston ids carry the month, so passes
+    /// compare by what the player sees.
+    func testNoClosingQuestionRepeatsForAYear() {
+        var seen: [String: String] = [:]
+        for offset in 0..<12 {
+            let month = MonthlyChallengeContent.challenge(
+                for: calendar.date(byAdding: .month, value: offset, to: date(2026, 10, 15))!, calendar: calendar)
+            for day in stride(from: 3, through: month.dayCount, by: 3) {
+                let closer = month.round(day: day).items[2]
+                let key = closer.prompt + closer.tiles.map(\.spokenName).joined(separator: ",")
+                XCTAssertNil(seen[key], "\(month.monthKey) day \(day) repeats a closer from \(seen[key] ?? "")")
+                seen[key] = month.monthKey
+            }
+        }
+        XCTAssertEqual(MonthlyChallengeContent.charlestonPool.count, 40)
+        XCTAssertEqual(MonthlyChallengeContent.defensePool.count, 40)
+        XCTAssertEqual(MonthlyChallengeContent.rackPool.count, 40)
+    }
+
+    /// Year content names the 2026 card, which a new card replaces each
+    /// spring, so the challenge never uses it.
+    func testNoYearBoundContentInTheChallenge() {
+        XCTAssertFalse(MonthlyChallengeContent.rackPool.contains { $0.choices[$0.answerIndex] == HandCategory.year.displayName })
+        XCTAssertFalse(MonthlyChallengeContent.charlestonPool.contains { MonthlyChallengeContent.yearBoundIDs.contains($0.id) })
+        for item in MonthlyChallengeContent.extraDefense + MonthlyChallengeContent.defensePool {
+            XCTAssertFalse((item.prompt + item.explanation).contains("2026"), item.id)
+        }
+    }
+
+    /// The challenge-only racks and passes obey the same rules as the
+    /// library's (ContentValidityTests only sees `DrillLibrary`).
+    func testChallengeOnlyContentIsLegal() {
+        let libraryIDs = Set(DrillLibrary.rooms.flatMap { SessionBuilder.choiceItems(in: $0.id, includePro: true) }.map(\.id)
+            + MahjMinuteContent.allCharlestonScenarios.map(\.id))
+        var ids: Set<String> = []
+        for rack in MonthlyChallengeContent.extraRacks {
+            XCTAssertEqual(rack.tiles.count, 13, rack.id)
+            XCTAssertTrue(rack.choices.contains(rack.answer), rack.id)
+            XCTAssertEqual(Set(rack.choices).count, rack.choices.count, rack.id)
+            XCTAssertNotEqual(rack.answer, .year, rack.id)
+            let copies = Dictionary(grouping: rack.tiles.filter { $0 != .joker && $0 != .flower }, by: { $0 })
+            XCTAssertLessThanOrEqual(copies.values.map(\.count).max() ?? 0, 4, rack.id)
+            XCTAssertLessThanOrEqual(rack.tiles.filter { $0 == .joker }.count, 8, rack.id)
+            XCTAssertLessThanOrEqual(rack.tiles.filter { $0 == .flower }.count, 8, rack.id)
+            if rack.answer == .singlesAndPairs { XCTAssertFalse(rack.tiles.contains(.joker), rack.id) }
+            XCTAssertFalse(rack.explanation.contains("\u{2014}"), rack.id)
+            XCTAssertTrue(ids.insert(rack.id).inserted, rack.id)
+        }
+        for pass in MonthlyChallengeContent.extraPasses {
+            XCTAssertEqual(pass.deal.count, 13, pass.id)
+            XCTAssertEqual(pass.recommendedPass.count, 3, pass.id)
+            XCTAssertFalse(pass.recommendedPass.contains(.joker), pass.id)
+            var deal = pass.deal
+            for tile in pass.recommendedPass {
+                guard let index = deal.firstIndex(of: tile) else { return XCTFail("\(pass.id) passes a tile it was not dealt") }
+                deal.remove(at: index)
+            }
+            let copies = Dictionary(grouping: pass.deal.filter { $0 != .joker && $0 != .flower }, by: { $0 })
+            XCTAssertLessThanOrEqual(copies.values.map(\.count).max() ?? 0, 4, pass.id)
+            for text in [pass.situation, pass.reasoning, pass.tip] {
+                XCTAssertFalse(text.contains("\u{2014}"), pass.id)
+            }
+            XCTAssertTrue(ids.insert(pass.id).inserted, pass.id)
+        }
+        for item in MonthlyChallengeContent.extraDefense {
+            XCTAssertEqual(item.choiceNotes.count, item.choices.count, item.id)
+            XCTAssertNil(item.choiceNotes[item.answerIndex], item.id)
+            XCTAssertTrue(item.choiceNotes.enumerated().allSatisfy { $0.offset == item.answerIndex || $0.element != nil }, item.id)
+            XCTAssertEqual(Set(item.choices).count, item.choices.count, item.id)
+            for text in [item.prompt, item.explanation] + item.choices + item.choiceNotes.compactMap({ $0 }) {
+                XCTAssertFalse(text.contains("\u{2014}"), item.id)
+            }
+            XCTAssertTrue(ids.insert(item.id).inserted, item.id)
+        }
+        XCTAssertTrue(ids.isDisjoint(with: libraryIDs))
+    }
+
+    /// Generated defense in the challenge: never a table that reads another
+    /// way (sums, long runs, the year), and never the same table and safe
+    /// tile twice in a month.
+    func testChallengeDefenseTablesAreUnarguableAndNeverRepeat() {
+        for offset in 0..<12 {
+            let month = MonthlyChallengeContent.challenge(
+                for: calendar.date(byAdding: .month, value: offset, to: date(2026, 10, 15))!, calendar: calendar)
+            var tables: Set<String> = []
+            for day in 1...month.dayCount {
+                for item in month.round(day: day).items where item.id.hasPrefix(PracticeSkill.defense.itemPrefix) {
+                    let exposed = Set(item.tiles).compactMap { tile -> Int? in
+                        if case .suited(let rank, _) = tile { return rank }
+                        return nil
+                    }
+                    let safe = Int(item.choices[item.answerIndex].prefix(1)) ?? 0
+                    XCTAssertEqual(exposed.count, 2, item.id)
+                    let all = exposed + [safe]
+                    XCTAssertGreaterThanOrEqual(all.max()! - all.min()!, 6, "\(month.monthKey) day \(day)")
+                    XCTAssertFalse(DefenseGenerator.makesSum(exposed[0], exposed[1], safe), "\(month.monthKey) day \(day)")
+                    XCTAssertNotEqual(Set(exposed), [2, 6], "\(month.monthKey) day \(day)")
+                    let table = Set(item.tiles).map(\.spokenName).sorted().joined(separator: ",") + "|" + item.choices[item.answerIndex]
+                    XCTAssertTrue(tables.insert(table).inserted, "\(month.monthKey) day \(day) repeats \(table)")
+                }
+            }
+        }
+    }
+
+    func testSumsAreCaught() {
+        XCTAssertTrue(DefenseGenerator.makesSum(5, 7, 2))
+        XCTAssertTrue(DefenseGenerator.makesSum(2, 4, 6))
+        XCTAssertTrue(DefenseGenerator.makesSum(9, 4, 1))
+        XCTAssertFalse(DefenseGenerator.makesSum(2, 4, 9))
+        XCTAssertFalse(DefenseGenerator.makesSum(5, 9, 2))
+        // One addend and both digits of the total: 5 + 7 = 12.
+        XCTAssertTrue(DefenseGenerator.makesSum(1, 7, 2))
+        XCTAssertFalse(DefenseGenerator.makesSum(2, 8, 9))
+        // A whole rack's numbers: 4 + 9 = 13.
+        XCTAssertTrue(DefenseGenerator.fitsOneSum([1, 3, 4, 9]))
+        XCTAssertFalse(DefenseGenerator.fitsOneSum([1, 3, 5, 7, 9]))
+    }
+
     /// The free-points all-honors rack never turns up outside a rack month.
     func testNoAllHonorsRackOffTheme() {
         let month = MonthlyChallengeContent.challenge(for: date(2026, 11, 5), calendar: calendar)
@@ -256,7 +376,8 @@ final class MonthlyChallengeDumpTests: XCTestCase {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
         var rounds: [[String: Any]] = []
-        for (year, month) in [(2026, 11), (2026, 12), (2027, 1)] {
+        for offset in 0..<12 {
+            let (year, month) = (2026 + (9 + offset) / 12, (9 + offset) % 12 + 1)
             let date = calendar.date(from: DateComponents(year: year, month: month, day: 15))!
             let challenge = MonthlyChallengeContent.challenge(for: date, calendar: calendar)
             for day in 1...challenge.dayCount {

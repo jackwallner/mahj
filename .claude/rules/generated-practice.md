@@ -41,7 +41,27 @@ motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
   Since 2026-10-11 (1.4 QA) the safe tile must sit outside EVERY section the
   exposures fit, and every bait tile inside every one (`sectionsFitting`): 3
   and 9 read as 369 and odds, so a 6 was safe under the odds read and graded
-  wrong. `CharlestonGenerator` likewise rejects any core that does not read as
+  wrong. Since 2026-10-18 (challenge answer audit) Endless and the challenge
+  also require `DefenseGenerator.isUnarguable`: the safe tile never makes a
+  sum with the two exposures (Addition hands: 5 and 7 with a 2 is
+  5 + 7 = 12), the three numbers span seven or more (no run with room for
+  two pungs holds them all), and never pungs of 2s and 6s (2026). The
+  filter sits on top of `build`, so seeded output and the Android parity
+  fixture are unchanged; Android's Endless does not apply it yet.
+  Defense explanations hedge the read ("the family their exposures point
+  to", "Of these four it is the safest throw"): the table is a judgment,
+  not a proof. A run is one suit, so only pungs in ONE suit get the
+  "Consecutive Run in Bams from 2 to 4" sentence, and the challenge's
+  run-trap tile (`withRunBait`) is the middle tile in that suit (it once
+  put a Crak between two Dots and marked an equally safe tile wrong).
+  Rack miss notes (2026-10-18): the run note says "never make
+  three in a row" only when no three numbers are consecutive (it once
+  called 3-4-5-6 a skip), and the Winds & Dragons note counts numbered
+  tiles and honors instead of saying "mostly numbered" on joker-heavy
+  racks, and ends "so it has little to build a Winds & Dragons hand
+  from" (never "a Winds & Dragons hand is mostly winds and dragons":
+  some card lines carry numbers). Kotlin still has the older wording.
+  `CharlestonGenerator` likewise rejects any core that does not read as
   exactly its own section (`RackGenerator.category`): a 369 core with no 6 is
   just odds, and an odd stray then fit the hand.
   Tile counting deals a joker question about one time in four

@@ -56,6 +56,12 @@ struct MonthlyChallenge: Identifiable, Sendable {
 
     var id: String { monthKey }
 
+    /// Months since year zero, for turn-taking that carries across months.
+    var monthIndex: Int {
+        let parts = monthKey.split(separator: "-").compactMap { Int($0) }
+        return parts.count == 2 ? parts[0] * 12 + parts[1] : 0
+    }
+
     /// Days in the month, so rounds 1...dayCount.
     var dayCount: Int { calendar.dateComponents([.day], from: start, to: end).day ?? 30 }
 
@@ -197,7 +203,7 @@ enum MonthlyChallengeContent {
     /// A day's questions never change, and Home and the challenge screen
     /// ask for them on every render; generating them each time re-ran the
     /// rack generators dozens of times a second.
-    private static let itemCache = ChallengeItemCache()
+    private static let itemCache = ChallengeCache<[QuickItem]>()
 
     /// The challenge a stored month key belongs to.
     static func challenge(monthKey: String, calendar: Calendar = .gregorianLocal) -> MonthlyChallenge? {
@@ -256,7 +262,7 @@ enum MonthlyChallengeContent {
 
     static func roundItems(for month: MonthlyChallenge, day: Int) -> [QuickItem] {
         let key = roundKey(monthKey: month.monthKey, day: day)
-        return itemCache.items(for: key) {
+        return itemCache.value(for: key) {
             items(month: month, day: day, roundKey: key, label: "\(month.monthName) Challenge")
         }
     }
@@ -268,10 +274,9 @@ enum MonthlyChallengeContent {
     private static func items(month: MonthlyChallenge, day: Int, roundKey: String, label: String) -> [QuickItem] {
         let seed = "monthly-\(roundKey)"
         let theme = month.theme
-        let others = MonthlyChallengeTheme.allCases.filter { $0 != theme }
-        let other = others[(day - 1) % others.count]
-        let themed = generated(theme, onTheme: true, seed: seed, label: label)
-        let side = generated(other, onTheme: false, seed: "\(seed)-\(other.rawValue)", label: label)
+        let other = otherSkill(month: month, day: day)
+        let themed = generated(theme, onTheme: true, seed: seed, label: label, month: month, day: day)
+        let side = generated(other, onTheme: false, seed: "\(seed)-\(other.rawValue)", label: label, month: month, day: day)
         var closer = themed.count > 1 ? themed[1] : nil
         if day % 3 == 0 {
             let pool = authoredSequence(for: month, label: label)
@@ -280,28 +285,37 @@ enum MonthlyChallengeContent {
         return [themed.first, side.first, closer].compactMap { $0 }
     }
 
+    /// The skill for the day's middle question: the two off-theme skills
+    /// take turns by day.
+    private static func otherSkill(month: MonthlyChallenge, day: Int) -> MonthlyChallengeTheme {
+        let others = MonthlyChallengeTheme.allCases.filter { $0 != month.theme }
+        return others[(day - 1) % others.count]
+    }
+
     /// Generated questions for one skill: two for the theme (the second the
     /// harder read where the skill has one), one otherwise.
-    private static func generated(_ skill: MonthlyChallengeTheme, onTheme: Bool, seed: String, label: String) -> [QuickItem] {
-        let count = onTheme ? 2 : 1
+    private static func generated(
+        _ skill: MonthlyChallengeTheme, onTheme: Bool, seed: String, label: String,
+        month: MonthlyChallenge, day: Int
+    ) -> [QuickItem] {
         let items: [QuickItem]
         switch skill {
         case .rackReading:
-            // Distinct sections, and an all-honors rack only on a rack month.
-            items = distinct(
-                RackGenerator.batch(count: count * 4, seed: "\(seed)-racks")
-                    .filter { onTheme || $0.answer != .windsDragons },
-                by: { "\($0.answer)" },
-                count: count
-            ).enumerated().map { index, rack in
+            // Planned for the whole month at once, so no rack repeats.
+            items = (rackPlan(for: month)[day] ?? []).enumerated().map { index, rack in
                 EndlessPractice.rackItem(rack, id: PracticeSkill.rackReading.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
             }
         case .charleston:
             // A Charleston month follows the one-stray pass with the harder
-            // two-singles read.
-            let plain = CharlestonGenerator.batch(count: 4, seed: "\(seed)-passes").prefix(1).map { (pass: $0, twoSingles: false) }
+            // two-singles read. Sections are taken in turn by day.
+            let turn = day - 1 + month.monthIndex
+            let sections = RackGenerator.generatableCategories
+            let plain = CharlestonGenerator.pass(section: sections[turn % sections.count], seed: "\(seed)-passes")
+                .map { [(pass: $0, twoSingles: false)] } ?? []
+            let readSections = CharlestonGenerator.twoSinglesSections
             let read = onTheme
-                ? CharlestonGenerator.twoSinglesBatch(count: 4, seed: "\(seed)-two-singles").prefix(1).map { (pass: $0, twoSingles: true) }
+                ? CharlestonGenerator.pass(section: readSections[turn % readSections.count], seed: "\(seed)-two-singles", twoSingles: true)
+                    .map { [(pass: $0, twoSingles: true)] } ?? []
                 : []
             items = (plain + read).enumerated().map { index, entry in
                 EndlessPractice.passItem(
@@ -312,14 +326,173 @@ enum MonthlyChallengeContent {
                 )
             }
         case .defense:
-            // Distinct families; a defense month swaps in the run-trap tile.
-            items = distinct(DefenseGenerator.batch(count: 8, seed: "\(seed)-defense"), by: { "\($0.impliedSection)" }, count: count)
+            // Planned for the whole month at once, so no table repeats.
+            items = (defensePlan(for: month)[day] ?? [])
                 .map { onTheme ? (DefenseGenerator.withRunBait($0) ?? $0) : $0 }
                 .enumerated().map { index, question in
                     EndlessPractice.defenseItem(question, id: PracticeSkill.defense.itemPrefix + "\(seed)-\(index)", sourceLabel: label)
                 }
         }
         return items.map(oneOff)
+    }
+
+    private static let rackCache = ChallengeCache<[Int: [RackGenerator.GeneratedRack]]>()
+
+    /// Every day's generated racks for a month. Sections come from a shuffled
+    /// bag, so the month stays balanced and a day's two racks differ; an
+    /// all-honors rack only on a rack month. No rack twice in a month, and
+    /// never the same shape (counts per number, suits aside) on neighbouring
+    /// days.
+    private static func rackPlan(for month: MonthlyChallenge) -> [Int: [RackGenerator.GeneratedRack]] {
+        rackCache.value(for: month.monthKey) {
+            let onTheme = month.theme == .rackReading
+            let sections = RackGenerator.generatableCategories.filter { onTheme || $0 != .windsDragons }
+            var bagGenerator = StableSeededGenerator(seed: "monthly-\(month.monthKey)-rack-bag")
+            var bag: [HandCategory] = []
+            var plan: [Int: [RackGenerator.GeneratedRack]] = [:]
+            var used: Set<String> = []
+            var yesterday: Set<String> = []
+            for day in 1...month.dayCount {
+                guard onTheme || otherSkill(month: month, day: day) == .rackReading else {
+                    yesterday = []
+                    continue
+                }
+                let seed = "monthly-\(roundKey(monthKey: month.monthKey, day: day))"
+                var picked: [RackGenerator.GeneratedRack] = []
+                for _ in 0..<(onTheme ? 2 : 1) {
+                    let taken = picked.map(\.answer)
+                    if !bag.contains(where: { !taken.contains($0) }) { bag += sections.shuffled(using: &bagGenerator) }
+                    guard let index = bag.firstIndex(where: { !taken.contains($0) }) else { break }
+                    let section = bag.remove(at: index)
+                    let shapes = yesterday.union(picked.map(rackShape))
+                    let candidates = (0..<12).compactMap { RackGenerator.rack(for: section, seed: "\(seed)-rack-\(section)-\($0)") }
+                        .filter { !used.contains(rackKey($0)) }
+                    if let rack = candidates.first(where: { !shapes.contains(rackShape($0)) }) ?? candidates.first {
+                        picked.append(rack)
+                        used.insert(rackKey(rack))
+                    }
+                }
+                yesterday = Set(picked.map(rackShape))
+                plan[day] = picked
+            }
+            return plan
+        }
+    }
+
+    private static func rackKey(_ rack: RackGenerator.GeneratedRack) -> String {
+        rack.tiles.map(\.spokenName).sorted().joined(separator: "|")
+    }
+
+    /// The rack with suits taken away: how many of each number or honor.
+    private static func rackShape(_ rack: RackGenerator.GeneratedRack) -> String {
+        rack.tiles.map { tile -> String in
+            if case .suited(let rank, _) = tile { return "\(rank)" }
+            return tile.spokenName
+        }.sorted().joined(separator: "|")
+    }
+
+    private static let defenseCache = ChallengeCache<[Int: [DefenseGenerator.GeneratedDefense]]>()
+
+    /// Every day's defense questions for a month: only tables nobody can read
+    /// another way (`DefenseGenerator.isUnarguable`), no table and safe tile
+    /// twice in the month, and never the same two exposed numbers twice in a
+    /// day or on neighbouring days.
+    private static func defensePlan(for month: MonthlyChallenge) -> [Int: [DefenseGenerator.GeneratedDefense]] {
+        defenseCache.value(for: month.monthKey) {
+            var plan: [Int: [DefenseGenerator.GeneratedDefense]] = [:]
+            let closers = authoredDefenseClosers(for: month)
+            let authoredDays = Dictionary(grouping: closers, by: \.exposures).mapValues { $0.map(\.day) }
+            // A closer's table and marked tile count as used, so a generated
+            // table never repeats its safe tile.
+            var used = Set(closers.map { $0.exposures + "|" + $0.answer })
+            var exposuresLastDay: [String: Int] = [:]
+            var usedLessons: Set<String> = []
+            var yesterday: Set<String> = []
+            for day in 1...month.dayCount {
+                let onTheme = month.theme == .defense
+                guard onTheme || otherSkill(month: month, day: day) == .defense else {
+                    yesterday = []
+                    continue
+                }
+                let seed = "monthly-\(roundKey(monthKey: month.monthKey, day: day))"
+                let base = onTheme ? "\(seed)-defense" : "\(seed)-defense-defense"
+                let want = onTheme ? 2 : 1
+                var picked: [DefenseGenerator.GeneratedDefense] = []
+                // A table and safe tile together are never reused in a month.
+                // Fresh exposures (and new numbers from yesterday) come
+                // first; the unarguable tables number only about 45, so a
+                // defense month repeats some, never within a week and never
+                // with the same safe tile, and with a safe tile of a new
+                // number wherever the month allows.
+                for level in [3, 2, 1, 0] {
+                    for attempt in 0..<12 where picked.count < want {
+                        let batch = DefenseGenerator.batch(count: 48, seed: attempt == 0 ? base : "\(base)-\(attempt)")
+                            .filter(DefenseGenerator.isUnarguable)
+                        for question in batch where picked.count < want {
+                            let table = tableKey(question)
+                            guard !used.contains(table),
+                                  !picked.contains(where: { tableKey($0) == table || $0.impliedSection == question.impliedSection || numbersKey($0) == numbersKey(question) })
+                            else { continue }
+                            let lastDay = exposuresLastDay[exposuresKey(question)]
+                            let closerDays = authoredDays[exposuresKey(question)] ?? []
+                            if level >= 3, lastDay != nil || !closerDays.isEmpty { continue }
+                            if level >= 1, closerDays.contains(where: { abs($0 - day) < 7 }) { continue }
+                            if level >= 3, yesterday.contains(numbersKey(question)) { continue }
+                            if level >= 2, usedLessons.contains(lessonKey(question)) { continue }
+                            if level >= 1, let lastDay, day - lastDay < 7 { continue }
+                            picked.append(question)
+                        }
+                    }
+                }
+                used.formUnion(picked.map(tableKey))
+                for question in picked { exposuresLastDay[exposuresKey(question)] = day }
+                usedLessons.formUnion(picked.map(lessonKey))
+                yesterday = Set(picked.map(numbersKey))
+                plan[day] = picked
+            }
+            return plan
+        }
+    }
+
+    /// The month's hand-written defense closers that show two exposed pungs:
+    /// their day, `exposuresKey` and marked tile, so a generated table never
+    /// shows the same two pungs within a week of one or repeats its tile.
+    private static func authoredDefenseClosers(for month: MonthlyChallenge) -> [(day: Int, exposures: String, answer: String)] {
+        guard month.theme == .defense else { return [] }
+        let pool = authoredSequence(for: month, label: "")
+        guard !pool.isEmpty else { return [] }
+        return stride(from: 3, through: month.dayCount, by: 3).compactMap { day in
+            let item = pool[(day / 3 - 1) % pool.count]
+            let tiles = item.tiles
+            let kinds = tiles.reduce(into: [Tile]()) { kinds, tile in if !kinds.contains(tile) { kinds.append(tile) } }
+            guard tiles.count == 6, kinds.count == 2, kinds.allSatisfy({ kind in tiles.filter { $0 == kind }.count == 3 }),
+                  item.choices.indices.contains(item.answerIndex)
+            else { return nil }
+            return (day, kinds.map(\.spokenName).sorted().joined(separator: "|"), item.choices[item.answerIndex])
+        }
+    }
+
+    private static func tableKey(_ question: DefenseGenerator.GeneratedDefense) -> String {
+        exposuresKey(question) + "|" + question.answer.spokenName
+    }
+
+    /// The safe tile's number, not the tile: the same exposures with an 8
+    /// Bam and then an 8 Dot as the answer teach the same lesson twice.
+    private static func lessonKey(_ question: DefenseGenerator.GeneratedDefense) -> String {
+        guard case .suited(let rank, _) = question.answer else { return tableKey(question) }
+        return exposuresKey(question) + "|\(rank)"
+    }
+
+    /// Order-free: the same two pungs called the other way round are the same table.
+    private static func exposuresKey(_ question: DefenseGenerator.GeneratedDefense) -> String {
+        question.exposures.compactMap(\.first).map(\.spokenName).sorted().joined(separator: "|")
+    }
+
+    private static func numbersKey(_ question: DefenseGenerator.GeneratedDefense) -> String {
+        question.exposures.compactMap(\.first).compactMap { tile -> Int? in
+            if case .suited(let rank, _) = tile { return rank }
+            return nil
+        }.sorted().map(String.init).joined(separator: "-")
     }
 
     /// Generated ids are one-off, so they never land in Fix My Mistakes.
@@ -339,29 +512,19 @@ enum MonthlyChallengeContent {
         ))
     }
 
-    /// Picks `count` items with distinct keys where the batch allows, then
-    /// tops up with repeats rather than coming back short.
-    private static func distinct<T>(_ items: [T], by key: (T) -> String, count: Int) -> [T] {
-        var seen: Set<String> = []
-        var picked: [T] = []
-        var rest: [T] = []
-        for item in items {
-            if picked.count < count, seen.insert(key(item)).inserted { picked.append(item) } else { rest.append(item) }
-        }
-        return picked + rest.prefix(max(0, count - picked.count))
-    }
-
     /// Hand-written questions per month on the theme, one for every third day.
     private static let authoredPerMonth = 10
 
     /// The month's hand-written questions, in the order the days use them.
+    /// Every theme's pool holds 40, so the four months a theme gets in a
+    /// year never repeat a closer (`MonthlyChallengeTests` checks a year).
     private static func authoredSequence(for month: MonthlyChallenge, label: String) -> [QuickItem] {
         let count = authoredPerMonth
         let round = month.rotation
         let monthKey = month.monthKey
         switch month.theme {
         case .charleston:
-            let scenarios = MahjMinuteContent.allCharlestonScenarios
+            let scenarios = charlestonPool
             return rotation(poolSize: scenarios.count, seed: "monthly-charleston-pool", round: round, count: count).map { index in
                 MahjMinuteContent.authoredCharlestonItem(
                     scenario: scenarios[index],
@@ -372,19 +535,13 @@ enum MonthlyChallengeContent {
                 )
             }
         case .defense:
-            // The four-choice reads and the quicker judgment calls, mixed.
-            let table = SessionBuilder.choiceItems(in: "table-room", includePro: true)
-            let pool = defenseQuestions + defenseItemIDs.compactMap { id in table.first { $0.id == id } }
+            let pool = defensePool
             return rotation(poolSize: pool.count, seed: "monthly-defense-pool", round: round, count: count)
                 .map { relabeled(SessionBuilder.prepared(pool[$0]), label) }
         case .rackReading:
-            // The generated racks already cover the five sections a generator
-            // can deal, so these are the sections it cannot: Like Numbers,
-            // Year, Quints, Singles & Pairs. Dealt round-robin by section, so
-            // neighbouring days read as different hands.
-            let generatable = Set(RackGenerator.generatableCategories.map(\.displayName))
-            let pool = SessionBuilder.choiceItems(in: "card-room", includePro: true)
-                .filter { $0.prompt == "Which section is this rack chasing?" && !generatable.contains($0.choices[$0.answerIndex]) }
+            // Dealt round-robin by section, so neighbouring days read as
+            // different hands.
+            let pool = rackPool
             let groups = Dictionary(grouping: pool, by: { $0.choices[$0.answerIndex] })
             let sections = groups.keys.sorted()
             let depth = groups.values.map(\.count).max() ?? 0
@@ -397,6 +554,46 @@ enum MonthlyChallengeContent {
                 .map { sequence[(start + $0) % sequence.count] }
                 .map { relabeled(SessionBuilder.prepared($0), label) }
         }
+    }
+
+    /// Ids of authored content that leans on the card's year (2026), as the
+    /// answer or the decoy. The year changes with every new card, so the
+    /// challenge never uses them.
+    static let yearBoundIDs: Set<String> = ["cs-year", "pro-rack-3", "pro-rack-8"]
+
+    /// Every three-tile pass the Charleston months draw from.
+    static var charlestonPool: [CharlestonScenario] {
+        MahjMinuteContent.allCharlestonScenarios.filter { !yearBoundIDs.contains($0.id) } + extraPasses
+    }
+
+    /// The four-choice reads and the quicker judgment calls, mixed.
+    static var defensePool: [QuickItem] {
+        let table = SessionBuilder.choiceItems(in: "table-room", includePro: true)
+        return defenseQuestions + extraDefense + defenseItemIDs.compactMap { id in table.first { $0.id == id } }
+    }
+
+    /// Every authored rack read except those tied to the year, whose digits
+    /// change with the card.
+    static var rackPool: [QuickItem] {
+        let rackPrompt = "Which section is this rack chasing?"
+        let library = (SessionBuilder.choiceItems(in: "card-room", includePro: true)
+            + SessionBuilder.choiceItems(in: "pro-tables", includePro: true))
+            .filter { $0.prompt == rackPrompt && $0.choices[$0.answerIndex] != HandCategory.year.displayName && !yearBoundIDs.contains($0.id) }
+        let extras = extraRacks.map { question in
+            QuickItem(
+                id: question.id,
+                prompt: rackPrompt,
+                tiles: question.tiles.racked,
+                choices: question.choices.map(\.displayName),
+                answerIndex: question.choices.firstIndex(of: question.answer) ?? 0,
+                explanation: question.explanation,
+                sourceLabel: "Monthly Challenge",
+                roomID: "card-room",
+                isReviewable: false,
+                choiceNotes: RackGenerator.missNotes(tiles: question.tiles, choices: question.choices, answer: question.answer)
+            )
+        }
+        return library + extras
     }
 
     /// Two-choice table judgments that are about defense. The four-choice
@@ -412,41 +609,41 @@ enum MonthlyChallengeContent {
     static let defenseQuestions: [QuickItem] = [
         QuickItem(
             id: "monthly-def-run-trap",
-            prompt: "Late in the hand, one opponent has exposed a pung of 5 Bams and a pung of 7 Dots. Which discard is safest?",
-            tiles: [.b(5), .b(5), .b(5), .d(7), .d(7), .d(7)],
-            choices: ["2 Crak", "6 Bam", "9 Crak", "North Wind"],
+            prompt: "Late in the hand, one opponent has exposed a pung of 5 Bams and a pung of 9 Bams. Which discard is safest?",
+            tiles: [.b(5), .b(5), .b(5), .b(9), .b(9), .b(9)],
+            choices: ["2 Crak", "7 Bam", "3 Dot", "1 Crak"],
             answerIndex: 0,
-            explanation: "5s and 7s read as 13579 (Odds), and with a 6 between them they could sit in a run too. The 9 Crak feeds the odds read, the 6 Bam feeds the run, and winds turn up in odds hands on real cards. The 2 Crak is even and too far from 5 and 7 for a run through both.",
+            explanation: "5s and 9s are both odd, so this could point at 13579 (Odds). The 7 Bam, 3 Dot and 1 Crak are all odd and feed that read, and the 7 Bam is in the same suit as both pungs. The 2 Crak is even and in another suit, so it misses that read.",
             sourceLabel: "Monthly Challenge",
             roomID: "table-room",
             isReviewable: false,
             choiceNotes: [
                 nil,
-                "The 6 sits between their 5s and 7s, so it feeds a run through both pungs.",
-                "A 9 is odd, so it fits the 13579 read of their exposures.",
-                "Winds and dragons appear in odds hands too, so a wind is not proven safe against this table.",
+                "The 7 Bam is odd and in the same suit as both pungs, so it fits the odds read.",
+                "A 3 is odd, so it fits the 13579 read of their exposures.",
+                "A 1 is odd, so it fits the 13579 read of their exposures.",
             ]
         ),
         QuickItem(
             id: "monthly-def-dead-joker",
-            prompt: "Your hand can no longer win, but nobody has called it dead, so you are still drawing and discarding. An opponent with three exposures looks one tile away. What is the safest discard?",
+            prompt: "You can see your hand can no longer win, but you are still drawing and discarding. An opponent with three exposures looks one tile away. What is the safest discard?",
             tiles: [],
             choices: ["A joker", "A tile that fits the pattern of their exposures", "A flower", "A wind nobody has thrown yet"],
             answerIndex: 0,
-            explanation: "Nobody can call a discarded joker, so it can never be the tile that hands someone the game, and with your own hand out of reach it costs you nothing. Flowers and unseen winds are wanted by many hands, and a tile that fits the pattern of their exposures is the riskiest throw.",
+            explanation: "Nobody can call a discarded joker, so it can never be the tile that hands someone the game, and with your own hand out of reach it costs you nothing. Flowers and unseen winds can still finish someone's hand, and a tile that fits the pattern of their exposures is the riskiest throw.",
             sourceLabel: "Monthly Challenge",
             roomID: "table-room",
             isReviewable: false,
             choiceNotes: [
                 nil,
                 "A tile that fits the pattern their exposures show is the kind most likely to finish their hand.",
-                "Many hands use flowers, so a late flower is one of the riskiest throws.",
+                "Many hands use flowers, so a late flower is a risky throw.",
                 "A wind nobody has thrown is still live for anyone collecting winds.",
             ]
         ),
         QuickItem(
             id: "monthly-def-just-passed",
-            prompt: "An opponent is close to mah jongg. The player before you just discarded a 6 Dot and nobody called it. You hold a 6 Dot. How safe is it to throw?",
+            prompt: "An opponent across the table is close to mah jongg. The player before you just discarded a 6 Dot and nobody called it. You hold a 6 Dot. How safe is it to throw?",
             tiles: [.d(6)],
             choices: [
                 "Safer than most: it just went by uncalled",
@@ -461,8 +658,8 @@ enum MonthlyChallengeContent {
             isReviewable: false,
             choiceNotes: [
                 nil,
-                "Any number fits many hands. What matters is that this one just went by and nobody wanted it.",
-                "Copies left do not decide it: one copy can still be someone's winning tile.",
+                "Any number fits many hands. What matters is that this one just went by and nobody called it, which is a good sign, not proof.",
+                "Being the last copy helps, but it is not proof, since even a last copy can be someone's single. The tile that just went by uncalled is the stronger sign.",
                 "Seat has nothing to do with which tiles are safe.",
             ]
         ),
@@ -496,15 +693,15 @@ enum MonthlyChallengeContent {
     }
 }
 
-private final class ChallengeItemCache: @unchecked Sendable {
+private final class ChallengeCache<Value>: @unchecked Sendable {
     private let lock = NSLock()
-    private var byMonth: [String: [QuickItem]] = [:]
+    private var byKey: [String: Value] = [:]
 
-    func items(for monthKey: String, build: () -> [QuickItem]) -> [QuickItem] {
-        if let cached = lock.withLock({ byMonth[monthKey] }) { return cached }
+    func value(for key: String, build: () -> Value) -> Value {
+        if let cached = lock.withLock({ byKey[key] }) { return cached }
         // Built outside the lock: deterministic, so a rare double build is harmless.
         let built = build()
-        lock.withLock { byMonth[monthKey] = built }
+        lock.withLock { byKey[key] = built }
         return built
     }
 }

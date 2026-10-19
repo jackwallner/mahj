@@ -159,7 +159,7 @@ enum MahjMinuteContent {
         let item = QuickItem(
             id: id,
             // The drill's "Pick 3." cue says the same thing as the question.
-            prompt: "\(scenario.situation.replacingOccurrences(of: " Pick 3.", with: "")) Which three tiles make the strongest pass?",
+            prompt: "\(scenario.situation.replacingOccurrences(of: " Pick 3 tiles to pass.", with: "").replacingOccurrences(of: " Pick 3.", with: "")) Which three tiles make the strongest pass?",
             tiles: scenario.deal.racked,
             choices: [answer] + distractors.map(\.label),
             answerIndex: 0,
@@ -168,7 +168,7 @@ enum MahjMinuteContent {
             roomID: "charleston-room",
             trackingID: trackingID,
             isReviewable: false,
-            choiceNotes: [nil] + distractors.map { missNote(pass: $0.tiles, answer: scenario.recommendedPass) }
+            choiceNotes: [nil] + distractors.map { missNote(pass: $0.tiles, answer: scenario.recommendedPass, deal: scenario.deal) }
         )
         return SessionBuilder.prepared(item)
     }
@@ -181,15 +181,35 @@ enum MahjMinuteContent {
         }
     }
 
-    /// What a wrong pass gives up that the strongest pass keeps.
-    private static func missNote(pass: [Tile], answer: [Tile]) -> String {
+    /// What a wrong pass gives up that the strongest pass keeps. Keepers
+    /// (part of a pair or more, or a flower) are "kept"; any other tile it
+    /// sends is only "held back", because the explanation may call it a
+    /// stray that goes on a later pass.
+    private static func missNote(pass: [Tile], answer: [Tile], deal: [Tile]) -> String {
         var pool = answer
         let given = pass.filter { tile in
             guard let hit = pool.firstIndex(of: tile) else { return true }
             pool.remove(at: hit)
             return false
         }
-        return "This pass gives away \(given.map { "the \($0.spokenName)" }.joined(separator: " and ")), which the strongest pass keeps."
+        let isKeeper: (Tile) -> Bool = { tile in tile == .flower || deal.filter { $0 == tile }.count >= 2 }
+        let keepers = given.filter(isKeeper)
+        let others = given.filter { !isKeeper($0) }
+        guard !keepers.isEmpty else {
+            return "This pass sends \(phrase(others)), which the strongest pass holds back."
+        }
+        let note = "This pass gives away \(phrase(keepers)), which the strongest pass keeps."
+        return others.isEmpty ? note : note + " It also sends \(phrase(others)), which the strongest pass holds back."
+    }
+
+    /// "the 7 Bam", "two Flowers", "the 6 Dot and the Flower".
+    private static func phrase(_ tiles: [Tile]) -> String {
+        var groups: [(tile: Tile, count: Int)] = []
+        for tile in tiles {
+            if let index = groups.firstIndex(where: { $0.tile == tile }) { groups[index].count += 1 } else { groups.append((tile, 1)) }
+        }
+        return groups.map { $0.count == 1 ? "the \($0.tile.spokenName)" : "\($0.count == 2 ? "two" : "three") \($0.tile.spokenName)s" }
+            .joined(separator: " and ")
     }
 
     private static func distractorPasses(for scenario: CharlestonScenario, seed: String) -> [(label: String, tiles: [Tile])] {

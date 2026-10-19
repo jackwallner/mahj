@@ -27,14 +27,57 @@ Reading Your Rack from the rotation.
 - `MonthlyChallenge.round(day:)` builds a `ChallengeRound` (key
   "YYYY-MM-DD"): [themed generated, other skill (the two alternate by day),
   themed harder]. Every third day the closer is hand-written, taken in
-  order from `authoredSequence` (10 per month, no repeats). Hand-written
-  pool: three-tile Charleston passes; four-choice defense reads
-  (`defenseQuestions`) plus one judgment call; hand-match racks from the
-  sections the generator cannot deal (Like Numbers, Year, Quints, Singles &
-  Pairs). Charleston months mix in `CharlestonGenerator.twoSinglesBatch`;
-  defense months swap in the run-trap tile (`DefenseGenerator.withRunBait`).
+  order from `authoredSequence` (10 per month). Each theme's pool holds 40
+  (`charlestonPool`, `defensePool`, `rackPool`; the challenge-only extras
+  are in `MonthlyChallengeExtras.swift`), so the four months a theme gets
+  in a year never repeat a closer; `testNoClosingQuestionRepeatsForAYear`
+  checks October 2026 to September 2027. Grow every pool by 10 before
+  October 2027 or that month repeats October 2026. Year racks and passes,
+  and racks with Year as the decoy (`yearBoundIDs`), are never used: their
+  digits change with each card. Generated racks are planned a month at a
+  time (`rackPlan`): sections from a shuffled bag, no rack twice in a
+  month, not the same suit-free shape on neighbouring days (the old
+  per-day batches repeated racks inside a month).
+  Charleston months take the sections in turn by day
+  (`CharlestonGenerator.pass(section:seed:twoSingles:)`; random picks had
+  Winds & Dragons at half of every month). Defense is planned a month at a
+  time (`defensePlan`): only `DefenseGenerator.isUnarguable` tables (no
+  sums like 5 + 7 = 12, a seven-number spread so no run holds all three,
+  never 2s with 6s), no table and safe tile twice in a month, and not the
+  same two numbers twice in a day or on neighbouring days. That filter
+  leaves five number pairs (2/4, 2/8, 3/9, 5/9, 6/9), about 45 tile
+  tables, by design: correctness over variety. A defense month needs
+  about 52, so about ten exposures come back, each at least a week later
+  and with a different safe tile (a new safe number where the month
+  allows). The month's hand-written defense closers count too
+  (`authoredDefenseClosers`): no generated table shows their two pungs
+  within a week or reuses their marked tile. `makesSum` takes any written sum whose digits hold all three
+  numbers (1, 7 and 2 is 5 + 7 = 12). Charleston passes in the challenge
+  and Endless go through `CharlestonGenerator.isUnarguable`: no number
+  stray that completes one sum with the rest of the rack (4 + 9 = 13), even
+  once a two-singles rack's keeper is set aside (4 + 8 = 12 holds a stray 1
+  beside a keeper 6), no
+  Soap stray beside a 2, 6 or 7 (the year's zero), no 2, 6 or 7 stray beside Soaps or on a Winds & Dragons rack, and no 2, 6
+  or 7 stray, and no wind or dragon stray, on a rack holding a 2 and a 6 or 7
+  (two of the year's digits, which can be written beside honors). Defense months swap in the
+  run-trap tile (`DefenseGenerator.withRunBait`).
   Both are iOS-only. Themes rotate Charleston, Safe Discards, Reading Your
   Rack from November 2026 (`rotationAnchor`).
+- Answer audits (2026-10-18 to 10-19, 1.4.2 build 56): 27 rounds of two
+  Sonnet readers, one on all 119 hand-written closers and one on every
+  generated question for a year (Oct 2026 to Sep 2027). Jack's bar: two
+  rounds in a row with no new WRONG or MISLEADING finding; UNCLEAR wording
+  is fixed without resetting the count. Fresh readers always find some
+  borderline wording, so a stricter bar never settles. Generator rules they
+  drove: no stray or safe tile that completes a sum (with or without a
+  two-singles keeper), a run, or a year hand (Soap, 2/6/7, honors beside a
+  2 and a 6 or 7), seven-day spacing for repeated defense tables, closers
+  included. Copy rules they drove: no card-dependent absolutes ("only
+  section", "only helps a backup", five-number run limits), no prompt that
+  says "all" over strays, defense copy says "point to" and "safest of these
+  four", the run-trap note says "could feed" and only appears for pungs in
+  one suit. The dump and checker live outside the repo; regenerate with the
+  swiftc dumper over `Shared/`.
 - Content reviews: two passes by a teacher persona and one by a new player
   (2026-10-12) drove the generator fixes (strays that change the read,
   6+ of a number, odds of only 3s and 9s), rack-aware miss notes, run
@@ -43,8 +86,11 @@ Reading Your Rack from the rotation.
 - Free for everyone. `AppDestination.isFree` lets `mahj://challenge` through
   the Home paywall guard. The result screen shows one Mahj+ pointer to free
   players on every fifth day played (5, 10, 15...); no lock anywhere in the flow.
-- Home: the card appears only after a first finished practice
-  (`progress.totalSessions > 0`), so a brand-new player's Home is the 1.3.2
+- Home: the card appears only after a practice the player finished after
+  the tour (`progress.hasPracticedSinceOnboarding`: `totalSessions` above
+  `sessionsAtOnboarding`, stamped in `OnboardingView.finish`; build 56). The
+  tour's closing practice used to count, so the card, the game night card
+  and the tracking prompt all landed on the very first Home. A brand-new player's Home is the 1.3.2
   lobby; the event link still opens the challenge for them. The card shows
   while today's round is unplayed; once played the challenge collapses to a
   plum points chip in the stats row (`ViewThatFits` stacks the chips at

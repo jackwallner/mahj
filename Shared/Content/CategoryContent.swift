@@ -151,12 +151,12 @@ enum CategoryContent {
             tiles: [.c(2), .c(2), .c(4), .c(4), .c(4), .b(6), .b(6), .b(8), .d(8), .d(8), .flower, .flower, .joker],
             choices: [.evens2468, .odds13579, .consecutiveRun, .likeNumbers],
             answer: .evens2468,
-            explanation: "Every number tile is even: 2s, 4s, 6s, 8s across suits, plus flowers and a joker that fit anywhere. This rack is screaming 2468."
+            explanation: "Every number tile is even: 2s, 4s, 6s, 8s across suits. The flowers and the joker do not point anywhere else, so the numbers decide: this rack is screaming 2468."
         ),
         HandMatchQuestion(
             id: "hm-run",
             tiles: [.c(3), .c(4), .c(5), .b(4), .b(5), .b(6), .d(5), .d(6), .d(7), .d(7), .wind(.north), .flower, .joker],
-            choices: [.consecutiveRun, .evens2468, .threeSixNine, .year],
+            choices: [.consecutiveRun, .evens2468, .threeSixNine, .odds13579],
             answer: .consecutiveRun,
             explanation: "3-4-5, 4-5-6, 5-6-7: stepping numbers in all three suits. Mixed odds and evens rule out 2468 and 13579; Consecutive Run eats this deal up."
         ),
@@ -165,12 +165,12 @@ enum CategoryContent {
             tiles: [.b(1), .b(1), .b(3), .b(3), .b(5), .b(5), .c(7), .c(9), .c(9), .flower, .d(2), .joker, .wind(.north)],
             choices: [.odds13579, .threeSixNine, .evens2468, .quints],
             answer: .odds13579,
-            explanation: "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2D and lone wind are your first passes."
+            explanation: "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2 Dot and lone wind are your first passes."
         ),
         HandMatchQuestion(
             id: "hm-winds",
             tiles: [.wind(.north), .wind(.north), .wind(.north), .wind(.east), .wind(.east), .wind(.west), .wind(.south), .wind(.south), .dragon(.red), .dragon(.green), .c(4), .flower, .joker],
-            choices: [.windsDragons, .year, .likeNumbers, .odds13579],
+            choices: [.windsDragons, .singlesAndPairs, .likeNumbers, .odds13579],
             answer: .windsDragons,
             explanation: "Eight winds including a pung of Norths, plus two dragons. Only one number tile in the whole rack. This is a Winds & Dragons hand waiting to happen."
         ),
@@ -184,9 +184,9 @@ enum CategoryContent {
         HandMatchQuestion(
             id: "hm-like",
             tiles: [.c(5), .c(5), .b(5), .b(5), .b(5), .d(5), .d(5), .d(5), .c(2), .b(8), .flower, .joker, .wind(.north)],
-            choices: [.likeNumbers, .odds13579, .quints, .consecutiveRun],
+            choices: [.likeNumbers, .evens2468, .quints, .consecutiveRun],
             answer: .likeNumbers,
-            explanation: "EIGHT fives across all three suits. When one number floods your rack like this, Any Like Numbers is the shortest road home."
+            explanation: "EIGHT fives across all three suits. When one number floods your rack like this, Any Like Numbers is the read."
         ),
         HandMatchQuestion(
             id: "hm-year",
@@ -204,10 +204,10 @@ enum CategoryContent {
         ),
         HandMatchQuestion(
             id: "hm-sp",
-            tiles: [.c(1), .c(1), .c(3), .c(3), .b(5), .b(5), .b(7), .b(7), .d(9), .d(9), .wind(.north), .wind(.north), .wind(.east)],
+            tiles: [.c(1), .c(1), .c(3), .c(3), .b(5), .b(5), .b(7), .b(7), .d(8), .d(8), .wind(.north), .wind(.north), .wind(.east)],
             choices: [.singlesAndPairs, .likeNumbers, .windsDragons, .evens2468],
             answer: .singlesAndPairs,
-            explanation: "Six natural pairs and zero jokers. That's a rare, precious start: Singles & Pairs never takes jokers, so a rack dealt in pairs is the one way in, and this one is nearly home."
+            explanation: "Six natural pairs and zero jokers, mixing odd and even numbers. Every pair in Singles & Pairs must be natural, since it never takes jokers, so a rack that already holds this many pairs is a strong start."
         ),
     ]
 }

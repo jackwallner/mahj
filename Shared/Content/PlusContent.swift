@@ -110,7 +110,7 @@ enum PlusContent {
             tiles: [.c(1), .c(1), .c(3), .c(3), .c(3), .d(5), .d(5), .d(7), .b(9), .b(9), .flower, .flower, .joker],
             choices: [.odds13579, .consecutiveRun, .likeNumbers, .threeSixNine],
             answer: .odds13579,
-            explanation: "Every number tile is odd: 1s, 3s, 5s, 7s, 9s, with a pung of 3 Craks already down. Two flowers and a joker go anywhere. This is a 13579 rack."
+            explanation: "Every number tile is odd: 1s, 3s, 5s, 7s, 9s, with a pung of 3 Craks in hand. The flowers and the joker do not point anywhere else, so the numbers decide: this is a 13579 rack."
         ),
         HandMatchQuestion(
             id: "plus-hm-consec",
@@ -122,9 +122,9 @@ enum PlusContent {
         HandMatchQuestion(
             id: "plus-hm-winds",
             tiles: [.wind(.east), .wind(.east), .wind(.east), .wind(.north), .wind(.north), .wind(.west), .wind(.south), .wind(.south), .dragon(.red), .dragon(.red), .dragon(.green), .flower, .joker],
-            choices: [.windsDragons, .singlesAndPairs, .likeNumbers, .year],
+            choices: [.windsDragons, .singlesAndPairs, .likeNumbers, .odds13579],
             answer: .windsDragons,
-            explanation: "Eight winds, a pung of Easts, and three dragons, with not one number tile on the rack. Nothing else on the card can use this. Winds and Dragons it is."
+            explanation: "Eight winds, a pung of Easts, and three dragons, with not one number tile on the rack. Any section built on numbers would be starting from nothing. Winds and Dragons it is."
         ),
         HandMatchQuestion(
             id: "plus-hm-year",
@@ -138,14 +138,14 @@ enum PlusContent {
             tiles: [.joker, .joker, .joker, .joker, .c(3), .c(3), .c(3), .b(3), .b(3), .b(3), .flower, .d(9), .wind(.east)],
             choices: [.quints, .windsDragons, .evens2468, .consecutiveRun],
             answer: .quints,
-            explanation: "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch both pungs into quints. Joker-rich racks look up, not sideways."
+            explanation: "Two pungs of 3s and FOUR jokers. Only jokers can make a quint, and these four can stretch either pung into a quint, or both. Joker-rich racks with big groups point at Quints."
         ),
         HandMatchQuestion(
             id: "plus-hm-sp",
-            tiles: [.c(2), .c(2), .c(4), .c(4), .b(6), .b(6), .b(8), .b(8), .d(2), .d(2), .dragon(.green), .dragon(.green), .wind(.east)],
+            tiles: [.c(2), .c(2), .c(4), .c(4), .b(6), .b(6), .b(7), .b(7), .d(2), .d(2), .dragon(.green), .dragon(.green), .wind(.east)],
             choices: [.singlesAndPairs, .likeNumbers, .consecutiveRun, .quints],
             answer: .singlesAndPairs,
-            explanation: "Six natural pairs and zero jokers. A rack that is already all pairs is most of a Singles and Pairs hand, and that section never takes jokers, so pairs you were dealt are the only way in."
+            explanation: "Six natural pairs and zero jokers, odd and even mixed. A rack that is already all pairs is a good start for Singles and Pairs, and every pair in that section must be natural, since it never takes jokers."
         ),
     ]
 
@@ -173,12 +173,12 @@ enum PlusContent {
             situation: "Courtesy pass, 3 tiles across. You are locked into 369. Pick 3.",
             deal: [.c(3), .c(3), .c(6), .c(6), .c(6), .b(9), .b(9), .d(3), .d(7), .b(4), .b(5), .flower, .joker],
             recommendedPass: [.b(4), .b(5), .d(7)],
-            reasoning: "The courtesy pass is optional and both players must agree on the count. With a pung of 6 Craks and pairs of 3s and 9s you are deep in 369, so the only tiles that do nothing are 4 Bam, 5 Bam, and 7 Dot.",
+            reasoning: "The courtesy pass is optional: the players across each name 0 to 3 tiles, and if they differ the smaller number is passed. With a pung of 6 Craks and pairs of 3s and 9s you are deep in 369, so the cheapest tiles to give are 4 Bam, 5 Bam, and 7 Dot.",
             tip: "The courtesy pass is a negotiation: you can agree on 0, 1, 2, or 3 tiles. If your hand is set, offer fewer, or none."
         ),
         CharlestonScenario(
             id: "plus-ch-keep-flowers",
-            situation: "First Charleston, pass ACROSS. You hold two flowers and they look like spares. Pick 3.",
+            situation: "First Charleston, pass ACROSS. You hold two flowers and are tempted to pass them. Pick 3.",
             deal: [.c(5), .c(5), .c(7), .c(9), .b(5), .b(7), .b(9), .d(1), .d(6), .d(2), .d(4), .flower, .flower],
             recommendedPass: [.d(2), .d(4), .d(6)],
             reasoning: "Eight odd tiles and a pair of 5 Craks: this is a 13579 hand. The even Dots (2, 4, 6) are the passes. Do NOT ship the flowers to make the choice easier. Many sections want flowers, and passing one hands a neighbor a tile your own hand may need later.",
@@ -191,18 +191,18 @@ enum PlusContent {
     static let extraJudgment: [Flashcard] = [
         Flashcard(
             id: "plus-kd-fourth-tile",
-            frontTitle: "An opponent has an exposed PUNG of 6 Dots.",
+            frontTitle: "An opponent has an exposed PUNG of three natural 6 Dots.",
             frontTiles: [.d(6), .d(6), .d(6)],
-            frontSubtitle: "You just drew the fourth 6 Dot. Keep or throw?",
+            frontSubtitle: "You just drew the fourth 6 Dot, and your hand does not need it. Keep or throw?",
             backTitle: "Throw It",
-            backBody: "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three on their rack and one in your hand, all four 6 Dots are accounted for, so nobody else can be building a pair or pung of them. It is one of the safest discards you have.",
+            backBody: "Once its owner has discarded, an exposed pung can never grow into a kong, so they cannot use it there. With three exposed and one in your hand, all four 6 Dots are accounted for, so nobody can hold a natural pair of them. Only a player waiting on it as a single, or one ready to back it with jokers, could still want one. It is one of the safer discards you have.",
             choice: CardChoice("Hold it", "Throw it", answerIndex: 1)
         ),
         Flashcard(
             id: "plus-kd-lone-wind",
             frontTitle: "Turn 3. You hold one North and no other winds.",
             frontTiles: [.wind(.north)],
-            frontSubtitle: "Nobody has exposed a wind. Keep or throw?",
+            frontSubtitle: "Your hand is built on numbers, and nobody has exposed a wind. Keep or throw?",
             backTitle: "Throw It",
             backBody: "A lone North with no partner needs two more Norths or jokers just to make a pung, and your hand is not built on winds. Early, before anyone commits, it is close to a free discard. The same tile late, after someone exposes winds, is a live grenade.",
             choice: CardChoice("Keep it", "Throw it", answerIndex: 1)
@@ -222,7 +222,7 @@ enum PlusContent {
             frontTiles: [.flower, .wind(.south)],
             frontSubtitle: "Which is the safer throw?",
             backTitle: "The Twice-Thrown Wind",
-            backBody: "A tile the table has already passed on twice is far safer than the flower, though not safe: it can still be someone's last tile, and jokers can still finish a group. Flowers are the opposite: nearly every section wants them, so a late flower is one of the most dangerous tiles you can put down.",
+            backBody: "A tile the table has already passed on twice is safer than the flower, though not safe: it can still be someone's last tile, and jokers can still finish a group. Flowers are the opposite: many hands use them, so a late flower can easily be the tile someone is waiting for.",
             choice: CardChoice("The spare flower", "The twice-thrown wind", answerIndex: 1)
         ),
         Flashcard(

@@ -64,6 +64,72 @@ enum CharlestonGenerator {
         return (0..<count).compactMap { _ in pass(using: &generator) }
     }
 
+    /// One pass for a chosen section, for the monthly challenge, which
+    /// takes the sections in turn: picking one at random per attempt let the
+    /// sections that build most easily crowd out the rest (Winds & Dragons
+    /// was half of every month). iOS only, like the rest of the challenge.
+    static func pass(section: HandCategory, seed: String, twoSingles: Bool = false) -> GeneratedPass? {
+        var generator = StableSeededGenerator(seed: seed)
+        for _ in 0..<3000 {
+            let built = twoSingles
+                ? buildTwoSingles(section: section, using: &generator)
+                : build(section: section, using: &generator)
+            if let built, isUnarguable(built) { return built }
+        }
+        return nil
+    }
+
+    /// The stricter test the monthly challenge and Endless Practice apply on
+    /// top of `build` (2026-10-18 answer audit): the stray must be nothing
+    /// to any hand a player could argue for.
+    /// - Addition hands: not when a number stray and every other number on
+    ///   the rack are digits of one sum (4, 9, 1 and 3 read as 4 + 9 = 13),
+    ///   with or without a two-singles rack's keeper.
+    /// - Year hands: never a Soap stray beside a 2, 6 or 7, since the Soap
+    ///   writes the year's zero, and never a 2, 6 or 7 stray beside Soaps
+    ///   or on a Winds & Dragons rack, and never a wind or dragon stray
+    ///   beside a 2 and a 6 or 7 (2026, 2027).
+    static func isUnarguable(_ pass: GeneratedPass) -> Bool {
+        let ranks = Set(pass.tiles.compactMap { tile -> Int? in
+            if case .suited(let rank, _) = tile { return rank }
+            return nil
+        })
+        if case .suited = pass.answer, ranks.count >= 3, DefenseGenerator.fitsOneSum(ranks) { return false }
+        // A two-singles rack must not fit one sum without its keeper either:
+        // 4 + 8 = 12 holds a stray 1 once the keeper 6 goes, and then passing
+        // the keeper is just as right.
+        if case .suited = pass.answer {
+            let otherSingles = pass.tiles.filter { tile in tile != pass.answer && pass.tiles.filter { $0 == tile }.count == 1 }
+            for single in otherSingles {
+                var rest = pass.tiles
+                if let index = rest.firstIndex(of: single) { rest.remove(at: index) }
+                let restRanks = Set(rest.compactMap { tile -> Int? in
+                    if case .suited(let rank, _) = tile { return rank }
+                    return nil
+                })
+                if restRanks.count >= 3, DefenseGenerator.fitsOneSum(restRanks) { return false }
+            }
+        }
+        if pass.answer == .dragon(.soap), !ranks.isDisjoint(with: [2, 6, 7]) { return false }
+        // A 2 with a 6 or 7 on the rack is two of the year's digits, so
+        // neither is a stray.
+        if case .suited(let rank, _) = pass.answer, [2, 6, 7].contains(rank),
+           ranks.contains(2), !ranks.isDisjoint(with: [6, 7]) { return false }
+        // A 2, 6 or 7 on an honors rack could be a year written beside winds.
+        if pass.section == .windsDragons, case .suited(let rank, _) = pass.answer, [2, 6, 7].contains(rank) { return false }
+        // The mirror case: a 2, 6 or 7 stray beside Soaps reads as a year start.
+        if pass.tiles.contains(.dragon(.soap)), case .suited(let rank, _) = pass.answer, [2, 6, 7].contains(rank) { return false }
+        // And a wind or dragon stray beside a 2 and a 6 or 7: the year can be
+        // written beside honors, so the stray is not nothing.
+        switch pass.answer {
+        case .wind, .dragon:
+            if ranks.contains(2), !ranks.isDisjoint(with: [6, 7]) { return false }
+        default:
+            break
+        }
+        return true
+    }
+
     private static func pass<R: RandomNumberGenerator>(
         attempts: Int = 200,
         using generator: inout R
@@ -229,7 +295,7 @@ enum CharlestonGenerator {
 
     /// Runs are left out: their only clean stray is an honor, and an honor
     /// against a number single is a judgment call, not a reading question.
-    private static let twoSinglesSections: [HandCategory] = [.evens2468, .odds13579, .threeSixNine, .windsDragons]
+    static let twoSinglesSections: [HandCategory] = [.evens2468, .odds13579, .threeSixNine, .windsDragons]
 
     private static let twoSinglesPartitions: [[Int]] = [
         [3, 3, 3, 2, 1],
@@ -275,17 +341,22 @@ enum CharlestonGenerator {
         let fullRead = RackGenerator.category(for: rack)
         guard fullRead == nil || fullRead == section else { return nil }
 
+        // Real cards put a few numbers in Winds & Dragons hands, so a lone
+        // number there is the weakest fit, not an impossible one.
+        let strayFit = section == .windsDragons
+            ? "is a lone number, the tile this rack has least use for"
+            : "is a number \(section.displayName) never uses"
         groupLeaders.shuffle(using: &generator)
         var choices = [stray, keeper] + Array(groupLeaders.prefix(2))
         choices.shuffle(using: &generator)
         let notes: [String?] = choices.map { tile in
             if tile == stray { return nil }
             if tile == keeper {
-                return "The \(keeper.spokenName) is a single too, but it fits \(section.displayName): one more draw makes it a pair. The \(stray.spokenName) has no place in this hand."
+                return "The \(keeper.spokenName) is a single too, but it fits \(section.displayName): one more draw makes it a pair. The \(stray.spokenName) \(strayFit)."
             }
             return note(passing: tile, held: rack.filter { $0 == tile }.count)
         }
-        let explanation = "This rack is pointed at \(section.displayName), and two tiles are singles. The \(keeper.spokenName) fits that plan and can still grow into a pair or a pung. The \(stray.spokenName) does not fit it at all, so it is the one to pass. Keep the single that can still help."
+        let explanation = "This rack is pointed at \(section.displayName), and two tiles are singles. The \(keeper.spokenName) fits that plan and can still grow into a pair or a pung. The \(stray.spokenName) \(strayFit), so it is the one to pass. Keep the single that can still help."
         return GeneratedPass(tiles: rack, section: section, answer: stray, choices: choices, explanation: explanation, choiceNotes: notes)
     }
 

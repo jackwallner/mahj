@@ -216,7 +216,12 @@ enum EndlessPractice {
     /// three-tile ranking is not gradeable without a coach, and the authored
     /// Charleston drills still teach the whole pass.
     private static func passItems(count: Int) -> [QuickItem] {
-        CharlestonGenerator.batch(count: count).map { passItem($0) }
+        // Topped up in rounds, because `isUnarguable` turns some deals away.
+        var passes: [CharlestonGenerator.GeneratedPass] = []
+        for _ in 0..<20 where passes.count < count {
+            passes += CharlestonGenerator.batch(count: count * 2).filter(CharlestonGenerator.isUnarguable)
+        }
+        return passes.prefix(count).map { passItem($0) }
     }
 
     static func passItem(
@@ -241,7 +246,11 @@ enum EndlessPractice {
     // MARK: - Defense
 
     private static func defenseItems(count: Int) -> [QuickItem] {
-        DefenseGenerator.batch(count: count).map { defenseItem($0) }
+        var questions: [DefenseGenerator.GeneratedDefense] = []
+        for _ in 0..<20 where questions.count < count {
+            questions += DefenseGenerator.batch(count: count * 4).filter(DefenseGenerator.isUnarguable)
+        }
+        return questions.prefix(count).map { defenseItem($0) }
     }
 
     static func defenseItem(

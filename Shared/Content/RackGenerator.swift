@@ -198,6 +198,12 @@ enum RackGenerator {
         return rack(for: target, attempts: attempts, using: &generator)
     }
 
+    /// A reproducible rack for one section, for the dated monthly challenge.
+    static func rack(for target: HandCategory, seed: String) -> GeneratedRack? {
+        var generator = StableSeededGenerator(seed: seed)
+        return rack(for: target, using: &generator)
+    }
+
     /// A batch spread evenly across the sections rather than at their natural
     /// frequency, so no one section dominates a practice run.
     static func batch(count: Int) -> [GeneratedRack] {
@@ -233,12 +239,16 @@ enum RackGenerator {
     /// it out. A fixed line per section was often untrue for the rack on
     /// screen ("a single odd tile" on a rack with no numbers at all).
     static func missNotes(tiles: [Tile], choices: [HandCategory], answer: HandCategory) -> [String?] {
-        choices.map { choice in choice == answer ? nil : missNote(tiles: tiles, choice: choice) }
+        choices.map { choice in choice == answer ? nil : missNote(tiles: tiles, choice: choice, answer: answer) }
     }
 
-    static func missNote(tiles: [Tile], choice: HandCategory) -> String {
+    /// Why a wrong section does not fit this rack. When nothing on the rack
+    /// rules the section out, the note says the answer is the stronger read
+    /// instead of restating what the section wants, which on a rack that
+    /// half fits it would argue for the wrong answer.
+    static func missNote(tiles: [Tile], choice: HandCategory, answer: HandCategory) -> String {
         let ranks = suitedRanks(tiles).sorted()
-        let generic = "\(choice.displayName): \(choice.requires)."
+        let generic = "\(choice.displayName) could use some of these tiles, but more of them point to \(answer.displayName)."
         let noNumbers = "This rack has no numbered tiles at all, and \(choice.displayName) is built from numbers."
         switch choice {
         case .evens2468:
@@ -256,9 +266,11 @@ enum RackGenerator {
             return ranks.contains(6) ? generic : "There is no 6 here, and 369 needs the 6 to read as anything other than odds."
         case .consecutiveRun:
             if ranks.isEmpty { return "A run is all numbers stepping up in order, and this rack has no numbered tiles." }
-            if ranks.count < 3 { return "A run needs three or more numbers in a row, and this rack only has \(plural(ranks))." }
-            let gapped = (ranks.last ?? 0) - (ranks.first ?? 0) != ranks.count - 1
-            return gapped ? "The numbers here (\(ranks.map(String.init).joined(separator: ", "))) skip, and a run steps up with no gaps." : generic
+            if ranks.count < 3 { return "A run steps up with no gaps, and this rack only has \(plural(ranks))." }
+            // Any three numbers in a row is the start of a run, so only a rack
+            // without one is ruled out by its gaps.
+            let hasThreeInARow = ranks.contains { ranks.contains($0 + 1) && ranks.contains($0 + 2) }
+            return hasThreeInARow ? generic : "The numbers here (\(ranks.map(String.init).joined(separator: ", "))) never make three in a row, and a run steps up with no gaps."
         case .windsDragons:
             let suited = tiles.filter { if case .suited = $0 { return true }; return false }.count
             let honors = tiles.filter { tile in
@@ -266,20 +278,28 @@ enum RackGenerator {
                 if case .dragon = tile { return true }
                 return false
             }.count
-            return suited > honors ? "This rack is mostly numbered tiles, and Winds & Dragons is built from winds and dragons." : generic
+            let honorCount = honors == 0 ? "no winds or dragons" : honors == 1 ? "only one wind or dragon" : "only \(honors) winds or dragons"
+            return suited > honors ? "This rack has \(suited) numbered tiles and \(honorCount), so it has little to build a Winds & Dragons hand from." : generic
         case .likeNumbers:
             if ranks.isEmpty { return noNumbers }
             if ranks.count >= 3 { return "Like Numbers repeats one number across the suits, and this rack spreads across \(plural(ranks))." }
+            let numbered = tiles.filter { if case .suited = $0 { return true }; return false }.count
+            if numbered < 5 { return "Like Numbers is built from one number in several suits, and this rack has only \(numbered) number tile\(numbered == 1 ? "" : "s")." }
             return generic
         case .year:
-            return tiles.contains(.dragon(.soap)) ? generic : "A year hand uses Soaps for its zeros, and this rack has none."
+            // The digits change with every card, so the note never names them.
+            return ranks.isEmpty ? noNumbers : generic
         case .quints:
             let jokers = tiles.filter { $0 == .joker }.count
             return jokers < 2 ? "Quints need five of a kind, which takes jokers, and this rack has \(jokers == 0 ? "none" : "just one")." : generic
         case .singlesAndPairs:
-            let counts = Dictionary(grouping: tiles.filter { $0 != .joker }, by: { $0 }).mapValues(\.count)
+            // Flowers are left out: a third flower is just a spare, not a pung.
+            let counts = Dictionary(grouping: tiles.filter { $0 != .joker && $0 != .flower }, by: { $0 }).mapValues(\.count)
             if let pung = counts.filter({ $0.value >= 3 }).keys.sorted(by: { $0.spokenName < $1.spokenName }).first {
                 return "This rack holds three or more \(pung.spokenName), and Singles & Pairs never uses a pung."
+            }
+            if tiles.contains(.joker) {
+                return "Singles & Pairs never takes jokers, so the joker on this rack could not help it."
             }
             return generic
         }

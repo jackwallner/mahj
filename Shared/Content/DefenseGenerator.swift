@@ -166,6 +166,50 @@ enum DefenseGenerator {
         return pool.first
     }
 
+    /// The stricter test the monthly challenge and Endless Practice apply on
+    /// top of `build`, for readings a card can still hold (2026-10-18 content
+    /// audit):
+    /// - Addition hands: no safe tile that makes a sum with the two exposed
+    ///   numbers (5 and 7 with a 2, or 1 and 7 with a 2, read as 5 + 7 = 12).
+    /// - Runs: the safe tile and both exposures span seven numbers or more,
+    ///   wider than any run that has room for two pungs.
+    /// - Year: never pungs of 2s and 6s, which also spell 2026.
+    static func isUnarguable(_ question: GeneratedDefense) -> Bool {
+        let exposed = question.exposures.compactMap(\.first).compactMap { rank(of: $0) }
+        guard exposed.count == 2, let safe = rank(of: question.answer) else { return false }
+        let all = exposed + [safe]
+        guard (all.max() ?? 0) - (all.min() ?? 0) >= 6 else { return false }
+        guard Set(exposed) != [2, 6] else { return false }
+        return !makesSum(exposed[0], exposed[1], safe)
+    }
+
+    /// Whether three numbers can all sit in one written sum a + b = c, the
+    /// digits of c included: 5 + 7 = 12 holds a 1, 2, 5 and 7, so any three
+    /// of those can be argued into an addition hand.
+    static func makesSum(_ x: Int, _ y: Int, _ z: Int) -> Bool {
+        (1...9).contains { a in
+            (a...9).contains { b in
+                var digits = [a, b] + String(a + b).compactMap(\.wholeNumberValue)
+                return [x, y, z].allSatisfy { number in
+                    guard let hit = digits.firstIndex(of: number) else { return false }
+                    digits.remove(at: hit)
+                    return true
+                }
+            }
+        }
+    }
+
+    /// Whether every number on a rack is a digit of one written sum (4, 9,
+    /// 1 and 3 are 4 + 9 = 13), so an addition hand could want them all.
+    static func fitsOneSum(_ ranks: Set<Int>) -> Bool {
+        guard !ranks.isEmpty else { return false }
+        return (1...9).contains { a in
+            (a...9).contains { b in
+                ranks.isSubset(of: Set([a, b] + String(a + b).compactMap(\.wholeNumberValue)))
+            }
+        }
+    }
+
     /// Every readable section that holds all the exposed tiles.
     static func sectionsFitting(_ exposed: [Tile]) -> [HandCategory] {
         readableSections.filter { section in exposed.allSatisfy { fits($0, section) } }
@@ -185,6 +229,16 @@ enum DefenseGenerator {
         }
     }
 
+    /// The suit both tiles are in, or nil when they differ.
+    private static func sharedSuit(_ tiles: [Tile]) -> Suit? {
+        let suits = tiles.compactMap { tile -> Suit? in
+            if case .suited(_, let suit) = tile { return suit }
+            return nil
+        }
+        guard suits.count == tiles.count, let first = suits.first, suits.allSatisfy({ $0 == first }) else { return nil }
+        return first
+    }
+
     private static func rank(of tile: Tile) -> Int? {
         if case .suited(let rank, _) = tile { return rank }
         return nil
@@ -195,20 +249,22 @@ enum DefenseGenerator {
     /// run through both. Returns nil when the exposures are not that close.
     static func withRunBait(_ question: GeneratedDefense) -> GeneratedDefense? {
         let exposed = question.exposures.compactMap(\.first)
+        // Only pungs in one suit: a run is one suit, so the tile between a
+        // 2 Bam and a 4 Dot (or a Crak between two Dots) feeds no run at all.
         guard exposed.count == 2,
               let low = exposed.compactMap({ rank(of: $0) }).min(),
               let high = exposed.compactMap({ rank(of: $0) }).max(),
-              high - low == 2 else { return nil }
-        let middle = low + 1
-        guard let bait = question.choices.firstIndex(where: { $0 != question.answer }),
-              let suit = Suit.allCases.first(where: { suit in !question.choices.contains(.suited(rank: middle, suit: suit)) })
+              high - low == 2,
+              let suit = sharedSuit(exposed) else { return nil }
+        let runTile = Tile.suited(rank: low + 1, suit: suit)
+        guard !question.choices.contains(runTile),
+              let bait = question.choices.firstIndex(where: { $0 != question.answer })
         else { return nil }
-        let runTile = Tile.suited(rank: middle, suit: suit)
         var choices = question.choices
         choices[bait] = runTile
         var notes = question.choiceNotes
         let shown = exposed.map(\.spokenName).joined(separator: " and ")
-        notes[bait] = "The \(runTile.spokenName) sits right between their \(shown), so it feeds a run through both pungs. It is the trap tile on this table."
+        notes[bait] = "The \(runTile.spokenName) sits right between their \(shown), so it could feed a run through both pungs. That makes it a trap, not a safe throw."
         return GeneratedDefense(
             exposures: question.exposures,
             impliedSection: question.impliedSection,
@@ -228,19 +284,21 @@ enum DefenseGenerator {
         let shown = exposures.compactMap(\.first).map(\.spokenName).joined(separator: " and a pung of ")
         let readings = sectionsFitting(exposures.compactMap(\.first))
         let exposedRanks = exposures.compactMap(\.first).compactMap { rank(of: $0) }
-        // Pungs within five numbers of each other can also sit in a run, and
-        // the safe tile is always chosen outside that span.
-        let runPossible = (exposedRanks.max() ?? 0) - (exposedRanks.min() ?? 0) <= 4
+        // Pungs in one suit within five numbers of each other can also sit in
+        // a run, and the safe tile is always chosen outside that span. A run
+        // is one suit, so pungs in two suits get no run sentence.
+        let runSuit = sharedSuit(exposures.compactMap(\.first))
+        let runPossible = runSuit != nil && (exposedRanks.max() ?? 0) - (exposedRanks.min() ?? 0) <= 4
         var read = readings.count > 1
             ? "A pung of \(shown) fit both \(readingNames(readings)), so read the table both ways."
-            : "A pung of \(shown) both sit inside \(section.displayName), so that is the family this player is building."
-        if runPossible, let low = exposedRanks.min(), let high = exposedRanks.max() {
-            read += " A Consecutive Run from \(low) to \(high) could hold both, too."
+            : "A pung of \(shown) both sit inside \(section.displayName), so that is the family their exposures point to."
+        if runPossible, let suit = runSuit, let low = exposedRanks.min(), let high = exposedRanks.max() {
+            read += " A Consecutive Run in \(suit.displayName)s from \(low) to \(high) could hold both, too."
         }
         let value = rank(of: safe) ?? 0
         let article = value == 8 ? "an" : "a"
         var never = readings.map { "\($0.displayName) never uses \(article) \(value)" }
         if runPossible { never.append("no run through both of them reaches \(article) \(value)") }
-        return "\(read) The \(safe.spokenName) fits none of it: \(never.joined(separator: ", and ")). Throw the tile their exposures rule out, and keep the ones they are clearly still collecting."
+        return "\(read) The \(safe.spokenName) fits none of it: \(never.joined(separator: ", and ")). Of these four it is the safest throw, because every other choice feeds what they are showing."
     }
 }

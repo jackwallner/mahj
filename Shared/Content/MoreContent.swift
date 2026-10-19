@@ -77,7 +77,7 @@ enum MoreContent {
                     .flower, .flower],
             choices: [.evens2468, .odds13579, .threeSixNine, .consecutiveRun],
             answer: .evens2468,
-            explanation: "Every number on this rack is even and there is not an odd tile in sight. Pass anything odd and commit to 2468."
+            explanation: "Every number on this rack is even, with not an odd tile in sight, so 2468 is the read."
         ),
         HandMatchQuestion(
             id: "more-rack-consecutive",
@@ -99,7 +99,7 @@ enum MoreContent {
                     .flower, .flower],
             choices: [.windsDragons, .likeNumbers, .singlesAndPairs, .threeSixNine],
             answer: .windsDragons,
-            explanation: "Not one numbered tile on the rack. When honors pile up like this, Winds and Dragons is the only section that fits."
+            explanation: "Not one numbered tile on the rack. When honors pile up like this, Winds and Dragons is the clear read: any section built on numbers would be starting from nothing."
         ),
         HandMatchQuestion(
             id: "more-rack-369",
@@ -130,13 +130,13 @@ enum MoreContent {
     static let passes: [CharlestonScenario] = [
         CharlestonScenario(
             id: "more-pass-odds",
-            situation: "Your deal leans heavily odd. First pass, three tiles to the right.",
+            situation: "Your deal leans odd. First pass, three tiles to the right.",
             deal: [.c(1), .c(1), .c(3), .c(5),
                    .b(1), .b(3), .b(5), .b(9),
                    .d(7), .d(9),
-                   .c(2), .b(4), .wind(.north)],
-            recommendedPass: [.c(2), .b(4), .wind(.north)],
-            reasoning: "Ten odd tiles is a direction, not a coincidence. The 1-2-3-4-5 stretch across Craks and Bams could look like a run, but it leans on the lone 2 and 4, and ten odds is the far stronger read. The two evens and the lone wind are doing nothing for an odds hand, so they go first.",
+                   .c(8), .d(6), .wind(.north)],
+            recommendedPass: [.c(8), .d(6), .wind(.north)],
+            reasoning: "Ten odd tiles is a direction, not a coincidence. The 8 Crak and 6 Dot are even, so an odds hand cannot use them, and the North is a lone wind with no partner. Those three go first.",
             tip: "Pass what does not fit the story your rack is already telling."
         ),
         CharlestonScenario(
@@ -147,18 +147,18 @@ enum MoreContent {
                    .flower, .flower,
                    .c(4), .b(7), .d(2), .d(8), .c(9)],
             recommendedPass: [.c(4), .b(7), .c(9)],
-            reasoning: "A pung of east, a pair of red and a green is a real Winds and Dragons start. The five loose numbers are the passable ones. The 2 and 8 Dot are the only two that share a suit and an even family, so they are the last to go; send the other three first.",
-            tip: "Keep the flowers. Almost every section uses them, and they cost you nothing to hold."
+            reasoning: "A pung of Easts, a pair of Reds and a Green is a real Winds and Dragons start. The five loose numbers are scattered and unpaired, so they are the likeliest passes: send three now and the other two on the next pass.",
+            tip: "Keep the flowers. Many hands use them, and they cost you nothing to hold."
         ),
         CharlestonScenario(
             id: "more-pass-flexible",
-            situation: "Nothing has taken shape yet. First pass, and you want to stay flexible.",
+            situation: "Mostly evens, no pairs yet. First pass.",
             deal: [.c(2), .c(4), .c(6),
                    .b(2), .b(4), .b(6), .b(8),
                    .d(4), .d(6),
                    .d(1), .d(3), .c(9), .flower],
             recommendedPass: [.d(1), .d(3), .c(9)],
-            reasoning: "Nine even tiles against three odd ones. You are not committed yet, but the evens are clearly the majority, so pass the odd strays and see what comes back.",
+            reasoning: "Nine even tiles against three odd ones. You are not committed yet, but the evens are clearly the majority and no pair or flower has to go, so pass the odd strays and see what comes back.",
             tip: "Early passes are about narrowing, not deciding. Keep the majority and let the Charleston tell you the rest."
         ),
     ]
@@ -197,20 +197,20 @@ enum MoreContent {
             id: "more-table-safe-discard",
             prompt: "Late in the hand, which discard is usually safest?",
             choices: [
-                "A tile nobody has exposed",
-                "A tile already discarded twice with no takers",
-                "A tile that matches an opponent's exposure",
+                "A tile you have not seen anyone discard",
+                "A tile of a kind already discarded twice with no takers",
+                "A tile that fits the pattern of an opponent's exposures",
                 "A flower"
             ],
             answerIndex: 1,
-            explanation: "A tile that has gone around twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats feeding an exposure or giving up a flower."
+            explanation: "A tile discarded twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower."
         ),
         QuizQuestion(
             id: "more-table-exposure-read",
-            prompt: "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections fits both exposures?",
-            choices: ["An odds hand", "An evens hand", "Winds and Dragons", "Singles and Pairs"],
+            prompt: "An opponent exposes a pung of 4 Bams and a pung of 6 Dots. Which of these sections do they most likely point toward?",
+            choices: ["An odds hand", "An evens hand", "A 369 hand", "Singles and Pairs"],
             answerIndex: 1,
-            explanation: "Two even pungs points at 2468. Stop feeding them even tiles and watch which numbers they still need."
+            explanation: "Two even pungs point toward 2468. An odds hand cannot use them, a 369 hand cannot use the 4s, and Singles and Pairs never uses a pung. Stop feeding them even tiles and watch which numbers they still need."
         ),
         QuizQuestion(
             id: "more-table-never-expose",
@@ -341,10 +341,10 @@ enum MoreContent {
             id: "more-judge-third-copy",
             frontTitle: "You hold two 5 Craks",
             frontTiles: [.c(5), .c(5)],
-            frontSubtitle: "Two more are already exposed elsewhere. Keep waiting?",
-            backTitle: "Let it go",
-            backBody: "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. Only a joker can grow this pair into a pung now, so build on it only if jokers are in reach. Count before you commit.",
-            choice: CardChoice("Let it go", "Keep waiting", answerIndex: 0)
+            frontSubtitle: "The other two are already exposed elsewhere. Keep waiting for a third?",
+            backTitle: "Stop waiting",
+            backBody: "All four are accounted for, so no real 5 Crak can still reach you. Waiting on one is waiting on nothing. The pair is still a pair, but it can only become a pung with a joker, so do not count on a third copy. Count before you commit.",
+            choice: CardChoice("Stop waiting", "Keep waiting", answerIndex: 0)
         ),
         Flashcard(
             id: "more-judge-joker-hold",
