@@ -78,7 +78,7 @@ path, and every one keeps the 3.1.2 disclosures.
 |---|---|---|
 | `trial_cta` | `seven_day` ("Start 7-day free trial") | `my`, `your` |
 | `trial_title` | `try_free` ("Try Mahj+ free") | `game_night` ("Get ready for game night") |
-| `trial_benefits` | `reassure_first` (1.3.2 list, free rooms first) | `paid_first` (leads with Game Night Prep, no free-rooms line) |
+| `trial_benefits` | `reassure_first` (free rooms first, then unlimited hands) | `paid_first` (leads with unlimited hands, no free-rooms line) |
 | `onboarding_plan` | `monthly` | `yearly` (price line, disclosure and purchase all follow) |
 
 Test one key at a time as a RevenueCat Experiment (second offering, same
@@ -112,3 +112,5 @@ RevenueCat shows at 75% chance to win or better on initial conversion; if
 neither gets there by about 5 weeks, stop and keep 7-day. Promote "my" by
 setting `cta_my` as the default offering.
 
+
+**Unlimited hands leads the pitch (1.4.2, 2026-10-19):** with the Mahj Minute free for everyone, Jack asked the Mahj+ pitch to lead with unlimited Play a Hand. The trial page benefit lines, the paywall's first benefit, the result-screen pitch card, Home's Get Mahj+ row and the room upsell all say "unlimited hands in Play a Hand". Only the benefit wording changed; the trial page layout, CTA and plan are untouched.

@@ -15,8 +15,8 @@ struct MahjPlusPitchCard: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     init(
-        headline: String = "Keep going with \(Membership.name)",
-        detail: String = "Play a Hand as often as you like, Endless Practice, Game Night Prep and the Master Tables.",
+        headline: String = "Play unlimited hands with \(Membership.name)",
+        detail: String = "Every hand coached on every throw, plus Endless Practice, Game Night Prep and the Master Tables.",
         action: @escaping () -> Void
     ) {
         self.headline = headline

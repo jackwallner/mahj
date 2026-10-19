@@ -1021,7 +1021,7 @@ struct HomeView: View {
                     Text("Get \(Membership.name)")
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
-                    Text("Play a Hand anytime, Game Night Prep, endless modes, and \(lockedDrillCount) more drills across every room")
+                    Text("Unlimited hands in Play a Hand, Game Night Prep, endless modes, and \(lockedDrillCount) more drills across every room")
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
                         .multilineTextAlignment(.leading)

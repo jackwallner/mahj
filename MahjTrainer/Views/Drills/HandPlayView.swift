@@ -553,7 +553,7 @@ struct HandPlayView: View {
                 Text("That was today's free hand")
                     .font(.headline)
                     .foregroundStyle(Theme.ink)
-                Text("\(Membership.name) deals as many as you want, whenever you want them.")
+                Text("\(Membership.name) deals unlimited hands, each one coached on every throw.")
                     .font(.subheadline)
                     .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)

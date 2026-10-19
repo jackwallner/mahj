@@ -499,7 +499,7 @@ struct MonthlyChallengeResultView: View {
                 }
                 MahjPlusPitchCard(
                     headline: "Want more than five a day?",
-                    detail: "\(Membership.name) adds Endless Practice, Play a Hand as often as you like, Game Night Prep and the Master Tables."
+                    detail: "\(Membership.name) adds unlimited hands in Play a Hand, Endless Practice, Game Night Prep and the Master Tables."
                 ) { showPaywall = true }
             }
             .padding()
