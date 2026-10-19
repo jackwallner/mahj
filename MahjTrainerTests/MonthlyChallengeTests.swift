@@ -72,12 +72,35 @@ final class MonthlyChallengeTests: XCTestCase {
         let month = MonthlyChallengeContent.challenge(for: date(2026, 12, 10), calendar: calendar)
         var sides: Set<MonthlyChallengeTheme> = []
         for day in 1...month.dayCount {
-            let skills = month.round(day: day).items.map(MonthlyChallengeContent.skill(of:))
+            let skills = month.round(day: day).items.prefix(MonthlyChallengeContent.themedPerRound).map(MonthlyChallengeContent.skill(of:))
             XCTAssertEqual(skills.filter { $0 == .defense }.count, 2, "day \(day): \(skills)")
             XCTAssertEqual(skills.first, .defense)
             sides.insert(skills[1])
         }
         XCTAssertEqual(sides, [.charleston, .rackReading])
+    }
+
+    /// The Mahj Minute's two table calls close every day, and a month never
+    /// repeats one while the pool lasts.
+    func testTableCallsCloseEachDayWithoutRepeating() {
+        let pool = MonthlyChallengeContent.tableCallPool
+        XCTAssertGreaterThanOrEqual(pool.count, 2)
+        let defense = Set(MonthlyChallengeContent.defensePool.map(\.id))
+        for monthDate in [date(2026, 11, 5), date(2026, 12, 5), date(2027, 1, 5)] {
+            let month = MonthlyChallengeContent.challenge(for: monthDate, calendar: calendar)
+            var seen: [String] = []
+            for day in 1...month.dayCount {
+                let calls = Array(month.round(day: day).items.suffix(MonthlyChallengeContent.tableCallsPerRound))
+                XCTAssertEqual(calls.count, MonthlyChallengeContent.tableCallsPerRound)
+                for call in calls {
+                    XCTAssertFalse(defense.contains(call.id), "\(month.monthKey) day \(day) \(call.id)")
+                    XCTAssertEqual(MonthlyChallengeContent.skillTitle(of: call), "Table Judgment")
+                }
+                seen += calls.map(\.id)
+            }
+            let window = min(seen.count, pool.count)
+            XCTAssertEqual(Set(seen.prefix(window)).count, window, "\(month.monthKey) repeats a table call early")
+        }
     }
 
     /// Every third day closes on a hand-written question, and a month does
@@ -288,12 +311,14 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(reloaded.progress(for: today)?.answers, [true, false])
         XCTAssertEqual(reloaded.progress(for: today)?.picks, [0, 2])
 
-        let result = reloaded.recordAnswer(round: today, correct: true, pick: 1)
-        XCTAssertEqual(result?.total, 3)
-        XCTAssertEqual(result?.score, 2)
-        XCTAssertEqual(result?.picks, [0, 2, 1])
+        XCTAssertNil(reloaded.recordAnswer(round: today, correct: true, pick: 1))
+        XCTAssertNil(reloaded.recordAnswer(round: today, correct: true, pick: 3))
+        let result = reloaded.recordAnswer(round: today, correct: false, pick: 0)
+        XCTAssertEqual(result?.total, 5)
+        XCTAssertEqual(result?.score, 3)
+        XCTAssertEqual(result?.picks, [0, 2, 1, 3, 0])
         XCTAssertNil(reloaded.progress(for: today))
-        XCTAssertEqual(MonthlyChallengeStore(defaults: defaults).result(for: today)?.score, 2)
+        XCTAssertEqual(MonthlyChallengeStore(defaults: defaults).result(for: today)?.score, 3)
     }
 
     /// A round left half done at midnight keeps what it earned.

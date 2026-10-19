@@ -357,9 +357,9 @@ final class LayoutSweepTests: XCTestCase {
         playHand()
 
         launch(onboarded: true, member: true)
-        if openContaining("Minute") {
+        if openContaining("Today's Mahj Minute") {
             captureScrolled("mahjminute", max: 6)
-            let start = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Start Today")).firstMatch
+            let start = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Today's Mahj Minute")).firstMatch
             if reach(start, swipes: 6) {
                 start.tap()
                 settle()

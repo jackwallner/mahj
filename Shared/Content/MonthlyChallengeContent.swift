@@ -86,8 +86,9 @@ struct MonthlyChallenge: Identifiable, Sendable {
     }
 }
 
-/// One day of a month's challenge: three questions, the same for everyone
-/// that day. The month score is built from these.
+/// One day of a month's challenge, played as that day's Mahj Minute: five
+/// questions, the same for everyone that day. The month score is built from
+/// these.
 struct ChallengeRound: Identifiable, Sendable {
     let month: MonthlyChallenge
     let day: Int
@@ -100,14 +101,19 @@ struct ChallengeRound: Identifiable, Sendable {
     var title: String { "\(month.monthName) \(day)" }
 }
 
-/// A month-long challenge, free for everyone: three new questions every day,
-/// the same three on every device, two on the month's skill and one from
-/// another. A player's best `countedDays` rounds make the month score, so a
+/// A month-long challenge, free for everyone, built from each day's Mahj
+/// Minute: five new questions a day, the same five on every device. Three
+/// are the month's (two on its skill, one from another), then two table
+/// calls. A player's best `countedDays` rounds make the month score, so a
 /// few missed days cost nothing and coming back keeps paying. Generated
-/// questions come from the seeded generators; every third day the last
+/// questions come from the seeded generators; every third day the third
 /// question is a hand-written one from the app's own teaching content.
 enum MonthlyChallengeContent {
-    static let questionsPerRound = 3
+    /// The month's own questions: the theme, another skill, the closer.
+    static let themedPerRound = 3
+    /// The Mahj Minute's table calls after them.
+    static let tableCallsPerRound = 2
+    static var questionsPerRound: Int { themedPerRound + tableCallsPerRound }
     /// Rounds that count toward the month score.
     static let countedDays = 20
     static var maxMonthPoints: Int { questionsPerRound * countedDays }
@@ -120,10 +126,11 @@ enum MonthlyChallengeContent {
     /// November 2026 opens the rotation on the Charleston.
     private static let rotationAnchor = 2026 * 12 + 10
 
+    /// The id stays "monthly-challenge": it keys saved sessions.
     static let drill = Drill(
         id: "monthly-challenge",
-        title: "Monthly Challenge",
-        subtitle: "Three new questions a day, the same for every player",
+        title: "Mahj Minute",
+        subtitle: "Five new questions a day, the same for every player",
         kind: .quiz([])
     )
 
@@ -267,10 +274,12 @@ enum MonthlyChallengeContent {
         }
     }
 
-    /// Three questions, easiest first: one on the theme, one from another
-    /// skill (the other two take turns by day), then a harder one on the
-    /// theme. Every third day that last one is hand-written, rotating through
-    /// its pool so a month does not repeat one until the pool is used up.
+    /// Five questions. The month's three, easiest first: one on the theme,
+    /// one from another skill (the other two take turns by day), then a
+    /// harder one on the theme. Every third day that one is hand-written,
+    /// rotating through its pool so a month does not repeat one until the
+    /// pool is used up. Then the Minute's two table calls. They go last so a
+    /// round saved before they existed still matches its first three.
     private static func items(month: MonthlyChallenge, day: Int, roundKey: String, label: String) -> [QuickItem] {
         let seed = "monthly-\(roundKey)"
         let theme = month.theme
@@ -282,7 +291,34 @@ enum MonthlyChallengeContent {
             let pool = authoredSequence(for: month, label: label)
             if !pool.isEmpty { closer = pool[(day / 3 - 1) % pool.count] }
         }
-        return [themed.first, side.first, closer].compactMap { $0 }
+        return [themed.first, side.first, closer].compactMap { $0 } + tableCalls(month: month, day: day, label: label)
+    }
+
+    /// The day's two table calls (keep or throw, call or wait). One shuffle
+    /// of the pool per month, dealt two a day, so a month never repeats one
+    /// while the pool lasts.
+    private static func tableCalls(month: MonthlyChallenge, day: Int, label: String) -> [QuickItem] {
+        let pool = tableCallPool
+        guard !pool.isEmpty else { return [] }
+        let order = ChoiceShuffle.permutation(count: pool.count, seed: "monthly-\(month.monthKey)-table")
+        return (0..<tableCallsPerRound).map { slot in
+            relabeled(SessionBuilder.prepared(pool[order[((day - 1) * tableCallsPerRound + slot) % pool.count]]), label)
+        }
+    }
+
+    /// The Table Room's judgment calls, less the ones defense months already
+    /// use as closers.
+    static var tableCallPool: [QuickItem] {
+        let defense = Set(defensePool.map(\.id))
+        return SessionBuilder.choiceItems(in: "table-room", includePro: true).filter { !defense.contains($0.id) }
+    }
+
+    private static let tableCallIDs = Set(tableCallPool.map(\.id))
+
+    /// The label over an answer in the review: the month's skill, or the
+    /// table call it is.
+    static func skillTitle(of item: QuickItem) -> String {
+        tableCallIDs.contains(item.id) ? "Table Judgment" : skill(of: item).skillTitle
     }
 
     /// The skill for the day's middle question: the two off-theme skills

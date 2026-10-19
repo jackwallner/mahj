@@ -56,8 +56,8 @@ enum WhatsNew {
                 WhatsNewItem(
                     id: monthlyChallengeItemID,
                     icon: "calendar",
-                    title: "A challenge every month",
-                    body: "Three new questions every day, the same for every player and free for everyone. Your best 20 days make your month score, and a strong month shows where you rank.",
+                    title: "Mahj Minute, now for everyone",
+                    body: "Five new questions every day, the same for every player. Each day counts toward the month's challenge: your best 20 days make your score, and a strong month shows where you rank.",
                     isAppleOnly: true
                 ),
                 WhatsNewItem(

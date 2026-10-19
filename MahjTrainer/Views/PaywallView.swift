@@ -57,7 +57,6 @@ struct PaywallContent: View {
                 // already met it once a day, so it is the one line on this
                 // list they can price from experience.
                 benefit("Play a Hand: deal, commit, and play it out as often as you like")
-                benefit("Mahj Minute: the shared five-question daily set")
                 benefit("Game Night Prep: five minutes built around your weak spots")
                 benefit("Endless Practice: fresh racks, passes and defensive calls, forever")
                 benefit("Fix My Mistakes: misses come back until they stick")

@@ -1,8 +1,8 @@
 Hem revisat totes les preguntes de pràctica i del repte, les explicacions són més clares i el repte mensual ja té preguntes noves fins al setembre vinent.
 
-Un repte nou cada mes, ja disponible.
+Mahj Minute ara és per a tothom, i compta.
 
-Tres preguntes noves cada dia, les mateixes per a tothom. Els teus 20 millors dies fan la puntuació del mes, i un bon mes et mostra en quina posició estàs. Apareix a la pantalla d'inici després de la teva primera pràctica.
+Cinc preguntes noves cada dia, les mateixes per a tothom. Cada dia suma al repte del mes: els teus 20 millors dies fan la teva puntuació, i un bon mes et mostra en quina posició estàs. Apareix a la pantalla d'inici després de la teva primera pràctica.
 
 La pantalla d'inici i Your Progress ara mostren quantes preguntes has consolidat aquesta setmana, perquè vegis que la pràctica funciona en lloc d'endevinar-ho.
 

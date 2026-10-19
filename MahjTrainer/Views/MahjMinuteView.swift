@@ -1,199 +1,74 @@
 import SwiftUI
 
-struct MahjMinuteView: View {
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+/// Mahj Minutes played before 1.4.2, when the Minute was its own members'
+/// set. Since then each day's Minute is the month's challenge round; these
+/// stay readable so nobody's history vanishes.
+struct MahjMinuteHistoryView: View {
     @StateObject private var store = MahjMinuteStore.shared
 
-    private var today: Date { Date() }
-    private var challenge: MahjMinuteChallenge { MahjMinuteContent.challenge(for: today) }
-    private var todayResult: MahjMinuteResult? { store.result(for: today) }
-
     var body: some View {
+        let results = store.results.values.sorted { $0.dayKey > $1.dayKey }
         ScrollView {
-            VStack(spacing: 16) {
-                hero
-                weeklyRhythm
-                archive
-            }
-            .padding()
-            .frame(maxWidth: Theme.readableContentWidth)
-            .frame(maxWidth: .infinity)
-        }
-        .background(Theme.background)
-        .navigationTitle("Mahj Minute")
-        .navigationBarTitleDisplayMode(.inline)
-    }
-
-    private var hero: some View {
-        VStack(spacing: 14) {
-            Image(systemName: todayResult == nil ? "calendar.badge.clock" : "checkmark.seal.fill")
-                .font(.system(size: 28, weight: .semibold))
-                .foregroundStyle(todayResult == nil ? Theme.coral : Theme.jade)
-                .frame(width: 68, height: 68)
-                .background((todayResult == nil ? Theme.coral : Theme.jade).opacity(0.13), in: Circle())
-            VStack(spacing: 5) {
-                Text("Today's Mahj Minute")
-                    .font(Theme.display(27))
-                    .foregroundStyle(Theme.ink)
-                Text("The same five original questions for every member: two rack reads, one Charleston call, and two table judgments.")
-                    .font(.subheadline)
-                    .foregroundStyle(Theme.inkSecondary)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            if let todayResult {
-                NavigationLink {
-                    MahjMinuteResultView(result: todayResult)
-                } label: {
-                    Text("View Today's \(todayResult.score)/\(todayResult.total)").primaryCTA()
-                }
-            } else {
-                NavigationLink {
-                    QuickSessionView(mahjMinute: challenge)
-                } label: {
-                    Text("Start Today's Minute").primaryCTA(color: Theme.coral)
-                }
-            }
-        }
-        .padding(20)
-        .themedCard()
-    }
-
-    private var weeklyRhythm: some View {
-        let completed = min(store.completedThisWeek(), 5)
-        return VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("YOUR WEEK")
-                        .font(.caption.weight(.heavy))
-                        .kerning(1.4)
-                        .foregroundStyle(Theme.inkSecondary)
-                    Text(completed >= 5 ? "Weekly goal complete" : "\(completed) of 5 practiced")
-                        .font(.headline)
-                        .foregroundStyle(Theme.ink)
-                }
-                Spacer()
-                Image(systemName: completed >= 5 ? "checkmark.seal.fill" : "calendar")
-                    .foregroundStyle(completed >= 5 ? Theme.jade : Theme.coral)
-            }
-            HStack(spacing: 10) {
-                ForEach(0..<5, id: \.self) { index in
-                    Circle()
-                        .fill(index < completed ? Theme.coral : Theme.well)
-                        .overlay {
-                            if index < completed {
-                                Image(systemName: "checkmark")
-                                    .font(.caption2.weight(.black))
-                                    .foregroundStyle(Theme.onFill)
-                            }
-                        }
-                        .frame(width: 34, height: 34)
-                }
-            }
-            Text("Any five days of the seven count, so a missed day never breaks the week.")
-                .font(.caption)
-                .foregroundStyle(Theme.inkSecondary)
-        }
-        .padding(16)
-        .themedCard(corner: 16)
-    }
-
-    private var archive: some View {
-        let dates = store.archiveDates()
-        return VStack(alignment: .leading, spacing: 10) {
-            Text("ARCHIVE")
-                .font(.caption.weight(.heavy))
-                .kerning(1.4)
-                .foregroundStyle(Theme.inkSecondary)
-                .padding(.horizontal, 4)
             VStack(spacing: 0) {
-                ForEach(dates, id: \.self) { date in
-                    archiveRow(date)
-                    if date != dates.last {
+                ForEach(results) { result in
+                    NavigationLink {
+                        MahjMinuteResultView(result: result)
+                    } label: {
+                        HStack(spacing: 12) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundStyle(Theme.jade)
+                                .frame(width: 28)
+                                .accessibilityHidden(true)
+                            Text(result.completedAt, format: .dateTime.month(.abbreviated).day().year())
+                                .font(.subheadline.weight(.medium))
+                                .foregroundStyle(Theme.ink)
+                            Spacer()
+                            Text("\(result.score)/\(result.total)")
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(Theme.jade)
+                                .monospacedDigit()
+                            Image(systemName: "chevron.right")
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(Theme.inkTertiary)
+                                .accessibilityHidden(true)
+                        }
+                        .padding(14)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    if result.id != results.last?.id {
                         Divider().overlay(Theme.rule)
                     }
                 }
             }
             .themedCard(corner: 16)
+            .padding()
+            .frame(maxWidth: Theme.readableContentWidth)
+            .frame(maxWidth: .infinity)
         }
-    }
-
-    @ViewBuilder
-    private func archiveRow(_ date: Date) -> some View {
-        let result = store.result(for: date)
-        NavigationLink {
-            if let result {
-                MahjMinuteResultView(result: result)
-            } else {
-                QuickSessionView(mahjMinute: MahjMinuteContent.challenge(for: date))
-            }
-        } label: {
-            HStack(spacing: 12) {
-                Image(systemName: result == nil ? "play.circle" : "checkmark.circle.fill")
-                    .foregroundStyle(result == nil ? Theme.coral : Theme.jade)
-                    .frame(width: 28)
-                // "Wed" at accessibility sizes, where "Wednesday" broke mid-word.
-                Text(date, format: .dateTime
-                    .weekday(dynamicTypeSize.isAccessibilitySize ? .abbreviated : .wide)
-                    .month(.abbreviated).day())
-                    .font(.subheadline.weight(.medium))
-                    .foregroundStyle(Theme.ink)
-                Spacer()
-                Text(result.map { "\($0.score)/\($0.total)" } ?? "Play")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(result == nil ? Theme.coral : Theme.jade)
-                    .monospacedDigit()
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(Theme.inkTertiary)
-            }
-            .padding(14)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
+        .background(Theme.background)
+        .navigationTitle("Earlier Mahj Minutes")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
+/// One earlier Minute: its score and how each skill went.
 struct MahjMinuteResultView: View {
     let result: MahjMinuteResult
-    var recordsCompletion = false
-    var onDone: (() -> Void)?
-
-    @EnvironmentObject private var progress: ProgressStore
-    @Environment(\.dismiss) private var dismiss
-    @StateObject private var store = MahjMinuteStore.shared
-    @State private var recorded = false
-    @State private var reviewMoment = 0
-    @State private var confettiTrigger = 0
 
     var body: some View {
         ScrollView {
             VStack(spacing: 18) {
                 scoreCard
                 breakdown
-                weeklyCard
-                ShareLink(item: result.shareText) {
-                    Label("Share Result", systemImage: "square.and.arrow.up")
-                        .primaryCTA(color: Theme.coral)
-                }
-                Button("Done") {
-                    if let onDone { onDone() } else { dismiss() }
-                }
-                .font(.headline)
-                .foregroundStyle(Theme.inkSecondary)
-                .padding(.vertical, 8)
             }
             .padding()
             .frame(maxWidth: 620)
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
-        .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.22), particleCount: 44) }
         .navigationTitle("Mahj Minute")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(recordsCompletion)
-        .onAppear { recordCompletionIfNeeded() }
-        .requestsReview(after: reviewMoment)
     }
 
     private var scoreCard: some View {
@@ -250,43 +125,11 @@ struct MahjMinuteResultView: View {
         .themedCard(corner: 16)
     }
 
-    private var weeklyCard: some View {
-        let completed = min(store.completedThisWeek(), 5)
-        return HStack(spacing: 12) {
-            Image(systemName: completed >= 5 ? "checkmark.seal.fill" : "calendar.badge.checkmark")
-                .foregroundStyle(completed >= 5 ? Theme.jade : Theme.coral)
-                .frame(width: 38, height: 38)
-                .background((completed >= 5 ? Theme.jade : Theme.coral).opacity(0.12), in: Circle())
-            VStack(alignment: .leading, spacing: 2) {
-                Text(completed >= 5 ? "Weekly goal complete" : "\(completed) of 5 this week")
-                    .font(.headline)
-                    .foregroundStyle(Theme.ink)
-                Text("Any five days keep the rhythm going.")
-                    .font(.caption)
-                    .foregroundStyle(Theme.inkSecondary)
-            }
-            Spacer()
-        }
-        .padding(14)
-        .themedCard(corner: 16)
-    }
-
     private func color(for category: MahjMinuteCategory) -> Color {
         let correct = result.correct(in: category)
         let total = result.total(in: category)
         if correct == total { return Theme.jade }
         if correct > 0 { return Theme.gold }
         return Theme.coral
-    }
-
-    private func recordCompletionIfNeeded() {
-        guard recordsCompletion, !recorded else { return }
-        recorded = true
-        confettiTrigger += 1
-        Haptics.success()
-        SoundPlayer.play(.complete)
-        progress.recordSession(drillID: MahjMinuteContent.drill.id)
-        // The ask is for a good moment, as in drills: half right or better.
-        if result.score * 2 >= result.total { reviewMoment += 1 }
     }
 }

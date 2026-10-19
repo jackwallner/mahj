@@ -15,13 +15,18 @@ struct DrillCompleteView: View {
     @State private var reviewMoment = 0
     @State private var celebrate = false
     @State private var confettiTrigger = 0
+    @State private var showPaywall = false
 
     var body: some View {
         VStack(spacing: 16) {
             // Scrolls when it has to: at the largest text sizes the message
             // used to truncate in a fixed stack.
             CenteringScrollView {
-                summary
+                VStack(spacing: 22) {
+                    summary
+                    MahjPlusPitchCard { showPaywall = true }
+                        .frame(maxWidth: 520)
+                }
             }
             Button {
                 if let onDone { onDone() } else { dismiss() }
@@ -47,7 +52,8 @@ struct DrillCompleteView: View {
                 reviewMoment += 1
             }
         }
-        .requestsReview(after: reviewMoment)
+        .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_result_drill") }
+        .requestsReview(after: reviewMoment, isClear: { !showPaywall })
     }
 
     private var summary: some View {

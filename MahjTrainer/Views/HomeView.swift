@@ -17,7 +17,6 @@ struct HomeView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var membershipWaitOver = false
     @StateObject private var records = PracticeRecordStore.shared
-    @StateObject private var minuteStore = MahjMinuteStore.shared
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
     @StateObject private var handPlay = HandPlayStore.shared
     @StateObject private var ledger = MasteryLedger.shared
@@ -579,7 +578,7 @@ struct HomeView: View {
         return round
     }
 
-    /// Today's three questions, under Get Started (and under How to Play for
+    /// Today's Mahj Minute, under Get Started (and under How to Play for
     /// a new player). Two lines in every state, so Home does not jump when a
     /// round starts.
     private func monthlyChallengeCard(_ round: ChallengeRound) -> some View {
@@ -611,7 +610,7 @@ struct HomeView: View {
                         .font(.caption2.weight(.heavy))
                         .kerning(1.2)
                         .foregroundStyle(Theme.plum)
-                    Text(round.month.theme.title)
+                    Text("Today's Mahj Minute")
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
                     Text(monthlyChallengeLine(round, run: run))
@@ -645,7 +644,7 @@ struct HomeView: View {
         if score.daysPlayed == 0 {
             return "\(round.items.count) new questions a day, the same for every player"
         }
-        return "Today's \(round.items.count) questions · \(score.points)\u{00A0}\(score.points == 1 ? "point" : "points") so far"
+        return "\(round.items.count) questions · \(score.points)\u{00A0}\(score.points == 1 ? "point" : "points") this month"
     }
 
     /// Today's round is done: the month score rides beside the stats instead
@@ -658,7 +657,7 @@ struct HomeView: View {
                 chipBody(text: "\(points)\u{00A0}pts", icon: "calendar", color: Theme.plum)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("\(round.month.monthName) challenge: \(points) \(points == 1 ? "point" : "points"). Today's round is done.")
+            .accessibilityLabel("\(round.month.monthName) challenge: \(points) \(points == 1 ? "point" : "points"). Today's Mahj Minute is done.")
             .accessibilityHint("Opens the challenge")
         }
     }
@@ -777,14 +776,6 @@ struct HomeView: View {
             badge: nil
         ) {
             EndlessPickerView()
-        }
-        trainingTile(
-            title: "Mahj\nMinute",
-            icon: "calendar.badge.clock",
-            color: Theme.coral,
-            badge: minuteStore.result(for: Date()).map { "\($0.score)/\($0.total) today" } ?? "Daily"
-        ) {
-            MahjMinuteView()
         }
         trainingTile(
             title: "Game Night\nPrep",
@@ -1030,7 +1021,7 @@ struct HomeView: View {
                     Text("Get \(Membership.name)")
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
-                    Text("Mahj Minute, Game Night Prep, endless modes, and \(lockedDrillCount) more drills across every room")
+                    Text("Play a Hand anytime, Game Night Prep, endless modes, and \(lockedDrillCount) more drills across every room")
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
                         .multilineTextAlignment(.leading)

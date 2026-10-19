@@ -15,6 +15,31 @@ under 2.3.13). A challenge that changes every calendar month is a new event
 and a new featuring nomination every month on the fleet's highest-impression
 app.
 
+**The Mahj Minute is the daily round (1.4.2, 2026-10-19):** Jack folded
+the members-only Minute into the challenge: one daily thing, free for
+everyone, and its score rolls up into the month. Each round is five
+questions (`questionsPerRound` = `themedPerRound` 3 + `tableCallsPerRound`
+2): the month's three as below, then two Table Room judgment calls
+(`tableCallPool`: the Table Room less `defensePool`, one shuffle per month
+dealt two a day, so no repeat inside a month). They go LAST so a round saved
+with three answers still matches its fingerprints. Month max is 100;
+`challenge_submit` allows `5 * least(days, 20)` and the baseline scales by 5
+(migration `20261019180000_minute_five_a_day.sql`, applied to prod
+2026-10-19). Home lost the Minute tile; the challenge card reads "Today's
+Mahj Minute". Old `MahjMinuteStore` results stay readable from the hub
+("Earlier Mahj Minutes", `MahjMinuteHistoryView`); the old standalone play
+path and weekly goal are gone. The approved November event copy ("three new
+Charleston questions a day") stays true. Because the Minute is no longer a
+Mahj+ benefit, the paywall, trial page bullets (`TrialBenefits`), tour and
+room upsell name unlimited Play a Hand instead.
+
+**Mahj+ on every result (1.4.2):** `MahjPlusPitchCard` sits under every
+finished drill (`DrillCompleteView`, source `mahj_result_drill`) and every
+Minute (`mahj_minute_result`, replacing the every-fifth-day pointer) for
+non-members who have onboarded (never in the frozen tour). It is a card the
+player taps; the screen owns the sheet and holds its rating ask while the
+paywall is up. Play a Hand already pitches when the free hand is spent.
+
 **Daily rounds (1.4.1, rebuilt 2026-10-18):** a 12-question month took four
 minutes and then sat on Home for 30 days, so the month is now made of daily
 rounds. Jack's calls: three questions a day, the same for every player; the

@@ -2,22 +2,19 @@ import SwiftUI
 
 private enum QuickSessionPurpose {
     case quickSession(isDaily: Bool)
-    case mahjMinute(MahjMinuteChallenge)
     case monthlyChallenge(ChallengeRound)
     case gameNightPrep
 
     var drill: Drill {
         switch self {
         case .quickSession: return SessionBuilder.sessionDrill
-        case .mahjMinute: return MahjMinuteContent.drill
         case .monthlyChallenge: return MonthlyChallengeContent.drill
         case .gameNightPrep: return SessionBuilder.gameNightPrepDrill
         }
     }
 
     var navigationTitle: String {
-        if case .monthlyChallenge(let round) = self { return "\(round.month.monthName) Challenge" }
-        return drill.title
+        drill.title
     }
 }
 
@@ -52,12 +49,6 @@ struct QuickSessionView: View {
         self.onClose = onClose
     }
 
-    init(mahjMinute challenge: MahjMinuteChallenge, onClose: (() -> Void)? = nil) {
-        _items = State(initialValue: challenge.items)
-        purpose = .mahjMinute(challenge)
-        self.onClose = onClose
-    }
-
     /// Picks up a started round where it stopped: the challenge counts the
     /// first run, so leaving mid-way must neither lose answers nor offer a reset.
     init(monthlyRound round: ChallengeRound, resume: MonthlyChallengeProgress? = nil, onClose: (() -> Void)? = nil) {
@@ -80,7 +71,6 @@ struct QuickSessionView: View {
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dismiss) private var dismiss
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @StateObject private var minuteStore = MahjMinuteStore.shared
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
 
     @State private var index = 0
@@ -88,7 +78,6 @@ struct QuickSessionView: View {
     @State private var finished = false
     @State private var selection: Int?
     @State private var answers: [Bool] = []
-    @State private var minuteResult: MahjMinuteResult?
     @State private var monthlyResult: MonthlyChallengeResult?
 
     @State private var confettiTrigger = 0
@@ -149,9 +138,7 @@ struct QuickSessionView: View {
 
     @ViewBuilder
     private var completion: some View {
-        if case .mahjMinute = purpose, let minuteResult {
-            MahjMinuteResultView(result: minuteResult, recordsCompletion: true, onDone: onClose)
-        } else if case .monthlyChallenge(let round) = purpose, let monthlyResult {
+        if case .monthlyChallenge(let round) = purpose, let monthlyResult {
             MonthlyChallengeResultView(round: round, result: monthlyResult, recordsCompletion: true, onDone: onClose)
         } else {
             DrillCompleteView(drill: purpose.drill, score: score, total: items.count, onDone: onClose)
@@ -342,8 +329,6 @@ struct QuickSessionView: View {
         switch purpose {
         case .quickSession(let isDaily):
             if isDaily { progress.markQuickSessionCompleted() }
-        case .mahjMinute(let challenge):
-            minuteResult = minuteStore.record(challenge: challenge, answers: answers)
         case .monthlyChallenge(let round):
             monthlyResult = monthlyResult ?? monthlyStore.record(round: round, answers: answers)
         case .gameNightPrep:

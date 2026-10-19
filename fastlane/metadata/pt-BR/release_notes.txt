@@ -1,8 +1,8 @@
 Revisamos de novo todas as perguntas de prática e do desafio, as explicações estão mais claras e o desafio mensal já tem perguntas novas até setembro do ano que vem.
 
-Um desafio novo todo mês, já liberado.
+O Mahj Minute agora é para todo mundo, e conta.
 
-Três perguntas novas por dia, as mesmas para todo mundo. Seus 20 melhores dias formam a pontuação do mês, e um mês bom mostra em que posição você está. Ele aparece na tela inicial depois do seu primeiro treino.
+Cinco perguntas novas por dia, as mesmas para todo mundo. Cada dia soma no desafio do mês: seus 20 melhores dias formam sua pontuação, e um mês bom mostra em que posição você está. Ele aparece na tela inicial depois do seu primeiro treino.
 
 A tela inicial e Your Progress agora mostram quantas perguntas você fixou nesta semana, para você ver o treino dando resultado em vez de ficar no chute.
 

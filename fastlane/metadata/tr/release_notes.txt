@@ -1,8 +1,8 @@
 Tüm alıştırma ve meydan okuma soruları yeniden kontrol edildi, açıklamalar daha anlaşılır hale geldi ve aylık meydan okuma için gelecek eylüle kadar yeni sorular hazır.
 
-Her ay yeni bir meydan okuma, şimdi açık.
+Mahj Minute artık herkese açık ve sayılıyor.
 
-Günde üç yeni soru, tüm oyuncular için aynı. En iyi 20 günün aylık puanını oluşturur ve güçlü bir ay sana nerede olduğunu gösterir. Meydan okuma, ilk alıştırmandan sonra ana ekranda görünür.
+Günde beş yeni soru, tüm oyuncular için aynı. Her gün ayın meydan okumasına eklenir: en iyi 20 günün puanını oluşturur ve güçlü bir ay sana nerede olduğunu gösterir. Mahj Minute, ilk alıştırmandan sonra ana ekranda görünür.
 
 Ana ekran ve Your Progress artık bu hafta kaç soruyu sağlamlaştırdığını gösteriyor. Böylece tahmin etmek yerine alıştırmanın işe yaradığını görürsün.
 

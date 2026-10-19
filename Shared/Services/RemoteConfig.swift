@@ -72,7 +72,7 @@ enum TrialBenefits: String, CaseIterable, Sendable {
         case .reassureFirst:
             return [
                 "Every beginner room is free, forever",
-                "Mahj Minute and a personalized Game Night Prep",
+                "Play a Hand as often as you like, plus Game Night Prep",
                 "Endless Practice deals a fresh rack every time",
                 "Fix My Mistakes brings back what you miss",
                 "Extra sets in all four rooms, plus the Master Tables",
@@ -82,7 +82,7 @@ enum TrialBenefits: String, CaseIterable, Sendable {
                 "Game Night Prep, five minutes built from your misses",
                 "Fix My Mistakes brings back what you miss",
                 "Endless Practice deals a fresh rack every time",
-                "Mahj Minute, a shared daily set",
+                "Play a Hand as often as you like",
                 "Extra sets in all four rooms, plus the Master Tables",
             ]
         }

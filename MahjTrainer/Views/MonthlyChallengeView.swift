@@ -1,12 +1,13 @@
 import SwiftUI
 import UserNotifications
 
-/// The monthly challenge: free for every player, three new questions every
-/// day of the month, the same for everyone. The best 20 days make the month
-/// score. The App Store in-app event for each month opens here through
+/// The monthly challenge: free for every player, built from each day's Mahj
+/// Minute (five new questions, the same for everyone). The best 20 days make
+/// the month score. The App Store in-app event for each month opens here through
 /// `mahj://challenge`, and before the first month opens it says when.
 struct MonthlyChallengeView: View {
     @StateObject private var store = MonthlyChallengeStore.shared
+    @StateObject private var minuteStore = MahjMinuteStore.shared
 
     var body: some View {
         // One read of "today" per render: a round tapped just after midnight
@@ -22,6 +23,7 @@ struct MonthlyChallengeView: View {
                 }
                 let past = round.map { MonthlyChallengeContent.pastMonths(before: $0.month.start) } ?? []
                 if !past.isEmpty { archive(past) }
+                if !minuteStore.results.isEmpty { earlierMinutes }
             }
             .padding()
             .frame(maxWidth: Theme.readableContentWidth)
@@ -75,7 +77,7 @@ struct MonthlyChallengeView: View {
                 NavigationLink {
                     QuickSessionView(monthlyRound: round, resume: progress)
                 } label: {
-                    Text(progress == nil ? "Play Today's Round" : "Resume Today's Round")
+                    Text(progress == nil ? "Play Today's Mahj Minute" : "Resume Today's Mahj Minute")
                         .primaryCTA(color: Theme.plum)
                 }
             }
@@ -128,7 +130,7 @@ struct MonthlyChallengeView: View {
     private func footnote(_ month: MonthlyChallenge) -> String {
         let days = month.daysLeft()
         let end = days <= 1 ? "Today is the last day." : "Runs through \(month.monthName)\u{00A0}\(month.dayCount)."
-        return "Each square is a day of three new questions, the same for every player. Every right answer is a point, and your best \(MonthlyChallengeContent.countedDays) days make your month score, up to \(MonthlyChallengeContent.maxMonthPoints). Missed days are fine. \(end)"
+        return "Each square is a day's Mahj Minute: \(MonthlyChallengeContent.questionsPerRound) new questions, the same for every player. Every right answer is a point, and your best \(MonthlyChallengeContent.countedDays) days make your month score, up to \(MonthlyChallengeContent.maxMonthPoints). Missed days are fine. \(end)"
     }
 
     /// Before the first month: what it is and when it starts, plus the one
@@ -157,7 +159,7 @@ struct MonthlyChallengeView: View {
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            Text("Starts \(first.start.formatted(.dateTime.weekday(.wide).month(.wide).day())). Three new questions every day, the same for every player.")
+            Text("Starts \(first.start.formatted(.dateTime.weekday(.wide).month(.wide).day())). A Mahj Minute every day: five new questions, the same for every player.")
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
@@ -218,6 +220,37 @@ struct MonthlyChallengeView: View {
         }
         .padding(14)
         .accessibilityElement(children: .combine)
+    }
+
+    /// Minutes played before they counted toward the month (1.4.1 and
+    /// earlier), kept so a member's history does not vanish.
+    private var earlierMinutes: some View {
+        NavigationLink {
+            MahjMinuteHistoryView()
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "calendar.badge.clock")
+                    .foregroundStyle(Theme.coral)
+                    .frame(width: 28)
+                    .accessibilityHidden(true)
+                Text("Earlier Mahj Minutes")
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(Theme.ink)
+                Spacer(minLength: 8)
+                Text("\(minuteStore.results.count)")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.inkSecondary)
+                    .monospacedDigit()
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Theme.inkTertiary)
+                    .accessibilityHidden(true)
+            }
+            .padding(14)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+        .themedCard(corner: 16)
     }
 }
 
@@ -293,7 +326,8 @@ private struct MonthDaysStrip: View {
             // A day not played looks like one still to come: nothing to
             // make up, and a late starter is not shown as behind.
             guard let score else { return Theme.rule.opacity(0.25) }
-            return score == 0 ? Theme.coral.opacity(0.14) : Theme.jade.opacity([0.35, 0.65, 1][min(score, 3) - 1])
+            let share = Double(min(score, MonthlyChallengeContent.questionsPerRound)) / Double(MonthlyChallengeContent.questionsPerRound)
+            return score == 0 ? Theme.coral.opacity(0.14) : Theme.jade.opacity(0.25 + 0.75 * share)
         }()
         return RoundedRectangle(cornerRadius: 4, style: .continuous)
             .fill(fill)
@@ -463,9 +497,10 @@ struct MonthlyChallengeResultView: View {
                         .frame(maxWidth: .infinity, minHeight: 50)
                         .background(Theme.plum.opacity(0.1), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
-                // Once a month and then every fifth round, not every day:
-                // a daily pitch under a three-question round is a nag.
-                if !subscriptions.isPro, month.daysPlayed > 0, month.daysPlayed % 5 == 0 { memberCard }
+                MahjPlusPitchCard(
+                    headline: "Want more than five a day?",
+                    detail: "\(Membership.name) adds Endless Practice, Play a Hand as often as you like, Game Night Prep and the Master Tables."
+                ) { showPaywall = true }
             }
             .padding()
             .frame(maxWidth: 620)
@@ -488,20 +523,17 @@ struct MonthlyChallengeResultView: View {
         }
         .onAppear { recordCompletionIfNeeded() }
         .task { await ChallengeStandingService.refresh(monthKey: round.monthKey, force: recordsCompletion) }
-        .sheet(isPresented: $showPaywall) { PaywallView(source: "monthly_challenge_result") }
+        .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_minute_result") }
         .requestsReview(after: reviewMoment, isClear: { !showPaywall })
     }
 
     private var verdict: String {
-        switch result.score {
-        case result.total: return "A perfect round!"
-        case 2...: return "Solid round"
-        default: return "A tough one"
-        }
+        if result.score == result.total { return "A perfect Minute!" }
+        return fraction >= 0.6 ? "Solid Minute" : "A tough one"
     }
 
     private var monthLine: String {
-        let points = "\(month.points)\u{00A0}\(month.points == 1 ? "point" : "points") this month"
+        let points = "\(month.points)\u{00A0}\(month.points == 1 ? "point" : "points") in the \(round.month.monthName) Challenge"
         if let top = store.standing(for: round.monthKey)?.topPercent {
             return "+\(result.score) today · \(points) · Top\u{00A0}\(top)%"
         }
@@ -510,7 +542,7 @@ struct MonthlyChallengeResultView: View {
 
     private var shareText: String {
         let squares = result.answers.map { $0 ? "🟩" : "⬜️" }.joined()
-        return "Mahj Trainer \(result.monthName) Challenge, day \(result.day)\n\(squares) today · \(month.points) points this month\nThree new questions a day, the same for every player: \(AppStoreLinks.productURL.absoluteString)"
+        return "Mahj Minute, \(result.title)\n\(squares) · \(month.points) points in the \(result.monthName) Challenge\nFive new questions a day, the same for every player: \(AppStoreLinks.productURL.absoluteString)"
     }
 
     private var scoreCard: some View {
@@ -542,7 +574,7 @@ struct MonthlyChallengeResultView: View {
                 .padding(.top, 2)
             Text(round.day >= round.month.dayCount
                  ? "That was the last round of \(round.month.monthName)."
-                 : "Three new questions tomorrow.")
+                 : "A new Mahj Minute tomorrow.")
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -550,58 +582,6 @@ struct MonthlyChallengeResultView: View {
         .frame(maxWidth: .infinity)
         .padding(20)
         .themedCard()
-    }
-
-    /// Free players just finished member-grade questions; this is the honest
-    /// moment to say where more of them live.
-    private var memberCard: some View {
-        Button { showPaywall = true } label: {
-            Group {
-                if dynamicTypeSize.isAccessibilitySize {
-                    VStack(alignment: .leading, spacing: 8) {
-                        memberIcon
-                        memberText
-                    }
-                } else {
-                    HStack(spacing: 12) {
-                        memberIcon
-                        memberText
-                        Spacer(minLength: 4)
-                        Image(systemName: "chevron.right")
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(Theme.inkTertiary)
-                            .accessibilityHidden(true)
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(14)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(PressableCardStyle())
-        .themedCard(corner: 16)
-    }
-
-    private var memberIcon: some View {
-        Image(systemName: "infinity")
-            .font(.body.weight(.semibold))
-            .foregroundStyle(Theme.jade)
-            .frame(width: 38, height: 38)
-            .background(Theme.jade.opacity(0.13), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .accessibilityHidden(true)
-    }
-
-    private var memberText: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text("Want more than three a day?")
-                .font(.headline)
-                .foregroundStyle(Theme.ink)
-            Text("\(Membership.name) adds Endless Practice: fresh racks, passes and defense questions, as many as you like.")
-                .font(.caption)
-                .foregroundStyle(Theme.inkSecondary)
-                .multilineTextAlignment(.leading)
-                .fixedSize(horizontal: false, vertical: true)
-        }
     }
 
     private func recordCompletionIfNeeded() {
@@ -685,13 +665,13 @@ struct MonthlyChallengeAnswersView: View {
                         .fixedSize()
                 }
                 if !dynamicTypeSize.isAccessibilitySize { Spacer() }
-                Text(MonthlyChallengeContent.skill(of: item).skillTitle)
+                Text(MonthlyChallengeContent.skillTitle(of: item))
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(Theme.inkTertiary)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .accessibilityElement(children: .combine)
-            .accessibilityLabel("Question \(index + 1), \(correct ? "right" : "missed"), \(MonthlyChallengeContent.skill(of: item).skillTitle)")
+            .accessibilityLabel("Question \(index + 1), \(correct ? "right" : "missed"), \(MonthlyChallengeContent.skillTitle(of: item))")
             Text(item.prompt)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Theme.ink)
