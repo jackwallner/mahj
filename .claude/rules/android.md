@@ -86,19 +86,17 @@ holds only what is specific to this app.
 
 ```bash
 cd android
-./gradlew testDebugUnitTest            # parity, content, stores
-ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest
-./gradlew assembleQa                   # R8 build, debug-signed, no RC key
+fm-gradle testDebugUnitTest            # parity, content, stores
+fm-gradle connectedDebugAndroidTest    # every device attached on jmbp
+fm-gradle assembleQa                   # R8 build, debug-signed, no RC key
 ./gradlew bundleRelease                # signed AAB, needs goog_ key + keystore
 ```
 
-- Never on the MacBook Air. Unit tests run on jmbp (ssh host `clawd-mac`):
-  rsync `android/` (excluding `build/`, `.gradle/`, `local.properties`,
-  keystores) to `~/fleet-work/android-ports/mahj/android`, write a
-  `local.properties` with only `sdk.dir=/Users/jackwallner/Library/Android/sdk`,
-  then `JAVA_HOME=~/.jdk/jdk-21.0.12.1+1/Contents/Home ./gradlew --no-daemon
-  testDebugUnitTest`. 39 tests green there on 2026-10-19.
-- Local AVD `mahj-api36` (Pixel 9, API 36 Google Play image), started
+- Only the signed `bundleRelease` runs on the MacBook Air (the keystore never
+  leaves it). `fm-gradle` runs everything else on jmbp (ssh host `clawd-mac`)
+  and copies outputs, reports and test results back. 39 unit tests green on
+  jmbp on 2026-10-19.
+- AVD `mahj-api36` (on jmbp, never the Air; Pixel 9, API 36 Google Play image), started
   headless on port 5586: `emulator -avd mahj-api36 -port 5586 -no-window
   -no-audio -no-boot-anim -no-metrics -gpu swiftshader_indirect`. Connected
   tests pass on API 36 (5/5 on 2026-09-30); 36.1 has the Espresso
