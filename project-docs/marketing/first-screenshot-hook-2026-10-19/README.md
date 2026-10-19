@@ -82,3 +82,15 @@ weakest.
 - Judge on downloads per person, as before. A losing result stands.
 - Meta's audience skewed 65+, so A's CTR may not transfer to App Store
   browsers; the PPO is the real test of it.
+
+## v2: less text (2026-10-19)
+
+Jack's read on v1: too text heavy. v2 (`render_hooks_v2.py`) keeps the same
+headlines but cuts the coach's paragraph and tip, so the screen is just the
+rack, the three picked tiles and "Perfect pass! 3 of 3" with the coach's
+three tiles. Side margins are trimmed so the tiles render larger.
+
+- `hook-a-v2-never-hold-up-the-charleston.png` (pick)
+- `hook-b-v2-know-which-3-tiles-to-pass.png`
+- `hook-c-v2-practice-the-charleston-at-home.png`
+- `contact-sheet-v2.png`
