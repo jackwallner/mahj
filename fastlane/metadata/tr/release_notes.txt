@@ -1,3 +1,5 @@
+Tüm alıştırma ve meydan okuma soruları yeniden kontrol edildi, açıklamalar daha anlaşılır hale geldi ve aylık meydan okuma için gelecek eylüle kadar yeni sorular hazır.
+
 Her ay yeni bir meydan okuma, şimdi açık.
 
 Günde üç yeni soru, tüm oyuncular için aynı. En iyi 20 günün aylık puanını oluşturur ve güçlü bir ay sana nerede olduğunu gösterir. Meydan okuma, ilk alıştırmandan sonra ana ekranda görünür.

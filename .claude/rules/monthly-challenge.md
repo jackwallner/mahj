@@ -219,3 +219,12 @@ reviewSubmission `19ec41d8-6e86-4e09-8ca6-1b007b3159bc` (WAITING_FOR_REVIEW)
 with new card and details art (`scripts/compose-event-art.py`). The version
 waits on the "bold search image" PPO, which was in review and blocks a version
 submission. 1.4.1 must be live before the event publishes on Oct 25.
+
+**1.4.2 fast follow (2026-10-19):** Jack kept 1.4.1 build 55 in review for
+the event and ships the answer-audit fixes, the closers through Sep 2027
+and the post-tour Home gating as 1.4.2 build 56 (TestFlight uploaded). Its
+What's New is one new line on top of 1.4.1's, in all 50 locales, since
+most players will jump from 1.3.2. `WhatsNew.currentRelease` falls back to
+the newest notes at or below the running version, so the in-app sheet
+still shows 1.4.1's items once. Draft and submit 1.4.2 (MANUAL) only after
+1.4.1 is released: an approved, unreleased version blocks the next one.

@@ -1,3 +1,5 @@
+Hem revisat totes les preguntes de pràctica i del repte, les explicacions són més clares i el repte mensual ja té preguntes noves fins al setembre vinent.
+
 Un repte nou cada mes, ja disponible.
 
 Tres preguntes noves cada dia, les mateixes per a tothom. Els teus 20 millors dies fan la puntuació del mes, i un bon mes et mostra en quina posició estàs. Apareix a la pantalla d'inici després de la teva primera pràctica.
