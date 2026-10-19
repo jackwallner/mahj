@@ -94,6 +94,13 @@ struct QuestionPager<Choices: View>: View {
                         }
                     }
                     .id(questionExplanationID)
+                    // Held back until the rows have moved: inserted at its
+                    // final spot while the stack above slid up, the note sat
+                    // under the last choice for a quarter second.
+                    .transition(.asymmetric(
+                        insertion: .opacity.animation(.easeOut(duration: 0.22).delay(0.2)),
+                        removal: .identity
+                    ))
                 }
             }
             // Headroom so the winning row's pop and glow have somewhere to go.
@@ -126,7 +133,14 @@ struct QuestionPager<Choices: View>: View {
             }
             }
         }
+        // The prompt, tiles and choices move as ONE when the note makes the
+        // content taller and the centring shifts. Each row used to animate on
+        // its own while everything around it jumped, so the rows slid across
+        // the coaching note (2026-10-19 frame capture).
+        .animation(Self.gradeSpring, value: answered)
     }
+
+    static var gradeSpring: Animation { .spring(response: 0.3, dampingFraction: 0.8) }
 }
 
 /// The answer buttons every question type shares. On reveal the correct
@@ -366,11 +380,18 @@ extension String {
 
 extension AnyTransition {
     /// The slide between questions. With Reduce Motion on, a plain cross-fade.
+    ///
+    /// The old question leaves at once and the new one eases in from a short
+    /// distance. Two full-width slides crossing with a fade drew both tile
+    /// racks on top of each other mid-swap, and the old question, still
+    /// scrolled to its coaching note, sat higher than the new one, so the
+    /// header jumped. Even a 0.1s fade-out left six double-exposed frames
+    /// (2026-10-19 frame capture).
     static func questionSlide(reduceMotion: Bool) -> AnyTransition {
         guard !reduceMotion else { return .opacity }
         return .asymmetric(
-            insertion: .move(edge: .trailing).combined(with: .opacity),
-            removal: .move(edge: .leading).combined(with: .opacity)
+            insertion: .offset(x: 40).combined(with: .opacity),
+            removal: .identity
         )
     }
 }

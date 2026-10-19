@@ -78,3 +78,12 @@ and 4, 13 still read 7 and 6). The flashcard front sizes tiles to its widest
 row (52pt up to five across, 44 at six, 38 at seven): the deck is a ZStack, so
 one wide card stretched EVERY card in the deck past the screen edge and
 clipped the choice buttons. Check any new wide front on a phone.
+
+**Graded question motion (2026-10-19 frame capture):** grading makes the
+question taller, so `CenteringScrollView` re-centres it. Animate that from
+ONE place: `QuestionPager` carries `.animation(gradeSpring, value: answered)`
+on the whole pager. A per-row `.animation` left the prompt and tiles jumping
+while the rows glided across the coaching note. The note fades in after the
+rows settle. `questionSlide` removes the old question at once (`.identity`)
+and eases the new one in from 40pt: any fade-out, even 0.1s, drew both tile
+racks on top of each other for several frames.
