@@ -48,11 +48,20 @@ struct CharlestonDrillView: View {
                         coachCard
                             .shine(trigger: shineTrigger, corner: 16)
                             .winGlow(Theme.gold, active: matchCount == 3)
-                            .transition(.scale(scale: 0.94).combined(with: .opacity))
+                            // Arrives once the rack has moved up, and the
+                            // count leaves at once: the card used to appear
+                            // under tiles still sliding across it (2026-10-19
+                            // frame capture).
+                            .transition(.asymmetric(
+                                insertion: .scale(scale: 0.94).combined(with: .opacity)
+                                    .animation(.spring(response: 0.4, dampingFraction: 0.8).delay(0.2)),
+                                removal: .identity
+                            ))
                     } else {
                         Text("Selected \(selected.count) of 3")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
+                            .transition(.identity)
                     }
                 }
             }

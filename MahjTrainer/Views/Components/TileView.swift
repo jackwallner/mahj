@@ -195,6 +195,13 @@ struct TileRackView: View {
     var tileWidth: CGFloat = 44
     var highlightedIndices: Set<Int> = []
     var onTap: ((Int) -> Void)?
+    /// How a tile joining the rack arrives. Play a Hand drops a drawn tile in
+    /// once its neighbours have moved aside (`TileRackView.dropIn`); a whole
+    /// new deal must not wait, or only the tiles both deals share show first.
+    var tileInsertion: AnyTransition = .opacity
+
+    static let dropIn = AnyTransition.offset(y: -10).combined(with: .opacity)
+        .animation(.easeOut(duration: 0.2).delay(0.22))
 
     private let columns = 7
 
@@ -203,16 +210,30 @@ struct TileRackView: View {
         // 7 and a lone tile. A full 13-tile rack still reads 7 and 6.
         let rowCount = max(1, (tiles.count + columns - 1) / columns)
         let perRow = max(1, (tiles.count + rowCount - 1) / rowCount)
-        let rows = tiles.enumerated().map { (index: $0.offset, tile: $0.element) }
-            .chunked(into: perRow)
-        VStack(spacing: 10) {
-            ForEach(0..<rows.count, id: \.self) { rowIndex in
-                HStack(spacing: 6) {
-                    ForEach(rows[rowIndex], id: \.index) { item in
-                        tileCell(item.index, item.tile)
-                    }
-                }
+        // Each tile is keyed by what it is (and which copy), never by its
+        // position, and every row shares one layout. Keyed by position, a
+        // throw or a draw left each slot's outline sliding to its new place
+        // while the face inside swapped to a different tile, and a tile that
+        // changed rows faded out of one and into the other (Play a Hand,
+        // 2026-10-19).
+        BalancedRowsLayout(perRow: perRow, spacing: 6, rowSpacing: 10) {
+            ForEach(Self.keyed(tiles), id: \.key) { item in
+                tileCell(item.index, item.tile)
             }
+        }
+    }
+
+    private struct TileKey: Hashable {
+        let tile: Tile
+        let copy: Int
+    }
+
+    private static func keyed(_ tiles: [Tile]) -> [(key: TileKey, index: Int, tile: Tile)] {
+        var copies: [Tile: Int] = [:]
+        return tiles.enumerated().map { index, tile in
+            let copy = copies[tile, default: 0]
+            copies[tile] = copy + 1
+            return (TileKey(tile: tile, copy: copy), index, tile)
         }
     }
 
@@ -226,22 +247,59 @@ struct TileRackView: View {
             action: onTap.map { tap in { tap(index) } },
             isSelected: selected
         )
+            // Always present, only its opacity changes: a removed outline
+            // stayed behind fading at the old spot while its tile slid away.
             .overlay {
-                if selected {
-                    RoundedRectangle(cornerRadius: tileWidth * 0.16)
-                        .strokeBorder(Theme.gold, lineWidth: 3)
-                }
+                RoundedRectangle(cornerRadius: tileWidth * 0.16)
+                    .strokeBorder(Theme.gold, lineWidth: 3)
+                    .opacity(selected ? 1 : 0)
             }
             .offset(y: selected ? -8 : 0)
             .onTapGesture { onTap?(index) }
             .animation(.spring(duration: 0.25), value: selected)
+            // A thrown tile leaves at once: fading, it sat at its old spot
+            // while the rest of the rack slid across it.
+            .transition(.asymmetric(insertion: tileInsertion, removal: .identity))
     }
 }
 
-private extension Array {
-    func chunked(into size: Int) -> [[Element]] {
-        stride(from: 0, to: count, by: size).map {
-            Array(self[$0..<Swift.min($0 + size, count)])
+/// Rows of `perRow`, each centred, in one container so a tile moving to
+/// another row slides there instead of fading out and back in.
+private struct BalancedRowsLayout: Layout {
+    let perRow: Int
+    let spacing: CGFloat
+    let rowSpacing: CGFloat
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let rows = rowSizes(subviews)
+        let width = rows.map(\.width).max() ?? 0
+        let height = rows.map(\.height).reduce(0, +) + rowSpacing * CGFloat(max(0, rows.count - 1))
+        return CGSize(width: width, height: height)
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let rows = rowSizes(subviews)
+        var y = bounds.minY
+        for (rowIndex, row) in rows.enumerated() {
+            var x = bounds.midX - row.width / 2
+            for index in row.range {
+                let size = subviews[index].sizeThatFits(.unspecified)
+                subviews[index].place(
+                    at: CGPoint(x: x, y: y + (row.height - size.height) / 2),
+                    proposal: ProposedViewSize(size)
+                )
+                x += size.width + spacing
+            }
+            y += row.height + (rowIndex < rows.count - 1 ? rowSpacing : 0)
+        }
+    }
+
+    private func rowSizes(_ subviews: Subviews) -> [(range: Range<Int>, width: CGFloat, height: CGFloat)] {
+        stride(from: 0, to: subviews.count, by: max(1, perRow)).map { start in
+            let range = start..<min(start + max(1, perRow), subviews.count)
+            let sizes = range.map { subviews[$0].sizeThatFits(.unspecified) }
+            let width = sizes.map(\.width).reduce(0, +) + spacing * CGFloat(max(0, sizes.count - 1))
+            return (range, width, sizes.map(\.height).max() ?? 0)
         }
     }
 }

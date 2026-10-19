@@ -87,3 +87,18 @@ while the rows glided across the coaching note. The note fades in after the
 rows settle. `questionSlide` removes the old question at once (`.identity`)
 and eases the new one in from 40pt: any fade-out, even 0.1s, drew both tile
 racks on top of each other for several frames.
+
+**Rack motion (2026-10-19 frame capture, Play a Hand):** `TileRackView`
+keys each tile by what it is plus which copy, never by position, and lays
+every row out in one `BalancedRowsLayout`. Keyed by position, a throw or a
+draw slid each slot's outline to its new place while the face inside
+swapped to a different tile, and a tile changing rows faded out of one
+`HStack` and into the next. The gold selection outline is always present
+(opacity only): removed, it stayed fading at the old spot while its tile
+slid away. A thrown tile leaves at once. Play a Hand passes
+`tileInsertion: TileRackView.dropIn` so a drawn tile arrives after the gap
+opens; the default stays a plain fade, because a delayed insertion on a new
+Charleston deal showed only the tiles both deals share for 0.2s. Text and
+cards around a moving rack (`HandPlayView.settleIn`, the Charleston coach
+card) leave at once and fade in after the tiles settle, so no tile slides
+across them.

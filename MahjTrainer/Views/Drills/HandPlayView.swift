@@ -254,19 +254,27 @@ struct HandPlayView: View {
             CenteringScrollView {
                 VStack(spacing: 16) {
                     if let drawn {
-                        Text(grade == nil
-                             ? "You drew the \(drawn.spokenName). What goes?"
-                             : "You threw the \(grade?.discard.spokenName ?? "").")
+                        let prompt = grade == nil
+                            ? "You drew the \(drawn.spokenName). What goes?"
+                            : "You threw the \(grade?.discard.spokenName ?? "")."
+                        // The old line leaves at once and the new one fades in
+                        // once the rack has settled. Cross-faded while the rack
+                        // re-centred, both lines showed on top of each other
+                        // and the tiles slid across the new one.
+                        Text(prompt)
                             .font(Theme.display(21))
                             .foregroundStyle(Theme.ink)
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
+                            .id(prompt)
+                            .transition(Self.settleIn)
                     }
                     TileRackView(
                         tiles: rack,
                         tileWidth: 40,
                         highlightedIndices: highlightedIndices,
-                        onTap: { index in throwTile(at: index) }
+                        onTap: { index in throwTile(at: index) },
+                        tileInsertion: TileRackView.dropIn
                     )
                     if let grade {
                         gradeCard(grade)
@@ -274,6 +282,7 @@ struct HandPlayView: View {
                         Text("Tap the tile you want to throw")
                             .font(.caption)
                             .foregroundStyle(Theme.inkTertiary)
+                            .transition(Self.settleIn)
                     }
                 }
             }
@@ -353,8 +362,16 @@ struct HandPlayView: View {
             (grade.wasBest ? Theme.bamGreen : Theme.gold).opacity(0.12),
             in: RoundedRectangle(cornerRadius: 14)
         )
-        .transition(.scale(scale: 0.96).combined(with: .opacity))
+        .transition(Self.settleIn)
     }
+
+    /// Text around the rack leaves at once and arrives after the tiles have
+    /// moved, so no tile ever slides across a line or the coaching card
+    /// (2026-10-19 frame capture).
+    private static let settleIn = AnyTransition.asymmetric(
+        insertion: .opacity.animation(.easeOut(duration: 0.2).delay(0.22)),
+        removal: .identity
+    )
 
     private func draw() {
         guard wallIndex < wall.count else {
@@ -410,11 +427,15 @@ struct HandPlayView: View {
     private func advance() {
         // A second tap in the same frame would draw twice and skip a throw.
         guard grade != nil else { return }
-        withAnimation(.easeInOut(duration: 0.2)) { grade = nil }
-        if turn >= HandPlayEngine.turnCount {
-            finish()
-        } else {
-            draw()
+        // One transaction for the whole turn change: the card leaving, the
+        // prompt and the drawn tile used to run on two different curves.
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+            grade = nil
+            if turn >= HandPlayEngine.turnCount {
+                finish()
+            } else {
+                draw()
+            }
         }
     }
 
