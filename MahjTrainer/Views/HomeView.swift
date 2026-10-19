@@ -210,7 +210,8 @@ struct HomeView: View {
     }
 
     private var showsGameNightCard: Bool {
-        subscriptions.isPro && !settings.gameNightReminderEnabled && !gameNightCardDismissed
+        subscriptions.isPro && progress.hasPracticedSinceOnboarding
+            && !settings.gameNightReminderEnabled && !gameNightCardDismissed
     }
 
     /// Today's mastery, written to the ledger so the week-over-week gain has
@@ -319,7 +320,8 @@ struct HomeView: View {
     }
 
     /// Apple's tracking prompt (Meta ads), only once the player has finished
-    /// a practice (any drill, session, challenge, Mahj Minute or hand) and is
+    /// a practice of their own after the tour (any drill, session, challenge,
+    /// Mahj Minute or hand) and is
     /// back on a bare Home: never at launch, never in onboarding, never over a
     /// sheet or a pushed screen. A stranger asked to be tracked before they
     /// have used the app is spooked; someone who just finished a drill has a
@@ -332,7 +334,7 @@ struct HomeView: View {
     /// not have yet; with no offering there is no ask, and the offering
     /// arriving tries again.
     private func askForTrackingIfNeeded() async {
-        guard MetaAds.shouldAskForTracking, progress.hasOnboarded, progress.totalSessions > 0,
+        guard MetaAds.shouldAskForTracking, progress.hasOnboarded, progress.hasPracticedSinceOnboarding,
               !WhatsNew.shownThisLaunch else { return }
         try? await Task.sleep(nanoseconds: 1_200_000_000)
         guard subscriptions.remoteConfigKnown, subscriptions.isOn(.attPrompt), homeIsBare else { return }
@@ -561,11 +563,12 @@ struct HomeView: View {
     /// without a release.
     private var showsMonthlyChallenge: Bool { subscriptions.isOn(.monthlyChallenge) }
 
-    /// Today's challenge round, for players who have finished a practice:
-    /// a brand-new player's Home stays the 1.3.2 lobby, with Get Started the
-    /// obvious first tap. The event link opens the challenge for anyone.
+    /// Today's challenge round, for players who have finished a practice of
+    /// their own after the tour: a brand-new player's Home stays the 1.3.2
+    /// lobby, with Get Started the obvious first tap. The event link opens
+    /// the challenge for anyone.
     private var homeChallengeRound: ChallengeRound? {
-        guard showsMonthlyChallenge, progress.totalSessions > 0 else { return nil }
+        guard showsMonthlyChallenge, progress.hasPracticedSinceOnboarding else { return nil }
         return MonthlyChallengeContent.currentRound()
     }
 

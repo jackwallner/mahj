@@ -25,6 +25,24 @@ final class ProgressStoreTests: XCTestCase {
         XCTAssertEqual(store.totalSessions, 2)
     }
 
+    /// The tour's closing practice is recorded before onboarding ends, so
+    /// Home's extras wait for a practice the player starts after it.
+    func testTourPracticeDoesNotCountTowardHomeExtras() {
+        XCTAssertFalse(store.hasPracticedSinceOnboarding)
+        store.recordSession(drillID: "quick-session")
+        store.sessionsAtOnboarding = store.totalSessions
+        XCTAssertFalse(store.hasPracticedSinceOnboarding)
+        store.recordSession(drillID: "meet-tiles")
+        XCTAssertTrue(store.hasPracticedSinceOnboarding)
+    }
+
+    /// Players who onboarded before 1.4.1 have no stored mark, so any
+    /// finished practice counts, as before.
+    func testUpgradersCountEveryPractice() {
+        store.recordSession(drillID: "meet-tiles")
+        XCTAssertTrue(store.hasPracticedSinceOnboarding)
+    }
+
     func testStreakStartsAtOne() {
         store.recordSession(drillID: "a")
         XCTAssertEqual(store.streakCount, 1)

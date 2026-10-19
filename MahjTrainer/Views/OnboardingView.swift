@@ -606,6 +606,8 @@ struct OnboardingView: View {
         // nothing "new" to tell them. Stamping the baseline here is what keeps
         // the update sheet off a fresh install.
         WhatsNew.markCurrentAsBaseline()
+        // The tour's closing practice does not count toward Home's extras.
+        progress.sessionsAtOnboarding = progress.totalSessions
         progress.hasOnboarded = true
     }
 }

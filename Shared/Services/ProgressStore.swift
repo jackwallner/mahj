@@ -22,6 +22,7 @@ final class ProgressStore: ObservableObject {
         static let seenItems = "progress.seenItems"
         static let missedItems = "progress.missedItems"
         static let lastQuickSessionDay = "progress.lastQuickSessionDay"
+        static let sessionsAtOnboarding = "progress.sessionsAtOnboarding"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -37,6 +38,19 @@ final class ProgressStore: ObservableObject {
         get { defaults.bool(forKey: Keys.hasOnboarded) }
         set { defaults.set(newValue, forKey: Keys.hasOnboarded) }
     }
+
+    /// Sessions finished before onboarding ended: the tour's closing
+    /// practice. Players who onboarded before 1.4.1 have none stored (0).
+    var sessionsAtOnboarding: Int {
+        get { defaults.integer(forKey: Keys.sessionsAtOnboarding) }
+        set { defaults.set(newValue, forKey: Keys.sessionsAtOnboarding) }
+    }
+
+    /// True once the player has finished a practice of their own after
+    /// onboarding. Home's extras (the challenge card, the game night card,
+    /// the tracking prompt) wait for it, so the first Home after the tour is
+    /// the plain 1.3.2 lobby.
+    var hasPracticedSinceOnboarding: Bool { totalSessions > sessionsAtOnboarding }
 
     func completions(for drillID: String) -> Int {
         completions[drillID] ?? 0
@@ -153,5 +167,6 @@ final class ProgressStore: ObservableObject {
         defaults.removeObject(forKey: Keys.missedItems)
         defaults.removeObject(forKey: Keys.reviewGateShown)
         defaults.removeObject(forKey: Keys.lastQuickSessionDay)
+        defaults.removeObject(forKey: Keys.sessionsAtOnboarding)
     }
 }
