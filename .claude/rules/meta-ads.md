@@ -59,3 +59,15 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
   variant at once with `-mahj.rc.<key>` and checks each one renders.
 - Captures: `scripts/capture-meta-cta.sh <udid> <out-dir>` (reinstalls, every
   `TrialCTA` wording on both surfaces, ATT timing, `checks_*` PASS/FAIL attachments).
+- Verifying the SDK on a real phone (2026-10-19): the dataset's
+  `last_fired_time` and the Meta Ads MCP `ads_get_dataset_stats` do NOT show
+  app SDK events (`/activities`). The only event they ever showed was the
+  relay's CAPI curl test on 2026-10-16 18:36 UTC, and stats came back empty
+  even for that. Neither stored token can read app events (the system user
+  gets code 3000 on `app_event_types`). Proof that the SDK ran is on the
+  RevenueCat customer instead: `linkRevenueCat` only runs after `MetaAds.start`,
+  so a 1.4.x customer carrying `$fbAnonId` and `meta_extinfo` (plus
+  `$attConsentStatus`) had the SDK live. Simulator customers (Test Store key)
+  never carry them, by design. Whether Meta received the launches is only
+  visible in Events Manager (Jack, by hand: no browser automation on this
+  portfolio).
