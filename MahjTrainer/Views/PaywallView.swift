@@ -252,11 +252,17 @@ enum PaywallPricing {
 
     /// One concise point-of-purchase line: price, trial, auto-renew, cancel.
     /// The full legalese lives in the EULA behind the Terms link.
-    static func terms(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String {
-        terms(amount: price(subscriptions, plan), plan: plan)
+    static func terms(_ subscriptions: SubscriptionService, _ plan: PaywallPlan, trial: Bool = true) -> String {
+        terms(amount: price(subscriptions, plan), plan: plan, trial: trial)
     }
 
-    static func terms(amount: String?, plan: PaywallPlan) -> String {
+    /// `trial: false` is for an Apple Account that already had its free week
+    /// (Apple gives one per subscription group): it is charged on day one.
+    static func terms(amount: String?, plan: PaywallPlan, trial: Bool = true) -> String {
+        if !trial, plan != .lifetime {
+            guard let amount else { return "Billed today. Auto-renews until canceled." }
+            return "\(amount), billed today. Auto-renews until canceled."
+        }
         guard let amount else {
             switch plan {
             case .lifetime:

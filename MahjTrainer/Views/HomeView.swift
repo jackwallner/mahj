@@ -414,21 +414,27 @@ struct HomeView: View {
         NavigationLink {
             StatsView()
         } label: {
-            HStack(spacing: 8) {
-                statChip(value: progress.currentStreak(), icon: "flame.fill", color: Theme.coral,
-                         label: "\(progress.currentStreak()) day streak")
-                statChip(value: progress.totalSessions, icon: "checkmark.seal.fill", color: Theme.jade,
-                         label: "\(progress.totalSessions) drills done")
-                // Only ever positive. A week that went backwards is not news
-                // worth a chip; the ring already says where things stand.
-                if let gain = ledger.weeklyGain() {
-                    statChip(value: gain, icon: "arrow.up.right", color: Theme.plum,
-                             label: "\(gain) \(gain == 1 ? "question" : "questions") locked in this week", prefix: "+")
-                }
+            // Three chips at the largest text sizes overrun a small phone.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 8) { statChips }
+                VStack(alignment: .leading, spacing: 8) { statChips }
             }
         }
         .buttonStyle(.plain)
         .accessibilityHint("Opens your progress breakdown")
+    }
+
+    @ViewBuilder private var statChips: some View {
+        statChip(value: progress.currentStreak(), icon: "flame.fill", color: Theme.coral,
+                 label: "\(progress.currentStreak()) day streak")
+        statChip(value: progress.totalSessions, icon: "checkmark.seal.fill", color: Theme.jade,
+                 label: "\(progress.totalSessions) drills done")
+        // Only ever positive. A week that went backwards is not news
+        // worth a chip; the ring already says where things stand.
+        if let gain = ledger.weeklyGain() {
+            statChip(value: gain, icon: "arrow.up.right", color: Theme.plum,
+                     label: "\(gain) \(gain == 1 ? "question" : "questions") locked in this week", prefix: "+")
+        }
     }
 
     /// The stats, then the challenge chip once today's round is played. The
@@ -701,7 +707,7 @@ struct HomeView: View {
                 Image(systemName: "xmark")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(Theme.inkTertiary)
-                    .frame(width: 32, height: 32)
+                    .frame(width: 44, height: 44)
                     .contentShape(Rectangle())
             }
             .buttonStyle(.plain)

@@ -32,6 +32,16 @@ final class ProgressStore: ObservableObject {
         completions = (defaults.dictionary(forKey: Keys.completions) as? [String: Int]) ?? [:]
         seenItems = Set(defaults.stringArray(forKey: Keys.seenItems) ?? [])
         missedItems = Set(defaults.stringArray(forKey: Keys.missedItems) ?? [])
+        stampUpgraderBaseline()
+    }
+
+    /// Players who onboarded before 1.4.1 have no `sessionsAtOnboarding`.
+    /// Their tour ended in a counted practice, so take that one off once:
+    /// the trial sheet's two practices and Home's extras then wait for
+    /// practices of their own, as they do for a new player.
+    private func stampUpgraderBaseline() {
+        guard hasOnboarded, defaults.object(forKey: Keys.sessionsAtOnboarding) == nil else { return }
+        sessionsAtOnboarding = min(totalSessions, 1)
     }
 
     var hasOnboarded: Bool {
@@ -40,7 +50,7 @@ final class ProgressStore: ObservableObject {
     }
 
     /// Sessions finished before onboarding ended: the tour's closing
-    /// practice. Players who onboarded before 1.4.1 have none stored (0).
+    /// practice. Stamped once for players who onboarded before 1.4.1.
     var sessionsAtOnboarding: Int {
         get { defaults.integer(forKey: Keys.sessionsAtOnboarding) }
         set { defaults.set(newValue, forKey: Keys.sessionsAtOnboarding) }

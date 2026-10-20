@@ -500,7 +500,7 @@ final class LayoutSweepTests: XCTestCase {
             ]
             // An upgrader: onboarded, no stored marker.
             args += whatsNew ? ["-whatsnew.lastSeenVersion", ""] : ["-mahj.suppressWhatsNew"]
-            if let sessions { args += ["-progress.totalSessions", "\(sessions)"] }
+            if let sessions { args += ["-progress.totalSessions", "\(sessions)", "-progress.sessionsAtOnboarding", "0"] }
         } else {
             args += ["-subscription.localProOverride", "NO"]
         }
