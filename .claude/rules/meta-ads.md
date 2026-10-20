@@ -20,21 +20,24 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
 - Meta's SDK must get `ApplicationDelegate.application(_:didFinishLaunching...)`
   before any other call, so `MetaAds.start` sits in `AppDelegate`, and
   `linkRevenueCat()` runs right after `Purchases.configure`.
-- ATT is asked by `HomeView.askForTrackingIfNeeded`: onboarded, at least one
-  finished practice of the player's own after the tour
-  (`progress.hasPracticedSinceOnboarding`, build 56; Jack 2026-10-16: asking
-  before the player has used the app spooks people), bare Home,
-  1.2s settle, re-asked whenever Home is bare again (a sheet closes, a pushed
-  screen pops, the offering arrives). Bare means `HomeView.homeIsBare`: Home
-  on screen, nothing pushed (a deep-linked challenge counts), no sheet. Never in a
-  launch that showed What's New (`WhatsNew.shownThisLaunch`, Jack
-  2026-10-18): updaters already have practices, so it waits a launch. It
-  also waits for `remoteConfigKnown`, or `att_prompt: off` could not stop a
-  cold launch, which asks before the offering loads. Never move it
-  to launch or onboarding. `askApple()` stays `nonisolated` (ATT answers off
-  the main queue, which traps a main-actor closure under Swift 6). It also
-  needs `subscriptions.isOn(.attPrompt)`: offering metadata `att_prompt: off`
-  (set on every offering) pauses it without a release.
+- ATT is asked only after a trial start or a purchase (Jack 2026-10-19),
+  so only paying players are prompted and the relay can count a consented
+  trial within its 15 minutes. In the first three days of 1.4.1 none of 16
+  trials qualified (9 no_consent, 3 cancelled, 4 waiting) under the old
+  after-first-practice ask. `SubscriptionService.purchase` calls
+  `MetaAds.notePurchase()` on every completed purchase (onboarding page,
+  paywall, result trial sheet), which stores `meta.askAfterPurchase`;
+  `HomeView.askForTrackingIfNeeded` asks on the next bare Home and
+  `requestTracking` clears the flag and calls `collectDeviceIdentifiers()`
+  so RevenueCat has the answer fast. A player who never starts a trial or
+  buys never sees the prompt. Guards kept: onboarded, bare Home
+  (`HomeView.homeIsBare`: Home on screen, nothing pushed, no sheet), 1.2s
+  settle, re-asked whenever Home is bare again, never in a launch that
+  showed What's New (`WhatsNew.shownThisLaunch`), waits for
+  `remoteConfigKnown` and needs `subscriptions.isOn(.attPrompt)` (offering
+  metadata `att_prompt: off` pauses it without a release). Never at launch
+  or in onboarding. `askApple()` stays `nonisolated` (ATT answers off the
+  main queue, which traps a main-actor closure under Swift 6).
 - StartTrial belongs to `supabase/functions/meta-trial-relay`, never to
   RevenueCat's Meta integration: RevenueCat cannot hold an event 15 minutes.
   If the RC integration ever sends StartTrial, the filter is defeated.

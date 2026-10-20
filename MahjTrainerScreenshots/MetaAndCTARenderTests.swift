@@ -3,9 +3,10 @@ import XCTest
 /// Captures for the October 2026 Meta prep and the trial button wordings.
 ///
 /// - Every `TrialCTA` wording on both purchase surfaces (`-mahj.rc.trial_cta`).
-/// - Apple's tracking prompt: absent through onboarding and on Home until a
-///   practice is finished, shown on Home after one (`-mahj.previewMetaATT`
-///   turns it on in the simulator).
+/// - Apple's tracking prompt: absent through onboarding and on Home after
+///   practice alone, shown on Home after a trial or purchase
+///   (`-meta.askAfterPurchase` stands in for the purchase, which a simulator
+///   cannot make; `-mahj.previewMetaATT` turns Meta on in the simulator).
 ///
 /// Run: scripts/capture-meta-cta.sh <udid> <out-dir>. Reinstall first: the
 /// ATT answer survives relaunches of the same install.
@@ -74,7 +75,7 @@ final class MetaAndCTARenderTests: XCTestCase {
         app.terminate()
     }
 
-    func testTrackingPromptAfterFirstPractice() {
+    func testTrackingPromptOnlyAfterATrial() {
         launch(onboarded: false, extra: ["-mahj.previewMetaATT"])
         check("no tracking prompt on the first onboarding page", !trackingAlert.waitForExistence(timeout: 3))
         walkToTrialPage()
@@ -82,14 +83,15 @@ final class MetaAndCTARenderTests: XCTestCase {
         capture("att_none_during_onboarding")
         app.terminate()
 
-        // Onboarded but nothing finished yet: Home stays quiet.
-        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "0"])
-        check("no tracking prompt on Home before a finished practice", !trackingAlert.waitForExistence(timeout: 5))
+        // Practice without a trial or purchase: Home stays quiet (Jack 2026-10-19).
+        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "4"])
+        check("no tracking prompt on Home after practice alone", !trackingAlert.waitForExistence(timeout: 6))
+        capture("att_none_after_practice")
         app.terminate()
 
-        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "1"])
+        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "0", "-meta.askAfterPurchase", "YES"])
         let shown = trackingAlert.waitForExistence(timeout: 8)
-        check("tracking prompt shown on Home after a finished practice", shown)
+        check("tracking prompt shown on Home right after a trial", shown)
         guard shown else { return }
         capture("att_prompt_home")
         let text = trackingAlert.staticTexts.allElementsBoundByIndex.map(\.label).joined(separator: " | ")
@@ -101,7 +103,7 @@ final class MetaAndCTARenderTests: XCTestCase {
         capture("att_after_allow")
         app.terminate()
 
-        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "1"])
+        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "0", "-meta.askAfterPurchase", "YES"])
         check("never asked twice", !trackingAlert.waitForExistence(timeout: 5))
     }
 

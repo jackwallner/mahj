@@ -56,7 +56,7 @@ final class TrialCopyTests: XCTestCase {
     /// Switches are on unless RevenueCat says exactly "off".
     func testSwitchesDefaultOn() {
         // The keys set in RevenueCat; renaming one would silently disarm it.
-        XCTAssertEqual(RemoteSwitch.allCases.map(\.rawValue), ["att_prompt", "rating_prompt", "monthly_challenge"])
+        XCTAssertEqual(RemoteSwitch.allCases.map(\.rawValue), ["att_prompt", "rating_prompt", "monthly_challenge", "trial_offer"])
         for remoteSwitch in RemoteSwitch.allCases {
             XCTAssertTrue(RemoteConfig.isOn(remoteSwitch, in: nil))
             XCTAssertTrue(RemoteConfig.isOn(remoteSwitch, in: [remoteSwitch.rawValue: "on"]))

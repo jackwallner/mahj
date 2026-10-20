@@ -72,14 +72,14 @@ enum TrialBenefits: String, CaseIterable, Sendable {
         case .reassureFirst:
             return [
                 "Every beginner room is free, forever",
-                "Unlimited hands in Play a Hand, coached on every throw",
+                "Play coached practice hands, as many as you want",
                 "Endless Practice deals a fresh rack every time",
                 "Fix My Mistakes and Game Night Prep, from your misses",
                 "Extra sets in all four rooms, plus the Master Tables",
             ]
         case .paidFirst:
             return [
-                "Unlimited hands in Play a Hand, coached on every throw",
+                "Play coached practice hands, as many as you want",
                 "Endless Practice deals a fresh rack every time",
                 "Fix My Mistakes brings back what you miss",
                 "Game Night Prep, five minutes built from your misses",
@@ -107,6 +107,37 @@ enum OnboardingPlan: String, CaseIterable, Sendable {
     }
 }
 
+/// What the one-tap trial sheet says under its headline. Tested in the app
+/// rather than as a RevenueCat Experiment: Experiments enrol only new
+/// customers, one experiment each, so it would split the trial button test's
+/// traffic and miss the existing free players who make up most of the sheet's
+/// audience. `split` deals each player one arm for good (control or
+/// timeline), the arm rides to RevenueCat as the `offer_pitch` attribute,
+/// and `scripts/offer-pitch-readout.py` reads trials per sheet viewer by
+/// arm. Deploy the winner by setting the key to it on every offering.
+enum OfferPitch: String, CaseIterable, Sendable {
+    static let metadataKey = "offer_pitch"
+    static let armKey = "trialOffer.pitchArm"
+
+    /// Control: three benefit lines.
+    case benefits
+    /// How the free week runs, with real dates (the Blinkist trial timeline).
+    case timeline
+    /// Half the players get each arm, kept per install.
+    case split
+
+    /// The arm this player sees. `split` deals one on first use and keeps it.
+    func arm(defaults: UserDefaults = .standard, coin: () -> Bool = { Bool.random() }) -> OfferPitch {
+        guard self == .split else { return self }
+        if let kept = defaults.string(forKey: Self.armKey).flatMap(OfferPitch.init(rawValue:)), kept != .split {
+            return kept
+        }
+        let dealt: OfferPitch = coin() ? .timeline : .benefits
+        defaults.set(dealt.rawValue, forKey: Self.armKey)
+        return dealt
+    }
+}
+
 /// Remote off switches, for what is worth pausing without a release. On
 /// unless the metadata says "off".
 enum RemoteSwitch: String, CaseIterable, Sendable {
@@ -117,6 +148,9 @@ enum RemoteSwitch: String, CaseIterable, Sendable {
     /// The monthly challenge: its Home card and the `mahj://challenge` link.
     /// Saved runs are kept, so switching it back on loses nothing.
     case monthlyChallenge = "monthly_challenge"
+    /// The one-tap trial sheet rising on its own after a good result.
+    /// Tapped Mahj+ cards still open it when this is off.
+    case trialOffer = "trial_offer"
 }
 
 enum RemoteConfig {
@@ -159,17 +193,28 @@ extension SubscriptionService {
         RemoteConfig.value(OnboardingPlan.metadataKey, in: remoteMetadata, default: .monthly)
     }
 
+    /// The trial sheet's body for this player (an arm, never `split`).
+    var offerPitch: OfferPitch {
+        RemoteConfig.value(OfferPitch.metadataKey, in: remoteMetadata, default: OfferPitch.benefits).arm()
+    }
+
     func trialCTA(_ surface: TrialCTA.Surface) -> String { trialCTAArm.title(surface) }
 
     func isOn(_ remoteSwitch: RemoteSwitch) -> Bool { RemoteConfig.isOn(remoteSwitch, in: remoteMetadata) }
 
     /// Every variant this customer saw, for reading tests by attribute too.
     var remoteVariantAttributes: [String: String] {
-        [
+        var attributes = [
             TrialCTA.metadataKey: trialCTAArm.rawValue,
             TrialTitle.metadataKey: trialTitle.rawValue,
             TrialBenefits.metadataKey: trialBenefits.rawValue,
             OnboardingPlan.metadataKey: onboardingPlan.rawValue,
         ]
+        // Only once the sheet has dealt an arm: a player who never saw it is
+        // not in the pitch test.
+        if let arm = UserDefaults.standard.string(forKey: OfferPitch.armKey) {
+            attributes[OfferPitch.metadataKey] = arm
+        }
+        return attributes
     }
 }

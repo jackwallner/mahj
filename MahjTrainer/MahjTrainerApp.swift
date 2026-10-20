@@ -21,9 +21,11 @@ struct MahjTrainerApp: App {
                     if let destination = AppDestination(url: url) { router.route(to: destination) }
                 }
                 .onChange(of: scenePhase) { _, phase in
+                    if phase == .background { TrialOfferPacer.noteBackground() }
                     // iOS rarely cold-launches an app, so a report queued
                     // offline also retries every time the app comes back.
                     guard phase == .active else { return }
+                    TrialOfferPacer.noteForeground()
                     Task { await FeedbackService.shared.flushPending() }
                     // Keeps "1st of each month" true for players who never
                     // cold-launch: the three scheduled months roll forward.
@@ -42,6 +44,7 @@ struct MahjTrainerApp: App {
                     MonthlyChallengeReminder.refresh()
                     ReviewPromptTracker.recordAppLaunch()
                     ConversionDiagnostics.recordAppOpen()
+                    TrialOfferPacer.noteForeground()
                     Task { await FeedbackService.shared.flushPending() }
                     #if DEBUG
                     if RevenueCatProbe.isEnabled {

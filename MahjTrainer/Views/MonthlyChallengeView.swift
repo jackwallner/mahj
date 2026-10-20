@@ -499,7 +499,7 @@ struct MonthlyChallengeResultView: View {
                 }
                 MahjPlusPitchCard(
                     headline: "Want more than five a day?",
-                    detail: "\(Membership.name) adds unlimited hands in Play a Hand, Endless Practice, Game Night Prep and the Master Tables."
+                    detail: "\(Membership.name) adds coached practice hands as often as you want, with fresh racks that never run out."
                 ) { showPaywall = true }
             }
             .padding()
@@ -523,8 +523,8 @@ struct MonthlyChallengeResultView: View {
         }
         .onAppear { recordCompletionIfNeeded() }
         .task { await ChallengeStandingService.refresh(monthKey: round.monthKey, force: recordsCompletion) }
-        .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_minute_result") }
-        .requestsReview(after: reviewMoment, isClear: { !showPaywall })
+        .trialOffer(.minuteResult, isPresented: $showPaywall, autoMoment: reviewMoment)
+        .requestsReview(after: reviewMoment, isClear: { !showPaywall && !TrialOfferPacer.autoShownRecently() })
     }
 
     private var verdict: String {

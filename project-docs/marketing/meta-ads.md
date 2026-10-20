@@ -27,7 +27,7 @@ $350 to $1,000 and is Jack's call.
 |---|---|---|
 | Meta SDK 18.1.1 (`FacebookCore`), purchase auto-logging off, `activateApp()` on every foreground | `Shared/Services/MetaAds.swift`, `project.yml` | Inert until `META_APP_ID` + `META_CLIENT_TOKEN` are set |
 | RevenueCat link: `$fbAnonId`, `collectDeviceIdentifiers()` (again after ATT), `meta_extinfo` | `MetaAds.linkRevenueCat()`, called from `SubscriptionService.configureIfNeeded` | Inert with the SDK |
-| ATT prompt, on Home after onboarding, never over a sheet, never at launch | `HomeView.askForTrackingIfNeeded`, `NSUserTrackingUsageDescription` | Shown only when Meta is on |
+| ATT prompt, only after a trial start or purchase (Jack 2026-10-19), on the next bare Home, never over a sheet, never at launch | `HomeView.askForTrackingIfNeeded`, `MetaAds.notePurchase`, `NSUserTrackingUsageDescription` | Shown only when Meta is on |
 | SKAdNetwork ids for Meta | `Info.plist` `SKAdNetworkItems` | Shipping |
 | 15-minute StartTrial relay | `supabase/functions/meta-trial-relay`, `supabase/migrations/20261015170000_meta_trial_relay.sql` | **Live**, recording trials, sends nothing (`would_send`) |
 | RevenueCat webhook to the relay | RC project `28030dc2`, webhook `whintgrfb640672ce`, App Store app, production, `initial_purchase`/`cancellation`/`expiration` | **Live** |

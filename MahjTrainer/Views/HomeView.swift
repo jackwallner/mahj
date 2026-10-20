@@ -22,6 +22,11 @@ struct HomeView: View {
     @StateObject private var ledger = MasteryLedger.shared
     @State private var path: [AppDestination] = []
     @State private var showPaywall = false
+    #if DEBUG
+    /// `-mahj.previewTrialOffer` opens the result-screen trial sheet over
+    /// Home, for screenshots and layout checks.
+    @State private var previewTrialOffer = ProcessInfo.processInfo.arguments.contains("-mahj.previewTrialOffer")
+    #endif
     @State private var showSettings = false
     @State private var showWhatsNew = false
     /// Non-nil while the one churn question is up.
@@ -157,6 +162,9 @@ struct HomeView: View {
                 if !isShowing, !subscriptions.isPro { pendingAfterUpgrade = nil }
                 if !isShowing { homeIsBareAgain() }
             }
+            #if DEBUG
+            .sheet(isPresented: $previewTrialOffer) { TrialOfferSheet(context: .drillResult, auto: false) }
+            #endif
         }
         .tint(Theme.jade)
     }
@@ -318,22 +326,19 @@ struct HomeView: View {
         }
     }
 
-    /// Apple's tracking prompt (Meta ads), only once the player has finished
-    /// a practice of their own after the tour (any drill, session, challenge,
-    /// Mahj Minute or hand) and is
-    /// back on a bare Home: never at launch, never in onboarding, never over a
-    /// sheet or a pushed screen. A stranger asked to be tracked before they
-    /// have used the app is spooked; someone who just finished a drill has a
-    /// reason to say yes. The trial relay waits up to 24 hours for the answer,
-    /// so asking later costs Meta nothing. Anything covering Home just defers
-    /// it until Home is bare again, and a launch that showed What's New
-    /// defers it to the next launch (every updater has finished practices).
+    /// Apple's tracking prompt (Meta ads), only after a trial start or a
+    /// purchase (Jack 2026-10-19), on the next bare Home: never at launch,
+    /// never in onboarding, never over a sheet or a pushed screen. Only
+    /// paying players are asked, and soon enough for `meta-trial-relay` to
+    /// count a consented trial. Anything covering Home just defers it until
+    /// Home is bare again, and a launch that showed What's New defers it to
+    /// the next launch.
     ///
     /// The `att_prompt` switch lives in the offering, which a cold launch may
     /// not have yet; with no offering there is no ask, and the offering
     /// arriving tries again.
     private func askForTrackingIfNeeded() async {
-        guard MetaAds.shouldAskForTracking, progress.hasOnboarded, progress.hasPracticedSinceOnboarding,
+        guard MetaAds.shouldAskForTracking, MetaAds.askAfterPurchase, progress.hasOnboarded,
               !WhatsNew.shownThisLaunch else { return }
         try? await Task.sleep(nanoseconds: 1_200_000_000)
         guard subscriptions.remoteConfigKnown, subscriptions.isOn(.attPrompt), homeIsBare else { return }
@@ -1021,7 +1026,7 @@ struct HomeView: View {
                     Text("Get \(Membership.name)")
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
-                    Text("Unlimited hands in Play a Hand, Game Night Prep, endless modes, and \(lockedDrillCount) more drills across every room")
+                    Text("Coached practice hands as often as you want, Game Night Prep, endless modes, and \(lockedDrillCount) more drills")
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
                         .multilineTextAlignment(.leading)

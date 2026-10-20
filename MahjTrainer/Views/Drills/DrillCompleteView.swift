@@ -52,8 +52,10 @@ struct DrillCompleteView: View {
                 reviewMoment += 1
             }
         }
-        .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_result_drill") }
-        .requestsReview(after: reviewMoment, isClear: { !showPaywall })
+        // One ask per moment: the trial sheet, when it is due, goes first and
+        // the rating prompt stands down for that result.
+        .trialOffer(.drillResult, isPresented: $showPaywall, autoMoment: reviewMoment)
+        .requestsReview(after: reviewMoment, isClear: { !showPaywall && !TrialOfferPacer.autoShownRecently() })
     }
 
     private var summary: some View {

@@ -164,7 +164,7 @@ struct RoomView: View {
                         .foregroundStyle(Theme.ink)
                     Spacer(minLength: 0)
                 }
-                Text("\(Membership.name) unlocks the extra sets here and in every other room, the Master Tables, unlimited hands in Play a Hand, Game Night Prep, and Endless Practice. Everything you already have stays free.")
+                Text("\(Membership.name) unlocks the extra sets here and in every other room, the Master Tables, coached practice hands as often as you want, Game Night Prep, and Endless Practice. Everything you already have stays free.")
                     .font(.caption)
                     .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.leading)

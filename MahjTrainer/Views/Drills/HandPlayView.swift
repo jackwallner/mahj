@@ -37,6 +37,9 @@ struct HandPlayView: View {
     @State private var verdict: HandPlayEngine.Verdict?
     @State private var confettiTrigger = 0
     @State private var showPaywall = false
+    /// Bumped when a free player finishes the day's free hand: the trial
+    /// sheet's cue to rise on its own, when it is due.
+    @State private var freeHandSpent = 0
 
     /// The result of one throw, held on screen until the player advances, and
     /// saved with the hand so a relaunch mid-coaching comes back to it rather
@@ -55,7 +58,7 @@ struct HandPlayView: View {
         .background(Theme.background)
         .navigationTitle("Play a Hand")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_hand_play") }
+        .trialOffer(.handSpent, isPresented: $showPaywall, autoMoment: freeHandSpent)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.4)) }
         .task { resumeOrDeal() }
     }
@@ -457,6 +460,7 @@ struct HandPlayView: View {
             SoundPlayer.play(.success)
         }
         withAnimation(.easeInOut(duration: 0.3)) { phase = .finished }
+        if !canPlayAgain { freeHandSpent += 1 }
     }
 
     // MARK: - Verdict
@@ -553,7 +557,7 @@ struct HandPlayView: View {
                 Text("That was today's free hand")
                     .font(.headline)
                     .foregroundStyle(Theme.ink)
-                Text("\(Membership.name) deals unlimited hands, each one coached on every throw.")
+                Text("\(Membership.name) deals a new hand whenever you want one, coached on every throw.")
                     .font(.subheadline)
                     .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)
