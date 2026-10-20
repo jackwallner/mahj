@@ -5,13 +5,28 @@ import UserNotifications
 enum AppDestination: Hashable {
     case gameNightPrepSession
     case monthlyChallenge
+    #if DEBUG
+    /// Screenshot-only route (`mahj://shot/<name>`), see `DebugShot`.
+    case debugShot(String)
+    #endif
 
     /// Free destinations open for everyone; the rest wait behind the paywall.
-    var isFree: Bool { self == .monthlyChallenge }
+    var isFree: Bool {
+        #if DEBUG
+        if case .debugShot = self { return true }
+        #endif
+        return self == .monthlyChallenge
+    }
 
     /// `mahj://challenge` is what each month's App Store in-app event opens.
     init?(url: URL) {
         guard url.scheme == "mahj" else { return nil }
+        #if DEBUG
+        if url.host == "shot" {
+            self = .debugShot(url.pathComponents.dropFirst().joined(separator: "/"))
+            return
+        }
+        #endif
         switch url.host {
         case "challenge": self = .monthlyChallenge
         default: return nil

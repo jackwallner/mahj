@@ -182,7 +182,7 @@ struct RoomView: View {
     }
 
     @ViewBuilder
-    private func destination(_ drill: Drill) -> some View {
+    func destination(_ drill: Drill) -> some View {
         switch drill.kind {
         case .flashcards(let cards):
             FlashcardDrillView(drill: drill, cards: cards, accent: room.accent)

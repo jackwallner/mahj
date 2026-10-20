@@ -66,6 +66,11 @@ struct HomeView: View {
                     homeIsBareAgain()
                 }
                 .onDisappear { homeOnScreen = false }
+                #if DEBUG
+                .onChange(of: router.pendingDestination) { _, pending in
+                    if pending != nil { consumePendingDestination() }
+                }
+                #endif
                 .onChange(of: showSettings) { _, isShowing in
                     if !isShowing { consumeRecommendedRoomHint(proxy: proxy) }
                 }
@@ -104,6 +109,10 @@ struct HomeView: View {
                     QuickSessionView(gameNightPrep: gameNightPrepItems)
                 case .monthlyChallenge:
                     MonthlyChallengeView()
+                #if DEBUG
+                case .debugShot(let name):
+                    DebugShot.screen(name)
+                #endif
                 }
             }
             .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_home_sheet") }
@@ -299,6 +308,14 @@ struct HomeView: View {
             return
         }
         guard let destination = router.consumePendingDestination() else { return }
+        #if DEBUG
+        if case .debugShot(let name) = destination {
+            showSettings = name == "settings"
+            showPaywall = name == "paywall"
+            path = DebugShot.pushes(name) ? [destination] : []
+            return
+        }
+        #endif
         // Switched off remotely: the event link and an old reminder just open Home.
         if destination == .monthlyChallenge, !showsMonthlyChallenge { return }
         guard destination.isFree || subscriptions.isPro else {
