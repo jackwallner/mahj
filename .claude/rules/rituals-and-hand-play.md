@@ -31,7 +31,7 @@ says "Any five days of the seven count" to match.
 Proof and the complete change inventory are in
 `project-docs/audits/release-experience-2026-10-16.md`.
 
-**Since 1.4.2 the Mahj Minute is the monthly challenge's free daily round**
+**Since 1.4.1 the Mahj Minute is the monthly challenge's free daily round**
 (see `monthly-challenge.md`). `MahjMinuteContent`'s own five-question set and
 `MahjMinuteStore` now only back the read-only history; the paragraph below is
 the 1.2 design.

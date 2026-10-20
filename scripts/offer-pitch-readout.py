@@ -7,7 +7,7 @@ trials started on the sheet (`converted_surface` starting with `offer_`), and
 the chance that arm beats the other (Beta(1,1) posterior, Monte Carlo), the
 same "chance to win" reading the trial button test uses.
 
-Usage: python3 scripts/offer-pitch-readout.py [--min-version 1.4.2] [--days 60]
+Usage: python3 scripts/offer-pitch-readout.py [--min-version 1.4.1] [--days 60]
 (key read from ~/.mahj_credentials, never printed)
 """
 
@@ -88,7 +88,7 @@ def chance_to_win(a: tuple[int, int], b: tuple[int, int], draws: int = 20000) ->
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--min-version", default="1.4.2")
+    parser.add_argument("--min-version", default="1.4.1")
     parser.add_argument("--days", type=int, default=60, help="only customers seen in the last N days")
     args = parser.parse_args()
     since = datetime.now(timezone.utc) - timedelta(days=args.days)

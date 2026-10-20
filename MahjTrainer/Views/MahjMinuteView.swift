@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Mahj Minutes played before 1.4.2, when the Minute was its own members'
+/// Mahj Minutes played before 1.4.1, when the Minute was its own members'
 /// set. Since then each day's Minute is the month's challenge round; these
 /// stay readable so nobody's history vanishes.
 struct MahjMinuteHistoryView: View {

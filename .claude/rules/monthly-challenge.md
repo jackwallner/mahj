@@ -15,7 +15,7 @@ under 2.3.13). A challenge that changes every calendar month is a new event
 and a new featuring nomination every month on the fleet's highest-impression
 app.
 
-**The Mahj Minute is the daily round (1.4.2, 2026-10-19):** Jack folded
+**The Mahj Minute is the daily round (1.4.1, 2026-10-19):** Jack folded
 the members-only Minute into the challenge: one daily thing, free for
 everyone, and its score rolls up into the month. Each round is five
 questions (`questionsPerRound` = `themedPerRound` 3 + `tableCallsPerRound`
@@ -33,7 +33,7 @@ Charleston questions a day") stays true. Because the Minute is no longer a
 Mahj+ benefit, the paywall, trial page bullets (`TrialBenefits`), tour and
 room upsell name unlimited Play a Hand instead.
 
-**Mahj+ on every result (1.4.2):** `MahjPlusPitchCard` sits under every
+**Mahj+ on every result (1.4.1):** `MahjPlusPitchCard` sits under every
 finished drill (`DrillCompleteView`, source `mahj_result_drill`) and every
 Minute (`mahj_minute_result`, replacing the every-fifth-day pointer) for
 non-members who have onboarded (never in the frozen tour). It is a card the
@@ -253,3 +253,10 @@ most players will jump from 1.3.2. `WhatsNew.currentRelease` falls back to
 the newest notes at or below the running version, so the in-app sheet
 still shows 1.4.1's items once. Draft and submit 1.4.2 (MANUAL) only after
 1.4.1 is released: an approved, unreleased version blocks the next one.
+
+**Renamed back to 1.4.1 (2026-10-19, Jack):** 1.4.1 was cancelled in review
+(DEVELOPER_REJECTED, never approved), so the fast follow never needed its
+own number. The one draft (`663a9ff6`) was PATCHed from 1.4.2 back to 1.4.1
+and `project.yml` follows from build 62. Builds 56 to 61 on TestFlight say
+1.4.2; a 1.4.1 build with a higher number supersedes them. Notes above that
+say 1.4.2 mean this same release.
