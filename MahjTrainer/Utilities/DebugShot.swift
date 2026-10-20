@@ -5,6 +5,7 @@ import SwiftUI
 /// `mahj://shot/<name>` opens one screen from anywhere:
 /// home, settings, paywall, reference, stats, quick, room/<room-id>,
 /// drill/<drill-id>. gh-sim passes the links with `--url`.
+@MainActor
 enum DebugShot {
     static func pushes(_ name: String) -> Bool {
         !["home", "settings", "paywall"].contains(name)
@@ -21,8 +22,9 @@ enum DebugShot {
         case ("room", let id?):
             if let room = DrillLibrary.room(id: id) { RoomView(room: room) }
         case ("drill", let id?):
-            if let hit = DrillLibrary.rooms.lazy.compactMap({ r in r.drills.first { $0.id == id }.map { (r, $0) } }).first {
-                RoomView(room: hit.0).destination(hit.1)
+            if let room = DrillLibrary.room(id: DrillLibrary.roomID(forDrillID: id)),
+               let drill = room.drills.first(where: { $0.id == id }) {
+                RoomView(room: room).destination(drill)
             }
         default: EmptyView()
         }
