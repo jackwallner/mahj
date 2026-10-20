@@ -13,6 +13,7 @@ Deno.env.set("META_CAPI_TOKEN", "token");
 type Reply = Response | Error;
 let row: Record<string, unknown>;
 let rcReply: () => Reply;
+let renewal = "will_renew";
 let metaReply: () => Reply;
 let selectQuery = "";
 let patches: Record<string, unknown>[] = [];
@@ -37,7 +38,7 @@ globalThis.fetch = (input: string | URL | Request, init?: RequestInit) => {
     const reply = rcReply();
     if (reply instanceof Response && reply.ok && url.pathname.endsWith("/subscriptions")) {
       return Promise.resolve(json(200, {
-        items: [{ store_subscription_identifier: "txn1", status: "trialing", auto_renewal_status: "will_renew" }],
+        items: [{ store_subscription_identifier: "txn1", status: "trialing", auto_renewal_status: renewal }],
       }));
     }
     if (reply instanceof Response && reply.ok) {
@@ -57,11 +58,11 @@ let handler: (req: Request) => Promise<Response>;
 (Deno as any).serve = (h: typeof handler) => { handler = h; return {}; };
 await import("./index.ts");
 
-async function sweep(attempts = 0) {
+async function sweep(attempts = 0, cancelledAt: string | null = null) {
   row = {
     id: "evt1", app_user_id: "user1", original_transaction_id: "txn1", transaction_id: "txn1",
     product_id: "com.jackwallner.mahj.yearly", store: "APP_STORE", environment: "PRODUCTION",
-    trial_started_at: new Date(Date.now() - 20 * 60_000).toISOString(), cancelled_at: null, attempts,
+    trial_started_at: new Date(Date.now() - 20 * 60_000).toISOString(), cancelled_at: cancelledAt, attempts,
   };
   patches = [];
   metaCalls = 0;
@@ -153,4 +154,23 @@ Deno.test("backoff doubles and caps at an hour", async () => {
   const seventh = await sweep(6);
   const capped = Date.parse(String(seventh.retry_at)) - Date.now();
   assert(capped > 59 * 60_000 && capped <= 60 * 60_000, `retry in ${capped}ms`);
+});
+
+Deno.test("renewal turned back on inside the hold still sends", async () => {
+  rcReply = ok;
+  metaReply = sent;
+  renewal = "will_renew";
+  const p = await sweep(0, new Date(Date.now() - 10 * 60_000).toISOString());
+  assertEquals(p.status, "sent");
+  assertEquals(metaCalls, 1);
+});
+
+Deno.test("renewal still off is cancelled, with nothing sent", async () => {
+  rcReply = ok;
+  metaReply = sent;
+  renewal = "will_not_renew";
+  const p = await sweep(0, new Date(Date.now() - 10 * 60_000).toISOString());
+  renewal = "will_renew";
+  assertEquals(p.status, "cancelled");
+  assertEquals(metaCalls, 0);
 });

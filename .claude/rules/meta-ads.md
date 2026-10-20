@@ -41,6 +41,12 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
 - StartTrial belongs to `supabase/functions/meta-trial-relay`, never to
   RevenueCat's Meta integration: RevenueCat cannot hold an event 15 minutes.
   If the RC integration ever sends StartTrial, the filter is defeated.
+- A webhook CANCELLATION is not final (2026-10-19, Luna review): at the
+  15-minute mark `decide` always rechecks RevenueCat, so a player who turns
+  renewal off and back on inside the hold is sent, and one still off is
+  `cancelled`. `cancelled_at` stays on the row as a record. Jack kept the
+  hold at 15 minutes (a longer one would also catch same-day cancellers but
+  delays Meta's signal). Deployed as version 7.
 - Relay failures (2026-10-16): a network error, 429 or 5xx from RevenueCat
   or Meta is `Transient`: the row stays `pending`, `attempts` goes up and
   `retry_at` holds it (2, 4, 8 ... capped at 60 min); the 8th gives up as

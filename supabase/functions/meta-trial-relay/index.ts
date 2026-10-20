@@ -167,8 +167,14 @@ async function sweep() {
 }
 
 async function decide(row: Row): Promise<Verdict> {
-  if (row.cancelled_at) return { status: "cancelled", detail: `webhook cancel at ${row.cancelled_at}` };
-  if (!RC_SECRET_KEY) return { status: "pending", detail: "META_RELAY_RC_SECRET_KEY missing" };
+  // A webhook cancel is not final: renewal can be turned back on inside the
+  // hold (RevenueCat sends UNCANCELLATION), so RevenueCat's current state
+  // decides below. The cancel only settles the row when that cannot be read.
+  if (!RC_SECRET_KEY) {
+    return row.cancelled_at
+      ? { status: "cancelled", detail: `webhook cancel at ${row.cancelled_at}` }
+      : { status: "pending", detail: "META_RELAY_RC_SECRET_KEY missing" };
+  }
 
   const ageHours = (Date.now() - Date.parse(row.trial_started_at)) / 3_600_000;
   const subscription = await findSubscription(row);
