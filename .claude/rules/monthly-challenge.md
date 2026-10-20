@@ -260,3 +260,9 @@ own number. The one draft (`663a9ff6`) was PATCHed from 1.4.2 back to 1.4.1
 and `project.yml` follows from build 62. Builds 56 to 61 on TestFlight say
 1.4.2; a 1.4.1 build with a higher number supersedes them. Notes above that
 say 1.4.2 mean this same release.
+
+**Submitted 2026-10-20 (UTC):** 1.4.1 build 63 (version only, MANUAL) is
+WAITING_FOR_REVIEW, after the Luna end-to-end review fixes and localized
+screenshot sets for es-MX, vi and id (iPhone, iPad, Duo; the other
+locales fall back to en-US). Release it by hand after approval, before the
+November event publishes on Oct 25.
