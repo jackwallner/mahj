@@ -112,6 +112,24 @@ final class SubscriptionService: NSObject, ObservableObject {
     /// A second caller (the trial button) waits for a sync already running
     /// instead of skipping it, so a slow sync cannot let a member be sold,
     /// but never holds the button more than a few seconds on a stalled one.
+    /// A reinstall's StoreKit sync is still running. The one-tap sheet will
+    /// not sell until it knows what this Apple Account already owns.
+    var isRecoveringMembership: Bool { membershipRecovery != nil }
+
+    /// Whether this Apple Account still gets the plan's free week. Apple gives
+    /// an introductory offer once per subscription group, so a lapsed member
+    /// is charged on day one. No product to ask about (offerings not loaded,
+    /// no RevenueCat on a simulator) reads as eligible, as 1.3.2 assumed.
+    func isTrialEligible(for plan: PaywallPlan) async -> Bool {
+        await Self.isTrialEligible(package(for: plan)?.storeProduct.sk2Product)
+    }
+
+    nonisolated static func isTrialEligible(_ product: Product?) async -> Bool {
+        guard let subscription = product?.subscription else { return true }
+        guard subscription.introductoryOffer != nil else { return false }
+        return await subscription.isEligibleForIntroOffer
+    }
+
     func recoverReinstalledMembershipIfNeeded() async {
         if membershipRecovery != nil {
             // Poll rather than await the task: an await on it cannot be cut

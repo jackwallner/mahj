@@ -43,6 +43,26 @@ final class ProgressStoreTests: XCTestCase {
         XCTAssertTrue(store.hasPracticedSinceOnboarding)
     }
 
+    /// A 1.3.2 player who only did the tour: its practice is taken off once,
+    /// so the trial sheet's two practices are their own. Never twice.
+    func testUpgraderBaselineTakesOffTheTourOnce() {
+        defaults.set(true, forKey: "progress.hasOnboarded")
+        defaults.set(1, forKey: "progress.totalSessions")
+        var upgraded = ProgressStore(defaults: defaults)
+        XCTAssertEqual(upgraded.sessionsAtOnboarding, 1)
+        XCTAssertFalse(upgraded.hasPracticedSinceOnboarding)
+        upgraded.recordSession(drillID: "meet-tiles")
+        upgraded = ProgressStore(defaults: defaults)
+        XCTAssertEqual(upgraded.sessionsAtOnboarding, 1)
+        XCTAssertTrue(upgraded.hasPracticedSinceOnboarding)
+    }
+
+    /// A 1.3.2 player who skipped the tour has nothing to take off.
+    func testUpgraderWithNoPracticeKeepsZero() {
+        defaults.set(true, forKey: "progress.hasOnboarded")
+        XCTAssertEqual(ProgressStore(defaults: defaults).sessionsAtOnboarding, 0)
+    }
+
     func testStreakStartsAtOne() {
         store.recordSession(drillID: "a")
         XCTAssertEqual(store.streakCount, 1)

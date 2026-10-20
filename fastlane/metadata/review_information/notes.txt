@@ -1,6 +1,6 @@
 Mahj Trainer is a practice app for American Mah Jongg (flashcards, quizzes, hand-matching, Charleston drills, and a single-player Play a Hand coaching exercise). No live gameplay, opponents, bots or wagering.
 
-CONTENT NOTE: every example hand and deal is an ORIGINAL teaching hand illustrating the stable NMJL category families (2468, Consecutive Run, 13579, and so on). No hand is copied from the copyrighted NMJL card. The app is independent and not affiliated with or endorsed by the National Mah Jongg League; this disclaimer appears in-app (Home footer, Settings) and in the App Store description.
+CONTENT NOTE: every example hand and deal is an ORIGINAL teaching hand illustrating the stable NMJL category families (2468, Consecutive Run, 13579, and so on). No hand is copied from the copyrighted NMJL card. The app is not affiliated with the National Mah Jongg League; this disclaimer appears in-app (Home footer, Settings) and in the App Store description.
 
 CORE FLOW
 1. First launch: a short onboarding (skill level) and a brief tour. Every screen can be skipped.
@@ -9,19 +9,19 @@ CORE FLOW
 4. Settings: Rate, Send Feedback, theme, reminders, How to Play, Restore Purchases.
 
 MAHJ+ (in-app purchase via RevenueCat)
-All four beginner rooms are free. Mahj+ adds an extra set in each room, the Master Tables room, Endless Practice, Timed Challenge, Fix My Mistakes, the daily Mahj Minute, Game Night Prep, and unlimited Play a Hand (one hand a day is free). Products: Monthly and Yearly subscriptions (1-week free trial each) and a one-time Lifetime purchase.
+All four beginner rooms are free. Mahj+ adds an extra set in each room, the Master Tables room, Endless Practice, Timed Challenge, Fix My Mistakes, Game Night Prep, and unlimited Play a Hand (one hand a day is free). Products: Monthly and Yearly subscriptions (1-week free trial each) and a one-time Lifetime purchase.
 
-To test Mahj+: use a Sandbox Apple ID and start a trial from the paywall (Settings > Mahj+ row, any locked drill, or the onboarding trial screen). The onboarding trial screen starts the MONTHLY plan; the full paywall offers monthly, yearly and lifetime.
+To test Mahj+: use a Sandbox Apple ID and start a trial from the paywall (Settings > Mahj+ row, any locked drill, or the onboarding trial screen). The onboarding trial screen starts the MONTHLY plan; the full paywall offers monthly, yearly and lifetime. After a few finished practices, a short Mahj+ sheet can also rise over a result (same plan, price, terms, Restore, Terms, Privacy); it says "free for 7 days" only when StoreKit reports the account is eligible for the free trial.
 
 TRIAL TERMS
 Payment is charged to the Apple ID at the end of the trial unless canceled first. Subscriptions renew unless canceled at least 24 hours before the period ends, managed in Account Settings. Terms of Use is Apple's standard EULA (https://www.apple.com/legal/internet-services/itunes/dev/stdeula/); Privacy Policy is at https://jackwallner.github.io/mahj/privacy-policy.
 
 OTHER NOTES
-No user accounts or login of any kind, and no ads shown in the app. Purchases use RevenueCat. Optional feedback (Settings > Send Feedback, and one optional question when a membership is ending) is posted to our own Supabase database with no account attached. Facebook and Instagram ad measurement uses Meta's SDK: the App Tracking Transparency prompt appears once, on the Home screen after the first finished practice (never during onboarding or at launch). To see it: finish onboarding, finish any drill (for example Tile Check), and return to Home. Local notifications (daily practice reminder, members' game night reminder, monthly challenge reminder) are opt-in.
+No user accounts or login of any kind, and no ads shown in the app. Optional feedback (Settings > Send Feedback, and one optional question when a membership is ending) is posted to our own Supabase database with no account attached. Facebook and Instagram ad measurement uses Meta's SDK: the App Tracking Transparency prompt appears only after a trial start or purchase, on the next Home screen (never during onboarding, at launch, or to players who have not bought). To see it: start a Sandbox trial, then return to Home. Local notifications (daily practice reminder, members' game night reminder, monthly challenge reminder) are opt-in.
 
 IN-APP EVENT: MONTHLY CHALLENGE
-Free for every player and open now: three new questions each day, the same for everyone; the best 20 days make the month score. During review the link mahj://challenge opens October's challenge (theme: reading your rack); the same screen switches to November's Charleston rounds, the event's content, on Nov 1 in the player's time zone. It also opens from the Home card that appears after one finished practice; after the day's round the card becomes a score chip in the stats row. A server-side switch can hide the challenge if a problem arises; it is on.
+Free for every player and open now: a five-question round each day (the Mahj Minute), the same for everyone: three on the month's skills, then two table calls; the best 20 days make the month score. During review the link mahj://challenge opens October's challenge (theme: reading your rack); the same screen switches to November's Charleston rounds, the event's content, on Nov 1 in the player's time zone. It also opens from the Home card shown after one finished practice. A server-side switch can hide the challenge; it is on.
 
-CHALLENGE STANDING: after a round, the app sends the month score (points and days played) with a random code made on the device and replaced every month to our own Supabase database, which answers with how many players have scores and how many are below. Until enough real scores exist, the ranking also counts 50 baseline scores computed on the server, so a strong round shows "Top N%" (top half only) during review. No account, name or device id.
+CHALLENGE STANDING: after a round, the app sends the month score (points, days played) with a random per-month code to our own Supabase database, which answers how many players are below it. Until enough real scores exist, 50 baseline scores computed on the server are counted too, so a strong round shows "Top N%" (top half only). No account, name or device id.
 
 PRICE DISPLAY (3.1.2(c)): the onboarding trial screen shows the billed amount (e.g. "$9.99/month") as the largest pricing element, directly above the purchase button, with the trial wording and auto-renew disclosure beneath it.

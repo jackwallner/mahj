@@ -101,6 +101,8 @@ final class ChallengeSwitchTests: XCTestCase {
             "-mahj.skillLevel", "some",
             "-subscription.localProOverride", "NO",
             "-progress.totalSessions", "\(sessions)",
+            // Every seeded session is the player's own, not the tour's.
+            "-progress.sessionsAtOnboarding", "0",
             "-ChallengeMonth", day,
             "-reviewPrompt.launchCount", "0",
         ]

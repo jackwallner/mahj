@@ -47,6 +47,9 @@ struct TrialOfferSheet: View {
     @State private var height: CGFloat = 520
     /// Picked once, so a metadata refresh never swaps the body mid-read.
     @State private var pitch: OfferPitch?
+    /// False once StoreKit says this Apple Account already had its free week:
+    /// the sheet then states the price billed today and promises no trial.
+    @State private var trialEligible = true
 
     static let benefits = [
         "Play coached practice hands, as many as you want",
@@ -86,10 +89,13 @@ struct TrialOfferSheet: View {
         .task {
             let shown = pitch ?? subscriptions.offerPitch
             pitch = shown
-            // Before the impression, which syncs it to RevenueCat with the view.
+            if PaywallPricing.price(subscriptions, plan) == nil { await subscriptions.loadOfferings() }
+            trialEligible = await subscriptions.isTrialEligible(for: plan)
+            // Before the impression, which syncs it to RevenueCat with the
+            // view. A lapsed member sees neither pitch but keeps an arm; the
+            // coin is independent of eligibility, so both arms dilute alike.
             UserDefaults.standard.set(shown.rawValue, forKey: OfferPitch.armKey)
             subscriptions.trackPaywallImpression(id: context.source(auto: auto))
-            if PaywallPricing.price(subscriptions, plan) == nil { await subscriptions.loadOfferings() }
         }
     }
 
@@ -107,12 +113,12 @@ struct TrialOfferSheet: View {
                     .foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
-                Text("Try \(Membership.name) free for 7 days.")
+                Text(trialEligible ? "Try \(Membership.name) free for 7 days." : "Everything in \(Membership.name), starting today.")
                     .font(.subheadline)
                     .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)
             }
-            if (pitch ?? subscriptions.offerPitch) == .timeline {
+            if trialEligible, (pitch ?? subscriptions.offerPitch) == .timeline {
                 timeline
             } else {
                 benefitList
@@ -121,7 +127,7 @@ struct TrialOfferSheet: View {
                 Text(PaywallPricing.priceText(subscriptions, plan))
                     .font(Theme.display(22))
                     .foregroundStyle(Theme.ink)
-                Text(PaywallPricing.terms(subscriptions, plan))
+                Text(PaywallPricing.terms(subscriptions, plan, trial: trialEligible))
                     .font(.caption2)
                     .foregroundStyle(Theme.inkTertiary)
                     .multilineTextAlignment(.center)
@@ -133,7 +139,7 @@ struct TrialOfferSheet: View {
                         if purchasing {
                             ProgressView().tint(Theme.onFill)
                         } else {
-                            Text(subscriptions.trialCTA(.onboarding))
+                            Text(trialEligible ? subscriptions.trialCTA(.onboarding) : "Join \(Membership.name)")
                         }
                     }
                     .primaryCTA()
@@ -142,7 +148,8 @@ struct TrialOfferSheet: View {
                 Button("Not now") { dismiss() }
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(Theme.inkSecondary)
-                    .frame(minHeight: 36)
+                    .frame(minHeight: 44)
+                    .contentShape(Rectangle())
                     .disabled(purchasing)
             }
             legalRow
@@ -227,8 +234,21 @@ struct TrialOfferSheet: View {
             defer { purchasing = false }
             await subscriptions.ensureOfferings()
             guard !subscriptions.isPro else { return dismiss() }
+            // A reinstalled member whose purchases are still syncing must not
+            // reach Apple's sheet as a stranger.
+            guard !subscriptions.isRecoveringMembership else {
+                message = "Still checking what this Apple Account owns. Try again in a moment, or tap Restore."
+                return
+            }
             guard let package = subscriptions.package(for: plan) else {
                 showPlans = true
+                return
+            }
+            // The sheet may have drawn before StoreKit answered. If the free
+            // week is gone, show the real terms and let them tap again.
+            let eligible = await subscriptions.isTrialEligible(for: plan)
+            guard eligible == trialEligible else {
+                trialEligible = eligible
                 return
             }
             do {
@@ -310,6 +330,9 @@ private struct TrialOfferModifier: ViewModifier {
             // Let the result land before anything rises over it.
             try? await Task.sleep(nanoseconds: 1_200_000_000)
             guard onScreen, !isPresented, eligible else { return }
+            // Never rise on its own to promise a free week Apple won't give.
+            guard await subscriptions.isTrialEligible(for: subscriptions.onboardingPlan.plan),
+                  onScreen, !isPresented else { return }
             TrialOfferPacer.markAutoShown(installedAt: ConversionDiagnostics.installDate)
             auto = true
             isPresented = true

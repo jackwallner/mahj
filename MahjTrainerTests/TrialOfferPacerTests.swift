@@ -129,6 +129,18 @@ final class TrialOfferPacerTests: XCTestCase {
         XCTAssertFalse(TrialOfferPacer.autoShownRecently(now: now + 600, defaults: defaults))
     }
 
+    /// An Apple Account that already had its free week is told the price
+    /// it pays today; the frozen surfaces keep their 1.3.2 line.
+    @MainActor
+    func testTermsWithoutAFreeWeekPromiseNoTrial() {
+        let paid = PaywallPricing.terms(amount: "$9.99/month", plan: .monthly, trial: false)
+        XCTAssertEqual(paid, "$9.99/month, billed today. Auto-renews until canceled.")
+        XCTAssertFalse(paid.localizedCaseInsensitiveContains("free"))
+        XCTAssertFalse(PaywallPricing.terms(amount: nil, plan: .yearly, trial: false).localizedCaseInsensitiveContains("free"))
+        XCTAssertEqual(PaywallPricing.terms(amount: "$9.99/month", plan: .monthly),
+                       "7 days free, then $9.99/month. Auto-renews until canceled.")
+    }
+
     func testOfferCopyNeverAssumesTheModeName() {
         for line in TrialOfferSheet.benefits + RemoteConfigBenefitLines.all {
             XCTAssertFalse(line.localizedCaseInsensitiveContains("Play a Hand"), line)

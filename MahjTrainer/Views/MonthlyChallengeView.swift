@@ -301,7 +301,9 @@ private struct MonthDaysStrip: View {
     let month: MonthlyChallenge
     let today: Int
     let results: [MonthlyChallengeResult]
-    @ScaledMetric(relativeTo: .body) private var side: CGFloat = 16
+    /// Grows with text, but ten squares a row must still fit a small phone.
+    @ScaledMetric(relativeTo: .body) private var scaledSide: CGFloat = 16
+    private var side: CGFloat { min(scaledSide, 24) }
 
     var body: some View {
         let scores = Dictionary(uniqueKeysWithValues: results.map { ($0.day, $0.score) })
@@ -681,8 +683,9 @@ struct MonthlyChallengeAnswersView: View {
                     .frame(maxWidth: .infinity)
                     // One element: without this every tile inherited the
                     // whole rack's label and VoiceOver read it 13 times over.
+                    // "Tiles", not "Rack": table calls show other players' exposures.
                     .accessibilityElement(children: .ignore)
-                    .accessibilityLabel("Rack: " + item.tiles.map(\.spokenName).joined(separator: ", "))
+                    .accessibilityLabel("Tiles: " + item.tiles.map(\.spokenName).joined(separator: ", "))
             }
             VStack(alignment: .leading, spacing: 6) {
                 ForEach(Array(item.choices.enumerated()), id: \.offset) { choice, label in
