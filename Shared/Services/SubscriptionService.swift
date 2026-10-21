@@ -193,7 +193,16 @@ final class SubscriptionService: NSObject, ObservableObject {
         #if DEBUG
         Purchases.logLevel = .debug
         #endif
-        Purchases.configure(withAPIKey: RevenueCatConfig.apiKey)
+        var configuration = Configuration.Builder(withAPIKey: RevenueCatConfig.apiKey)
+        // Test Store runs share one tester instead of a fresh anonymous customer
+        // per install, so test installs don't inflate the live project's
+        // customer charts. Never with the App Store key.
+        if RevenueCatConfig.apiKey.hasPrefix("test_") {
+            configuration = configuration.with(
+                appUserID: ProcessInfo.processInfo.environment["RC_APP_USER_ID"] ?? "qa-ios"
+            )
+        }
+        Purchases.configure(with: configuration.build())
         Purchases.shared.delegate = self
         // Standard Apple Ads attribution (no ATT prompt): RevenueCat learns which
         // campaign and keyword drove an install, so ad cohorts can be judged on
