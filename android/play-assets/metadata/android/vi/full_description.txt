@@ -1,0 +1,28 @@
+Luyện mạt chược trong những bài tập năm phút. Mahj Trainer giúp bạn luyện American Mah Jongg, phiên bản mạt chược Mỹ chơi với thẻ bài cập nhật hằng năm: nhận biết quân bài, thành thạo Charleston, đọc khay bài và quyết định giữ hay bỏ. Dành cho người mới học.
+
+Không đối thủ, không áp lực, chỉ có những bài tập ngắn và tương tác để bạn giữ phong độ giữa các buổi chơi và buổi học.
+
+BỐN PHÒNG LUYỆN TẬP MIỄN PHÍ
+• Tile Room: tất cả các nhóm quân (craks, bams, dots, gió, rồng, hoa và joker) cùng câu đố về những quy tắc người mới hay nhầm nhất.
+• Card Room: các phần của thẻ bài (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs và nhiều phần khác). Sau đó bạn đọc khay 13 quân và gọi tên phần mà chúng đang hướng tới.
+• Charleston Room: quy tắc và chiến lược đổi bài. Chọn 3 quân để chuyền và so sánh lựa chọn của bạn với huấn luyện viên, kèm lời giải thích.
+• Table Room: giữ hay bỏ: khi nào giữ hoa, khi nào đổi lấy joker đã hạ, bài hạ của đối thủ cho bạn biết gì và quân bỏ nào an toàn.
+
+MAHJ+ (NÂNG CẤP TÙY CHỌN)
+Bốn phòng luôn miễn phí. Mahj+ thêm phần luyện tập không bao giờ cạn:
+• Play a Hand: 13 quân từ một bức tường thật, mỗi lần bỏ bài đều được chấm điểm và giải thích. Không đối thủ, không bot. Mỗi ngày một ván miễn phí cho mọi người.
+• Endless Practice: mỗi lần một khay bài mới được tạo, nên không có gì lặp lại.
+• Fix My Mistakes: đưa lỗi sai của bạn quay lại với khoảng cách ngày càng dài cho đến khi điểm yếu được khắc phục.
+• Timed Challenge: 90 giây câu hỏi hỗn hợp và một kỷ lục cá nhân để phá.
+• Bộ bài tập bổ sung ở cả bốn phòng và Master Tables cho người chơi nâng cao.
+
+Mọi tay bài luyện tập đều là tay bài giảng dạy nguyên bản giải thích hệ thống phân loại, nên kỹ năng của bạn dùng được với thẻ bài của bất kỳ năm nào.
+
+Mahj Trainer là ứng dụng luyện tập độc lập, không liên kết và không được National Mah Jongg League bảo trợ. Để xem tay bài và giá trị chính thức, hãy dùng thẻ NMJL hiện hành.
+
+Mahj+ có dạng gói đăng ký tự động gia hạn (theo tháng hoặc theo năm, cả hai đều có 7 ngày dùng thử miễn phí cho khách hàng mới đủ điều kiện) hoặc mua một lần dùng trọn đời. Giá được hiển thị trong ứng dụng trước khi mua và khác nhau theo khu vực. Khoản thanh toán được tính vào tài khoản Google Play của bạn. Gói đăng ký tự động gia hạn cho đến khi bạn hủy. Bạn có thể hủy bất cứ lúc nào trong Google Play, mục Thanh toán và gói đăng ký.
+
+Lưu ý: bản thân ứng dụng bằng tiếng Anh.
+
+Chính sách quyền riêng tư: https://jackwallner.github.io/mahj/android-privacy.html
+Điều khoản sử dụng: https://jackwallner.github.io/mahj/terms.html

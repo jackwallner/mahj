@@ -1,0 +1,28 @@
+Opi mahjongin säännöt viiden minuutin harjoituksilla. Mahj Trainer opettaa American Mah Jonggia, amerikkalaista muunnelmaa, jota pelataan vuosittain vaihtuvalla kortilla: tunnista laatat, hallitse Charleston, lue räkki ja päätä, mitä pidät ja mitä heität. Tehty aloittelijoille.
+
+Ei vastustajia eikä paineita, vain lyhyitä vuorovaikutteisia harjoituksia, joilla pysyt vireessä peli-iltojen ja kurssikertojen välillä.
+
+NELJÄ ILMAISTA HARJOITUSHUONETTA
+• Tile Room: kaikki laattaperheet (craks, bams, dots, tuulet, lohikäärmeet, kukat ja jokerit) ja tietovisa säännöistä, joissa aloittelijat useimmin erehtyvät.
+• Card Room: kortin osiot (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs ja muita). Sen jälkeen luet 13 laatan räkkejä ja nimeät osion, jota ne tavoittelevat.
+• Charleston Room: vaihdon säännöt ja strategia. Valitse 3 laattaa annettavaksi ja vertaa valintaasi valmentajan valintaan perusteluineen.
+• Table Room: pidä vai heitä: milloin säästää kukka, milloin vaihtaa näkyvään jokeriin, mitä vastustajan esille panemat laatat kertovat ja mitkä heitot ovat turvallisia.
+
+MAHJ+ (VALINNAINEN PÄIVITYS)
+Neljä huonetta pysyvät aina ilmaisina. Mahj+ tuo harjoitusta, joka ei lopu kesken:
+• Play a Hand: 13 laattaa oikeasta muurista, ja jokainen heitto arvioidaan ja selitetään. Ei vastustajia eikä botteja. Yksi käsi päivässä on kaikille ilmainen.
+• Endless Practice: joka kerta uusi luotu räkki, joten mikään ei toistu.
+• Fix My Mistakes: tuo virheesi takaisin yhä pidemmin välein, kunnes heikot kohdat ovat hallussa.
+• Timed Challenge: 90 sekuntia sekalaisia tehtäviä ja oma ennätys rikottavaksi.
+• Lisäharjoituksia kaikissa neljässä huoneessa sekä Master Tables edistyneille.
+
+Kaikki harjoituskädet ovat omia opetuskäsiä, jotka selittävät luokkajärjestelmän, joten taitosi toimivat minkä tahansa vuoden kortilla.
+
+Mahj Trainer on itsenäinen harjoitussovellus, eikä se ole National Mah Jongg Leaguen kanssa sidoksissa tai sen hyväksymä. Viralliset kädet ja pisteet löydät voimassa olevasta NMJL-kortista.
+
+Mahj+ on saatavana automaattisesti uusiutuvana tilauksena (kuukausi- tai vuositilaus, molemmissa 7 päivän ilmainen kokeilu ehdot täyttäville uusille asiakkaille) tai kertaostona elinikäiseen käyttöön. Hinnat näytetään sovelluksessa ennen ostoa ja vaihtelevat alueittain. Maksu veloitetaan Google Play -tililtäsi. Tilaus uusiutuu automaattisesti, kunnes peruutat sen. Voit peruuttaa milloin tahansa Google Playssa kohdassa Maksut ja tilaukset.
+
+Huomaa: itse sovellus on englanninkielinen.
+
+Tietosuojakäytäntö: https://jackwallner.github.io/mahj/android-privacy.html
+Käyttöehdot: https://jackwallner.github.io/mahj/terms.html

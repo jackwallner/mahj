@@ -1,0 +1,28 @@
+Pratiquez le mahjong américain (American Mah Jongg, la variante jouée avec la carte annuelle) en exercices de cinq minutes : reconnaître les tuiles, réussir le Charleston, lire un rack et décider quoi garder ou jeter. Conçu pour les débutants.
+
+Pas d'adversaires, pas de pression : juste des exercices courts et interactifs pour progresser entre deux parties ou deux cours.
+
+QUATRE SALLES D'ENTRAÎNEMENT GRATUITES
+• Tile Room: toutes les familles de tuiles (craks, bams, dots, vents, dragons, fleurs et jokers), puis un quiz sur les règles que les débutants confondent le plus.
+• Card Room: les sections de la carte (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs et d'autres). Lisez ensuite des racks de 13 tuiles et nommez la section visée.
+• Charleston Room: les règles et la stratégie de l'échange. Choisissez 3 tuiles à passer et comparez votre choix à celui du coach, avec ses explications.
+• Table Room: garder ou défausser : quand conserver une fleur, quand échanger un joker exposé, ce que révèle l'exposition d'un adversaire et quelles défausses sont sûres.
+
+MAHJ+ (OPTION)
+Les quatre salles restent gratuites pour toujours. Mahj+ ajoute un entraînement qui ne s'épuise jamais :
+• Play a Hand: 13 tuiles tirées d'un vrai mur, chaque défausse notée et expliquée. Sans adversaires ni bots. Une main gratuite par jour pour tout le monde.
+• Endless Practice: un nouveau rack généré à chaque fois, sans répétition.
+• Fix My Mistakes: vos erreurs reviennent à intervalles espacés jusqu'à ce que vos points faibles disparaissent.
+• Timed Challenge: 90 secondes de lectures variées et un record personnel à battre.
+• Des séries d'exercices supplémentaires dans les quatre salles et les Master Tables pour les joueurs avancés.
+
+Toutes les mains d'entraînement sont des mains pédagogiques originales qui enseignent le système de catégories : vos acquis valent pour la carte de n'importe quelle année.
+
+Mahj Trainer est une application d'entraînement indépendante, ni affiliée à la National Mah Jongg League ni approuvée par elle. Pour les mains et valeurs officielles, procurez-vous la carte NMJL de l'année.
+
+Mahj+ est proposé en abonnement à renouvellement automatique (mensuel ou annuel, avec 7 jours d'essai gratuit pour les nouveaux clients admissibles) ou en achat unique à vie. Les prix s'affichent dans l'application avant l'achat et varient selon la région. Le paiement est débité de votre compte Google Play. L'abonnement se renouvelle automatiquement jusqu'à sa résiliation ; résiliez à tout moment dans Google Play, rubrique Paiements et abonnements.
+
+Remarque : l'application elle-même est en anglais.
+
+Politique de confidentialité: https://jackwallner.github.io/mahj/android-privacy.html
+Conditions d'utilisation: https://jackwallner.github.io/mahj/terms.html

@@ -1,0 +1,28 @@
+Mahjong'u beş dakikalık alıştırmalarla öğren. Mahj Trainer, her yıl yenilenen kartla oynanan Amerikan varyantı American Mah Jongg için çalıştırır: taşları tanı, Charleston'ı öğren, rafını oku ve neyi tutup neyi atacağına karar ver. Yeni başlayanlar için tasarlandı.
+
+Rakip yok, baskı yok. Oyun geceleri ve dersler arasında formda kalmanı sağlayan kısa, etkileşimli alıştırmalar.
+
+DÖRT ÜCRETSİZ ÇALIŞMA ODASI
+• Tile Room: tüm taş aileleri (craks, bams, dots, rüzgarlar, ejderhalar, çiçekler ve jokerler) ve yeni başlayanların en sık yanıldığı kurallar üzerine bir test.
+• Card Room: kartın bölümleri (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs ve diğerleri). Ardından 13 taşlık rafları okuyup hedefledikleri bölümü bulursun.
+• Charleston Room: takasın kuralları ve stratejisi. Verilecek 3 taşı seç ve seçimini koçunkiyle, gerekçesiyle birlikte karşılaştır.
+• Table Room: tut ya da at: bir çiçeği ne zaman tutacağın, açılmış bir jokerle ne zaman takas yapacağın, rakibin açtığı taşların sana ne anlattığı ve hangi atışların güvenli olduğu.
+
+MAHJ+ (İSTEĞE BAĞLI YÜKSELTME)
+Dört oda sonsuza kadar ücretsiz kalır. Mahj+ hiç bitmeyen alıştırmalar ekler:
+• Play a Hand: gerçek bir duvardan 13 taş; her atış puanlanır ve açıklanır. Rakip yok, bot yok. Günde bir el herkes için ücretsiz.
+• Endless Practice: her seferinde yeni üretilmiş bir raf, böylece hiçbir şey tekrar etmez.
+• Fix My Mistakes: hatalarını giderek uzayan aralıklarla geri getirir, zayıf noktalar kapanana kadar.
+• Timed Challenge: 90 saniyelik karışık görevler ve kırılacak kişisel bir rekor.
+• Dört odanın hepsinde ek alıştırma setleri ve ileri seviye için Master Tables.
+
+Tüm alıştırma elleri, kategori sistemini anlatan özgün eğitim elleridir; böylece becerilerin her yılın kartında işe yarar.
+
+Mahj Trainer bağımsız bir antrenman uygulamasıdır; National Mah Jongg League ile bağlantılı değildir ve onun tarafından desteklenmez. Resmi eller ve değerler için güncel NMJL kartına bak.
+
+Mahj+, otomatik yenilenen bir abonelik (aylık veya yıllık, ikisi de uygun yeni müşteriler için 7 günlük ücretsiz deneme içerir) ya da tek seferlik ömür boyu satın alma olarak sunulur. Fiyatlar satın almadan önce uygulamada gösterilir ve bölgeye göre değişir. Ödeme Google Play hesabından alınır. Abonelik, iptal edene kadar otomatik olarak yenilenir. Google Play'de Ödemeler ve abonelikler bölümünden istediğin zaman iptal edebilirsin.
+
+Not: Uygulamanın kendisi İngilizcedir.
+
+Gizlilik Politikası: https://jackwallner.github.io/mahj/android-privacy.html
+Kullanım Koşulları: https://jackwallner.github.io/mahj/terms.html

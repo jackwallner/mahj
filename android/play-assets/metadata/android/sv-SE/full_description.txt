@@ -1,0 +1,28 @@
+Lär dig mahjong i korta pass på fem minuter. Mahj Trainer tränar dig i American Mah Jongg, den amerikanska varianten som spelas med ett årligt kort: känn igen brickorna, klara Charleston, läs ett rack och avgör vad du ska behålla eller kasta. Gjord för nybörjare.
+
+Inga motståndare och ingen press, bara korta interaktiva övningar som håller dig i form mellan spelkvällarna och lektionerna.
+
+FYRA GRATIS ÖVNINGSRUM
+• Tile Room: alla brickfamiljer (craks, bams, dots, vindar, drakar, blommor och jokrar) och ett quiz om reglerna som nybörjare oftast missar.
+• Card Room: kortets sektioner (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs med flera). Sedan läser du rack med 13 brickor och sätter namn på sektionen de jagar.
+• Charleston Room: regler och strategi för bytet. Välj 3 brickor att skicka vidare och jämför ditt val med coachens, med förklaring.
+• Table Room: behålla eller kasta: när du ska spara en blomma, när du ska byta mot en exponerad joker, vad en motståndares exponering avslöjar och vilka kast som är säkra.
+
+MAHJ+ (VALFRI UPPGRADERING)
+De fyra rummen är gratis för alltid. Mahj+ lägger till övning som aldrig tar slut:
+• Play a Hand: 13 brickor från en riktig mur, och varje kast bedöms och förklaras. Inga motståndare och inga bottar. En hand om dagen är gratis för alla.
+• Endless Practice: ett nygenererat rack varje gång, så inget upprepas.
+• Fix My Mistakes: tar tillbaka dina misstag med allt längre mellanrum tills de svaga punkterna sitter.
+• Timed Challenge: 90 sekunder blandade uppgifter och ett personligt rekord att slå.
+• Extra övningsset i alla fyra rummen och Master Tables för dig som kommit längre.
+
+Alla övningshänder är egna lärohänder som förklarar kategorisystemet, så dina kunskaper fungerar med varje års kort.
+
+Mahj Trainer är en fristående träningsapp och är inte ansluten till eller godkänd av National Mah Jongg League. Officiella händer och poäng finns på det aktuella NMJL-kortet.
+
+Mahj+ finns som prenumeration som förnyas automatiskt (månadsvis eller årsvis, båda med 7 dagars gratis provperiod för nya kunder som uppfyller villkoren) eller som ett engångsköp för livstid. Priserna visas i appen innan du köper och varierar mellan regioner. Betalningen dras från ditt Google Play-konto. Prenumerationen förnyas automatiskt tills du säger upp den, vilket du kan göra när som helst i Google Play under Betalningar och prenumerationer.
+
+Obs! Själva appen är på engelska.
+
+Integritetspolicy: https://jackwallner.github.io/mahj/android-privacy.html
+Användarvillkor: https://jackwallner.github.io/mahj/terms.html

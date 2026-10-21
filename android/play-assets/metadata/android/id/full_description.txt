@@ -1,0 +1,28 @@
+Latihan mahjong dalam sesi lima menit. Mahj Trainer melatih American Mah Jongg, versi Amerika yang dimainkan dengan kartu tahunan: kenali ubin, kuasai Charleston, baca rak, dan putuskan mana yang disimpan dan mana yang dibuang. Dibuat untuk pemula.
+
+Tanpa lawan dan tanpa tekanan, hanya latihan singkat dan interaktif agar kamu tetap siap di antara malam permainan dan kelas.
+
+EMPAT RUANG LATIHAN GRATIS
+• Tile Room: semua keluarga ubin (craks, bams, dots, angin, naga, bunga, dan joker) serta kuis tentang aturan yang paling sering salah dipahami pemula.
+• Card Room: bagian-bagian kartu (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs, dan lainnya). Lalu baca rak berisi 13 ubin dan sebutkan bagian yang sedang dikejar.
+• Charleston Room: aturan dan strategi pertukaran. Pilih 3 ubin untuk dioper, lalu bandingkan pilihanmu dengan pilihan pelatih beserta alasannya.
+• Table Room: simpan atau buang: kapan menahan bunga, kapan menukar dengan joker yang terbuka, apa yang diungkap ubin terbuka lawan, dan buangan mana yang aman.
+
+MAHJ+ (PENINGKATAN OPSIONAL)
+Empat ruang tetap gratis selamanya. Mahj+ menambah latihan yang tidak pernah habis:
+• Play a Hand: 13 ubin dari tembok sungguhan, dan setiap buangan dinilai serta dijelaskan. Tanpa lawan dan tanpa bot. Satu tangan per hari gratis untuk semua orang.
+• Endless Practice: rak baru yang dibuat setiap kali, jadi tidak ada yang berulang.
+• Fix My Mistakes: mengulang kesalahanmu dengan jeda yang makin panjang sampai titik lemah tertutup.
+• Timed Challenge: 90 detik soal campuran dan rekor pribadi untuk dipecahkan.
+• Set latihan tambahan di keempat ruang dan Master Tables untuk pemain tingkat lanjut.
+
+Semua tangan latihan adalah tangan ajar orisinal yang menjelaskan sistem kategori, jadi keterampilanmu cocok untuk kartu tahun mana pun.
+
+Mahj Trainer adalah aplikasi latihan independen, tidak berafiliasi dengan maupun didukung oleh National Mah Jongg League. Untuk tangan dan nilai resmi, gunakan kartu NMJL terbaru.
+
+Mahj+ tersedia sebagai langganan yang diperpanjang otomatis (bulanan atau tahunan, keduanya dengan uji coba gratis 7 hari untuk pelanggan baru yang memenuhi syarat) atau sebagai pembelian seumur hidup sekali bayar. Harga ditampilkan di aplikasi sebelum membeli dan berbeda menurut wilayah. Pembayaran ditagihkan ke akun Google Play kamu. Langganan diperpanjang otomatis sampai dibatalkan. Kamu bisa membatalkannya kapan saja di Google Play pada Pembayaran dan langganan.
+
+Catatan: aplikasinya sendiri dalam bahasa Inggris.
+
+Kebijakan Privasi: https://jackwallner.github.io/mahj/android-privacy.html
+Ketentuan Penggunaan: https://jackwallner.github.io/mahj/terms.html

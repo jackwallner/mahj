@@ -1,0 +1,28 @@
+每天五分鐘,學會美式麻將。Mahj Trainer 帶你練習 American Mah Jongg,也就是用每年更新的牌卡來玩的美國麻將:認識每一種牌,掌握查爾斯頓傳牌,讀懂手牌,判斷該留哪張、打哪張。專為新手設計。
+
+沒有對手,沒有壓力,只有簡短的互動練習,讓你在牌局和課程之間保持手感。
+
+四個免費練習室
+• Tile Room: 所有牌類(craks、bams、dots、風牌、三元牌、花牌和鬼牌),以及新手最常弄錯的規則小測驗。
+• Card Room: 牌卡的各個類別(2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs 等)。接著閱讀13張手牌,說出它在追哪個類別。
+• Charleston Room: 傳牌的規則與策略。選出要傳的3張牌,再和教練的選擇及理由比較。
+• Table Room: 留還是打:何時留花牌,何時換回亮出的鬼牌,對手亮牌透露了什麼,哪些棄牌比較安全。
+
+MAHJ+(選購升級)
+四個練習室永久免費。Mahj+ 帶來練不完的內容:
+• Play a Hand: 從真實牌牆發13張牌,每次打牌都會評分並講解。沒有對手,也沒有機器人。每人每天免費一手。
+• Endless Practice: 每次產生全新手牌,題目永不重複。
+• Fix My Mistakes: 依逐漸拉長的間隔把你答錯的題目再出一次,直到弱點補齊。
+• Timed Challenge: 90秒混合題,挑戰個人最佳。
+• 四個練習室都有額外練習組,還有給進階玩家的 Master Tables。
+
+所有練習牌型都是原創教學牌型,講解分類系統,所以你的技巧適用於任何一年的牌卡。
+
+Mahj Trainer 是獨立的練習 App,與 National Mah Jongg League 沒有關聯,也未獲其認可。官方牌型與分數請以最新的 NMJL 牌卡為準。
+
+Mahj+ 提供自動續訂訂閱(月繳或年繳,符合資格的新用戶皆可免費試用7天)或一次性終身購買。價格會在購買前顯示於 App 內,並依地區而有所不同。費用將從你的 Google Play 帳戶扣款。訂閱會自動續訂,直到你取消為止。你可以隨時在 Google Play 的「付款和訂閱」中取消。
+
+請注意:App 本身為英文介面。
+
+隱私權政策: https://jackwallner.github.io/mahj/android-privacy.html
+使用條款: https://jackwallner.github.io/mahj/terms.html

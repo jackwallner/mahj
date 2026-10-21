@@ -1,0 +1,28 @@
+Învață mahjong în exerciții de cinci minute. Mahj Trainer te antrenează la American Mah Jongg, varianta americană jucată cu un card anual: recunoaște piesele, stăpânește Charlestonul, citește un rack și decide ce păstrezi și ce arunci. Creat pentru începători.
+
+Fără adversari și fără presiune, doar exerciții scurte și interactive care te țin în formă între serile de joc și lecții.
+
+PATRU CAMERE DE ANTRENAMENT GRATUITE
+• Tile Room: toate familiile de piese (craks, bams, dots, vânturi, dragoni, flori și jokeri) și un test despre regulile pe care începătorii le greșesc cel mai des.
+• Card Room: secțiunile cardului (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs și altele). Apoi citești rack-uri cu 13 piese și numești secțiunea spre care țintesc.
+• Charleston Room: regulile și strategia schimbului. Alege 3 piese de dat mai departe și compară alegerea ta cu cea a antrenorului, cu explicații.
+• Table Room: păstrezi sau arunci: când să ții o floare, când să schimbi pe un joker expus, ce îți spune expunerea unui adversar și ce aruncări sunt sigure.
+
+MAHJ+ (UPGRADE OPȚIONAL)
+Cele patru camere rămân gratuite pentru totdeauna. Mahj+ adaugă exerciții care nu se termină niciodată:
+• Play a Hand: 13 piese dintr-un zid real, iar fiecare aruncare este evaluată și explicată. Fără adversari și fără boți. O mână pe zi este gratuită pentru toată lumea.
+• Endless Practice: de fiecare dată un rack nou generat, ca nimic să nu se repete.
+• Fix My Mistakes: îți readuce greșelile la intervale tot mai lungi, până când punctele slabe dispar.
+• Timed Challenge: 90 de secunde de sarcini amestecate și un record personal de doborât.
+• Seturi de exerciții suplimentare în toate cele patru camere și Master Tables pentru avansați.
+
+Toate mâinile de exercițiu sunt mâini didactice originale care explică sistemul de categorii, așa că abilitățile tale se potrivesc cu cardul din orice an.
+
+Mahj Trainer este o aplicație de antrenament independentă, neafiliată și nesusținută de National Mah Jongg League. Mâinile și valorile oficiale le găsești pe cardul NMJL actual.
+
+Mahj+ este disponibil ca abonament cu reînnoire automată (lunar sau anual, ambele cu 7 zile de probă gratuită pentru clienții noi eligibili) sau ca achiziție unică pe viață. Prețurile sunt afișate în aplicație înainte de cumpărare și diferă în funcție de regiune. Plata se debitează din contul tău Google Play. Abonamentul se reînnoiește automat până când îl anulezi. Îl poți anula oricând din Google Play, la Plăți și abonamente.
+
+Notă: aplicația în sine este în limba engleză.
+
+Politica de confidențialitate: https://jackwallner.github.io/mahj/android-privacy.html
+Termeni de utilizare: https://jackwallner.github.io/mahj/terms.html

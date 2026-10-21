@@ -1,0 +1,28 @@
+Latihan mahjong dalam sesi lima minit. Mahj Trainer melatih anda dalam American Mah Jongg, versi Amerika yang dimainkan dengan kad tahunan: kenali jubin, kuasai Charleston, baca rak dan tentukan apa yang disimpan dan apa yang dibuang. Dibina untuk pemula.
+
+Tiada lawan dan tiada tekanan, hanya latihan ringkas dan interaktif supaya anda kekal bersedia antara malam permainan dan kelas.
+
+EMPAT BILIK LATIHAN PERCUMA
+• Tile Room: semua keluarga jubin (craks, bams, dots, angin, naga, bunga dan joker) serta kuiz tentang peraturan yang paling kerap disalah faham oleh pemula.
+• Card Room: bahagian kad (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs dan lain-lain). Kemudian baca rak 13 jubin dan namakan bahagian yang sedang dikejar.
+• Charleston Room: peraturan dan strategi pertukaran. Pilih 3 jubin untuk dihantar, kemudian bandingkan pilihan anda dengan jurulatih berserta penjelasan.
+• Table Room: simpan atau buang: bila menyimpan bunga, bila menukar dengan joker yang terdedah, apa yang didedahkan oleh jubin terbuka lawan, dan buangan mana yang selamat.
+
+MAHJ+ (NAIK TARAF PILIHAN)
+Empat bilik kekal percuma selama-lamanya. Mahj+ menambah latihan yang tidak pernah habis:
+• Play a Hand: 13 jubin daripada tembok sebenar, dan setiap buangan dinilai serta dijelaskan. Tiada lawan dan tiada bot. Satu tangan sehari percuma untuk semua.
+• Endless Practice: rak baharu dijana setiap kali, jadi tiada yang berulang.
+• Fix My Mistakes: membawa semula kesilapan anda dengan selang yang makin panjang sehingga titik lemah tertutup.
+• Timed Challenge: 90 saat soalan campuran dan rekod peribadi untuk dipecahkan.
+• Set latihan tambahan dalam keempat-empat bilik dan Master Tables untuk pemain lanjutan.
+
+Semua tangan latihan ialah tangan pengajaran asli yang menerangkan sistem kategori, jadi kemahiran anda sesuai dengan kad tahun apa pun.
+
+Mahj Trainer ialah aplikasi latihan bebas, tidak bergabung dengan atau disokong oleh National Mah Jongg League. Untuk tangan dan nilai rasmi, dapatkan kad NMJL semasa.
+
+Mahj+ ditawarkan sebagai langganan yang diperbaharui secara automatik (bulanan atau tahunan, kedua-duanya dengan percubaan percuma 7 hari untuk pelanggan baharu yang layak) atau sebagai pembelian sepanjang hayat sekali bayar. Harga dipaparkan dalam aplikasi sebelum pembelian dan berbeza mengikut rantau. Bayaran dicaj ke akaun Google Play anda. Langganan diperbaharui secara automatik sehingga dibatalkan. Anda boleh membatalkannya pada bila-bila masa dalam Google Play di bawah Pembayaran dan langganan.
+
+Nota: aplikasi ini sendiri dalam bahasa Inggeris.
+
+Dasar Privasi: https://jackwallner.github.io/mahj/android-privacy.html
+Terma Penggunaan: https://jackwallner.github.io/mahj/terms.html

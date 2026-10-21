@@ -1,0 +1,28 @@
+Pravila mahjonga u petominutnim vježbama. Mahj Trainer vas uči American Mah Jongg, američku varijantu koja se igra s godišnjom karticom: prepoznajte pločice, svladajte Charleston, čitajte stalak i odlučite što zadržati, a što odbaciti. Napravljeno za početnike.
+
+Bez protivnika i bez pritiska, samo kratke interaktivne vježbe koje vas drže u formi između večeri za stolom i tečajeva.
+
+ČETIRI BESPLATNE SOBE ZA VJEŽBU
+• Tile Room: sve obitelji pločica (craks, bams, dots, vjetrovi, zmajevi, cvjetovi i džokeri) i kviz o pravilima u kojima početnici najčešće griješe.
+• Card Room: odjeljci kartice (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs i drugi). Zatim čitate stalke s 13 pločica i imenujete odjeljak kojem teže.
+• Charleston Room: pravila i strategija razmjene. Odaberite 3 pločice za dodavanje i usporedite svoj izbor s trenerovim, uz objašnjenje.
+• Table Room: zadržati ili odbaciti: kada čuvati cvijet, kada zamijeniti za izloženog džokera, što vam otkriva protivnikovo izlaganje i koja su odbacivanja sigurna.
+
+MAHJ+ (NEOBAVEZNA NADOGRADNJA)
+Četiri sobe zauvijek ostaju besplatne. Mahj+ dodaje vježbu koja nikad ne nestaje:
+• Play a Hand: 13 pločica sa stvarnog zida, a svako odbacivanje se ocjenjuje i objašnjava. Bez protivnika i bez botova. Jedna ruka dnevno besplatna je za sve.
+• Endless Practice: svaki put novo generirani stalak, pa se ništa ne ponavlja.
+• Fix My Mistakes: vraća vaše pogreške u sve duljim razmacima dok slabe točke ne nestanu.
+• Timed Challenge: 90 sekundi miješanih zadataka i osobni rekord za oboriti.
+• Dodatni setovi vježbi u sve četiri sobe i Master Tables za napredne.
+
+Sve ruke za vježbu izvorne su ruke za učenje koje objašnjavaju sustav kategorija, pa vaše vještine vrijede za karticu bilo koje godine.
+
+Mahj Trainer je neovisna aplikacija za vježbanje koja nije povezana s National Mah Jongg League niti je ona podržava. Službene ruke i vrijednosti pronaći ćete na aktualnoj NMJL kartici.
+
+Mahj+ je dostupan kao pretplata s automatskim obnavljanjem (mjesečna ili godišnja, obje sa 7 dana besplatne probe za nove korisnike koji ispunjavaju uvjete) ili kao jednokratna doživotna kupnja. Cijene se prikazuju u aplikaciji prije kupnje i razlikuju se po regiji. Plaćanje se naplaćuje s vašeg Google Play računa. Pretplata se automatski obnavlja dok je ne otkažete. Otkazati je možete bilo kada u Google Playu pod Plaćanja i pretplate.
+
+Napomena: sama aplikacija je na engleskom jeziku.
+
+Pravila privatnosti: https://jackwallner.github.io/mahj/android-privacy.html
+Uvjeti korištenja: https://jackwallner.github.io/mahj/terms.html

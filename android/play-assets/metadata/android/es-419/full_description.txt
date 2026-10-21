@@ -1,0 +1,28 @@
+Practica mahjong americano (American Mah Jongg, la variante que se juega con la tarjeta anual) con ejercicios de cinco minutos: reconoce las fichas, domina el Charleston, lee racks y decide qué guardar y qué descartar. Pensado para principiantes.
+
+Sin rivales y sin presión: solo práctica breve e interactiva para avanzar entre una partida y otra, o entre clase y clase.
+
+CUATRO SALAS DE PRÁCTICA GRATIS
+• Tile Room: todas las familias de fichas (craks, bams, dots, vientos, dragones, flores y comodines) y un quiz con las reglas que más confunden a los principiantes.
+• Card Room: las secciones de la tarjeta (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs y más). Después lee racks de 13 fichas y nombra la sección que persiguen.
+• Charleston Room: reglas y estrategia del pase. Elige 3 fichas para pasar y compara tu elección con la del coach, con la explicación.
+• Table Room: guardar o descartar: cuándo quedarte una flor, cuándo cambiar por un comodín expuesto, qué te dice la exposición de un rival y qué descartes son seguros.
+
+MAHJ+ (MEJORA OPCIONAL)
+Las cuatro salas siguen siendo gratis para siempre. Mahj+ añade práctica que nunca se acaba:
+• Play a Hand: 13 fichas de un muro real; cada descarte se califica y se explica. Sin rivales ni bots. Todos tienen una mano gratis al día.
+• Endless Practice: un rack nuevo generado cada vez, sin repeticiones.
+• Fix My Mistakes: tus errores vuelven a intervalos espaciados hasta que cierras tus puntos débiles.
+• Timed Challenge: 90 segundos de lecturas variadas y una marca personal que superar.
+• Sets de práctica extra en las cuatro salas y las Master Tables para jugadores avanzados.
+
+Todas las manos de práctica son manos didácticas originales que enseñan el sistema de categorías, así que lo que aprendes sirve con la tarjeta de cualquier año.
+
+Mahj Trainer es una app de entrenamiento independiente, sin afiliación ni respaldo de la National Mah Jongg League. Para las manos y valores oficiales, consigue la tarjeta NMJL vigente.
+
+Mahj+ está disponible como suscripción de renovación automática (mensual o anual, ambas con 7 días de prueba gratis para nuevos clientes que cumplan los requisitos) o como compra única de por vida. Los precios se muestran en la app antes de comprar y varían según la región. El pago se carga a tu cuenta de Google Play. La suscripción se renueva automáticamente hasta que la canceles; puedes cancelarla cuando quieras en Google Play, en Pagos y suscripciones.
+
+Nota: la app está en inglés.
+
+Política de privacidad: https://jackwallner.github.io/mahj/android-privacy.html
+Condiciones de uso: https://jackwallner.github.io/mahj/terms.html

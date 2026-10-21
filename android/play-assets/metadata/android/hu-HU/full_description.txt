@@ -1,0 +1,28 @@
+Mahjong szabályok ötperces gyakorlatokban. A Mahj Trainer az American Mah Jongg játékot tanítja, az évente megújuló kártyával játszott amerikai változatot: ismerd fel a köveket, sajátítsd el a Charlestont, olvasd a tartót, és döntsd el, mit tartasz meg és mit dobsz el. Kezdőknek készült.
+
+Nincsenek ellenfelek és nincs nyomás, csak rövid, interaktív gyakorlatok, amelyekkel formában maradsz két játékest vagy két óra között.
+
+NÉGY INGYENES GYAKORLÓSZOBA
+• Tile Room: az összes kőcsalád (craks, bams, dots, szelek, sárkányok, virágok és jokerek), és egy kvíz azokról a szabályokról, amelyeket a kezdők a leggyakrabban elrontanak.
+• Card Room: a kártya szekciói (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs és mások). Utána 13 kőből álló tartókat olvasol, és megnevezed a szekciót, amely felé tartanak.
+• Charleston Room: a csere szabályai és stratégiája. Válassz 3 követ továbbadásra, és hasonlítsd össze a döntésed az edzőével, indoklással.
+• Table Room: megtartani vagy eldobni: mikor tartsd meg a virágot, mikor cserélj egy kirakott jokerre, mit árul el egy ellenfél kirakása, és mely dobások biztonságosak.
+
+MAHJ+ (VÁLASZTHATÓ BŐVÍTÉS)
+A négy szoba örökre ingyenes marad. A Mahj+ kifogyhatatlan gyakorlást ad hozzá:
+• Play a Hand: 13 kő egy valódi falból, és minden dobást értékel és elmagyaráz. Nincsenek ellenfelek és botok. Napi egy leosztás mindenkinek ingyenes.
+• Endless Practice: minden alkalommal új, generált tartó, így semmi sem ismétlődik.
+• Fix My Mistakes: egyre hosszabb időközönként visszahozza a hibáidat, amíg a gyenge pontok el nem tűnnek.
+• Timed Challenge: 90 másodpercnyi vegyes feladat és egy megdöntendő egyéni csúcs.
+• Extra gyakorlósorok mind a négy szobában, és Master Tables a haladóknak.
+
+Minden gyakorlókéz saját oktatókéz, amely a kategóriarendszert magyarázza, így a tudásod bármelyik év kártyájával működik.
+
+A Mahj Trainer független gyakorlóalkalmazás, nem áll kapcsolatban a National Mah Jongg League szervezettel, és az nem is támogatja. A hivatalos kezeket és értékeket az aktuális NMJL kártyán találod.
+
+A Mahj+ automatikusan megújuló előfizetésként (havi vagy éves, mindkettő 7 napos ingyenes próbaidővel a jogosult új ügyfeleknek) vagy egyszeri, élethosszig tartó vásárlásként érhető el. Az árak vásárlás előtt megjelennek az alkalmazásban, és régiónként eltérnek. A díjat a Google Play-fiókod terheli. Az előfizetés automatikusan megújul, amíg le nem mondod. Bármikor lemondhatod a Google Playben, a Fizetések és előfizetések menüpontban.
+
+Megjegyzés: maga az alkalmazás angol nyelvű.
+
+Adatvédelmi irányelvek: https://jackwallner.github.io/mahj/android-privacy.html
+Felhasználási feltételek: https://jackwallner.github.io/mahj/terms.html
