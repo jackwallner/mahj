@@ -68,6 +68,18 @@ function's `?sweep` only when a trial is 15 minutes old. The sweep then:
    (`sent`), or records it as `would_send` while Meta is not configured.
    Sandbox/TestFlight rows are only ever sent with `META_TEST_EVENT_CODE`.
 
+**Card trainers (2026-10-21).** The same function serves Bridge, Skat,
+Cribbage and Sheepshead. Each app's RevenueCat project has its own webhook to
+`meta-trial-relay?app=<key>` (production, App Store app, the same three event
+types, the same `Authorization` value): Bridge `whintgrb9c266f2cd`, Skat
+`whintgr1623e1612d`, Cribbage `whintgrf66f670729`, Sheepshead
+`whintgr84af2f2016`. Every row carries `app` (`mahj` when the URL has no
+`?app=`; migration `20261021180000_meta_trial_relay_apps.sql`). A card app's
+secrets are `META_<KEY>_RC_SECRET_KEY` (set), `META_<KEY>_DATASET_ID`,
+`META_<KEY>_CAPI_TOKEN` and optional `META_<KEY>_TEST_EVENT_CODE`; until the
+dataset pair is set, its surviving trials are `would_send`. Mahj keeps its
+original secret names.
+
 A network error, 429 or 5xx from RevenueCat or Meta leaves the row `pending`
 with `attempts` + 1 and `retry_at` 2, 4, 8 ... (max 60) minutes out; the 8th
 such failure is `error`. Any other 4xx is `error` at once. Migration
@@ -86,7 +98,7 @@ Watch it (counts per status; `would_send` vs `cancelled` is the real
 15-minute cancel rate, useful even before Meta exists):
 
 ```sql
-select status, count(*) from public.meta_trial_relay group by 1 order by 2 desc;
+select app, status, count(*) from public.meta_trial_relay group by 1, 2 order by 1, 3 desc;
 ```
 
 Deploy: `SUPABASE_ACCESS_TOKEN=<jackle token> supabase functions deploy

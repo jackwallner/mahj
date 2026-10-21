@@ -9,6 +9,10 @@ Deno.env.set("META_RELAY_RC_WEBHOOK_AUTH", "hook");
 Deno.env.set("META_RELAY_RC_SECRET_KEY", "rc");
 Deno.env.set("META_DATASET_ID", "123");
 Deno.env.set("META_CAPI_TOKEN", "token");
+Deno.env.set("META_BRIDGE_RC_SECRET_KEY", "rc-bridge");
+Deno.env.set("META_BRIDGE_DATASET_ID", "456");
+Deno.env.set("META_BRIDGE_CAPI_TOKEN", "token-bridge");
+Deno.env.set("META_SKAT_RC_SECRET_KEY", "rc-skat");
 
 type Reply = Response | Error;
 let row: Record<string, unknown>;
@@ -18,6 +22,8 @@ let metaReply: () => Reply;
 let selectQuery = "";
 let patches: Record<string, unknown>[] = [];
 let metaCalls = 0;
+let rcCalls: { path: string; auth: string }[] = [];
+let metaBodies: { path: string; body: Record<string, any> }[] = [];
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
@@ -35,6 +41,7 @@ globalThis.fetch = (input: string | URL | Request, init?: RequestInit) => {
     return Promise.resolve(new Response(null, { status: 204 }));
   }
   if (url.host === "api.revenuecat.com") {
+    rcCalls.push({ path: url.pathname, auth: new Headers(init?.headers).get("authorization") ?? "" });
     const reply = rcReply();
     if (reply instanceof Response && reply.ok && url.pathname.endsWith("/subscriptions")) {
       return Promise.resolve(json(200, {
@@ -48,6 +55,7 @@ globalThis.fetch = (input: string | URL | Request, init?: RequestInit) => {
   }
   if (url.host === "graph.facebook.com") {
     metaCalls++;
+    metaBodies.push({ path: url.pathname, body: JSON.parse(String(init?.body)) });
     return hand(metaReply());
   }
   throw new Error(`unexpected fetch ${url}`);
@@ -58,14 +66,16 @@ let handler: (req: Request) => Promise<Response>;
 (Deno as any).serve = (h: typeof handler) => { handler = h; return {}; };
 await import("./index.ts");
 
-async function sweep(attempts = 0, cancelledAt: string | null = null) {
+async function sweep(attempts = 0, cancelledAt: string | null = null, app = "mahj") {
   row = {
-    id: "evt1", app_user_id: "user1", original_transaction_id: "txn1", transaction_id: "txn1",
+    id: "evt1", app, app_user_id: "user1", original_transaction_id: "txn1", transaction_id: "txn1",
     product_id: "com.jackwallner.mahj.yearly", store: "APP_STORE", environment: "PRODUCTION",
     trial_started_at: new Date(Date.now() - 20 * 60_000).toISOString(), cancelled_at: cancelledAt, attempts,
   };
   patches = [];
   metaCalls = 0;
+  rcCalls = [];
+  metaBodies = [];
   const res = await handler(new Request("http://fn.test/?sweep", { method: "POST", headers: { "x-cron-secret": "cron" } }));
   assertEquals(res.status, 200);
   assertEquals(patches.length, 1);
@@ -173,4 +183,39 @@ Deno.test("renewal still off is cancelled, with nothing sent", async () => {
   renewal = "will_renew";
   assertEquals(p.status, "cancelled");
   assertEquals(metaCalls, 0);
+});
+
+Deno.test("a card app's trial uses its own RevenueCat project and dataset", async () => {
+  rcReply = ok;
+  metaReply = sent;
+  const p = await sweep(0, null, "bridge");
+  assertEquals(p.status, "sent");
+  assert(rcCalls.every((c) => c.path.startsWith("/v2/projects/proj71e29dd0/") && c.auth === "Bearer rc-bridge"));
+  assertEquals(metaBodies[0].path.split("/").at(-2), "456");
+  assertEquals(metaBodies[0].body.access_token, "token-bridge");
+  assertEquals(metaBodies[0].body.data[0].app_data.extinfo[1], "com.jackwallner.bridge");
+});
+
+Deno.test("a card app without a dataset yet records would_send", async () => {
+  rcReply = ok;
+  metaReply = sent;
+  const p = await sweep(0, null, "skat");
+  assertEquals(p.status, "would_send");
+  assert(rcCalls.every((c) => c.path.startsWith("/v2/projects/proje0bf13d7/")));
+  assertEquals(metaCalls, 0);
+});
+
+Deno.test("the webhook tags each trial with its app and refuses unknown apps", async () => {
+  const event = { id: "evt9", type: "INITIAL_PURCHASE", period_type: "TRIAL", app_user_id: "u9",
+    transaction_id: "t9", purchased_at_ms: Date.now() };
+  const post = (query: string) => handler(new Request(`http://fn.test/${query}`, {
+    method: "POST", headers: { authorization: "hook" }, body: JSON.stringify({ event }),
+  }));
+  patches = [];
+  assertEquals((await post("?app=cribbage")).status, 200);
+  assertEquals(patches[0].app, "cribbage");
+  patches = [];
+  assertEquals((await post("")).status, 200);
+  assertEquals(patches[0].app, "mahj");
+  assertEquals((await post("?app=poker")).status, 400);
 });

@@ -1,4 +1,4 @@
-// Meta StartTrial relay for Mahj Trainer.
+// Meta StartTrial relay for Mahj Trainer and the four card trainers.
 //
 // Meta optimizes for whatever event it is told about. Told about every trial
 // start, it learns to find people who start a trial and cancel it a minute
@@ -7,14 +7,16 @@
 // filter, so it sends Subscribe events only and this relay owns StartTrial.
 //
 // Two entry points, one function:
-//   POST (Authorization: RC_WEBHOOK_AUTH)   RevenueCat webhook. Records trial
-//        starts, marks trials cancelled or expired. Never sends anything.
+//   POST ?app=<key> (Authorization: RC_WEBHOOK_AUTH)   RevenueCat webhook, one
+//        per app's RevenueCat project (no ?app is Mahj). Records trial starts,
+//        marks trials cancelled or expired. Never sends anything.
 //   POST ?sweep (x-cron-secret: CRON_SECRET)  pg_cron, every minute while a
 //        trial is due. Rechecks each due trial against RevenueCat's API and
 //        sends the survivors to Meta's Conversions API.
 //
-// Off by default: with no META_DATASET_ID / META_CAPI_TOKEN, a trial that
-// would have been sent is marked `would_send` instead. See project-docs/marketing/meta-ads.md.
+// Off by default per app: with no dataset id and CAPI token for that app, a
+// trial that would have been sent is marked `would_send` instead. See
+// project-docs/marketing/meta-ads.md.
 
 import { createClient } from "jsr:@supabase/supabase-js@2.49.4";
 
@@ -22,12 +24,6 @@ const env = (name: string) => (Deno.env.get(name) ?? "").trim();
 
 const RC_WEBHOOK_AUTH = env("META_RELAY_RC_WEBHOOK_AUTH");
 const CRON_SECRET = env("META_RELAY_CRON_SECRET");
-const RC_SECRET_KEY = env("META_RELAY_RC_SECRET_KEY");
-const RC_PROJECT_ID = env("META_RELAY_RC_PROJECT_ID") || "28030dc2";
-const BUNDLE_ID = "com.jackwallner.mahj";
-const META_DATASET_ID = env("META_DATASET_ID");
-const META_CAPI_TOKEN = env("META_CAPI_TOKEN");
-const META_TEST_EVENT_CODE = env("META_TEST_EVENT_CODE");
 const META_GRAPH_VERSION = env("META_GRAPH_VERSION") || "v24.0";
 // Apple: sending a user-level event to Meta without ATT consent is tracking
 // the user never agreed to. Off unless Jack decides otherwise.
@@ -45,12 +41,51 @@ const LOOKUP_WAIT_HOURS = 2;
 const MAX_ATTEMPTS = 8;
 const MAX_BACKOFF_MINUTES = 60;
 
+type App = {
+  bundleID: string;
+  rcProject: string;
+  rcKey: string;
+  datasetID: string;
+  capiToken: string;
+  testEventCode: string;
+};
+
+// Each app has its own RevenueCat project, Meta app and dataset. Mahj keeps
+// its original secret names; a card app's are META_<KEY>_RC_SECRET_KEY,
+// META_<KEY>_DATASET_ID, META_<KEY>_CAPI_TOKEN and META_<KEY>_TEST_EVENT_CODE.
+const card = (key: string, rcProject: string): App => {
+  const name = (suffix: string) => env(`META_${key.toUpperCase()}_${suffix}`);
+  return {
+    bundleID: `com.jackwallner.${key}`,
+    rcProject,
+    rcKey: name("RC_SECRET_KEY"),
+    datasetID: name("DATASET_ID"),
+    capiToken: name("CAPI_TOKEN"),
+    testEventCode: name("TEST_EVENT_CODE"),
+  };
+};
+const APPS: Record<string, App> = {
+  mahj: {
+    bundleID: "com.jackwallner.mahj",
+    rcProject: env("META_RELAY_RC_PROJECT_ID") || "28030dc2",
+    rcKey: env("META_RELAY_RC_SECRET_KEY"),
+    datasetID: env("META_DATASET_ID"),
+    capiToken: env("META_CAPI_TOKEN"),
+    testEventCode: env("META_TEST_EVENT_CODE"),
+  },
+  bridge: card("bridge", "proj71e29dd0"),
+  skat: card("skat", "proje0bf13d7"),
+  cribbage: card("cribbage", "proj371df86d"),
+  sheepshead: card("sheepshead", "proj3fd00657"),
+};
+
 const db = createClient(env("SUPABASE_URL"), env("SUPABASE_SERVICE_ROLE_KEY"), {
   auth: { persistSession: false },
 });
 
 type Row = {
   id: string;
+  app: string;
   app_user_id: string;
   original_transaction_id: string | null;
   transaction_id: string | null;
@@ -82,17 +117,20 @@ Deno.serve(async (req) => {
   const body = await req.json().catch(() => null);
   const event = body?.event;
   if (!event?.id || !event?.type) return text(400, "no event");
-  return json(200, { handled: await record(event) });
+  const app = url.searchParams.get("app") ?? "mahj";
+  if (!APPS[app]) return text(400, "unknown app");
+  return json(200, { handled: await record(app, event) });
 });
 
 /** Webhook side: remember trial starts and cancellations. Idempotent. */
-async function record(event: Record<string, any>): Promise<string> {
+async function record(app: string, event: Record<string, any>): Promise<string> {
   const isTrial = String(event.period_type ?? "").toUpperCase() === "TRIAL";
   if (!isTrial) return "ignored";
 
   if (event.type === "INITIAL_PURCHASE") {
     const { error } = await db.from("meta_trial_relay").upsert({
       id: event.id,
+      app,
       app_user_id: event.app_user_id,
       original_transaction_id: event.original_transaction_id ?? event.transaction_id ?? null,
       transaction_id: event.transaction_id ?? null,
@@ -108,7 +146,7 @@ async function record(event: Record<string, any>): Promise<string> {
   if (event.type === "CANCELLATION" || event.type === "EXPIRATION") {
     const at = new Date(Number(event.event_timestamp_ms ?? Date.now())).toISOString();
     let query = db.from("meta_trial_relay").update({ cancelled_at: at })
-      .eq("status", "pending").is("cancelled_at", null);
+      .eq("app", app).eq("status", "pending").is("cancelled_at", null);
     query = event.original_transaction_id
       ? query.eq("original_transaction_id", event.original_transaction_id)
       : query.eq("app_user_id", event.app_user_id).eq("product_id", event.product_id);
@@ -124,7 +162,7 @@ async function sweep() {
   const now = new Date().toISOString();
   const due = new Date(Date.now() - HOLD_MINUTES * 60_000).toISOString();
   const { data, error } = await db.from("meta_trial_relay")
-    .select("id, app_user_id, original_transaction_id, transaction_id, product_id, store, environment, trial_started_at, cancelled_at, attempts")
+    .select("id, app, app_user_id, original_transaction_id, transaction_id, product_id, store, environment, trial_started_at, cancelled_at, attempts")
     .eq("status", "pending").lte("trial_started_at", due)
     .or(`retry_at.is.null,retry_at.lte."${now}"`)
     .order("trial_started_at").limit(50);
@@ -167,17 +205,19 @@ async function sweep() {
 }
 
 async function decide(row: Row): Promise<Verdict> {
+  const app = APPS[row.app];
+  if (!app) return { status: "error", detail: `unknown app ${row.app}` };
   // A webhook cancel is not final: renewal can be turned back on inside the
   // hold (RevenueCat sends UNCANCELLATION), so RevenueCat's current state
   // decides below. The cancel only settles the row when that cannot be read.
-  if (!RC_SECRET_KEY) {
+  if (!app.rcKey) {
     return row.cancelled_at
       ? { status: "cancelled", detail: `webhook cancel at ${row.cancelled_at}` }
-      : { status: "pending", detail: "META_RELAY_RC_SECRET_KEY missing" };
+      : { status: "pending", detail: `${row.app}: RevenueCat secret key missing` };
   }
 
   const ageHours = (Date.now() - Date.parse(row.trial_started_at)) / 3_600_000;
-  const subscription = await findSubscription(row);
+  const subscription = await findSubscription(app, row);
   if (!subscription) {
     return ageHours > LOOKUP_WAIT_HOURS
       ? { status: "error", detail: "subscription not found in RevenueCat" }
@@ -193,7 +233,7 @@ async function decide(row: Row): Promise<Verdict> {
     };
   }
 
-  const attributes = await customerAttributes(row.app_user_id);
+  const attributes = await customerAttributes(app, row.app_user_id);
   const consent = attributes["$attConsentStatus"] ?? "";
   const authorized = consent === "authorized";
   if (!authorized && !SEND_WITHOUT_ATT) {
@@ -205,20 +245,20 @@ async function decide(row: Row): Promise<Verdict> {
       : { status: "pending", detail: `waiting on ATT (${consent || "missing"})` };
   }
 
-  const event = await metaEvent(row, attributes, authorized);
+  const event = await metaEvent(app, row, attributes, authorized);
   const live = row.store === "APP_STORE" && row.environment === "PRODUCTION";
-  if (!META_DATASET_ID || !META_CAPI_TOKEN) {
+  if (!app.datasetID || !app.capiToken) {
     return { status: "would_send", detail: "Meta not configured", meta_response: { event } };
   }
-  if (!live && !META_TEST_EVENT_CODE) {
+  if (!live && !app.testEventCode) {
     return { status: "would_send", detail: `${row.store}/${row.environment}, no test code`, meta_response: { event } };
   }
 
-  const payload: Record<string, unknown> = { data: [event], access_token: META_CAPI_TOKEN };
-  if (!live) payload.test_event_code = META_TEST_EVENT_CODE;
+  const payload: Record<string, unknown> = { data: [event], access_token: app.capiToken };
+  if (!live) payload.test_event_code = app.testEventCode;
   // A retry resends the same event_id, which Meta deduplicates, so a 5xx
   // that Meta did in fact record cannot count twice.
-  const response = await call("Meta", `https://graph.facebook.com/${META_GRAPH_VERSION}/${META_DATASET_ID}/events`, {
+  const response = await call("Meta", `https://graph.facebook.com/${META_GRAPH_VERSION}/${app.datasetID}/events`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(payload),
@@ -244,17 +284,17 @@ async function call(name: string, url: string, init: RequestInit) {
   return response;
 }
 
-async function rc(path: string) {
-  const response = await call("RevenueCat", `https://api.revenuecat.com/v2/projects/${RC_PROJECT_ID}${path}`, {
-    headers: { authorization: `Bearer ${RC_SECRET_KEY}` },
+async function rc(app: App, path: string) {
+  const response = await call("RevenueCat", `https://api.revenuecat.com/v2/projects/${app.rcProject}${path}`, {
+    headers: { authorization: `Bearer ${app.rcKey}` },
   });
   if (!response.ok) throw new Error(`RevenueCat ${path} HTTP ${response.status}`);
   return await response.json();
 }
 
-async function findSubscription(row: Row) {
+async function findSubscription(app: App, row: Row) {
   const customer = encodeURIComponent(row.app_user_id);
-  const { items = [] } = await rc(`/customers/${customer}/subscriptions?limit=50`);
+  const { items = [] } = await rc(app, `/customers/${customer}/subscriptions?limit=50`);
   // v2 names the subscription by its latest store transaction, which 15
   // minutes in is still the trial's own. Failing that, the one that started
   // with the trial.
@@ -264,13 +304,13 @@ async function findSubscription(row: Row) {
     items.find((s: any) => Math.abs(Number(s.starts_at) - started) < 10 * 60_000);
 }
 
-async function customerAttributes(appUserID: string): Promise<Record<string, string>> {
-  const { items = [] } = await rc(`/customers/${encodeURIComponent(appUserID)}/attributes?limit=100`);
+async function customerAttributes(app: App, appUserID: string): Promise<Record<string, string>> {
+  const { items = [] } = await rc(app, `/customers/${encodeURIComponent(appUserID)}/attributes?limit=100`);
   return Object.fromEntries(items.map((a: any) => [a.name, String(a.value ?? "")]));
 }
 
 /** One Conversions API app event, shaped like RevenueCat's own. */
-async function metaEvent(row: Row, a: Record<string, string>, authorized: boolean) {
+async function metaEvent(app: App, row: Row, a: Record<string, string>, authorized: boolean) {
   const idfa = a["$idfa"] ?? "";
   const validIDFA = authorized && idfa && !/^[0-]+$/.test(idfa);
   const userData: Record<string, unknown> = { external_id: [await sha256(row.app_user_id)] };
@@ -281,7 +321,7 @@ async function metaEvent(row: Row, a: Record<string, string>, authorized: boolea
   const appData: Record<string, unknown> = {
     advertiser_tracking_enabled: authorized ? 1 : 0,
     application_tracking_enabled: 1,
-    extinfo: extinfo(a["meta_extinfo"]),
+    extinfo: extinfo(app, a["meta_extinfo"]),
   };
   if (a["$idfv"]) appData.vendor_id = a["$idfv"];
 
@@ -302,12 +342,12 @@ async function metaEvent(row: Row, a: Record<string, string>, authorized: boolea
 }
 
 /** The 16-slot array the app wrote (MetaAds.extinfo), or a bare iOS one. */
-function extinfo(raw: string | undefined): string[] {
+function extinfo(app: App, raw: string | undefined): string[] {
   try {
     const parsed = JSON.parse(raw ?? "");
     if (Array.isArray(parsed) && parsed.length === 16) return parsed.map(String);
   } catch { /* fall through */ }
-  return ["i2", BUNDLE_ID, "", "", "", "", "", "", "", "0", "0", "0", "0", "0", "0", ""];
+  return ["i2", app.bundleID, "", "", "", "", "", "", "", "0", "0", "0", "0", "0", "0", ""];
 }
 
 async function sha256(value: string) {
