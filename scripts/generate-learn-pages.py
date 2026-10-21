@@ -4,6 +4,10 @@
 Usage: scripts/generate-learn-pages.py . docs
 Prose pages are authored here; the glossary and the card sections are parsed
 from the Swift sources so the site and the app never drift apart.
+
+The pages in docs/learn have since been edited by hand (answer-first leads,
+question headings, campaign links, the github.io redirect). Running this
+reverts those edits, so port them into this script first.
 """
 import html
 import json

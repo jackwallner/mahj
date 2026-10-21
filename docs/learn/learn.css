@@ -8,7 +8,14 @@ nav.top .wrap { display:flex; align-items:center; justify-content:space-between;
 .brand img { border-radius:7px; }
 nav.top .links { display:flex; gap:16px; align-items:center; }
 nav.top .links a { font-size:14px; color:var(--ink); text-decoration:none; }
-nav.top .pill, .button { background:var(--ink); color:#fff !important; padding:8px 16px; border-radius:980px; font-weight:500; text-decoration:none; display:inline-block; }
+nav.top .pill, .button { background:var(--ink); color:#fff !important; padding:0 16px; border-radius:980px; font-weight:500; text-decoration:none; display:inline-flex; align-items:center; height:34px; }
+.button { height:44px; padding:0 20px; }
+/* The badge PNG has 41px of transparent padding per side (visible 564x168 in 646x250): scale so the visible badge is --h tall, pull the padding back with negative margins. */
+.play-badge { display:inline-flex; --h:34px; vertical-align:middle; }
+.play-badge img { display:block; height:calc(var(--h) * 1.488); width:auto; margin:calc(var(--h) * -0.244); }
+.cta .play-badge { --h:44px; }
+.cta-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+@media (max-width:640px) { nav.top .play-badge { display:none; } }
 .crumbs { font-size:13px; color:var(--ink3); margin:22px 0 10px; }
 .crumbs a { color:var(--ink3); text-decoration:none; }
 h1 { font-family:Georgia,"Times New Roman",serif; font-size:40px; line-height:1.1; letter-spacing:-0.5px; margin-bottom:12px; }

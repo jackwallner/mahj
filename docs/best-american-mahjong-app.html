@@ -41,7 +41,7 @@
         "url": "https://jackwallner.com/"
       },
       "datePublished": "2026-10-12",
-      "dateModified": "2026-10-18",
+      "dateModified": "2026-10-21",
       "mainEntityOfPage": "https://jackwallner.com/ios/mahj/best-american-mahjong-app.html",
       "image": "https://jackwallner.github.io/mahj/appstore-screenshot-01.png",
       "about": {
@@ -186,7 +186,12 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #1d1d1f; }
 .nav-brand img { width: 32px; height: 32px; border-radius: 7px; }
 .nav-brand span { font-size: 15px; font-weight: 600; }
-.nav-link { font-size: 14px; text-decoration: none; background: #1d1d1f; color: #fff; padding: 8px 18px; border-radius: 980px; font-weight: 500; }
+.nav-link { font-size: 14px; text-decoration: none; background: #1d1d1f; color: #fff; padding: 0 18px; display: inline-flex; align-items: center; height: 34px; border-radius: 980px; font-weight: 500; }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+/* The badge PNG has 41px of transparent padding per side (visible 564x168 in 646x250): scale so the visible badge is --h tall, pull the padding back with negative margins. */
+.play-badge { display: inline-flex; --h: 34px; vertical-align: middle; }
+.play-badge img { display: block; height: calc(var(--h) * 1.488); width: auto; margin: calc(var(--h) * -0.244); }
+@media (max-width: 640px) { nav .play-badge { display: none; } }
 .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
 article { padding: 56px 0 80px; }
 article h1 { font-size: 36px; font-weight: 700; letter-spacing: -1px; line-height: 1.15; margin-bottom: 12px; }
@@ -210,7 +215,9 @@ th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; color: #
 .cta-box { background: #f5f5f7; border-radius: 16px; padding: 28px; margin: 40px 0 8px; }
 .cta-box h2 { margin: 0 0 8px; font-size: 20px; }
 .cta-box p { font-size: 16px; color: #3a3a3c; margin-bottom: 16px; }
-.cta-box a.btn { display: inline-block; background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 500; padding: 12px 28px; border-radius: 980px; text-decoration: none; }
+.cta-box a.btn { display: inline-flex; align-items: center; height: 44px; background: #1d1d1f; color: #fff; font-size: 15px; font-weight: 500; padding: 0 28px; border-radius: 980px; text-decoration: none; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.cta-box .play-badge { --h: 44px; }
 .sources li { font-size: 15px; }
 .note { font-size: 14px; color: #6e6e73; }
 footer { text-align: center; padding: 20px 24px; font-size: 12px; color: #6e6e73; border-top: 1px solid rgba(0,0,0,0.06); }
@@ -225,14 +232,17 @@ footer a { color: #6e6e73; text-decoration: none; margin: 0 10px; }
 <img src="icon_256.png" alt="Mahj Trainer">
 <span>Mahj Trainer</span>
 </a>
+<div class="nav-actions">
 <a class="nav-link" href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-best-american-mahjong-app&amp;mt=8">Download</a>
+<a class="play-badge" href="https://play.google.com/store/apps/details?id=com.jackwallner.mahj"><img src="google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+</div>
 </div>
 </nav>
 
 <article>
 <div class="container">
 <h1>Best American Mahjong App</h1>
-<p class="meta">By Jack Wallner &middot; Last updated <time datetime="2026-10-18" data-updated>October 18, 2026</time></p>
+<p class="meta">By Jack Wallner &middot; Last updated <time datetime="2026-10-21" data-updated>October 21, 2026</time></p>
 
 <div class="answer">
 <p><strong>Best for learning from scratch:</strong> MAHJ: Learn American Mahjong, an 18-lesson course with a one-time purchase. <strong>Best for seeing which card hand your tiles fit:</strong> American Mahjong Practice. <strong>Best for full games against bots with the official card:</strong> Maylee. <strong>Best for a guided plan and an Apple Watch drill:</strong> Mahjong Trainer: Learn &amp; Win. <strong>Best for short drills with the reason on every answer:</strong> Mahj Trainer, the app I make.</p>
@@ -285,7 +295,10 @@ footer a { color: #6e6e73; text-decoration: none; margin: 0 10px; }
 <div class="cta-box">
 <h2>Try the free practice rooms</h2>
 <p>Mahj Trainer has four free rooms for tiles, the card, the Charleston and keep-or-throw calls, with the reason on every answer. No account needed.</p>
+<div class="cta-row">
 <a class="btn" href="./">See Mahj Trainer</a>
+<a class="play-badge" href="https://play.google.com/store/apps/details?id=com.jackwallner.mahj"><img src="google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+</div>
 </div>
 
 <h2>Questions</h2>
@@ -308,7 +321,7 @@ footer a { color: #6e6e73; text-decoration: none; margin: 0 10px; }
 <li><a href="https://apps.apple.com/us/app/mahj-learn-american-mahjong/id6762031478">MAHJ: Learn American Mahjong</a> (App Store)</li>
 <li><a href="https://apps.apple.com/us/app/maylee-american-mahjong/id6758261607">Maylee: American Mahjong</a> (App Store)</li>
 <li><a href="https://apps.apple.com/us/app/mahjong-trainer-learn-win/id6806357092">Mahjong Trainer: Learn &amp; Win</a> (App Store)</li>
-<li><a href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-best-american-mahjong-app&amp;mt=8">Mahj Trainer: Mahjong Practice</a> (App Store)</li>
+<li><a href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-best-american-mahjong-app&amp;mt=8">Mahj Trainer: Mahjong Practice</a> (<a href="https://play.google.com/store/apps/details?id=com.jackwallner.mahj">Google Play</a>, <a href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-best-american-mahjong-app&amp;mt=8">App Store</a>)</li>
 <li><a href="https://www.nationalmahjonggleague.org/">National Mah Jongg League</a></li>
 </ul>
 <p class="note">Mahj Trainer is an independent app and is not affiliated with the National Mah Jongg League or with any app compared here. App details were checked in October 2026 and may change.</p>

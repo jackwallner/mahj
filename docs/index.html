@@ -28,16 +28,16 @@
         "@graph": [
             {
                 "@type": "MobileApplication",
-                "dateModified": "2026-10-18",
+                "dateModified": "2026-10-21",
                 "@id": "https://jackwallner.com/ios/mahj/#app",
                 "name": "Mahj Trainer: Mahjong Practice",
                 "description": "Mahj Trainer is a free American Mah Jongg practice app for iPhone and iPad. It teaches the tiles, the card sections, the Charleston and keep-or-throw decisions in five-minute drills across four practice rooms, plus Play a Hand, where a coach grades every discard. It needs no account and works offline.",
                 "applicationCategory": "EducationalApplication",
-                "operatingSystem": "iOS 17+",
+                "operatingSystem": "iOS 17+, Android",
                 "url": "https://jackwallner.com/ios/mahj/",
-                "downloadUrl": "https://apps.apple.com/us/app/id6790052126",
+                "downloadUrl": ["https://apps.apple.com/us/app/id6790052126", "https://play.google.com/store/apps/details?id=com.jackwallner.mahj"],
                 "installUrl": "https://apps.apple.com/us/app/id6790052126",
-                "sameAs": "https://apps.apple.com/us/app/id6790052126",
+                "sameAs": ["https://apps.apple.com/us/app/id6790052126", "https://play.google.com/store/apps/details?id=com.jackwallner.mahj"],
                 "screenshot": [
                     "https://jackwallner.github.io/mahj/appstore-screenshot-01.png",
                     "https://jackwallner.github.io/mahj/appstore-screenshot-02.png",
@@ -217,7 +217,10 @@
             text-decoration: none;
             background: #1d1d1f;
             color: #fff;
-            padding: 8px 18px;
+            padding: 0 18px;
+            display: inline-flex;
+            align-items: center;
+            height: 34px;
             border-radius: 980px;
             font-weight: 500;
             transition: opacity 0.15s;
@@ -259,18 +262,50 @@
         }
 
         .download-btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            height: 48px;
             background: #1d1d1f;
             color: #fff;
             font-size: 15px;
             font-weight: 500;
-            padding: 14px 36px;
+            padding: 0 36px;
             border-radius: 980px;
             text-decoration: none;
             transition: opacity 0.15s;
         }
 
         .download-btn:hover { opacity: 0.85; }
+
+        .play-badge {
+            display: inline-flex;
+            --h: 48px;
+            vertical-align: middle;
+        }
+
+        /* The PNG carries 41px of transparent padding on every side (visible badge
+           564x168 in a 646x250 file). Scale so the visible badge is --h tall and
+           pull the padding back with negative margins. */
+        .play-badge img {
+            display: block;
+            height: calc(var(--h) * 1.488);
+            width: auto;
+            margin: calc(var(--h) * -0.244);
+        }
+
+        .play-badge.nav-badge { --h: 34px; }
+
+        .download-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width: 640px) {
+            .play-badge.nav-badge { display: none; }
+        }
 
         /* Screenshot showcase */
         .showcase {
@@ -578,15 +613,19 @@
             <div style="display:flex;align-items:center;gap:18px">
                 <a href="learn/" style="font-size:14px;color:#1d1d1f;text-decoration:none">Learn</a>
                 <a class="nav-link" href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-home&amp;mt=8">Download</a>
+                <a class="play-badge nav-badge" href="https://play.google.com/store/apps/details?id=com.jackwallner.mahj" style="--h: 34px"><img src="google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
             </div>
         </div>
     </nav>
 
     <section class="hero">
         <h1>Ready before <span>Thursday's game</span></h1>
-        <p class="tagline">Mahj Trainer is an American Mahjong practice app for iPhone and iPad: tiles, the card, the Charleston, and keep-or-throw judgment in five-minute drills. No opponents and no account.</p>
-        <p class="platforms">iPhone and iPad &middot; Four free practice rooms &middot; Works offline</p>
-        <a class="download-btn" href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-home&amp;mt=8">Download for free</a>
+        <p class="tagline">Mahj Trainer is an American Mahjong practice app for iPhone, iPad and Android: tiles, the card, the Charleston, and keep-or-throw judgment in five-minute drills. No opponents and no account.</p>
+        <p class="platforms">iPhone, iPad and Android &middot; Four free practice rooms &middot; Works offline</p>
+        <div class="download-row">
+            <a class="download-btn" href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-home&amp;mt=8">Download on the App Store</a>
+            <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.jackwallner.mahj"><img src="google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+        </div>
     </section>
 
     <section class="showcase">
@@ -788,12 +827,15 @@
 
     <section class="cta">
         <h2>Practice before you play</h2>
-        <p>Free on the App Store. Four practice rooms, no account. Mahj+ optional.</p>
-        <a class="download-btn" href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-home&amp;mt=8">Download for free</a>
+        <p>Free on the App Store and Google Play. Four practice rooms, no account. Mahj+ optional.</p>
+        <div class="download-row">
+            <a class="download-btn" href="https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&amp;ct=jw-mahj-home&amp;mt=8">Download on the App Store</a>
+            <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.jackwallner.mahj"><img src="google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+        </div>
     </section>
 
     <footer>
-        <div class="divider">&copy; 2026 Jack Wallner · Last updated <time datetime="2026-10-18" data-updated>October 18, 2026</time></div>
+        <div class="divider">&copy; 2026 Jack Wallner · Last updated <time datetime="2026-10-21" data-updated>October 21, 2026</time></div>
         <div>
             <a href="learn/">Learn</a>
             <a href="best-american-mahjong-app.html">Best American mahjong app</a>
