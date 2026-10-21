@@ -96,6 +96,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/monthly-challenge.md` | The free monthly challenge, its rotation and the monthly event + nomination | `MonthlyChallengeContent`, `mahj://challenge`, in-app events |
 | `.claude/rules/meta-ads.md` | Meta SDK + ATT (inert until a Meta app exists), the 15-minute StartTrial relay | `MetaAds`, `TrialCTA`, `supabase/`, ATT timing |
 | `.claude/rules/android.md` | The Android port: exported content, RNG parity, Play identity, deliberate differences | Anything under `android/` or the content export |
+| `.claude/rules/chatgpt-plugin.md` | The free ChatGPT plugin: MCP server on Cloudflare, widget, packaging and submission | Anything under `chatgpt/` |
 
 ## Flashcard deck (signature interaction)
 

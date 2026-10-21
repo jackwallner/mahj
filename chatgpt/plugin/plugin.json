@@ -1,0 +1,98 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "mahj",
+  "version": "1.0.0",
+  "description": "Learn and practice American mah jongg: illustrated lessons, practice quizzes, a rack reader for the card's sections, and a glossary.",
+  "author": { "name": "Jack Wallner", "email": "jackwallner+m@gmail.com", "url": "https://jackwallner.com/ios/mahj/" },
+  "homepage": "https://jackwallner.com/ios/mahj/",
+  "repository": "https://github.com/jackwallner/mahj",
+  "keywords": ["mah jongg", "mahjong", "american mahjong", "nmjl", "charleston", "tile game"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Mahj Trainer",
+        "shortDescription": "Learn American mah jongg",
+        "longDescription": "Mahj Trainer teaches American mah jongg, the game played with the yearly National Mah Jongg League card.\n\nAsk for a lesson and get a short illustrated deck on the basics, the tiles, the sections of the card, the Charleston or keep-or-throw judgment. Ask for practice and get an interactive quiz that checks and explains every answer, including Charleston passes you pick by tapping tiles. Share the tiles on your rack and get a read of which sections you lean toward and which tiles fit nothing, so you know what to pass. Ask what a term means, from pung and quint to joker swap and dead hand.\n\nMahj Trainer talks in the card's stable sections and never reproduces card hands, so keep your own card handy for the exact lines. It is free and needs no account.\n\nNot affiliated with or endorsed by the National Mah Jongg League.",
+        "developerName": "Jack Wallner",
+        "category": "Education & Research",
+        "capabilities": [
+          "Illustrated lessons on how American mah jongg works",
+          "Interactive practice quizzes with explanations",
+          "Charleston passing practice",
+          "Read a rack against the card's sections",
+          "Define mah jongg terms"
+        ],
+        "websiteURL": "https://jackwallner.com/ios/mahj/",
+        "supportURL": "https://jackwallner.com/ios/mahj/support.html",
+        "privacyPolicyURL": "https://jackwallner.com/ios/mahj/privacy-policy.html",
+        "termsOfServiceURL": "https://jackwallner.com/ios/mahj/terms.html",
+        "defaultPrompt": [
+          "Teach me how American mah jongg works.",
+          "Quiz me on the Charleston.",
+          "Read my rack: 2C 2C 4C 4C 6B 6B 8B 8D F J 1C 9B N. What should I pass?"
+        ],
+        "brandColor": "#176B5C",
+        "brandColorDark": "#5CB59E",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/icon.png"
+      },
+      "onboardingSkill": "./skills/get-started/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Beginner lesson",
+              "prompt": "Teach me the basics of American mah jongg.",
+              "tools_triggered": "show_mahjong_lesson",
+              "expected_behavior": "Shows an illustrated lesson deck on how the game works, with Back and Next buttons and a Practice this button on the last card."
+            },
+            {
+              "description": "Tile practice quiz",
+              "prompt": "Quiz me on the American mah jongg tiles.",
+              "tools_triggered": "start_mahjong_practice",
+              "expected_behavior": "Shows a multiple-choice quiz on naming tiles. Each answer is checked and explained, and the quiz ends with a score. The answers are not listed in chat."
+            },
+            {
+              "description": "Charleston passing practice",
+              "prompt": "Give me some Charleston passing practice for American mahjong.",
+              "tools_triggered": "start_mahjong_practice",
+              "expected_behavior": "Shows racks where the player taps three tiles to pass, then compares the pick with the coach's pass and explains it."
+            },
+            {
+              "description": "Read a player's rack",
+              "prompt": "My American mah jongg rack is 2C 2C 4C 4C 6B 6B 8B 8D F J 1C 9B N. Which section am I leaning toward and what should I pass?",
+              "tools_triggered": "read_mahjong_rack",
+              "expected_behavior": "Shows the rack, reads it as leaning 2468, marks 1 crak, 9 bam and north as passing candidates, and reminds the player to check exact lines on their own card. No card hands are quoted."
+            },
+            {
+              "description": "Define a term",
+              "prompt": "In American mah jongg, what is a joker swap?",
+              "tools_triggered": "define_mahjong_term",
+              "expected_behavior": "Returns a short plain-language definition of a joker swap."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Request to reproduce the copyrighted NMJL card",
+              "prompt": "List every hand on this year's NMJL card."
+            },
+            {
+              "description": "Japanese riichi mahjong is a different game",
+              "prompt": "How does scoring work in Japanese riichi mahjong?"
+            },
+            {
+              "description": "Mahjong solitaire is a different game",
+              "prompt": "Help me clear a level of mahjong solitaire."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "This plugin is free. It does not sell products, process payments or link to purchase pages."
+      },
+      "publication": {
+        "countries": [],
+        "release_notes": "First release: lessons, practice quizzes, a rack reader for the card's sections, and a glossary for American mah jongg."
+      }
+    }
+  }
+}

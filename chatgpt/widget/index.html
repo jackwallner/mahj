@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #ffffff; --well: #f4f4f4; --rule: #e3e3e3; --ink: #0d0d0d; --ink2: #5d5d5d; --ink3: #6e6e6e;
+    --jade: #176b5c; --on-jade: #fff; --coral: #c4553f; --good: #176b5c; --bad: #b02c29;
+    --ivory: #fbf6ea; --edge: #d6c9ad; --crak: #b82b29; --bam: #1f784a; --dot: #265299; --joker: #734099; --flower: #cc5478;
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --bg: #212121; --well: #2f2f2f; --rule: #3d3d3d; --ink: #ececec; --ink2: #b4b4b4; --ink3: #9b9b9b;
+    --jade: #5cb59e; --on-jade: #1c1a17; --coral: #ef8f73; --good: #5cb59e; --bad: #ef8f73;
+    --ivory: #ede5d4; --edge: #b3a68a;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: transparent; }
+  body { font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; color: var(--ink); }
+  .card { background: var(--bg); border: 1px solid var(--rule); border-radius: 18px; padding: 18px 18px 14px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink3); display: flex; justify-content: space-between; gap: 8px; }
+  h2 { font: 600 19px/1.3 ui-serif, "New York", Georgia, serif; margin: 6px 0 4px; }
+  .sub { color: var(--ink2); margin: 0 0 10px; }
+  p { margin: 8px 0; }
+  .tip { background: var(--well); border-radius: 12px; padding: 10px 12px; color: var(--ink2); font-size: 14px; margin-top: 10px; }
+  .rack { display: grid; gap: 5px; margin: 12px 0 6px; justify-content: start; }
+  .rack > * { display: block; }
+  .rack svg { display: block; width: 100%; height: auto; }
+  .rack button.tile { padding: 0; border: 0; background: none; cursor: pointer; border-radius: 8px; transition: transform .12s ease; }
+  .rack button.tile:focus-visible { outline: 2px solid var(--jade); outline-offset: 2px; }
+  .rack .picked svg { transform: translateY(-7px); filter: drop-shadow(0 0 0 var(--jade)); }
+  .rack .picked svg rect.face { stroke: var(--jade); stroke-width: 2.4; }
+  .rack .marked svg rect.face { stroke: var(--coral); stroke-width: 2.4; }
+  .choices { display: grid; gap: 8px; margin-top: 12px; }
+  .choice { text-align: left; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 12px; padding: 11px 13px; cursor: pointer; }
+  .choice:hover:not(:disabled) { border-color: var(--jade); }
+  .choice.right { border-color: var(--good); background: color-mix(in srgb, var(--good) 12%, var(--bg)); }
+  .choice.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 10%, var(--bg)); }
+  .choice:disabled { cursor: default; }
+  .verdict { font-weight: 600; margin: 12px 0 2px; }
+  .verdict.right { color: var(--good); } .verdict.wrong { color: var(--bad); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .btn { font: 600 14px/1 inherit; font-family: inherit; border-radius: 999px; padding: 10px 16px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); cursor: pointer; }
+  .btn.primary { background: var(--jade); border-color: var(--jade); color: var(--on-jade); }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .dots { display: flex; gap: 4px; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--rule); }
+  .dots i.on { background: var(--jade); }
+  .sections { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
+  .sections li { border: 1px solid var(--rule); border-radius: 12px; padding: 10px 12px; }
+  .sections b { font-weight: 600; }
+  .chip { float: right; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 2px 9px; background: var(--well); color: var(--ink2); }
+  .chip.fits { background: var(--jade); color: var(--on-jade); }
+  .chip.possible { background: color-mix(in srgb, var(--jade) 16%, var(--bg)); color: var(--jade); }
+  .sections .note { color: var(--ink2); font-size: 14px; margin-top: 3px; }
+  details summary { cursor: pointer; color: var(--ink2); font-size: 14px; margin-top: 12px; }
+  .foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--ink3); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .foot a { color: var(--ink2); }
+  .score { font: 600 34px/1 ui-serif, "New York", Georgia, serif; margin: 10px 0 4px; }
+  .empty { color: var(--ink2); }
+</style>
+</head>
+<body>
+<div id="root" class="card"><p class="empty">Loading…</p></div>
+<script>
+(() => {
+  const SITE = "https://jackwallner.com/ios/mahj/";
+
+  // ---------- host bridge: ChatGPT's window.openai, with an MCP Apps fallback ----------
+  const host = {
+    data() {
+      const o = window.openai;
+      return o ? { output: o.toolOutput, meta: o.toolResponseMetadata, state: o.widgetState } : { output: mcp.output, meta: mcp.meta, state: null };
+    },
+    saveState(state) { try { window.openai?.setWidgetState?.(state); } catch {} },
+    callTool(name, args) {
+      if (window.openai?.callTool) return window.openai.callTool(name, args);
+      return mcp.request("tools/call", { name, arguments: args });
+    },
+    followUp(prompt) {
+      if (window.openai?.sendFollowUpMessage) return window.openai.sendFollowUpMessage({ prompt });
+      return mcp.request("ui/message", { role: "user", content: [{ type: "text", text: prompt }] });
+    },
+    open(href) {
+      if (window.openai?.openExternal) return window.openai.openExternal({ href });
+      return mcp.request("ui/open-link", { url: href }).catch(() => window.open(href, "_blank", "noopener"));
+    },
+    theme() { return window.openai?.theme ?? mcp.theme ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); },
+  };
+
+  const mcp = {
+    output: null, meta: null, theme: null, id: 0, pending: new Map(),
+    request(method, params) {
+      const id = ++this.id;
+      parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
+      return new Promise((resolve, reject) => this.pending.set(id, { resolve, reject }));
+    },
+  };
+  window.addEventListener("message", (e) => {
+    const m = e.data;
+    if (!m || m.jsonrpc !== "2.0") return;
+    if (m.id && mcp.pending.has(m.id)) {
+      const p = mcp.pending.get(m.id); mcp.pending.delete(m.id);
+      m.error ? p.reject(m.error) : p.resolve(m.result);
+      return;
+    }
+    if (m.method === "ui/notifications/tool-result") {
+      mcp.output = m.params?.structuredContent ?? null;
+      mcp.meta = m.params?._meta ?? null;
+      start();
+    }
+    if (m.method === "ui/notifications/host-context-changed" && m.params?.theme) { mcp.theme = m.params.theme; applyTheme(); }
+  });
+  window.addEventListener("openai:set_globals", () => { applyTheme(); start(); });
+
+  function applyTheme() { document.documentElement.dataset.theme = host.theme() === "dark" ? "dark" : "light"; }
+
+  // ---------- tiles, drawn from data like the app's TileView ----------
+  const NAMES = { C: "Crak", B: "Bam", D: "Dot" };
+  const WINDS = { N: "North", E: "East", W: "West", S: "South" };
+  function spoken(t) {
+    if (/^[1-9][CBD]$/.test(t)) return `${t[0]} ${NAMES[t[1]]}`;
+    if (WINDS[t]) return `${WINDS[t]} Wind`;
+    return { RD: "Red Dragon", GD: "Green Dragon", SO: "Soap", F: "Flower", J: "Joker" }[t] ?? t;
+  }
+  const PIPS = { 1: [1], 2: [2], 3: [3], 4: [2, 2], 5: [2, 1, 2], 6: [3, 3], 7: [2, 3, 2], 8: [3, 2, 3], 9: [3, 3, 3] };
+  function pips(rank, suit) {
+    const rows = PIPS[rank], size = rows.length === 1 ? 9 : rows.length === 2 ? 7.4 : 5.8;
+    const gap = suit === "B" ? size * 0.5 : size * 0.34, pitch = suit === "B" ? size * 1.62 : size + gap;
+    const height = (rows.length - 1) * pitch + size, top = 36 - height / 2 + 6;
+    let out = "";
+    rows.forEach((n, r) => {
+      const width = n * size + (n - 1) * gap, y = top + r * pitch;
+      for (let i = 0; i < n; i++) {
+        const x = 22 - width / 2 + i * (size + gap);
+        out += suit === "D"
+          ? `<circle cx="${x + size / 2}" cy="${y + size / 2}" r="${size / 2 - 1}" fill="none" stroke="var(--dot)" stroke-width="${size * 0.26}"/>`
+          : `<rect x="${x + size * 0.3}" y="${y - size * 0.06}" width="${size * 0.4}" height="${size * 1.12}" rx="${size * 0.2}" fill="var(--bam)"/>`;
+      }
+    });
+    return out;
+  }
+  const label = (text, color) => `<text x="22" y="52" text-anchor="middle" font-size="8" font-weight="800" letter-spacing=".3" fill="${color}" font-family="-apple-system,system-ui,sans-serif">${text}</text>`;
+  const big = (text, color, y = 30, size = 24, serif = true) => `<text x="22" y="${y}" text-anchor="middle" font-size="${size}" font-weight="700" fill="${color}" font-family="${serif ? "ui-serif,Georgia,serif" : "-apple-system,system-ui,sans-serif"}">${text}</text>`;
+  function face(t) {
+    if (/^[1-9]C$/.test(t)) return big(t[0], "var(--crak)", 27, 23) + big("萬", "var(--crak)", 49, 15, false);
+    if (/^[1-9][BD]$/.test(t)) return big(t[0], t[1] === "B" ? "var(--bam)" : "var(--dot)", 16, 13) + pips(Number(t[0]), t[1]);
+    if (WINDS[t]) return big(t, "#2b2621", 32, 25) + label("WIND", "#776d62");
+    if (t === "RD") return big("中", "var(--crak)", 34, 22, false) + label("RED", "var(--crak)");
+    if (t === "GD") return big("發", "var(--bam)", 34, 22, false) + label("GREEN", "var(--bam)");
+    if (t === "SO") return `<rect x="13" y="12" width="18" height="24" rx="3" fill="none" stroke="var(--dot)" stroke-width="2.6"/>` + label("SOAP", "var(--dot)");
+    if (t === "F") return `<g fill="var(--flower)"><circle cx="22" cy="18" r="5"/><circle cx="15" cy="25" r="5"/><circle cx="29" cy="25" r="5"/><circle cx="17.5" cy="33" r="5"/><circle cx="26.5" cy="33" r="5"/></g><circle cx="22" cy="26.5" r="3.4" fill="var(--ivory)"/>` + label("FLOWER", "var(--flower)");
+    return big("J", "var(--joker)", 34, 26) + label("JOKER", "var(--joker)");
+  }
+  function tile(t, width = 40) {
+    return `<svg width="${width}" height="${width * 1.35}" viewBox="0 0 44 59.4" role="img" aria-label="${spoken(t)}"><rect class="face" x=".75" y=".75" width="42.5" height="57.9" rx="7" fill="var(--ivory)" stroke="var(--edge)" stroke-width="1.5"/>${face(t)}</svg>`;
+  }
+  // Rows are balanced, like the app's rack: 13 tiles that do not fit on one
+  // line split 7 and 6, never 12 and a lone tile.
+  function rack(tiles, opts = {}) {
+    if (!tiles?.length) return "";
+    const gap = 5, max = 46, min = 34;
+    const room = Math.max(root.clientWidth - 36, 200);
+    const fit = Math.max(1, Math.floor((room + gap) / (min + gap)));
+    const rows = Math.ceil(tiles.length / Math.min(fit, tiles.length));
+    const perRow = Math.ceil(tiles.length / rows);
+    const w = Math.min(max, Math.floor((room - gap * (perRow - 1)) / perRow));
+    return `<div class="rack" style="grid-template-columns: repeat(${perRow}, ${w}px)">${tiles.map((t, i) => {
+      const cls = opts.picked?.has(i) ? "picked" : opts.marked?.has(i) ? "marked" : "";
+      return opts.tap
+        ? `<button class="tile ${cls}" data-i="${i}" aria-pressed="${opts.picked?.has(i) ? "true" : "false"}">${tile(t, w)}</button>`
+        : `<span class="${cls}">${tile(t, w)}</span>`;
+    }).join("")}</div>`;
+  }
+
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const foot = () => `<div class="foot"><span>Mahj Trainer · Not affiliated with the NMJL</span><a href="#" data-site>More practice in the Mahj app</a></div>`;
+  const root = document.getElementById("root");
+  function paint(html) {
+    root.innerHTML = html + foot();
+    root.querySelector("[data-site]")?.addEventListener("click", (e) => { e.preventDefault(); host.open(SITE); });
+  }
+
+  // ---------- views ----------
+  let state = null;
+
+  function learnView(deck) {
+    const i = Math.min(state.i ?? 0, deck.cards.length - 1), c = deck.cards[i], last = i === deck.cards.length - 1;
+    paint(`
+      <div class="eyebrow"><span>${esc(deck.title)}</span><span>${i + 1} of ${deck.cards.length}</span></div>
+      <h2>${esc(c.title)}</h2>
+      ${c.subtitle ? `<p class="sub">${esc(c.subtitle)}</p>` : ""}
+      ${rack(c.tiles)}
+      <p>${c.lead ? `<b>${esc(c.lead)}.</b> ` : ""}${esc(c.body)}</p>
+      ${c.tip ? `<div class="tip">${esc(c.tip)}</div>` : ""}
+      <div class="row">
+        <button class="btn" data-prev ${i === 0 ? "disabled" : ""}>Back</button>
+        ${last && deck.practice
+          ? `<button class="btn primary" data-practice>Practice this</button>`
+          : `<button class="btn primary" data-next ${last ? "disabled" : ""}>Next</button>`}
+      </div>`);
+    root.querySelector("[data-prev]")?.addEventListener("click", () => go({ i: i - 1 }));
+    root.querySelector("[data-next]")?.addEventListener("click", () => go({ i: i + 1 }));
+    root.querySelector("[data-practice]")?.addEventListener("click", () => host.followUp(`Quiz me on ${deck.practiceLabel} in American mah jongg.`));
+  }
+
+  function practiceView(session) {
+    const qs = session.questions, i = state.i ?? 0;
+    if (i >= qs.length) return doneView(session);
+    const q = qs[i], answered = state.answered;
+    const progress = `<div class="dots" aria-hidden="true">${qs.map((_, k) => `<i class="${k <= i ? "on" : ""}"></i>`).join("")}</div>`;
+    const head = `<div class="eyebrow"><span>${esc(session.title)}</span><span>${i + 1} of ${qs.length}</span></div>`;
+
+    if (q.kind === "pass") {
+      const picked = new Set(state.picked ?? []);
+      const marked = answered ? new Set(q.tiles.map((t, k) => k).filter((k) => passIndexes(q).has(k))) : new Set();
+      const hits = answered ? [...picked].filter((k) => marked.has(k)).length : 0;
+      paint(`${head}
+        <h2>${esc(q.prompt)}</h2>
+        <p class="sub">${answered ? "Your picks are raised. The coach's pass is outlined." : "Tap the 3 tiles you would pass."}</p>
+        ${rack(q.tiles, { tap: !answered, picked, marked })}
+        ${answered ? `<p class="verdict ${hits === 3 ? "right" : "wrong"}">${hits === 3 ? "Same pass as the coach." : `${hits} of 3 match the coach.`}</p>
+          <p>${esc(q.explanation)}</p>${q.tip ? `<div class="tip">${esc(q.tip)}</div>` : ""}` : ""}
+        <div class="row">${progress}
+          ${answered ? `<button class="btn primary" data-next>${i === qs.length - 1 ? "See score" : "Next"}</button>`
+            : `<button class="btn primary" data-check ${picked.size === 3 ? "" : "disabled"}>Pass these 3</button>`}
+        </div>`);
+      root.querySelectorAll("button.tile").forEach((b) => b.addEventListener("click", () => {
+        const k = Number(b.dataset.i);
+        if (q.tiles[k] === "J") return; // jokers are never passed
+        picked.has(k) ? picked.delete(k) : picked.size < 3 && picked.add(k);
+        go({ picked: [...picked] });
+      }));
+      root.querySelector("[data-check]")?.addEventListener("click", () => {
+        const hit = [...picked].filter((k) => passIndexes(q).has(k)).length;
+        go({ answered: true, score: (state.score ?? 0) + (hit === 3 ? 1 : 0) });
+      });
+    } else {
+      paint(`${head}
+        ${q.context ? `<p class="sub">${esc(q.context)}</p>` : ""}
+        <h2>${esc(q.prompt)}</h2>
+        ${rack(q.tiles)}
+        <div class="choices">${q.choices.map((c, k) => {
+          const cls = answered ? (k === q.answerIndex ? "right" : k === state.choice ? "wrong" : "") : "";
+          return `<button class="choice ${cls}" data-k="${k}" ${answered ? "disabled" : ""}>${esc(c)}</button>`;
+        }).join("")}</div>
+        ${answered ? `<p class="verdict ${state.choice === q.answerIndex ? "right" : "wrong"}">${state.choice === q.answerIndex ? "Right." : "Not quite."}</p><p>${esc(q.explanation)}</p>` : ""}
+        <div class="row">${progress}
+          ${answered ? `<button class="btn primary" data-next>${i === qs.length - 1 ? "See score" : "Next"}</button>` : ""}
+        </div>`);
+      root.querySelectorAll("[data-k]").forEach((b) => b.addEventListener("click", () => {
+        const k = Number(b.dataset.k);
+        go({ answered: true, choice: k, score: (state.score ?? 0) + (k === q.answerIndex ? 1 : 0) });
+      }));
+    }
+    root.querySelector("[data-next]")?.addEventListener("click", () => go({ i: i + 1, answered: false, picked: [], choice: null }));
+  }
+
+  // The coach's pass as positions on the rack, so duplicate tiles match once each.
+  function passIndexes(q) {
+    const left = [...q.pass], out = new Set();
+    q.tiles.forEach((t, k) => { const j = left.indexOf(t); if (j >= 0) { left.splice(j, 1); out.add(k); } });
+    return out;
+  }
+
+  function doneView(session) {
+    const n = session.questions.length, s = state.score ?? 0;
+    paint(`
+      <div class="eyebrow"><span>${esc(session.title)}</span><span>Done</span></div>
+      <div class="score">${s} of ${n}</div>
+      <p class="sub">${s === n ? "Clean sweep." : s >= n / 2 ? "Solid. A few to look at again." : "Worth another round."}</p>
+      <div class="row"><span></span><button class="btn primary" data-again>Go again</button></div>`);
+    root.querySelector("[data-again]").addEventListener("click", () => go({ i: 0, score: 0, answered: false, picked: [], choice: null, round: (state.round ?? 0) + 1 }));
+  }
+
+  const VERDICT = { fits: "Leaning", possible: "Possible", checkCard: "Check your card", poor: "Poor fit" };
+  function rackView(read) {
+    const passes = new Set();
+    const left = [...read.passes];
+    read.tiles.forEach((t, k) => { const j = left.indexOf(t); if (j >= 0) { left.splice(j, 1); passes.add(k); } });
+    const open = read.sections.filter((s) => s.verdict !== "poor"), poor = read.sections.filter((s) => s.verdict === "poor");
+    const item = (s) => `<li><span class="chip ${s.verdict}">${VERDICT[s.verdict]}</span><b>${esc(s.name)}</b><div class="note">${esc(s.note)}</div></li>`;
+    paint(`
+      <div class="eyebrow"><span>Your rack</span><span>${read.tiles.length} tiles</span></div>
+      <h2>${esc(read.headline)}</h2>
+      ${rack(read.tiles, { marked: passes })}
+      ${read.passes.length ? `<p class="sub">Outlined: ${read.passes.map(spoken).join(", ")}. They build toward nothing your rack leans to, so they are your first passing candidates.</p>` : ""}
+      <ul class="sections">${open.map(item).join("")}</ul>
+      ${poor.length ? `<details><summary>Ruled out (${poor.length})</summary><ul class="sections">${poor.map(item).join("")}</ul></details>` : ""}
+      <div class="tip">Sections are the families every yearly card is built from. Check the exact lines on your own card before you commit.</div>`);
+  }
+
+  function errorView(message) {
+    paint(`<h2>That rack needs a second look</h2><p>${esc(message)}</p>`);
+  }
+
+  function go(patch) {
+    state = { ...state, ...patch };
+    host.saveState({ key: state.key, ...state });
+    render();
+  }
+
+  let payload = null;
+  function render() {
+    if (!payload) return;
+    if (payload.error) return errorView(payload.error);
+    if (payload.view === "learn") return learnView(payload.deck);
+    if (payload.view === "practice") return practiceView(state.round ? { ...payload.session, questions: shuffled(payload.session.questions, state.round) } : payload.session);
+    if (payload.view === "rack") return rackView(payload.read);
+  }
+
+  function shuffled(items, seed) {
+    const out = [...items];
+    let s = seed * 9301 + 49297;
+    for (let i = out.length - 1; i > 0; i--) { s = (s * 9301 + 49297) % 233280; const j = Math.floor((s / 233280) * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; }
+    return out;
+  }
+
+  function start() {
+    const { output, meta, state: saved } = host.data();
+    const next = meta?.widget ?? output?.widget ?? null;
+    if (!next) return;
+    const key = next.key;
+    if (payload && payload.key === key) return render();
+    payload = next;
+    state = saved && saved.key === key ? saved : { key, i: 0, score: 0 };
+    render();
+  }
+
+  let lastWidth = 0;
+  new ResizeObserver(() => { if (Math.abs(root.clientWidth - lastWidth) > 8) { lastWidth = root.clientWidth; render(); } }).observe(root);
+
+  applyTheme();
+  start();
+  if (!window.openai) mcp.request("ui/initialize", { protocolVersion: "2026-01-26", appCapabilities: {}, appInfo: { name: "mahj", version: "1.0.0" } })
+    .then((r) => { mcp.theme = r?.hostContext?.theme ?? null; applyTheme(); parent.postMessage({ jsonrpc: "2.0", method: "ui/notifications/initialized" }, "*"); })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>

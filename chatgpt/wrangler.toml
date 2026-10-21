@@ -1,0 +1,10 @@
+name = "mahj"
+main = "src/worker.ts"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+
+rules = [{ type = "Text", globs = ["**/*.html"], fallthrough = true }]
+
+[vars]
+# Set to the token OpenAI shows on the plugin's MCP tab when verifying the domain.
+OPENAI_DOMAIN_CHALLENGE = ""
