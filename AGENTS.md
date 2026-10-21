@@ -73,7 +73,7 @@ Terms of Use, and Privacy Policy. Don't trim any of them for layout.
 Condensed from the deep notes below; the reasoning and the bugs behind each one live there.
 - Generated racks are ORIGINAL structures, never card hands, and `RackGenerator` throws away any rack that reads as more than one section.
 - `Room.isLocked(_:isMember:)` is the single source of truth for locking.
-- The trial flow (onboarding trial page, paywall, purchase to tour) is frozen at 1.3.2: it converts. Only the button wording varies, through RevenueCat offering metadata (`TrialCTA`). Any other change needs Jack's go-ahead.
+- The trial flow (onboarding trial page, paywall, purchase to tour) is frozen at 1.3.2: it converts. The one approved change is trial-page benefit rows 2 and 4 (Jack, 2026-10-19, since the Mahj Minute went free). Remote variants come only through RevenueCat offering metadata (`RemoteConfig`). Any other change needs Jack's go-ahead.
 - `OnboardingView.trialDisclosure` must always name the same plan the CTA buys (3.1.2). A player backing out of Apple's sheet is `PurchaseOutcome.cancelled`, not an error: never answer it with another paywall.
 - `QuickItem.choiceNotes` rides the same permutation as `choices` in `SessionBuilder.prepared`.
 - `RootView` branches onboarding vs `HomeView` on `progress.hasOnboarded`, never a fullScreenCover. The primer and the tour always keep an escape hatch straight to Home.

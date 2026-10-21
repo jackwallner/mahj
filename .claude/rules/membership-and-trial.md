@@ -68,10 +68,19 @@ pages and footer that had narrowed the trial CTA on large iPads. A reinstalled m
 still synced from StoreKit before the purchase runs, and `startedTrial`
 comes from the entitlement, not the product.
 
+One exception since (Jack, 2026-10-19): benefit rows 2 and 4 changed, because
+the Mahj Minute went free in 1.4.1 and 1.3.2's row 2 sold it as paid. 1.3.2
+had "Mahj Minute and a personalized Game Night Prep" and "Fix My Mistakes
+brings back what you miss"; 1.4.1 has "Play coached practice hands, as many
+as you want" and "Fix My Mistakes and Game Night Prep, from your misses" (see
+Plain-words pitch below). Rows 1, 3 and 5, the title, price line,
+disclosure, CTA, exit and layout are still 1.3.2. So 1.4.1 trial starts are
+not a clean read of the 1.3.2 page.
+
 **Remote knobs (`Shared/Services/RemoteConfig.swift`, 1.4.1).** Vitals'
 pattern: every variant ships in the binary and the current offering's
 metadata picks one; a missing or unknown value is the control, which is
-exactly 1.3.2. Every variant aims at paid value (LTV), never at the free
+1.3.2 apart from benefit rows 2 and 4 (above). Every variant aims at paid value (LTV), never at the free
 path, and every one keeps the 3.1.2 disclosures.
 
 | Key | Control | Variants |
