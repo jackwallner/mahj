@@ -73,7 +73,7 @@ Mahj+ is available as an auto-renewing subscription (Monthly or Yearly, both wit
 - Contact email: jackwallner+m@gmail.com. Website: https://jackwallner.github.io/mahj/
 - Privacy policy: https://jackwallner.github.io/mahj/privacy-policy
 
-## Products (create in Play Console, then map in RevenueCat project `proj28030dc2`, Play app `app8da2718cbb`)
+## Products (create in Play Console, then map in RevenueCat project `projba4fbe38`, Play app `appeb48abdaf2`)
 
 | Play product | Type | Base plan / offer | RevenueCat package |
 |---|---|---|---|

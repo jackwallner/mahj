@@ -19,8 +19,10 @@ holds only what is specific to this app.
   `Mahj Trainer: Mahjong Practice`, category Education, audience 18+.
 - Version name follows iOS (`1.3.1`); `versionCode` starts at 1 and bumps on
   every upload.
-- RevenueCat project `proj28030dc2`, Play app `app8da2718cbb` (created
-  2026-09-30). Entitlement `pro`, offering `default`, packages
+- RevenueCat project `projba4fbe38` "Mahj Trainer Android" (separate from
+  iOS `proj28030dc2`), Play app `appeb48abdaf2`, whose `goog_` key the release
+  ships. The older Play app `app8da2718cbb` in the iOS project is unused.
+  Entitlement `pro`, current offering `android`, packages
   `$rc_monthly`/`$rc_annual`/`$rc_lifetime`. Live in Play production since
   2026-10-10 with the three Mahj+ products active; the listing copy is in
   `android/play-assets/listing-en-US.md`.
