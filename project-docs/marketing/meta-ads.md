@@ -68,17 +68,17 @@ function's `?sweep` only when a trial is 15 minutes old. The sweep then:
    (`sent`), or records it as `would_send` while Meta is not configured.
    Sandbox/TestFlight rows are only ever sent with `META_TEST_EVENT_CODE`.
 
-**Card trainers (2026-10-21).** The same function serves Bridge, Skat,
-Cribbage and Sheepshead. Each app's RevenueCat project has its own webhook to
-`meta-trial-relay?app=<key>` (production, App Store app, the same three event
-types, the same `Authorization` value): Bridge `whintgrb9c266f2cd`, Skat
-`whintgr1623e1612d`, Cribbage `whintgrf66f670729`, Sheepshead
-`whintgr84af2f2016`. Every row carries `app` (`mahj` when the URL has no
-`?app=`; migration `20261021180000_meta_trial_relay_apps.sql`). A card app's
-secrets are `META_<KEY>_RC_SECRET_KEY` (set), `META_<KEY>_DATASET_ID`,
-`META_<KEY>_CAPI_TOKEN` and optional `META_<KEY>_TEST_EVENT_CODE`; until the
-dataset pair is set, its surviving trials are `would_send`. Mahj keeps its
-original secret names.
+**Card trainers (2026-10-21): code ready, switched off.** Jack: no Meta for
+any app but Mahj yet. The function can serve Bridge, Skat, Cribbage and
+Sheepshead (`APPS` in `index.ts`, `?app=<key>` on the webhook URL, an `app`
+column on every row from migration `20261021180000_meta_trial_relay_apps.sql`;
+rows without `?app=` are `mahj`), but their RevenueCat webhooks and
+`META_<KEY>_RC_SECRET_KEY` secrets were created and removed the same day, so
+nothing from those apps reaches the relay. To turn one on: set
+`META_<KEY>_RC_SECRET_KEY`, `META_<KEY>_DATASET_ID`, `META_<KEY>_CAPI_TOKEN`,
+then create its webhook (production, App Store app, `initial_purchase`,
+`cancellation`, `expiration`, the same `Authorization` value) to
+`meta-trial-relay?app=<key>`.
 
 A network error, 429 or 5xx from RevenueCat or Meta leaves the row `pending`
 with `attempts` + 1 and `retry_at` 2, 4, 8 ... (max 60) minutes out; the 8th

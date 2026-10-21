@@ -41,11 +41,10 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
 - StartTrial belongs to `supabase/functions/meta-trial-relay`, never to
   RevenueCat's Meta integration: RevenueCat cannot hold an event 15 minutes.
   If the RC integration ever sends StartTrial, the filter is defeated.
-- The relay also serves the four card trainers (2026-10-21): each one's
-  RevenueCat webhook posts to `?app=<key>`, every row carries `app`, and a
-  card app's secrets are `META_<KEY>_RC_SECRET_KEY`, `META_<KEY>_DATASET_ID`,
-  `META_<KEY>_CAPI_TOKEN`. Keep `APPS` in `index.ts` in step with the webhooks
-  (webhook ids in `project-docs/marketing/meta-ads.md`).
+- The relay can also serve the four card trainers (`APPS` in `index.ts`,
+  `?app=<key>`, `app` column), but it is switched off for them (Jack
+  2026-10-21: no Meta outside Mahj yet): no webhooks, no secrets. Steps to
+  turn one on are in `project-docs/marketing/meta-ads.md`.
 - A webhook CANCELLATION is not final (2026-10-19, Luna review): at the
   15-minute mark `decide` always rechecks RevenueCat, so a player who turns
   renewal off and back on inside the hold is sent, and one still off is
