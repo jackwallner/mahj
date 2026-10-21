@@ -21,8 +21,9 @@ holds only what is specific to this app.
   every upload.
 - RevenueCat project `proj28030dc2`, Play app `app8da2718cbb` (created
   2026-09-30). Entitlement `pro`, offering `default`, packages
-  `$rc_monthly`/`$rc_annual`/`$rc_lifetime`. Play products are listed in
-  `android/play-assets/listing-en-US.md` and are NOT created yet.
+  `$rc_monthly`/`$rc_annual`/`$rc_lifetime`. Live in Play production since
+  2026-10-10 with the three Mahj+ products active; the listing copy is in
+  `android/play-assets/listing-en-US.md`.
 - Debug uses the project's Test Store key (`REVENUECAT_TEST_KEY`), release the
   `goog_` key (`REVENUECAT_PLAY_KEY`), both in ignored `android/local.properties`.
 - Upload keystore: `~/.android/keystores/mahj-upload.p12`, alias `upload`,
