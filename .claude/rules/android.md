@@ -114,6 +114,17 @@ fm-gradle assembleQa                   # R8 build, debug-signed, no RC key
   demo mode) then `python3 scripts/play_screenshot_compositor.py`, which reuses
   the App Store compositor's frame and headlines at 1080x1920 and draws the
   1024x500 feature graphic.
+- Listing experiment B (2026-10-21): `scripts/android_capture_screenshots_b.py`
+  (seed progress + debug `forcePro`, plays three Mahj Minutes so the week row
+  is not empty) then `scripts/play_screenshot_compositor_b.py`, which writes
+  `android/play-assets/experiment-b/screenshots/` and `compare.png` (A over B
+  at thumbnail size). The live set stays in `play-assets/screenshots/`. A
+  freshly booted emulator can drop the first demo-mode broadcast and boot
+  with a short `wm size` override; the B script resets both.
+- Store listing text: `android/play-assets/metadata/android/<play-locale>/`
+  (fastlane supply layout, 50 locales, en-US is the live copy).
+  `scripts/validate-play-listing.py` checks limits and house rules; every
+  non-English description says the app itself is in English.
 
 ## Gotchas
 

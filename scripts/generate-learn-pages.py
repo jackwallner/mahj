@@ -138,7 +138,7 @@ def page(slug, title, description, h1, lead, body, faq=None, related=(), words_h
 <body>
 <nav class="top"><div class="wrap">
 <a class="brand" href="../"><img src="../icon_256.png" alt="" width="28" height="28"><span>Mahj Trainer</span></a>
-<div class="links"><a href="./">Learn</a><a class="pill" href="{APP_URL}">Get the app</a></div>
+<div class="links"><a href="./">Learn</a><a class="pill" href="{APP_URL}">Get the app</a><a class="play-badge" href="https://play.google.com/store/apps/details?id=com.jackwallner.mahj"><img src="../google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a></div>
 </div></nav>
 <main class="wrap">
 <p class="crumbs"><a href="../">Mahj Trainer</a> / <a href="./">Learn</a> / {esc(h1)}</p>
@@ -150,7 +150,10 @@ def page(slug, title, description, h1, lead, body, faq=None, related=(), words_h
 <aside class="cta">
 <h2>Read it, then practice it in the app</h2>
 <p>Mahj Trainer turns everything on this page into five-minute drills: flashcards with the why on the back, racks to read, Charleston deals to pass, and keep-or-throw calls with a coach's reasoning. The four beginner rooms are free, no account needed.</p>
+<div class="cta-row">
 <a class="button" href="{APP_URL}">Download for iPhone and iPad</a>
+<a class="play-badge" href="https://play.google.com/store/apps/details?id=com.jackwallner.mahj"><img src="../google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+</div>
 </aside>
 {related_html}
 </article>
@@ -175,7 +178,14 @@ nav.top .wrap { display:flex; align-items:center; justify-content:space-between;
 .brand img { border-radius:7px; }
 nav.top .links { display:flex; gap:16px; align-items:center; }
 nav.top .links a { font-size:14px; color:var(--ink); text-decoration:none; }
-nav.top .pill, .button { background:var(--ink); color:#fff !important; padding:8px 16px; border-radius:980px; font-weight:500; text-decoration:none; display:inline-block; }
+nav.top .pill, .button { background:var(--ink); color:#fff !important; padding:0 16px; border-radius:980px; font-weight:500; text-decoration:none; display:inline-flex; align-items:center; height:34px; }
+.button { height:44px; padding:0 20px; }
+/* The badge PNG has 41px of transparent padding per side (visible 564x168 in 646x250): scale so the visible badge is --h tall, pull the padding back with negative margins. */
+.play-badge { display:inline-flex; --h:34px; vertical-align:middle; }
+.play-badge img { display:block; height:calc(var(--h) * 1.488); width:auto; margin:calc(var(--h) * -0.244); }
+.cta .play-badge { --h:44px; }
+.cta-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+@media (max-width:640px) { nav.top .play-badge { display:none; } }
 .crumbs { font-size:13px; color:var(--ink3); margin:22px 0 10px; }
 .crumbs a { color:var(--ink3); text-decoration:none; }
 h1 { font-family:Georgia,"Times New Roman",serif; font-size:40px; line-height:1.1; letter-spacing:-0.5px; margin-bottom:12px; }
