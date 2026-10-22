@@ -29,9 +29,9 @@ not used.
 | Location | United States |
 | Language | English |
 | Bidding | Install volume, no target cost per install |
-| Budget | $10 a day |
-| End date | the day after it starts serving, so it runs one day |
-| Ad group | Learn American Mah Jongg |
+| Budget | $5 a day |
+| Dates | Oct 22 to Oct 23, 2026 (campaign total capped at $10) |
+| Ad group | Ad group 1 |
 
 Images and video: none uploaded. The campaign draws on the Play listing's
 screenshots and feature graphic.
@@ -56,6 +56,15 @@ Sources: the Meta C1 hook ("Worried about holding up the Charleston?", 6.4%
 CTR) and the Charleston-first PPO wins in `meta-ad-pack/ads.md` and
 `first-screenshot-hook-2026-10-19/README.md`. No prices, no Apple wording, no
 em dashes.
+
+## Status
+
+Published 2026-10-22, campaign id 24379017978: Enabled, Eligible (Learning),
+ad under review. Bids on the Google Play installs conversion from the Play link.
+$5 a day over two days rather than $10 in one: the ad review eats part of the
+first day, and with an end date Google never spends more than budget times days.
+The signup-flow draft from 2026-10-21 corrupted and was abandoned; this one was
+built fresh in the normal campaign UI.
 
 ## Readout (the day after)
 
