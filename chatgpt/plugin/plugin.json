@@ -3,7 +3,7 @@
   "name": "mahj",
   "version": "1.1.0",
   "description": "Learn and practice American mah jongg with short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.",
-  "author": { "name": "E3 Fitness LLC", "email": "jackwallner+m@gmail.com", "url": "https://jackwallner.github.io/mahj/chatgpt/" },
+  "author": { "name": "Jack Wallner", "email": "jackwallner+m@gmail.com", "url": "https://jackwallner.github.io/mahj/chatgpt/" },
   "homepage": "https://jackwallner.github.io/mahj/chatgpt/",
   "repository": "https://github.com/jackwallner/mahj",
   "keywords": ["mah jongg", "mahjong", "american mahjong", "nmjl", "charleston", "tile game"],
@@ -13,7 +13,7 @@
         "displayName": "Mahj Trainer",
         "shortDescription": "Learn American mah jongg",
         "longDescription": "Mahj Trainer teaches American mah jongg, the game played with the yearly National Mah Jongg League card.\n\nAsk for a lesson and get a short card deck on the basics, the tiles, the sections of the card, the Charleston or keep-or-throw judgment. Ask for practice and get an interactive quiz that checks and explains every answer, including Charleston passes you pick by tapping tiles. Share the tiles on your rack and get a coach's read of the sections you lean toward, the three tiles to pass with a reason for each, and what to build on. Name the pass you are making, such as the first pass left or the courtesy pass, and the advice fits it. Ask what a term means, from pung and quint to joker swap and dead hand.\n\nMahj Trainer talks in the card's stable sections and never reproduces card hands, so keep your own card handy for the exact lines. It needs no account.\n\nNot affiliated with or endorsed by the National Mah Jongg League.",
-        "developerName": "E3 Fitness LLC",
+        "developerName": "Jack Wallner",
         "category": "Education & Research",
         "capabilities": [
           "Short lessons on how American mah jongg works",
