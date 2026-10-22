@@ -42,7 +42,7 @@ test("lists four read-only tools with UI links", async () => {
 
 test("serves the widget as an MCP App resource", async () => {
   const client = await connect();
-  const { contents } = await client.readResource({ uri: "ui://mahj/trainer-v1.html" });
+  const { contents } = await client.readResource({ uri: "ui://mahj/trainer-v2.html" });
   await client.close();
   assert.equal(contents[0].mimeType, "text/html;profile=mcp-app");
   assert.match(String((contents[0] as { text: string }).text), /<script>/);

@@ -12,7 +12,7 @@
       "interface": {
         "displayName": "Mahj Trainer",
         "shortDescription": "Learn American mah jongg",
-        "longDescription": "Mahj Trainer teaches American mah jongg, the game played with the yearly National Mah Jongg League card.\n\nAsk for a lesson and get a short illustrated deck on the basics, the tiles, the sections of the card, the Charleston or keep-or-throw judgment. Ask for practice and get an interactive quiz that checks and explains every answer, including Charleston passes you pick by tapping tiles. Share the tiles on your rack and get a read of which sections you lean toward and which tiles fit nothing, so you know what to pass. Ask what a term means, from pung and quint to joker swap and dead hand.\n\nMahj Trainer talks in the card's stable sections and never reproduces card hands, so keep your own card handy for the exact lines. It is free and needs no account.\n\nNot affiliated with or endorsed by the National Mah Jongg League.",
+        "longDescription": "Mahj Trainer teaches American mah jongg, the game played with the yearly National Mah Jongg League card.\n\nAsk for a lesson and get a short illustrated deck on the basics, the tiles, the sections of the card, the Charleston or keep-or-throw judgment. Ask for practice and get an interactive quiz that checks and explains every answer, including Charleston passes you pick by tapping tiles. Share the tiles on your rack and get a coach's read: the sections you lean toward and the three tiles to pass first. Ask what a term means, from pung and quint to joker swap and dead hand.\n\nMahj Trainer talks in the card's stable sections and never reproduces card hands, so keep your own card handy for the exact lines. It needs no account.\n\nNot affiliated with or endorsed by the National Mah Jongg League.",
         "developerName": "Jack Wallner",
         "category": "Education & Research",
         "capabilities": [
@@ -50,19 +50,19 @@
               "description": "Tile practice quiz",
               "prompt": "Quiz me on the American mah jongg tiles.",
               "tools_triggered": "start_mahjong_practice",
-              "expected_behavior": "Shows a multiple-choice quiz on naming tiles. Each answer is checked and explained, and the quiz ends with a score. The answers are not listed in chat."
+              "expected_behavior": "Shows a multiple-choice quiz on tile facts (jokers, dragons, flowers and groups). Each answer is checked and explained, and the quiz ends with a score. The answers are not listed in chat."
             },
             {
               "description": "Charleston passing practice",
               "prompt": "Give me some Charleston passing practice for American mahjong.",
               "tools_triggered": "start_mahjong_practice",
-              "expected_behavior": "Shows racks where the player taps three tiles to pass, then compares the pick with the coach's pass and explains it."
+              "expected_behavior": "Shows racks where the player taps three tiles to pass, then says whether the pick matches the coach's pass (or is just as good) and explains it."
             },
             {
               "description": "Read a player's rack",
               "prompt": "My American mah jongg rack is 2C 2C 4C 4C 6B 6B 8B 8D F J 1C 9B N. Which section am I leaning toward and what should I pass?",
               "tools_triggered": "read_mahjong_rack",
-              "expected_behavior": "Shows the rack, reads it as leaning 2468, marks 1 crak, 9 bam and north as passing candidates, and reminds the player to check exact lines on their own card. No card hands are quoted."
+              "expected_behavior": "Shows the rack, reads it as leaning 2468, outlines 1 Crak, 9 Bam and North as the tiles to pass first, says to keep the joker and flower, and reminds the player to check exact lines on their own card. No card hands are quoted."
             },
             {
               "description": "Define a term",
@@ -73,15 +73,15 @@
           ],
           "negative": [
             {
-              "description": "Request to reproduce the copyrighted NMJL card",
+              "description": "Request to reproduce the copyrighted NMJL card. Expected: declines to list or reconstruct hands, explains the card is copyrighted, and may offer the sections lesson (show_mahjong_lesson) instead.",
               "prompt": "List every hand on this year's NMJL card."
             },
             {
-              "description": "Japanese riichi mahjong is a different game",
+              "description": "Japanese riichi mahjong is a different game. Expected: ChatGPT answers without the Mahj Trainer tools.",
               "prompt": "How does scoring work in Japanese riichi mahjong?"
             },
             {
-              "description": "Mahjong solitaire is a different game",
+              "description": "Mahjong solitaire is a different game. Expected: ChatGPT answers without the Mahj Trainer tools.",
               "prompt": "Help me clear a level of mahjong solitaire."
             }
           ]

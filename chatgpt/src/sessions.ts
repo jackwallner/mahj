@@ -22,6 +22,9 @@ export type PassQuestion = {
   prompt: string;
   tiles: TileCode[];
   pass: TileCode[];
+  /** Tiles just as good as the coach's `swap` picks, for deals with interchangeable strays. */
+  also: TileCode[];
+  swap: TileCode[];
   explanation: string;
   tip?: string;
 };
@@ -33,6 +36,33 @@ export type LearnTopic = (typeof LEARN_TOPICS)[number];
 
 export const PRACTICE_TOPICS = ["tiles", "reading", "charleston", "strategy", "table", "mixed"] as const;
 export type PracticeTopic = (typeof PRACTICE_TOPICS)[number];
+
+// Deals where several strays are equally good passes: any of `also` can
+// stand in for the coach's `swap` picks, and the rest of the pass is required.
+const PASS_ALSO: Record<string, { swap: TileCode[]; also: TileCode[] }> = {
+  "cs-junk": { swap: ["1D", "9C", "5B"], also: ["2C", "8D"] },
+  "cs-commit": { swap: ["3B"], also: ["5B", "7B", "9B"] },
+};
+
+// Practice reads a flashcard as a question, so a few fronts are reworded to
+// ask what the choices answer.
+const QUESTION_COPY: Record<string, { context: string; prompt: string }> = {
+  "kd-count-four": { context: "Counting the tiles you can see tells you when a hand can no longer be made.", prompt: "How many 5 Craks exist in the whole set?" },
+  "kd-call-cost": { context: "Someone discards a tile you could call for an exposed pung.", prompt: "Should you call it?" },
+  "kd-joker-swap": { context: "An opponent's exposed kong on the table shows 6 Bam, 6 Bam, joker, 6 Bam.", prompt: "You just drew the real 6 Bam. Now what?" },
+  "kd-follow-count": { context: "Two tiles fit Hand A. Nine tiles fit Hand B. You like Hand A better.", prompt: "Which do you play?" },
+};
+
+// The app's closing primer page points at its drill rooms; here it points at
+// what the plugin can do instead.
+const PRIMER_COPY: Record<string, string> = {
+  "htp-ready": "That's the whole shape of the game: build toward the card, survive the Charleston, and read racks fast. Ask for practice on any part of it, or share your 13 tiles for a read.",
+};
+
+/// "Swap It!" + body, without doubling the punctuation.
+function sentence(title: string, body: string): string {
+  return `${title}${/[.!?]$/.test(title) ? "" : "."} ${body}`;
+}
 
 function drill(id: string): Drill {
   const found = content.drills.find((d) => d.id === id);
@@ -62,7 +92,7 @@ export function learnDeck(topic: LearnTopic): Deck {
     case "basics":
       return {
         title: "How American Mah Jongg works",
-        cards: content.primer.map((p) => ({ title: p.title, body: p.body, tip: p.tip, tiles: p.tiles })),
+        cards: content.primer.map((p) => ({ title: p.title, body: PRIMER_COPY[p.id] ?? p.body, tip: p.tip, tiles: p.tiles })),
       };
     case "tiles":
       return { title: "Meet the tiles", cards: drill("meet-tiles").items.map(flashcard) };
@@ -95,7 +125,7 @@ function fromHandMatch(item: Item): ChoiceQuestion {
   return {
     kind: "choice",
     id: item.id,
-    prompt: "Which section is this rack chasing?",
+    prompt: "Which section fits this rack best?",
     tiles: racked(item.tiles),
     choices: names,
     answerIndex: item.choices.indexOf(item.answer),
@@ -107,12 +137,12 @@ function fromJudgment(item: Item): ChoiceQuestion {
   return {
     kind: "choice",
     id: item.id,
-    prompt: item.frontSubtitle,
-    context: item.frontTitle,
+    prompt: QUESTION_COPY[item.id]?.prompt ?? item.frontSubtitle,
+    context: QUESTION_COPY[item.id]?.context ?? item.frontTitle,
     tiles: item.frontTiles ?? [],
     choices: item.choice.options,
     answerIndex: item.choice.answerIndex,
-    explanation: `${item.backTitle}. ${item.backBody}`,
+    explanation: sentence(item.backTitle, item.backBody),
   };
 }
 
@@ -123,6 +153,8 @@ function fromCharleston(item: Item): PassQuestion {
     prompt: item.situation,
     tiles: racked(item.deal),
     pass: item.recommendedPass,
+    also: PASS_ALSO[item.id]?.also ?? [],
+    swap: PASS_ALSO[item.id]?.swap ?? [],
     explanation: item.reasoning,
     tip: item.tip,
   };
@@ -167,11 +199,15 @@ export function practiceSession(topic: PracticeTopic, count: number): Session {
 }
 
 export function lookUpTerm(query: string): GlossaryEntry | null {
-  const q = query.trim().toLowerCase().replace(/s$/, "");
-  const norm = (s: string) => s.toLowerCase().replace(/s$/, "");
+  const norm = (s: string) => s.trim().toLowerCase().replace(/[-_]/g, " ").replace(/\s+/g, " ").replace(/s$/, "");
+  const q = norm(query);
+  if (!q) return null;
   return (
     content.glossary.find((g) => norm(g.term) === q || g.aliases.some((a) => norm(a) === q)) ??
-    content.glossary.find((g) => norm(g.term).includes(q) || q.includes(norm(g.term))) ??
+    (q.length >= 3 ? content.glossary.find((g) => norm(g.term).includes(q) || q.includes(norm(g.term))) : undefined) ??
     null
   );
 }
+
+/// A few terms to offer when a lookup misses.
+export const COMMON_TERMS = ["pung", "kong", "quint", "soap", "exposure", "joker swap", "Charleston", "blind pass", "courtesy pass", "dead hand", "hot tile"];

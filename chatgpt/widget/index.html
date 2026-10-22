@@ -19,9 +19,9 @@
   * { box-sizing: border-box; }
   html, body { margin: 0; background: transparent; }
   body { font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; color: var(--ink); }
-  .card { background: var(--bg); border: 1px solid var(--rule); border-radius: 18px; padding: 18px 18px 14px; }
+  .card { padding: 16px 16px 12px; }
   .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink3); display: flex; justify-content: space-between; gap: 8px; }
-  h2 { font: 600 19px/1.3 ui-serif, "New York", Georgia, serif; margin: 6px 0 4px; }
+  h2 { font-size: 19px; font-weight: 600; line-height: 1.3; margin: 6px 0 4px; }
   .sub { color: var(--ink2); margin: 0 0 10px; }
   p { margin: 8px 0; }
   .tip { background: var(--well); border-radius: 12px; padding: 10px 12px; color: var(--ink2); font-size: 14px; margin-top: 10px; }
@@ -56,9 +56,8 @@
   .chip.possible { background: color-mix(in srgb, var(--jade) 16%, var(--bg)); color: var(--jade); }
   .sections .note { color: var(--ink2); font-size: 14px; margin-top: 3px; }
   details summary { cursor: pointer; color: var(--ink2); font-size: 14px; margin-top: 12px; }
-  .foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--ink3); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-  .foot a { color: var(--ink2); }
-  .score { font: 600 34px/1 ui-serif, "New York", Georgia, serif; margin: 10px 0 4px; }
+  .foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--ink3); }
+  .score { font-size: 34px; font-weight: 600; line-height: 1; margin: 10px 0 4px; }
   .empty { color: var(--ink2); }
 </style>
 </head>
@@ -66,8 +65,6 @@
 <div id="root" class="card"><p class="empty">Loading…</p></div>
 <script>
 (() => {
-  const SITE = "https://jackwallner.com/ios/mahj/";
-
   // ---------- host bridge: ChatGPT's window.openai, with an MCP Apps fallback ----------
   const host = {
     data() {
@@ -82,10 +79,6 @@
     followUp(prompt) {
       if (window.openai?.sendFollowUpMessage) return window.openai.sendFollowUpMessage({ prompt });
       return mcp.request("ui/message", { role: "user", content: [{ type: "text", text: prompt }] });
-    },
-    open(href) {
-      if (window.openai?.openExternal) return window.openai.openExternal({ href });
-      return mcp.request("ui/open-link", { url: href }).catch(() => window.open(href, "_blank", "noopener"));
     },
     theme() { return window.openai?.theme ?? mcp.theme ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); },
   };
@@ -176,12 +169,11 @@
   }
 
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-  const foot = () => `<div class="foot"><span>Mahj Trainer · Not affiliated with the NMJL</span><a href="#" data-site>More practice in the Mahj app</a></div>`;
   const root = document.getElementById("root");
   function paint(html) {
-    root.innerHTML = html + foot();
-    root.querySelector("[data-site]")?.addEventListener("click", (e) => { e.preventDefault(); host.open(SITE); });
+    root.innerHTML = html + `<div class="foot">Not affiliated with the National Mah Jongg League</div>`;
   }
+  const period = (s) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
   // ---------- views ----------
   let state = null;
@@ -193,7 +185,7 @@
       <h2>${esc(c.title)}</h2>
       ${c.subtitle ? `<p class="sub">${esc(c.subtitle)}</p>` : ""}
       ${rack(c.tiles)}
-      <p>${c.lead ? `<b>${esc(c.lead)}.</b> ` : ""}${esc(c.body)}</p>
+      <p>${c.lead ? `<b>${esc(period(c.lead))}</b> ` : ""}${esc(c.body)}</p>
       ${c.tip ? `<div class="tip">${esc(c.tip)}</div>` : ""}
       <div class="row">
         <button class="btn" data-prev ${i === 0 ? "disabled" : ""}>Back</button>
@@ -215,13 +207,14 @@
 
     if (q.kind === "pass") {
       const picked = new Set(state.picked ?? []);
-      const marked = answered ? new Set(q.tiles.map((t, k) => k).filter((k) => passIndexes(q).has(k))) : new Set();
+      const marked = answered ? passIndexes(q.tiles, q.pass) : new Set();
       const hits = answered ? [...picked].filter((k) => marked.has(k)).length : 0;
+      const exact = hits === 3, ok = answered && goodPass(q, picked);
       paint(`${head}
         <h2>${esc(q.prompt)}</h2>
-        <p class="sub">${answered ? "Your picks are raised. The coach's pass is outlined." : "Tap the 3 tiles you would pass."}</p>
+        <p class="sub">${answered ? "Your picks are raised. The coach's pass is outlined." : state.jokerTapped ? "Jokers can never be passed. Pick three other tiles." : "Tap the 3 tiles you would pass."}</p>
         ${rack(q.tiles, { tap: !answered, picked, marked })}
-        ${answered ? `<p class="verdict ${hits === 3 ? "right" : "wrong"}">${hits === 3 ? "Same pass as the coach." : `${hits} of 3 match the coach.`}</p>
+        ${answered ? `<p class="verdict ${ok ? "right" : "wrong"}">${exact ? "Same pass as the coach." : ok ? "Just as good as the coach's pass." : `${hits} of 3 match the coach.`}</p>
           <p>${esc(q.explanation)}</p>${q.tip ? `<div class="tip">${esc(q.tip)}</div>` : ""}` : ""}
         <div class="row">${progress}
           ${answered ? `<button class="btn primary" data-next>${i === qs.length - 1 ? "See score" : "Next"}</button>`
@@ -229,13 +222,12 @@
         </div>`);
       root.querySelectorAll("button.tile").forEach((b) => b.addEventListener("click", () => {
         const k = Number(b.dataset.i);
-        if (q.tiles[k] === "J") return; // jokers are never passed
+        if (q.tiles[k] === "J") return go({ jokerTapped: true }); // jokers are never passed
         picked.has(k) ? picked.delete(k) : picked.size < 3 && picked.add(k);
-        go({ picked: [...picked] });
+        go({ picked: [...picked], jokerTapped: false });
       }));
       root.querySelector("[data-check]")?.addEventListener("click", () => {
-        const hit = [...picked].filter((k) => passIndexes(q).has(k)).length;
-        go({ answered: true, score: (state.score ?? 0) + (hit === 3 ? 1 : 0) });
+        go({ answered: true, score: (state.score ?? 0) + (goodPass(q, picked) ? 1 : 0) });
       });
     } else {
       paint(`${head}
@@ -255,13 +247,29 @@
         go({ answered: true, choice: k, score: (state.score ?? 0) + (k === q.answerIndex ? 1 : 0) });
       }));
     }
-    root.querySelector("[data-next]")?.addEventListener("click", () => go({ i: i + 1, answered: false, picked: [], choice: null }));
+    root.querySelector("[data-next]")?.addEventListener("click", () => go({ i: i + 1, answered: false, picked: [], choice: null, jokerTapped: false }));
   }
 
-  // The coach's pass as positions on the rack, so duplicate tiles match once each.
-  function passIndexes(q) {
-    const left = [...q.pass], out = new Set();
-    q.tiles.forEach((t, k) => { const j = left.indexOf(t); if (j >= 0) { left.splice(j, 1); out.add(k); } });
+  // A pass is good when it keeps every required coach pick and fills the rest
+  // from the coach's interchangeable picks (`swap`) or their stand-ins (`also`).
+  function goodPass(q, picked) {
+    const tiles = [...picked].map((k) => q.tiles[k]);
+    const required = [...q.pass];
+    for (const t of q.swap ?? []) required.splice(required.indexOf(t), 1);
+    const flexible = [...(q.swap ?? []), ...(q.also ?? [])];
+    for (const t of tiles) {
+      const r = required.indexOf(t), f = flexible.indexOf(t);
+      if (r >= 0) required.splice(r, 1);
+      else if (f >= 0) flexible.splice(f, 1);
+      else return false;
+    }
+    return required.length === 0;
+  }
+
+  // Passing tiles as positions on the rack, so duplicate tiles match once each.
+  function passIndexes(tiles, pass) {
+    const left = [...pass], out = new Set();
+    tiles.forEach((t, k) => { const j = left.indexOf(t); if (j >= 0) { left.splice(j, 1); out.add(k); } });
     return out;
   }
 
@@ -275,20 +283,20 @@
     root.querySelector("[data-again]").addEventListener("click", () => go({ i: 0, score: 0, answered: false, picked: [], choice: null, round: (state.round ?? 0) + 1 }));
   }
 
-  const VERDICT = { fits: "Leaning", possible: "Possible", checkCard: "Check your card", poor: "Poor fit" };
+  const VERDICT = { fits: "Leaning", possible: "In reach", poor: "Long shot" };
   function rackView(read) {
-    const passes = new Set();
-    const left = [...read.passes];
-    read.tiles.forEach((t, k) => { const j = left.indexOf(t); if (j >= 0) { left.splice(j, 1); passes.add(k); } });
+    const passes = passIndexes(read.tiles, read.passes);
     const open = read.sections.filter((s) => s.verdict !== "poor"), poor = read.sections.filter((s) => s.verdict === "poor");
     const item = (s) => `<li><span class="chip ${s.verdict}">${VERDICT[s.verdict]}</span><b>${esc(s.name)}</b><div class="note">${esc(s.note)}</div></li>`;
     paint(`
       <div class="eyebrow"><span>Your rack</span><span>${read.tiles.length} tiles</span></div>
       <h2>${esc(read.headline)}</h2>
       ${rack(read.tiles, { marked: passes })}
-      ${read.passes.length ? `<p class="sub">Outlined: ${read.passes.map(spoken).join(", ")}. They build toward nothing your rack leans to, so they are your first passing candidates.</p>` : ""}
+      <p class="sub">${read.passes.length
+        ? `Pass first (outlined): ${read.passes.map(spoken).join(", ")}. They fit nothing this rack is building.${read.spare?.length ? ` Later: ${read.spare.map(spoken).join(", ")}.` : ""}`
+        : "Nothing here is dead weight. On the last pass of each Charleston you may pass blind."}</p>
       <ul class="sections">${open.map(item).join("")}</ul>
-      ${poor.length ? `<details><summary>Ruled out (${poor.length})</summary><ul class="sections">${poor.map(item).join("")}</ul></details>` : ""}
+      ${poor.length ? `<details><summary>Long shots (${poor.length})</summary><ul class="sections">${poor.map(item).join("")}</ul></details>` : ""}
       <div class="tip">Sections are the families every yearly card is built from. Check the exact lines on your own card before you commit.</div>`);
   }
 

@@ -53,13 +53,16 @@ const SUIT_WORDS: Record<string, string> = {
   d: "D", dot: "D", dots: "D", circle: "D", circles: "D",
 };
 
+const NUMBER_WORDS = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+
 /// Reads one tile written the way people type it: "5D", "5 dot", "soap",
 /// "north", "J". Returns null when it is not a tile.
 export function parseTile(raw: string): TileCode | null {
   const text = raw.trim().toLowerCase().replace(/\s+/g, " ");
   if (text in WORDS) return WORDS[text];
-  const match = text.match(/^([1-9])\s?([a-z]+)$/);
-  if (match && match[2] in SUIT_WORDS) return `${match[1]}${SUIT_WORDS[match[2]]}`;
+  const match = text.match(/^([1-9]|[a-z]+)\s?([a-z]+)$/);
+  const number = match && (/^[1-9]$/.test(match[1]) ? match[1] : NUMBER_WORDS.indexOf(match[1]) > 0 ? String(NUMBER_WORDS.indexOf(match[1])) : null);
+  if (match && number && match[2] in SUIT_WORDS) return `${number}${SUIT_WORDS[match[2]]}`;
   return null;
 }
 

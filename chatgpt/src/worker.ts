@@ -15,10 +15,10 @@ import { LEARN_TOPICS, PRACTICE_TOPICS } from "./sessions.ts";
 type Env = { OPENAI_DOMAIN_CHALLENGE?: string; WIDGET_DOMAIN?: string };
 
 // Treat the URI as a cache key: bump the version on any breaking widget change.
-const WIDGET_URI = "ui://mahj/trainer-v1.html";
+const WIDGET_URI = "ui://mahj/trainer-v2.html";
 
 const INSTRUCTIONS = [
-  "Mahj teaches American mah jongg, the game played with the yearly NMJL card.",
+  "Mahj Trainer teaches American mah jongg, the game played with the yearly NMJL card.",
   "Never quote or reconstruct hands from the NMJL card: it is copyrighted and changes every year.",
   "Talk in card sections (2468, 13579, 369, Consecutive Run, Like Numbers, Winds & Dragons, Singles & Pairs, Quints, Year) and tell players to check exact lines on their own card.",
   "Not for Chinese, Hong Kong or Japanese riichi mahjong, or mahjong solitaire.",
@@ -30,21 +30,23 @@ const tileList = z
   .array(z.string())
   .min(1)
   .max(14)
-  .describe('The player\'s tiles, one per entry. Codes: 1C-9C craks, 1B-9B bams, 1D-9D dots, N E W S winds, RD GD SO (soap) dragons, F flower, J joker. Words like "5 dot" or "soap" also work.');
+  .describe('The player\'s tiles, one per entry. Codes: 1C-9C craks, 1B-9B bams, 1D-9D dots, N E W S winds, RD GD SO (soap) dragons, F flower, J joker. One tile per entry; words like "5 dot", "five crak", "soap" or "north" also work.');
 
-function buildServer(env: Env): McpServer {
+function buildServer(env: Env, origin: string): McpServer {
   const server = new McpServer(
     { name: "mahj", version: "1.0.0" },
     { instructions: INSTRUCTIONS, jsonSchemaValidator: new CfWorkerJsonSchemaValidator() },
   );
 
-  registerAppResource(server, "Mahj trainer", WIDGET_URI, {}, async () => ({
+  registerAppResource(server, "Mahj Trainer", WIDGET_URI, {}, async () => ({
     contents: [{
       uri: WIDGET_URI,
       mimeType: RESOURCE_MIME_TYPE,
       text: widgetHtml,
       _meta: {
-        ui: { prefersBorder: false, ...(env.WIDGET_DOMAIN ? { domain: env.WIDGET_DOMAIN } : {}) },
+        // The widget makes no network calls, so it declares no CSP. Its domain
+        // defaults to this server's own origin, which is unique to the plugin.
+        ui: { prefersBorder: true, domain: env.WIDGET_DOMAIN || origin },
         "openai/widgetDescription": "An interactive American mah jongg card: a short lesson, a practice quiz, or a read of the player's rack.",
       },
     }],
@@ -59,7 +61,7 @@ function buildServer(env: Env): McpServer {
     },
     outputSchema: {
       title: z.string(),
-      cards: z.array(z.object({ title: z.string(), body: z.string() })),
+      cards: z.array(z.object({ title: z.string(), subtitle: z.string().optional(), answer: z.string().optional(), body: z.string(), tip: z.string().optional() })),
     },
     annotations: READ_ONLY,
     _meta: { ui: { resourceUri: WIDGET_URI }, "openai/toolInvocation/invoking": "Laying out the tiles", "openai/toolInvocation/invoked": "Lesson ready" },
@@ -84,13 +86,15 @@ function buildServer(env: Env): McpServer {
   registerAppTool(server, "read_mahjong_rack", {
     title: "Read a mah jongg rack",
     description:
-      "Use this when an American mah jongg player shares the tiles on their rack and asks which section of the card they lean toward or what to pass in the Charleston. Reads the tiles against the stable card sections and flags tiles that fit nothing. It never names specific card hands. Do not use for other mahjong variants.",
+      "Use this when an American mah jongg player shares the tiles on their rack and asks which section of the card they lean toward or what to pass in the Charleston. Reads the tiles against the stable card sections, shortlists the strongest, and picks up to three tiles to pass that fit none of them. Needs at least five tiles; the full 13-tile rack works best. It never names specific card hands. Do not use for other mahjong variants.",
     inputSchema: { tiles: tileList },
     outputSchema: {
       tiles: z.array(z.string()),
       read: z.string().nullable(),
+      shortlist: z.array(z.string()),
       summary: z.string(),
       passes: z.array(z.string()),
+      spare: z.array(z.string()),
       sections: z.array(z.object({ name: z.string(), verdict: z.string(), note: z.string() })),
       unreadable: z.array(z.string()),
     },
@@ -101,7 +105,7 @@ function buildServer(env: Env): McpServer {
   server.registerTool("define_mahjong_term", {
     title: "Define a mah jongg term",
     description:
-      "Use this when someone asks what an American mah jongg term means, such as pung, kong, quint, soap, exposure, joker swap, hot tile, dead hand or the Charleston passes. Returns a short plain-language definition.",
+      "Use this when someone asks what an American mah jongg term means, such as pung, kong, quint, soap, exposure, joker swap, hot tile, dead hand or the Charleston passes. Returns a short plain-language definition. Do not use for other mahjong variants.",
     inputSchema: { term: z.string().min(1).max(60).describe("The term to define") },
     outputSchema: { term: z.string(), definition: z.string(), found: z.boolean() },
     annotations: READ_ONLY,
@@ -130,7 +134,7 @@ export default {
     if (request.method !== "POST") return new Response("Method not allowed", { status: 405, headers: { ...CORS, allow: "POST, OPTIONS" } });
 
     const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
-    await buildServer(env).connect(transport);
+    await buildServer(env, new URL(request.url).origin).connect(transport);
     const response = await transport.handleRequest(request);
     const headers = new Headers(response.headers);
     for (const [key, value] of Object.entries(CORS)) headers.set(key, value);

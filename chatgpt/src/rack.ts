@@ -1,7 +1,9 @@
-// Reads a rack against the nine stable card sections. Ported from the app's
-// RackGenerator (fits, missNote, explain) so the plugin and the app give the
-// same read. Every statement is about the SHAPE of a section and holds on any
-// year's card; nothing here names or copies a hand from the NMJL card.
+// Reads a dealt rack the way a coach does: count the tiles that build toward
+// each stable section of the card, shortlist the strongest, and pass what fits
+// none of them. Strays are expected, since a dealt rack is never clean, which
+// is what the Charleston is for. Every statement is about the SHAPE of a
+// section and holds on any year's card; nothing here names or copies a hand
+// from the NMJL card.
 import { content } from "./content.ts";
 import { countTiles, isHonor, isSuited, rank, spokenName, type TileCode } from "./tiles.ts";
 
@@ -9,262 +11,290 @@ export type SectionId =
   | "year" | "evens2468" | "likeNumbers" | "quints" | "consecutiveRun"
   | "odds13579" | "windsDragons" | "threeSixNine" | "singlesAndPairs";
 
-export type Verdict = "fits" | "possible" | "poor" | "checkCard";
+export type Verdict = "fits" | "possible" | "poor";
 
 export type SectionRead = { id: SectionId; name: string; verdict: Verdict; note: string };
 
 export type RackRead = {
   tiles: TileCode[];
+  /** The section the rack clearly leans to, or null when it is torn or scattered. */
   read: SectionId | null;
+  /** The two or three sections worth keeping in mind, strongest first. */
+  shortlist: SectionId[];
   headline: string;
   summary: string;
   sections: SectionRead[];
-  /** Tiles that build toward nothing the rack leans to: Charleston candidates. */
+  /** The coach's next pass: up to three tiles that fit nothing on the shortlist. */
   passes: TileCode[];
+  /** Further tiles that can go on later passes. */
+  spare: TileCode[];
   counts: { jokers: number; flowers: number; honors: number; pairs: number; pungs: number };
 };
 
-const GENERATABLE: SectionId[] = ["evens2468", "odds13579", "threeSixNine", "consecutiveRun", "windsDragons"];
+type Support = { id: SectionId; tiles: TileCode[] };
+
+const isDragon = (t: TileCode) => t === "RD" || t === "GD" || t === "SO";
+const isWind = (t: TileCode) => t === "N" || t === "E" || t === "W" || t === "S";
 
 export function sectionName(id: SectionId): string {
   return content.categories.find((c) => c.id === id)?.displayName ?? id;
+}
+
+/// The card in play: a new one comes out each April.
+export function cardYear(now = new Date()): number {
+  return now.getUTCMonth() >= 3 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
+}
+
+function yearDigits(): number[] {
+  return [...new Set(String(cardYear()).split("").map(Number).filter((d) => d > 0))];
 }
 
 function ranksOf(tiles: TileCode[]): number[] {
   return [...new Set(tiles.map(rank).filter((r): r is number => r !== null))].sort((a, b) => a - b);
 }
 
-function subset(ranks: number[], allowed: number[]): boolean {
-  return ranks.every((r) => allowed.includes(r));
+const inRanks = (tiles: TileCode[], allowed: number[]) => tiles.filter((t) => allowed.includes(rank(t) ?? 0));
+
+function list(words: string[]): string {
+  return words.length <= 1 ? (words[0] ?? "") : `${words.slice(0, -1).join(", ")} and ${words[words.length - 1]}`;
 }
 
-function plural(ranks: number[]): string {
-  const words = ranks.map((r) => `${r}s`);
-  if (words.length <= 1) return words[0] ?? "";
-  return `${words.slice(0, -1).join(", ")} and ${words[words.length - 1]}`;
-}
-
-export function fits(tiles: TileCode[], id: SectionId): boolean {
-  const ranks = ranksOf(tiles);
-  const honors = tiles.some(isHonor);
-  switch (id) {
-    case "windsDragons":
-      return honors && !tiles.some(isSuited);
-    case "evens2468":
-      return !honors && ranks.length >= 2 && subset(ranks, [2, 4, 6, 8]);
-    case "odds13579":
-      return !honors && ranks.length >= 2 && subset(ranks, [1, 3, 5, 7, 9]);
-    case "threeSixNine":
-      return !honors && subset(ranks, [3, 6, 9]) && ranks.includes(6) && (ranks.includes(3) || ranks.includes(9));
-    case "consecutiveRun": {
-      if (honors || ranks.length < 3) return false;
-      return ranks[ranks.length - 1] - ranks[0] === ranks.length - 1;
-    }
-    default:
-      return false;
+/// Run hands span at most five numbers in a row. A stretch counts in full when
+/// one suit holds three numbers in a row inside it; otherwise only tiles with
+/// a same-suit neighbor count, so evens in one suit and odds in another never
+/// pass for a run.
+function runStretch(tiles: TileCode[]): { tiles: TileCode[]; low: number; chain: string | null } {
+  const has = (r: number, suit: string) => tiles.includes(`${r}${suit}`);
+  let best = { tiles: [] as TileCode[], low: 1, chain: null as string | null };
+  for (let low = 1; low <= 5; low++) {
+    const high = low + 4;
+    const block = tiles.filter((t) => isSuited(t) && rank(t)! >= low && rank(t)! <= high);
+    const chain = longestChain(block, low, high);
+    const counted = chain
+      ? block
+      : block.filter((t) => [rank(t)! - 1, rank(t)! + 1].some((r) => r >= low && r <= high && has(r, t[1])));
+    if (counted.length > best.tiles.length) best = { tiles: counted, low, chain };
   }
+  return best;
 }
 
-function explain(tiles: TileCode[], id: SectionId): string {
-  const list = ranksOf(tiles).join(", ");
-  switch (id) {
-    case "evens2468":
-      return `Every number on this rack is even (${list}), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it.`;
-    case "odds13579":
-      return `Every number here is odd (${list}). That points straight at 13579, the mirror image of the evens section.`;
-    case "threeSixNine":
-      return "Every number here is a 3, 6 or 9. The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read.";
-    case "consecutiveRun":
-      return `The numbers step up in order (${list}). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run.`;
-    default:
-      return "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look.";
+/// The longest same-suit numbers-in-a-row inside a stretch, three or more,
+/// as "1-2-3-4-5 Crak".
+function longestChain(block: TileCode[], low: number, high: number): string | null {
+  let best: { suit: string; from: number; to: number } | null = null;
+  for (const suit of "CBD") {
+    for (let from = low; from <= high; from++) {
+      let to = from;
+      while (to + 1 <= high && block.includes(`${to + 1}${suit}`) && block.includes(`${from}${suit}`)) to++;
+      if (block.includes(`${from}${suit}`) && to - from >= 2 && (!best || to - from > best.to - best.from)) best = { suit, from, to };
+    }
   }
+  if (!best) return null;
+  const nums = Array.from({ length: best.to - best.from + 1 }, (_, i) => best!.from + i).join("-");
+  return `${nums} ${spokenName(`1${best.suit}`).split(" ")[1]}`;
 }
 
-/// Why a section does not fit, or null when nothing on the rack rules it out.
-function ruledOut(tiles: TileCode[], id: SectionId): string | null {
-  const ranks = ranksOf(tiles);
-  const name = sectionName(id);
-  const noNumbers = `This rack has no numbered tiles at all, and ${name} is built from numbers.`;
-  const numbered = tiles.filter(isSuited).length;
-  switch (id) {
-    case "evens2468": {
-      if (ranks.length === 0) return noNumbers;
-      const odd = ranks.filter((r) => r % 2 === 1);
-      return odd.length ? `This rack holds ${plural(odd)}, and a finished 2468 hand never uses an odd number.` : null;
-    }
-    case "odds13579": {
-      if (ranks.length === 0) return noNumbers;
-      const even = ranks.filter((r) => r % 2 === 0);
-      return even.length ? `This rack holds ${plural(even)}, and a finished 13579 hand never uses an even number.` : null;
-    }
-    case "threeSixNine": {
-      if (ranks.length === 0) return noNumbers;
-      const outside = ranks.filter((r) => r % 3 !== 0);
-      if (outside.length) return `This rack holds ${plural(outside)}, and a finished 369 hand never uses them.`;
-      return ranks.includes(6) ? null : "There is no 6 here, and 369 needs the 6 to read as anything other than odds.";
-    }
-    case "consecutiveRun": {
-      if (ranks.length === 0) return "A run is all numbers stepping up in order, and this rack has no numbered tiles.";
-      if (ranks.length < 3) return `A run steps up with no gaps, and this rack only has ${plural(ranks)}.`;
-      const threeInARow = ranks.some((r) => ranks.includes(r + 1) && ranks.includes(r + 2));
-      return threeInARow ? null : `The numbers here (${ranks.join(", ")}) never make three in a row, and a run steps up with no gaps.`;
-    }
-    case "windsDragons": {
-      const honors = tiles.filter(isHonor).length;
-      const honorCount = honors === 0 ? "no winds or dragons" : honors === 1 ? "only one wind or dragon" : `only ${honors} winds or dragons`;
-      return numbered > honors ? `This rack has ${numbered} numbered tiles and ${honorCount}, so it has little to build a Winds & Dragons hand from.` : null;
-    }
-    case "likeNumbers": {
-      if (ranks.length === 0) return noNumbers;
-      if (numbered < 5) return `Like Numbers is built from one number in several suits, and this rack has only ${numbered} number tile${numbered === 1 ? "" : "s"}.`;
-      return ranks.length >= 3 ? `Like Numbers repeats one number across the suits, and this rack spreads across ${plural(ranks)}.` : null;
-    }
-    case "quints": {
-      const jokers = tiles.filter((t) => t === "J").length;
-      return jokers < 2 ? `Quints need five of a kind, which takes jokers, and this rack has ${jokers === 0 ? "none" : "just one"}.` : null;
-    }
-    case "singlesAndPairs": {
-      const counts = countTiles(tiles.filter((t) => t !== "J" && t !== "F"));
-      const pung = Object.entries(counts).filter(([, n]) => n >= 3).map(([t]) => spokenName(t)).sort()[0];
-      if (pung) return `This rack holds three or more ${pung}, and Singles & Pairs never uses a pung.`;
-      return tiles.includes("J") ? "Singles & Pairs never takes jokers, so the joker on this rack could not help it." : null;
-    }
-    case "year":
-      if (ranks.length === 0) return noNumbers;
-      // Every 20XX year has a 2 and a zero, and soaps stand in for zeros.
-      return tiles.includes("SO") || ranks.includes(2) ? null : "Year hands are built from the year's digits with soaps for zeros, and this rack has no soaps and no 2s.";
-  }
-}
-
-/// One number held in two or more suits, at least four tiles of it.
-function likeNumberSignal(tiles: TileCode[]): string | null {
+/// The most copies of one number held in two or more suits.
+function likeGroup(tiles: TileCode[]): { tiles: TileCode[]; rank: number; suits: number } {
+  let best = { tiles: [] as TileCode[], rank: 0, suits: 0 };
   for (const r of ranksOf(tiles)) {
     const copies = tiles.filter((t) => rank(t) === r);
-    const suits = new Set(copies.map((t) => t[1]));
-    if (copies.length >= 4 && suits.size >= 2) {
-      return `You hold ${copies.length} ${r}s across ${suits.size} suits, which is how a Like Numbers hand starts.`;
-    }
+    const suits = new Set(copies.map((t) => t[1])).size;
+    if (suits >= 2 && copies.length > best.tiles.length) best = { tiles: copies, rank: r, suits };
   }
-  return null;
+  return best;
 }
 
-function readSection(tiles: TileCode[], id: SectionId, read: SectionId | null): SectionRead {
-  const name = sectionName(id);
-  if (GENERATABLE.includes(id) && fits(tiles, id)) {
-    return { id, name, verdict: "fits", note: explain(tiles, id) };
-  }
-  if (id === "likeNumbers") {
-    const signal = likeNumberSignal(tiles);
-    if (signal) return { id, name, verdict: "possible", note: signal };
-  }
-  const reason = ruledOut(tiles, id);
-  if (reason) return { id, name, verdict: "poor", note: reason };
-  if (id === "year") {
-    return { id, name, verdict: "checkCard", note: "Year hands use this year's digits, with soaps standing in for zeros. Check the year line on your card against your 2s and soaps." };
-  }
-  const scored = ["evens2468", "odds13579", "threeSixNine", "consecutiveRun", "likeNumbers"].includes(id);
-  const backing = support(tiles, id).length;
-  if (scored && backing < 6) {
-    return { id, name, verdict: "poor", note: `Only ${backing} of your tiles build toward ${name}.` };
-  }
-  const leans = read ? `, but more of them point to ${sectionName(read)}` : "";
-  return { id, name, verdict: "possible", note: `${name} could use some of these tiles${leans}.` };
+/// Natural groups of three or more, which jokers can stretch to a quint.
+function pungTiles(tiles: TileCode[]): TileCode[] {
+  const counts = countTiles(tiles.filter((t) => t !== "J" && t !== "F"));
+  return tiles.filter((t) => (counts[t] ?? 0) >= 3);
 }
 
-const isDragon = (t: TileCode) => t === "RD" || t === "GD" || t === "SO";
-const isWind = (t: TileCode) => t === "N" || t === "E" || t === "W" || t === "S";
-
-/// The tiles on this rack that build toward a section, for the sections a
-/// real 13-tile deal can lean toward. Strays are expected: a dealt rack is
-/// never clean, which is what the Charleston is for.
 function support(tiles: TileCode[], id: SectionId): TileCode[] {
-  const inRanks = (allowed: number[]) => tiles.filter((t) => allowed.includes(rank(t) ?? 0));
+  const ranks = ranksOf(tiles);
   switch (id) {
     case "evens2468":
-      return inRanks([2, 4, 6, 8]);
+      return inRanks(tiles, [2, 4, 6, 8]);
     case "odds13579":
-      return inRanks([1, 3, 5, 7, 9]);
-    case "threeSixNine": {
-      const ranks = ranksOf(tiles);
-      return ranks.includes(6) && (ranks.includes(3) || ranks.includes(9)) ? inRanks([3, 6, 9]) : [];
-    }
+      return inRanks(tiles, [1, 3, 5, 7, 9]);
+    case "threeSixNine":
+      return ranks.includes(6) && (ranks.includes(3) || ranks.includes(9)) ? inRanks(tiles, [3, 6, 9]) : [];
+    case "consecutiveRun":
+      return runStretch(tiles).tiles;
+    case "likeNumbers":
+      return likeGroup(tiles).tiles;
     case "windsDragons":
       return tiles.filter(isHonor);
-    case "consecutiveRun": {
-      let best: TileCode[] = [];
-      for (let low = 1; low <= 7; low++) {
-        let high = low;
-        // Run hands on the card span at most five numbers in a row.
-        while (high - low < 4 && ranksOf(tiles).includes(high + 1) && ranksOf(tiles).includes(low)) high++;
-        if (high - low < 2) continue;
-        const block = tiles.filter((t) => (rank(t) ?? 0) >= low && (rank(t) ?? 0) <= high);
-        if (block.length > best.length) best = block;
-      }
-      return best;
+    case "year":
+      return tiles.includes("SO") ? [...inRanks(tiles, yearDigits()), ...tiles.filter((t) => t === "SO")] : [];
+    case "quints": {
+      const jokers = tiles.filter((t) => t === "J");
+      const groups = pungTiles(tiles);
+      return jokers.length >= 2 && groups.length ? [...groups, ...jokers] : [];
     }
-    case "likeNumbers": {
-      let best: TileCode[] = [];
-      for (const r of ranksOf(tiles)) {
-        const copies = tiles.filter((t) => rank(t) === r);
-        if (new Set(copies.map((t) => t[1])).size >= 2 && copies.length > best.length) best = copies;
-      }
-      return best;
-    }
-    default:
+    case "singlesAndPairs":
       return [];
   }
 }
 
-/// The section a rack clearly leans toward, or null. Number sections count
-/// against winds but not dragons, because number hands often carry a dragon.
-function lean(tiles: TileCode[], counts: RackRead["counts"]): SectionId | null {
-  if (counts.pairs >= 5 && counts.pungs === 0 && counts.jokers === 0) return "singlesAndPairs";
-  const like = support(tiles, "likeNumbers");
-  if (like.length >= 6) return "likeNumbers";
+const SCORED: SectionId[] = ["evens2468", "odds13579", "threeSixNine", "consecutiveRun", "likeNumbers", "windsDragons", "year", "quints"];
 
-  const candidates: SectionId[] = ["evens2468", "odds13579", "threeSixNine", "consecutiveRun", "windsDragons", "likeNumbers"];
-  const scored = candidates
-    .map((id) => {
-      const countable = tiles.filter((t) => isSuited(t) || isWind(t) || (id === "windsDragons" && isDragon(t))).length;
-      const size = support(tiles, id).length;
-      return { id, size, share: countable ? size / countable : 0 };
-    })
-    .sort((a, b) => b.size - a.size);
-  const [best, second] = scored;
-  if (best.size < 4 || best.share < 0.6 || best.size - (second?.size ?? 0) < 3) return null;
-  return best.id;
+/// Share of the rack a section uses. Jokers and flowers are neutral, and
+/// number sections ignore dragons because many number hands carry one.
+function share(tiles: TileCode[], s: Support): number {
+  const countable = tiles.filter((t) => isSuited(t) || isWind(t) || (isDragon(t) && (s.id === "windsDragons" || s.id === "year"))).length;
+  return countable ? s.tiles.length / countable : 0;
 }
 
-/// Tiles worth passing: they build toward nothing the rack leans to. Jokers
-/// never pass, flowers stay early, and dragons are left to the player because
-/// many number hands use one.
-function strays(tiles: TileCode[], leaning: SectionId | null, wdPoor: boolean): TileCode[] {
-  if (leaning === "singlesAndPairs") return [];
-  if (!leaning) return wdPoor ? tiles.filter(isWind) : [];
-  const keep = [...support(tiles, leaning)];
-  return tiles.filter((t) => {
-    if (t === "J" || t === "F" || (isDragon(t) && leaning !== "windsDragons")) return false;
-    const i = keep.indexOf(t);
-    if (i >= 0) {
-      keep.splice(i, 1);
-      return false;
+function choose(tiles: TileCode[], counts: RackRead["counts"]): { read: SectionId | null; shortlist: SectionId[] } {
+  if (counts.pairs >= 5 && counts.pungs === 0 && counts.jokers === 0) return { read: "singlesAndPairs", shortlist: ["singlesAndPairs"] };
+  const scored = SCORED.map((id) => ({ id, tiles: support(tiles, id) }))
+    .filter((s) => s.tiles.length >= 3)
+    .sort((a, b) => b.tiles.length - a.tiles.length);
+  // Two natural pungs plus jokers is a quint hand before it is anything else.
+  if (counts.pungs >= 2 && scored[0]?.id === "quints") return { read: "quints", shortlist: ["quints"] };
+  const like = likeGroup(tiles);
+  if (like.tiles.length >= 6 || (like.tiles.length >= 5 && like.suits === 3)) return { read: "likeNumbers", shortlist: ["likeNumbers"] };
+
+  const [best, second] = scored;
+  if (!best) return { read: null, shortlist: [] };
+  // A runner-up needs real backing to be worth saving tiles for.
+  const shortlist = scored.filter((s) => s === best || (s.tiles.length >= 4 && s.tiles.length >= best.tiles.length - 2)).slice(0, 3).map((s) => s.id);
+  // A one-tile edge is a lean only on a well-built rack; otherwise it is torn.
+  const gap = best.tiles.length - (second?.tiles.length ?? 0);
+  const clear = best.tiles.length >= 5 && share(tiles, best) >= 0.4 && (gap >= 2 || (gap === 1 && best.tiles.length >= 7));
+  return { read: clear ? best.id : null, shortlist };
+}
+
+/// Why a section is a long shot for this rack.
+function longShot(tiles: TileCode[], id: SectionId, counts: RackRead["counts"]): string {
+  const n = support(tiles, id).length;
+  const name = sectionName(id);
+  switch (id) {
+    case "year":
+      return tiles.includes("SO") ? `Only ${n} of your tiles are the year's digits or soaps.` : "Year hands use soaps for the zeros, and this rack has none.";
+    case "quints":
+      if (counts.jokers < 2) return `Five of a kind takes jokers, and this rack has ${counts.jokers === 0 ? "none" : "just one"}.`;
+      return "Quints need a natural pung to build on, and this rack has none yet.";
+    case "threeSixNine":
+      return ranksOf(tiles).includes(6) ? `Only ${n} of your tiles are 3s, 6s or 9s.` : "369 needs 6s to stand apart from an odds hand, and this rack has none.";
+    case "consecutiveRun":
+      return n ? `Only ${n} of your tiles step up in order.` : "No suit here holds numbers in a row.";
+    case "likeNumbers":
+      return "No number shows up across the suits often enough.";
+    case "windsDragons":
+      return `Only ${n} winds or dragons.`;
+    case "singlesAndPairs": {
+      const pung = Object.entries(countTiles(tiles.filter((t) => t !== "J" && t !== "F"))).find(([, c]) => c >= 3)?.[0];
+      if (pung) return `Singles & Pairs never uses a pung, and you hold three ${spokenName(pung)}s.`;
+      return `Only ${counts.pairs} natural pair${counts.pairs === 1 ? "" : "s"}, and Singles & Pairs is built from pairs.`;
     }
-    return true;
+    default:
+      return `Only ${n} of your tiles build toward ${name}.`;
+  }
+}
+
+/// What a section has going for it on this rack.
+function strength(tiles: TileCode[], id: SectionId, counts: RackRead["counts"]): string {
+  const n = support(tiles, id).length;
+  switch (id) {
+    case "evens2468":
+      return `${n} of your tiles are 2s, 4s, 6s or 8s.`;
+    case "odds13579":
+      return `${n} of your tiles are 1s, 3s, 5s, 7s or 9s.`;
+    case "threeSixNine":
+      return `${n} of your tiles are 3s, 6s or 9s, and the 6s keep it apart from a pure odds hand.`;
+    case "consecutiveRun": {
+      const run = runStretch(tiles);
+      return `${n} of your tiles sit in the stretch ${run.low} to ${run.low + 4}${run.chain ? `, including ${run.chain}` : ""}.`;
+    }
+    case "likeNumbers": {
+      const like = likeGroup(tiles);
+      const count = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"][like.tiles.length];
+      return `You hold ${count} ${like.rank}s across ${like.suits === 3 ? "all three" : "two"} suits.`;
+    }
+    case "windsDragons":
+      return `${n} of your tiles are winds or dragons.`;
+    case "year":
+      return `${n} of your tiles are the year's digits (${yearDigits().join(" and ")}) or soaps for the zeros. Check the year line on your card.`;
+    case "quints":
+      return `${counts.jokers} jokers and a natural pung to stretch: jokers are the only way to five of a kind.`;
+    case "singlesAndPairs": {
+      const flowers = counts.flowers === 2 ? " (plus a pair of flowers)" : "";
+      return `${counts.pairs} natural pairs${flowers}, no pungs and no jokers. It works only if the pairs line up with a line on your card.`;
+    }
+  }
+}
+
+function verdictFor(tiles: TileCode[], id: SectionId, read: SectionId | null, shortlist: SectionId[], counts: RackRead["counts"]): SectionRead {
+  const name = sectionName(id);
+  if (id === read) return { id, name, verdict: "fits", note: strength(tiles, id, counts) };
+  if (shortlist.includes(id)) return { id, name, verdict: "possible", note: strength(tiles, id, counts) };
+  if (id === "singlesAndPairs" && counts.pairs >= 4 && counts.pungs === 0) {
+    const jokers = counts.jokers ? " Your jokers could not help it, though." : "";
+    return { id, name, verdict: "possible", note: `${counts.pairs} natural pairs and no pungs.${jokers}` };
+  }
+  if (id === "quints" && support(tiles, id).length) return { id, name, verdict: "possible", note: strength(tiles, id, counts) };
+  return { id, name, verdict: "poor", note: longShot(tiles, id, counts) };
+}
+
+/// The order a coach passes in: tiles that also fit a shortlisted section go
+/// last, pairs are not broken while singles remain, then lone winds before
+/// numbers before dragons (many number hands carry a dragon), and 1s and 9s
+/// before middle numbers.
+function passOrder(tiles: TileCode[], keepAlso: TileCode[]) {
+  const counts = countTiles(tiles);
+  return (t: TileCode) => [
+    keepAlso.includes(t) ? 1 : 0,
+    (counts[t] ?? 0) >= 2 ? 1 : 0,
+    isWind(t) ? 0 : isSuited(t) ? 1 : 2,
+    isSuited(t) ? -Math.abs(rank(t)! - 5) : 0,
+  ];
+}
+
+function compare(a: number[], b: number[]): number {
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] - b[i];
+  return 0;
+}
+
+/// Removes one copy of each tile in `used` from `tiles`.
+function without(tiles: TileCode[], used: TileCode[]): TileCode[] {
+  const left = [...used];
+  return tiles.filter((t) => {
+    const i = left.indexOf(t);
+    if (i < 0) return true;
+    left.splice(i, 1);
+    return false;
   });
 }
 
-function leanNote(tiles: TileCode[], id: SectionId): string {
-  if (GENERATABLE.includes(id) && fits(tiles, id)) return explain(tiles, id);
-  const backing = support(tiles, id).length;
-  if (id === "singlesAndPairs") {
-    return "Nothing but pairs and singles, with no pungs and no jokers. That is the shape of a Singles & Pairs hand.";
+/// Jokers never pass and flowers stay early. With a clear lean, everything
+/// outside it can go, saving tiles a close second could use for last. Torn
+/// between sections, pass what fits none of them first.
+function passes(tiles: TileCode[], read: SectionId | null, shortlist: SectionId[]): { passes: TileCode[]; spare: TileCode[] } {
+  if (read === "singlesAndPairs" || (!read && !shortlist.length)) {
+    const strays = tiles.filter(isWind).filter((t) => tiles.filter((x) => x === t).length === 1);
+    return { passes: strays.slice(0, 3), spare: strays.slice(3) };
   }
-  if (id === "likeNumbers") {
-    const r = rank(support(tiles, id)[0]);
-    return `${backing} of your tiles are ${r}s spread across the suits, which reads as Like Numbers.`;
+  const core = read ? [read] : shortlist;
+  const rest = read ? shortlist.filter((id) => id !== read) : [];
+  let pool = tiles.filter((t) => t !== "J" && t !== "F");
+  for (const id of core) {
+    const own = support(tiles, id);
+    pool = pool.filter((t) => !own.includes(t));
   }
-  return `${backing} of your tiles build toward ${sectionName(id)}.`;
+  const keepAlso = rest.flatMap((id) => support(tiles, id));
+  const order = passOrder(tiles, keepAlso);
+  let ranked = pool.sort((a, b) => compare(order(a), order(b)));
+  // Torn and short of three: let the weakest shortlisted section go first.
+  if (!read && ranked.length < 3 && shortlist.length > 1) {
+    const weakest = shortlist[shortlist.length - 1];
+    const others = shortlist.slice(0, -1).flatMap((id) => support(tiles, id));
+    const extra = without(support(tiles, weakest), others).filter((t) => !ranked.includes(t));
+    ranked = [...ranked, ...extra.sort((a, b) => compare(order(a), order(b)))];
+  }
+  return { passes: ranked.slice(0, 3), spare: ranked.slice(3) };
 }
 
 export function readRack(tiles: TileCode[]): RackRead {
@@ -276,26 +306,25 @@ export function readRack(tiles: TileCode[]): RackRead {
     pairs: Object.values(grouped).filter((n) => n === 2).length,
     pungs: Object.values(grouped).filter((n) => n >= 3).length,
   };
-  const read = lean(tiles, counts);
-  const wdPoor = ruledOut(tiles, "windsDragons") !== null;
-  const passes = strays(tiles, read, wdPoor);
+  const { read, shortlist } = choose(tiles, counts);
+  const order: Record<Verdict, number> = { fits: 0, possible: 1, poor: 2 };
+  const rankInList = (id: SectionId) => (shortlist.includes(id) ? shortlist.indexOf(id) : 9);
+  const sections = content.categories
+    .map((c) => verdictFor(tiles, c.id as SectionId, read, shortlist, counts))
+    .sort((a, b) => order[a.verdict] - order[b.verdict] || rankInList(a.id) - rankInList(b.id));
+  const pass = passes(tiles, read, shortlist);
 
-  const order: Record<Verdict, number> = { fits: 0, possible: 1, checkCard: 2, poor: 3 };
-  const ids = content.categories.map((c) => c.id as SectionId);
-  const sections = ids
-    .map((id) => (id === read ? { id, name: sectionName(id), verdict: "fits" as Verdict, note: leanNote(tiles, id) } : readSection(tiles, id, read)))
-    .sort((a, b) => order[a.verdict] - order[b.verdict]);
-
-  const open = sections
-    .filter((s) => s.verdict !== "poor")
-    .map((s) => (s.verdict === "checkCard" ? `${s.name} (check your card)` : s.name));
-  const others = open.filter((name) => name !== (read && sectionName(read)));
+  const names = shortlist.map(sectionName);
+  const others = names.filter((n) => !read || n !== sectionName(read));
+  const headline = read
+    ? `Leaning ${sectionName(read)}`
+    : names.length >= 2 ? `Torn between ${list(names)}` : names.length ? `Maybe ${names[0]}` : "No clear section yet";
   const summary = read
-    ? `Leaning ${sectionName(read)}.${others.length ? ` Still open: ${others.join(", ")}.` : ""}`
-    : open.length
-      ? `No clear section yet. Still open: ${open.join(", ")}.`
-      : "No section stands out yet. Keep your jokers and pairs and pass what fits nothing.";
-
-  const headline = read ? `Leaning ${sectionName(read)}` : "No clear section yet";
-  return { tiles, read, headline, summary, sections, counts, passes };
+    ? `Leaning ${sectionName(read)}: ${strength(tiles, read, counts)}${others.length ? ` Also in reach: ${list(others)}.` : ""}`
+    : names.length >= 2
+      ? `Torn between ${list(names)}. Keep the tiles they share and pass what fits none of them.`
+      : names.length
+        ? `Nothing stands out yet, though ${names[0]} has the most to build on. Keep your jokers and pairs and pass what fits nothing.`
+        : "No section stands out yet. Keep your jokers and pairs and pass what fits nothing.";
+  return { tiles, read, shortlist, headline, summary, sections, counts, ...pass };
 }
