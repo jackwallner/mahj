@@ -188,3 +188,26 @@ Run all five positive and three negative manifest cases in ChatGPT desktop and m
 - Privately validate card-dependent teaching claims against the applicable current card without copying its hands into the repository or review materials.
 
 The audit changed documentation only. It did not deploy the worker, alter product behavior, submit a package, purchase services or perform an authenticated portal action.
+
+## Resolution, October 22, 2026
+
+Fixed in the 1.1.0 plugin (worker version `edd048a6`, widget `ui://mahj/trainer-v3.html`), with tests in `chatgpt/test/` (29 pass locally and against the live worker):
+
+| Finding | Resolution |
+|---|---|
+| 1 | The resource declares an empty CSP in `_meta.ui.csp` and `openai/widgetCSP`. |
+| 2 | The privacy policy's `#chatgpt` section states that the worker keeps nothing. Cloudflare's API showed Workers Logs, Logpush and tail workers all off, `wrangler.toml` pins `[observability] enabled = false`, and `src/` has no logging. |
+| 4 | Still open. The `OPENAI_DOMAIN_CHALLENGE` secret needs the token from the portal, which opens after identity verification. |
+| 5 | The listing's website, homepage, author and support URLs now point at the plugin-only page `https://jackwallner.github.io/mahj/chatgpt/`. |
+| 6 | The parser uses `Map` and `Object.hasOwn`, so `constructor` and `__proto__` are unknown words. Entries are capped at 120 characters and echoes at 24. |
+| 7 | Any unreadable entry gets a "fix these" reply that shows what was read. Racks under 13 tiles carry a partial warning and pass only tiles that fit nothing. |
+| 8 | Section notes are generated from the counts, and a regression test covers the reported rack. |
+| 9, 10 | When a rack has no stray tiles, the reply explains what to pass instead, and the widget shows that note beside the pass. |
+| 11, 12 | Glossary lookups match whole terms and aliases, never fragments. The tool description says it covers terms, not full rules. |
+| 13 | Practice results give the topic's question count, and the model is told when a set is shorter than asked. |
+| 14 to 18 | The widget times out to a Try again card, validates restored state, falls back to `window.openai` field by field, restores focus by `data-focus`, and announces verdicts through a live region. |
+| 19 | Tile lists accept 1 to 40 entries of at most 120 characters each. |
+| 20 | `CARD_YEAR` is fixed to the content's year, and a test fails after April 1 of the next year. |
+| 21 | Still open. It needs a pass in ChatGPT on the web, desktop and mobile after Refresh tools. |
+
+The second reviewer's notes are handled in the same release: per-tile pass reasons, anchors, tiles to hope for, joker advice, and pass-aware advice from a new `pass` input. Practice answers are hidden from the model, and a new `check_mahjong_answer` tool checks them. The widget adds tile naming, a missed-question review with Redo, and hit, miss and coach marks on passes. The copy cleanup covers the shared content. Strategy questions stay two-choice by design, because the app's `CardChoice` type is binary. The demo recording predates the v3 widget and should be re-recorded before submission.

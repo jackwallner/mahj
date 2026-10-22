@@ -62,7 +62,7 @@
       <a href="privacy-policy.html">Privacy</a> · <a href="terms.html">Terms</a>
     </nav>
     <h1>Mahj Trainer Privacy Policy</h1>
-    <p class="date">Last updated: October 21, 2026</p>
+    <p class="date">Last updated: October 22, 2026</p>
     <p>
       Mahj Trainer works without an account. Practice progress, streaks, review
       history, onboarding choices, and preferences are stored locally on your
@@ -137,20 +137,27 @@
         >Meta's privacy policy</a
       >.
     </p>
-    <h2>Mahj in ChatGPT</h2>
+    <h2 id="chatgpt">Mahj in ChatGPT</h2>
     <p>
-      The free Mahj plugin for ChatGPT runs on a Cloudflare Workers server we
-      operate. When ChatGPT calls it, the server receives only what the tool
-      needs: a lesson or practice topic, a mah jongg term, or the tile names
-      you ask it to read. It sends back lessons, questions or a rack read. It
-      keeps nothing: there is no account, no database and no log of your
-      tiles or questions, and nothing is linked to your ChatGPT identity.
-      Cloudflare carries the request as our host and, like any web host,
-      processes your IP address and request details to deliver it under
+      The Mahj Trainer plugin for ChatGPT runs on a Cloudflare Workers server
+      we operate. When ChatGPT calls it, the server receives only what the
+      tool needs: a lesson or practice topic, a mah jongg term, the tile names
+      you ask it to read, or the answer you give to a practice question. It
+      sends back lessons, questions, a checked answer or a rack read. It has
+      no account and no database, and nothing is linked to your ChatGPT
+      identity.
+    </p>
+    <p>
+      The server keeps nothing after it answers. It writes no logs,
+      and Cloudflare's Workers Logs, Logpush and tail workers are all turned
+      off for it, so no copy of your tiles, questions or answers is stored.
+      Cloudflare carries each request as our host and, like any web host,
+      processes your IP address and request details to deliver it and protect
+      its network, and keeps that data only as long as
       <a href="https://www.cloudflare.com/privacypolicy/"
         >Cloudflare's privacy policy</a
-      >. OpenAI handles your
-      conversation under
+      >
+      allows. OpenAI handles your conversation under
       <a href="https://openai.com/policies/privacy-policy/"
         >OpenAI's privacy policy</a
       >. You can remove the plugin any time in ChatGPT's settings.
@@ -167,7 +174,9 @@
       Local practice data remains until you delete it or remove the app. Apple,
       Google Play and RevenueCat retain transaction records as needed to process and restore
       purchases. Support emails and in-app feedback contain whatever you
-      choose to send and are used to answer or act on it.
+      choose to send and are used to answer or act on it. The ChatGPT plugin
+      keeps nothing past each request, as described under
+      <a href="#chatgpt">Mahj in ChatGPT</a>.
     </p>
     <h2>Children and changes</h2>
     <p>
