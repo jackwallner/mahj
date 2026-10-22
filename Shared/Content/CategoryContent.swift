@@ -12,7 +12,7 @@ enum CategoryContent {
             frontTiles: [.c(2), .dragon(.soap), .c(2), .b(6)],
             frontSubtitle: "2 - 0 - 2 - 6",
             backTitle: "Year Hands",
-            backBody: HandCategory.year.howToSpot + " A friendly section for new players, because the digits are easy to spot on a rack."
+            backBody: HandCategory.year.howToSpot + " The digits are easy to spot on a rack, but year lines are specific, so read them closely."
         ),
         Flashcard(
             id: "cat-2468",
@@ -44,7 +44,7 @@ enum CategoryContent {
             frontTiles: [.b(4), .b(5), .b(6), .b(7)],
             frontSubtitle: "Numbers in a row",
             backTitle: "Consecutive Run",
-            backBody: HandCategory.consecutiveRun.howToSpot + " When in doubt early, lean consecutive: more of your random deal will fit."
+            backBody: HandCategory.consecutiveRun.howToSpot + " Read the note beside each line: a run that names its numbers cannot slide."
         ),
         Flashcard(
             id: "cat-13579",
@@ -193,7 +193,7 @@ enum CategoryContent {
             tiles: [.c(2), .c(2), .dragon(.soap), .dragon(.soap), .b(2), .b(2), .b(6), .b(6), .flower, .flower, .flower, .joker, .d(4)],
             choices: [.year, .evens2468, .windsDragons, .singlesAndPairs],
             answer: .year,
-            explanation: "2s, Soaps (zeros), 6s, and a fistful of flowers: those are exactly the ingredients of a 2026 year hand. 2468 is the decoy, but the soaps give it away."
+            explanation: "2s, Soaps (zeros), 6s, and a fistful of flowers: those are exactly the ingredients of a 2026 year hand. 2468 fits too, but the soaps and flowers point to the year section first."
         ),
         HandMatchQuestion(
             id: "hm-quints",

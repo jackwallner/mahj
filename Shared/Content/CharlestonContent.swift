@@ -36,16 +36,16 @@ enum CharlestonContent {
         Flashcard(
             id: "ch-pairs",
             frontTitle: "Breaking Up Pairs",
-            frontSubtitle: "You need 3 tiles to pass, and...",
+            frontSubtitle: "You must pass three tiles. Which ones?",
             backTitle: "Don't Break Pairs",
-            backBody: "Pairs are gold: jokers can't make them, so natural pairs anchor hands. Pass lone strays (single winds, isolated numbers) before you ever split a pair, even a pair you're not sure you'll use."
+            backBody: "Pairs are gold: jokers can't make them, so natural pairs anchor hands. Pass lone strays (single winds, isolated numbers) before you split a pair, unless the pair fits none of the sections you are considering."
         ),
         Flashcard(
             id: "ch-blind",
             frontTitle: "The Blind Pass",
             frontSubtitle: "a.k.a. stealing",
             backTitle: "Blind Pass",
-            backBody: "On the LAST pass of either Charleston, if you don't want to give up 3 tiles, you may pass 1-3 of the tiles being passed TO you without looking at them. Great when your hand is already tight."
+            backBody: "On the last pass of each Charleston (the first Left and the second Right), you may pass on 1 to 3 of the tiles just handed to you without looking at them. You still pass three tiles, but each blind one lets you keep one of your own. Great when your hand is already tight."
         ),
         Flashcard(
             id: "ch-stop",
@@ -66,7 +66,7 @@ enum CharlestonContent {
             frontTitle: "Read the Incoming Tiles",
             frontSubtitle: "Free information",
             backTitle: "Passes Tell Stories",
-            backBody: "Whatever arrives is what a neighbor DIDN'T need. Three winds from your right? They're not on Winds & Dragons. Also note what never comes back: those tiles are being collected."
+            backBody: "Whatever arrives is usually what a neighbor didn't need, unless it came blind. Three winds from your right? They probably aren't on Winds & Dragons. Also note what never comes back: those tiles are being collected."
         ),
         Flashcard(
             id: "ch-telegraph",
@@ -124,7 +124,7 @@ enum CharlestonContent {
             deal: [.flower, .flower, .flower, .b(2), .b(4), .b(6), .b(8), .b(8), .d(2), .c(9), .wind(.north), .joker, .c(5)],
             recommendedPass: [.c(9), .c(5), .wind(.north)],
             reasoning: "Three flowers plus a wall of even bams: this deal wants an evens hand, and many hands use flowers, so keep them. The odd Craks (9 Crak, 5 Crak) and the lone North do not fit an evens plan.",
-            tip: "Flowers turn up in hands across the card. Early passes should almost never include one."
+            tip: "Flowers turn up in hands across the card, so early passes seldom include one. Count yours: extras beyond what your sections can use can go."
         ),
         CharlestonScenario(
             id: "cs-like",

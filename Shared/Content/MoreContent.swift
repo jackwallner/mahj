@@ -183,7 +183,7 @@ enum MoreContent {
         ),
         QuizQuestion(
             id: "more-table-dead-hand",
-            prompt: "What most often makes a hand dead?",
+            prompt: "Which of these makes a hand dead?",
             choices: [
                 "Holding too many flowers",
                 "An exposure that cannot belong to any hand on the card",
@@ -214,7 +214,7 @@ enum MoreContent {
         ),
         QuizQuestion(
             id: "more-table-never-expose",
-            prompt: "Which kind of hand can never be exposed?",
+            prompt: "Which section's hands can never be exposed?",
             choices: [
                 "Any Like Numbers",
                 "Consecutive Run",

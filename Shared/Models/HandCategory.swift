@@ -54,7 +54,7 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .quints:
             return "Needs five of a kind, and only four of each tile exist, so quints are impossible without jokers. Only chase these when you're joker-rich."
         case .consecutiveRun:
-            return "Numbers that step up in order, like 4-5-6-7. The most flexible section on the card because any starting number can work."
+            return "Numbers that step up in order, like 4-5-6-7. Many run lines can start on any number, so a deal with numbers in a row often fits more than one line."
         case .odds13579:
             return "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, with one more number to build from."
         case .windsDragons:

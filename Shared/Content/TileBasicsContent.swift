@@ -37,7 +37,7 @@ enum TileBasicsContent {
             frontTitle: "Dragons",
             frontTiles: [.dragon(.red), .dragon(.green), .dragon(.soap)],
             backTitle: "The Dragons",
-            backBody: "12 tiles: 4 Red, 4 Green, 4 Soap. Each dragon belongs to a suit: Red goes with Craks, Green with Bams, Soap with Dots. When a card hand shows a dragon, its color on the card tells you which suit's dragon to use."
+            backBody: "12 tiles: 4 Red, 4 Green, 4 Soap. Each dragon belongs to a suit: Red goes with Craks, Green with Bams, Soap with Dots. On the card, a dragon printed in the same color as a number group is that suit's own dragon; a different color means another suit's dragon."
         ),
         Flashcard(
             id: "tiles-soap",
@@ -67,14 +67,14 @@ enum TileBasicsContent {
             frontTitle: "The Whole Set",
             frontSubtitle: "How many tiles?",
             backTitle: "152 Tiles",
-            backBody: "108 number tiles (three suits, 1-9, four each) + 16 winds + 12 dragons + 8 flowers + 8 jokers = 152. American sets are bigger than Chinese sets because of the flowers and jokers."
+            backBody: "108 number tiles (three suits, 1-9, four each) + 16 winds + 12 dragons + 8 flowers + 8 jokers = 152. That is 8 more than the usual 144-tile Chinese set: the 8 jokers."
         ),
         Flashcard(
             id: "tiles-card",
             frontTitle: "The Card",
             frontSubtitle: "Why everyone squints at it",
             backTitle: "The NMJL Card",
-            backBody: "The card lists every legal winning hand this year, grouped in sections (2468, Consecutive Run, 13579...). A new card comes out every spring. Colors on the card mean DIFFERENT suits, not specific ones: any suit can be red, green, or blue."
+            backBody: "The National Mah Jongg League (NMJL) card lists every legal winning hand this year, grouped in sections (2468, Consecutive Run, 13579...). A new card comes out every spring. Colors on the card mean DIFFERENT suits, not specific ones: any suit can be red, green, or blue."
         ),
         Flashcard(
             id: "tiles-groups",
@@ -151,7 +151,7 @@ enum TileBasicsContent {
             tiles: [.d(7), .d(7), .d(7)],
             choices: ["2 identical tiles", "3 identical tiles", "4 identical tiles", "A run like 5-6-7"],
             answerIndex: 1,
-            explanation: "Three identical tiles. And no, unlike other mahjong styles, American mahj has no runs you can 'chow': the card decides every shape."
+            explanation: "Three identical tiles. Unlike other mahjong styles, you can't claim a discard for a run like 5-6-7: the card spells out every shape."
         ),
         QuizQuestion(
             id: "quiz-quint",
@@ -177,7 +177,7 @@ enum TileBasicsContent {
         ),
         QuizQuestion(
             id: "quiz-concealed",
-            prompt: "A hand marked C on the card means...",
+            prompt: "Each hand on the card is marked X or C. What does C mean?",
             choices: ["Craks only", "Concealed: no exposures", "Courtesy hand", "Charleston required"],
             answerIndex: 1,
             explanation: "Concealed. You can't call discards to expose groups; the hand stays on your rack until you call the winning tile for mah jongg."

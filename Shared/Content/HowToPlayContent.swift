@@ -44,7 +44,7 @@ enum HowToPlayContent {
             id: "htp-card",
             icon: "menucard.fill",
             title: "Read the card",
-            body: "The card groups its hands into sections, like even numbers or runs. You never memorize every hand. You learn to spot which section your rack is drifting toward, pick a target, and chase it.",
+            body: "The card groups its hands into sections, like even numbers or runs. You never memorize every hand. You learn to spot which section your rack is drifting toward, pick a target, and chase it. Keep a current card beside you to follow the lines.",
             tiles: [.c(2), .c(4), .b(6), .d(8)],
             tip: "All even numbers? That rack is whispering which section to check first."
         ),
@@ -60,9 +60,9 @@ enum HowToPlayContent {
             id: "htp-turn",
             icon: "hand.draw.fill",
             title: "Play a turn",
-            body: "On your turn, draw a tile, then keep it or discard one face up. You may call a discard for a pung, kong, or quint and expose that group. Pairs and single tiles can only be called when the discard completes mahj, and hands marked concealed cannot call except for mahj. Match your whole hand to the card and you win.",
+            body: "On your turn, draw a tile, then discard one face up: the tile you drew or one from your rack. You may also claim another player's discard to finish a group of 3, 4 or 5 matching tiles (a pung, kong or quint), then lay that group face up on your rack, which is called exposing it. Pairs and single tiles can only be claimed to finish your winning hand, and a hand marked C (concealed) on the card cannot expose anything before it wins. Match your whole hand to the card and you win.",
             tiles: [.d(7), .d(7), .d(7), .joker],
-            tip: "A joker can sit inside a pung or bigger group, never alone as a pair partner."
+            tip: "A joker can sit inside a pung or bigger group, never in a pair or as a single tile."
         ),
         HowToPlayPage(
             id: "htp-ready",

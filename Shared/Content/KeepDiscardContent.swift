@@ -20,7 +20,7 @@ enum KeepDiscardContent {
             frontTiles: [.flower, .flower, .flower],
             frontSubtitle: "You draw a third F. Keep or throw?",
             backTitle: "Hold It (For Now)",
-            backBody: "A spare flower is insurance: if a flower gets jokered on someone's rack you can swap in, and if you change hands the F count often changes. Late game, a flower is also a dangerous throw since so many hands need them.",
+            backBody: "While your hand could still change, a spare flower is insurance: you can swap it for a joker in someone's flower exposure, and a switch of lines often changes the F count. Once you are locked into a line with exactly two, it becomes a fine discard.",
             choice: CardChoice("Keep it", "Throw it", answerIndex: 0)
         ),
         Flashcard(
@@ -73,12 +73,12 @@ enum KeepDiscardContent {
             frontTitle: "Two tiles fit Hand A. Nine tiles fit Hand B.",
             frontSubtitle: "But you LIKE Hand A...",
             backTitle: "Play the Nine",
-            backBody: "Always follow the count. The hand with more tiles home needs fewer miracles. Recount after every few draws: the best hand for your rack changes as tiles arrive.",
+            backBody: "Usually follow the count. The hand with more tiles home needs fewer miracles, unless the other is far more flexible or pays far more. Recount after every few draws: the best hand for your rack changes as tiles arrive.",
             choice: CardChoice("Play Hand A", "Play Hand B", answerIndex: 1)
         ),
         Flashcard(
             id: "kd-wind-pair",
-            frontTitle: "You hold N N and draw a third North.",
+            frontTitle: "Early in the hand, you hold N N and draw a third North.",
             frontTiles: [.wind(.north), .wind(.north), .wind(.north)],
             frontSubtitle: "Keep the pung?",
             backTitle: "Keep It",
@@ -91,7 +91,7 @@ enum KeepDiscardContent {
             frontTiles: [.flower, .wind(.east)],
             frontSubtitle: "Which is safer?",
             backTitle: "Throw the Wind",
-            backBody: "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. An East fits only a player collecting Easts, and only three others exist. Early, the lone wind is the far narrower gift.",
+            backBody: "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. An East fits only a player collecting Easts, and only three others exist. Neither is truly safe, but early on the lone wind is usually the lighter throw.",
             choice: CardChoice("Throw the flower", "Throw the wind", answerIndex: 1)
         ),
         Flashcard(
@@ -108,7 +108,7 @@ enum KeepDiscardContent {
             frontTitle: "You CAN call that discard for an exposed pung.",
             frontSubtitle: "Should you?",
             backTitle: "Calling Has a Price",
-            backBody: "Calling locks you onto hands that fit the exposure, tells the table your section, and kills any concealed hand. Call when it puts you clearly ahead (2+ tiles closer on a committed hand), not just because you can.",
+            backBody: "Calling locks you onto hands that fit the exposure, tells the table your section, and kills any concealed hand. Call when it moves a hand you are already committed to clearly closer to done, not just because you can.",
             choice: CardChoice("Always call", "Only if it pays", answerIndex: 1)
         ),
         Flashcard(

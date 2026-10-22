@@ -198,7 +198,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-joker", term: "Joker", aliases: ["jokers", "wild"], group: .tiles,
-            definition: "Eight wild tiles. A joker can stand in for a tile inside a group of three or more (a pung, kong, quint or sextet). It can NEVER be a pair, a single, or part of a Singles and Pairs hand, and it can never be passed in the Charleston."
+            definition: "Eight wild tiles. A joker can stand in for a tile inside a group of three or more (a pung, kong or quint). It can NEVER be a pair, a single, or part of a Singles and Pairs hand, and it can never be passed in the Charleston."
         ),
         GlossaryTerm(
             id: "g-honors", term: "Honors", aliases: ["honor tiles"], group: .tiles,
@@ -233,15 +233,19 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-exposure", term: "Exposure", aliases: ["expose", "exposed"], group: .groups,
-            definition: "A called group laid face up on the front of your rack for everyone to see. It is the single biggest piece of information you give away, and the best information you get from other players."
+            definition: "A called group laid face up on top of your rack for everyone to see. It is the single biggest piece of information you give away, and the best information you get from other players."
         ),
         GlossaryTerm(
             id: "g-concealed", term: "Concealed hand", aliases: ["closed hand"], group: .groups,
             definition: "A hand the card requires you to complete without exposing anything. You may still pick up the winning tile from a discard, but you may not call to expose a group along the way."
         ),
         GlossaryTerm(
-            id: "g-section", term: "Section", aliases: ["category", "family", "line"], group: .groups,
+            id: "g-section", term: "Section", aliases: ["category", "family"], group: .groups,
             definition: "One family of hands on the card, such as the evens family or the consecutive runs. Reading which section a rack is chasing is the core skill this app drills."
+        ),
+        GlossaryTerm(
+            id: "g-line", term: "Line", aliases: ["hand on the card", "card hand"], group: .groups,
+            definition: "One hand printed on the card, read left to right. Each section holds several lines, and the value beside each line says what it pays and whether it is X (exposures allowed) or C (concealed)."
         ),
 
         // MARK: Charleston
@@ -283,7 +287,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-wall-game", term: "Wall game", aliases: ["draw", "no winner"], group: .play,
-            definition: "Nobody declares mah jongg before the tiles run out. It happens more often than beginners expect, and it is why chasing a hopeless hand to the end costs you nothing but also earns you nothing."
+            definition: "Nobody declares mah jongg before the tiles run out. It happens more often than beginners expect, and until it ends, any opponent can still win and collect from you, so keep discarding carefully."
         ),
         GlossaryTerm(
             id: "g-joker-swap", term: "Joker swap", aliases: ["redemption", "redeem"], group: .play,
@@ -298,7 +302,7 @@ enum ReferenceContent {
             definition: "A tile no live hand seems to want: one already discarded twice with no reaction, or one that clashes with every exposure on the table. Keeping one in reserve for the endgame is a habit worth building."
         ),
         GlossaryTerm(
-            id: "g-mahjongg-call", term: "Mah Jongg", aliases: ["declaring", "win"], group: .play,
+            id: "g-mahjongg-call", term: "Mah Jongg", aliases: ["mahjong", "mah jong", "mahj", "maj", "declaring", "win"], group: .play,
             definition: "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure: laying down a wrong hand kills it."
         ),
         GlossaryTerm(
