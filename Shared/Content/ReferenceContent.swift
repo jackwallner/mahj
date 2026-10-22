@@ -100,19 +100,19 @@ enum ReferenceContent {
             category: .quints,
             exampleRack: [.b(3), .b(3), .b(3), .b(3), .joker, .c(5), .c(5), .c(5), .c(5),
                           .joker, .joker, .flower, .flower],
-            watchOut: "Five of a kind, when only four of any tile exist. A quint hand is really a joker-count question: without jokers in hand it is not a plan, it is a wish."
+            watchOut: "Five of a kind, when only four of any tile exist. A quint hand is really a joker-count question. Without jokers in hand it is a hope, not a plan."
         ),
         SectionReference(
             category: .consecutiveRun,
             exampleRack: [.b(3), .b(3), .b(3), .b(4), .b(4), .b(4), .b(5), .b(5), .b(5),
                           .b(6), .b(6), .b(6), .b(6)],
-            watchOut: "The most forgiving section on the card, because the run can slide up or down a number while you wait. That flexibility is also the trap: keep sliding and you never actually commit."
+            watchOut: "A flexible section, because the run can slide up or down a number while you wait, unless a line's note names its numbers. That flexibility is also a trap, since if you keep sliding you never commit."
         ),
         SectionReference(
             category: .odds13579,
             exampleRack: [.d(1), .d(1), .d(1), .d(3), .d(3), .d(3), .d(5), .d(5), .d(5),
                           .d(9), .d(9), .d(9), .d(9)],
-            watchOut: "The mirror of the evens family, with five numbers to build from instead of four. Early on, odd tiles have one more edge: the 1s and 9s are tiles other players throw away without thinking."
+            watchOut: "The mirror of the evens family, with five numbers to build from instead of four."
         ),
         SectionReference(
             category: .windsDragons,
@@ -125,13 +125,13 @@ enum ReferenceContent {
             category: .threeSixNine,
             exampleRack: [.c(3), .c(3), .c(3), .c(6), .c(6), .c(6), .b(9), .b(9), .b(9),
                           .d(6), .d(6), .d(9), .d(9)],
-            watchOut: "A narrow family: three numbers across three suits. The upside is that it reads clearly, so you know early whether you are in it. The downside is there is nowhere to slide."
+            watchOut: "A narrow family built on three numbers across three suits. It reads clearly, so you know early whether you are in it. The downside is that there is nowhere to slide."
         ),
         SectionReference(
             category: .singlesAndPairs,
             exampleRack: [.c(1), .c(2), .b(3), .b(4), .d(5), .d(6), .c(7), .c(8),
                           .b(9), .b(9), .d(1), .d(1), .dragon(.green)],
-            watchOut: "NO JOKERS, anywhere, ever. That is why these hands are among the best paid on the card, and why you should not start one unless the tiles are already falling your way."
+            watchOut: "No jokers, anywhere. Because nothing can be called except the winning tile, you should not start one unless the tiles are already falling your way."
         ),
     ]
 
@@ -170,7 +170,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-bam", term: "Bam", aliases: ["bamboo", "sticks", "bams"], group: .tiles,
-            definition: "The bamboo suit, drawn as sticks. The 1 Bam is usually a bird rather than a single stick, which surprises new players. The Green Dragon is the bam family's dragon."
+            definition: "The bamboo suit, drawn as sticks. The 1 Bam is usually a bird rather than a single stick. The Green Dragon is the bam family's dragon."
         ),
         GlossaryTerm(
             id: "g-dot", term: "Dot", aliases: ["circle", "dots", "balls"], group: .tiles,
@@ -178,7 +178,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-soap", term: "Soap", aliases: ["white dragon", "zero", "blank"], group: .tiles,
-            definition: "The White Dragon, so called because the plain-faced version looks like a bar of soap. It is the dot suit's dragon, and it also stands in for a zero in year hands, which makes it one of the most contested tiles on the table."
+            definition: "The White Dragon, so called because the plain-faced version looks like a bar of soap. It is the dot suit's dragon, and it also stands in for a zero in year hands."
         ),
         GlossaryTerm(
             id: "g-red-dragon", term: "Red Dragon", aliases: ["chung", "rd"], group: .tiles,
@@ -194,19 +194,19 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-flower", term: "Flower", aliases: ["flowers", "season"], group: .tiles,
-            definition: "Eight flower tiles come in the set, and for card purposes they are interchangeable: a flower is a flower. They are never part of a numbered run, and many hands ask for two, three or four of them."
+            definition: "Eight flower tiles come in the set, and for card purposes any flower can stand in for any other. They are never part of a numbered run. Wherever the card shows an F, any flower works."
         ),
         GlossaryTerm(
             id: "g-joker", term: "Joker", aliases: ["jokers", "wild"], group: .tiles,
-            definition: "Eight wild tiles. A joker can stand in for a tile inside a group of three or more (a pung, kong or quint). It can NEVER be a pair, a single, or part of a Singles and Pairs hand, and it can never be passed in the Charleston."
+            definition: "Eight wild tiles. A joker can stand in for a tile inside a group of three or more (a pung, kong or quint). It can never be a pair, a single, or part of a Singles and Pairs hand, and it can never be passed in the Charleston."
         ),
         GlossaryTerm(
             id: "g-honors", term: "Honors", aliases: ["honor tiles"], group: .tiles,
-            definition: "The winds and dragons together. They carry no number, so a rack full of honors is almost always looking at the Winds and Dragons section."
+            definition: "The winds and dragons together. They carry no number, so a rack full of honors points to the Winds and Dragons section."
         ),
         GlossaryTerm(
             id: "g-set-count", term: "The 152 tiles", aliases: ["how many tiles", "tile count"], group: .tiles,
-            definition: "An American set is 152 tiles: 108 numbers (three suits, nine numbers, four each), 16 winds, 12 dragons, 8 flowers and 8 jokers. Knowing four of each number exist is the whole basis of counting what is still live."
+            definition: "An American set has 152 tiles. That is 108 numbers (three suits, nine numbers, four each), 16 winds, 12 dragons, 8 flowers and 8 jokers. Knowing that four of each tile exist is the basis of counting what is still live."
         ),
 
         // MARK: Groups
@@ -221,7 +221,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-kong", term: "Kong", aliases: ["four of a kind"], group: .groups,
-            definition: "Four identical tiles. Jokers are allowed inside one, so a kong is often two naturals and two jokers."
+            definition: "Four identical tiles. Jokers are allowed inside one, so a kong can be part natural tiles and part jokers."
         ),
         GlossaryTerm(
             id: "g-quint", term: "Quint", aliases: ["five of a kind"], group: .groups,
@@ -233,7 +233,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-exposure", term: "Exposure", aliases: ["expose", "exposed"], group: .groups,
-            definition: "A called group laid face up on top of your rack for everyone to see. It is the single biggest piece of information you give away, and the best information you get from other players."
+            definition: "A called group laid face up on top of your rack for everyone to see. It tells the table which hands you can still make, and it shows you what other players are building."
         ),
         GlossaryTerm(
             id: "g-concealed", term: "Concealed hand", aliases: ["closed hand"], group: .groups,
@@ -256,11 +256,11 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-first-right", term: "First right", aliases: ["first pass"], group: .charleston,
-            definition: "The opening pass of three tiles to the player on your right. Like every pass except the last one of each Charleston, it must come from tiles you have looked at, so it is the moment to dump your most isolated junk."
+            definition: "The opening pass of three tiles to the player on your right. Like every pass except the last one of each Charleston, it must come from tiles you have looked at, so it is a good moment to pass your most isolated tiles."
         ),
         GlossaryTerm(
             id: "g-blind-pass", term: "Blind pass", aliases: ["blind"], group: .charleston,
-            definition: "Passing along tiles you have not looked at, taken straight from the set you were just handed. It is allowed only on the last pass of each Charleston (the first Left and the second Right), and it is what you do when you genuinely have nothing to spare."
+            definition: "Passing along tiles you have not looked at, taken straight from the set you were just handed. It is allowed only on the last pass of each Charleston (the first Left and the second Right), and it is useful when you have nothing to spare."
         ),
         GlossaryTerm(
             id: "g-courtesy", term: "Courtesy pass", aliases: ["optional pass", "across"], group: .charleston,
@@ -268,7 +268,7 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-steal", term: "Stealing the pass", aliases: ["steal"], group: .charleston,
-            definition: "Another name for the blind pass: sending on some or all of the tiles you were just handed without looking at them. Allowed only on the last pass of each Charleston (the first Left and the second Right)."
+            definition: "Another name for the blind pass, meaning sending on some or all of the tiles you were just handed without looking at them. Allowed only on the last pass of each Charleston (the first Left and the second Right)."
         ),
         GlossaryTerm(
             id: "g-no-jokers-passed", term: "Jokers are never passed", aliases: ["passing jokers"], group: .charleston,
@@ -283,11 +283,11 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-dead-hand", term: "Dead hand", group: .play,
-            definition: "A hand that can no longer legally win, usually because of an exposure that no card hand can match or a wrong mah jongg laid down. Once another player calls it dead and the tiles prove it, you stop drawing and discarding for the rest of the hand, but you still pay the winner. Nobody calls their own hand dead: until someone does, keep playing and discard defensively."
+            definition: "A hand that can no longer legally win, usually because of an exposure that no card hand can match or a wrong mah jongg laid down. Once another player calls it dead and the tiles prove it, you stop drawing and discarding for the rest of the hand, but you still pay the winner. Nobody calls their own hand dead, so until someone does, keep playing and discard defensively."
         ),
         GlossaryTerm(
             id: "g-wall-game", term: "Wall game", aliases: ["draw", "no winner"], group: .play,
-            definition: "Nobody declares mah jongg before the tiles run out. It happens more often than beginners expect, and until it ends, any opponent can still win and collect from you, so keep discarding carefully."
+            definition: "Nobody declares mah jongg before the tiles run out. Until it ends, any opponent can still win and collect from you, so keep discarding carefully."
         ),
         GlossaryTerm(
             id: "g-joker-swap", term: "Joker swap", aliases: ["redemption", "redeem", "joker exchange"], group: .play,
@@ -295,15 +295,15 @@ enum ReferenceContent {
         ),
         GlossaryTerm(
             id: "g-hot-tile", term: "Hot tile", aliases: ["dangerous discard"], group: .play,
-            definition: "A tile that plainly helps somebody at the table, usually because their exposures point at it. Late in a hand, throwing a hot tile is how a good rack still loses."
+            definition: "A tile that plainly helps somebody at the table, usually because their exposures point at it. Late in a hand, throwing a hot tile can hand someone the win."
         ),
         GlossaryTerm(
             id: "g-safe-tile", term: "Safe tile", aliases: ["safe discard"], group: .play,
-            definition: "A tile no live hand seems to want: one already discarded twice with no reaction, or one that clashes with every exposure on the table. Keeping one in reserve for the endgame is a habit worth building."
+            definition: "A tile no live hand seems to want, such as one already discarded twice with no reaction or one that clashes with every exposure on the table. Keeping one in reserve for the endgame is a habit worth building."
         ),
         GlossaryTerm(
             id: "g-mahjongg-call", term: "Mah Jongg", aliases: ["mahjong", "mah jong", "mahj", "maj", "declaring", "win"], group: .play,
-            definition: "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure: laying down a wrong hand kills it."
+            definition: "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure, because laying down a wrong hand kills it."
         ),
         GlossaryTerm(
             id: "g-rack", term: "Rack", group: .play,

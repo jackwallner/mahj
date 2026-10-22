@@ -19,35 +19,49 @@
   * { box-sizing: border-box; }
   html, body { margin: 0; background: transparent; }
   body { font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; color: var(--ink); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .card { padding: 16px 16px 12px; }
   .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink3); display: flex; justify-content: space-between; gap: 8px; }
   h2 { font-size: 19px; font-weight: 600; line-height: 1.3; margin: 6px 0 4px; }
+  h2:focus, .verdict:focus { outline: none; }
+  h3 { font-size: 13px; font-weight: 600; color: var(--ink2); margin: 14px 0 6px; }
   .sub { color: var(--ink2); margin: 0 0 10px; }
   p { margin: 8px 0; }
   .tip { background: var(--well); border-radius: 12px; padding: 10px 12px; color: var(--ink2); font-size: 14px; margin-top: 10px; }
   .rack { display: grid; gap: 5px; margin: 12px 0 6px; justify-content: start; }
-  .rack > * { display: block; }
+  .rack > * { display: block; position: relative; }
   .rack svg { display: block; width: 100%; height: auto; }
   .rack button.tile { padding: 0; border: 0; background: none; cursor: pointer; border-radius: 8px; transition: transform .12s ease; }
   .rack button.tile:focus-visible { outline: 2px solid var(--jade); outline-offset: 2px; }
-  .rack .picked svg { transform: translateY(-7px); filter: drop-shadow(0 0 0 var(--jade)); }
-  .rack .picked svg rect.face { stroke: var(--jade); stroke-width: 2.4; }
-  .rack .marked svg rect.face { stroke: var(--coral); stroke-width: 2.4; }
+  .rack .picked svg, .rack .hit svg, .rack .miss svg { transform: translateY(-7px); }
+  .rack .picked svg rect.face, .rack .hit svg rect.face { stroke: var(--jade); stroke-width: 2.6; }
+  .rack .miss svg rect.face { stroke: var(--bad); stroke-width: 2.6; }
+  .rack .coach svg rect.face { stroke: var(--jade); stroke-width: 2.4; stroke-dasharray: 4 3; }
+  .rack .marked svg rect.face { stroke: var(--coral); stroke-width: 2.6; }
   .choices { display: grid; gap: 8px; margin-top: 12px; }
   .choice { text-align: left; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 12px; padding: 11px 13px; cursor: pointer; }
   .choice:hover:not(:disabled) { border-color: var(--jade); }
+  .choice:focus-visible, .btn:focus-visible { outline: 2px solid var(--jade); outline-offset: 2px; }
   .choice.right { border-color: var(--good); background: color-mix(in srgb, var(--good) 12%, var(--bg)); }
   .choice.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 10%, var(--bg)); }
-  .choice:disabled { cursor: default; }
+  .choice:disabled { cursor: default; color: var(--ink); }
   .verdict { font-weight: 600; margin: 12px 0 2px; }
   .verdict.right { color: var(--good); } .verdict.wrong { color: var(--bad); }
   .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .btns { display: flex; gap: 8px; }
   .btn { font: 600 14px/1 inherit; font-family: inherit; border-radius: 999px; padding: 10px 16px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); cursor: pointer; }
   .btn.primary { background: var(--jade); border-color: var(--jade); color: var(--on-jade); }
   .btn:disabled { opacity: .45; cursor: default; }
-  .dots { display: flex; gap: 4px; }
+  .dots { display: flex; gap: 4px; flex-wrap: wrap; }
   .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--rule); }
   .dots i.on { background: var(--jade); }
+  .picks { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+  .picks li { display: flex; align-items: center; gap: 10px; }
+  .picks svg { flex: none; }
+  .picks .why { color: var(--ink2); font-size: 14px; }
+  .plan { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; color: var(--ink2); font-size: 14px; }
+  .plan b { color: var(--ink); font-weight: 600; }
+  .warn { border: 1px solid var(--coral); border-radius: 12px; padding: 9px 12px; font-size: 14px; margin: 10px 0; }
   .sections { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
   .sections li { border: 1px solid var(--rule); border-radius: 12px; padding: 10px 12px; }
   .sections b { font-weight: 600; }
@@ -56,6 +70,10 @@
   .chip.possible { background: color-mix(in srgb, var(--jade) 16%, var(--bg)); color: var(--jade); }
   .sections .note { color: var(--ink2); font-size: 14px; margin-top: 3px; }
   details summary { cursor: pointer; color: var(--ink2); font-size: 14px; margin-top: 12px; }
+  .missed { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 8px; font-size: 14px; }
+  .missed li { border-left: 3px solid var(--rule); padding-left: 10px; }
+  .missed .ans { color: var(--ink2); }
+  .missed li.one { display: flex; gap: 10px; align-items: center; }
   .foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--ink3); }
   .score { font-size: 34px; font-weight: 600; line-height: 1; margin: 10px 0 4px; }
   .empty { color: var(--ink2); }
@@ -63,35 +81,44 @@
 </head>
 <body>
 <div id="root" class="card"><p class="empty">Loading…</p></div>
+<div id="live" class="sr" role="status" aria-live="polite"></div>
 <script>
 (() => {
-  // ---------- host bridge: ChatGPT's window.openai, with an MCP Apps fallback ----------
-  const host = {
-    data() {
-      const o = window.openai;
-      return o ? { output: o.toolOutput, meta: o.toolResponseMetadata, state: o.widgetState } : { output: mcp.output, meta: mcp.meta, state: null };
-    },
-    saveState(state) { try { window.openai?.setWidgetState?.(state); } catch {} },
-    callTool(name, args) {
-      if (window.openai?.callTool) return window.openai.callTool(name, args);
-      return mcp.request("tools/call", { name, arguments: args });
-    },
-    followUp(prompt) {
-      if (window.openai?.sendFollowUpMessage) return window.openai.sendFollowUpMessage({ prompt });
-      return mcp.request("ui/message", { role: "user", content: [{ type: "text", text: prompt }] });
-    },
-    theme() { return window.openai?.theme ?? mcp.theme ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); },
-  };
-
+  // ---------- host bridge ----------
+  // The MCP Apps bridge (ui/* over postMessage) comes first; ChatGPT's
+  // window.openai fills in data the bridge has not delivered and keeps the
+  // widget's state across reloads. Each capability is detected on its own.
+  const TIMEOUT = 10000;
   const mcp = {
-    output: null, meta: null, theme: null, id: 0, pending: new Map(),
+    output: null, meta: null, theme: null, ready: false, id: 0, pending: new Map(),
     request(method, params) {
       const id = ++this.id;
       parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
-      return new Promise((resolve, reject) => this.pending.set(id, { resolve, reject }));
+      return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => { this.pending.delete(id); reject(new Error("timeout")); }, TIMEOUT);
+        this.pending.set(id, { resolve: (v) => { clearTimeout(timer); resolve(v); }, reject: (e) => { clearTimeout(timer); reject(e); } });
+      });
     },
+    notify(method, params) { parent.postMessage({ jsonrpc: "2.0", method, ...(params ? { params } : {}) }, "*"); },
   };
+  const openai = () => (typeof window.openai === "object" && window.openai) || {};
+  const host = {
+    data() {
+      const o = openai();
+      return { output: mcp.output ?? o.toolOutput ?? null, meta: mcp.meta ?? o.toolResponseMetadata ?? null, state: o.widgetState ?? null };
+    },
+    saveState(state) { try { openai().setWidgetState?.(state); } catch {} },
+    followUp(prompt) {
+      if (mcp.ready) return mcp.request("ui/message", { role: "user", content: [{ type: "text", text: prompt }] });
+      const o = openai();
+      if (typeof o.sendFollowUpMessage === "function") return Promise.resolve(o.sendFollowUpMessage({ prompt }));
+      return Promise.reject(new Error("no host"));
+    },
+    theme() { return mcp.theme ?? openai().theme ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); },
+  };
+
   window.addEventListener("message", (e) => {
+    if (e.source !== parent) return;
     const m = e.data;
     if (!m || m.jsonrpc !== "2.0") return;
     if (m.id && mcp.pending.has(m.id)) {
@@ -108,7 +135,19 @@
   });
   window.addEventListener("openai:set_globals", () => { applyTheme(); start(); });
 
+  function connect() {
+    mcp.request("ui/initialize", { protocolVersion: "2026-01-26", appCapabilities: {}, appInfo: { name: "mahj", version: "1.1.0" } })
+      .then((r) => { mcp.ready = true; mcp.theme = r?.hostContext?.theme ?? null; applyTheme(); mcp.notify("ui/notifications/initialized"); sendSize(); })
+      .catch(() => {});
+  }
+
   function applyTheme() { document.documentElement.dataset.theme = host.theme() === "dark" ? "dark" : "light"; }
+
+  let lastHeight = 0;
+  function sendSize() {
+    const height = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    if (mcp.ready && height !== lastHeight) { lastHeight = height; mcp.notify("ui/notifications/size-changed", { height }); }
+  }
 
   // ---------- tiles, drawn from data like the app's TileView ----------
   const NAMES = { C: "Crak", B: "Bam", D: "Dot" };
@@ -135,135 +174,190 @@
     });
     return out;
   }
-  const label = (text, color) => `<text x="22" y="52" text-anchor="middle" font-size="8" font-weight="800" letter-spacing=".3" fill="${color}" font-family="-apple-system,system-ui,sans-serif">${text}</text>`;
+  // The 1 Bam is a bird on most sets, so it is drawn as one.
+  const BIRD = `<g fill="var(--bam)"><ellipse cx="21" cy="40" rx="9.5" ry="6.2"/><circle cx="29" cy="31.5" r="4.4"/><path d="M12.5 39 L5 32 L7 42.5 Z"/></g><path d="M33 31 L37.5 32.4 L33 33.6 Z" fill="var(--crak)"/><circle cx="30" cy="30.6" r="1" fill="var(--ivory)"/>`;
+  const label = (text, color) => `<text x="22" y="53" text-anchor="middle" font-size="9.5" font-weight="800" fill="${color}" font-family="-apple-system,system-ui,sans-serif">${text}</text>`;
   const big = (text, color, y = 30, size = 24, serif = true) => `<text x="22" y="${y}" text-anchor="middle" font-size="${size}" font-weight="700" fill="${color}" font-family="${serif ? "ui-serif,Georgia,serif" : "-apple-system,system-ui,sans-serif"}">${text}</text>`;
   function face(t) {
     if (/^[1-9]C$/.test(t)) return big(t[0], "var(--crak)", 27, 23) + big("萬", "var(--crak)", 49, 15, false);
+    if (t === "1B") return big("1", "var(--bam)", 16, 13) + BIRD;
     if (/^[1-9][BD]$/.test(t)) return big(t[0], t[1] === "B" ? "var(--bam)" : "var(--dot)", 16, 13) + pips(Number(t[0]), t[1]);
-    if (WINDS[t]) return big(t, "#2b2621", 32, 25) + label("WIND", "#776d62");
+    if (WINDS[t]) return big(t, "#2b2621", 33, 27) + label("WIND", "#6b6157");
     if (t === "RD") return big("中", "var(--crak)", 34, 22, false) + label("RED", "var(--crak)");
     if (t === "GD") return big("發", "var(--bam)", 34, 22, false) + label("GREEN", "var(--bam)");
-    if (t === "SO") return `<rect x="13" y="12" width="18" height="24" rx="3" fill="none" stroke="var(--dot)" stroke-width="2.6"/>` + label("SOAP", "var(--dot)");
-    if (t === "F") return `<g fill="var(--flower)"><circle cx="22" cy="18" r="5"/><circle cx="15" cy="25" r="5"/><circle cx="29" cy="25" r="5"/><circle cx="17.5" cy="33" r="5"/><circle cx="26.5" cy="33" r="5"/></g><circle cx="22" cy="26.5" r="3.4" fill="var(--ivory)"/>` + label("FLOWER", "var(--flower)");
-    return big("J", "var(--joker)", 34, 26) + label("JOKER", "var(--joker)");
+    if (t === "SO") return `<rect x="13" y="11" width="18" height="24" rx="3" fill="none" stroke="var(--dot)" stroke-width="2.6"/>` + label("SOAP", "var(--dot)");
+    if (t === "F") return `<g fill="var(--flower)"><circle cx="22" cy="17" r="5"/><circle cx="15" cy="24" r="5"/><circle cx="29" cy="24" r="5"/><circle cx="17.5" cy="32" r="5"/><circle cx="26.5" cy="32" r="5"/></g><circle cx="22" cy="25.5" r="3.4" fill="var(--ivory)"/>` + label("FLOWER", "var(--flower)");
+    return big("J", "var(--joker)", 33, 26) + label("JOKER", "var(--joker)");
   }
-  function tile(t, width = 40) {
-    return `<svg width="${width}" height="${width * 1.35}" viewBox="0 0 44 59.4" role="img" aria-label="${spoken(t)}"><rect class="face" x=".75" y=".75" width="42.5" height="57.9" rx="7" fill="var(--ivory)" stroke="var(--edge)" stroke-width="1.5"/>${face(t)}</svg>`;
+  function tile(t, width = 40, name = spoken(t)) {
+    return `<svg width="${width}" height="${width * 1.35}" viewBox="0 0 44 59.4" role="img" aria-label="${esc(name)}"><rect class="face" x=".75" y=".75" width="42.5" height="57.9" rx="7" fill="var(--ivory)" stroke="var(--edge)" stroke-width="1.5"/>${face(t)}</svg>`;
   }
   // Rows are balanced, like the app's rack: 13 tiles that do not fit on one
-  // line split 7 and 6, never 12 and a lone tile.
+  // line split 7 and 6, never 12 and a lone tile. `marks` maps a position to
+  // a class and a few words read out with the tile's name.
   function rack(tiles, opts = {}) {
     if (!tiles?.length) return "";
-    const gap = 5, max = 46, min = 34;
+    const gap = 5, max = 46, min = 36;
     const room = Math.max(root.clientWidth - 36, 200);
     const fit = Math.max(1, Math.floor((room + gap) / (min + gap)));
     const rows = Math.ceil(tiles.length / Math.min(fit, tiles.length));
     const perRow = Math.ceil(tiles.length / rows);
     const w = Math.min(max, Math.floor((room - gap * (perRow - 1)) / perRow));
     return `<div class="rack" style="grid-template-columns: repeat(${perRow}, ${w}px)">${tiles.map((t, i) => {
-      const cls = opts.picked?.has(i) ? "picked" : opts.marked?.has(i) ? "marked" : "";
+      const [cls, note] = opts.marks?.get(i) ?? ["", ""];
+      const name = note ? `${spoken(t)}, ${note}` : spoken(t);
       return opts.tap
-        ? `<button class="tile ${cls}" data-i="${i}" aria-pressed="${opts.picked?.has(i) ? "true" : "false"}">${tile(t, w)}</button>`
-        : `<span class="${cls}">${tile(t, w)}</span>`;
+        ? `<button class="tile ${cls}" data-i="${i}" data-focus="tile-${i}" aria-pressed="${cls === "picked"}">${tile(t, w, name)}</button>`
+        : `<span class="${cls}">${tile(t, w, name)}</span>`;
     }).join("")}</div>`;
   }
 
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const root = document.getElementById("root");
-  function paint(html) {
+  const live = document.getElementById("live");
+  function announce(text) { live.textContent = ""; setTimeout(() => { live.textContent = text; }, 30); }
+  // Repaints the card and puts focus back where it was, or on `focus`.
+  function paint(html, focus) {
+    const was = document.activeElement?.closest?.("[data-focus]")?.dataset.focus;
     root.innerHTML = html + `<div class="foot">Not affiliated with the National Mah Jongg League</div>`;
+    const key = focus ?? was;
+    if (key) root.querySelector(`[data-focus="${key}"]`)?.focus();
+    sendSize();
   }
   const period = (s) => (/[.!?]$/.test(s) ? s : `${s}.`);
+  const goodOf = (n) => (n === 0 ? "None of your three picks is a good pass." : n === 1 ? "One of your three picks is a good pass." : `${cap(words(n))} of your three picks are good passes.`);
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  const words = (n) => ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"][n] ?? String(n);
 
   // ---------- views ----------
   let state = null;
+  let focusNext = null;
 
   function learnView(deck) {
-    const i = Math.min(state.i ?? 0, deck.cards.length - 1), c = deck.cards[i], last = i === deck.cards.length - 1;
+    const i = state.i, c = deck.cards[i], last = i === deck.cards.length - 1;
+    const asks = Array.isArray(c.choices) && c.choices.length > 1;
+    const chosen = state.chosen?.[i];
+    const shown = !asks || chosen !== undefined;
     paint(`
       <div class="eyebrow"><span>${esc(deck.title)}</span><span>${i + 1} of ${deck.cards.length}</span></div>
-      <h2>${esc(c.title)}</h2>
+      ${c.context ? `<p class="sub" style="margin-top:8px">${esc(c.context)}</p>` : ""}
+      <h2 tabindex="-1" data-focus="title">${esc(c.title)}</h2>
       ${c.subtitle ? `<p class="sub">${esc(c.subtitle)}</p>` : ""}
       ${rack(c.tiles)}
-      <p>${c.lead ? `<b>${esc(period(c.lead))}</b> ` : ""}${esc(c.body)}</p>
-      ${c.tip ? `<div class="tip">${esc(c.tip)}</div>` : ""}
+      ${asks ? `<div class="choices">${c.choices.map((label, k) => {
+        const cls = shown ? (k === c.answerIndex ? "right" : k === chosen ? "wrong" : "") : "";
+        return `<button class="choice ${cls}" data-k="${k}" data-focus="choice-${k}" ${shown ? "disabled" : ""}>${esc(label)}</button>`;
+      }).join("")}</div>` : ""}
+      ${asks && shown ? `<p class="verdict ${chosen === c.answerIndex ? "right" : "wrong"}" tabindex="-1" data-focus="verdict">${chosen === c.answerIndex ? "Right." : "Not quite."}</p>` : ""}
+      ${shown ? `<p>${c.lead ? `<b>${esc(period(c.lead))}</b> ` : ""}${esc(c.body)}</p>${c.tip ? `<div class="tip">${esc(c.tip)}</div>` : ""}` : ""}
       <div class="row">
-        <button class="btn" data-prev ${i === 0 ? "disabled" : ""}>Back</button>
+        <button class="btn" data-prev data-focus="prev" ${i === 0 ? "disabled" : ""}>Back</button>
         ${last && deck.practice
-          ? `<button class="btn primary" data-practice>Practice this</button>`
-          : `<button class="btn primary" data-next ${last ? "disabled" : ""}>Next</button>`}
-      </div>`);
-    root.querySelector("[data-prev]")?.addEventListener("click", () => go({ i: i - 1 }));
-    root.querySelector("[data-next]")?.addEventListener("click", () => go({ i: i + 1 }));
-    root.querySelector("[data-practice]")?.addEventListener("click", () => host.followUp(`Quiz me on ${deck.practiceLabel} in American mah jongg.`));
+          ? `<button class="btn primary" data-practice data-focus="practice">Practice this</button>`
+          : `<button class="btn${asks && !shown ? "" : " primary"}" data-next data-focus="next" ${last ? "disabled" : ""}>${asks && !shown ? "Skip" : "Next"}</button>`}
+      </div>
+      <p class="sub" data-sent hidden></p>`, focusNext);
+    focusNext = null;
+    root.querySelectorAll("[data-k]").forEach((b) => b.addEventListener("click", () => {
+      const k = Number(b.dataset.k), right = k === c.answerIndex;
+      announce(`${right ? "Right." : "Not quite."} ${c.lead ? period(c.lead) : ""}`);
+      go({ chosen: { ...state.chosen, [i]: k } }, "verdict");
+    }));
+    root.querySelector("[data-prev]")?.addEventListener("click", () => go({ i: i - 1 }, i - 1 === 0 ? "title" : "prev"));
+    root.querySelector("[data-next]")?.addEventListener("click", () => go({ i: i + 1 }, i + 1 === deck.cards.length - 1 ? "title" : "next"));
+    root.querySelector("[data-practice]")?.addEventListener("click", (e) => {
+      const prompt = `Quiz me on ${deck.practiceLabel} in American mah jongg.`;
+      const note = root.querySelector("[data-sent]");
+      e.currentTarget.disabled = true;
+      host.followUp(prompt)
+        .then(() => { note.hidden = false; note.textContent = "Sent. The quiz will appear in the chat."; announce(note.textContent); })
+        .catch(() => { e.currentTarget.disabled = false; note.hidden = false; note.textContent = `That didn't send. Type "${prompt}" in the chat instead.`; announce(note.textContent); });
+    });
   }
 
   function practiceView(session) {
-    const qs = session.questions, i = state.i ?? 0;
+    const qs = session.questions, i = state.i;
     if (i >= qs.length) return doneView(session);
     const q = qs[i], answered = state.answered;
     const progress = `<div class="dots" aria-hidden="true">${qs.map((_, k) => `<i class="${k <= i ? "on" : ""}"></i>`).join("")}</div>`;
     const head = `<div class="eyebrow"><span>${esc(session.title)}</span><span>${i + 1} of ${qs.length}</span></div>`;
+    const nextBtn = `<button class="btn primary" data-next data-focus="next">${i === qs.length - 1 ? "See score" : "Next"}</button>`;
 
     if (q.kind === "pass") {
-      const picked = new Set(state.picked ?? []);
-      const marked = answered ? passIndexes(q.tiles, q.pass) : new Set();
-      const hits = answered ? [...picked].filter((k) => marked.has(k)).length : 0;
-      const exact = hits === 3, ok = answered && goodPass(q, picked);
+      const picked = new Set(state.picked);
+      const review = answered ? reviewPass(q, picked) : null;
+      const ok = answered && review.good;
+      const marks = new Map();
+      if (review) {
+        for (const k of review.hits) marks.set(k, ["hit", "your pick, a good pass"]);
+        for (const k of review.misses) marks.set(k, ["miss", "your pick, not in the coach's pass"]);
+        for (const k of review.coach) marks.set(k, ["coach", "the coach's pick"]);
+      } else {
+        for (const k of picked) marks.set(k, ["picked", "picked"]);
+      }
+      const hits = review?.hits.length ?? 0;
       paint(`${head}
-        <h2>${esc(q.prompt)}</h2>
-        <p class="sub">${answered ? "Your picks are raised. The coach's pass is outlined." : state.jokerTapped ? "Jokers can never be passed. Pick three other tiles." : "Tap the 3 tiles you would pass."}</p>
-        ${rack(q.tiles, { tap: !answered, picked, marked })}
-        ${answered ? `<p class="verdict ${ok ? "right" : "wrong"}">${exact ? "Same pass as the coach." : ok ? "Just as good as the coach's pass." : `${hits} of 3 match the coach.`}</p>
+        <h2 tabindex="-1" data-focus="title">${esc(q.prompt)}</h2>
+        <p class="sub">${answered ? "Raised tiles are your picks: green is a good pass, red is not. Dashed outlines are the coach's picks you left." : state.jokerTapped ? "Jokers can never be passed. Pick three other tiles." : `Tap the 3 tiles you would pass.${picked.size ? ` ${cap(words(picked.size))} picked.` : ""}`}</p>
+        ${rack(q.tiles, { tap: !answered, marks })}
+        ${answered ? `<p class="verdict ${ok ? "right" : "wrong"}" tabindex="-1" data-focus="verdict">${review.exact ? "Same pass as the coach." : ok ? "Just as good as the coach's pass." : goodOf(hits)}</p>
           <p>${esc(q.explanation)}</p>${q.tip ? `<div class="tip">${esc(q.tip)}</div>` : ""}` : ""}
         <div class="row">${progress}
-          ${answered ? `<button class="btn primary" data-next>${i === qs.length - 1 ? "See score" : "Next"}</button>`
-            : `<button class="btn primary" data-check ${picked.size === 3 ? "" : "disabled"}>Pass these 3</button>`}
-        </div>`);
+          ${answered ? nextBtn : `<button class="btn primary" data-check data-focus="check" ${picked.size === 3 ? "" : "disabled"}>Pass these 3</button>`}
+        </div>`, focusNext);
+      focusNext = null;
       root.querySelectorAll("button.tile").forEach((b) => b.addEventListener("click", () => {
         const k = Number(b.dataset.i);
-        if (q.tiles[k] === "J") return go({ jokerTapped: true }); // jokers are never passed
-        picked.has(k) ? picked.delete(k) : picked.size < 3 && picked.add(k);
+        if (q.tiles[k] === "J") { announce("Jokers can never be passed. Pick three other tiles."); return go({ jokerTapped: true }); }
+        if (picked.has(k)) picked.delete(k); else if (picked.size < 3) picked.add(k);
+        announce(`${picked.has(k) ? "Picked" : "Unpicked"} ${spoken(q.tiles[k])}. ${cap(words(picked.size))} of 3.`);
         go({ picked: [...picked], jokerTapped: false });
       }));
       root.querySelector("[data-check]")?.addEventListener("click", () => {
-        go({ answered: true, score: (state.score ?? 0) + (goodPass(q, picked) ? 1 : 0) });
+        const r = reviewPass(q, picked);
+        announce(`${r.exact ? "Same pass as the coach." : r.good ? "Just as good as the coach's pass." : goodOf(r.hits.length)} ${q.explanation}`);
+        go({ answered: true, score: state.score + (r.good ? 1 : 0), missed: r.good ? state.missed : [...state.missed, q.id] }, "verdict");
       });
     } else {
       paint(`${head}
-        ${q.context ? `<p class="sub">${esc(q.context)}</p>` : ""}
-        <h2>${esc(q.prompt)}</h2>
+        ${q.context ? `<p class="sub" style="margin-top:8px">${esc(q.context)}</p>` : ""}
+        <h2 tabindex="-1" data-focus="title">${esc(q.prompt)}</h2>
         ${rack(q.tiles)}
         <div class="choices">${q.choices.map((c, k) => {
           const cls = answered ? (k === q.answerIndex ? "right" : k === state.choice ? "wrong" : "") : "";
-          return `<button class="choice ${cls}" data-k="${k}" ${answered ? "disabled" : ""}>${esc(c)}</button>`;
+          return `<button class="choice ${cls}" data-k="${k}" data-focus="choice-${k}" ${answered ? "disabled" : ""}>${esc(c)}</button>`;
         }).join("")}</div>
-        ${answered ? `<p class="verdict ${state.choice === q.answerIndex ? "right" : "wrong"}">${state.choice === q.answerIndex ? "Right." : "Not quite."}</p><p>${esc(q.explanation)}</p>` : ""}
-        <div class="row">${progress}
-          ${answered ? `<button class="btn primary" data-next>${i === qs.length - 1 ? "See score" : "Next"}</button>` : ""}
-        </div>`);
+        ${answered ? `<p class="verdict ${state.choice === q.answerIndex ? "right" : "wrong"}" tabindex="-1" data-focus="verdict">${state.choice === q.answerIndex ? "Right." : `Not quite. The answer is “${esc(q.choices[q.answerIndex])}.”`}</p><p>${esc(q.explanation)}</p>` : ""}
+        <div class="row">${progress}${answered ? nextBtn : ""}</div>`, focusNext);
+      focusNext = null;
       root.querySelectorAll("[data-k]").forEach((b) => b.addEventListener("click", () => {
-        const k = Number(b.dataset.k);
-        go({ answered: true, choice: k, score: (state.score ?? 0) + (k === q.answerIndex ? 1 : 0) });
+        const k = Number(b.dataset.k), right = k === q.answerIndex;
+        announce(`${right ? "Right." : `Not quite. The answer is “${q.choices[q.answerIndex]}.”`} ${q.explanation}`);
+        go({ answered: true, choice: k, score: state.score + (right ? 1 : 0), missed: right ? state.missed : [...state.missed, q.id] }, "verdict");
       }));
     }
-    root.querySelector("[data-next]")?.addEventListener("click", () => go({ i: i + 1, answered: false, picked: [], choice: null, jokerTapped: false }));
+    root.querySelector("[data-next]")?.addEventListener("click", () => go({ i: i + 1, answered: false, picked: [], choice: null, jokerTapped: false }, "title"));
   }
 
   // A pass is good when it keeps every required coach pick and fills the rest
-  // from the coach's interchangeable picks (`swap`) or their stand-ins (`also`).
-  function goodPass(q, picked) {
-    const tiles = [...picked].map((k) => q.tiles[k]);
+  // from the coach's interchangeable picks (`swap`) or their stand-ins
+  // (`also`). Returns which picks are good, which are not, and which coach
+  // picks were left on the rack.
+  function reviewPass(q, picked) {
     const required = [...q.pass];
     for (const t of q.swap ?? []) required.splice(required.indexOf(t), 1);
     const flexible = [...(q.swap ?? []), ...(q.also ?? [])];
-    for (const t of tiles) {
-      const r = required.indexOf(t), f = flexible.indexOf(t);
-      if (r >= 0) required.splice(r, 1);
-      else if (f >= 0) flexible.splice(f, 1);
-      else return false;
+    const hits = [], misses = [];
+    for (const k of picked) {
+      const t = q.tiles[k], r = required.indexOf(t), f = flexible.indexOf(t);
+      if (r >= 0) { required.splice(r, 1); hits.push(k); }
+      else if (f >= 0) { flexible.splice(f, 1); hits.push(k); }
+      else misses.push(k);
     }
-    return required.length === 0;
+    const coachAt = passIndexes(q.tiles, q.pass);
+    const coach = [...coachAt].filter((k) => !picked.has(k));
+    const good = misses.length === 0 && required.length === 0 && hits.length === 3;
+    return { hits, misses, coach, good, exact: good && coach.length === 0 };
   }
 
   // Passing tiles as positions on the rack, so duplicate tiles match once each.
@@ -273,78 +367,160 @@
     return out;
   }
 
+  function answerOf(q) {
+    return q.kind === "pass" ? `Pass ${q.pass.map(spoken).join(", ")}` : q.choices[q.answerIndex];
+  }
+
   function doneView(session) {
-    const n = session.questions.length, s = state.score ?? 0;
+    const n = session.questions.length, s = state.score;
+    const missed = session.questions.filter((q) => state.missed.includes(q.id));
     paint(`
       <div class="eyebrow"><span>${esc(session.title)}</span><span>Done</span></div>
-      <div class="score">${s} of ${n}</div>
-      <p class="sub">${s === n ? "Clean sweep." : s >= n / 2 ? "Solid. A few to look at again." : "Worth another round."}</p>
-      <div class="row"><span></span><button class="btn primary" data-again>Go again</button></div>`);
-    root.querySelector("[data-again]").addEventListener("click", () => go({ i: 0, score: 0, answered: false, picked: [], choice: null, round: (state.round ?? 0) + 1 }));
+      <div class="score" tabindex="-1" data-focus="title">${s} of ${n}</div>
+      <p class="sub">${s === n ? `All ${words(n)} right.` : `${missed.length === 1 ? "One to look at again" : `${cap(words(missed.length))} to look at again`}.`}</p>
+      ${missed.length ? `<ul class="missed">${missed.slice(0, 6).map((q) => `<li${q.tiles?.length === 1 ? ' class="one"' : ""}>${q.tiles?.length === 1 ? tile(q.tiles[0], 24) : ""}<div>${esc(q.context ? `${q.context} ${q.prompt}` : q.prompt)}<div class="ans">${esc(answerOf(q))}</div></div></li>`).join("")}</ul>` : ""}
+      <div class="row"><span></span><div class="btns">
+        ${missed.length ? `<button class="btn" data-again data-focus="again">Go again</button><button class="btn primary" data-redo data-focus="redo">Redo the ${missed.length === 1 ? "miss" : words(missed.length)}</button>`
+          : `<button class="btn primary" data-again data-focus="again">Go again</button>`}
+      </div></div>`, focusNext);
+    focusNext = null;
+    const fresh = { i: 0, score: 0, answered: false, picked: [], choice: null, jokerTapped: false, missed: [], round: state.round + 1 };
+    root.querySelector("[data-again]")?.addEventListener("click", () => go({ ...fresh, only: null }, "title"));
+    root.querySelector("[data-redo]")?.addEventListener("click", () => go({ ...fresh, only: missed.map((q) => q.id) }, "title"));
   }
 
   const VERDICT = { fits: "Leaning", possible: "In reach", poor: "Long shot" };
-  function rackView(read) {
-    const passes = passIndexes(read.tiles, read.passes);
+  function rackView(payload) {
+    const read = payload.read;
+    const passAt = passIndexes(read.tiles, read.passes);
+    const marks = new Map([...passAt].map((k) => [k, ["marked", "pass"]]));
     const open = read.sections.filter((s) => s.verdict !== "poor"), poor = read.sections.filter((s) => s.verdict === "poor");
     const item = (s) => `<li><span class="chip ${s.verdict}">${VERDICT[s.verdict]}</span><b>${esc(s.name)}</b><div class="note">${esc(s.note)}</div></li>`;
+    const picks = read.picks ?? read.passes.map((t) => ({ tile: t, reason: "" }));
+    const plan = [
+      read.anchors?.length ? `<li><b>Build on</b> ${esc(read.anchors.join(", "))}</li>` : "",
+      read.hope?.length ? `<li><b>Hope to draw</b> ${esc(read.hope.map(spoken).join(", "))}</li>` : "",
+      read.jokerNote ? `<li>${esc(read.jokerNote)}</li>` : "",
+    ].join("");
     paint(`
       <div class="eyebrow"><span>Your rack</span><span>${read.tiles.length} tiles</span></div>
-      <h2>${esc(read.headline)}</h2>
-      ${rack(read.tiles, { marked: passes })}
-      <p class="sub">${read.passes.length
-        ? `Pass first (outlined): ${read.passes.map(spoken).join(", ")}. They fit nothing this rack is building.${read.spare?.length ? ` Later: ${read.spare.map(spoken).join(", ")}.` : ""}`
-        : "Nothing here is dead weight. On the last pass of each Charleston you may pass blind."}</p>
+      <h2 tabindex="-1" data-focus="title">${esc(read.headline)}</h2>
+      <p class="sub">${esc(read.summary.startsWith(`${read.headline}. `) ? read.summary.slice(read.headline.length + 2) : read.summary)}</p>
+      ${payload.partial ? `<p class="warn">${esc(payload.partial)}</p>` : ""}
+      ${rack(read.tiles, { marks })}
+      ${picks.length ? `<h3>${payload.pass ? `Pass (outlined), for ${esc(payload.pass)}` : "Pass (outlined)"}</h3>
+        <ul class="picks">${picks.map((p) => `<li>${tile(p.tile, 24)}<span><b>${esc(spoken(p.tile))}</b> <span class="why">${esc(p.reason)}</span></span></li>`).join("")}</ul>` : ""}
+      ${read.passNote ? `<p class="sub" style="margin-top:8px">${esc(read.passNote)}</p>` : ""}
+      ${read.spare?.length ? `<p class="sub">Later passes: ${esc(read.spare.map(spoken).join(", "))}.</p>` : ""}
+      ${plan ? `<ul class="plan">${plan}</ul>` : ""}
       <ul class="sections">${open.map(item).join("")}</ul>
       ${poor.length ? `<details><summary>Long shots (${poor.length})</summary><ul class="sections">${poor.map(item).join("")}</ul></details>` : ""}
       <div class="tip">Sections are the families every yearly card is built from. Check the exact lines on your own card before you commit.</div>`);
   }
 
-  function errorView(message) {
-    paint(`<h2>That rack needs a second look</h2><p>${esc(message)}</p>`);
+  function errorView(payload) {
+    paint(`<h2 tabindex="-1" data-focus="title">That rack needs a second look</h2><p>${esc(payload.error)}</p>
+      ${payload.unreadable?.length ? `<p><b>Couldn't read:</b> ${esc(payload.unreadable.join(", "))}</p>` : ""}
+      ${payload.tiles?.length ? `<p class="sub">Read so far (${payload.tiles.length}):</p>${rack(payload.tiles)}` : ""}`);
   }
 
-  function go(patch) {
+  function loadFailed() {
+    if (payload) return;
+    paint(`<h2 tabindex="-1">This card didn't load</h2><p class="sub">The chat didn't hand it any content. Try again, or ask again in the chat.</p>
+      <div class="row"><span></span><button class="btn primary" data-retry>Try again</button></div>`);
+    root.querySelector("[data-retry]").addEventListener("click", () => {
+      paint(`<p class="empty">Loading…</p>`);
+      if (!mcp.ready) connect();
+      start();
+      setTimeout(loadFailed, TIMEOUT);
+    });
+  }
+
+  function go(patch, focus) {
     state = { ...state, ...patch };
-    host.saveState({ key: state.key, ...state });
+    host.saveState(state);
+    focusNext = focus ?? null;
     render();
   }
 
   let payload = null;
   function render() {
     if (!payload) return;
-    if (payload.error) return errorView(payload.error);
+    if (payload.error) return errorView(payload);
     if (payload.view === "learn") return learnView(payload.deck);
-    if (payload.view === "practice") return practiceView(state.round ? { ...payload.session, questions: shuffled(payload.session.questions, state.round) } : payload.session);
-    if (payload.view === "rack") return rackView(payload.read);
+    if (payload.view === "practice") return practiceView(roundOf(payload.session));
+    if (payload.view === "rack") return rackView(payload);
+  }
+
+  // Each "Go again" deals the questions, and their choices, in a new order;
+  // "Redo" keeps only the ones missed.
+  function roundOf(session) {
+    let questions = state.only ? session.questions.filter((q) => state.only.includes(q.id)) : session.questions;
+    if (!questions.length) questions = session.questions;
+    if (!state.round) return { ...session, questions };
+    return { ...session, questions: shuffled(questions, state.round).map((q, k) => reorderChoices(q, state.round * 31 + k)) };
+  }
+
+  function reorderChoices(q, seed) {
+    if (q.kind !== "choice" || q.choices.some((c) => /^(both|all|none|neither)\b/i.test(c))) return q;
+    const order = shuffled(q.choices.map((_, k) => k), seed);
+    return { ...q, choices: order.map((k) => q.choices[k]), answerIndex: order.indexOf(q.answerIndex) };
   }
 
   function shuffled(items, seed) {
     const out = [...items];
-    let s = seed * 9301 + 49297;
+    let s = (seed * 9301 + 49297) % 233280;
     for (let i = out.length - 1; i > 0; i--) { s = (s * 9301 + 49297) % 233280; const j = Math.floor((s / 233280) * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; }
     return out;
+  }
+
+  // Saved state comes back from the host as-is, so every field is checked
+  // against the payload before it is trusted; anything off starts fresh.
+  const int = (v, lo, hi) => Number.isInteger(v) && v >= lo && v <= hi;
+  function restore(saved, next) {
+    const fresh = { key: next.key, i: 0, score: 0, answered: false, picked: [], choice: null, jokerTapped: false, missed: [], round: 0, only: null, chosen: {} };
+    if (!saved || typeof saved !== "object" || saved.key !== next.key) return fresh;
+    if (next.view === "learn") {
+      const cards = next.deck?.cards ?? [];
+      const chosen = saved.chosen && typeof saved.chosen === "object" ? saved.chosen : {};
+      const okChosen = Object.entries(chosen).every(([k, v]) => int(Number(k), 0, cards.length - 1) && int(v, 0, (cards[Number(k)]?.choices?.length ?? 0) - 1));
+      return int(saved.i, 0, cards.length - 1) && okChosen ? { ...fresh, i: saved.i, chosen } : fresh;
+    }
+    if (next.view === "practice") {
+      const qs = next.session?.questions ?? [];
+      const ids = new Set(qs.map((q) => q.id));
+      const only = saved.only === null || saved.only === undefined ? null : Array.isArray(saved.only) && saved.only.every((id) => ids.has(id)) ? saved.only : undefined;
+      const missed = Array.isArray(saved.missed) && saved.missed.every((id) => ids.has(id)) ? saved.missed : undefined;
+      const n = only?.length || qs.length;
+      const picked = Array.isArray(saved.picked) && saved.picked.length <= 3 && new Set(saved.picked).size === saved.picked.length && saved.picked.every((k) => int(k, 0, 13)) ? saved.picked : undefined;
+      const ok = only !== undefined && missed !== undefined && picked !== undefined && int(saved.i, 0, n) && int(saved.score, 0, n)
+        && int(saved.round ?? 0, 0, 10000) && typeof (saved.answered ?? false) === "boolean"
+        && (saved.choice === null || saved.choice === undefined || int(saved.choice, 0, 5));
+      return ok ? { ...fresh, i: saved.i, score: saved.score, answered: !!saved.answered, picked, choice: saved.choice ?? null, missed, round: saved.round ?? 0, only } : fresh;
+    }
+    return fresh;
   }
 
   function start() {
     const { output, meta, state: saved } = host.data();
     const next = meta?.widget ?? output?.widget ?? null;
-    if (!next) return;
-    const key = next.key;
-    if (payload && payload.key === key) return render();
+    if (!next || typeof next !== "object") return;
+    if (payload && payload.key === next.key) return render();
     payload = next;
-    state = saved && saved.key === key ? saved : { key, i: 0, score: 0 };
+    state = restore(saved, next);
     render();
   }
 
   let lastWidth = 0;
-  new ResizeObserver(() => { if (Math.abs(root.clientWidth - lastWidth) > 8) { lastWidth = root.clientWidth; render(); } }).observe(root);
+  new ResizeObserver(() => {
+    if (Math.abs(root.clientWidth - lastWidth) > 8) { lastWidth = root.clientWidth; render(); }
+    sendSize();
+  }).observe(root);
 
   applyTheme();
+  connect();
   start();
-  if (!window.openai) mcp.request("ui/initialize", { protocolVersion: "2026-01-26", appCapabilities: {}, appInfo: { name: "mahj", version: "1.0.0" } })
-    .then((r) => { mcp.theme = r?.hostContext?.theme ?? null; applyTheme(); parent.postMessage({ jsonrpc: "2.0", method: "ui/notifications/initialized" }, "*"); })
-    .catch(() => {});
+  setTimeout(loadFailed, TIMEOUT);
 })();
 </script>
 </body>

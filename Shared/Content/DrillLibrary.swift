@@ -19,7 +19,7 @@ enum DrillLibrary {
                 Drill(
                     id: "tile-quiz",
                     title: "Tile Check",
-                    subtitle: "Quick quiz: dragons, jokers, and the rules everyone gets wrong",
+                    subtitle: "Quick quiz: dragons, jokers, and the basic tile rules",
                     kind: .quiz(TileBasicsContent.tileQuiz)
                 ),
                 Drill(
@@ -75,7 +75,7 @@ enum DrillLibrary {
                 Drill(
                     id: "charleston-pass",
                     title: "Pick Your Pass",
-                    subtitle: "Real deals: choose 3 tiles to pass, then compare with the coach",
+                    subtitle: "Practice deals: choose 3 tiles to pass, then compare with the coach",
                     kind: .charleston(CharlestonContent.scenarios)
                 ),
                 Drill(

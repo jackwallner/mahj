@@ -14,7 +14,7 @@
         "Any dragon",
         "Red Dragon"
       ],
-      "explanation" : "Red goes with Craks. Remember C-R: Craks are Red. Green belongs to Bams, Soap to Dots.",
+      "explanation" : "Red goes with Craks. Remember C for Crak, R for Red. Green belongs to Bams, Soap to Dots.",
       "id" : "quiz-dragon-crak",
       "isReviewable" : true,
       "prompt" : "Which dragon goes with a crak hand?",
@@ -41,7 +41,7 @@
         "Any dragon",
         "Soap"
       ],
-      "explanation" : "Green goes with Bams: bamboo is green. Easy one to picture.",
+      "explanation" : "Green goes with Bams, because bamboo is green.",
       "id" : "quiz-dragon-bam",
       "isReviewable" : true,
       "prompt" : "Which dragon belongs to the bam suit?",
@@ -69,7 +69,7 @@
         "Any dragon",
         "Green Dragon"
       ],
-      "explanation" : "Soap (the White Dragon) goes with Dots. White soap, white circles.",
+      "explanation" : "Soap (the White Dragon) goes with Dots. Red goes with Craks and Green with Bams.",
       "id" : "quiz-dragon-dot",
       "isReviewable" : true,
       "prompt" : "Which dragon matches a dot hand?",
@@ -122,7 +122,7 @@
         "Only in the courtesy pass",
         "No, it's against the rules"
       ],
-      "explanation" : "Jokers may never be passed in the Charleston or the courtesy pass. It's not just bad strategy, it's illegal.",
+      "explanation" : "Jokers may never be passed in the Charleston or the courtesy pass. Passing one breaks the rules.",
       "id" : "quiz-joker-charleston",
       "isReviewable" : true,
       "prompt" : "Can you pass a joker in the Charleston?",
@@ -172,7 +172,7 @@
         "6",
         "4"
       ],
-      "explanation" : "Eight jokers. That's also why counting them matters: if you've seen 6 on racks and discards, only 2 are left in play.",
+      "explanation" : "Eight jokers, and counting them helps. If you've seen 6 on racks and discards, only 2 are left in play.",
       "id" : "quiz-joker-count",
       "isReviewable" : true,
       "prompt" : "How many jokers are in an American mahj set?",
@@ -197,7 +197,7 @@
         "3 identical tiles",
         "4 identical tiles"
       ],
-      "explanation" : "Three identical tiles. Unlike other mahjong styles, you can't claim a discard for a run like 5-6-7: the card spells out every shape.",
+      "explanation" : "Three identical tiles. Unlike other mahjong styles, you can't claim a discard for a run like 5-6-7. The card spells out every shape.",
       "id" : "quiz-pung",
       "isReviewable" : true,
       "prompt" : "What is a pung?",
@@ -224,7 +224,7 @@
         "Use two suits",
         "Jokers"
       ],
-      "explanation" : "Jokers. Every quint needs at least one. That's why Quints hands pay so well.",
+      "explanation" : "Jokers. Only four of each tile exist, so every quint needs at least one.",
       "id" : "quiz-quint",
       "isReviewable" : true,
       "prompt" : "Only four of each tile exist. How is a quint (5 of a kind) possible?",
@@ -275,7 +275,7 @@
         "Allowed anywhere",
         "Only in the pairs"
       ],
-      "explanation" : "Never. Singles & Pairs hands have no groups of 3+, and jokers only work in groups of 3+. That's why S&P hands pay so well.",
+      "explanation" : "Never. Singles & Pairs hands have no groups of 3 or more, and jokers only work in groups of 3 or more.",
       "id" : "quiz-sp-jokers",
       "isReviewable" : true,
       "prompt" : "Jokers in a Singles & Pairs hand?",
@@ -296,11 +296,11 @@
       ],
       "choices" : [
         "Courtesy hand",
-        "Concealed: no exposures",
+        "Concealed (no exposures)",
         "Charleston required",
         "Craks only"
       ],
-      "explanation" : "Concealed. You can't call discards to expose groups; the hand stays on your rack until you call the winning tile for mah jongg.",
+      "explanation" : "Concealed. You can't call discards to expose groups, so the hand stays on your rack until you call the winning tile for mah jongg.",
       "id" : "quiz-concealed",
       "isReviewable" : true,
       "prompt" : "Each hand on the card is marked X or C. What does C mean?",
@@ -325,7 +325,7 @@
         "Nothing, just decoration",
         "Dragons required"
       ],
-      "explanation" : "Colors mean DIFFERENT suits, not specific ones. Green-red-blue just tells you the hand uses three suits; you pick which is which.",
+      "explanation" : "Different colors mean different suits, not particular ones. Green, red and blue just tell you the hand uses three suits, and you pick which is which.",
       "id" : "quiz-colors",
       "isReviewable" : true,
       "prompt" : "A card hand shows numbers in green, red, and blue. What do the colors mean?",
@@ -350,7 +350,7 @@
         "14",
         "16"
       ],
-      "explanation" : "Thirteen. You draw a 14th, then discard (or keep it and discard something else). East is the one exception: East starts the game with 14 and opens by discarding. Mah jongg = 14 tiles matching a card hand exactly.",
+      "explanation" : "Thirteen. You draw a 14th, then discard (or keep it and discard something else). East is the one exception, starting the game with 14 and opening by discarding. Mah jongg is 14 tiles matching a card hand exactly.",
       "id" : "quiz-hand-size",
       "isReviewable" : true,
       "prompt" : "How many tiles do you hold during play (before your turn)?",
@@ -375,7 +375,7 @@
         "Yes, on your turn",
         "Only for your own exposures"
       ],
-      "explanation" : "Yes. On your turn, before you discard, you may give the real matching tile to any exposure holding a joker, yours or an opponent's, and take the joker into your hand. Free joker. Always scan the racks.",
+      "explanation" : "Yes. On your turn, before you discard, you may give the real matching tile to any exposure holding a joker, yours or an opponent's, and take the joker into your hand. Check every exposure for jokers you can take.",
       "id" : "quiz-joker-exchange",
       "isReviewable" : true,
       "prompt" : "An opponent's exposed kong contains a joker. You hold the real matching tile. Can you swap?",
@@ -400,7 +400,7 @@
         "Yes, like any discard",
         "Only for mah jongg"
       ],
-      "explanation" : "A discarded joker is dead: nobody can call it for anything. Which is why you basically never throw one.",
+      "explanation" : "A discarded joker is dead, so nobody can call it for anything. It is safe to throw, but you give up your most flexible tile, which is why it is rarely worth it.",
       "id" : "quiz-dead-joker",
       "isReviewable" : true,
       "prompt" : "Someone discards a joker. Can you call it?",
@@ -832,7 +832,7 @@
       "explanation" : "A dragon printed in the same color as a number group is that suit's own dragon. 4 Craks go with the Red Dragon, so this fits. Green would belong with bams, and Soap with dots.",
       "id" : "cat-line-matching-dragon",
       "isReviewable" : true,
-      "prompt" : "A line shows 4444 and a D, both in the same color.\nYour tiles: do they fill that part of the line?",
+      "prompt" : "A line shows 4444 and a D, both in the same color.\nDo your tiles fill that part of the line?",
       "roomID" : "card-room",
       "sourceLabel" : "The Card Room",
       "tiles" : [
@@ -857,7 +857,7 @@
       "explanation" : "A dragon in a different color from the numbers has to come from a different suit. Green is the bams' own dragon, so it matches these 4 Bams instead of contrasting with them. A Red Dragon or a Soap would fit.",
       "id" : "cat-line-opposite-dragon",
       "isReviewable" : true,
-      "prompt" : "A line shows 4444 in one color and a D in a different color.\nYour tiles: do they fill that part of the line?",
+      "prompt" : "A line shows 4444 in one color and a D in a different color.\nDo your tiles fill that part of the line?",
       "roomID" : "card-room",
       "sourceLabel" : "The Card Room",
       "tiles" : [
@@ -907,7 +907,7 @@
         "No, only 1-2-3",
         "Yes, unless noted"
       ],
-      "explanation" : "Run lines show the lowest numbers, and most can start anywhere as long as the numbers stay in order with no gaps. Read the note beside the line: a run that names its numbers cannot slide.",
+      "explanation" : "Run lines show the lowest numbers. Unless the note beside the line names its numbers, you can start higher, as long as the numbers stay in order with no gaps.",
       "id" : "cat-line-run-slides",
       "isReviewable" : true,
       "prompt" : "A Consecutive Run line is printed with 1s, 2s and 3s.\nCan you play it with 5s, 6s and 7s?",
@@ -934,7 +934,7 @@
         "No",
         "Yes"
       ],
-      "explanation" : "C means concealed: nothing may be exposed before mah jongg. Once a group is face up on your rack, every C line is closed to you, and only X lines can still win.",
+      "explanation" : "C means concealed, so nothing may be exposed before mah jongg. Once a group is face up on your rack, every C line is closed to you and only X lines can still win.",
       "id" : "cat-line-concealed",
       "isReviewable" : true,
       "prompt" : "Your target line is marked C, and you already exposed a pung.\nCan you still win with that line?",
@@ -957,7 +957,7 @@
         "No",
         "Yes"
       ],
-      "explanation" : "NEWS means one North, one East, one West and one South: four single tiles. Jokers never fill a single, so every wind has to be the real tile.",
+      "explanation" : "NEWS means one North, one East, one West and one South, four single tiles. Jokers never fill a single, so every wind has to be the real tile.",
       "id" : "cat-line-news",
       "isReviewable" : true,
       "prompt" : "A line includes NEWS.\nCan the joker stand in for the West?",
@@ -1009,7 +1009,7 @@
         "Consecutive Run",
         "2468 (Evens)"
       ],
-      "explanation" : "Every number tile is even: 2s, 4s, 6s, 8s across suits. The flowers and the joker do not point anywhere else, so the numbers decide: this rack is screaming 2468.",
+      "explanation" : "Every number tile is even, from 2s to 8s across the suits. The flowers and the joker point nowhere else, so the numbers decide and the read is 2468.",
       "id" : "hm-2468",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1046,7 +1046,7 @@
         "2468 (Evens)",
         "Consecutive Run"
       ],
-      "explanation" : "3-4-5, 4-5-6, 5-6-7: stepping numbers in all three suits. Mixed odds and evens rule out 2468 and 13579; Consecutive Run eats this deal up.",
+      "explanation" : "The rack holds 3-4-5, 4-5-6 and 5-6-7, stepping numbers in all three suits. Mixed odds and evens rule out 2468 and 13579, so Consecutive Run is the read.",
       "id" : "hm-run",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1083,7 +1083,7 @@
         "Quints",
         "2468 (Evens)"
       ],
-      "explanation" : "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2 Dot and lone wind are your first passes.",
+      "explanation" : "Every number is odd except one stray 2 Dot. Three pairs of odd bams is a solid 13579 start. The 2 Dot and the lone wind are your first passes.",
       "id" : "hm-odds",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1120,7 +1120,7 @@
         "13579 (Odds)",
         "Singles & Pairs"
       ],
-      "explanation" : "Eight winds including a pung of Norths, plus two dragons. Only one number tile in the whole rack. This is a Winds & Dragons hand waiting to happen.",
+      "explanation" : "Eight winds including a pung of Norths, plus two dragons, and only one number tile in the whole rack. The read is Winds & Dragons.",
       "id" : "hm-winds",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1157,7 +1157,7 @@
         "2468 (Evens)",
         "Any Like Numbers"
       ],
-      "explanation" : "Every number is a 3, 6, or 9 except the stray 2 Bam. A pung of 6 Craks plus pairs of 9s puts you well on the way in the 369 section.",
+      "explanation" : "Every number is a 3, 6 or 9 except the stray 2 Bam. A pung of 6 Craks plus pairs of 9s gives the 369 section a solid start.",
       "id" : "hm-369",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1194,7 +1194,7 @@
         "Consecutive Run",
         "Quints"
       ],
-      "explanation" : "EIGHT fives across all three suits. When one number floods your rack like this, Any Like Numbers is the read.",
+      "explanation" : "Eight fives across all three suits. When one number fills your rack like this, Any Like Numbers is the read.",
       "id" : "hm-like",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1231,7 +1231,7 @@
         "Singles & Pairs",
         "2468 (Evens)"
       ],
-      "explanation" : "2s, Soaps (zeros), 6s, and a fistful of flowers: those are exactly the ingredients of a 2026 year hand. 2468 fits too, but the soaps and flowers point to the year section first.",
+      "explanation" : "The 2s, soaps (zeros) and 6s are the makings of a year hand. 2468 fits too, but the soaps point to the year section first.",
       "id" : "hm-year",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1268,7 +1268,7 @@
         "369",
         "Consecutive Run"
       ],
-      "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Only jokers can make a quint, so a joker-rich rack points at Quints. Jokers decide.",
+      "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Only jokers can make a quint, so a joker-rich rack points at Quints.",
       "id" : "hm-quints",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1305,7 +1305,7 @@
         "Singles & Pairs",
         "Winds & Dragons"
       ],
-      "explanation" : "Six natural pairs and zero jokers, mixing odd and even numbers. Every pair in Singles & Pairs must be natural, since it never takes jokers, so a rack that already holds this many pairs is a strong start.",
+      "explanation" : "Six natural pairs and no jokers, mixing odd and even numbers. Pairs in Singles & Pairs must be natural because jokers can't fill them, so a rack that already holds this many pairs is a strong start.",
       "id" : "hm-sp",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1745,7 +1745,7 @@
         "Keep it",
         "Throw it"
       ],
-      "explanation" : "Odd number, wrong suit: it fails your hand on both axes. The only reason to hold a tile like this is defense late in the game. Early on, it's your cleanest discard.",
+      "explanation" : "It's an odd number in a suit you're not using, so it misses your hand twice. The only reason to hold a tile like this is defense late in the game. Early on, it's your cleanest discard.",
       "id" : "kd-wrong-parity",
       "isReviewable" : true,
       "prompt" : "You're building 2468 in craks and dots.\nYou draw 3 Bam. Keep or throw?",
@@ -1766,7 +1766,7 @@
         "Keep it",
         "Throw it"
       ],
-      "explanation" : "While your hand could still change, a spare flower is insurance: you can swap it for a joker in someone's flower exposure, and a switch of lines often changes the F count. Once you are locked into a line with exactly two, it becomes a fine discard.",
+      "explanation" : "While your hand could still change, a spare flower is insurance. You can swap it for a joker in someone's flower exposure, and switching lines can change how many flowers you need. Once you are locked into a line with exactly two, it becomes a fine discard.",
       "id" : "kd-third-flower",
       "isReviewable" : true,
       "prompt" : "You hold FF and your hand needs exactly two flowers.\nYou draw a third F. Keep or throw?",
@@ -1789,7 +1789,7 @@
         "Toss the joker",
         "Rebuild around the joker"
       ],
-      "explanation" : "Rebuild the hand around the joker. A joker rescues nearly any section (except Singles & Pairs). Re-scan the card for sections where your joker plus your longest tiles fit. The one exception comes late, with no way left to win: then a joker is the safest discard you own, because nobody can call it.",
+      "explanation" : "Rebuild the hand around the joker. A joker can rescue any section except Singles & Pairs. Re-scan the card for sections where your joker plus your longest tiles fit. Only late in the hand, with no way left to win, is a joker the safest discard you own, because nobody can call it.",
       "id" : "kd-joker-rescue",
       "isReviewable" : true,
       "prompt" : "Your hand is going nowhere, but you hold a joker.\nBail on the hand or the joker?",
@@ -1810,7 +1810,7 @@
         "Swap for the joker",
         "Keep the 6 Bam"
       ],
-      "explanation" : "On your turn, place your real 6 Bam on their exposure and take the joker. This is the single biggest free upgrade in the game, and new players miss it constantly. Scan every rack, every turn.",
+      "explanation" : "On your turn, place your real 6 Bam on their exposure and take the joker. You trade one tile for a more flexible one, so check the exposures on the table for jokers every turn.",
       "id" : "kd-joker-swap",
       "isReviewable" : true,
       "prompt" : "An opponent's exposed kong shows a joker.\nYou just drew the real 6 Bam. Now what?",
@@ -1834,7 +1834,7 @@
         "Great news",
         "Not for this hand"
       ],
-      "explanation" : "Jokers are useless in Singles & Pairs: no groups of 3+ exist there. If you're truly close, play on. If you're 4+ tiles away, this joker is a strong argument to switch sections.",
+      "explanation" : "Jokers can't be used in Singles & Pairs, which has no groups of 3 or more. If you're truly close, play on. If you're 4 or more tiles away, this joker is a good reason to switch sections.",
       "id" : "kd-sp-joker",
       "isReviewable" : true,
       "prompt" : "You're committed to Singles & Pairs.\nYou draw a joker. Good news?",
@@ -1879,7 +1879,7 @@
         "It narrows their hand",
         "Nothing useful"
       ],
-      "explanation" : "An exposure narrows their hand to the card lines that use it: an evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and check what their exposure could belong to.",
+      "explanation" : "An exposure narrows their hand to the card lines that use it. An evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and think about what their exposure could belong to.",
       "id" : "kd-exposed-pung",
       "isReviewable" : true,
       "prompt" : "Your left opponent exposes a pung of 4 Dots.\nWhat did you just learn?",
@@ -1902,10 +1902,10 @@
         "Play Hand B",
         "Play Hand A"
       ],
-      "explanation" : "Usually follow the count. The hand with more tiles home needs fewer miracles, unless the other is far more flexible or pays far more. Recount after every few draws: the best hand for your rack changes as tiles arrive.",
+      "explanation" : "Follow the count. The hand with more tiles home needs fewer lucky draws, unless the other is far more flexible or pays far more. Recount every few draws, because the best hand for your rack changes as tiles arrive.",
       "id" : "kd-follow-count",
       "isReviewable" : true,
-      "prompt" : "Two tiles fit Hand A. Nine tiles fit Hand B.\nBut you LIKE Hand A...",
+      "prompt" : "Two tiles fit Hand A. Nine tiles fit Hand B.\nBut you like Hand A...",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -1923,7 +1923,7 @@
         "Break it up",
         "Keep it"
       ],
-      "explanation" : "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them; if your hand lives elsewhere, a wind pung is three dead tiles.",
+      "explanation" : "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them. If your hand lives elsewhere, a wind pung is three dead tiles.",
       "id" : "kd-wind-pair",
       "isReviewable" : true,
       "prompt" : "Early in the hand, you hold N N and draw a third North.\nKeep the pung?",
@@ -1949,7 +1949,7 @@
       "explanation" : "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. An East fits only a player collecting Easts, and only three others exist. Neither is truly safe, but early on the lone wind is usually the lighter throw.",
       "id" : "kd-flower-vs-wind",
       "isReviewable" : true,
-      "prompt" : "Early game: you must throw a flower or a lone wind.\nWhich is safer?",
+      "prompt" : "Early in the game, you must throw a flower or a lone wind.\nWhich is safer?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -1968,7 +1968,7 @@
         "Rebuild instead",
         "Throw a joker"
       ],
-      "explanation" : "A discarded joker cannot be called, so it is safe, but it is gone for good. Three jokers can rescue a slow hand: pungs of anything you hold two of, kongs, even quints. Look for a new line before you give one up.",
+      "explanation" : "A discarded joker cannot be called, so it is safe, but it is gone for good. Three jokers can rescue a slow hand. They can fill pungs of anything you hold two of, kongs, even quints. Look for a new line before you give one up.",
       "id" : "kd-dead-joker",
       "isReviewable" : true,
       "prompt" : "Your hand looks hopeless and you hold three jokers.\nJust throw a joker?",
@@ -1994,7 +1994,7 @@
       "explanation" : "Calling locks you onto hands that fit the exposure, tells the table your section, and kills any concealed hand. Call when it moves a hand you are already committed to clearly closer to done, not just because you can.",
       "id" : "kd-call-cost",
       "isReviewable" : true,
-      "prompt" : "You CAN call that discard for an exposed pung.\nShould you?",
+      "prompt" : "You can call that discard for an exposed pung.\nShould you?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2012,7 +2012,7 @@
         "Yes, call it",
         "No, stay silent"
       ],
-      "explanation" : "Concealed only bans exposures BEFORE the win. Any hand, concealed or not, may call the final winning tile. Don't sit silently on a win: call it.",
+      "explanation" : "Concealed only bans exposures before the win. Any hand, concealed or not, may call the final winning tile. If the tile wins your hand, call it.",
       "id" : "kd-mahj-call",
       "isReviewable" : true,
       "prompt" : "Your hand is concealed (marked C) and someone throws your winning tile.\nCan you call it?",
@@ -2033,7 +2033,7 @@
         "Throw dead tiles",
         "Gut feel is fine"
       ],
-      "explanation" : "Prefer tiles matching NO exposure on their rack, tiles others already threw without anyone calling them, and tiles with 3 copies already visible. Those are safer, not safe: jokers can still finish a group, and a lone tile can be their winner. Sometimes the right play is breaking your own hand to avoid throwing it.",
+      "explanation" : "Prefer tiles matching no exposure on their rack, tiles others already threw without anyone calling them, and tiles with 3 copies already visible. Those are safer, not safe. Jokers can still finish a group, and a lone tile can be their winner. Sometimes the right play is breaking your own hand to avoid throwing it.",
       "id" : "kd-hot-late",
       "isReviewable" : true,
       "prompt" : "It's late, one opponent is clearly close.\nHow do you pick a discard?",
@@ -2108,7 +2108,7 @@
         "A tile that fits the pattern of an opponent's exposures",
         "A tile you have not seen anyone discard"
       ],
-      "explanation" : "A tile discarded twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower.",
+      "explanation" : "A tile discarded twice without being called is the safest of these, since the table has already shown it does not want it. Safer is not safe, because it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower.",
       "id" : "more-table-safe-discard",
       "isReviewable" : true,
       "prompt" : "Late in the hand, which discard is usually safest?",
@@ -2233,7 +2233,7 @@
         "Only the discarder pays",
         "The hand pays double"
       ],
-      "explanation" : "A jokerless win pays double. Singles and Pairs hands are the exception: they can never hold a joker, so they earn no bonus for going without.",
+      "explanation" : "A jokerless win pays double. Singles and Pairs hands are the exception, because they can never hold a joker, so they earn no bonus for going without.",
       "id" : "table-pay-jokerless",
       "isReviewable" : true,
       "prompt" : "You win with a hand outside Singles and Pairs, and it has no jokers. What changes?",
@@ -5049,7 +5049,7 @@
       "note" : "Right. The 3 Bam is outside the 2468 (Evens) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-1",
       "target" : "evens2468",
-      "value" : 6.0999999999999996,
+      "value" : 6.1000000000000005,
       "working" : 3
     },
     {
@@ -5138,7 +5138,7 @@
       "note" : "Right. The 1 Dot is outside the 2468 (Evens) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "evens2468",
-      "value" : 9.9000000000000004,
+      "value" : 9.8999999999999986,
       "working" : 4
     },
     {
@@ -5189,7 +5189,7 @@
       "note" : "The 1 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 6 Bam.",
       "seed" : "deal-2",
       "target" : "consecutiveRun",
-      "value" : 11.699999999999999,
+      "value" : 11.699999999999998,
       "working" : 4
     },
     {
@@ -5208,7 +5208,7 @@
       "note" : "Right. The 1 Dot is outside the Winds & Dragons shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "windsDragons",
-      "value" : 9.3000000000000007,
+      "value" : 9.2999999999999989,
       "working" : 4
     },
     {
@@ -5221,7 +5221,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 5,
       "note" : "The 6 Dot fits 2468 (Evens), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -5244,7 +5244,7 @@
       "note" : "Right. The 6 Dot is outside the 13579 (Odds) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "odds13579",
-      "value" : 7.2999999999999998,
+      "value" : 7.2999999999999989,
       "working" : 3
     },
     {
@@ -5255,7 +5255,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999964,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -5489,10 +5489,10 @@
               "8 Bam, Flower, Flower",
               "9 Crak, 2 Bam, Flower"
             ],
-            "explanation" : "Three flowers plus a wall of even bams: this deal wants an evens hand, and many hands use flowers, so keep them. The odd Craks (9 Crak, 5 Crak) and the lone North do not fit an evens plan.",
+            "explanation" : "Three flowers plus five even bams make this an evens deal, and many hands use flowers, so keep them. The odd Craks (9 Crak, 5 Crak) and the lone North do not fit an evens plan.",
             "id" : "mahj-minute-charleston-2026-02-28",
             "isReviewable" : false,
-            "prompt" : "First Charleston, pass ACROSS. Which three tiles make the strongest pass?",
+            "prompt" : "First Charleston, pass across. Which three tiles make the strongest pass?",
             "roomID" : "charleston-room",
             "sourceLabel" : "Mahj Minute: Charleston",
             "tiles" : [
@@ -5767,7 +5767,7 @@
               "Yes, call it",
               "No, stay silent"
             ],
-            "explanation" : "Concealed only bans exposures BEFORE the win. Any hand, concealed or not, may call the final winning tile. Don't sit silently on a win: call it.",
+            "explanation" : "Concealed only bans exposures before the win. Any hand, concealed or not, may call the final winning tile. If the tile wins your hand, call it.",
             "id" : "kd-mahj-call",
             "isReviewable" : true,
             "prompt" : "Your hand is concealed (marked C) and someone throws your winning tile.\nCan you call it?",
@@ -5843,7 +5843,7 @@
             "explanation" : "Five winds plus two jokers is the start of a Winds & Dragons hand, so the five scattered number tiles are the likeliest passes. Send the 1 Dot, 9 Crak and 5 Bam now, and pass the 2 Crak and 8 Dot next. Keep the West pair, and the flower too, since many hands use flowers. Jokers can never be passed.",
             "id" : "mahj-minute-charleston-2026-10-01",
             "isReviewable" : false,
-            "prompt" : "First Charleston, pass RIGHT. Five winds and five scattered numbers. Which three tiles make the strongest pass?",
+            "prompt" : "First Charleston, pass right. Five winds and five scattered numbers. Which three tiles make the strongest pass?",
             "roomID" : "charleston-room",
             "sourceLabel" : "Mahj Minute: Charleston",
             "tiles" : [

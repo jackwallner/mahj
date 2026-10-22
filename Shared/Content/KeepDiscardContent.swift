@@ -11,7 +11,7 @@ enum KeepDiscardContent {
             frontTiles: [.b(3)],
             frontSubtitle: "You draw 3 Bam. Keep or throw?",
             backTitle: "Throw It",
-            backBody: "Odd number, wrong suit: it fails your hand on both axes. The only reason to hold a tile like this is defense late in the game. Early on, it's your cleanest discard.",
+            backBody: "It's an odd number in a suit you're not using, so it misses your hand twice. The only reason to hold a tile like this is defense late in the game. Early on, it's your cleanest discard.",
             choice: CardChoice("Keep it", "Throw it", answerIndex: 1)
         ),
         Flashcard(
@@ -20,7 +20,7 @@ enum KeepDiscardContent {
             frontTiles: [.flower, .flower, .flower],
             frontSubtitle: "You draw a third F. Keep or throw?",
             backTitle: "Hold It (For Now)",
-            backBody: "While your hand could still change, a spare flower is insurance: you can swap it for a joker in someone's flower exposure, and a switch of lines often changes the F count. Once you are locked into a line with exactly two, it becomes a fine discard.",
+            backBody: "While your hand could still change, a spare flower is insurance. You can swap it for a joker in someone's flower exposure, and switching lines can change how many flowers you need. Once you are locked into a line with exactly two, it becomes a fine discard.",
             choice: CardChoice("Keep it", "Throw it", answerIndex: 0)
         ),
         Flashcard(
@@ -29,7 +29,7 @@ enum KeepDiscardContent {
             frontTiles: [.joker],
             frontSubtitle: "Bail on the hand or the joker?",
             backTitle: "The Joker Stays",
-            backBody: "Rebuild the hand around the joker. A joker rescues nearly any section (except Singles & Pairs). Re-scan the card for sections where your joker plus your longest tiles fit. The one exception comes late, with no way left to win: then a joker is the safest discard you own, because nobody can call it.",
+            backBody: "Rebuild the hand around the joker. A joker can rescue any section except Singles & Pairs. Re-scan the card for sections where your joker plus your longest tiles fit. Only late in the hand, with no way left to win, is a joker the safest discard you own, because nobody can call it.",
             choice: CardChoice("Rebuild around the joker", "Toss the joker", answerIndex: 0)
         ),
         Flashcard(
@@ -37,8 +37,8 @@ enum KeepDiscardContent {
             frontTitle: "An opponent's exposed kong shows a joker.",
             frontTiles: [.b(6), .b(6), .joker, .b(6)],
             frontSubtitle: "You just drew the real 6 Bam. Now what?",
-            backTitle: "Swap It!",
-            backBody: "On your turn, place your real 6 Bam on their exposure and take the joker. This is the single biggest free upgrade in the game, and new players miss it constantly. Scan every rack, every turn.",
+            backTitle: "Swap It",
+            backBody: "On your turn, place your real 6 Bam on their exposure and take the joker. You trade one tile for a more flexible one, so check the exposures on the table for jokers every turn.",
             choice: CardChoice("Swap for the joker", "Keep the 6 Bam", answerIndex: 0)
         ),
         Flashcard(
@@ -46,8 +46,8 @@ enum KeepDiscardContent {
             frontTitle: "You're committed to Singles & Pairs.",
             frontTiles: [.joker],
             frontSubtitle: "You draw a joker. Good news?",
-            backTitle: "Actually... No",
-            backBody: "Jokers are useless in Singles & Pairs: no groups of 3+ exist there. If you're truly close, play on. If you're 4+ tiles away, this joker is a strong argument to switch sections.",
+            backTitle: "Not for This Hand",
+            backBody: "Jokers can't be used in Singles & Pairs, which has no groups of 3 or more. If you're truly close, play on. If you're 4 or more tiles away, this joker is a good reason to switch sections.",
             choice: CardChoice("Great news", "Not for this hand", answerIndex: 1)
         ),
         Flashcard(
@@ -55,7 +55,7 @@ enum KeepDiscardContent {
             frontTitle: "How many 5 Craks exist in the whole set?",
             frontTiles: [.c(5), .c(5), .c(5), .c(5)],
             frontSubtitle: "And why should you care?",
-            backTitle: "Four. Count Them.",
+            backTitle: "Four, So Keep Count",
             backBody: "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your pair of 5 Craks can never become a pung without a joker. Counting visible copies tells you when a hand can no longer be made.",
             choice: CardChoice("Three", "Four", answerIndex: 1)
         ),
@@ -65,15 +65,15 @@ enum KeepDiscardContent {
             frontTiles: [.d(4), .d(4), .d(4)],
             frontSubtitle: "What did you just learn?",
             backTitle: "It Narrows Their Hand",
-            backBody: "An exposure narrows their hand to the card lines that use it: an evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and check what their exposure could belong to.",
+            backBody: "An exposure narrows their hand to the card lines that use it. An evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and think about what their exposure could belong to.",
             choice: CardChoice("It narrows their hand", "Nothing useful", answerIndex: 0)
         ),
         Flashcard(
             id: "kd-follow-count",
             frontTitle: "Two tiles fit Hand A. Nine tiles fit Hand B.",
-            frontSubtitle: "But you LIKE Hand A...",
+            frontSubtitle: "But you like Hand A...",
             backTitle: "Play the Nine",
-            backBody: "Usually follow the count. The hand with more tiles home needs fewer miracles, unless the other is far more flexible or pays far more. Recount after every few draws: the best hand for your rack changes as tiles arrive.",
+            backBody: "Follow the count. The hand with more tiles home needs fewer lucky draws, unless the other is far more flexible or pays far more. Recount every few draws, because the best hand for your rack changes as tiles arrive.",
             choice: CardChoice("Play Hand A", "Play Hand B", answerIndex: 1)
         ),
         Flashcard(
@@ -81,13 +81,13 @@ enum KeepDiscardContent {
             frontTitle: "Early in the hand, you hold N N and draw a third North.",
             frontTiles: [.wind(.north), .wind(.north), .wind(.north)],
             frontSubtitle: "Keep the pung?",
-            backTitle: "Keep It",
-            backBody: "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them; if your hand lives elsewhere, a wind pung is three dead tiles.",
+            backTitle: "Keep It If a Line Uses It",
+            backBody: "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them. If your hand lives elsewhere, a wind pung is three dead tiles.",
             choice: CardChoice("Keep it", "Break it up", answerIndex: 0)
         ),
         Flashcard(
             id: "kd-flower-vs-wind",
-            frontTitle: "Early game: you must throw a flower or a lone wind.",
+            frontTitle: "Early in the game, you must throw a flower or a lone wind.",
             frontTiles: [.flower, .wind(.east)],
             frontSubtitle: "Which is safer?",
             backTitle: "Throw the Wind",
@@ -100,12 +100,12 @@ enum KeepDiscardContent {
             frontTiles: [.joker, .joker, .joker],
             frontSubtitle: "Just throw a joker?",
             backTitle: "Almost Never",
-            backBody: "A discarded joker cannot be called, so it is safe, but it is gone for good. Three jokers can rescue a slow hand: pungs of anything you hold two of, kongs, even quints. Look for a new line before you give one up.",
+            backBody: "A discarded joker cannot be called, so it is safe, but it is gone for good. Three jokers can rescue a slow hand. They can fill pungs of anything you hold two of, kongs, even quints. Look for a new line before you give one up.",
             choice: CardChoice("Throw a joker", "Rebuild instead", answerIndex: 1)
         ),
         Flashcard(
             id: "kd-call-cost",
-            frontTitle: "You CAN call that discard for an exposed pung.",
+            frontTitle: "You can call that discard for an exposed pung.",
             frontSubtitle: "Should you?",
             backTitle: "Calling Has a Price",
             backBody: "Calling locks you onto hands that fit the exposure, tells the table your section, and kills any concealed hand. Call when it moves a hand you are already committed to clearly closer to done, not just because you can.",
@@ -115,8 +115,8 @@ enum KeepDiscardContent {
             id: "kd-mahj-call",
             frontTitle: "Your hand is concealed (marked C) and someone throws your winning tile.",
             frontSubtitle: "Can you call it?",
-            backTitle: "Yes! Mah Jongg!",
-            backBody: "Concealed only bans exposures BEFORE the win. Any hand, concealed or not, may call the final winning tile. Don't sit silently on a win: call it.",
+            backTitle: "Yes, Call Mah Jongg",
+            backBody: "Concealed only bans exposures before the win. Any hand, concealed or not, may call the final winning tile. If the tile wins your hand, call it.",
             choice: CardChoice("Yes, call it", "No, stay silent", answerIndex: 0)
         ),
         Flashcard(
@@ -124,7 +124,7 @@ enum KeepDiscardContent {
             frontTitle: "It's late, one opponent is clearly close.",
             frontSubtitle: "How do you pick a discard?",
             backTitle: "Throw Dead Tiles",
-            backBody: "Prefer tiles matching NO exposure on their rack, tiles others already threw without anyone calling them, and tiles with 3 copies already visible. Those are safer, not safe: jokers can still finish a group, and a lone tile can be their winner. Sometimes the right play is breaking your own hand to avoid throwing it.",
+            backBody: "Prefer tiles matching no exposure on their rack, tiles others already threw without anyone calling them, and tiles with 3 copies already visible. Those are safer, not safe. Jokers can still finish a group, and a lone tile can be their winner. Sometimes the right play is breaking your own hand to avoid throwing it.",
             choice: CardChoice("Gut feel is fine", "Throw dead tiles", answerIndex: 1)
         ),
     ]
