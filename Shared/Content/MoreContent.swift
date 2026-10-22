@@ -203,7 +203,7 @@ enum MoreContent {
                 "A flower"
             ],
             answerIndex: 1,
-            explanation: "A tile discarded twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower."
+            explanation: "A tile discarded twice without being called is the safest of these, since the table has already shown it does not want it. Safer is not safe, because it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower."
         ),
         QuizQuestion(
             id: "more-table-exposure-read",
@@ -250,7 +250,7 @@ enum MoreContent {
             prompt: "You win with a hand outside Singles and Pairs, and it has no jokers. What changes?",
             choices: ["Nothing", "The hand pays double", "You deal the next hand", "Only the discarder pays"],
             answerIndex: 1,
-            explanation: "A jokerless win pays double. Singles and Pairs hands are the exception: they can never hold a joker, so they earn no bonus for going without."
+            explanation: "A jokerless win pays double. Singles and Pairs hands are the exception, because they can never hold a joker, so they earn no bonus for going without."
         ),
         QuizQuestion(
             id: "table-pay-stacked",

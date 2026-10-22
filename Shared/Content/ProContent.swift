@@ -192,7 +192,7 @@ enum ProContent {
             tiles: [.c(2), .c(2), .b(2), .b(2), .dragon(.soap), .dragon(.soap), .d(6), .d(6), .b(6), .flower, .flower, .flower, .joker],
             choices: [.year, .evens2468, .windsDragons],
             answer: .year,
-            explanation: "2468 is the decoy since 2s and 6s are even. But the soaps are the giveaway: they stand in for the zeros in 2, 0, 2, 6. With no 4s or 8s and a fistful of flowers, this is a Year hand."
+            explanation: "2468 is the decoy since 2s and 6s are even. But the soaps are the giveaway: they stand in for the zeros in 2, 0, 2, 6. With no 4s or 8s and three flowers, this is a Year hand."
         ),
         HandMatchQuestion(
             id: "pro-rack-5",

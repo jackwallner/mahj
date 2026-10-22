@@ -46,23 +46,23 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
     var howToSpot: String {
         switch self {
         case .year:
-            return "Built around the current year's digits, with soaps standing in for zeros. Spot it when you're holding 2s and soaps plus flowers."
+            return "Built around the current year's digits, with soaps standing in for zeros. Spot it when you're holding 2s and soaps."
         case .evens2468:
-            return "Only even numbers: 2, 4, 6, 8. Every odd tile in your hand is dead weight for this section."
+            return "Only even numbers (2, 4, 6, 8). Every odd tile in your hand is dead weight for this section."
         case .likeNumbers:
             return "The same number collected across different suits. Spot it when one number keeps showing up in two or three suits at once."
         case .quints:
             return "Needs five of a kind, and only four of each tile exist, so quints are impossible without jokers. Only chase these when you're joker-rich."
         case .consecutiveRun:
-            return "Numbers that step up in order, like 4-5-6-7. Many run lines can start on any number, so a deal with numbers in a row often fits more than one line."
+            return "Numbers that step up in order, like 4-5-6-7. Unless a line's note names its numbers, a run can start on any number, so a deal with numbers in a row can fit more than one line."
         case .odds13579:
-            return "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, with one more number to build from."
+            return "Only odd numbers (1, 3, 5, 7, 9). The mirror image of 2468, with one more number to build from."
         case .windsDragons:
             return "Built mostly from N, E, W, S and the dragons, sometimes with a few numbers. Spot it when winds keep piling up on your rack."
         case .threeSixNine:
-            return "Only 3s, 6s, and 9s. A small, focused family: if you hold several of those three numbers, look here."
+            return "Only 3s, 6s and 9s. It is a small, focused family, so if you hold several of those three numbers, look here."
         case .singlesAndPairs:
-            return "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay so well."
+            return "No pungs or kongs, just single tiles and pairs. No jokers are allowed."
         }
     }
 
@@ -76,7 +76,7 @@ enum HandCategory: String, Codable, CaseIterable, Identifiable, Sendable {
         case .evens2468:
             return "an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so look for it when those four numbers fill the rack"
         case .likeNumbers:
-            return "like numbers means the SAME number across different suits, so a rack spread across several numbers is not it"
+            return "like numbers means the same number across different suits, so a rack spread across several numbers is not it"
         case .quints:
             return "quints need five of a kind, which is impossible without jokers, so this is a joker question before it is a number question"
         case .consecutiveRun:

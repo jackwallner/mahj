@@ -37,7 +37,7 @@ enum HowToPlayContent {
             id: "htp-tiles",
             icon: "square.grid.3x3.fill",
             title: "Meet the tiles",
-            body: "Three suits run 1 through 9: craks (red), bams (green), and dots (blue). Winds are printed N, E, W, S. Each dragon belongs with a suit: red with craks, green with bams, and the blank soap with dots. Flowers are all interchangeable and show up in many card hands, and jokers stand in for tiles inside bigger groups.",
+            body: "Three suits run 1 through 9. They are craks (red), bams (green) and dots (blue). Winds are printed N, E, W, S. Each dragon goes with a suit, red with craks, green with bams and the blank soap with dots. Flowers are all interchangeable and show up in many card hands, and jokers stand in for tiles inside bigger groups.",
             tiles: [.c(5), .b(5), .d(5), .wind(.north), .dragon(.red), .flower, .joker]
         ),
         HowToPlayPage(
@@ -46,13 +46,13 @@ enum HowToPlayContent {
             title: "Read the card",
             body: "The card groups its hands into sections, like even numbers or runs. You never memorize every hand. You learn to spot which section your rack is drifting toward, pick a target, and chase it. Keep a current card beside you to follow the lines.",
             tiles: [.c(2), .c(4), .b(6), .d(8)],
-            tip: "All even numbers? That rack is whispering which section to check first."
+            tip: "All even numbers? Check the 2468 section first."
         ),
         HowToPlayPage(
             id: "htp-charleston",
             icon: "arrow.left.arrow.right",
             title: "The Charleston",
-            body: "Before play begins, everyone passes three unwanted tiles: right, across, then left, with an optional second round. Jokers never pass. The Charleston is how a messy deal turns into a plan.",
+            body: "Before play begins, everyone passes three unwanted tiles to the right, then across, then to the left, with an optional second round. Jokers never pass. The Charleston is how a messy deal becomes a plan.",
             tiles: [.b(1), .d(9), .wind(.west)],
             tip: "Pass tiles that fit no section you are chasing. Never pass a joker."
         ),
@@ -60,7 +60,7 @@ enum HowToPlayContent {
             id: "htp-turn",
             icon: "hand.draw.fill",
             title: "Play a turn",
-            body: "On your turn, draw a tile, then discard one face up: the tile you drew or one from your rack. You may also claim another player's discard to finish a group of 3, 4 or 5 matching tiles (a pung, kong or quint), then lay that group face up on your rack, which is called exposing it. Pairs and single tiles can only be claimed to finish your winning hand, and a hand marked C (concealed) on the card cannot expose anything before it wins. Match your whole hand to the card and you win.",
+            body: "On your turn, draw a tile, then discard one face up, either the tile you drew or one from your rack. You may also claim another player's discard to finish a group of 3, 4 or 5 matching tiles (a pung, kong or quint), then lay that group face up on your rack, which is called exposing it. Pairs and single tiles can only be claimed to finish your winning hand, and a hand marked C (concealed) on the card cannot expose anything before it wins. Match your whole hand to the card and you win.",
             tiles: [.d(7), .d(7), .d(7), .joker],
             tip: "A joker can sit inside a pung or bigger group, never in a pair or as a single tile."
         ),
@@ -68,7 +68,7 @@ enum HowToPlayContent {
             id: "htp-ready",
             icon: "checkmark.seal.fill",
             title: "You're ready to train",
-            body: "That's the whole shape of the game: build toward the card, survive the Charleston, and read racks fast. The drills teach each skill one room at a time, five minutes at a stretch."
+            body: "That's the whole shape of the game. Build toward the card, survive the Charleston, and read racks fast. The drills teach each skill one room at a time, five minutes at a stretch."
         ),
     ]
 

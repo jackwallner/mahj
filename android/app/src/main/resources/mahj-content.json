@@ -2,14 +2,14 @@
   "categories" : [
     {
       "displayName" : "Year Hands",
-      "howToSpot" : "Built around the current year's digits, with soaps standing in for zeros. Spot it when you're holding 2s and soaps plus flowers.",
+      "howToSpot" : "Built around the current year's digits, with soaps standing in for zeros. Spot it when you're holding 2s and soaps.",
       "id" : "year",
       "requires" : "a year hand is built from the year's digits, with soaps for zeros, so it wants 2s and soaps rather than a spread of numbers",
       "shortName" : "Year"
     },
     {
       "displayName" : "2468 (Evens)",
-      "howToSpot" : "Only even numbers: 2, 4, 6, 8. Every odd tile in your hand is dead weight for this section.",
+      "howToSpot" : "Only even numbers (2, 4, 6, 8). Every odd tile in your hand is dead weight for this section.",
       "id" : "evens2468",
       "requires" : "an evens hand uses only 2s, 4s, 6s and 8s for its numbers, so look for it when those four numbers fill the rack",
       "shortName" : "2468"
@@ -18,7 +18,7 @@
       "displayName" : "Any Like Numbers",
       "howToSpot" : "The same number collected across different suits. Spot it when one number keeps showing up in two or three suits at once.",
       "id" : "likeNumbers",
-      "requires" : "like numbers means the SAME number across different suits, so a rack spread across several numbers is not it",
+      "requires" : "like numbers means the same number across different suits, so a rack spread across several numbers is not it",
       "shortName" : "Like Numbers"
     },
     {
@@ -30,14 +30,14 @@
     },
     {
       "displayName" : "Consecutive Run",
-      "howToSpot" : "Numbers that step up in order, like 4-5-6-7. Many run lines can start on any number, so a deal with numbers in a row often fits more than one line.",
+      "howToSpot" : "Numbers that step up in order, like 4-5-6-7. Unless a line's note names its numbers, a run can start on any number, so a deal with numbers in a row can fit more than one line.",
       "id" : "consecutiveRun",
       "requires" : "a run needs numbers stepping up in order with no gaps, which always mixes odd and even",
       "shortName" : "Consec. Run"
     },
     {
       "displayName" : "13579 (Odds)",
-      "howToSpot" : "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, with one more number to build from.",
+      "howToSpot" : "Only odd numbers (1, 3, 5, 7, 9). The mirror image of 2468, with one more number to build from.",
       "id" : "odds13579",
       "requires" : "an odds hand uses only 1s, 3s, 5s, 7s and 9s for its numbers, so look for it when odd numbers fill the rack",
       "shortName" : "13579"
@@ -51,14 +51,14 @@
     },
     {
       "displayName" : "369",
-      "howToSpot" : "Only 3s, 6s, and 9s. A small, focused family: if you hold several of those three numbers, look here.",
+      "howToSpot" : "Only 3s, 6s and 9s. It is a small, focused family, so if you hold several of those three numbers, look here.",
       "id" : "threeSixNine",
       "requires" : "369 uses only 3s, 6s and 9s for its numbers, and it needs the 6 to tell it apart from a pure evens or pure odds hand",
       "shortName" : "369"
     },
     {
       "displayName" : "Singles & Pairs",
-      "howToSpot" : "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay so well.",
+      "howToSpot" : "No pungs or kongs, just single tiles and pairs. No jokers are allowed.",
       "id" : "singlesAndPairs",
       "requires" : "singles and pairs means no pungs or kongs at all, and no jokers anywhere",
       "shortName" : "Singles & Pairs"
@@ -82,7 +82,7 @@
         "sticks",
         "bams"
       ],
-      "definition" : "The bamboo suit, drawn as sticks. The 1 Bam is usually a bird rather than a single stick, which surprises new players. The Green Dragon is the bam family's dragon.",
+      "definition" : "The bamboo suit, drawn as sticks. The 1 Bam is usually a bird rather than a single stick. The Green Dragon is the bam family's dragon.",
       "group" : "tiles",
       "id" : "g-bam",
       "term" : "Bam"
@@ -104,7 +104,7 @@
         "zero",
         "blank"
       ],
-      "definition" : "The White Dragon, so called because the plain-faced version looks like a bar of soap. It is the dot suit's dragon, and it also stands in for a zero in year hands, which makes it one of the most contested tiles on the table.",
+      "definition" : "The White Dragon, so called because the plain-faced version looks like a bar of soap. It is the dot suit's dragon, and it also stands in for a zero in year hands.",
       "group" : "tiles",
       "id" : "g-soap",
       "term" : "Soap"
@@ -147,7 +147,7 @@
         "flowers",
         "season"
       ],
-      "definition" : "Eight flower tiles come in the set, and for card purposes they are interchangeable: a flower is a flower. They are never part of a numbered run, and many hands ask for two, three or four of them.",
+      "definition" : "Eight flower tiles come in the set, and for card purposes any flower can stand in for any other. They are never part of a numbered run. Wherever the card shows an F, any flower works.",
       "group" : "tiles",
       "id" : "g-flower",
       "term" : "Flower"
@@ -157,7 +157,7 @@
         "jokers",
         "wild"
       ],
-      "definition" : "Eight wild tiles. A joker can stand in for a tile inside a group of three or more (a pung, kong or quint). It can NEVER be a pair, a single, or part of a Singles and Pairs hand, and it can never be passed in the Charleston.",
+      "definition" : "Eight wild tiles. A joker can stand in for a tile inside a group of three or more (a pung, kong or quint). It can never be a pair, a single, or part of a Singles and Pairs hand, and it can never be passed in the Charleston.",
       "group" : "tiles",
       "id" : "g-joker",
       "term" : "Joker"
@@ -166,7 +166,7 @@
       "aliases" : [
         "honor tiles"
       ],
-      "definition" : "The winds and dragons together. They carry no number, so a rack full of honors is almost always looking at the Winds and Dragons section.",
+      "definition" : "The winds and dragons together. They carry no number, so a rack full of honors points to the Winds and Dragons section.",
       "group" : "tiles",
       "id" : "g-honors",
       "term" : "Honors"
@@ -176,7 +176,7 @@
         "how many tiles",
         "tile count"
       ],
-      "definition" : "An American set is 152 tiles: 108 numbers (three suits, nine numbers, four each), 16 winds, 12 dragons, 8 flowers and 8 jokers. Knowing four of each number exist is the whole basis of counting what is still live.",
+      "definition" : "An American set has 152 tiles. That is 108 numbers (three suits, nine numbers, four each), 16 winds, 12 dragons, 8 flowers and 8 jokers. Knowing that four of each tile exist is the basis of counting what is still live.",
       "group" : "tiles",
       "id" : "g-set-count",
       "term" : "The 152 tiles"
@@ -203,7 +203,7 @@
       "aliases" : [
         "four of a kind"
       ],
-      "definition" : "Four identical tiles. Jokers are allowed inside one, so a kong is often two naturals and two jokers.",
+      "definition" : "Four identical tiles. Jokers are allowed inside one, so a kong can be part natural tiles and part jokers.",
       "group" : "groups",
       "id" : "g-kong",
       "term" : "Kong"
@@ -231,7 +231,7 @@
         "expose",
         "exposed"
       ],
-      "definition" : "A called group laid face up on top of your rack for everyone to see. It is the single biggest piece of information you give away, and the best information you get from other players.",
+      "definition" : "A called group laid face up on top of your rack for everyone to see. It tells the table which hands you can still make, and it shows you what other players are building.",
       "group" : "groups",
       "id" : "g-exposure",
       "term" : "Exposure"
@@ -278,7 +278,7 @@
       "aliases" : [
         "first pass"
       ],
-      "definition" : "The opening pass of three tiles to the player on your right. Like every pass except the last one of each Charleston, it must come from tiles you have looked at, so it is the moment to dump your most isolated junk.",
+      "definition" : "The opening pass of three tiles to the player on your right. Like every pass except the last one of each Charleston, it must come from tiles you have looked at, so it is a good moment to pass your most isolated tiles.",
       "group" : "charleston",
       "id" : "g-first-right",
       "term" : "First right"
@@ -287,7 +287,7 @@
       "aliases" : [
         "blind"
       ],
-      "definition" : "Passing along tiles you have not looked at, taken straight from the set you were just handed. It is allowed only on the last pass of each Charleston (the first Left and the second Right), and it is what you do when you genuinely have nothing to spare.",
+      "definition" : "Passing along tiles you have not looked at, taken straight from the set you were just handed. It is allowed only on the last pass of each Charleston (the first Left and the second Right), and it is useful when you have nothing to spare.",
       "group" : "charleston",
       "id" : "g-blind-pass",
       "term" : "Blind pass"
@@ -306,7 +306,7 @@
       "aliases" : [
         "steal"
       ],
-      "definition" : "Another name for the blind pass: sending on some or all of the tiles you were just handed without looking at them. Allowed only on the last pass of each Charleston (the first Left and the second Right).",
+      "definition" : "Another name for the blind pass, meaning sending on some or all of the tiles you were just handed without looking at them. Allowed only on the last pass of each Charleston (the first Left and the second Right).",
       "group" : "charleston",
       "id" : "g-steal",
       "term" : "Stealing the pass"
@@ -334,7 +334,7 @@
       "aliases" : [
 
       ],
-      "definition" : "A hand that can no longer legally win, usually because of an exposure that no card hand can match or a wrong mah jongg laid down. Once another player calls it dead and the tiles prove it, you stop drawing and discarding for the rest of the hand, but you still pay the winner. Nobody calls their own hand dead: until someone does, keep playing and discard defensively.",
+      "definition" : "A hand that can no longer legally win, usually because of an exposure that no card hand can match or a wrong mah jongg laid down. Once another player calls it dead and the tiles prove it, you stop drawing and discarding for the rest of the hand, but you still pay the winner. Nobody calls their own hand dead, so until someone does, keep playing and discard defensively.",
       "group" : "play",
       "id" : "g-dead-hand",
       "term" : "Dead hand"
@@ -344,7 +344,7 @@
         "draw",
         "no winner"
       ],
-      "definition" : "Nobody declares mah jongg before the tiles run out. It happens more often than beginners expect, and until it ends, any opponent can still win and collect from you, so keep discarding carefully.",
+      "definition" : "Nobody declares mah jongg before the tiles run out. Until it ends, any opponent can still win and collect from you, so keep discarding carefully.",
       "group" : "play",
       "id" : "g-wall-game",
       "term" : "Wall game"
@@ -364,7 +364,7 @@
       "aliases" : [
         "dangerous discard"
       ],
-      "definition" : "A tile that plainly helps somebody at the table, usually because their exposures point at it. Late in a hand, throwing a hot tile is how a good rack still loses.",
+      "definition" : "A tile that plainly helps somebody at the table, usually because their exposures point at it. Late in a hand, throwing a hot tile can hand someone the win.",
       "group" : "play",
       "id" : "g-hot-tile",
       "term" : "Hot tile"
@@ -373,7 +373,7 @@
       "aliases" : [
         "safe discard"
       ],
-      "definition" : "A tile no live hand seems to want: one already discarded twice with no reaction, or one that clashes with every exposure on the table. Keeping one in reserve for the endgame is a habit worth building.",
+      "definition" : "A tile no live hand seems to want, such as one already discarded twice with no reaction or one that clashes with every exposure on the table. Keeping one in reserve for the endgame is a habit worth building.",
       "group" : "play",
       "id" : "g-safe-tile",
       "term" : "Safe tile"
@@ -387,7 +387,7 @@
         "declaring",
         "win"
       ],
-      "definition" : "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure: laying down a wrong hand kills it.",
+      "definition" : "The call you make when your fourteenth tile completes a hand on the card. Say it before you expose your rack, and be sure, because laying down a wrong hand kills it.",
       "group" : "play",
       "id" : "g-mahjongg-call",
       "term" : "Mah Jongg"
@@ -434,7 +434,7 @@
       "title" : "The goal"
     },
     {
-      "body" : "Three suits run 1 through 9: craks (red), bams (green), and dots (blue). Winds are printed N, E, W, S. Each dragon belongs with a suit: red with craks, green with bams, and the blank soap with dots. Flowers are all interchangeable and show up in many card hands, and jokers stand in for tiles inside bigger groups.",
+      "body" : "Three suits run 1 through 9. They are craks (red), bams (green) and dots (blue). Winds are printed N, E, W, S. Each dragon goes with a suit, red with craks, green with bams and the blank soap with dots. Flowers are all interchangeable and show up in many card hands, and jokers stand in for tiles inside bigger groups.",
       "icon" : "square.grid.3x3.fill",
       "id" : "htp-tiles",
       "tiles" : [
@@ -458,11 +458,11 @@
         "6B",
         "8D"
       ],
-      "tip" : "All even numbers? That rack is whispering which section to check first.",
+      "tip" : "All even numbers? Check the 2468 section first.",
       "title" : "Read the card"
     },
     {
-      "body" : "Before play begins, everyone passes three unwanted tiles: right, across, then left, with an optional second round. Jokers never pass. The Charleston is how a messy deal turns into a plan.",
+      "body" : "Before play begins, everyone passes three unwanted tiles to the right, then across, then to the left, with an optional second round. Jokers never pass. The Charleston is how a messy deal becomes a plan.",
       "icon" : "arrow.left.arrow.right",
       "id" : "htp-charleston",
       "tiles" : [
@@ -474,7 +474,7 @@
       "title" : "The Charleston"
     },
     {
-      "body" : "On your turn, draw a tile, then discard one face up: the tile you drew or one from your rack. You may also claim another player's discard to finish a group of 3, 4 or 5 matching tiles (a pung, kong or quint), then lay that group face up on your rack, which is called exposing it. Pairs and single tiles can only be claimed to finish your winning hand, and a hand marked C (concealed) on the card cannot expose anything before it wins. Match your whole hand to the card and you win.",
+      "body" : "On your turn, draw a tile, then discard one face up, either the tile you drew or one from your rack. You may also claim another player's discard to finish a group of 3, 4 or 5 matching tiles (a pung, kong or quint), then lay that group face up on your rack, which is called exposing it. Pairs and single tiles can only be claimed to finish your winning hand, and a hand marked C (concealed) on the card cannot expose anything before it wins. Match your whole hand to the card and you win.",
       "icon" : "hand.draw.fill",
       "id" : "htp-turn",
       "tiles" : [
@@ -487,7 +487,7 @@
       "title" : "Play a turn"
     },
     {
-      "body" : "That's the whole shape of the game: build toward the card, survive the Charleston, and read racks fast. The drills teach each skill one room at a time, five minutes at a stretch.",
+      "body" : "That's the whole shape of the game. Build toward the card, survive the Charleston, and read racks fast. The drills teach each skill one room at a time, five minutes at a stretch.",
       "icon" : "checkmark.seal.fill",
       "id" : "htp-ready",
       "tiles" : [
@@ -571,7 +571,7 @@
         "F",
         "F"
       ],
-      "watchOut" : "Five of a kind, when only four of any tile exist. A quint hand is really a joker-count question: without jokers in hand it is not a plan, it is a wish."
+      "watchOut" : "Five of a kind, when only four of any tile exist. A quint hand is really a joker-count question. Without jokers in hand it is a hope, not a plan."
     },
     {
       "category" : "consecutiveRun",
@@ -590,7 +590,7 @@
         "6B",
         "6B"
       ],
-      "watchOut" : "The most forgiving section on the card, because the run can slide up or down a number while you wait. That flexibility is also the trap: keep sliding and you never actually commit."
+      "watchOut" : "A flexible section, because the run can slide up or down a number while you wait, unless a line's note names its numbers. That flexibility is also a trap, since if you keep sliding you never commit."
     },
     {
       "category" : "odds13579",
@@ -609,7 +609,7 @@
         "9D",
         "9D"
       ],
-      "watchOut" : "The mirror of the evens family, with five numbers to build from instead of four. Early on, odd tiles have one more edge: the 1s and 9s are tiles other players throw away without thinking."
+      "watchOut" : "The mirror of the evens family, with five numbers to build from instead of four."
     },
     {
       "category" : "windsDragons",
@@ -647,7 +647,7 @@
         "9D",
         "9D"
       ],
-      "watchOut" : "A narrow family: three numbers across three suits. The upside is that it reads clearly, so you know early whether you are in it. The downside is there is nowhere to slide."
+      "watchOut" : "A narrow family built on three numbers across three suits. It reads clearly, so you know early whether you are in it. The downside is that there is nowhere to slide."
     },
     {
       "category" : "singlesAndPairs",
@@ -666,7 +666,7 @@
         "1D",
         "GD"
       ],
-      "watchOut" : "NO JOKERS, anywhere, ever. That is why these hands are among the best paid on the card, and why you should not start one unless the tiles are already falling your way."
+      "watchOut" : "No jokers, anywhere. Because nothing can be called except the winning tile, you should not start one unless the tiles are already falling your way."
     }
   ],
   "rooms" : [
@@ -677,7 +677,7 @@
           "isPlus" : false,
           "items" : [
             {
-              "backBody" : "36 tiles: numbers 1 through 9, four of each. On real tiles the number sits above a red Chinese character. Craks partner with the Red Dragon on the card.",
+              "backBody" : "36 tiles, numbered 1 through 9, four of each. On real tiles the number sits above a red Chinese character. Craks partner with the Red Dragon on the card.",
               "backTitle" : "Craks (Characters)",
               "frontTiles" : [
                 "1C",
@@ -688,7 +688,7 @@
               "id" : "tiles-craks"
             },
             {
-              "backBody" : "36 tiles: numbers 1 through 9, four of each, drawn as green bamboo sticks. Bams partner with the Green Dragon. Heads up: the 1 Bam is usually a bird!",
+              "backBody" : "36 tiles, numbered 1 through 9, four of each, drawn as green bamboo sticks. Bams partner with the Green Dragon. The 1 Bam is usually drawn as a bird, not a stick.",
               "backTitle" : "Bams (Bamboo)",
               "frontTiles" : [
                 "1B",
@@ -699,7 +699,7 @@
               "id" : "tiles-bams"
             },
             {
-              "backBody" : "36 tiles: numbers 1 through 9, four of each, drawn as circles. Dots partner with the Soap (White Dragon).",
+              "backBody" : "36 tiles, numbered 1 through 9, four of each, drawn as circles. Dots partner with the Soap (White Dragon).",
               "backTitle" : "Dots (Circles)",
               "frontTiles" : [
                 "1D",
@@ -710,7 +710,7 @@
               "id" : "tiles-dots"
             },
             {
-              "backBody" : "16 tiles: North, East, West, South, four of each. Winds & Dragons is the section built around them. A lone wind with no partner is a common early pass unless a line on your card wants it.",
+              "backBody" : "16 tiles, four each of North, East, West and South. Winds & Dragons is the section built around them. A lone wind with no partner is a common early pass unless a line on your card wants it.",
               "backTitle" : "The Winds",
               "frontTiles" : [
                 "N",
@@ -722,7 +722,7 @@
               "id" : "tiles-winds"
             },
             {
-              "backBody" : "12 tiles: 4 Red, 4 Green, 4 Soap. Each dragon belongs to a suit: Red goes with Craks, Green with Bams, Soap with Dots. On the card, a dragon printed in the same color as a number group is that suit's own dragon; a different color means another suit's dragon.",
+              "backBody" : "12 tiles, four each of Red, Green and Soap. Each dragon belongs to a suit. Red goes with Craks, Green with Bams, Soap with Dots. On the card, a dragon printed in the same color as a number group is that suit's own dragon. A different color means another suit's dragon.",
               "backTitle" : "The Dragons",
               "frontTiles" : [
                 "RD",
@@ -733,7 +733,7 @@
               "id" : "tiles-dragons"
             },
             {
-              "backBody" : "The Soap is the White Dragon (it looks like a bar of soap). Besides being Dots' dragon, it stands in for ZERO in year hands, like the 0 in 2026.",
+              "backBody" : "The Soap is the White Dragon (it looks like a bar of soap). Besides being Dots' dragon, it stands in for zero in year hands, like the 0 in 2026.",
               "backTitle" : "Soap = White Dragon = Zero",
               "frontSubtitle" : "It has a second job",
               "frontTiles" : [
@@ -743,7 +743,7 @@
               "id" : "tiles-soap"
             },
             {
-              "backBody" : "8 flower tiles, and in American mahj they are ALL interchangeable. Any flower works wherever the card shows an F. Flowers appear all over the card, so hold them early.",
+              "backBody" : "8 flower tiles, and in American mahj they are all interchangeable. Any flower works wherever the card shows an F. Many card hands use flowers, so hold them early.",
               "backTitle" : "Flowers",
               "frontTiles" : [
                 "F",
@@ -753,9 +753,9 @@
               "id" : "tiles-flowers"
             },
             {
-              "backBody" : "8 jokers. A joker stands in for any tile in a group of 3 or more (pung, kong, quint). It can NEVER be used in a pair or as a single tile, never in Singles & Pairs hands, and can never be passed in the Charleston.",
+              "backBody" : "8 jokers. A joker stands in for any tile in a group of 3 or more (pung, kong, quint). It cannot be used in a pair or as a single tile, so Singles & Pairs hands never take one, and a joker can never be passed in the Charleston.",
               "backTitle" : "Jokers",
-              "frontSubtitle" : "The most powerful tile",
+              "frontSubtitle" : "The wild tile",
               "frontTiles" : [
                 "J",
                 "J"
@@ -764,7 +764,7 @@
               "id" : "tiles-jokers"
             },
             {
-              "backBody" : "108 number tiles (three suits, 1-9, four each) + 16 winds + 12 dragons + 8 flowers + 8 jokers = 152. That is 8 more than the usual 144-tile Chinese set: the 8 jokers.",
+              "backBody" : "108 number tiles (three suits, 1-9, four each) + 16 winds + 12 dragons + 8 flowers + 8 jokers = 152. That is 8 more than the usual 144-tile Chinese set, and those 8 are the jokers.",
               "backTitle" : "152 Tiles",
               "frontSubtitle" : "How many tiles?",
               "frontTiles" : [
@@ -774,9 +774,9 @@
               "id" : "tiles-count"
             },
             {
-              "backBody" : "The National Mah Jongg League (NMJL) card lists every legal winning hand this year, grouped in sections (2468, Consecutive Run, 13579...). A new card comes out every spring. Colors on the card mean DIFFERENT suits, not specific ones: any suit can be red, green, or blue.",
+              "backBody" : "The National Mah Jongg League (NMJL) card lists every legal winning hand this year, grouped in sections (2468, Consecutive Run, 13579...). A new card comes out every spring. Different colors on the card mean different suits, not particular ones. Any suit can be red, green or blue.",
               "backTitle" : "The NMJL Card",
-              "frontSubtitle" : "Why everyone squints at it",
+              "frontSubtitle" : "The list of winning hands",
               "frontTiles" : [
 
               ],
@@ -794,7 +794,7 @@
               "id" : "tiles-groups"
             },
             {
-              "backBody" : "X = you may call discards and expose groups on your rack. C = concealed: no exposures allowed before mah jongg (you may still call the final winning tile). Concealed hands are harder, so they pay more.",
+              "backBody" : "X = you may call discards and expose groups on your rack. C = concealed, so no exposures are allowed before mah jongg (you may still call the final winning tile). Check the value printed beside each line to see what it pays.",
               "backTitle" : "Concealed vs Exposed",
               "frontSubtitle" : "Those little letters by the value",
               "frontTiles" : [
@@ -820,7 +820,7 @@
                 "Soap",
                 "Any dragon"
               ],
-              "explanation" : "Red goes with Craks. Remember C-R: Craks are Red. Green belongs to Bams, Soap to Dots.",
+              "explanation" : "Red goes with Craks. Remember C for Crak, R for Red. Green belongs to Bams, Soap to Dots.",
               "id" : "quiz-dragon-crak",
               "prompt" : "Which dragon goes with a crak hand?",
               "tiles" : [
@@ -837,7 +837,7 @@
                 "Soap",
                 "Any dragon"
               ],
-              "explanation" : "Green goes with Bams: bamboo is green. Easy one to picture.",
+              "explanation" : "Green goes with Bams, because bamboo is green.",
               "id" : "quiz-dragon-bam",
               "prompt" : "Which dragon belongs to the bam suit?",
               "tiles" : [
@@ -855,7 +855,7 @@
                 "Soap",
                 "Any dragon"
               ],
-              "explanation" : "Soap (the White Dragon) goes with Dots. White soap, white circles.",
+              "explanation" : "Soap (the White Dragon) goes with Dots. Red goes with Craks and Green with Bams.",
               "id" : "quiz-dragon-dot",
               "prompt" : "Which dragon matches a dot hand?",
               "tiles" : [
@@ -888,7 +888,7 @@
                 "No, it's against the rules",
                 "Only in the courtesy pass"
               ],
-              "explanation" : "Jokers may never be passed in the Charleston or the courtesy pass. It's not just bad strategy, it's illegal.",
+              "explanation" : "Jokers may never be passed in the Charleston or the courtesy pass. Passing one breaks the rules.",
               "id" : "quiz-joker-charleston",
               "prompt" : "Can you pass a joker in the Charleston?",
               "tiles" : [
@@ -918,7 +918,7 @@
                 "8",
                 "12"
               ],
-              "explanation" : "Eight jokers. That's also why counting them matters: if you've seen 6 on racks and discards, only 2 are left in play.",
+              "explanation" : "Eight jokers, and counting them helps. If you've seen 6 on racks and discards, only 2 are left in play.",
               "id" : "quiz-joker-count",
               "prompt" : "How many jokers are in an American mahj set?",
               "tiles" : [
@@ -933,7 +933,7 @@
                 "4 identical tiles",
                 "A run like 5-6-7"
               ],
-              "explanation" : "Three identical tiles. Unlike other mahjong styles, you can't claim a discard for a run like 5-6-7: the card spells out every shape.",
+              "explanation" : "Three identical tiles. Unlike other mahjong styles, you can't claim a discard for a run like 5-6-7. The card spells out every shape.",
               "id" : "quiz-pung",
               "prompt" : "What is a pung?",
               "tiles" : [
@@ -950,7 +950,7 @@
                 "Jokers",
                 "Use two suits"
               ],
-              "explanation" : "Jokers. Every quint needs at least one. That's why Quints hands pay so well.",
+              "explanation" : "Jokers. Only four of each tile exist, so every quint needs at least one.",
               "id" : "quiz-quint",
               "prompt" : "Only four of each tile exist. How is a quint (5 of a kind) possible?",
               "tiles" : [
@@ -981,7 +981,7 @@
                 "Never allowed",
                 "One per hand"
               ],
-              "explanation" : "Never. Singles & Pairs hands have no groups of 3+, and jokers only work in groups of 3+. That's why S&P hands pay so well.",
+              "explanation" : "Never. Singles & Pairs hands have no groups of 3 or more, and jokers only work in groups of 3 or more.",
               "id" : "quiz-sp-jokers",
               "prompt" : "Jokers in a Singles & Pairs hand?",
               "tiles" : [
@@ -992,11 +992,11 @@
               "answerIndex" : 1,
               "choices" : [
                 "Craks only",
-                "Concealed: no exposures",
+                "Concealed (no exposures)",
                 "Courtesy hand",
                 "Charleston required"
               ],
-              "explanation" : "Concealed. You can't call discards to expose groups; the hand stays on your rack until you call the winning tile for mah jongg.",
+              "explanation" : "Concealed. You can't call discards to expose groups, so the hand stays on your rack until you call the winning tile for mah jongg.",
               "id" : "quiz-concealed",
               "prompt" : "Each hand on the card is marked X or C. What does C mean?",
               "tiles" : [
@@ -1011,7 +1011,7 @@
                 "Dragons required",
                 "Nothing, just decoration"
               ],
-              "explanation" : "Colors mean DIFFERENT suits, not specific ones. Green-red-blue just tells you the hand uses three suits; you pick which is which.",
+              "explanation" : "Different colors mean different suits, not particular ones. Green, red and blue just tell you the hand uses three suits, and you pick which is which.",
               "id" : "quiz-colors",
               "prompt" : "A card hand shows numbers in green, red, and blue. What do the colors mean?",
               "tiles" : [
@@ -1026,7 +1026,7 @@
                 "14",
                 "16"
               ],
-              "explanation" : "Thirteen. You draw a 14th, then discard (or keep it and discard something else). East is the one exception: East starts the game with 14 and opens by discarding. Mah jongg = 14 tiles matching a card hand exactly.",
+              "explanation" : "Thirteen. You draw a 14th, then discard (or keep it and discard something else). East is the one exception, starting the game with 14 and opening by discarding. Mah jongg is 14 tiles matching a card hand exactly.",
               "id" : "quiz-hand-size",
               "prompt" : "How many tiles do you hold during play (before your turn)?",
               "tiles" : [
@@ -1041,7 +1041,7 @@
                 "Only if they agree",
                 "Only for your own exposures"
               ],
-              "explanation" : "Yes. On your turn, before you discard, you may give the real matching tile to any exposure holding a joker, yours or an opponent's, and take the joker into your hand. Free joker. Always scan the racks.",
+              "explanation" : "Yes. On your turn, before you discard, you may give the real matching tile to any exposure holding a joker, yours or an opponent's, and take the joker into your hand. Check every exposure for jokers you can take.",
               "id" : "quiz-joker-exchange",
               "prompt" : "An opponent's exposed kong contains a joker. You hold the real matching tile. Can you swap?",
               "tiles" : [
@@ -1056,7 +1056,7 @@
                 "No, discarded jokers are dead",
                 "Only with a pung"
               ],
-              "explanation" : "A discarded joker is dead: nobody can call it for anything. Which is why you basically never throw one.",
+              "explanation" : "A discarded joker is dead, so nobody can call it for anything. It is safe to throw, but you give up your most flexible tile, which is why it is rarely worth it.",
               "id" : "quiz-dead-joker",
               "prompt" : "Someone discards a joker. Can you call it?",
               "tiles" : [
@@ -1065,7 +1065,7 @@
             }
           ],
           "kind" : "quiz",
-          "subtitle" : "Quick quiz: dragons, jokers, and the rules everyone gets wrong",
+          "subtitle" : "Quick quiz: dragons, jokers, and the basic tile rules",
           "title" : "Tile Check"
         },
         {
@@ -1339,7 +1339,7 @@
           "isPlus" : false,
           "items" : [
             {
-              "backBody" : "Built around the current year's digits, with soaps standing in for zeros. Spot it when you're holding 2s and soaps plus flowers. The digits are easy to spot on a rack, but year lines are specific, so read them closely.",
+              "backBody" : "Built around the current year's digits, with soaps standing in for zeros. Spot it when you're holding 2s and soaps. The digits are easy to spot on a rack, but year lines are specific, so read them closely.",
               "backTitle" : "Year Hands",
               "frontSubtitle" : "2 - 0 - 2 - 6",
               "frontTiles" : [
@@ -1352,7 +1352,7 @@
               "id" : "cat-year"
             },
             {
-              "backBody" : "Only even numbers: 2, 4, 6, 8. Every odd tile in your hand is dead weight for this section. If your deal is heavy on 2s, 4s, 6s and 8s, start here and pass every odd tile.",
+              "backBody" : "Only even numbers (2, 4, 6, 8). Every odd tile in your hand is dead weight for this section. If your deal is heavy on 2s, 4s, 6s and 8s, start here and pass every odd tile.",
               "backTitle" : "2468",
               "frontSubtitle" : "Even numbers only",
               "frontTiles" : [
@@ -1365,7 +1365,7 @@
               "id" : "cat-2468"
             },
             {
-              "backBody" : "The same number collected across different suits. Spot it when one number keeps showing up in two or three suits at once. Great fallback when one number keeps arriving from every direction.",
+              "backBody" : "The same number collected across different suits. Spot it when one number keeps showing up in two or three suits at once. A good fallback when one number keeps turning up in several suits.",
               "backTitle" : "Any Like Numbers",
               "frontSubtitle" : "Same number, different suits",
               "frontTiles" : [
@@ -1377,7 +1377,7 @@
               "id" : "cat-like"
             },
             {
-              "backBody" : "Needs five of a kind, and only four of each tile exist, so quints are impossible without jokers. Only chase these when you're joker-rich. Rule of thumb: don't commit to Quints with fewer than two jokers.",
+              "backBody" : "Needs five of a kind, and only four of each tile exist, so quints are impossible without jokers. Only chase these when you're joker-rich. As a rule of thumb, don't commit to Quints with fewer than two jokers.",
               "backTitle" : "Quints",
               "frontSubtitle" : "Five of a kind",
               "frontTiles" : [
@@ -1391,7 +1391,7 @@
               "id" : "cat-quints"
             },
             {
-              "backBody" : "Numbers that step up in order, like 4-5-6-7. Many run lines can start on any number, so a deal with numbers in a row often fits more than one line. Read the note beside each line: a run that names its numbers cannot slide.",
+              "backBody" : "Numbers that step up in order, like 4-5-6-7. Unless a line's note names its numbers, a run can start on any number, so a deal with numbers in a row can fit more than one line. Read the note beside each line, because a run that names its numbers cannot slide.",
               "backTitle" : "Consecutive Run",
               "frontSubtitle" : "Numbers in a row",
               "frontTiles" : [
@@ -1404,7 +1404,7 @@
               "id" : "cat-run"
             },
             {
-              "backBody" : "Only odd numbers: 1, 3, 5, 7, 9. The mirror image of 2468, with one more number to build from. Count how many lines your card gives this section: the more lines, the more places an odd-heavy deal can go.",
+              "backBody" : "Only odd numbers (1, 3, 5, 7, 9). The mirror image of 2468, with one more number to build from. Count how many lines your card gives this section. The more lines it has, the more places an odd-heavy deal can go.",
               "backTitle" : "13579",
               "frontSubtitle" : "Odd numbers only",
               "frontTiles" : [
@@ -1418,7 +1418,7 @@
               "id" : "cat-13579"
             },
             {
-              "backBody" : "Built mostly from N, E, W, S and the dragons, sometimes with a few numbers. Spot it when winds keep piling up on your rack. Winds only show up here and there in other sections, so count yours: one or two = pass them, four or five = consider committing.",
+              "backBody" : "Built mostly from N, E, W, S and the dragons, sometimes with a few numbers. Spot it when winds keep piling up on your rack. Count the winds on your rack. With one or two, plan to pass them. With four or five, consider committing here.",
               "backTitle" : "Winds & Dragons",
               "frontSubtitle" : "N E W S + dragons",
               "frontTiles" : [
@@ -1431,7 +1431,7 @@
               "id" : "cat-winds"
             },
             {
-              "backBody" : "Only 3s, 6s, and 9s. A small, focused family: if you hold several of those three numbers, look here. Bonus: 3s and 9s also fit 13579, and 6s fit 2468, so a 369 start keeps other doors open.",
+              "backBody" : "Only 3s, 6s and 9s. It is a small, focused family, so if you hold several of those three numbers, look here. The 3s and 9s are odd and the 6s are even, so a 369 start can still move to 13579 or 2468.",
               "backTitle" : "369",
               "frontSubtitle" : "Threes, sixes, nines",
               "frontTiles" : [
@@ -1443,7 +1443,7 @@
               "id" : "cat-369"
             },
             {
-              "backBody" : "No pungs or kongs, just single tiles and pairs. NO JOKERS ALLOWED, which is why these hands pay so well. New players should admire it from a distance: every tile but the winning one must be drawn or come through the Charleston.",
+              "backBody" : "No pungs or kongs, just single tiles and pairs. No jokers are allowed. Because nothing can be called except the winning tile, every other tile must be drawn or come through the Charleston. That makes it a hard target for a new player.",
               "backTitle" : "Singles & Pairs",
               "frontSubtitle" : "The no-joker zone",
               "frontTiles" : [
@@ -1457,7 +1457,7 @@
             },
             {
               "backBody" : "A dragon printed in the same color as a number group is that suit's own dragon. 4 Craks go with the Red Dragon, so this fits. Green would belong with bams, and Soap with dots.",
-              "backTitle" : "Yes: Same Color, Same Suit",
+              "backTitle" : "Yes, Same Color Means Same Suit",
               "choice" : {
                 "answerIndex" : 0,
                 "options" : [
@@ -1465,7 +1465,7 @@
                   "Doesn't fit"
                 ]
               },
-              "frontSubtitle" : "Your tiles: do they fill that part of the line?",
+              "frontSubtitle" : "Do your tiles fill that part of the line?",
               "frontTiles" : [
                 "4C",
                 "4C",
@@ -1478,7 +1478,7 @@
             },
             {
               "backBody" : "A dragon in a different color from the numbers has to come from a different suit. Green is the bams' own dragon, so it matches these 4 Bams instead of contrasting with them. A Red Dragon or a Soap would fit.",
-              "backTitle" : "No: Different Color, Different Suit",
+              "backTitle" : "No, Different Color Means Different Suit",
               "choice" : {
                 "answerIndex" : 1,
                 "options" : [
@@ -1486,7 +1486,7 @@
                   "Doesn't fit"
                 ]
               },
-              "frontSubtitle" : "Your tiles: do they fill that part of the line?",
+              "frontSubtitle" : "Do your tiles fill that part of the line?",
               "frontTiles" : [
                 "4B",
                 "4B",
@@ -1522,7 +1522,7 @@
               "id" : "cat-line-any-number"
             },
             {
-              "backBody" : "Run lines show the lowest numbers, and most can start anywhere as long as the numbers stay in order with no gaps. Read the note beside the line: a run that names its numbers cannot slide.",
+              "backBody" : "Run lines show the lowest numbers. Unless the note beside the line names its numbers, you can start higher, as long as the numbers stay in order with no gaps.",
               "backTitle" : "Yes, Unless the Line Says Otherwise",
               "choice" : {
                 "answerIndex" : 0,
@@ -1545,7 +1545,7 @@
               "id" : "cat-line-run-slides"
             },
             {
-              "backBody" : "C means concealed: nothing may be exposed before mah jongg. Once a group is face up on your rack, every C line is closed to you, and only X lines can still win.",
+              "backBody" : "C means concealed, so nothing may be exposed before mah jongg. Once a group is face up on your rack, every C line is closed to you and only X lines can still win.",
               "backTitle" : "No, Pick Another Line",
               "choice" : {
                 "answerIndex" : 1,
@@ -1564,7 +1564,7 @@
               "id" : "cat-line-concealed"
             },
             {
-              "backBody" : "NEWS means one North, one East, one West and one South: four single tiles. Jokers never fill a single, so every wind has to be the real tile.",
+              "backBody" : "NEWS means one North, one East, one West and one South, four single tiles. Jokers never fill a single, so every wind has to be the real tile.",
               "backTitle" : "No, Every Letter Is Real",
               "choice" : {
                 "answerIndex" : 1,
@@ -1620,7 +1620,7 @@
                 "consecutiveRun",
                 "likeNumbers"
               ],
-              "explanation" : "Every number tile is even: 2s, 4s, 6s, 8s across suits. The flowers and the joker do not point anywhere else, so the numbers decide: this rack is screaming 2468.",
+              "explanation" : "Every number tile is even, from 2s to 8s across the suits. The flowers and the joker point nowhere else, so the numbers decide and the read is 2468.",
               "id" : "hm-2468",
               "tiles" : [
                 "2C",
@@ -1646,7 +1646,7 @@
                 "threeSixNine",
                 "odds13579"
               ],
-              "explanation" : "3-4-5, 4-5-6, 5-6-7: stepping numbers in all three suits. Mixed odds and evens rule out 2468 and 13579; Consecutive Run eats this deal up.",
+              "explanation" : "The rack holds 3-4-5, 4-5-6 and 5-6-7, stepping numbers in all three suits. Mixed odds and evens rule out 2468 and 13579, so Consecutive Run is the read.",
               "id" : "hm-run",
               "tiles" : [
                 "3C",
@@ -1672,7 +1672,7 @@
                 "evens2468",
                 "quints"
               ],
-              "explanation" : "1s, 3s, 5s, 7s, 9s: all odd except one stray 2 Dot. Three pairs of odd bams is a strong 13579 spine. The 2 Dot and lone wind are your first passes.",
+              "explanation" : "Every number is odd except one stray 2 Dot. Three pairs of odd bams is a solid 13579 start. The 2 Dot and the lone wind are your first passes.",
               "id" : "hm-odds",
               "tiles" : [
                 "1B",
@@ -1698,7 +1698,7 @@
                 "likeNumbers",
                 "odds13579"
               ],
-              "explanation" : "Eight winds including a pung of Norths, plus two dragons. Only one number tile in the whole rack. This is a Winds & Dragons hand waiting to happen.",
+              "explanation" : "Eight winds including a pung of Norths, plus two dragons, and only one number tile in the whole rack. The read is Winds & Dragons.",
               "id" : "hm-winds",
               "tiles" : [
                 "N",
@@ -1724,7 +1724,7 @@
                 "evens2468",
                 "likeNumbers"
               ],
-              "explanation" : "Every number is a 3, 6, or 9 except the stray 2 Bam. A pung of 6 Craks plus pairs of 9s puts you well on the way in the 369 section.",
+              "explanation" : "Every number is a 3, 6 or 9 except the stray 2 Bam. A pung of 6 Craks plus pairs of 9s gives the 369 section a solid start.",
               "id" : "hm-369",
               "tiles" : [
                 "3C",
@@ -1750,7 +1750,7 @@
                 "quints",
                 "consecutiveRun"
               ],
-              "explanation" : "EIGHT fives across all three suits. When one number floods your rack like this, Any Like Numbers is the read.",
+              "explanation" : "Eight fives across all three suits. When one number fills your rack like this, Any Like Numbers is the read.",
               "id" : "hm-like",
               "tiles" : [
                 "5C",
@@ -1776,7 +1776,7 @@
                 "windsDragons",
                 "singlesAndPairs"
               ],
-              "explanation" : "2s, Soaps (zeros), 6s, and a fistful of flowers: those are exactly the ingredients of a 2026 year hand. 2468 fits too, but the soaps and flowers point to the year section first.",
+              "explanation" : "The 2s, soaps (zeros) and 6s are the makings of a year hand. 2468 fits too, but the soaps point to the year section first.",
               "id" : "hm-year",
               "tiles" : [
                 "2C",
@@ -1802,7 +1802,7 @@
                 "threeSixNine",
                 "consecutiveRun"
               ],
-              "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Only jokers can make a quint, so a joker-rich rack points at Quints. Jokers decide.",
+              "explanation" : "Two pungs of 7s and three jokers. Two jokers turn one pung into a quint, and the third turns the other pung into a kong. Only jokers can make a quint, so a joker-rich rack points at Quints.",
               "id" : "hm-quints",
               "tiles" : [
                 "J",
@@ -1828,7 +1828,7 @@
                 "windsDragons",
                 "evens2468"
               ],
-              "explanation" : "Six natural pairs and zero jokers, mixing odd and even numbers. Every pair in Singles & Pairs must be natural, since it never takes jokers, so a rack that already holds this many pairs is a strong start.",
+              "explanation" : "Six natural pairs and no jokers, mixing odd and even numbers. Pairs in Singles & Pairs must be natural because jokers can't fill them, so a rack that already holds this many pairs is a strong start.",
               "id" : "hm-sp",
               "tiles" : [
                 "1C",
@@ -2160,9 +2160,9 @@
           "isPlus" : false,
           "items" : [
             {
-              "backBody" : "Before play starts, everyone passes tiles: three passes (right, across, left), an optional second round (left, across, right), then an optional courtesy pass across. Each Charleston pass is 3 tiles. It exists so you can trade junk for a real hand.",
+              "backBody" : "Before play starts, everyone passes tiles. That is three passes (right, across, left), an optional second round (left, across, right), then an optional courtesy pass across. Each Charleston pass is 3 tiles. The point is to trade tiles you don't need for ones you might.",
               "backTitle" : "The Charleston",
-              "frontSubtitle" : "The part that scares everyone",
+              "frontSubtitle" : "How the passing before play works",
               "frontTiles" : [
 
               ],
@@ -2170,7 +2170,7 @@
               "id" : "ch-what"
             },
             {
-              "backBody" : "Rack your tiles by suit and number, then shortlist 2-3 card sections your deal leans toward. Don't marry one hand yet: pass the tiles that help NONE of your shortlist.",
+              "backBody" : "Rack your tiles by suit and number, then shortlist 2-3 card sections your deal leans toward. Don't commit to one hand yet. Pass the tiles that help none of your shortlist.",
               "backTitle" : "Sort, Then Shortlist",
               "frontSubtitle" : "What do you do with a fresh deal?",
               "frontTiles" : [
@@ -2180,9 +2180,9 @@
               "id" : "ch-first-look"
             },
             {
-              "backBody" : "Jokers may never be passed in the Charleston or courtesy pass. If you're ever handed one, someone broke the rules. (Flowers CAN be passed, but usually shouldn't be early.)",
-              "backTitle" : "Never. It's Illegal.",
-              "frontSubtitle" : "Rule, not suggestion",
+              "backBody" : "Jokers may never be passed in the Charleston or courtesy pass. If you're ever handed one, someone broke the rules. Flowers can be passed, but early on it is better to keep them.",
+              "backTitle" : "Not Allowed",
+              "frontSubtitle" : "Can you pass one?",
               "frontTiles" : [
 
               ],
@@ -2190,7 +2190,7 @@
               "id" : "ch-jokers"
             },
             {
-              "backBody" : "Flowers appear in sections all over the card, so a flower is rarely dead. Early in the Charleston, keep them. If you're deep into a hand with no F in it, they become passes.",
+              "backBody" : "Many card hands use flowers, so a flower is rarely a dead tile early on. Keep them in the early passes. Once you are committed to a hand with no F in it, they become passes.",
               "backTitle" : "Hold Them Early",
               "frontSubtitle" : "They look useless...",
               "frontTiles" : [
@@ -2200,7 +2200,7 @@
               "id" : "ch-flowers"
             },
             {
-              "backBody" : "Pairs are gold: jokers can't make them, so natural pairs anchor hands. Pass lone strays (single winds, isolated numbers) before you split a pair, unless the pair fits none of the sections you are considering.",
+              "backBody" : "Jokers can't fill a pair, so natural pairs anchor a hand. Pass lone strays (single winds, isolated numbers) before you split a pair, unless the pair fits none of the sections you are considering.",
               "backTitle" : "Don't Break Pairs",
               "frontSubtitle" : "You must pass three tiles. Which ones?",
               "frontTiles" : [
@@ -2210,7 +2210,7 @@
               "id" : "ch-pairs"
             },
             {
-              "backBody" : "On the last pass of each Charleston (the first Left and the second Right), you may pass on 1 to 3 of the tiles just handed to you without looking at them. You still pass three tiles, but each blind one lets you keep one of your own. Great when your hand is already tight.",
+              "backBody" : "On the last pass of each Charleston (the first Left and the second Right), you may pass on 1 to 3 of the tiles just handed to you without looking at them. You still pass three tiles, but each blind one lets you keep one of your own. Use it when you don't want to give up tiles you need.",
               "backTitle" : "Blind Pass",
               "frontSubtitle" : "a.k.a. stealing",
               "frontTiles" : [
@@ -2220,9 +2220,9 @@
               "id" : "ch-blind"
             },
             {
-              "backBody" : "The second Charleston only happens if ALL players agree. If your hand is already strong after round one, say stop: extra passing mostly helps the players with bad hands.",
+              "backBody" : "The second Charleston only happens if all players agree, so any one player can stop it. If your hand is already strong after round one, say stop. Another round means more tiles leaving your rack, which a strong hand may not need.",
               "backTitle" : "Anyone Can Stop It",
-              "frontSubtitle" : "You have this power",
+              "frontSubtitle" : "Who decides whether it happens?",
               "frontTiles" : [
 
               ],
@@ -2230,7 +2230,7 @@
               "id" : "ch-stop"
             },
             {
-              "backBody" : "After the Charleston, you and the player across can swap 0-3 tiles: you exchange the SAME number, agreed out loud ('two?'). Ask for fewer if your hand is close.",
+              "backBody" : "After the Charleston, you and the player across can swap 0 to 3 tiles. You each pass the same number, agreed out loud ('two?'). Ask for fewer if your hand is close.",
               "backTitle" : "Courtesy Pass",
               "frontSubtitle" : "The final exchange",
               "frontTiles" : [
@@ -2240,8 +2240,8 @@
               "id" : "ch-courtesy"
             },
             {
-              "backBody" : "Whatever arrives is usually what a neighbor didn't need, unless it came blind. Three winds from your right? They probably aren't on Winds & Dragons. Also note what never comes back: those tiles are being collected.",
-              "backTitle" : "Passes Tell Stories",
+              "backBody" : "Tiles that arrive are often ones the passer didn't need, unless they were passed blind. Three winds from your right? That player probably isn't on Winds & Dragons. Treat it as a hint, not proof, since blind passes tell you nothing.",
+              "backTitle" : "Passes Are Hints",
               "frontSubtitle" : "Free information",
               "frontTiles" : [
 
@@ -2250,7 +2250,7 @@
               "id" : "ch-watch"
             },
             {
-              "backBody" : "When your strays are equally useless to you, mix them across your passes rather than sending three of one family (say, 2C 4C 6C) to one player. It is a small edge: never keep a tile you need just to split a bundle.",
+              "backBody" : "When your strays are equally useless to you, mix them across your passes rather than sending three of one family (say, 2C 4C 6C) to one player. The edge is small, so never keep a tile you need just to split a bundle.",
               "backTitle" : "Split Related Tiles",
               "frontSubtitle" : "Passing has a defense side too",
               "frontTiles" : [
@@ -2285,14 +2285,14 @@
                 "N"
               ],
               "id" : "cs-evens",
-              "reasoning" : "This deal leans into 2468: eight even tiles with three pairs, plus a flower and a joker worth keeping. The 1 Crak and 9 Bam are odd, and they and the lone North help none of that. The joker can never be passed, and the flower should stay early.",
+              "reasoning" : "This deal leans toward 2468, with eight even tiles including three pairs, plus a flower and a joker worth keeping. The 1 Crak and 9 Bam are odd, so they and the lone North do nothing for that plan. The joker can never be passed, and the flower should stay early.",
               "recommendedPass" : [
                 "1C",
                 "9B",
                 "N"
               ],
-              "situation" : "First Charleston, pass RIGHT. Pick 3 tiles to pass.",
-              "tip" : "First pass: dump the tiles that fit NONE of your 2-3 candidate sections."
+              "situation" : "First Charleston, pass right. Pick 3 tiles to pass.",
+              "tip" : "On the first pass, dump the tiles that fit none of your 2-3 candidate sections."
             },
             {
               "deal" : [
@@ -2311,14 +2311,14 @@
                 "J"
               ],
               "id" : "cs-winds",
-              "reasoning" : "Seven winds and a dragon: this is a Winds & Dragons hand. The three scattered number tiles (3 Crak, 6 Dot, 9 Bam) are strays in three different suits, with nothing to build on for a winds plan. Easy passes.",
+              "reasoning" : "Seven winds and a dragon make this a Winds & Dragons deal. The three scattered number tiles (3 Crak, 6 Dot, 9 Bam) are strays in three different suits, with nothing to build on for a winds plan. Easy passes.",
               "recommendedPass" : [
                 "3C",
                 "6D",
                 "9B"
               ],
-              "situation" : "First Charleston, pass RIGHT. Pick 3 tiles to pass.",
-              "tip" : "A pung of winds is a commitment. Once you have one, feed it."
+              "situation" : "First Charleston, pass right. Pick 3 tiles to pass.",
+              "tip" : "A pung of winds is a commitment. Once you have one, build around it."
             },
             {
               "deal" : [
@@ -2337,13 +2337,13 @@
                 "J"
               ],
               "id" : "cs-run",
-              "reasoning" : "Middle numbers 4 through 7 across Craks and Bams, plus a pair of 6 Dots: a Consecutive Run dream. The 1 and the 9 are long shots for a run built on 4 through 7, and the lone North is dead weight. Keep the 6 Dot pair: pairs anchor hands.",
+              "reasoning" : "Middle numbers 4 through 7 across Craks and Bams, plus a pair of 6 Dots, make a strong Consecutive Run start. The 1 and the 9 are long shots for a run built on 4 through 7, and the lone North is dead weight. Keep the 6 Dot pair, since pairs anchor hands.",
               "recommendedPass" : [
                 "1C",
                 "9D",
                 "N"
               ],
-              "situation" : "First Charleston, pass ACROSS. Pick 3 tiles to pass.",
+              "situation" : "First Charleston, pass across. Pick 3 tiles to pass.",
               "tip" : "For Consecutive Run hands, middle numbers (4-7) leave the most room to build in either direction."
             },
             {
@@ -2363,14 +2363,14 @@
                 "J"
               ],
               "id" : "cs-pairs",
-              "reasoning" : "Three natural pairs of odd numbers point at 13579. Keep every odd tile: the 5 Crak and 1 Bam still fit odd hands. Pass the evens (4 Dot, 8 Crak) and the lone wind. Keep the pairs, since jokers can never make a pair for you.",
+              "reasoning" : "Three natural pairs of odd numbers point at 13579. Keep every odd tile, since the 5 Crak and 1 Bam still fit odd hands. Pass the evens (4 Dot, 8 Crak) and the lone wind. Keep the pairs too, because jokers can never make a pair for you.",
               "recommendedPass" : [
                 "4D",
                 "8C",
                 "W"
               ],
-              "situation" : "First Charleston, pass LEFT. Pick 3 tiles to pass.",
-              "tip" : "Tiles that fit your section stay, even unpaired. Pass tiles from the WRONG number family first."
+              "situation" : "First Charleston, pass left. Pick 3 tiles to pass.",
+              "tip" : "Tiles that fit your section stay, even unpaired. Pass tiles from the wrong number family first."
             },
             {
               "deal" : [
@@ -2395,7 +2395,7 @@
                 "9C",
                 "5B"
               ],
-              "situation" : "First Charleston, pass RIGHT. Five winds and five scattered numbers. Pick 3.",
+              "situation" : "First Charleston, pass right. Five winds and five scattered numbers. Pick 3.",
               "tip" : "With a junk deal, let the strongest group set the plan. Strays are interchangeable; pairs and flowers are not."
             },
             {
@@ -2415,14 +2415,14 @@
                 "5C"
               ],
               "id" : "cs-flowers",
-              "reasoning" : "Three flowers plus a wall of even bams: this deal wants an evens hand, and many hands use flowers, so keep them. The odd Craks (9 Crak, 5 Crak) and the lone North do not fit an evens plan.",
+              "reasoning" : "Three flowers plus five even bams make this an evens deal, and many hands use flowers, so keep them. The odd Craks (9 Crak, 5 Crak) and the lone North do not fit an evens plan.",
               "recommendedPass" : [
                 "9C",
                 "5C",
                 "N"
               ],
-              "situation" : "First Charleston, pass ACROSS. Pick 3 tiles to pass.",
-              "tip" : "Flowers turn up in hands across the card, so early passes seldom include one. Count yours: extras beyond what your sections can use can go."
+              "situation" : "First Charleston, pass across. Pick 3 tiles to pass.",
+              "tip" : "Flowers turn up in many hands, so early passes seldom include one. Count yours. Extras beyond what your sections can use can go."
             },
             {
               "deal" : [
@@ -2441,14 +2441,14 @@
                 "J"
               ],
               "id" : "cs-like",
-              "reasoning" : "SEVEN sixes anchor Like Numbers. The 4 Crak and 8 Bam do nothing for the 6s (at best a long-shot backup), and the North is a lone wind, so they are the cheapest tiles to spend. Every other pass breaks up the 6s or gives up a flower.",
+              "reasoning" : "Seven sixes anchor Like Numbers. The 4 Crak and 8 Bam do nothing for the 6s (at best a long-shot backup), and the North is a lone wind, so they are the cheapest tiles to spend. Every other pass breaks up the 6s or gives up a flower.",
               "recommendedPass" : [
                 "4C",
                 "8B",
                 "N"
               ],
-              "situation" : "Second Charleston, pass LEFT. Pick 3 tiles to pass.",
-              "tip" : "Count your longest section, not your prettiest. Seven of one number beats four scattered evens."
+              "situation" : "Second Charleston, pass left. Pick 3 tiles to pass.",
+              "tip" : "Go with the section where you hold the most tiles, not the one you like best. Seven of one number beats four scattered evens."
             },
             {
               "deal" : [
@@ -2467,13 +2467,13 @@
                 "W"
               ],
               "id" : "cs-commit",
-              "reasoning" : "Evens in Craks vs odds in Bams: evens edge it, five tiles with a pair against four singles, so lean 2468. The two lone winds help neither plan, so both go now, with the 3 Bam to start letting the odds go. The other odd Bams can follow over later passes.",
+              "reasoning" : "Evens in Craks edge out odds in Bams, with five tiles including a pair against four singles, so lean 2468. The two lone winds help neither plan, so both go now, with the 3 Bam to start letting the odds go. The other odd Bams can follow over later passes.",
               "recommendedPass" : [
                 "N",
                 "W",
                 "3B"
               ],
-              "situation" : "First Charleston, pass RIGHT. Two sections look possible. Pick 3.",
+              "situation" : "First Charleston, pass right. Two sections look possible. Pick 3.",
               "tip" : "When two sections compete, commit to the longer one and pass the other side's tiles over the next passes."
             },
             {
@@ -2493,18 +2493,18 @@
                 "J"
               ],
               "id" : "cs-year",
-              "reasoning" : "2s, soaps, 6s, flowers: every ingredient of a 2026 year hand. New players pass soaps constantly ('weird blank tile'), but here they're your zeros. The 7C, 3D and lone South are the only tiles with no job.",
+              "reasoning" : "The 2s, soaps for the zeros, and 6s are the makings of a year hand. A soap can look like a blank tile worth passing, but here they're your zeros. The 7 Crak, 3 Dot and lone South are the only tiles with no job.",
               "recommendedPass" : [
                 "7C",
                 "3D",
                 "S"
               ],
-              "situation" : "First Charleston, pass ACROSS. Pick 3 tiles to pass.",
+              "situation" : "First Charleston, pass across. Pick 3 tiles to pass.",
               "tip" : "Before passing a soap, check the year hands. That blank tile is a zero."
             }
           ],
           "kind" : "charleston",
-          "subtitle" : "Real deals: choose 3 tiles to pass, then compare with the coach",
+          "subtitle" : "Practice deals: choose 3 tiles to pass, then compare with the coach",
           "title" : "Pick Your Pass"
         },
         {
@@ -2712,7 +2712,7 @@
           "isPlus" : false,
           "items" : [
             {
-              "backBody" : "Odd number, wrong suit: it fails your hand on both axes. The only reason to hold a tile like this is defense late in the game. Early on, it's your cleanest discard.",
+              "backBody" : "It's an odd number in a suit you're not using, so it misses your hand twice. The only reason to hold a tile like this is defense late in the game. Early on, it's your cleanest discard.",
               "backTitle" : "Throw It",
               "choice" : {
                 "answerIndex" : 1,
@@ -2729,7 +2729,7 @@
               "id" : "kd-wrong-parity"
             },
             {
-              "backBody" : "While your hand could still change, a spare flower is insurance: you can swap it for a joker in someone's flower exposure, and a switch of lines often changes the F count. Once you are locked into a line with exactly two, it becomes a fine discard.",
+              "backBody" : "While your hand could still change, a spare flower is insurance. You can swap it for a joker in someone's flower exposure, and switching lines can change how many flowers you need. Once you are locked into a line with exactly two, it becomes a fine discard.",
               "backTitle" : "Hold It (For Now)",
               "choice" : {
                 "answerIndex" : 0,
@@ -2748,7 +2748,7 @@
               "id" : "kd-third-flower"
             },
             {
-              "backBody" : "Rebuild the hand around the joker. A joker rescues nearly any section (except Singles & Pairs). Re-scan the card for sections where your joker plus your longest tiles fit. The one exception comes late, with no way left to win: then a joker is the safest discard you own, because nobody can call it.",
+              "backBody" : "Rebuild the hand around the joker. A joker can rescue any section except Singles & Pairs. Re-scan the card for sections where your joker plus your longest tiles fit. Only late in the hand, with no way left to win, is a joker the safest discard you own, because nobody can call it.",
               "backTitle" : "The Joker Stays",
               "choice" : {
                 "answerIndex" : 0,
@@ -2765,8 +2765,8 @@
               "id" : "kd-joker-rescue"
             },
             {
-              "backBody" : "On your turn, place your real 6 Bam on their exposure and take the joker. This is the single biggest free upgrade in the game, and new players miss it constantly. Scan every rack, every turn.",
-              "backTitle" : "Swap It!",
+              "backBody" : "On your turn, place your real 6 Bam on their exposure and take the joker. You trade one tile for a more flexible one, so check the exposures on the table for jokers every turn.",
+              "backTitle" : "Swap It",
               "choice" : {
                 "answerIndex" : 0,
                 "options" : [
@@ -2785,8 +2785,8 @@
               "id" : "kd-joker-swap"
             },
             {
-              "backBody" : "Jokers are useless in Singles & Pairs: no groups of 3+ exist there. If you're truly close, play on. If you're 4+ tiles away, this joker is a strong argument to switch sections.",
-              "backTitle" : "Actually... No",
+              "backBody" : "Jokers can't be used in Singles & Pairs, which has no groups of 3 or more. If you're truly close, play on. If you're 4 or more tiles away, this joker is a good reason to switch sections.",
+              "backTitle" : "Not for This Hand",
               "choice" : {
                 "answerIndex" : 1,
                 "options" : [
@@ -2803,7 +2803,7 @@
             },
             {
               "backBody" : "Only four copies of every tile. If one 5 Crak is in the discards and one is exposed, your pair of 5 Craks can never become a pung without a joker. Counting visible copies tells you when a hand can no longer be made.",
-              "backTitle" : "Four. Count Them.",
+              "backTitle" : "Four, So Keep Count",
               "choice" : {
                 "answerIndex" : 1,
                 "options" : [
@@ -2822,7 +2822,7 @@
               "id" : "kd-count-four"
             },
             {
-              "backBody" : "An exposure narrows their hand to the card lines that use it: an evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and check what their exposure could belong to.",
+              "backBody" : "An exposure narrows their hand to the card lines that use it. An evens hand, a run through 4, or a like-numbers hand of 4s could all fit. Before discarding another 4, or an even number such as 2, 6 or 8, pause and think about what their exposure could belong to.",
               "backTitle" : "It Narrows Their Hand",
               "choice" : {
                 "answerIndex" : 0,
@@ -2841,7 +2841,7 @@
               "id" : "kd-exposed-pung"
             },
             {
-              "backBody" : "Usually follow the count. The hand with more tiles home needs fewer miracles, unless the other is far more flexible or pays far more. Recount after every few draws: the best hand for your rack changes as tiles arrive.",
+              "backBody" : "Follow the count. The hand with more tiles home needs fewer lucky draws, unless the other is far more flexible or pays far more. Recount every few draws, because the best hand for your rack changes as tiles arrive.",
               "backTitle" : "Play the Nine",
               "choice" : {
                 "answerIndex" : 1,
@@ -2850,7 +2850,7 @@
                   "Play Hand B"
                 ]
               },
-              "frontSubtitle" : "But you LIKE Hand A...",
+              "frontSubtitle" : "But you like Hand A...",
               "frontTiles" : [
 
               ],
@@ -2858,8 +2858,8 @@
               "id" : "kd-follow-count"
             },
             {
-              "backBody" : "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them; if your hand lives elsewhere, a wind pung is three dead tiles.",
-              "backTitle" : "Keep It",
+              "backBody" : "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them. If your hand lives elsewhere, a wind pung is three dead tiles.",
+              "backTitle" : "Keep It If a Line Uses It",
               "choice" : {
                 "answerIndex" : 0,
                 "options" : [
@@ -2891,11 +2891,11 @@
                 "F",
                 "E"
               ],
-              "frontTitle" : "Early game: you must throw a flower or a lone wind.",
+              "frontTitle" : "Early in the game, you must throw a flower or a lone wind.",
               "id" : "kd-flower-vs-wind"
             },
             {
-              "backBody" : "A discarded joker cannot be called, so it is safe, but it is gone for good. Three jokers can rescue a slow hand: pungs of anything you hold two of, kongs, even quints. Look for a new line before you give one up.",
+              "backBody" : "A discarded joker cannot be called, so it is safe, but it is gone for good. Three jokers can rescue a slow hand. They can fill pungs of anything you hold two of, kongs, even quints. Look for a new line before you give one up.",
               "backTitle" : "Almost Never",
               "choice" : {
                 "answerIndex" : 1,
@@ -2927,12 +2927,12 @@
               "frontTiles" : [
 
               ],
-              "frontTitle" : "You CAN call that discard for an exposed pung.",
+              "frontTitle" : "You can call that discard for an exposed pung.",
               "id" : "kd-call-cost"
             },
             {
-              "backBody" : "Concealed only bans exposures BEFORE the win. Any hand, concealed or not, may call the final winning tile. Don't sit silently on a win: call it.",
-              "backTitle" : "Yes! Mah Jongg!",
+              "backBody" : "Concealed only bans exposures before the win. Any hand, concealed or not, may call the final winning tile. If the tile wins your hand, call it.",
+              "backTitle" : "Yes, Call Mah Jongg",
               "choice" : {
                 "answerIndex" : 0,
                 "options" : [
@@ -2948,7 +2948,7 @@
               "id" : "kd-mahj-call"
             },
             {
-              "backBody" : "Prefer tiles matching NO exposure on their rack, tiles others already threw without anyone calling them, and tiles with 3 copies already visible. Those are safer, not safe: jokers can still finish a group, and a lone tile can be their winner. Sometimes the right play is breaking your own hand to avoid throwing it.",
+              "backBody" : "Prefer tiles matching no exposure on their rack, tiles others already threw without anyone calling them, and tiles with 3 copies already visible. Those are safer, not safe. Jokers can still finish a group, and a lone tile can be their winner. Sometimes the right play is breaking your own hand to avoid throwing it.",
               "backTitle" : "Throw Dead Tiles",
               "choice" : {
                 "answerIndex" : 1,
@@ -3011,7 +3011,7 @@
                 "A tile that fits the pattern of an opponent's exposures",
                 "A flower"
               ],
-              "explanation" : "A tile discarded twice without being called is the safest of these: the table has already shown it does not want it. Safer is not safe, since it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower.",
+              "explanation" : "A tile discarded twice without being called is the safest of these, since the table has already shown it does not want it. Safer is not safe, because it can still be someone's last tile, but it beats a tile that fits their exposures or giving up a flower.",
               "id" : "more-table-safe-discard",
               "prompt" : "Late in the hand, which discard is usually safest?",
               "tiles" : [
@@ -3086,7 +3086,7 @@
                 "You deal the next hand",
                 "Only the discarder pays"
               ],
-              "explanation" : "A jokerless win pays double. Singles and Pairs hands are the exception: they can never hold a joker, so they earn no bonus for going without.",
+              "explanation" : "A jokerless win pays double. Singles and Pairs hands are the exception, because they can never hold a joker, so they earn no bonus for going without.",
               "id" : "table-pay-jokerless",
               "prompt" : "You win with a hand outside Singles and Pairs, and it has no jokers. What changes?",
               "tiles" : [
