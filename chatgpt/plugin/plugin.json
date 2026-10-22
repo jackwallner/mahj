@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "mahj",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Learn and practice American mah jongg with short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.",
   "author": { "name": "Jack Wallner", "email": "jackwallner+m@gmail.com", "url": "https://jackwallner.com/ios/mahj/chatgpt/" },
   "homepage": "https://jackwallner.com/ios/mahj/chatgpt/",
@@ -47,7 +47,7 @@
             },
             {
               "description": "Tile practice quiz",
-              "prompt": "Quiz me on the American mah jongg tiles.",
+              "prompt": "Quiz me on the American mah jongg tiles with Mahj Trainer.",
               "tools_triggered": "start_mahjong_practice",
               "expected_behavior": "Shows a multiple-choice quiz that names tiles and asks tile facts (jokers, dragons, flowers and groups). Each answer is checked and explained, and the quiz ends with a score and the questions to review. The answers are not listed in chat."
             },
