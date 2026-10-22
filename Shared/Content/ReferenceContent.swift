@@ -290,8 +290,8 @@ enum ReferenceContent {
             definition: "Nobody declares mah jongg before the tiles run out. It happens more often than beginners expect, and until it ends, any opponent can still win and collect from you, so keep discarding carefully."
         ),
         GlossaryTerm(
-            id: "g-joker-swap", term: "Joker swap", aliases: ["redemption", "redeem"], group: .play,
-            definition: "Trading a natural tile from your own rack for a joker sitting in somebody's exposed group. You need the exact matching tile, and the joker becomes yours to use."
+            id: "g-joker-swap", term: "Joker swap", aliases: ["redemption", "redeem", "joker exchange"], group: .play,
+            definition: "On your turn, after you draw or call and before you discard, trade a natural tile from your rack for a joker in any exposed group, your own included. The tile must be exactly the one the joker stands for, and the joker becomes yours to use. You may swap more than one in a turn."
         ),
         GlossaryTerm(
             id: "g-hot-tile", term: "Hot tile", aliases: ["dangerous discard"], group: .play,

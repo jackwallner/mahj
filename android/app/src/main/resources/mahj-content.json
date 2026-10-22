@@ -352,9 +352,10 @@
     {
       "aliases" : [
         "redemption",
-        "redeem"
+        "redeem",
+        "joker exchange"
       ],
-      "definition" : "Trading a natural tile from your own rack for a joker sitting in somebody's exposed group. You need the exact matching tile, and the joker becomes yours to use.",
+      "definition" : "On your turn, after you draw or call and before you discard, trade a natural tile from your rack for a joker in any exposed group, your own included. The tile must be exactly the one the joker stands for, and the joker becomes yours to use. You may swap more than one in a turn.",
       "group" : "play",
       "id" : "g-joker-swap",
       "term" : "Joker swap"

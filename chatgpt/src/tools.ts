@@ -26,6 +26,7 @@ export function lessonResult(topic: LearnTopic) {
     ...(c.tip ? { tip: c.tip } : {}),
   }));
   const text = [
+    `The "${deck.title}" lesson (${cards.length} cards) is shown in the interactive deck, which ends with a button to practice it. The player reads it there: reply in a sentence or two and do not restate the cards. The card text below is for follow-up questions, or to teach from if the deck is not visible.`,
     `${deck.title}:`,
     ...cards.map((c) => `- ${c.title}${c.subtitle ? ` (${c.subtitle})` : ""}: ${c.answer ? `${c.answer}. ` : ""}${c.body}${c.tip ? ` Tip: ${c.tip}` : ""}`),
   ].join("\n");
@@ -54,7 +55,7 @@ export function practiceResult(topic: PracticeTopic, count: number) {
     structuredContent: { title: session.title, questions },
     content: [{
       type: "text" as const,
-      text: `${session.title}: ${questions.length} questions are shown in the interactive quiz, which checks and explains each answer. Do not list the answers. If the quiz is not visible, ask the questions one at a time and reveal each answer only after the player responds.`,
+      text: `${session.title}: ${questions.length} questions are shown in the interactive quiz, which checks and explains each answer. Do not list the answers or the questions; reply in a sentence. If the quiz is not visible, ask the questions one at a time and reveal each answer only after the player responds.`,
     }],
     _meta: { widget: { view: "practice", key: key(), session } },
   };
@@ -93,6 +94,7 @@ export function rackResult(raw: string[]) {
     ? " That is all the dead weight: for the rest of a three-tile pass, give up the tiles your plan needs least, or pass blind on the last pass."
     : "";
   const lines = [
+    "This read is shown in the interactive rack card. Reply in two or three sentences (the lean and the first pass), without listing the tiles or sections again.",
     read.summary,
     passLine + fill,
     keeps.length ? `Keep your ${keeps.join(" and ")}.` : "",

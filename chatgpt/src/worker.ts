@@ -21,6 +21,8 @@ const INSTRUCTIONS = [
   "Mahj Trainer teaches American mah jongg, the game played with the yearly NMJL card.",
   "Never quote or reconstruct hands from the NMJL card: it is copyrighted and changes every year.",
   "Talk in card sections (2468, 13579, 369, Consecutive Run, Like Numbers, Winds & Dragons, Singles & Pairs, Quints, Year) and tell players to check exact lines on their own card.",
+  "When someone asks what an American mah jongg term or rule means, call define_mahjong_term and build the answer on its definition.",
+  "When a tool shows the interactive card, the player reads it there: keep your reply to a sentence or two and do not restate its cards, tiles or answers.",
   "Not for Chinese, Hong Kong or Japanese riichi mahjong, or mahjong solitaire.",
 ].join(" ");
 
@@ -55,7 +57,7 @@ function buildServer(env: Env, origin: string): McpServer {
   registerAppTool(server, "show_mahjong_lesson", {
     title: "Show a mah jongg lesson",
     description:
-      "Use this when someone wants to learn or review American mah jongg (NMJL-card style): how the game works, the tiles, the sections of the card, the Charleston, or keep-or-throw judgment. Shows a short illustrated card deck. Do not use for other mahjong variants.",
+      "Use this when someone wants to learn or review American mah jongg (NMJL-card style): how the game works, the tiles, the sections of the card, the Charleston, or keep-or-throw judgment. Shows a short illustrated card deck that is the answer: after it appears, reply in at most two sentences and do not write your own guide. Do not use to list or reproduce the hands on the NMJL card, or for other mahjong variants.",
     inputSchema: {
       topic: z.enum(LEARN_TOPICS).default("basics").describe("basics = how the game works; tiles; sections = the card's hand families; charleston = the tile pass; strategy = keep-or-throw calls"),
     },
@@ -70,7 +72,7 @@ function buildServer(env: Env, origin: string): McpServer {
   registerAppTool(server, "start_mahjong_practice", {
     title: "Practice American mah jongg",
     description:
-      "Use this when someone wants to practice or be quizzed on American mah jongg: naming tiles, reading which card section a rack is chasing, choosing a Charleston pass, keep-or-throw calls, or table rules. Shows an interactive quiz that checks each answer and explains it. Do not reveal answers before the player picks.",
+      "Use this when someone wants to practice or be quizzed on American mah jongg: naming tiles, reading which card section a rack is chasing, choosing a Charleston pass, keep-or-throw calls, or table rules. Shows an interactive quiz that checks each answer and explains it: after it appears, reply in one sentence and never reveal or list the questions or answers.",
     inputSchema: {
       topic: z.enum(PRACTICE_TOPICS).default("mixed").describe("tiles; reading = which section a rack is chasing; charleston = pick 3 tiles to pass; strategy = keep or throw; table = calling, exposures and scoring rules; mixed"),
       count: z.number().int().min(3).max(12).default(6).describe("How many questions"),
@@ -86,7 +88,7 @@ function buildServer(env: Env, origin: string): McpServer {
   registerAppTool(server, "read_mahjong_rack", {
     title: "Read a mah jongg rack",
     description:
-      "Use this when an American mah jongg player shares the tiles on their rack and asks which section of the card they lean toward or what to pass in the Charleston. Reads the tiles against the stable card sections, shortlists the strongest, and picks up to three tiles to pass that fit none of them. Needs at least five tiles; the full 13-tile rack works best. It never names specific card hands. Do not use for other mahjong variants.",
+      "Use this when an American mah jongg player shares the tiles on their rack and asks which section of the card they lean toward or what to pass in the Charleston. Reads the tiles against the stable card sections, shortlists the strongest, and picks up to three tiles to pass that fit none of them. Shows the read in an interactive rack card: after it appears, sum it up in two or three sentences. Needs at least five tiles; the full 13-tile rack works best. It never names specific card hands. Do not use for other mahjong variants.",
     inputSchema: { tiles: tileList },
     outputSchema: {
       tiles: z.array(z.string()),
@@ -105,7 +107,7 @@ function buildServer(env: Env, origin: string): McpServer {
   server.registerTool("define_mahjong_term", {
     title: "Define a mah jongg term",
     description:
-      "Use this when someone asks what an American mah jongg term means, such as pung, kong, quint, soap, exposure, joker swap, hot tile, dead hand or the Charleston passes. Returns a short plain-language definition. Do not use for other mahjong variants.",
+      "Use this whenever someone asks what an American mah jongg term or rule means, such as pung, kong, quint, soap, exposure, joker swap, hot tile, dead hand, the blind pass or the courtesy pass. Returns the Mahj glossary's plain-language definition, written to NMJL rules, so answer from it rather than from memory. Do not use for other mahjong variants.",
     inputSchema: { term: z.string().min(1).max(60).describe("The term to define") },
     outputSchema: { term: z.string(), definition: z.string(), found: z.boolean() },
     annotations: READ_ONLY,

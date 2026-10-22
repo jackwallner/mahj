@@ -197,7 +197,7 @@
         "3 identical tiles",
         "4 identical tiles"
       ],
-      "explanation" : "Three identical tiles. And no, unlike other mahjong styles, American mahj has no runs you can 'chow': the card decides every shape.",
+      "explanation" : "Three identical tiles. Unlike other mahjong styles, you can't claim a discard for a run like 5-6-7: the card spells out every shape.",
       "id" : "quiz-pung",
       "isReviewable" : true,
       "prompt" : "What is a pung?",
@@ -303,7 +303,7 @@
       "explanation" : "Concealed. You can't call discards to expose groups; the hand stays on your rack until you call the winning tile for mah jongg.",
       "id" : "quiz-concealed",
       "isReviewable" : true,
-      "prompt" : "A hand marked C on the card means...",
+      "prompt" : "Each hand on the card is marked X or C. What does C mean?",
       "roomID" : "tile-room",
       "sourceLabel" : "The Tile Room",
       "tiles" : [
@@ -1231,7 +1231,7 @@
         "Singles & Pairs",
         "2468 (Evens)"
       ],
-      "explanation" : "2s, Soaps (zeros), 6s, and a fistful of flowers: those are exactly the ingredients of a 2026 year hand. 2468 is the decoy, but the soaps give it away.",
+      "explanation" : "2s, Soaps (zeros), 6s, and a fistful of flowers: those are exactly the ingredients of a 2026 year hand. 2468 fits too, but the soaps and flowers point to the year section first.",
       "id" : "hm-year",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1766,7 +1766,7 @@
         "Keep it",
         "Throw it"
       ],
-      "explanation" : "A spare flower is insurance: if a flower gets jokered on someone's rack you can swap in, and if you change hands the F count often changes. Late game, a flower is also a dangerous throw since so many hands need them.",
+      "explanation" : "While your hand could still change, a spare flower is insurance: you can swap it for a joker in someone's flower exposure, and a switch of lines often changes the F count. Once you are locked into a line with exactly two, it becomes a fine discard.",
       "id" : "kd-third-flower",
       "isReviewable" : true,
       "prompt" : "You hold FF and your hand needs exactly two flowers.\nYou draw a third F. Keep or throw?",
@@ -1902,7 +1902,7 @@
         "Play Hand B",
         "Play Hand A"
       ],
-      "explanation" : "Always follow the count. The hand with more tiles home needs fewer miracles. Recount after every few draws: the best hand for your rack changes as tiles arrive.",
+      "explanation" : "Usually follow the count. The hand with more tiles home needs fewer miracles, unless the other is far more flexible or pays far more. Recount after every few draws: the best hand for your rack changes as tiles arrive.",
       "id" : "kd-follow-count",
       "isReviewable" : true,
       "prompt" : "Two tiles fit Hand A. Nine tiles fit Hand B.\nBut you LIKE Hand A...",
@@ -1926,7 +1926,7 @@
       "explanation" : "A natural pung of winds is a real asset, but only in a hand that calls for one. Check your card for lines that use it. Keep it if you can commit to one of them; if your hand lives elsewhere, a wind pung is three dead tiles.",
       "id" : "kd-wind-pair",
       "isReviewable" : true,
-      "prompt" : "You hold N N and draw a third North.\nKeep the pung?",
+      "prompt" : "Early in the hand, you hold N N and draw a third North.\nKeep the pung?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -1946,7 +1946,7 @@
         "Throw the wind",
         "Throw the flower"
       ],
-      "explanation" : "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. An East fits only a player collecting Easts, and only three others exist. Early, the lone wind is the far narrower gift.",
+      "explanation" : "All eight flowers are interchangeable, so any flower you throw fits anyone collecting flowers. An East fits only a player collecting Easts, and only three others exist. Neither is truly safe, but early on the lone wind is usually the lighter throw.",
       "id" : "kd-flower-vs-wind",
       "isReviewable" : true,
       "prompt" : "Early game: you must throw a flower or a lone wind.\nWhich is safer?",
@@ -1991,7 +1991,7 @@
         "Only if it pays",
         "Always call"
       ],
-      "explanation" : "Calling locks you onto hands that fit the exposure, tells the table your section, and kills any concealed hand. Call when it puts you clearly ahead (2+ tiles closer on a committed hand), not just because you can.",
+      "explanation" : "Calling locks you onto hands that fit the exposure, tells the table your section, and kills any concealed hand. Call when it moves a hand you are already committed to clearly closer to done, not just because you can.",
       "id" : "kd-call-cost",
       "isReviewable" : true,
       "prompt" : "You CAN call that discard for an exposed pung.\nShould you?",
@@ -2086,7 +2086,7 @@
       "explanation" : "If your exposures do not match any hand on the card, the hand is dead. Check the card before you expose, not after.",
       "id" : "more-table-dead-hand",
       "isReviewable" : true,
-      "prompt" : "What most often makes a hand dead?",
+      "prompt" : "Which of these makes a hand dead?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2161,7 +2161,7 @@
       "explanation" : "Singles and Pairs contains no pungs or kongs, so there is nothing to call and nothing to expose. It is played entirely from your own rack.",
       "id" : "more-table-never-expose",
       "isReviewable" : true,
-      "prompt" : "Which kind of hand can never be exposed?",
+      "prompt" : "Which section's hands can never be exposed?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -5058,13 +5058,13 @@
         "2D",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.60000000000000053,
       "discard" : "3B",
       "fitting" : 9,
       "note" : "The 3 Bam fits 13579 (Odds), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 4 Crak.",
       "seed" : "deal-1",
       "target" : "odds13579",
-      "value" : 8.4999999999999982,
+      "value" : 8.5,
       "working" : 3
     },
     {
@@ -5138,7 +5138,7 @@
       "note" : "Right. The 1 Dot is outside the 2468 (Evens) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "evens2468",
-      "value" : 9.8999999999999986,
+      "value" : 9.9000000000000004,
       "working" : 4
     },
     {
@@ -5174,7 +5174,7 @@
       "note" : "Right. The 1 Dot is outside the 369 shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "threeSixNine",
-      "value" : 9.2999999999999989,
+      "value" : 9.3000000000000007,
       "working" : 4
     },
     {
@@ -5189,7 +5189,7 @@
       "note" : "The 1 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 6 Bam.",
       "seed" : "deal-2",
       "target" : "consecutiveRun",
-      "value" : 11.699999999999998,
+      "value" : 11.699999999999999,
       "working" : 4
     },
     {
@@ -5208,7 +5208,7 @@
       "note" : "Right. The 1 Dot is outside the Winds & Dragons shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "windsDragons",
-      "value" : 9.2999999999999989,
+      "value" : 9.3000000000000007,
       "working" : 4
     },
     {
@@ -5221,7 +5221,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.60000000000000053,
       "discard" : "6D",
       "fitting" : 5,
       "note" : "The 6 Dot fits 2468 (Evens), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -5244,7 +5244,7 @@
       "note" : "Right. The 6 Dot is outside the 13579 (Odds) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "odds13579",
-      "value" : 7.2999999999999989,
+      "value" : 7.2999999999999998,
       "working" : 3
     },
     {
@@ -5255,7 +5255,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.60000000000000053,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -5277,7 +5277,7 @@
       "note" : "The 6 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 7 Bam.",
       "seed" : "deal-3",
       "target" : "consecutiveRun",
-      "value" : 7.8999999999999995,
+      "value" : 7.8999999999999986,
       "working" : 3
     },
     {

@@ -66,7 +66,7 @@
             },
             {
               "description": "Define a term",
-              "prompt": "In American mah jongg, what is a joker swap?",
+              "prompt": "Ask Mahj Trainer what a joker swap is in American mah jongg.",
               "tools_triggered": "define_mahjong_term",
               "expected_behavior": "Returns a short plain-language definition of a joker swap."
             }
@@ -87,7 +87,8 @@
           ]
         },
         "commerce": false,
-        "commerce_description": "This plugin is free. It does not sell products, process payments or link to purchase pages."
+        "commerce_description": "This plugin is free. It does not sell products, process payments or link to purchase pages.",
+        "demo_recording_url": "https://jackwallner.github.io/mahj/chatgpt/demo.mp4"
       },
       "publication": {
         "countries": [],
