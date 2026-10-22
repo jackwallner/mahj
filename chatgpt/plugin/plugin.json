@@ -1,11 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "mahj",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Learn and practice American mah jongg with short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.",
-  "author": { "name": "Jack Wallner", "email": "jackwallner+m@gmail.com", "url": "https://jackwallner.github.io/mahj/chatgpt/" },
-  "homepage": "https://jackwallner.github.io/mahj/chatgpt/",
-  "repository": "https://github.com/jackwallner/mahj",
+  "author": { "name": "Jack Wallner", "email": "jackwallner+m@gmail.com", "url": "https://jackwallner.com/ios/mahj/chatgpt/" },
+  "homepage": "https://jackwallner.com/ios/mahj/chatgpt/",
   "keywords": ["mah jongg", "mahjong", "american mahjong", "nmjl", "charleston", "tile game"],
   "extensions": {
     "com.openai": {
@@ -22,8 +21,8 @@
           "Read a rack against the card's sections, with a reason for each pass",
           "Define mah jongg terms"
         ],
-        "websiteURL": "https://jackwallner.github.io/mahj/chatgpt/",
-        "supportURL": "https://jackwallner.github.io/mahj/chatgpt/",
+        "websiteURL": "https://jackwallner.com/ios/mahj/chatgpt/",
+        "supportURL": "https://jackwallner.com/ios/mahj/chatgpt/",
         "privacyPolicyURL": "https://jackwallner.com/ios/mahj/privacy-policy.html#chatgpt",
         "termsOfServiceURL": "https://jackwallner.com/ios/mahj/terms.html",
         "defaultPrompt": [
@@ -88,7 +87,7 @@
         },
         "commerce": false,
         "commerce_description": "This plugin is free. It does not sell products, process payments or link to purchase pages.",
-        "demo_recording_url": "https://jackwallner.github.io/mahj/chatgpt/demo.mp4"
+        "demo_recording_url": "https://jackwallner.com/ios/mahj/chatgpt/demo.mp4"
       },
       "publication": {
         "countries": [],
