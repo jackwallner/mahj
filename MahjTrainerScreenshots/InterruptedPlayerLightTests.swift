@@ -28,10 +28,15 @@ final class InterruptedPlayerLightTests: XCTestCase {
     private func relaunchKeepingDefaults() {
         app.terminate()
         settle(1)
-        // Same arguments but without resetting hand play, so what the app
-        // persisted by itself is what the player sees.
+        // Launch arguments live in the argument domain and are not persisted,
+        // so the onboarding flags must be repeated or the relaunch looks like
+        // a first run. Hand play and quick-session keys are left alone, so
+        // what the app persisted by itself is what the player sees.
         app.launchArguments = ["-mahj.suppressWhatsNew", "-subscription.localProOverride", "NO",
-                               "-ChallengeMonth", "2026-11-05", "-reviewPrompt.launchCount", "0"]
+                               "-ChallengeMonth", "2026-11-05", "-reviewPrompt.launchCount", "0",
+                               "-progress.hasOnboarded", "YES", "-mahj.hasReadPrimer", "YES",
+                               "-mahj.skillLevel", "some", "-progress.totalSessions", "1",
+                               "-progress.sessionsAtOnboarding", "0"]
         app.launch()
         _ = app.wait(for: .runningForeground, timeout: 30)
         settle(2)
