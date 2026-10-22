@@ -194,5 +194,12 @@
     "No visual browser test: preview reported no available automation host",
     "VM probes used a minimal DOM stub",
     "No copyrighted current-card comparison"
-  ]
+  ],
+  "followupCorrections": {
+    "demoOmissionFinding": "withdrawn",
+    "reason": "Original I-frame sampling missed the completed results between sampled frames.",
+    "glossaryResultVisibleAtSeconds": 70,
+    "riichiResultVisibleBySeconds": 78,
+    "followupSampling": "one frame per second, seconds 60 through 82"
+  }
 }

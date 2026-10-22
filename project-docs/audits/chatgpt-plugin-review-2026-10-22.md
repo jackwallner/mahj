@@ -6,6 +6,8 @@ The plugin has credible standalone educational value: original lessons, interact
 
 Priority: P1 means resolve before submission; P2 means quality or robustness work. Findings distinguish reproduced defects, source observations, review risks and external checks. These are recommendations, not claims that each item independently triggers rejection.
 
+**Follow-up correction:** The demo finding below was withdrawn after closer frame sampling. This document retains the original 21 review-item numbers for traceability; they are not 21 confirmed bugs. Items about account verification, host acceptance and hosting configuration remain checks rather than established product defects.
+
 ## Submission and policy findings
 
 ### 1. P1: UI resource does not declare a CSP
@@ -14,17 +16,19 @@ Priority: P1 means resolve before submission; P2 means quality or robustness wor
 
 OpenAI's [remote MCP review requirements](https://developers.openai.com/plugins/deploy/app-review) require a CSP for returned UI. Declare empty network/resource allowlists for this self-contained widget. No external domains need to be allowed. The [UI documentation](https://developers.openai.com/plugins/build/chatgpt-ui#content-security-policy-csp) describes the resource metadata fields. Confirm the portal accepts the declaration after rescanning.
 
+The documentation does not explicitly settle whether omission is accepted for a component with no off-origin requests. This is a documented requirements mismatch and submission risk, not a demonstrated portal rejection or proof that the host currently permits unrestricted network access.
+
 ### 2. P1: Hosting-data retention is not explained
 
 **Confirmed disclosure gap.** `docs/privacy-policy.html:140` explains the plugin's inputs, absence of application storage, Cloudflare hosting and OpenAI's role. It does not specify the retention treatment for the IP addresses and request details it says Cloudflare processes. The general retention paragraph at line 165 covers app data and purchases instead.
 
 OpenAI's [privacy requirements](https://developers.openai.com/plugins/plugin-guidelines#privacy) include retention timelines. State the actual hosting/logging configuration and its retention or applicable provider policy, including what controls users have. Verify the deployed configuration before promising that nothing is logged. No raw-request logging was found in application code; hosting configuration was not inspected.
 
-### 3. P1: Demo does not adequately substantiate every review scenario
+### 3. Withdrawn: Demo allegedly omitted glossary and riichi results
 
-**Evidence gap.** The demo URL returns HTTP 200 and a playable 86.5-second H.264 video. Inspected scenes at 66.667 seconds and 75 seconds show the joker-swap and riichi prompts still in the composer, with no corresponding result. Those scenes do not establish successful glossary use or correct out-of-scope routing. See the retained [term scene](chatgpt-plugin-review-2026-10-22-evidence/demo-term.png) and [riichi scene](chatgpt-plugin-review-2026-10-22-evidence/demo-riichi.png).
+**The initial finding was wrong.** Widely spaced I-frame samples showed the prompts in the composer and missed completed results between them. Follow-up sampling every second from 60 through 82 seconds shows the glossary result at 70 seconds and the riichi response by 78 seconds. Both claimed missing demonstrations are present. See the [glossary result](chatgpt-plugin-review-2026-10-22-evidence/demo-term-result.jpg) and [riichi result](chatgpt-plugin-review-2026-10-22-evidence/demo-riichi-result.jpg).
 
-Record completed prompts, visible tool selection/results, quiz interaction and negative cases. OpenAI's [submission flow](https://developers.openai.com/plugins/deploy/submission#complete-review-information) calls for five positive cases, three negative cases and a walkthrough demonstrating test cases and functionality. The manifest has the required case counts; metadata alone does not prove execution.
+No replacement defect is asserted here. The video remains useful evidence, although it does not substitute for this review independently running the manifest cases in current ChatGPT desktop and mobile clients. The manifest includes five positive and three negative cases as requested by the [submission flow](https://developers.openai.com/plugins/deploy/submission#complete-review-information).
 
 ### 4. P1 external check: Domain verification cannot currently be demonstrated
 
@@ -178,7 +182,7 @@ Run all five positive and three negative manifest cases in ChatGPT desktop and m
 ## Acceptance evidence still needed
 
 - Resolve findings 1, 2, 6, 7 and 8, and demonstrate their corrected behavior.
-- Complete the demo evidence in finding 3 and the host acceptance work in finding 21.
+- Complete the independent host acceptance work in finding 21. Finding 3 is withdrawn; do not re-record the demo solely to remedy the alleged omission.
 - Confirm identity, ownership, verification token/state, permissions, residency, country availability and automated scan status in the submission portal. An empty manifest country list is not treated here as a proven configuration error.
 - Confirm Cloudflare logging, retention, resource limits and monitoring. Source alone cannot establish those settings.
 - Privately validate card-dependent teaching claims against the applicable current card without copying its hands into the repository or review materials.

@@ -5,5 +5,7 @@ Evidence for [the October 22 review](../chatgpt-plugin-review-2026-10-22.md).
 - `observations.json`: sanitized observed test results, live metadata and adversarial cases.
 - `demo-term.png`: existing demo frame at 66.667 seconds, the glossary prompt is still in the composer.
 - `demo-riichi.png`: existing demo frame at 75 seconds, the out-of-scope prompt is still in the composer.
+- `demo-term-result.jpg`: frame at 70 seconds showing the completed glossary response, correcting the original review's inference from sparse sampling.
+- `demo-riichi-result.jpg`: frame at 79 seconds showing the riichi answer, correcting the same inference.
 
-The images were extracted from the repository's existing `docs/chatgpt/demo.mp4`. They are review evidence, not newly recorded ChatGPT acceptance tests. The widget probes executed its live script with a minimal DOM stub in Node; they do not establish browser layout or assistive-technology behavior. No authentication secrets or domain-verification token are included.
+The original demo-omission finding is withdrawn. The images were extracted from the repository's existing `docs/chatgpt/demo.mp4`. They are review evidence, not newly recorded ChatGPT acceptance tests. The widget probes executed its live script with a minimal DOM stub in Node; they do not establish browser layout or assistive-technology behavior. No authentication secrets or domain-verification token are included.
