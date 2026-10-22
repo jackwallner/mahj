@@ -62,7 +62,9 @@ em dashes.
 Published 2026-10-22, campaign id 24379017978: Enabled, Eligible (Learning),
 ad under review. Bids on the Google Play installs conversion from the Play link.
 $5 a day over two days rather than $10 in one: the ad review eats part of the
-first day, and with an end date Google never spends more than budget times days.
+first day. Google may spend up to twice the daily budget on any day, so the
+worst case is $20 (Ads shows an October cap of $50, but serving stops after the
+Oct 23 end date). A hard $10 ceiling needs the daily budget at $2.50.
 The signup-flow draft from 2026-10-21 corrupted and was abandoned; this one was
 built fresh in the normal campaign UI.
 
