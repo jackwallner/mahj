@@ -1,0 +1,198 @@
+{
+  "reviewDate": "2026-10-22",
+  "sourceCommit": "025bd69",
+  "endpoint": "https://mahj.mahjtrainer.workers.dev/mcp",
+  "checks": {
+    "typescript": "passed",
+    "localTests": {
+      "passed": 14,
+      "failed": 0
+    },
+    "liveTests": {
+      "passed": 14,
+      "failed": 0
+    },
+    "productionAudit": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "package": "mahj-plugin-1.0.0.zip created and inspected"
+  },
+  "liveResourceMetadata": {
+    "ui": {
+      "prefersBorder": true,
+      "domain": "https://mahj.mahjtrainer.workers.dev"
+    },
+    "openai/widgetDescription": "An interactive American mah jongg card: a short lesson, a practice quiz, or a read of the player's rack."
+  },
+  "toolAnnotations": {
+    "show_mahjong_lesson": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": false
+    },
+    "start_mahjong_practice": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": false
+    },
+    "read_mahjong_rack": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": false
+    },
+    "define_mahjong_term": {
+      "readOnlyHint": true,
+      "destructiveHint": false,
+      "openWorldHint": false
+    }
+  },
+  "prototypeInput": {
+    "tiles": [
+      "constructor",
+      "__proto__",
+      "4C",
+      "6B",
+      "8B"
+    ],
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "MCP error -32602: Output validation error: Invalid structured content for tool read_mahjong_rack: Expected string, received function at tiles[3]\nExpected string, received object at tiles[4]\nExpected string, received function at passes[0]\nExpected string, received object at passes[1]"
+        }
+      ],
+      "isError": true
+    }
+  },
+  "partialRack": {
+    "tiles": [
+      "2C",
+      "2C",
+      "4C",
+      "4C",
+      "6B",
+      "6B",
+      "8B",
+      "unknown",
+      "unknown",
+      "unknown",
+      "unknown",
+      "unknown",
+      "unknown"
+    ],
+    "structuredResult": {
+      "tiles": [
+        "2C",
+        "2C",
+        "4C",
+        "4C",
+        "6B",
+        "6B",
+        "8B"
+      ],
+      "read": "2468 (Evens)",
+      "shortlist": [
+        "2468 (Evens)"
+      ],
+      "summary": "Leaning 2468 (Evens): 7 of your tiles are 2s, 4s, 6s or 8s.",
+      "passes": [],
+      "spare": [],
+      "sections": [
+        {
+          "name": "2468 (Evens)",
+          "verdict": "fits",
+          "note": "7 of your tiles are 2s, 4s, 6s or 8s."
+        },
+        {
+          "name": "Year Hands",
+          "verdict": "poor",
+          "note": "Year hands use soaps for the zeros, and this rack has none."
+        },
+        {
+          "name": "Any Like Numbers",
+          "verdict": "poor",
+          "note": "No number shows up across the suits often enough."
+        },
+        {
+          "name": "Quints",
+          "verdict": "poor",
+          "note": "Five of a kind takes jokers, and this rack has none."
+        },
+        {
+          "name": "Consecutive Run",
+          "verdict": "poor",
+          "note": "No suit here holds numbers in a row."
+        },
+        {
+          "name": "13579 (Odds)",
+          "verdict": "poor",
+          "note": "Only 0 of your tiles build toward 13579 (Odds)."
+        },
+        {
+          "name": "Winds & Dragons",
+          "verdict": "poor",
+          "note": "Only 0 winds or dragons."
+        },
+        {
+          "name": "369",
+          "verdict": "poor",
+          "note": "Only 0 of your tiles are 3s, 6s or 9s."
+        },
+        {
+          "name": "Singles & Pairs",
+          "verdict": "poor",
+          "note": "Only 3 natural pairs, and Singles & Pairs is built from pairs."
+        }
+      ],
+      "unreadable": [
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown"
+      ]
+    },
+    "widgetWarningVisible": false
+  },
+  "requestedCount12": {
+    "readingActualCount": 9,
+    "charlestonActualCount": 9
+  },
+  "glossaryLocal": {
+    "joker exchange rules": "Joker",
+    "What is a white dragon?": null,
+    "scoring": null
+  },
+  "vmWidget": {
+    "charleston": {
+      "renders": true
+    },
+    "mcpFallback": {
+      "renders": true
+    },
+    "hybrid": {
+      "ignoresMCPUpdate": true
+    },
+    "corruptSavedState": {
+      "error": "TypeError: Cannot read properties of undefined (reading 'title')",
+      "html": ""
+    }
+  },
+  "endpointChecks": {
+    "GET /mcp": 405,
+    "GET /.well-known/openai-apps-challenge": 404
+  },
+  "limits": [
+    "No authenticated OpenAI portal inspection",
+    "No actual ChatGPT desktop/mobile acceptance run",
+    "No visual browser test: preview reported no available automation host",
+    "VM probes used a minimal DOM stub",
+    "No copyrighted current-card comparison"
+  ]
+}
