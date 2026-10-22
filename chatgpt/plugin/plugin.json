@@ -1,10 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "mahj",
-  "version": "1.0.0",
-  "description": "Learn and practice American mah jongg: illustrated lessons, practice quizzes, a rack reader for the card's sections, and a glossary.",
-  "author": { "name": "Jack Wallner", "email": "jackwallner+m@gmail.com", "url": "https://jackwallner.com/ios/mahj/" },
-  "homepage": "https://jackwallner.com/ios/mahj/",
+  "version": "1.1.0",
+  "description": "Learn and practice American mah jongg with short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.",
+  "author": { "name": "Jack Wallner", "email": "jackwallner+m@gmail.com", "url": "https://jackwallner.github.io/mahj/chatgpt/" },
+  "homepage": "https://jackwallner.github.io/mahj/chatgpt/",
   "repository": "https://github.com/jackwallner/mahj",
   "keywords": ["mah jongg", "mahjong", "american mahjong", "nmjl", "charleston", "tile game"],
   "extensions": {
@@ -12,19 +12,19 @@
       "interface": {
         "displayName": "Mahj Trainer",
         "shortDescription": "Learn American mah jongg",
-        "longDescription": "Mahj Trainer teaches American mah jongg, the game played with the yearly National Mah Jongg League card.\n\nAsk for a lesson and get a short illustrated deck on the basics, the tiles, the sections of the card, the Charleston or keep-or-throw judgment. Ask for practice and get an interactive quiz that checks and explains every answer, including Charleston passes you pick by tapping tiles. Share the tiles on your rack and get a coach's read: the sections you lean toward and the three tiles to pass first. Ask what a term means, from pung and quint to joker swap and dead hand.\n\nMahj Trainer talks in the card's stable sections and never reproduces card hands, so keep your own card handy for the exact lines. It needs no account.\n\nNot affiliated with or endorsed by the National Mah Jongg League.",
+        "longDescription": "Mahj Trainer teaches American mah jongg, the game played with the yearly National Mah Jongg League card.\n\nAsk for a lesson and get a short card deck on the basics, the tiles, the sections of the card, the Charleston or keep-or-throw judgment. Ask for practice and get an interactive quiz that checks and explains every answer, including Charleston passes you pick by tapping tiles. Share the tiles on your rack and get a coach's read of the sections you lean toward, the three tiles to pass with a reason for each, and what to build on. Name the pass you are making, such as the first pass left or the courtesy pass, and the advice fits it. Ask what a term means, from pung and quint to joker swap and dead hand.\n\nMahj Trainer talks in the card's stable sections and never reproduces card hands, so keep your own card handy for the exact lines. It needs no account.\n\nNot affiliated with or endorsed by the National Mah Jongg League.",
         "developerName": "Jack Wallner",
         "category": "Education & Research",
         "capabilities": [
-          "Illustrated lessons on how American mah jongg works",
+          "Short lessons on how American mah jongg works",
           "Interactive practice quizzes with explanations",
           "Charleston passing practice",
-          "Read a rack against the card's sections",
+          "Read a rack against the card's sections, with a reason for each pass",
           "Define mah jongg terms"
         ],
-        "websiteURL": "https://jackwallner.com/ios/mahj/",
-        "supportURL": "https://jackwallner.com/ios/mahj/support.html",
-        "privacyPolicyURL": "https://jackwallner.com/ios/mahj/privacy-policy.html",
+        "websiteURL": "https://jackwallner.github.io/mahj/chatgpt/",
+        "supportURL": "https://jackwallner.github.io/mahj/chatgpt/",
+        "privacyPolicyURL": "https://jackwallner.com/ios/mahj/privacy-policy.html#chatgpt",
         "termsOfServiceURL": "https://jackwallner.com/ios/mahj/terms.html",
         "defaultPrompt": [
           "Teach me how American mah jongg works.",
@@ -44,13 +44,13 @@
               "description": "Beginner lesson",
               "prompt": "Teach me the basics of American mah jongg.",
               "tools_triggered": "show_mahjong_lesson",
-              "expected_behavior": "Shows an illustrated lesson deck on how the game works, with Back and Next buttons and a Practice this button on the last card."
+              "expected_behavior": "Shows a lesson deck on how the game works, with tiles drawn on the cards, Back and Next buttons, and a Practice this button on the last card."
             },
             {
               "description": "Tile practice quiz",
               "prompt": "Quiz me on the American mah jongg tiles.",
               "tools_triggered": "start_mahjong_practice",
-              "expected_behavior": "Shows a multiple-choice quiz on tile facts (jokers, dragons, flowers and groups). Each answer is checked and explained, and the quiz ends with a score. The answers are not listed in chat."
+              "expected_behavior": "Shows a multiple-choice quiz that names tiles and asks tile facts (jokers, dragons, flowers and groups). Each answer is checked and explained, and the quiz ends with a score and the questions to review. The answers are not listed in chat."
             },
             {
               "description": "Charleston passing practice",
@@ -62,7 +62,7 @@
               "description": "Read a player's rack",
               "prompt": "My American mah jongg rack is 2C 2C 4C 4C 6B 6B 8B 8D F J 1C 9B N. Which section am I leaning toward and what should I pass?",
               "tools_triggered": "read_mahjong_rack",
-              "expected_behavior": "Shows the rack, reads it as leaning 2468, outlines 1 Crak, 9 Bam and North as the tiles to pass first, says to keep the joker and flower, and reminds the player to check exact lines on their own card. No card hands are quoted."
+              "expected_behavior": "Shows the rack, reads it as leaning 2468, outlines 1 Crak, 9 Bam and North as the pass with a reason for each, names the pairs to build on, says to keep the joker and flower, and reminds the player to check exact lines on their own card. No card hands are quoted."
             },
             {
               "description": "Define a term",
@@ -92,7 +92,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "First release: lessons, practice quizzes, a rack reader for the card's sections, and a glossary for American mah jongg."
+        "release_notes": "The rack reader gives a reason for each tile it passes, names the groups to build on, fits its advice to the pass you name, and asks you to fix any tile it cannot read. Practice adds tile naming, checks typed answers without the quiz, and offers to redo the questions you missed. Lessons ask before they explain."
       }
     }
   }
