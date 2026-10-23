@@ -33,6 +33,9 @@ struct MahjTrainerApp: App {
                     MetaAds.activateApp()
                 }
                 .onAppear {
+                    #if DEBUG
+                    DebugShot.seedIfRequested()
+                    #endif
                     // Before anything reads mastery: pre-1.1 installs carry
                     // their whole history in ProgressStore's flat sets, and
                     // Home, Room and Stats have to tell one story about it.
