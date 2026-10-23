@@ -35,3 +35,8 @@ paths:
   once per install). Launch args: `-progress.hasOnboarded YES
   -mahj.hasReadPrimer YES -mahj.skillLevel some -subscription.localProOverride
   YES -mahj.suppressWhatsNew YES -mahj.demoSeed YES`.
+- Full unit suite on the Duo runtime (gh-sim, iOS 27.1, 2026-10-22):
+  `TrialEligibilityTests.testFreeWeekUntilTheAccountHasUsedIt` hung until
+  GitHub's 60-minute job cap killed the run, and everything before it passed. Until that is fixed,
+  pass `--only MahjTrainerTests/UnfoldedSplitTests` (or skip that test) on
+  Duo capture runs.
