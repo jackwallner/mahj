@@ -50,9 +50,166 @@ struct HomeView: View {
     /// the room id to highlight/scroll to the next time Home appears.
     @AppStorage("mahj.recommendedRoomHint") private var recommendedRoomHint = ""
 
+    /// The container's width and fold, measured so the unfolded iPhone Duo
+    /// can put Home and the room it opened on opposite sides of the fold.
+    @State private var paneGeometry = PaneGeometry(width: 0, fold: nil)
+    /// The trailing pane's room, and whatever Home opened on top of it.
+    @State private var paneRoomID = DrillLibrary.rooms[0].id
+    @State private var panePath: [PaneScreen] = []
+    /// Mounted once the Duo first unfolds, then kept, so folding and
+    /// unfolding only move frames and an open drill survives the trip.
+    @State private var paneHasAppeared = false
+
     private var showsPrimerCard: Bool { skillLevel == "new" && !hasReadPrimer }
 
+    private var split: UnfoldedSplit? {
+        UnfoldedSplit.make(
+            width: paneGeometry.width,
+            isRegularWidth: horizontalSizeClass == .regular,
+            fold: paneGeometry.fold
+        )
+    }
+
+    /// Each unfolded pane is phone-width, so its screen lays out as on a phone.
+    private var layoutSizeClass: UserInterfaceSizeClass? {
+        split == nil ? horizontalSizeClass : .compact
+    }
+
     var body: some View {
+        ZStack(alignment: .topLeading) {
+            homeStack
+                .environment(\.horizontalSizeClass, layoutSizeClass)
+                .frame(maxWidth: split?.primaryWidth ?? .infinity, maxHeight: .infinity)
+            if paneHasAppeared {
+                trailingPane
+                    .environment(\.horizontalSizeClass, .compact)
+                    .frame(maxWidth: split?.secondaryWidth ?? .infinity, maxHeight: .infinity)
+                    .padding(.leading, split?.secondaryX ?? 0)
+                    .opacity(split != nil ? 1 : 0)
+                    .allowsHitTesting(split != nil)
+                    .accessibilityHidden(split == nil)
+            }
+        }
+        // Measured at the full width whatever the panes take, or a narrower
+        // Home would read as "no room to split" and undo the split.
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .overlay(alignment: .topLeading) {
+            if let split {
+                // A hairline on the seam, as a split view draws one.
+                Rectangle()
+                    .fill(Theme.inkTertiary.opacity(0.25))
+                    .frame(width: 1)
+                    .padding(.leading, (split.primaryWidth + split.secondaryX) / 2 - 0.5)
+                    .ignoresSafeArea(edges: .vertical)
+                    .accessibilityHidden(true)
+            }
+        }
+        .background(Theme.background.ignoresSafeArea())
+        .onGeometryChange(for: PaneGeometry.self) { proxy in
+            PaneGeometry(width: proxy.size.width, fold: proxy.verticalFold())
+        } action: { paneGeometry = $0 }
+        .onChange(of: split != nil, initial: true) { _, isSplit in
+            if isSplit { paneHasAppeared = true }
+        }
+    }
+
+    /// The unfolded Duo's trailing pane: a room, with anything Home opened
+    /// pushed over it, so a drill's Done lands back in the room. Home beside
+    /// it is the navigator, so a screen Home opened shows no back button at
+    /// the fold; a drill opened from the pane's own room keeps its one.
+    private var trailingPane: some View {
+        NavigationStack(path: $panePath) {
+            Group {
+                if let room = DrillLibrary.room(id: paneRoomID) {
+                    RoomView(room: room)
+                }
+            }
+            .id(paneRoomID)
+            .navigationDestination(for: PaneScreen.self) { $0.view.navigationBarBackButtonHidden(true) }
+        }
+        .tint(Theme.jade)
+    }
+
+    private func paneShows(_ room: Room) -> Bool {
+        split != nil && paneRoomID == room.id
+    }
+
+    /// Unfolded, Home's links open in the trailing pane instead of pushing
+    /// over Home. Folded they are the same `NavigationLink` as ever.
+    @ViewBuilder
+    private func paneLink<Destination: View, Label: View>(
+        _ id: String,
+        @ViewBuilder destination: @escaping () -> Destination,
+        @ViewBuilder label: () -> Label
+    ) -> some View {
+        if split != nil {
+            Button { panePath = [PaneScreen(id: id, view: AnyView(destination()))] } label: { label() }
+        } else {
+            NavigationLink(destination: destination, label: label)
+        }
+    }
+
+    @ViewBuilder
+    private func paneLink<Label: View>(value: AppDestination, @ViewBuilder label: () -> Label) -> some View {
+        if split != nil {
+            Button { show(value) } label: { label() }
+        } else {
+            NavigationLink(value: value, label: label)
+        }
+    }
+
+    /// A room replaces the trailing pane's root rather than stacking rooms.
+    @ViewBuilder
+    private func paneLink<Label: View>(room: Room, @ViewBuilder label: () -> Label) -> some View {
+        if split != nil {
+            Button {
+                paneRoomID = room.id
+                panePath = []
+            } label: { label() }
+        } else {
+            NavigationLink(destination: { RoomView(room: room) }, label: label)
+        }
+    }
+
+    /// Opens a routed destination: in the trailing pane while unfolded,
+    /// pushed over Home otherwise.
+    private func show(_ destination: AppDestination) {
+        guard split != nil else {
+            path = [destination]
+            return
+        }
+        panePath = [PaneScreen(id: "\(destination)", view: AnyView(destinationView(destination)))]
+    }
+
+    @ViewBuilder
+    private func destinationView(_ destination: AppDestination) -> some View {
+        switch destination {
+        case .quickSession:
+            OrdinaryRunEntryView(id: SessionBuilder.sessionDrill.id, title: SessionBuilder.sessionDrill.title) {
+                QuickSessionView(items: SessionBuilder.quickSession(
+                    seen: progress.seenItems, missed: progress.missedItems, includePro: subscriptions.isPro))
+            }
+        case .ordinaryRun:
+            SavedOrdinaryRunView()
+        case .gameNightPrepSession:
+            QuickSessionView(gameNightPrep: gameNightPrepItems)
+        case .monthlyChallenge:
+            MonthlyChallengeView()
+        case .endlessPicker: EndlessPickerView()
+        case .gameNightPrep: GameNightPrepView()
+        case .timedChallenge: PracticeRunView(mode: .timed)
+        case .handPlay: HandPlayView()
+        case .review:
+            PracticeRunView(mode: .review, items: SessionBuilder.reviewSession(
+                ids: records.reviewQueue(among: SessionBuilder.reviewableIDs(includePro: true)), includePro: true))
+        #if DEBUG
+        case .debugShot(let name):
+            DebugShot.screen(name)
+        #endif
+        }
+    }
+
+    private var homeStack: some View {
         NavigationStack(path: $path) {
             ScrollViewReader { proxy in
                 ScrollView {
@@ -77,7 +234,7 @@ struct HomeView: View {
                 // because the moment it is wanted is mid-game, and it must
                 // cost Home no vertical space to be worth that.
                 ToolbarItem(placement: .topBarLeading) {
-                    NavigationLink {
+                    paneLink("reference") {
                         ReferenceView()
                     } label: {
                         Image(systemName: "book")
@@ -99,30 +256,9 @@ struct HomeView: View {
             // scroll-edge blur, and scrolled rooms ran straight under the
             // clock and the book and gear buttons. The bar is still clear at
             // the top of Home.
-            .navigationDestination(for: AppDestination.self) { destination in
-                switch destination {
-                case .quickSession:
-                    OrdinaryRunEntryView(id: SessionBuilder.sessionDrill.id, title: SessionBuilder.sessionDrill.title) {
-                        QuickSessionView(items: SessionBuilder.quickSession(
-                            seen: progress.seenItems, missed: progress.missedItems, includePro: subscriptions.isPro))
-                    }
-                case .ordinaryRun:
-                    SavedOrdinaryRunView()
-                case .gameNightPrepSession:
-                    QuickSessionView(gameNightPrep: gameNightPrepItems)
-                case .monthlyChallenge:
-                    MonthlyChallengeView()
-                case .endlessPicker: EndlessPickerView()
-                case .gameNightPrep: GameNightPrepView()
-                case .timedChallenge: PracticeRunView(mode: .timed)
-                case .handPlay: HandPlayView()
-                case .review:
-                    PracticeRunView(mode: .review, items: SessionBuilder.reviewSession(
-                        ids: records.reviewQueue(among: SessionBuilder.reviewableIDs(includePro: true)), includePro: true))
-                }
-            }
+            .navigationDestination(for: AppDestination.self) { destinationView($0) }
             .sheet(isPresented: $showPaywall, onDismiss: {
-                if let destination = upgrade.finish(isMember: subscriptions.isPro) { path.append(destination) }
+                if let destination = upgrade.finish(isMember: subscriptions.isPro) { show(destination) }
                 homeIsBareAgain()
             }) { PaywallView(source: "mahj_home_sheet") }
             .sheet(isPresented: $showSettings) { SettingsView() }
@@ -190,7 +326,7 @@ struct HomeView: View {
         // Two columns only while the type fits them. At accessibility sizes
         // an iPad's half-width columns broke room names into fragments
         // ("Th / e / Ma / ste / r"), so it gets the phone's single column.
-        if horizontalSizeClass == .regular, !dynamicTypeSize.isAccessibilitySize {
+        if layoutSizeClass == .regular, !dynamicTypeSize.isAccessibilitySize {
             VStack(spacing: 18) {
                 header
                 HStack(alignment: .top, spacing: 20) {
@@ -286,7 +422,7 @@ struct HomeView: View {
     private var todaySession: some View {
         if let run = ordinaryRuns.inProgress {
             Button {
-                path.append(.ordinaryRun)
+                show(.ordinaryRun)
             } label: {
                 Label("Resume \(run.drill.title)", systemImage: "play.circle.fill")
                     .font(.headline)
@@ -328,6 +464,12 @@ struct HomeView: View {
             return
         }
         guard let destination = router.consumePendingDestination() else { return }
+        #if DEBUG
+        if case .debugShot(let name) = destination {
+            showShot(name)
+            return
+        }
+        #endif
         // Switched off remotely: the event link and an old reminder just open Home.
         if destination == .monthlyChallenge, !showsMonthlyChallenge { return }
         guard destination.isFree || subscriptions.isPro else {
@@ -335,8 +477,26 @@ struct HomeView: View {
             showPaywall = true
             return
         }
-        path = [destination]
+        show(destination)
     }
+
+    #if DEBUG
+    /// `mahj://shot/<name>`: one screen for the Duo capture. Unfolded, a room
+    /// becomes the trailing pane's room and anything else opens over it.
+    private func showShot(_ name: String) {
+        showSettings = name == "settings"
+        showPaywall = name == "paywall"
+        guard split != nil else {
+            path = DebugShot.pushes(name) ? [.debugShot(name)] : []
+            return
+        }
+        path = []
+        if let roomID = DebugShot.roomID(name) { paneRoomID = roomID }
+        panePath = DebugShot.pushes(name) && !name.hasPrefix("room/")
+            ? [PaneScreen(id: name, view: AnyView(DebugShot.screen(name)))]
+            : []
+    }
+    #endif
 
     /// The post-update note, once. Deliberately deferred a beat so it lands on
     /// a drawn Home rather than racing the first frame, and never over a
@@ -407,7 +567,7 @@ struct HomeView: View {
     /// than tuning a padding that only holds at one text size.
     @ViewBuilder
     private var header: some View {
-        if horizontalSizeClass == .regular {
+        if layoutSizeClass == .regular {
             HStack(alignment: .top) {
                 headerTitle
                 Spacer(minLength: 8)
@@ -440,7 +600,7 @@ struct HomeView: View {
     /// the door to the full breakdown rather than yet another row competing
     /// with the rooms.
     private var statsLink: some View {
-        NavigationLink {
+        paneLink("stats") {
             StatsView()
         } label: {
             // Three chips at the largest text sizes overrun a small phone.
@@ -505,7 +665,7 @@ struct HomeView: View {
     /// The one-tap way in: builds a short mixed session, no browsing needed.
     private var getStartedCard: some View {
         Button {
-            path.append(.quickSession)
+            show(.quickSession)
         } label: {
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 4) {
@@ -566,7 +726,7 @@ struct HomeView: View {
     /// Shown only until the primer has actually been read; after that it's a
     /// Settings row like every other reference material.
     private var howToPlayCard: some View {
-        NavigationLink {
+        paneLink("primer") {
             HowToPlayView()
         } label: {
             HStack(spacing: 12) {
@@ -619,7 +779,7 @@ struct HomeView: View {
     /// round starts.
     private func monthlyChallengeCard(_ round: ChallengeRound) -> some View {
         let run = monthlyStore.progress(for: round)
-        return NavigationLink(value: AppDestination.monthlyChallenge) {
+        return paneLink(value: .monthlyChallenge) {
             HStack(spacing: 12) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
@@ -689,7 +849,7 @@ struct HomeView: View {
     private var challengeChip: some View {
         if let round = homeChallengeRound, monthlyStore.result(for: round) != nil {
             let points = monthlyStore.monthScore(round.monthKey).points
-            NavigationLink(value: AppDestination.monthlyChallenge) {
+            paneLink(value: .monthlyChallenge) {
                 chipBody(text: "\(points)\u{00A0}pts", icon: "calendar", color: Theme.plum)
             }
             .buttonStyle(.plain)
@@ -702,7 +862,7 @@ struct HomeView: View {
     /// set it, one tap to never see it again.
     private var gameNightCard: some View {
         HStack(spacing: 12) {
-            NavigationLink {
+            paneLink("game-night") {
                 GameNightPrepView()
             } label: {
                 HStack(spacing: 12) {
@@ -765,7 +925,7 @@ struct HomeView: View {
                 // indicators are off, so without a cue the visible cards read
                 // as the whole offering and Timed Challenge and Fix My
                 // Mistakes are never found.
-                if horizontalSizeClass != .regular, !dynamicTypeSize.isAccessibilitySize {
+                if layoutSizeClass != .regular, !dynamicTypeSize.isAccessibilitySize {
                     HStack(spacing: 3) {
                         Text("SWIPE FOR MORE")
                             .font(.caption2.weight(.heavy))
@@ -785,7 +945,7 @@ struct HomeView: View {
                     trainingTiles
                 }
                 .padding(.horizontal, 4)
-            } else if horizontalSizeClass == .regular {
+            } else if layoutSizeClass == .regular {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 10)], spacing: 10) {
                     trainingTiles
                 }
@@ -865,7 +1025,7 @@ struct HomeView: View {
         let free = !subscriptions.isPro
         let available = handPlay.canPlay(isMember: subscriptions.isPro)
         if available {
-            NavigationLink {
+            paneLink("hand-play") {
                 HandPlayView()
             } label: {
                 trainingTileLabel(
@@ -918,7 +1078,7 @@ struct HomeView: View {
             .buttonStyle(PressableCardStyle())
             .accessibilityHint("Included with \(Membership.name)")
         } else {
-            NavigationLink { destination() } label: {
+            paneLink(title, destination: destination) {
                 trainingTileLabel(title: title, icon: icon, color: color, badge: badge, locked: false)
             }
             .buttonStyle(PressableCardStyle())
@@ -956,7 +1116,7 @@ struct HomeView: View {
         }
         .padding(12)
         .modifier(TrainingTileFrame(
-            fullWidth: horizontalSizeClass == .regular || dynamicTypeSize.isAccessibilitySize,
+            fullWidth: layoutSizeClass == .regular || dynamicTypeSize.isAccessibilitySize,
             fixedHeight: !dynamicTypeSize.isAccessibilitySize
         ))
         .themedCard(corner: 16)
@@ -994,11 +1154,9 @@ struct HomeView: View {
 
     private func roomCard(_ room: Room) -> some View {
         let locked = !room.isFree && !subscriptions.isPro
-        let highlighted = highlightedRoomID == room.id
+        let highlighted = highlightedRoomID == room.id || paneShows(room)
         let mastery = records.mastery(for: room, isMember: subscriptions.isPro)
-        return NavigationLink {
-            RoomView(room: room)
-        } label: {
+        return paneLink(room: room) {
             HStack(spacing: 14) {
                 // At accessibility sizes the icon and a badge beside the name
                 // left the name a word's width, and it broke mid-word.
@@ -1181,4 +1339,20 @@ private struct TrainingTileFrame: ViewModifier {
             content.frame(maxWidth: .infinity, minHeight: 118, alignment: .leading)
         }
     }
+}
+
+/// A screen Home opened in the unfolded Duo's trailing pane. Each open is a
+/// new value, so tapping the same card again starts it fresh.
+private struct PaneScreen: Hashable {
+    let id: String
+    let view: AnyView
+    private let token = UUID()
+
+    init(id: String, view: AnyView) {
+        self.id = id
+        self.view = view
+    }
+
+    static func == (lhs: PaneScreen, rhs: PaneScreen) -> Bool { lhs.token == rhs.token }
+    func hash(into hasher: inout Hasher) { hasher.combine(token) }
 }

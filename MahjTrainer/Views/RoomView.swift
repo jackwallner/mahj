@@ -192,7 +192,7 @@ struct RoomView: View {
     }
 
     @ViewBuilder
-    private func destination(_ drill: Drill) -> some View {
+    func destination(_ drill: Drill) -> some View {
         OrdinaryRunEntryView(id: drill.id, title: drill.title) {
             RoomDrillView(drill: OrdinaryRunStore.shared.run(for: drill.id)?.drill ?? drill, accent: room.accent)
         }

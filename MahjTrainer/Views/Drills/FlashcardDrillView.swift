@@ -729,7 +729,10 @@ private struct MahjCardFace<Content: View>: View {
                 .foregroundStyle(accent.opacity(0.05))
                 .rotationEffect(.degrees(-10))
                 .offset(x: 60, y: 70)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                // Zero minimums hold the frame to the card. Without them a
+                // card shorter than the glyph (a Duo pane's deck) grew the
+                // frame, and the clip let the glyph spill onto the deck.
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .bottomTrailing)
                 .clipShape(RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous))
                 .allowsHitTesting(false)
         }
