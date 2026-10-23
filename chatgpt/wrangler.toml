@@ -3,7 +3,7 @@ main = "src/worker.ts"
 compatibility_date = "2026-10-01"
 compatibility_flags = ["nodejs_compat"]
 
-rules = [{ type = "Text", globs = ["**/*.html"], fallthrough = true }]
+rules = [{ type = "Text", globs = ["**/*.html"], fallthrough = true }, { type = "Data", globs = ["**/*.png"], fallthrough = true }]
 
 # OPENAI_DOMAIN_CHALLENGE is a secret: `npx wrangler secret put OPENAI_DOMAIN_CHALLENGE`.
 

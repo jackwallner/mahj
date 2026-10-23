@@ -9,6 +9,7 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import { CfWorkerJsonSchemaValidator } from "@modelcontextprotocol/sdk/validation/cfworker";
 import { z } from "zod";
 
+import iconPng from "../plugin/assets/icon.png";
 import widgetHtml from "../widget/index.html";
 import { CHARLESTON_PASSES } from "./rack.ts";
 import { LEARN_TOPICS, lookUpTerm, PRACTICE_TOPICS } from "./sessions.ts";
@@ -37,6 +38,12 @@ const INSTRUCTIONS = [
 ].join(" ");
 
 const READ_ONLY = { readOnlyHint: true, destructiveHint: false, openWorldHint: false } as const;
+
+// Claude's directory reads the listing name from annotations.title as well as
+// the tool's own title. ChatGPT's copy keeps the annotations it was reviewed with.
+function annotations(host: Host, title: string) {
+  return host === "claude" ? { ...READ_ONLY, title } : READ_ONLY;
+}
 
 const tileList = z
   .array(z.string().max(120))
@@ -81,8 +88,13 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
 
   registerAppTool(server, "show_mahjong_lesson", {
     title: "Show a mah jongg lesson",
-    description:
-      "Use this when someone wants to learn or review American mah jongg (NMJL-card style): how the game works, the tiles, the sections of the card, the Charleston, or keep-or-throw judgment. Shows a short card deck with tile pictures, and cards that ask a question let the player answer first. The deck is the lesson, so don't write a second guide in chat. Do not use to list or reproduce the hands on the NMJL card, or for other mahjong variants.",
+    // Claude's directory rejects tool descriptions that steer the model's
+    // replies, so its copy drops the line about not repeating the deck.
+    description: [
+      "Use this when someone wants to learn or review American mah jongg (NMJL-card style): how the game works, the tiles, the sections of the card, the Charleston, or keep-or-throw judgment. Shows a short card deck with tile pictures, and cards that ask a question let the player answer first.",
+      ...(host === "chatgpt" ? ["The deck is the lesson, so don't write a second guide in chat."] : []),
+      "Do not use to list or reproduce the hands on the NMJL card, or for other mahjong variants.",
+    ].join(" "),
     inputSchema: {
       topic: z.enum(LEARN_TOPICS).default("basics").describe("basics = how the game works; tiles; sections = the card's hand families; charleston = the tile pass; strategy = keep-or-throw calls"),
     },
@@ -90,7 +102,7 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
       title: z.string(),
       cards: z.array(z.object({ title: z.string(), context: z.string().optional(), subtitle: z.string().optional(), answer: z.string().optional(), body: z.string(), tip: z.string().optional() })),
     },
-    annotations: READ_ONLY,
+    annotations: annotations(host, "Show a mah jongg lesson"),
     _meta: toolMeta(host, "Laying out the tiles", "Lesson ready"),
   }, async ({ topic }) => lessonResult(topic));
 
@@ -107,7 +119,7 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
       available: z.number().int(),
       questions: z.array(z.object({ id: z.string(), prompt: z.string(), tiles: z.array(z.string()), choices: z.array(z.string()).optional(), pick: z.number().int().optional() })),
     },
-    annotations: READ_ONLY,
+    annotations: annotations(host, "Practice American mah jongg"),
     _meta: toolMeta(host, "Dealing practice questions", "Practice ready"),
   }, async ({ topic, count }) => practiceResult(topic, count));
 
@@ -130,7 +142,7 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
       sections: z.array(z.object({ name: z.string(), verdict: z.string(), note: z.string() })),
       unreadable: z.array(z.string()),
     },
-    annotations: READ_ONLY,
+    annotations: annotations(host, "Read a mah jongg rack"),
     _meta: toolMeta(host, "Reading your rack", "Rack read"),
   }, async ({ tiles, pass }) => rackResult(tiles, pass));
 
@@ -143,7 +155,7 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
       answer: z.string().min(1).max(120).describe("The player's answer: the choice text, or three tiles like 1C 9B N"),
     },
     outputSchema: { id: z.string(), found: z.boolean(), correct: z.boolean(), answer: z.string(), explanation: z.string() },
-    annotations: READ_ONLY,
+    annotations: annotations(host, "Check a mah jongg practice answer"),
   }, async ({ id, answer }) => checkResult(id, answer));
 
   server.registerTool("define_mahjong_term", {
@@ -152,7 +164,7 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
       "Use this when someone asks what an American mah jongg term means, such as pung, kong, quint, soap, exposure, joker swap, hot tile, dead hand, the blind pass or the courtesy pass. Returns the plain-language definition from the Mahj glossary of 36 terms, written to NMJL rules, or says the term is not in it. It covers terms, not full rules such as scoring. Do not use for other mahjong variants.",
     inputSchema: { term: z.string().min(1).max(60).describe("The term to define") },
     outputSchema: { term: z.string(), definition: z.string(), found: z.boolean() },
-    annotations: READ_ONLY,
+    annotations: annotations(host, "Define a mah jongg term"),
   }, async ({ term }) => termResult(term, lookUpTerm(term)));
 
   return server;
@@ -171,6 +183,10 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
     if (pathname === "/.well-known/openai-apps-challenge" && env.OPENAI_DOMAIN_CHALLENGE) {
       return new Response(env.OPENAI_DOMAIN_CHALLENGE, { headers: { "content-type": "text/plain" } });
+    }
+    // Claude shows the server origin's favicon beside the connector.
+    if (pathname === "/favicon.ico" || pathname === "/favicon.png") {
+      return new Response(iconPng, { headers: { "content-type": "image/png", "cache-control": "public, max-age=86400" } });
     }
     if (pathname === "/") return new Response("Mahj Trainer MCP server. ChatGPT: /mcp, Claude: /claude/mcp\n", { headers: { "content-type": "text/plain" } });
     const host: Host | null = pathname === "/mcp" ? "chatgpt" : pathname === "/claude/mcp" ? "claude" : null;

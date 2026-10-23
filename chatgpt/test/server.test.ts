@@ -130,6 +130,8 @@ test("Claude's endpoint links its own widget, themed by the host", async () => {
   const { tools } = await client.listTools();
   for (const tool of tools) {
     assert.ok(tool.title, `${tool.name} title`);
+    assert.equal(tool.annotations?.title, tool.title, `${tool.name} annotations.title`);
+    assert.doesNotMatch(tool.description ?? "", /\bdon't (write|restate|repeat)\b/, `${tool.name} steers the model's reply`);
     assert.equal(tool.annotations?.readOnlyHint, true, tool.name);
     assert.ok(!Object.keys(tool._meta ?? {}).some((k) => k.startsWith("openai/")), `${tool.name} carries ChatGPT keys`);
   }
@@ -153,4 +155,11 @@ test("ChatGPT's widget stays unthemed", async () => {
   const { contents } = await client.readResource({ uri: "ui://mahj/trainer-v3.html" });
   await client.close();
   assert.doesNotMatch(String((contents[0] as { text: string }).text), /data-host="claude"/);
+});
+
+test("serves the app icon as the favicon", async () => {
+  const r = await fetch(new URL("/favicon.ico", url));
+  assert.equal(r.status, 200);
+  assert.equal(r.headers.get("content-type"), "image/png");
+  assert.ok((await r.arrayBuffer()).byteLength > 1000);
 });
