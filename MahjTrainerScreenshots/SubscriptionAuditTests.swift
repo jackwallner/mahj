@@ -64,8 +64,10 @@ final class SubscriptionAuditTests: XCTestCase {
             _ = tap("Close"); settle(1.2)
             capture("p6_after_close")
         }
-        // Settings membership.
-        let gear = app.navigationBars.buttons["Settings"].firstMatch
+        // Settings membership: the gear lives on Home, so leave the room first.
+        let back = app.navigationBars.buttons.firstMatch
+        if !app.buttons["Settings"].exists, back.exists { back.tap(); settle(1.0) }
+        let gear = app.buttons["Settings"].firstMatch
         if gear.waitForExistence(timeout: 4) {
             gear.tap(); settle(1.2)
             capture("s0_settings"); tree("s0_settings")
