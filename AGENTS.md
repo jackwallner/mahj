@@ -91,6 +91,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/membership-and-trial.md` | Free-beginner + extra-sets model, monthly on onboarding vs yearly on the paywall | Locking, Plus content, onboarding trial, paywall defaults |
 | `.claude/rules/home-and-onboarding-flow.md` | Views: the lobby, onboarding branch, primer and tour | `RootView`, Home, rooms, onboarding |
 | `.claude/rules/design-and-ipad.md` | Theme and haptics, iPad layout, no illustration | `Theme`, components, drill layouts |
+| `.claude/rules/iphone-duo.md` | The unfolded Duo's two panes: Home beside a room, fold math, capture routes | `HomeView` split, `UnfoldedSplit`, `DebugShot` |
 | `.claude/rules/screenshots.md` | Screenshots: captured, not hand-shot | Capture scripts, the `Screenshots` scheme |
 | `.claude/rules/feedback-and-retention.md` | Feedback sink, churn question, weekly gain ledger, personalised reminders (1.4) | `FeedbackService`, `ReviewPromptSheet`, `MasteryLedger`, churn prompts, reminder copy |
 | `.claude/rules/monthly-challenge.md` | The free monthly challenge, its rotation and the monthly event + nomination | `MonthlyChallengeContent`, `mahj://challenge`, in-app events |
