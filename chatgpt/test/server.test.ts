@@ -154,7 +154,7 @@ test("ChatGPT's widget stays unthemed", async () => {
   const client = await connect();
   const { contents } = await client.readResource({ uri: "ui://mahj/trainer-v3.html" });
   await client.close();
-  assert.doesNotMatch(String((contents[0] as { text: string }).text), /data-host="claude"/);
+  assert.doesNotMatch(String((contents[0] as { text: string }).text), /<html[^>]*data-host="claude"/);
 });
 
 test("serves the app icon as the favicon", async () => {
@@ -162,4 +162,25 @@ test("serves the app icon as the favicon", async () => {
   assert.equal(r.status, 200);
   assert.equal(r.headers.get("content-type"), "image/png");
   assert.ok((await r.arrayBuffer()).byteLength > 1000);
+});
+
+test("Claude's endpoint describes results without directing the model", async () => {
+  const client = await connect(claudeUrl);
+  const steer = /\b(don't|do not|ask the|tell the|you should|always|never say)\b/i;
+  const texts = [client.getInstructions() ?? ""];
+  for (const [name, args] of [
+    ["show_mahjong_lesson", { topic: "basics" }],
+    ["start_mahjong_practice", { topic: "charleston", count: 3 }],
+    ["read_mahjong_rack", { tiles: ["2C", "2C", "4C", "4C", "6B", "6B", "8B", "8D", "F", "J", "1C", "9B", "N"] }],
+    ["check_mahjong_answer", { id: "cs-evens", answer: "x" }],
+    ["check_mahjong_answer", { id: "more-table-exposure-read", answer: "zzz" }],
+  ] as const) {
+    const r = (await client.callTool({ name, arguments: args })) as Result;
+    texts.push(r.content.map((c) => c.text ?? "").join("\n"));
+  }
+  const { contents } = await client.readResource({ uri: "ui://mahj/claude-v1.html" });
+  await client.close();
+  for (const text of texts) assert.doesNotMatch(text, steer);
+  assert.match(String((contents[0] as { text: string }).text), /aria-busy="true"/);
+  assert.equal(client.getServerVersion()?.title, "Mahj Trainer");
 });

@@ -21,12 +21,21 @@ type Host = "chatgpt" | "claude";
 // Treat the URIs as cache keys: bump the version on any breaking widget change.
 const WIDGET_URI: Record<Host, string> = { chatgpt: "ui://mahj/trainer-v3.html", claude: "ui://mahj/claude-v1.html" };
 
+// Claude asks for a skeleton rather than a spinner or text while a card loads.
+const CLAUDE_SKELETON = [
+  '<div aria-busy="true"><span class="sr">Loading</span>',
+  '<div class="sk sk-line" style="width:30%"></div><div class="sk sk-title"></div>',
+  `<div class="sk-rack">${'<div class="sk sk-tile"></div>'.repeat(6)}</div>`,
+  '<div class="sk sk-line"></div><div class="sk sk-line" style="width:80%"></div></div>',
+].join("");
+
 // Claude's copy of the widget opts into the host's theme: it marks the page so
 // the script applies Claude's style variables, and declares both color schemes
 // so the iframe stays transparent in light and dark mode.
 const CLAUDE_WIDGET = widgetHtml
   .replace('<html lang="en">', '<html lang="en" data-host="claude">')
-  .replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="color-scheme" content="light dark">');
+  .replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="color-scheme" content="light dark">')
+  .replace('<p class="empty">Loading…</p>', CLAUDE_SKELETON);
 
 const INSTRUCTIONS = [
   "Mahj Trainer teaches American mah jongg, the game played with the yearly NMJL card.",
@@ -35,6 +44,16 @@ const INSTRUCTIONS = [
   "When someone asks what an American mah jongg term means, call define_mahjong_term and build the answer on its definition when it has one.",
   "When a tool shows the interactive card, the player reads it there, so don't restate its cards, tiles or answers in chat.",
   "Not for Chinese, Hong Kong or Japanese riichi mahjong, or mahjong solitaire.",
+].join(" ");
+
+// Claude's copy says what the server is and does without directing the model.
+const CLAUDE_INSTRUCTIONS = [
+  "Mahj Trainer teaches American mah jongg, the game played with the yearly NMJL card.",
+  "Its content is original and organized by the card's stable sections (2468, 13579, 369, Consecutive Run, Like Numbers, Winds & Dragons, Singles & Pairs, Quints, Year).",
+  "It never contains or reconstructs hands from the NMJL card, which is copyrighted and changes every year; players check exact lines on their own card.",
+  "define_mahjong_term holds the Mahj glossary of American mah jongg terms.",
+  "Lessons, quizzes and rack reads appear as interactive cards that show the tiles, questions and answers.",
+  "It covers American mah jongg only, not Chinese, Hong Kong or Japanese riichi mahjong, or mahjong solitaire.",
 ].join(" ");
 
 const READ_ONLY = { readOnlyHint: true, destructiveHint: false, openWorldHint: false } as const;
@@ -73,8 +92,8 @@ function widgetMeta(env: Env, host: Host, origin: string) {
 
 function buildServer(env: Env, host: Host, origin: string): McpServer {
   const server = new McpServer(
-    { name: "mahj", version: "1.0.0" },
-    { instructions: INSTRUCTIONS, jsonSchemaValidator: new CfWorkerJsonSchemaValidator() },
+    host === "claude" ? { name: "mahj", title: "Mahj Trainer", version: "1.2.0" } : { name: "mahj", version: "1.0.0" },
+    { instructions: host === "claude" ? CLAUDE_INSTRUCTIONS : INSTRUCTIONS, jsonSchemaValidator: new CfWorkerJsonSchemaValidator() },
   );
 
   registerAppResource(server, "Mahj Trainer", WIDGET_URI[host], {}, async () => ({
@@ -121,7 +140,7 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
     },
     annotations: annotations(host, "Practice American mah jongg"),
     _meta: toolMeta(host, "Dealing practice questions", "Practice ready"),
-  }, async ({ topic, count }) => practiceResult(topic, count));
+  }, async ({ topic, count }) => practiceResult(topic, count, host === "claude"));
 
   registerAppTool(server, "read_mahjong_rack", {
     title: "Read a mah jongg rack",
@@ -144,7 +163,7 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
     },
     annotations: annotations(host, "Read a mah jongg rack"),
     _meta: toolMeta(host, "Reading your rack", "Rack read"),
-  }, async ({ tiles, pass }) => rackResult(tiles, pass));
+  }, async ({ tiles, pass }) => rackResult(tiles, pass, host === "claude"));
 
   server.registerTool("check_mahjong_answer", {
     title: "Check a mah jongg practice answer",
@@ -156,7 +175,7 @@ function buildServer(env: Env, host: Host, origin: string): McpServer {
     },
     outputSchema: { id: z.string(), found: z.boolean(), correct: z.boolean(), answer: z.string(), explanation: z.string() },
     annotations: annotations(host, "Check a mah jongg practice answer"),
-  }, async ({ id, answer }) => checkResult(id, answer));
+  }, async ({ id, answer }) => checkResult(id, answer, host === "claude"));
 
   server.registerTool("define_mahjong_term", {
     title: "Define a mah jongg term",

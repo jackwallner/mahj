@@ -2,6 +2,8 @@
 // `_meta.widget` is the widget's own payload, hidden from the model. Practice
 // answers live only in `_meta.widget`, so the model can't give them away;
 // without the widget it checks a typed answer with `check_mahjong_answer`.
+// `plain` is Claude's copy: its directory rejects tool output that tells the
+// model how to reply, so those lines describe the result instead.
 import { type GlossaryEntry } from "./content.ts";
 import { type CharlestonPass, readRack } from "./rack.ts";
 import { COMMON_TERMS, findQuestion, learnDeck, type LearnTopic, practiceSession, type PracticeTopic, type Question } from "./sessions.ts";
@@ -60,7 +62,7 @@ function answerText(q: Question): string {
   return q.also.length ? `${names(q.pass)} (${names(q.also)} can stand in for ${names(q.swap)})` : names(q.pass);
 }
 
-export function practiceResult(topic: PracticeTopic, count: number) {
+export function practiceResult(topic: PracticeTopic, count: number, plain = false) {
   const session = practiceSession(topic, count);
   const questions = session.questions.map((q) => ({
     id: q.id,
@@ -75,14 +77,14 @@ export function practiceResult(topic: PracticeTopic, count: number) {
     structuredContent: { title: session.title, available: session.available, questions },
     content: [{
       type: "text" as const,
-      text: `${session.title}: ${questions.length} questions are shown in the interactive quiz, which checks and explains each answer.${short} The answers are not in this result. If the quiz is not visible, ask the questions one at a time and check each reply with check_mahjong_answer before saying whether it is right.`,
+      text: `${session.title}: ${questions.length} questions are shown in the interactive quiz, which checks and explains each answer.${short} The answers are not in this result. ${plain ? "Without the quiz, check_mahjong_answer checks a typed answer by question id." : "If the quiz is not visible, ask the questions one at a time and check each reply with check_mahjong_answer before saying whether it is right."}`,
     }],
     _meta: { widget: { view: "practice", key: key(), session } },
   };
 }
 
 /// Checks one typed answer against a practice question.
-export function checkResult(id: string, answer: string) {
+export function checkResult(id: string, answer: string, plain = false) {
   const q = findQuestion(id);
   if (!q) {
     const text = `No practice question has the id "${id.slice(0, 40)}". Use an id from start_mahjong_practice.`;
@@ -95,7 +97,7 @@ export function checkResult(id: string, answer: string) {
     const given = norm(answer);
     const matches = q.choices.map(norm).flatMap((c, i) => (c === given || (given.length >= 3 && c.startsWith(given)) ? [i] : []));
     if (matches.length !== 1) {
-      const text = `That answer doesn't match one choice. Ask the player to pick one of: ${q.choices.join(" | ")}.`;
+      const text = `That answer doesn't match one choice. ${plain ? "The choices are" : "Ask the player to pick one of"}: ${q.choices.join(" | ")}.`;
       return { structuredContent: { id, found: true, correct: false, answer: "", explanation: text }, content: [{ type: "text" as const, text }] };
     }
     correct = matches[0] === q.answerIndex;
@@ -130,7 +132,7 @@ function rackError(parsed: ReturnType<typeof parseRack>, error: string) {
   };
 }
 
-export function rackResult(raw: string[], pass?: CharlestonPass) {
+export function rackResult(raw: string[], pass?: CharlestonPass, plain = false) {
   const parsed = parseRack(raw);
   if (parsed.tooMany.length) {
     return rackError(parsed, `An American set has only four of each tile (eight flowers, eight jokers), and this rack has more ${parsed.tooMany.map(spokenName).join(", ")} than that. Check the tiles and try again.`);
@@ -158,7 +160,7 @@ export function rackResult(raw: string[], pass?: CharlestonPass) {
     ? `Pass: ${read.picks.map((p) => `${spokenName(p.tile)} (${p.reason})`).join("; ")}.${read.spare.length ? ` Later passes: ${names(read.spare)}.` : ""}`
     : "";
   const lines = [
-    "This read is shown in the interactive rack card, with the tiles, the pass and every section. In chat, don't repeat the tiles or the section list.",
+    `This read is shown in the interactive rack card, with the tiles, the pass and every section.${plain ? "" : " In chat, don't repeat the tiles or the section list."}`,
     partial ?? "",
     pass ? `The player is making ${PASS_NAME[pass]}.` : "",
     read.summary,
@@ -169,7 +171,7 @@ export function rackResult(raw: string[], pass?: CharlestonPass) {
     keeps.length ? `Keep your ${keeps.join(" and ")}.` : "",
     read.jokerNote,
     ...read.sections.filter((s) => s.verdict !== "poor" && s.id !== read.read).map((s) => `${s.name}: ${s.note}`),
-    "Sections are the stable families of the yearly card. The player should check the exact lines on their own card.",
+    `Sections are the stable families of the yearly card. ${plain ? "The exact lines are on the player's own card." : "The player should check the exact lines on their own card."}`,
   ].filter(Boolean);
   const name = (id: string) => read.sections.find((s) => s.id === id)?.name ?? id;
   return {

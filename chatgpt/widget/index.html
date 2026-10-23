@@ -84,6 +84,15 @@
     --ink: var(--color-text-primary); --ink2: var(--color-text-secondary); --ink3: var(--color-text-tertiary); --bad: var(--color-text-danger);
   }
   :root[data-hoststyles] body { font-family: var(--font-sans, system-ui, sans-serif); }
+  /* Claude's mobile apps ask for 44pt tap targets. */
+  :root[data-host="claude"] .btn, :root[data-host="claude"] .choice { min-height: 44px; }
+  :root[data-host="claude"] details summary { padding: 12px 0; margin-top: 0; }
+  /* Loading skeleton shaped like a card, in place of a spinner or text. */
+  .sk { background: var(--well); border-radius: 6px; }
+  .sk-line { height: 12px; margin: 10px 0; }
+  .sk-title { height: 20px; width: 55%; margin: 8px 0 14px; }
+  .sk-rack { display: flex; gap: 5px; margin: 12px 0; }
+  .sk-tile { width: 40px; height: 54px; border-radius: 7px; }
 </style>
 </head>
 <body>
