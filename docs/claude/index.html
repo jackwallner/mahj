@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mahj Trainer for Claude</title>
+    <meta name="description" content="Mahj Trainer teaches American mah jongg inside Claude: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.">
+    <link rel="canonical" href="https://jackwallner.com/ios/mahj/claude/">
+    <style>
+      :root {
+        color-scheme: light dark;
+        --ink: #18221d;
+        --ink2: #56605a;
+        --muted: #6e6e73;
+        --link: #1f5c45;
+        --bg: #fff;
+        --panel: #f5f5f7;
+        --rule: #e3e3e6;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ink: #eef1ef;
+          --ink2: #b7beb9;
+          --muted: #8e9490;
+          --link: #7fc9b0;
+          --bg: #121513;
+          --panel: #1d211f;
+          --rule: #2c312e;
+        }
+      }
+      body {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+        font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+      }
+      h1 {
+        font-size: 32px;
+        line-height: 1.15;
+        margin-bottom: 8px;
+      }
+      h2 {
+        margin-top: 36px;
+        font-size: 21px;
+      }
+      h3 {
+        margin: 22px 0 4px;
+        font-size: 17px;
+      }
+      p,
+      li {
+        color: var(--ink2);
+      }
+      a {
+        color: var(--link);
+      }
+      .lede {
+        font-size: 18px;
+      }
+      code {
+        font: 14px ui-monospace, SFMono-Regular, Menlo, monospace;
+        background: var(--panel);
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+      .prompts {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+      }
+      .prompts li {
+        background: var(--panel);
+        border-radius: 10px;
+        padding: 10px 14px;
+        color: var(--ink);
+      }
+      footer {
+        margin-top: 48px;
+        padding-top: 16px;
+        border-top: 1px solid var(--rule);
+        color: var(--muted);
+        font-size: 14px;
+      }
+      footer p {
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Mahj Trainer for Claude</h1>
+    <p class="lede">
+      Learn and practice American mah jongg, the game played with the yearly
+      National Mah Jongg League card, right in a Claude conversation.
+    </p>
+
+    <h2>Connect it</h2>
+    <ol>
+      <li>In Claude on the web or the desktop app, open <strong>Customize &rsaquo; Connectors</strong> and select <strong>Discover</strong>.</li>
+      <li>Search for <strong>Mahj Trainer</strong> and select <strong>Connect to Claude</strong>. There is no account to make and nothing to sign in to.</li>
+      <li>Ask Claude about American mah jongg. Lessons, quizzes and rack reads appear as interactive cards in the chat.</li>
+    </ol>
+    <p>
+      To add it by address instead, choose <strong>Add custom connector</strong>
+      and enter <code>https://mahj.mahjtrainer.workers.dev/claude/mcp</code>.
+      Once it is connected on the web or desktop, it works in the Claude
+      mobile apps too.
+    </p>
+
+    <h2>What it does</h2>
+    <ul>
+      <li>Short lessons on the basics, the tiles, the sections of the card, the Charleston, and keep-or-throw judgment.</li>
+      <li>Practice quizzes that check and explain each answer, including Charleston passes you pick by tapping tiles.</li>
+      <li>A rack reader. Share your tiles and it says which sections you lean toward, which three tiles to pass and why, and what to build on.</li>
+      <li>A glossary of mah jongg terms, from pung and quint to joker swap and dead hand.</li>
+    </ul>
+
+    <h2>Try asking</h2>
+    <ul class="prompts">
+      <li>Teach me how American mah jongg works.</li>
+      <li>Quiz me on the Charleston.</li>
+      <li>Read my rack: 2C 2C 4C 4C 6B 6B 8B 8D F J 1C 9B N. What should I pass?</li>
+      <li>What is a joker swap?</li>
+    </ul>
+
+    <h2>Questions</h2>
+    <h3>Does it know this year's card?</h3>
+    <p>
+      No. The card is copyrighted and changes every April, so Mahj Trainer
+      never quotes its hands. It teaches the sections every card is built
+      from (2468, 13579, 369, Consecutive Run, Like Numbers, Winds &amp;
+      Dragons, Singles &amp; Pairs, Quints and the year hands). Keep your own
+      card next to you for the exact lines.
+    </p>
+    <h3>How do I type my rack?</h3>
+    <p>
+      Any way that names each tile. Codes work (<code>5D</code> is 5 Dot,
+      <code>2B</code> 2 Bam, <code>7C</code> 7 Crak, <code>N E W S</code> for
+      the winds, <code>RD GD SO</code> for the dragons, <code>F</code> for a
+      flower, <code>J</code> for a joker), and so do words like "five dots",
+      "north wind", "soap" or "3 jokers". Share all 13 tiles for the best
+      read.
+    </p>
+    <h3>Why did it ask me to fix my rack?</h3>
+    <p>
+      If it can't read one of the entries, or the rack holds more copies of a
+      tile than a set has, it shows what it read and asks you to correct the
+      rest. A read that skips a tile could tell you to pass the wrong ones.
+    </p>
+    <h3>Can I name the pass I'm making?</h3>
+    <p>
+      Yes. Say which pass it is, like "first pass left" or "the courtesy
+      pass", and the advice changes to fit. On the blind-pass rounds it only
+      suggests tiles that fit nothing and leaves the rest for a blind pass.
+    </p>
+    <h3>Does it keep my tiles or questions?</h3>
+    <p>
+      No. There is no account, and the server keeps no record of what you
+      ask. The
+      <a href="https://jackwallner.com/ios/mahj/privacy-policy.html#claude">privacy policy</a>
+      has the details.
+    </p>
+    <h3>Something looks wrong</h3>
+    <p>
+      Email
+      <a href="mailto:jackwallner+m@gmail.com">jackwallner+m@gmail.com</a>
+      with what you asked and what it said.
+    </p>
+
+    <footer>
+      <p>
+        Not affiliated with or endorsed by the National Mah Jongg League.
+      </p>
+      <p>
+        <a href="https://jackwallner.com/ios/mahj/privacy-policy.html#claude">Privacy</a> ·
+        <a href="https://jackwallner.com/ios/mahj/terms.html">Terms</a> ·
+        <a href="mailto:jackwallner+m@gmail.com">Support</a>
+      </p>
+    </footer>
+  </body>
+</html>

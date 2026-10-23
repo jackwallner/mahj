@@ -20,7 +20,7 @@
   html, body { margin: 0; background: transparent; }
   body { font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; color: var(--ink); }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .card { padding: 16px 16px 12px; }
+  .card { padding: calc(16px + var(--safe-top, 0px)) calc(16px + var(--safe-right, 0px)) calc(12px + var(--safe-bottom, 0px)) calc(16px + var(--safe-left, 0px)); }
   .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ink3); display: flex; justify-content: space-between; gap: 8px; }
   h2 { font-size: 19px; font-weight: 600; line-height: 1.3; margin: 6px 0 4px; }
   h2:focus, .verdict:focus { outline: none; }
@@ -77,6 +77,13 @@
   .foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--ink3); }
   .score { font-size: 34px; font-weight: 600; line-height: 1; margin: 10px 0 4px; }
   .empty { color: var(--ink2); }
+  /* Claude hands the widget its style variables: structure takes the host's
+     colors and font, the tiles and jade accents stay the app's own. */
+  :root[data-hoststyles] {
+    --bg: var(--color-background-primary); --well: var(--color-background-secondary); --rule: var(--color-border-secondary);
+    --ink: var(--color-text-primary); --ink2: var(--color-text-secondary); --ink3: var(--color-text-tertiary); --bad: var(--color-text-danger);
+  }
+  :root[data-hoststyles] body { font-family: var(--font-sans, system-ui, sans-serif); }
 </style>
 </head>
 <body>
@@ -131,17 +138,45 @@
       mcp.meta = m.params?._meta ?? null;
       start();
     }
-    if (m.method === "ui/notifications/host-context-changed" && m.params?.theme) { mcp.theme = m.params.theme; applyTheme(); }
+    if (m.method === "ui/notifications/host-context-changed") applyHostContext(m.params);
   });
   window.addEventListener("openai:set_globals", () => { applyTheme(); start(); });
 
+  const claude = document.documentElement.dataset.host === "claude";
   function connect() {
-    mcp.request("ui/initialize", { protocolVersion: "2026-01-26", appCapabilities: {}, appInfo: { name: "mahj", version: "1.1.0" } })
-      .then((r) => { mcp.ready = true; mcp.theme = r?.hostContext?.theme ?? null; applyTheme(); mcp.notify("ui/notifications/initialized"); sendSize(); })
+    const appCapabilities = claude ? { availableDisplayModes: ["inline"] } : {};
+    mcp.request("ui/initialize", { protocolVersion: "2026-01-26", appCapabilities, appInfo: { name: "mahj", version: "1.2.0" } })
+      .then((r) => { mcp.ready = true; applyHostContext(r?.hostContext); mcp.notify("ui/notifications/initialized"); sendSize(); })
       .catch(() => {});
   }
 
   function applyTheme() { document.documentElement.dataset.theme = host.theme() === "dark" ? "dark" : "light"; }
+
+  // Context updates carry only the fields that changed. Style variables,
+  // fonts and safe areas are applied only in Claude, whose copy asks for them.
+  let fontsApplied = false;
+  function applyHostContext(ctx) {
+    if (!ctx) return;
+    if (ctx.theme) mcp.theme = ctx.theme;
+    applyTheme();
+    if (!claude) return;
+    const rootStyle = document.documentElement.style;
+    const vars = ctx.styles?.variables;
+    if (vars && typeof vars === "object") {
+      for (const [name, value] of Object.entries(vars)) if (typeof value === "string" && name.startsWith("--")) rootStyle.setProperty(name, value);
+      document.documentElement.dataset.hoststyles = "";
+    }
+    const fonts = ctx.styles?.css?.fonts;
+    if (typeof fonts === "string" && fonts && !fontsApplied) {
+      fontsApplied = true;
+      const style = document.createElement("style");
+      style.textContent = fonts;
+      document.head.appendChild(style);
+    }
+    const insets = ctx.safeAreaInsets;
+    if (insets) for (const side of ["top", "right", "bottom", "left"]) if (Number.isFinite(insets[side])) rootStyle.setProperty(`--safe-${side}`, `${insets[side]}px`);
+    sendSize();
+  }
 
   let lastHeight = 0;
   function sendSize() {

@@ -8,9 +8,12 @@ import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/
 
 const url = new URL(process.env.MCP_URL ?? "http://localhost:8787/mcp");
 
-async function connect() {
+// Claude's endpoint sits beside ChatGPT's on the same origin.
+const claudeUrl = new URL("/claude/mcp", url);
+
+async function connect(at: URL = url) {
   const client = new Client({ name: "mahj-test", version: "1.0.0" });
-  await client.connect(new StreamableHTTPClientTransport(url));
+  await client.connect(new StreamableHTTPClientTransport(at));
   return client;
 }
 
@@ -120,4 +123,34 @@ test("defines a term by alias and misses cleanly", async () => {
 test("never echoes the NMJL card", async () => {
   const r = await call("read_mahjong_rack", { tiles: ["2C", "2C", "SO", "SO", "2B", "2B", "6B", "6B", "F", "F", "F", "J", "4D"] });
   assert.match(r.content[0].text ?? "", /check the exact lines on their own card/);
+});
+
+test("Claude's endpoint links its own widget, themed by the host", async () => {
+  const client = await connect(claudeUrl);
+  const { tools } = await client.listTools();
+  for (const tool of tools) {
+    assert.ok(tool.title, `${tool.name} title`);
+    assert.equal(tool.annotations?.readOnlyHint, true, tool.name);
+    assert.ok(!Object.keys(tool._meta ?? {}).some((k) => k.startsWith("openai/")), `${tool.name} carries ChatGPT keys`);
+  }
+  const uris = new Set(tools.map((t) => (t._meta as { ui?: { resourceUri?: string } })?.ui?.resourceUri).filter(Boolean));
+  assert.deepEqual([...uris], ["ui://mahj/claude-v1.html"]);
+  const { contents } = await client.readResource({ uri: "ui://mahj/claude-v1.html" });
+  await client.close();
+  const text = String((contents[0] as { text: string }).text);
+  assert.match(text, /<html lang="en" data-host="claude">/);
+  assert.match(text, /<meta name="color-scheme" content="light dark">/);
+  // deno-lint-ignore no-explicit-any
+  const meta = contents[0]._meta as any;
+  assert.equal(meta.ui.domain, undefined, "Claude derives the sandbox origin itself");
+  assert.equal(meta.ui.prefersBorder, false);
+  assert.deepEqual(meta.ui.csp, { connectDomains: [], resourceDomains: ["https://assets.claude.ai"] });
+  assert.ok(!Object.keys(meta).some((k) => k.startsWith("openai/")));
+});
+
+test("ChatGPT's widget stays unthemed", async () => {
+  const client = await connect();
+  const { contents } = await client.readResource({ uri: "ui://mahj/trainer-v3.html" });
+  await client.close();
+  assert.doesNotMatch(String((contents[0] as { text: string }).text), /data-host="claude"/);
 });

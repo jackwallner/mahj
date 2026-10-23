@@ -1,6 +1,8 @@
-// Mahj for ChatGPT: a remote MCP server (streamable HTTP, stateless) that
-// teaches American mah jongg with the app's free content. Runs on Cloudflare
-// Workers; one fresh McpServer per request.
+// Mahj Trainer for ChatGPT and Claude: a remote MCP server (streamable HTTP,
+// stateless) that teaches American mah jongg with the app's free content. Runs
+// on Cloudflare Workers; one fresh McpServer per request. ChatGPT connects at
+// /mcp and Claude at /claude/mcp: the two hosts want different widget metadata
+// (ChatGPT's listing is locked to /mcp), so each path serves its own.
 import { registerAppResource, registerAppTool, RESOURCE_MIME_TYPE } from "@modelcontextprotocol/ext-apps/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
@@ -13,9 +15,17 @@ import { LEARN_TOPICS, lookUpTerm, PRACTICE_TOPICS } from "./sessions.ts";
 import { checkResult, lessonResult, practiceResult, rackResult, termResult } from "./tools.ts";
 
 type Env = { OPENAI_DOMAIN_CHALLENGE?: string; WIDGET_DOMAIN?: string };
+type Host = "chatgpt" | "claude";
 
-// Treat the URI as a cache key: bump the version on any breaking widget change.
-const WIDGET_URI = "ui://mahj/trainer-v3.html";
+// Treat the URIs as cache keys: bump the version on any breaking widget change.
+const WIDGET_URI: Record<Host, string> = { chatgpt: "ui://mahj/trainer-v3.html", claude: "ui://mahj/claude-v1.html" };
+
+// Claude's copy of the widget opts into the host's theme: it marks the page so
+// the script applies Claude's style variables, and declares both color schemes
+// so the iframe stays transparent in light and dark mode.
+const CLAUDE_WIDGET = widgetHtml
+  .replace('<html lang="en">', '<html lang="en" data-host="claude">')
+  .replace('<meta charset="utf-8">', '<meta charset="utf-8">\n<meta name="color-scheme" content="light dark">');
 
 const INSTRUCTIONS = [
   "Mahj Trainer teaches American mah jongg, the game played with the yearly NMJL card.",
@@ -34,25 +44,38 @@ const tileList = z
   .max(40)
   .describe('The player\'s tiles, ideally one per entry. Codes: 1C-9C craks, 1B-9B bams, 1D-9D dots, N E W S winds, RD GD SO (soap) dragons, F flower, J joker. Words like "5 dot", "five crak", "soap", "north wind" or "3 jokers" also work, as does the whole rack in one entry.');
 
-function buildServer(env: Env, origin: string): McpServer {
+// ChatGPT's tool status lines; Claude has no equivalent keys.
+function toolMeta(host: Host, invoking: string, invoked: string) {
+  const ui = { resourceUri: WIDGET_URI[host] };
+  return host === "chatgpt" ? { ui, "openai/toolInvocation/invoking": invoking, "openai/toolInvocation/invoked": invoked } : { ui };
+}
+
+function widgetMeta(env: Env, host: Host, origin: string) {
+  // Claude derives the sandbox origin itself and serves Anthropic Sans from
+  // assets.claude.ai; the widget loads nothing else.
+  if (host === "claude") return { ui: { prefersBorder: false, csp: { connectDomains: [], resourceDomains: ["https://assets.claude.ai"] } } };
+  return {
+    // The widget is one self-contained file that makes no network calls
+    // and loads nothing, so its CSP allows no outside domains. Its domain
+    // defaults to this server's own origin, which is unique to the plugin.
+    ui: { prefersBorder: true, domain: env.WIDGET_DOMAIN || origin, csp: { connectDomains: [], resourceDomains: [], frameDomains: [] } },
+    "openai/widgetDescription": "An interactive American mah jongg card: a short lesson, a practice quiz, or a read of the player's rack.",
+    "openai/widgetCSP": { connect_domains: [], resource_domains: [] },
+  };
+}
+
+function buildServer(env: Env, host: Host, origin: string): McpServer {
   const server = new McpServer(
     { name: "mahj", version: "1.0.0" },
     { instructions: INSTRUCTIONS, jsonSchemaValidator: new CfWorkerJsonSchemaValidator() },
   );
 
-  registerAppResource(server, "Mahj Trainer", WIDGET_URI, {}, async () => ({
+  registerAppResource(server, "Mahj Trainer", WIDGET_URI[host], {}, async () => ({
     contents: [{
-      uri: WIDGET_URI,
+      uri: WIDGET_URI[host],
       mimeType: RESOURCE_MIME_TYPE,
-      text: widgetHtml,
-      _meta: {
-        // The widget is one self-contained file that makes no network calls
-        // and loads nothing, so its CSP allows no outside domains. Its domain
-        // defaults to this server's own origin, which is unique to the plugin.
-        ui: { prefersBorder: true, domain: env.WIDGET_DOMAIN || origin, csp: { connectDomains: [], resourceDomains: [], frameDomains: [] } },
-        "openai/widgetDescription": "An interactive American mah jongg card: a short lesson, a practice quiz, or a read of the player's rack.",
-        "openai/widgetCSP": { connect_domains: [], resource_domains: [] },
-      },
+      text: host === "claude" ? CLAUDE_WIDGET : widgetHtml,
+      _meta: widgetMeta(env, host, origin),
     }],
   }));
 
@@ -68,7 +91,7 @@ function buildServer(env: Env, origin: string): McpServer {
       cards: z.array(z.object({ title: z.string(), context: z.string().optional(), subtitle: z.string().optional(), answer: z.string().optional(), body: z.string(), tip: z.string().optional() })),
     },
     annotations: READ_ONLY,
-    _meta: { ui: { resourceUri: WIDGET_URI }, "openai/toolInvocation/invoking": "Laying out the tiles", "openai/toolInvocation/invoked": "Lesson ready" },
+    _meta: toolMeta(host, "Laying out the tiles", "Lesson ready"),
   }, async ({ topic }) => lessonResult(topic));
 
   registerAppTool(server, "start_mahjong_practice", {
@@ -85,7 +108,7 @@ function buildServer(env: Env, origin: string): McpServer {
       questions: z.array(z.object({ id: z.string(), prompt: z.string(), tiles: z.array(z.string()), choices: z.array(z.string()).optional(), pick: z.number().int().optional() })),
     },
     annotations: READ_ONLY,
-    _meta: { ui: { resourceUri: WIDGET_URI }, "openai/toolInvocation/invoking": "Dealing practice questions", "openai/toolInvocation/invoked": "Practice ready" },
+    _meta: toolMeta(host, "Dealing practice questions", "Practice ready"),
   }, async ({ topic, count }) => practiceResult(topic, count));
 
   registerAppTool(server, "read_mahjong_rack", {
@@ -108,7 +131,7 @@ function buildServer(env: Env, origin: string): McpServer {
       unreadable: z.array(z.string()),
     },
     annotations: READ_ONLY,
-    _meta: { ui: { resourceUri: WIDGET_URI }, "openai/toolInvocation/invoking": "Reading your rack", "openai/toolInvocation/invoked": "Rack read" },
+    _meta: toolMeta(host, "Reading your rack", "Rack read"),
   }, async ({ tiles, pass }) => rackResult(tiles, pass));
 
   server.registerTool("check_mahjong_answer", {
@@ -149,13 +172,14 @@ export default {
     if (pathname === "/.well-known/openai-apps-challenge" && env.OPENAI_DOMAIN_CHALLENGE) {
       return new Response(env.OPENAI_DOMAIN_CHALLENGE, { headers: { "content-type": "text/plain" } });
     }
-    if (pathname === "/") return new Response("Mahj for ChatGPT. MCP endpoint: /mcp\n", { headers: { "content-type": "text/plain" } });
-    if (pathname !== "/mcp") return new Response("Not found", { status: 404 });
+    if (pathname === "/") return new Response("Mahj Trainer MCP server. ChatGPT: /mcp, Claude: /claude/mcp\n", { headers: { "content-type": "text/plain" } });
+    const host: Host | null = pathname === "/mcp" ? "chatgpt" : pathname === "/claude/mcp" ? "claude" : null;
+    if (!host) return new Response("Not found", { status: 404 });
     // Stateless: no server-initiated stream to hold open, so refuse GET (and DELETE) per the spec.
     if (request.method !== "POST") return new Response("Method not allowed", { status: 405, headers: { ...CORS, allow: "POST, OPTIONS" } });
 
     const transport = new WebStandardStreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
-    await buildServer(env, new URL(request.url).origin).connect(transport);
+    await buildServer(env, host, new URL(request.url).origin).connect(transport);
     const response = await transport.handleRequest(request);
     const headers = new Headers(response.headers);
     for (const [key, value] of Object.entries(CORS)) headers.set(key, value);

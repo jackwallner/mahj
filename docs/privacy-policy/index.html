@@ -163,6 +163,28 @@
         >OpenAI's privacy policy</a
       >. You can remove the plugin any time in ChatGPT's settings.
     </p>
+    <h2 id="claude">Mahj in Claude</h2>
+    <p>
+      The Mahj Trainer connector for Claude runs on the same Cloudflare
+      Workers server. When Claude calls it, the server receives only what the
+      tool needs: a lesson or practice topic, a mah jongg term, the tile names
+      you ask it to read, or the answer you give to a practice question. It
+      sends back lessons, questions, a checked answer or a rack read. It has
+      no account and no database, and nothing is linked to your Claude
+      identity. It never reads your conversation history, memory or files.
+    </p>
+    <p>
+      The server keeps nothing after it answers, exactly as described under
+      <a href="#chatgpt">Mahj in ChatGPT</a>: no logs, no stored tiles,
+      questions or answers, and Cloudflare carries each request only as our
+      host. Its interactive cards load no outside content beyond the font
+      Claude itself supplies. Anthropic handles your conversation under
+      <a href="https://www.anthropic.com/legal/privacy"
+        >Anthropic's privacy policy</a
+      >. You can disconnect or remove the connector any time in Claude under
+      Customize &rsaquo; Connectors. Questions about this section go to
+      <a href="mailto:jackwallner+m@gmail.com">jackwallner+m@gmail.com</a>.
+    </p>
     <h2>What we do not collect</h2>
     <p>
       No account, tracking pixel, analytics beyond the Meta SDK described above, precise location, contacts,
@@ -176,8 +198,9 @@
       Google Play and RevenueCat retain transaction records as needed to process and restore
       purchases. Support emails and in-app feedback contain whatever you
       choose to send and are used to answer or act on it. The ChatGPT plugin
-      keeps nothing past each request, as described under
-      <a href="#chatgpt">Mahj in ChatGPT</a>.
+      and the Claude connector keep nothing past each request, as described
+      under <a href="#chatgpt">Mahj in ChatGPT</a> and
+      <a href="#claude">Mahj in Claude</a>.
     </p>
     <h2>Children and changes</h2>
     <p>
