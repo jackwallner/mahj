@@ -3,13 +3,16 @@ import XCTest
 /// Second pass of the interrupted-player audit. The first pass hung on a
 /// full-tree `allElementsBoundByIndex` filter in Get Started, so these tests
 /// resolve one lazy query at a time and tap by coordinate. Like the first
-/// pass they attach evidence rather than assert on product behaviour.
+/// pass they attach evidence rather than assert on product behaviour, but
+/// every navigation step asserts it reached the intended screen before its
+/// screenshot is taken (run B once passed 3/3 while the captures showed the
+/// Reference screen, because the gear was found by position).
 @MainActor
 final class InterruptedPlayerLightTests: XCTestCase {
     private var app: XCUIApplication!
 
     override func setUp() {
-        continueAfterFailure = true
+        continueAfterFailure = false
         app = XCUIApplication()
     }
 
@@ -40,6 +43,27 @@ final class InterruptedPlayerLightTests: XCTestCase {
         app.launch()
         _ = app.wait(for: .runningForeground, timeout: 30)
         settle(2)
+    }
+
+    /// Home is the lobby: the gear and the book are both present and no
+    /// Settings or Reference title is showing.
+    private func assertHome(_ context: String, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 20), "\(context): Home gear missing", file: file, line: line)
+        XCTAssertTrue(app.buttons["Reference and glossary"].exists, "\(context): Home book button missing", file: file, line: line)
+        XCTAssertFalse(app.navigationBars["Reference"].exists, "\(context): Reference is showing", file: file, line: line)
+        XCTAssertFalse(app.navigationBars["Settings"].exists, "\(context): Settings is showing", file: file, line: line)
+    }
+
+    private func assertQuestionCounter(_ text: String, file: StaticString = #filePath, line: UInt = #line) {
+        let counter = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", text)).firstMatch
+        XCTAssertTrue(counter.waitForExistence(timeout: 8), "question counter '\(text)' not showing", file: file, line: line)
+    }
+
+    private func note(_ name: String, _ text: String) {
+        let a = XCTAttachment(string: text)
+        a.name = name
+        a.lifetime = .keepAlways
+        add(a)
     }
 
     private func background() {
@@ -78,65 +102,108 @@ final class InterruptedPlayerLightTests: XCTestCase {
 
     func testGetStartedKillMidSession() {
         launch()
+        assertHome("gs launch")
         shot("gs_00_home")
         XCTAssertTrue(tapCard("Get Started"), "no Get Started card")
+        assertQuestionCounter("1 of 10")
         shot("gs_01_q1")
         answerFirstChoice()
         shot("gs_02_q1_answered")
         let next = app.buttons["Next"]
-        if next.waitForExistence(timeout: 4) { next.tap() }
+        XCTAssertTrue(next.waitForExistence(timeout: 4), "Next did not appear after answering")
+        next.tap()
         settle(1.5)
+        assertQuestionCounter("2 of 10")
         shot("gs_03_q2")
         answerFirstChoice()
+        XCTAssertTrue(app.buttons["Next"].waitForExistence(timeout: 4), "question 2 was not answered")
         shot("gs_04_q2_answered")
         background()
+        assertQuestionCounter("2 of 10")
+        XCTAssertTrue(app.buttons["Next"].exists, "answered state lost after background")
         shot("gs_05_after_background")
         relaunchKeepingDefaults()
+        assertHome("gs after kill")
         shot("gs_06_after_kill_home")
-        if tapCard("Get Started") { shot("gs_07_after_kill_session") }
+        XCTAssertTrue(tapCard("Get Started"), "no Get Started card after kill")
+        let first = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "1 of ")).firstMatch.waitForExistence(timeout: 8)
+        let second = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "2 of ")).firstMatch.exists
+        note("gs_after_kill_counter", "restarts at 1 of 10: \(first); resumes at 2 of 10: \(second)")
+        XCTAssertTrue(first || second, "after kill, Get Started opened no question screen")
+        shot("gs_07_after_kill_session")
     }
 
     func testPlayAHandKillMidHand() {
         launch()
-        guard tapCard("Play a") else { shot("ph_00_nocard"); return }
+        assertHome("ph launch")
+        XCTAssertTrue(tapCard("Play a"), "no Play a Hand card")
+        XCTAssertFalse(app.buttons["Settings"].exists, "Play a Hand did not push a screen")
         shot("ph_01_sections")
-        guard tapCard("2468 (Evens)") else { shot("ph_02_nosection"); return }
+        XCTAssertTrue(tapCard("2468 (Evens)"), "no 2468 (Evens) section")
         shot("ph_02_section")
-        guard tapCard("Play it out") else { shot("ph_03_noplay"); return }
+        XCTAssertTrue(tapCard("Play it out"), "no Play it out button")
+        let rackTiles = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'rack-tile-'"))
+        XCTAssertTrue(rackTiles.firstMatch.waitForExistence(timeout: 8), "no rack tiles after Play it out")
         shot("ph_03_dealt")
-        let tile = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'rack-tile-'")).firstMatch
-        if tile.waitForExistence(timeout: 5) {
-            tile.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
-            settle(2)
-        }
+        let tilesBefore = rackTiles.count
+        rackTiles.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        settle(2)
+        note("ph_rack_tile_counts", "rack tile buttons before throw: \(tilesBefore), after: \(rackTiles.count)")
         shot("ph_04_threw")
         background()
+        XCTAssertTrue(rackTiles.firstMatch.waitForExistence(timeout: 6), "rack gone after background")
         shot("ph_05_after_background")
         relaunchKeepingDefaults()
+        assertHome("ph after kill")
         shot("ph_06_after_kill_home")
-        if tapCard("Play a") { shot("ph_07_after_kill_play") }
+        XCTAssertTrue(tapCard("Play a"), "no Play a Hand card after kill")
+        XCTAssertFalse(app.buttons["Settings"].exists, "Play a Hand did not push a screen after kill")
+        note("ph_after_kill_rack", "rack tile buttons after kill and reopen: \(rackTiles.count), sections visible: \(app.buttons["2468 (Evens)"].exists)")
+        shot("ph_07_after_kill_play")
     }
 
     func testFeedbackDraftSurvivesBackground() {
         launch()
-        let gear = app.navigationBars.buttons.element(boundBy: 0)
-        guard gear.waitForExistence(timeout: 6) else { shot("fb_00_nogear"); return }
+        assertHome("fb launch")
+        let gear = app.buttons["Settings"]
         gear.tap()
-        settle(1.5)
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 8), "Settings sheet did not open")
+        settle(1)
         shot("fb_01_settings")
-        guard tapCard("Send Feedback") else { shot("fb_02_nofeedback"); return }
+        XCTAssertTrue(tapCard("Send Feedback"), "no Send Feedback row in Settings")
+        XCTAssertTrue(app.navigationBars["Help us improve"].waitForExistence(timeout: 8), "feedback sheet did not open")
         shot("fb_02_sheet")
+        let draft = "The tile images look small on my phone"
         let field = app.textViews.firstMatch
-        if field.waitForExistence(timeout: 4) {
-            field.tap()
-            field.typeText("The tile images look small on my phone")
-            settle(1)
-            shot("fb_03_typed_keyboard")
+        XCTAssertTrue(field.waitForExistence(timeout: 4), "no feedback text field")
+        field.tap()
+        field.typeText(draft)
+        settle(1)
+        shot("fb_03_typed_keyboard")
+        // Resign the field first: pressing Home with the keyboard up timed out
+        // on the simulator's background assertion in run A. Nothing is sent.
+        let caption = app.staticTexts["Goes straight to the developer, a real person. No account, no email needed."]
+        caption.tap()
+        if app.keyboards.count > 0 {
+            caption.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+                .press(forDuration: 0.1, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.97)))
         }
+        settle(1)
+        note("fb_keyboard_before_home", "keyboards showing: \(app.keyboards.count)")
         background()
+        XCTAssertTrue(app.navigationBars["Help us improve"].waitForExistence(timeout: 6), "feedback sheet gone after background")
+        XCTAssertTrue((app.textViews.firstMatch.value as? String)?.contains(draft) == true, "draft text lost after background")
         shot("fb_04_after_background")
         relaunchKeepingDefaults()
+        assertHome("fb after kill")
         shot("fb_05_after_kill_home")
+        gear.tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 8), "Settings sheet did not reopen")
+        XCTAssertTrue(tapCard("Send Feedback"), "no Send Feedback row after kill")
+        XCTAssertTrue(app.navigationBars["Help us improve"].waitForExistence(timeout: 8), "feedback sheet did not reopen")
+        let restored = (app.textViews.firstMatch.value as? String)?.contains(draft) == true
+        note("fb_draft_after_kill", "draft restored after kill: \(restored)")
+        shot("fb_06_reopened_after_kill")
     }
 
     private func settle(_ s: TimeInterval) { Thread.sleep(forTimeInterval: s) }
