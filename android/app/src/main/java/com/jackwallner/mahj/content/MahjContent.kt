@@ -141,7 +141,7 @@ object MahjContent {
         drills = json.getJSONArray("drills").objects().map(::drill),
     )
 
-    private fun drill(json: JSONObject): Drill {
+    internal fun drill(json: JSONObject): Drill {
         val items = json.getJSONArray("items").objects()
         val kind = when (val raw = json.getString("kind")) {
             "flashcards" -> DrillKind.Flashcards(items.map(::flashcard))

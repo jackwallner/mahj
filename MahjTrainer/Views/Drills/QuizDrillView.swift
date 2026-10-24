@@ -4,12 +4,23 @@ struct QuizDrillView: View {
     let drill: Drill
     let questions: [QuizQuestion]
 
+    init(drill: Drill, questions: [QuizQuestion]) {
+        self.drill = drill
+        self.questions = questions
+        let saved = OrdinaryRunStore.shared.run(for: drill.id)
+        _answers = State(initialValue: saved?.answers ?? [])
+        _index = State(initialValue: saved?.index ?? 0)
+        _score = State(initialValue: saved?.score ?? 0)
+        _selection = State(initialValue: saved?.selection)
+    }
+
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @EnvironmentObject private var progress: ProgressStore
 
     @State private var index = 0
     @State private var selection: Int?
     @State private var score = 0
+    @State private var answers: [Bool] = []
     @State private var finished = false
     @State private var confettiTrigger = 0
     /// The correct answer row, so the burst launches from what was right.
@@ -19,7 +30,7 @@ struct QuizDrillView: View {
         if finished {
             DrillCompleteView(drill: drill, score: score, total: questions.count)
         } else {
-            drillBody
+            drillBody.onAppear { saveRun() }
         }
     }
 
@@ -85,10 +96,16 @@ struct QuizDrillView: View {
         }
     }
 
+    private func saveRun() {
+        OrdinaryRunStore.shared.save(OrdinaryRun(drill: drill, index: index, score: score, selection: selection, answers: answers))
+    }
+
     private func select(_ choiceIndex: Int) {
         guard !answered else { return }
+        defer { saveRun() }
         selection = choiceIndex
         let correct = choiceIndex == shuffled.answerIndex
+        answers.append(correct)
         progress.recordItem(id: question.id, correct: correct)
         PracticeRecordStore.shared.record(itemID: question.id, roomID: DrillLibrary.roomID(forDrillID: drill.id), correct: correct)
         if correct {
@@ -107,8 +124,10 @@ struct QuizDrillView: View {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
                 selection = nil
                 index += 1
+                saveRun()
             }
         } else {
+            OrdinaryRunStore.shared.clear(drill.id)
             withAnimation(.easeInOut(duration: 0.3)) { finished = true }
         }
     }

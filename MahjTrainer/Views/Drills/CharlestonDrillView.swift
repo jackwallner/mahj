@@ -4,12 +4,24 @@ struct CharlestonDrillView: View {
     let drill: Drill
     let scenarios: [CharlestonScenario]
 
+    init(drill: Drill, scenarios: [CharlestonScenario]) {
+        self.drill = drill
+        self.scenarios = scenarios
+        let saved = OrdinaryRunStore.shared.run(for: drill.id)
+        _answers = State(initialValue: saved?.answers ?? [])
+        _index = State(initialValue: saved?.index ?? 0)
+        _score = State(initialValue: saved?.score ?? 0)
+        _selected = State(initialValue: saved?.selected ?? [])
+        _submitted = State(initialValue: saved?.submitted ?? false)
+    }
+
     @EnvironmentObject private var progress: ProgressStore
 
     @State private var index = 0
     @State private var selected: Set<Int> = []
     @State private var submitted = false
     @State private var score = 0
+    @State private var answers: [Bool] = []
     @State private var finished = false
     @State private var confettiTrigger = 0
     @State private var shineTrigger = 0
@@ -18,7 +30,7 @@ struct CharlestonDrillView: View {
         if finished {
             DrillCompleteView(drill: drill, score: score, total: scenarios.count * 3)
         } else {
-            drillBody
+            drillBody.onAppear { saveRun() }
         }
     }
 
@@ -163,11 +175,18 @@ struct CharlestonDrillView: View {
             if case .joker = rackedDeal[tileIndex] { return }
             selected.insert(tileIndex)
         }
+        saveRun()
+    }
+
+    private func saveRun() {
+        OrdinaryRunStore.shared.save(OrdinaryRun(drill: drill, index: index, score: score, answers: answers, selected: selected, submitted: submitted))
     }
 
     private func submit() {
-        guard selected.count == 3 else { return }
+        guard !submitted, selected.count == 3 else { return }
+        defer { saveRun() }
         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { submitted = true }
+        answers.append(matchCount >= 2)
         score += matchCount
         progress.recordItem(id: scenario.id, correct: matchCount >= 2)
         PracticeRecordStore.shared.record(itemID: scenario.id, roomID: DrillLibrary.roomID(forDrillID: drill.id), correct: matchCount >= 2)
@@ -195,7 +214,9 @@ struct CharlestonDrillView: View {
             selected = []
             submitted = false
             index += 1
+            saveRun()
         } else {
+            OrdinaryRunStore.shared.clear(drill.id)
             finished = true
         }
     }

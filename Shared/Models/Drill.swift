@@ -2,7 +2,7 @@ import Foundation
 
 /// A two-option self-test on a card's front ("Keep" / "Throw"). Answering
 /// flips the card and grades the pick before the explanation lands.
-struct CardChoice: Sendable {
+struct CardChoice: Codable, Sendable {
     let options: [String]
     let answerIndex: Int
 
@@ -12,7 +12,7 @@ struct CardChoice: Sendable {
     }
 }
 
-struct Flashcard: Identifiable, Sendable {
+struct Flashcard: Codable, Identifiable, Sendable {
     let id: String
     let frontTitle: String
     let frontTiles: [Tile]
@@ -33,7 +33,7 @@ struct Flashcard: Identifiable, Sendable {
     }
 }
 
-struct QuizQuestion: Identifiable, Sendable {
+struct QuizQuestion: Codable, Identifiable, Sendable {
     let id: String
     let prompt: String
     let tiles: [Tile]
@@ -52,7 +52,7 @@ struct QuizQuestion: Identifiable, Sendable {
     }
 }
 
-struct HandMatchQuestion: Identifiable, Sendable {
+struct HandMatchQuestion: Codable, Identifiable, Sendable {
     let id: String
     let tiles: [Tile]
     let choices: [HandCategory]
@@ -60,7 +60,7 @@ struct HandMatchQuestion: Identifiable, Sendable {
     let explanation: String
 }
 
-struct CharlestonScenario: Identifiable, Sendable {
+struct CharlestonScenario: Codable, Identifiable, Sendable {
     let id: String
     let situation: String
     let deal: [Tile]
@@ -69,7 +69,7 @@ struct CharlestonScenario: Identifiable, Sendable {
     let tip: String
 }
 
-enum DrillKind: Sendable {
+enum DrillKind: Codable, Sendable {
     case flashcards([Flashcard])
     case quiz([QuizQuestion])
     case handMatch([HandMatchQuestion])
@@ -85,7 +85,7 @@ enum DrillKind: Sendable {
     }
 }
 
-struct Drill: Identifiable, Sendable {
+struct Drill: Codable, Identifiable, Sendable {
     let id: String
     let title: String
     let subtitle: String

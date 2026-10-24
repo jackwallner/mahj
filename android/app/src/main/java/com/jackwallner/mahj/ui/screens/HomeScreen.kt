@@ -59,6 +59,7 @@ import com.jackwallner.mahj.ui.nav.LocalNavigator
 import com.jackwallner.mahj.ui.nav.PracticeMode
 import com.jackwallner.mahj.ui.nav.Route
 import com.jackwallner.mahj.ui.nav.SessionPurpose
+import com.jackwallner.mahj.ui.theme.BarTextButton
 import com.jackwallner.mahj.ui.theme.BarIconButton
 import com.jackwallner.mahj.ui.theme.Eyebrow
 import com.jackwallner.mahj.ui.theme.IconBadge
@@ -130,11 +131,17 @@ fun HomeScreen() {
                 val items = SessionBuilder.quickSession(seen = progress.seenItems, missed = progress.missedItems, includePro = isPro)
                 navigator.push(Route.Session(items, SessionPurpose.Quick(isDaily = true)))
             }
+            graph.ordinaryRuns.inProgress?.let { run ->
+                BarTextButton("Resume ${run.drill.title}", colors.jade) {
+                    if (run.isQuickSession) navigator.push(Route.Session(run.items, SessionPurpose.Quick(isDaily = true)))
+                    else navigator.push(Route.Drill(com.jackwallner.mahj.content.DrillLibrary.roomID(run.id), run.id))
+                }
+            }
             val skillLevel = graph.defaults.getString(SKILL_LEVEL).orEmpty()
             if (skillLevel == "new" && !graph.defaults.getBoolean(HAS_READ_PRIMER)) {
                 HowToPlayCard { navigator.push(Route.HowToPlay) }
             }
-            TrainingSection(isPro, onLocked = { actions.openPaywall("mahj_home_sheet") })
+            TrainingSection(isPro, onLocked = { actions.openPaywall("mahj_home_sheet", it) })
             Row(Modifier.padding(top = 6.dp, start = 4.dp)) { Eyebrow("THE ROOMS") }
             DrillLibrary.rooms.forEach { room ->
                 Box(Modifier.onGloballyPositioned { roomOffsets[room.id] = it.positionInParent().y.toInt() }) {
@@ -250,7 +257,7 @@ private fun HowToPlayCard(onClick: () -> Unit) {
 
 /** The cross-cutting practice modes in one scrolling row of compact tiles. */
 @Composable
-private fun TrainingSection(isPro: Boolean, onLocked: () -> Unit) {
+private fun TrainingSection(isPro: Boolean, onLocked: (Route) -> Unit) {
     val graph = LocalGraph.current
     val navigator = LocalNavigator.current
     val colors = Mahj.colors
@@ -280,32 +287,33 @@ private fun TrainingSection(isPro: Boolean, onLocked: () -> Unit) {
                 else -> "${handPlay.handsPlayed} played"
             }
             TrainingTile("Play a\nHand", "hand.draw.fill", colors.jade, handBadge, locked = !canPlay, tag = "tile-hand-play") {
-                if (canPlay) navigator.push(Route.HandPlay) else onLocked()
+                if (canPlay) navigator.push(Route.HandPlay) else onLocked(Route.HandPlay)
             }
             TrainingTile("Endless\nPractice", "infinity", colors.jade, null, locked = !isPro, tag = "tile-endless") {
-                if (isPro) navigator.push(Route.EndlessPicker) else onLocked()
+                if (isPro) navigator.push(Route.EndlessPicker) else onLocked(Route.EndlessPicker)
             }
             val minute = graph.minutes.result(LocalDate.now())
             TrainingTile(
                 "Mahj\nMinute", "calendar.badge.clock", colors.coral,
                 minute?.let { "${it.score}/${it.total} today" } ?: "Daily", locked = !isPro, tag = "tile-minute",
-            ) { if (isPro) navigator.push(Route.MahjMinute) else onLocked() }
+            ) { if (isPro) navigator.push(Route.MahjMinute) else onLocked(Route.MahjMinute) }
             TrainingTile(
                 "Game Night\nPrep", "person.2.fill", colors.plum,
                 if (graph.settings.gameNightReminderEnabled) graph.settings.gameNightDay.displayName else "Weekly",
                 locked = !isPro, tag = "tile-game-night",
-            ) { if (isPro) navigator.push(Route.GameNightPrep) else onLocked() }
+            ) { if (isPro) navigator.push(Route.GameNightPrep) else onLocked(Route.GameNightPrep) }
             TrainingTile(
                 "Timed\nChallenge", "timer", colors.coral,
                 if (records.bestChallengeScore > 0) "Best ${records.bestChallengeScore}" else null, locked = !isPro, tag = "tile-timed",
-            ) { if (isPro) navigator.push(Route.Practice(PracticeMode.Timed)) else onLocked() }
+            ) { if (isPro) navigator.push(Route.Practice(PracticeMode.Timed)) else onLocked(Route.Practice(PracticeMode.Timed)) }
             // Only offered when there is something the runner can actually ask.
             val reviewable = SessionBuilder.reviewableIDs(isPro)
             val due = records.dueCount(reviewable)
             if (due > 0) {
                 TrainingTile("Fix My\nMistakes", "arrow.trianglehead.counterclockwise", colors.plum, "$due due", locked = !isPro, tag = "tile-review") {
                     if (!isPro) {
-                        onLocked()
+                        onLocked(Route.Practice(PracticeMode.Review,
+                            SessionBuilder.reviewSession(records.reviewQueue(presentable = SessionBuilder.reviewableIDs(true)), true)))
                     } else {
                         val items = SessionBuilder.reviewSession(records.reviewQueue(presentable = reviewable), isPro)
                         navigator.push(Route.Practice(PracticeMode.Review, items))

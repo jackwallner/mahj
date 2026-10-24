@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -34,6 +35,7 @@ import com.jackwallner.mahj.model.CharlestonScenario
 import com.jackwallner.mahj.model.Drill
 import com.jackwallner.mahj.model.Tile
 import com.jackwallner.mahj.model.racked
+import com.jackwallner.mahj.data.OrdinaryRun
 import com.jackwallner.mahj.ui.LocalGraph
 import com.jackwallner.mahj.ui.components.DrillProgress
 import com.jackwallner.mahj.ui.components.DrillStage
@@ -64,15 +66,23 @@ fun matchCount(selected: Collection<Int>, rack: List<Tile>, recommended: List<Ti
 @Composable
 fun CharlestonDrillScreen(drill: Drill, scenarios: List<CharlestonScenario>) {
     val graph = LocalGraph.current
+    val saved = remember { graph.ordinaryRuns.run(drill.id) }
     val navigator = LocalNavigator.current
     val colors = Mahj.colors
-    var index by rememberSaveable { mutableIntStateOf(0) }
-    var selected by rememberSaveable { mutableStateOf(listOf<Int>()) }
-    var submitted by rememberSaveable { mutableStateOf(false) }
-    var score by rememberSaveable { mutableIntStateOf(0) }
+    var index by rememberSaveable { mutableIntStateOf(saved?.index ?: 0) }
+    var selected by rememberSaveable { mutableStateOf(saved?.selected ?: listOf<Int>()) }
+    var submitted by rememberSaveable { mutableStateOf(saved?.submitted ?: false) }
+    var score by rememberSaveable { mutableIntStateOf(saved?.score ?: 0) }
+    var answers by rememberSaveable { mutableStateOf(saved?.answers ?: emptyList<Boolean>()) }
     var finished by rememberSaveable { mutableStateOf(false) }
     var confetti by remember { mutableIntStateOf(0) }
     var shineTrigger by remember { mutableIntStateOf(0) }
+
+    val runToSave = if (finished) null else OrdinaryRun(drill, index = index, score = score, answers = answers, selected = selected, submitted = submitted)
+    SideEffect {
+        if (runToSave == null) graph.ordinaryRuns.clear(drill.id)
+        else graph.ordinaryRuns.save(runToSave)
+    }
 
     if (finished) {
         DrillCompleteScreen(drill, score, scenarios.size * 3) { navigator.pop() }
@@ -139,6 +149,7 @@ fun CharlestonDrillScreen(drill: Drill, scenarios: List<CharlestonScenario>) {
                         PrimaryCTA("Pass These 3", Modifier.testTag("pass"), enabled = selected.size == 3) {
                             submitted = true
                             score += matches
+                            answers = answers + (matches >= 2)
                             graph.recordAnswer(scenario.id, DrillLibrary.roomID(drill.id), matches >= 2)
                             when (matches) {
                                 3 -> {

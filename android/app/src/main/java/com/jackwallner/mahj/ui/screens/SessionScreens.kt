@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -47,6 +48,7 @@ import com.jackwallner.mahj.content.QuickItem
 import com.jackwallner.mahj.content.SessionBuilder
 import com.jackwallner.mahj.data.MahjMinuteResult
 import com.jackwallner.mahj.model.Drill
+import com.jackwallner.mahj.data.OrdinaryRun
 import com.jackwallner.mahj.ui.LocalGraph
 import com.jackwallner.mahj.ui.components.DrillProgress
 import com.jackwallner.mahj.ui.components.DrillStage
@@ -98,25 +100,36 @@ private val SessionPurpose.drill: Drill
  * Next. The item list is the one the route snapshotted, never re-derived.
  */
 @Composable
-fun SessionScreen(items: List<QuickItem>, purpose: SessionPurpose, onClose: (() -> Unit)? = null) {
+fun SessionScreen(initialItems: List<QuickItem>, purpose: SessionPurpose, onClose: (() -> Unit)? = null) {
     val graph = LocalGraph.current
     val navigator = LocalNavigator.current
+    val ordinary = purpose is SessionPurpose.Quick && purpose.isDaily && onClose == null
+    val saved = remember { if (ordinary) graph.ordinaryRuns.run(purpose.drill.id) else null }
+    val items = remember { saved?.items ?: initialItems }
     val colors = Mahj.colors
     val scope = rememberCoroutineScope()
     val close = onClose ?: { navigator.pop(); Unit }
-    var index by rememberSaveable { mutableIntStateOf(0) }
-    var score by rememberSaveable { mutableIntStateOf(0) }
-    var selection by rememberSaveable { mutableStateOf<Int?>(null) }
-    var answers by rememberSaveable { mutableStateOf(listOf<Boolean>()) }
+    var index by rememberSaveable { mutableIntStateOf(saved?.index ?: 0) }
+    var score by rememberSaveable { mutableIntStateOf(saved?.score ?: 0) }
+    var selection by rememberSaveable { mutableStateOf(saved?.selection) }
+    var answers by rememberSaveable { mutableStateOf(saved?.answers ?: listOf<Boolean>()) }
     var finished by rememberSaveable { mutableStateOf(false) }
     var minuteResult by remember { mutableStateOf<MahjMinuteResult?>(null) }
-    var streak by remember { mutableIntStateOf(0) }
+    var streak by remember { mutableIntStateOf(saved?.answers?.asReversed()?.takeWhile { it }?.size ?: 0) }
     var confetti by remember { mutableIntStateOf(0) }
     var particles by remember { mutableIntStateOf(30) }
     var banner by remember { mutableStateOf<String?>(null) }
     var bannerTrigger by remember { mutableIntStateOf(0) }
     var answerRect by remember { mutableStateOf<Rect?>(null) }
     val flash = remember { Animatable(0f) }
+
+    val runToSave = if (finished) null else OrdinaryRun(purpose.drill, items = items, index = index, score = score, selection = selection, answers = answers)
+    SideEffect {
+        if (ordinary) {
+            if (runToSave == null) graph.ordinaryRuns.clear(purpose.drill.id)
+            else graph.ordinaryRuns.save(runToSave)
+        }
+    }
 
     if (finished) {
         val result = minuteResult
@@ -311,7 +324,7 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
     if (items.isEmpty()) {
         MahjScreen(title, onBack = { navigator.pop() }) {
             if (mode == PracticeMode.Review) {
-                EmptyRunScreen("checkmark.circle", "Nothing due", "You have no mistakes waiting right now. Keep practicing and anything you miss will show up here.") { navigator.pop() }
+                EmptyRunScreen("checkmark.circle", "Nothing due", "No choice questions are due. Review missed three-tile passes and flip cards in their room drills.") { navigator.pop() }
             } else {
                 EmptyRunScreen("checkmark.circle", "Nothing to practice", "No questions could be prepared for this run. Try again in a moment.") { navigator.pop() }
             }

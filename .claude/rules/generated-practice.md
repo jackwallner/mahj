@@ -5,6 +5,9 @@ paths:
   - "Shared/Content/DefenseGenerator.swift"
   - "Shared/Content/EndlessPractice.swift"
   - "Shared/Services/PracticeRecordStore.swift"
+  - "Shared/Services/OrdinaryRunStore.swift"
+  - "MahjTrainer/Views/Drills/OrdinaryRunEntryView.swift"
+  - "MahjTrainerTests/OrdinaryRunStoreTests.swift"
   - "MahjTrainer/Views/Drills/PracticeRunView.swift"
   - "MahjTrainer/Views/EndlessPickerView.swift"
   - "MahjTrainer/Views/StatsView.swift"
@@ -85,3 +88,11 @@ calls it alongside `progress.recordItem`). Generated ids are unique per
 question, so they collapse onto one per-skill row and never enter the review
 queue or the seen/missed sets, which would otherwise grow without bound.
 `StatsView` (free for everyone) reads the per-room rollups.
+
+`OrdinaryRunStore` saves one Home Quick Session or authored room drill,
+including held answers and flashcard undo. The tour demo and recurring modes
+keep their own interruption models. On iOS, the resume destination holds its
+own snapshot so clearing the store for Start over or completion cannot remove
+the destination. In Compose, construct the snapshot during composition and
+persist it in `SideEffect`: reading answer state only inside the effect does
+not observe a pick, so the held answer can be lost before Next.

@@ -103,7 +103,7 @@ struct PracticeRunView: View {
                 .font(Theme.display(28))
                 .foregroundStyle(Theme.ink)
             Text(mode == .review
-                 ? "You have no mistakes waiting right now. Keep practicing and anything you miss will show up here."
+                 ? "No choice questions are due. Review missed three-tile passes and flip cards in their room drills."
                  : "No questions could be prepared for this run. Try again in a moment.")
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)

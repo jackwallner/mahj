@@ -19,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.jackwallner.mahj.data.UnlockContinuation
 import com.jackwallner.mahj.AppGraph
 import com.jackwallner.mahj.data.AlarmReminderScheduler
 import com.jackwallner.mahj.ui.nav.LocalNavigator
@@ -40,6 +41,8 @@ import com.jackwallner.mahj.ui.screens.PaywallSheet
 import com.jackwallner.mahj.ui.screens.PracticeRunScreen
 import com.jackwallner.mahj.ui.screens.ReferenceScreen
 import com.jackwallner.mahj.ui.screens.RoomScreen
+import com.jackwallner.mahj.ui.screens.OrdinaryRunEntry
+import com.jackwallner.mahj.content.SessionBuilder
 import com.jackwallner.mahj.ui.screens.SessionScreen
 import com.jackwallner.mahj.ui.screens.SettingsScreen
 import com.jackwallner.mahj.ui.screens.StatsScreen
@@ -59,6 +62,7 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val navigator = remember { Navigator() }
+    val upgrade = remember { UnlockContinuation<Route>() }
     var paywallSource by remember { mutableStateOf<String?>(null) }
     var showWhatsNew by remember { mutableStateOf(false) }
     var showFeedback by remember { mutableStateOf(false) }
@@ -82,7 +86,8 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
 
     val actions = remember(graph) {
         object : AppActions {
-            override fun openPaywall(source: String) {
+            override fun openPaywall(source: String, destination: Route?) {
+                upgrade.destination = destination
                 paywallSource = source
             }
 
@@ -134,6 +139,10 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
         }
     }
     LaunchedEffect(isPro, membershipResolved) {
+        if (isPro) upgrade.finish(true)?.let {
+            paywallSource = null
+            navigator.push(it)
+        }
         if (isPro && prepAfterUpgrade) {
             prepAfterUpgrade = false
             navigator.push(Route.Session(gameNightPrepItems(graph), SessionPurpose.GameNightPrep))
@@ -164,7 +173,11 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
                         Route.Home -> HomeScreen()
                         is Route.Room -> RoomScreen(route.roomId)
                         is Route.Drill -> DrillScreen(route.roomId, route.drillId)
-                        is Route.Session -> SessionScreen(route.items, route.purpose)
+                        is Route.Session -> if (route.purpose is SessionPurpose.Quick && route.purpose.isDaily) {
+                            OrdinaryRunEntry(SessionBuilder.sessionDrill.id, SessionBuilder.sessionDrill.title) {
+                                SessionScreen(route.items, route.purpose)
+                            }
+                        } else SessionScreen(route.items, route.purpose)
                         is Route.Practice -> PracticeRunScreen(route.mode, route.items)
                         Route.HandPlay -> HandPlayScreen()
                         Route.MahjMinute -> MahjMinuteScreen()
@@ -179,8 +192,15 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
                 }
             }
         }
-        MahjSheet(paywallSource != null, onDismiss = { paywallSource = null; prepAfterUpgrade = false }) {
-            PaywallSheet(paywallSource ?: "mahj_paywall_sheet", onClose = { paywallSource = null })
+        MahjSheet(paywallSource != null, onDismiss = {
+            paywallSource = null
+            prepAfterUpgrade = false
+            upgrade.finish(graph.subscriptions.isPro)?.let { navigator.push(it) }
+        }) {
+            PaywallSheet(paywallSource ?: "mahj_paywall_sheet", onClose = {
+                paywallSource = null
+                upgrade.finish(graph.subscriptions.isPro)?.let { navigator.push(it) }
+            })
         }
         MahjSheet(showWhatsNew, onDismiss = { graph.whatsNew.markSeen(); showWhatsNew = false }) {
             WhatsNewSheet(

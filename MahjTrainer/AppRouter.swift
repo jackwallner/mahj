@@ -3,11 +3,18 @@ import UIKit
 import UserNotifications
 
 enum AppDestination: Hashable {
+    case quickSession
+    case ordinaryRun
     case gameNightPrepSession
     case monthlyChallenge
+    case endlessPicker
+    case gameNightPrep
+    case timedChallenge
+    case review
+    case handPlay
 
     /// Free destinations open for everyone; the rest wait behind the paywall.
-    var isFree: Bool { self == .monthlyChallenge }
+    var isFree: Bool { self == .monthlyChallenge || self == .quickSession || self == .ordinaryRun }
 
     /// `mahj://challenge` is what each month's App Store in-app event opens.
     init?(url: URL) {

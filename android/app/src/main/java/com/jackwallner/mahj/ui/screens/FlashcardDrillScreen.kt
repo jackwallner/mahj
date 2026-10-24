@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -61,6 +62,7 @@ import com.jackwallner.mahj.data.ProgressStore
 import com.jackwallner.mahj.model.ChoiceShuffle
 import com.jackwallner.mahj.model.Drill
 import com.jackwallner.mahj.model.Flashcard
+import com.jackwallner.mahj.data.OrdinaryRun
 import com.jackwallner.mahj.ui.LocalGraph
 import com.jackwallner.mahj.ui.components.ConfettiBurst
 import com.jackwallner.mahj.ui.components.TileRack
@@ -86,7 +88,7 @@ import kotlinx.coroutines.launch
 
 private const val HAS_SWIPED_DECK = "mahj.hasSwipedDeck"
 
-private data class AnswerSnapshot(val progress: ProgressStore.ItemSnapshot, val practice: PracticeRecordStore.AnswerSnapshot)
+private typealias AnswerSnapshot = OrdinaryRun.AnswerSnapshot
 private data class SwipeRecord(val card: Flashcard, val gotIt: Boolean, val answer: AnswerSnapshot)
 
 /**
@@ -98,23 +100,34 @@ private data class SwipeRecord(val card: Flashcard, val gotIt: Boolean, val answ
 @Composable
 fun FlashcardDrillScreen(drill: Drill, cards: List<Flashcard>, accent: Color) {
     val graph = LocalGraph.current
+    val saved = remember { graph.ordinaryRuns.run(drill.id) }
     val navigator = LocalNavigator.current
     val colors = Mahj.colors
     val scope = rememberCoroutineScope()
     val roomID = remember(drill.id) { DrillLibrary.roomID(drill.id) }
 
-    var queueIds by rememberSaveable { mutableStateOf(cards.map { it.id }) }
+    var queueIds by rememberSaveable { mutableStateOf(saved?.queue ?: cards.map { it.id }) }
     val queue = queueIds.mapNotNull { id -> cards.firstOrNull { it.id == id } }
-    var flipped by rememberSaveable { mutableStateOf(false) }
-    var choicePick by rememberSaveable { mutableStateOf<Int?>(null) }
+    var flipped by rememberSaveable { mutableStateOf(saved?.flipped ?: false) }
+    var choicePick by rememberSaveable { mutableStateOf(saved?.selection) }
+    var answers by rememberSaveable { mutableStateOf(saved?.answers ?: emptyList<Boolean>()) }
     var finished by rememberSaveable { mutableStateOf(false) }
     var flinging by remember { mutableStateOf(false) }
-    var lastSwipe by remember { mutableStateOf<SwipeRecord?>(null) }
-    var pendingAnswer by remember { mutableStateOf<AnswerSnapshot?>(null) }
+    var lastSwipe by remember { mutableStateOf(saved?.undoAnswer?.let { answer ->
+        cards.firstOrNull { it.id == saved.undoCardID }?.let { SwipeRecord(it, saved.undoGotIt, answer) }
+    }) }
+    var pendingAnswer by remember { mutableStateOf(saved?.pendingAnswer) }
     var confetti by remember { mutableIntStateOf(0) }
     var didHint by remember { mutableStateOf(false) }
     val drag = remember { Animatable(Offset.Zero, Offset.VectorConverter) }
     val fade = remember { Animatable(1f) }
+
+    val runToSave = if (finished) null else OrdinaryRun(drill, score = answers.count { it }, selection = choicePick, answers = answers, queue = queueIds, flipped = flipped,
+            pendingAnswer = pendingAnswer, undoCardID = lastSwipe?.card?.id, undoGotIt = lastSwipe?.gotIt ?: false, undoAnswer = lastSwipe?.answer)
+    SideEffect {
+        if (runToSave == null) graph.ordinaryRuns.clear(drill.id)
+        else graph.ordinaryRuns.save(runToSave)
+    }
 
     if (finished) {
         DrillCompleteScreen(drill, null, cards.size) { navigator.pop() }
@@ -142,6 +155,7 @@ fun FlashcardDrillScreen(drill: Drill, cards: List<Flashcard>, accent: Color) {
         val choice = card.choice
         val pick = choicePick
         val knewIt = if (choice != null && pick != null) pick == choice.answerIndex else {
+            answers = answers + gotIt
             graph.recordAnswer(card.id, roomID, gotIt)
             gotIt
         }
@@ -188,6 +202,7 @@ fun FlashcardDrillScreen(drill: Drill, cards: List<Flashcard>, accent: Color) {
         pendingAnswer = snapshot(card)
         choicePick = index
         val correct = index == choice.answerIndex
+        answers = answers + correct
         graph.recordAnswer(card.id, roomID, correct)
         if (correct) {
             confetti += 1
@@ -203,6 +218,7 @@ fun FlashcardDrillScreen(drill: Drill, cards: List<Flashcard>, accent: Color) {
         val record = lastSwipe ?: return
         if (flinging) return
         Haptics.light()
+        answers = answers.dropLast(1)
         graph.progress.restoreItem(record.answer.progress)
         graph.records.restoreAnswer(record.answer.practice)
         lastSwipe = null

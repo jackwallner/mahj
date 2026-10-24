@@ -90,7 +90,7 @@ fun RoomScreen(roomId: String) {
                 room.drills.forEach { drill ->
                     val locked = room.isLocked(drill, isPro)
                     DrillRow(room, drill, locked, done = graph.progress.completions(drill.id) > 0) {
-                        if (locked) actions.openPaywall("mahj_room_sheet")
+                        if (locked) actions.openPaywall("mahj_room_sheet", Route.Drill(room.id, drill.id))
                         else navigator.push(Route.Drill(room.id, drill.id))
                     }
                 }
@@ -168,11 +168,13 @@ private fun RoomUpsell(lockedCount: Int, onClick: () -> Unit) {
 @Composable
 fun DrillScreen(roomId: String, drillId: String) {
     val room = DrillLibrary.room(roomId) ?: return
-    val drill = room.drills.firstOrNull { it.id == drillId } ?: return
-    when (val kind = drill.kind) {
-        is DrillKind.Flashcards -> FlashcardDrillScreen(drill, kind.cards, room.accent(Mahj.colors))
-        is DrillKind.Quiz -> QuizDrillScreen(drill, kind.questions)
-        is DrillKind.HandMatch -> HandMatchDrillScreen(drill, kind.questions)
-        is DrillKind.Charleston -> CharlestonDrillScreen(drill, kind.scenarios)
+    val drill = LocalGraph.current.ordinaryRuns.run(drillId)?.drill ?: room.drills.firstOrNull { it.id == drillId } ?: return
+    OrdinaryRunEntry(drill.id, drill.title) {
+        when (val kind = drill.kind) {
+            is DrillKind.Flashcards -> FlashcardDrillScreen(drill, kind.cards, room.accent(Mahj.colors))
+            is DrillKind.Quiz -> QuizDrillScreen(drill, kind.questions)
+            is DrillKind.HandMatch -> HandMatchDrillScreen(drill, kind.questions)
+            is DrillKind.Charleston -> CharlestonDrillScreen(drill, kind.scenarios)
+        }
     }
 }

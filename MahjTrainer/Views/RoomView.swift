@@ -9,6 +9,9 @@ struct RoomView: View {
     @EnvironmentObject private var subscriptions: SubscriptionService
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var showPaywall = false
+    @State private var upgrade = UnlockContinuation<Drill>()
+    @State private var unlockedDrill: Drill?
+    @State private var openUnlockedDrill = false
 
     private var roomLocked: Bool { !room.isFree && !subscriptions.isPro }
     private var lockedCount: Int {
@@ -43,7 +46,13 @@ struct RoomView: View {
         .background(Theme.background)
         .navigationTitle(room.name)
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_room_sheet") }
+        .sheet(isPresented: $showPaywall, onDismiss: {
+            unlockedDrill = upgrade.finish(isMember: subscriptions.isPro)
+            openUnlockedDrill = unlockedDrill != nil
+        }) { PaywallView(source: "mahj_room_sheet") }
+        .navigationDestination(isPresented: $openUnlockedDrill) {
+            if let unlockedDrill { destination(unlockedDrill) }
+        }
     }
 
     private var header: some View {
@@ -80,6 +89,7 @@ struct RoomView: View {
         let locked = room.isLocked(drill, isMember: subscriptions.isPro)
         if locked {
             Button {
+                upgrade.destination = drill
                 showPaywall = true
             } label: {
                 drillRowBody(drill, locked: true)
@@ -183,15 +193,8 @@ struct RoomView: View {
 
     @ViewBuilder
     private func destination(_ drill: Drill) -> some View {
-        switch drill.kind {
-        case .flashcards(let cards):
-            FlashcardDrillView(drill: drill, cards: cards, accent: room.accent)
-        case .quiz(let questions):
-            QuizDrillView(drill: drill, questions: questions)
-        case .handMatch(let questions):
-            HandMatchDrillView(drill: drill, questions: questions)
-        case .charleston(let scenarios):
-            CharlestonDrillView(drill: drill, scenarios: scenarios)
+        OrdinaryRunEntryView(id: drill.id, title: drill.title) {
+            RoomDrillView(drill: OrdinaryRunStore.shared.run(for: drill.id)?.drill ?? drill, accent: room.accent)
         }
     }
 }

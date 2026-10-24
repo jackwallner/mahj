@@ -37,6 +37,7 @@ struct HandPlayView: View {
     @State private var verdict: HandPlayEngine.Verdict?
     @State private var confettiTrigger = 0
     @State private var showPaywall = false
+    @State private var replayAfterUpgrade = false
     /// Bumped when a free player finishes the day's free hand: the trial
     /// sheet's cue to rise on its own, when it is due.
     @State private var freeHandSpent = 0
@@ -61,6 +62,15 @@ struct HandPlayView: View {
         .trialOffer(.handSpent, isPresented: $showPaywall, autoMoment: freeHandSpent)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.4)) }
         .task { resumeOrDeal() }
+        .onChange(of: subscriptions.isPro) { _, isMember in
+            guard isMember, replayAfterUpgrade else { return }
+            replayAfterUpgrade = false
+            showPaywall = false
+            playAgain()
+        }
+        .onChange(of: showPaywall) { _, showing in
+            if !showing, !subscriptions.isPro { replayAfterUpgrade = false }
+        }
     }
 
     // MARK: - Setup
@@ -551,6 +561,7 @@ struct HandPlayView: View {
     /// what the next one is worth.
     private var upsell: some View {
         Button {
+            replayAfterUpgrade = true
             showPaywall = true
         } label: {
             VStack(spacing: 6) {
