@@ -16,6 +16,7 @@ struct HomeView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var membershipWaitOver = false
+    @StateObject private var ordinaryRuns = OrdinaryRunStore.shared
     @StateObject private var records = PracticeRecordStore.shared
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
     @StateObject private var handPlay = HandPlayStore.shared
@@ -38,7 +39,7 @@ struct HomeView: View {
     /// wave it off. The reminder is the hook that matches how people play,
     /// and it was buried two taps deep in a tile nobody opened in week one.
     @AppStorage("mahj.gameNightCardDismissed") private var gameNightCardDismissed = false
-    @State private var pendingAfterUpgrade: AppDestination?
+    @State private var upgrade = UnlockContinuation<AppDestination>()
     @State private var highlightedRoomID: String?
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
     /// Set once the primer has been read all the way through. After that it
@@ -104,9 +105,19 @@ struct HomeView: View {
                     QuickSessionView(gameNightPrep: gameNightPrepItems)
                 case .monthlyChallenge:
                     MonthlyChallengeView()
+                case .endlessPicker: EndlessPickerView()
+                case .gameNightPrep: GameNightPrepView()
+                case .timedChallenge: PracticeRunView(mode: .timed)
+                case .handPlay: HandPlayView()
+                case .review:
+                    PracticeRunView(mode: .review, items: SessionBuilder.reviewSession(
+                        ids: records.reviewQueue(among: SessionBuilder.reviewableIDs(includePro: true)), includePro: true))
                 }
             }
-            .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_home_sheet") }
+            .sheet(isPresented: $showPaywall, onDismiss: {
+                if let destination = upgrade.finish(isMember: subscriptions.isPro) { path.append(destination) }
+                homeIsBareAgain()
+            }) { PaywallView(source: "mahj_home_sheet") }
             .sheet(isPresented: $showSettings) { SettingsView() }
             .sheet(isPresented: $showWhatsNew) {
                 if let release = WhatsNew.currentRelease {
@@ -148,9 +159,8 @@ struct HomeView: View {
             .onChange(of: subscriptions.membershipResolved) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.isPro) { _, isMember in
                 if isMember {
-                    if let pendingAfterUpgrade {
-                        self.pendingAfterUpgrade = nil
-                        path = [pendingAfterUpgrade]
+                    if showPaywall {
+                        showPaywall = false
                     } else {
                         consumePendingDestination()
                     }
@@ -159,7 +169,6 @@ struct HomeView: View {
                 }
             }
             .onChange(of: showPaywall) { _, isShowing in
-                if !isShowing, !subscriptions.isPro { pendingAfterUpgrade = nil }
                 if !isShowing { homeIsBareAgain() }
             }
             #if DEBUG
@@ -268,6 +277,19 @@ struct HomeView: View {
 
     @ViewBuilder
     private var todaySession: some View {
+        if let run = ordinaryRuns.inProgress {
+            NavigationLink {
+                SavedOrdinaryRunView(run: run)
+            } label: {
+                Label("Resume \(run.drill.title)", systemImage: "play.circle.fill")
+                    .font(.headline)
+                    .foregroundStyle(Theme.jade)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(20)
+                    .themedCard(corner: 16)
+            }
+            .buttonStyle(PressableCardStyle())
+        }
         if progress.quickSessionCompletedToday() {
             getStartedDoneCard
         } else {
@@ -302,7 +324,7 @@ struct HomeView: View {
         // Switched off remotely: the event link and an old reminder just open Home.
         if destination == .monthlyChallenge, !showsMonthlyChallenge { return }
         guard destination.isFree || subscriptions.isPro else {
-            pendingAfterUpgrade = destination
+            upgrade.destination = destination
             showPaywall = true
             return
         }
@@ -476,11 +498,13 @@ struct HomeView: View {
     /// The one-tap way in: builds a short mixed session, no browsing needed.
     private var getStartedCard: some View {
         NavigationLink {
-            QuickSessionView(items: SessionBuilder.quickSession(
-                seen: progress.seenItems,
-                missed: progress.missedItems,
-                includePro: subscriptions.isPro
-            ))
+            OrdinaryRunEntryView(id: SessionBuilder.sessionDrill.id, title: SessionBuilder.sessionDrill.title) {
+                QuickSessionView(items: SessionBuilder.quickSession(
+                    seen: progress.seenItems,
+                    missed: progress.missedItems,
+                    includePro: subscriptions.isPro
+                ))
+            }
         } label: {
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 4) {
@@ -781,6 +805,7 @@ struct HomeView: View {
     private var trainingTiles: some View {
         handPlayTile
         trainingTile(
+            requested: .endlessPicker,
             title: "Endless\nPractice",
             icon: "infinity",
             color: Theme.jade,
@@ -789,6 +814,7 @@ struct HomeView: View {
             EndlessPickerView()
         }
         trainingTile(
+            requested: .gameNightPrep,
             title: "Game Night\nPrep",
             icon: "person.2.fill",
             color: Theme.plum,
@@ -797,6 +823,7 @@ struct HomeView: View {
             GameNightPrepView()
         }
         trainingTile(
+            requested: .timedChallenge,
             title: "Timed\nChallenge",
             icon: "timer",
             color: Theme.coral,
@@ -811,6 +838,7 @@ struct HomeView: View {
         let due = records.dueCount(among: reviewable)
         if due > 0 {
             trainingTile(
+                requested: .review,
                 title: "Fix My\nMistakes",
                 icon: "arrow.trianglehead.counterclockwise",
                 color: Theme.plum,
@@ -851,7 +879,7 @@ struct HomeView: View {
             }
             .buttonStyle(PressableCardStyle())
         } else {
-            Button { showPaywall = true } label: {
+            Button { upgrade.destination = .handPlay; showPaywall = true } label: {
                 trainingTileLabel(
                     title: "Play a\nHand",
                     icon: "hand.draw.fill",
@@ -874,6 +902,7 @@ struct HomeView: View {
     /// paywall instead of the mode, and the tile says so before it is tapped.
     @ViewBuilder
     private func trainingTile<Destination: View>(
+        requested: AppDestination,
         title: String,
         icon: String,
         color: Color,
@@ -882,7 +911,7 @@ struct HomeView: View {
     ) -> some View {
         let locked = !subscriptions.isPro
         if locked {
-            Button { showPaywall = true } label: {
+            Button { upgrade.destination = requested; showPaywall = true } label: {
                 trainingTileLabel(title: title, icon: icon, color: color, badge: badge, locked: true)
             }
             .buttonStyle(PressableCardStyle())

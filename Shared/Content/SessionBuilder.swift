@@ -4,7 +4,7 @@ import Foundation
 /// whichever choice-gradeable content is behind it (quiz, hand-match, or a
 /// flashcard with a CardChoice) so the session itself never has to know the
 /// source shape, just prompt/tiles/choices/answer.
-struct QuickItem: Identifiable, Sendable {
+struct QuickItem: Codable, Identifiable, Sendable {
     let id: String
     let prompt: String
     let tiles: [Tile]

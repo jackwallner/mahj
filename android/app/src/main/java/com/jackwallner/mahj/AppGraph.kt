@@ -7,6 +7,7 @@ import com.jackwallner.mahj.data.AppSettings
 import com.jackwallner.mahj.data.ConversionDiagnostics
 import com.jackwallner.mahj.data.HandPlayStore
 import com.jackwallner.mahj.data.MahjMinuteStore
+import com.jackwallner.mahj.data.OrdinaryRunStore
 import com.jackwallner.mahj.data.PracticeRecordStore
 import com.jackwallner.mahj.data.ProgressStore
 import com.jackwallner.mahj.data.ReviewPromptTracker
@@ -23,6 +24,7 @@ class AppGraph(context: Context) {
     val defaults = SharedPreferencesStore(appContext)
     val settings = AppSettings(defaults, AlarmReminderScheduler(appContext))
     val progress = ProgressStore(defaults, clock)
+    val ordinaryRuns = OrdinaryRunStore(defaults)
     val records = PracticeRecordStore(defaults, clock)
     val minutes = MahjMinuteStore(defaults, clock)
     val handPlay = HandPlayStore(defaults, clock)
@@ -33,6 +35,7 @@ class AppGraph(context: Context) {
 
     /** Settings' Reset Progress: every practice stat, never onboarding or purchases. */
     fun resetProgress() {
+        ordinaryRuns.inProgress?.let { ordinaryRuns.clear(it.id) }
         progress.resetAll()
         records.resetAll()
         minutes.resetAll()

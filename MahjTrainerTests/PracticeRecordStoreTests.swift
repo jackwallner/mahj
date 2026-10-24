@@ -151,6 +151,20 @@ final class PracticeRecordStoreTests: XCTestCase {
         }
     }
 
+    func testCharlestonOnlyMissesDoNotOfferAnEmptyReview() {
+        let scenarios = DrillLibrary.rooms.flatMap(\.drills).flatMap { drill -> [CharlestonScenario] in
+            if case .charleston(let scenarios) = drill.kind { return scenarios }
+            return []
+        }
+        XCTAssertFalse(scenarios.isEmpty)
+        for scenario in scenarios {
+            store.record(itemID: scenario.id, roomID: "charleston-room", correct: false)
+        }
+        let presentable = SessionBuilder.reviewableIDs(includePro: true)
+        XCTAssertEqual(store.dueCount(among: presentable), 0)
+        XCTAssertTrue(store.reviewQueue(among: presentable).isEmpty)
+    }
+
     func testRoomStatsAggregate() {
         store.record(itemID: "q1", roomID: "tile-room", correct: true)
         store.record(itemID: "q2", roomID: "tile-room", correct: false)

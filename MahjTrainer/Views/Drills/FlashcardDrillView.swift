@@ -11,6 +11,19 @@ struct FlashcardDrillView: View {
     let cards: [Flashcard]
     var accent: Color = Theme.jade
 
+    init(drill: Drill, cards: [Flashcard], accent: Color = Theme.jade) {
+        self.drill = drill
+        self.cards = cards
+        self.accent = accent
+        let saved = OrdinaryRunStore.shared.run(for: drill.id)
+        _answers = State(initialValue: saved?.answers ?? [])
+        _queue = State(initialValue: saved?.queue ?? cards)
+        _isFlipped = State(initialValue: saved?.flipped ?? false)
+        _choicePick = State(initialValue: saved?.selection)
+        _pendingAnswer = State(initialValue: saved?.pendingAnswer)
+        _lastSwipe = State(initialValue: saved?.lastSwipe)
+    }
+
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -21,6 +34,7 @@ struct FlashcardDrillView: View {
     @State private var crossedThreshold = false
     @State private var lastSwipe: SwipeRecord?
     @State private var pendingAnswer: AnswerSnapshot?
+    @State private var answers: [Bool] = []
     @State private var finished = false
     @State private var choicePick: Int?
     @State private var confettiTrigger = 0
@@ -33,16 +47,8 @@ struct FlashcardDrillView: View {
     @AppStorage("mahj.hasSwipedDeck") private var hasSwipedDeck = false
     @State private var didHint = false
 
-    private struct SwipeRecord {
-        let card: Flashcard
-        let gotIt: Bool
-        let answer: AnswerSnapshot
-    }
-
-    private struct AnswerSnapshot {
-        let progress: ProgressStore.ItemSnapshot
-        let practice: PracticeRecordStore.AnswerSnapshot
-    }
+    private typealias SwipeRecord = OrdinaryRun.SwipeRecord
+    private typealias AnswerSnapshot = OrdinaryRun.AnswerSnapshot
 
     private func snapshotAnswer(for card: Flashcard) -> AnswerSnapshot {
         AnswerSnapshot(
@@ -56,10 +62,17 @@ struct FlashcardDrillView: View {
             DrillCompleteView(drill: drill, score: nil, total: cards.count)
         } else {
             drillBody
-                .onAppear {
-                    if queue.isEmpty { queue = cards }
-                }
+                .onAppear { saveRun() }
+                .onChange(of: isFlipped) { _, _ in saveRun() }
+                .onChange(of: answers) { _, _ in saveRun() }
+                .onChange(of: choicePick) { _, _ in saveRun() }
+                .onChange(of: queue.map(\.id)) { _, _ in saveRun() }
         }
+    }
+
+    private func saveRun() {
+        guard !finished else { return }
+        OrdinaryRunStore.shared.save(OrdinaryRun(drill: drill, score: answers.filter { $0 }.count, selection: choicePick, answers: answers, queue: queue, flipped: isFlipped, pendingAnswer: pendingAnswer, lastSwipe: lastSwipe))
     }
 
     private var mastered: Int { cards.count - queue.count }
@@ -269,6 +282,7 @@ struct FlashcardDrillView: View {
         pendingAnswer = snapshotAnswer(for: card)
         choicePick = index
         let correct = index == choice.answerIndex
+        answers.append(correct)
         progress.recordItem(id: card.id, correct: correct)
         PracticeRecordStore.shared.record(itemID: card.id, roomID: DrillLibrary.roomID(forDrillID: drill.id), correct: correct)
         if correct {
@@ -382,6 +396,7 @@ struct FlashcardDrillView: View {
             knewIt = pick == choice.answerIndex
         } else {
             knewIt = gotIt
+            answers.append(gotIt)
             progress.recordItem(id: card.id, correct: gotIt)
             PracticeRecordStore.shared.record(itemID: card.id, roomID: DrillLibrary.roomID(forDrillID: drill.id), correct: gotIt)
         }
@@ -393,6 +408,7 @@ struct FlashcardDrillView: View {
             queue.append(card)
         }
         if queue.isEmpty {
+            OrdinaryRunStore.shared.clear(drill.id)
             Haptics.success()
             withAnimation(.easeInOut(duration: 0.3)) { finished = true }
         }
@@ -401,6 +417,7 @@ struct FlashcardDrillView: View {
     private func undo() {
         guard let record = lastSwipe, !isFlinging else { return }
         Haptics.impact(.light)
+        if !answers.isEmpty { answers.removeLast() }
         progress.restoreItem(record.answer.progress)
         PracticeRecordStore.shared.restoreAnswer(record.answer.practice)
         lastSwipe = nil

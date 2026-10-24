@@ -44,7 +44,13 @@ struct QuickSessionView: View {
     private let purpose: QuickSessionPurpose
 
     init(items: [QuickItem], isDaily: Bool = true, onClose: (() -> Void)? = nil) {
-        _items = State(initialValue: items)
+        let saved = isDaily && onClose == nil ? OrdinaryRunStore.shared.run(for: SessionBuilder.sessionDrill.id) : nil
+        _items = State(initialValue: saved?.items ?? items)
+        _index = State(initialValue: saved?.index ?? 0)
+        _score = State(initialValue: saved?.score ?? 0)
+        _selection = State(initialValue: saved?.selection)
+        _answers = State(initialValue: saved?.answers ?? [])
+        _streak = State(initialValue: saved?.answers.reversed().prefix(while: { $0 }).count ?? 0)
         purpose = .quickSession(isDaily: isDaily)
         self.onClose = onClose
     }
@@ -102,7 +108,7 @@ struct QuickSessionView: View {
             // session that asked nothing.
             emptySession
         } else {
-            drillBody
+            drillBody.onAppear { saveRun() }
         }
     }
 
@@ -246,8 +252,15 @@ struct QuickSessionView: View {
 
     // MARK: - Grading
 
+    private func saveRun() {
+        guard case .quickSession(let daily) = purpose, daily, onClose == nil else { return }
+        OrdinaryRunStore.shared.save(OrdinaryRun(drill: purpose.drill, items: items, index: index,
+            score: score, selection: selection, answers: answers))
+    }
+
     private func grade(_ pick: Int) {
         guard selection == nil else { return }
+        defer { saveRun() }
         selection = pick
         let correct = pick == item.answerIndex
         answers.append(correct)
@@ -326,6 +339,7 @@ struct QuickSessionView: View {
     }
 
     private func finishSession() {
+        OrdinaryRunStore.shared.clear(purpose.drill.id)
         switch purpose {
         case .quickSession(let isDaily):
             if isDaily { progress.markQuickSessionCompleted() }
@@ -338,10 +352,12 @@ struct QuickSessionView: View {
     }
 
     private func advance() {
+        guard answered else { return }
         if index + 1 < items.count {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
                 selection = nil
                 index += 1
+                saveRun()
             }
         } else {
             finishSession()

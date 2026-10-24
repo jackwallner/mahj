@@ -117,7 +117,7 @@ final class PracticeRecordStore: ObservableObject {
 
     // MARK: - Recording
 
-    struct AnswerSnapshot {
+    struct AnswerSnapshot: Codable, Sendable {
         let itemID: String
         let record: PracticeRecord?
     }

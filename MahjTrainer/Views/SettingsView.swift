@@ -76,6 +76,7 @@ struct SettingsView: View {
                     PracticeRecordStore.shared.resetAll()
                     MahjMinuteStore.shared.resetAll()
                     MonthlyChallengeStore.shared.resetAll()
+                    OrdinaryRunStore.shared.clear(OrdinaryRunStore.shared.inProgress?.id ?? "")
                     HandPlayStore.shared.resetAll()
                     MasteryLedger.shared.resetAll()
                 }

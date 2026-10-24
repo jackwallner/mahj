@@ -130,7 +130,7 @@ final class ProgressStore: ObservableObject {
         defaults.set(Array(missedItems), forKey: Keys.missedItems)
     }
 
-    struct ItemSnapshot {
+    struct ItemSnapshot: Codable, Sendable {
         let id: String
         let seen: Bool
         let missed: Bool

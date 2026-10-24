@@ -15,7 +15,7 @@ val LocalGraph = staticCompositionLocalOf<AppGraph> { error("No app graph") }
 
 /** App-wide presentations any screen can ask for; the root owns the sheets. */
 interface AppActions {
-    fun openPaywall(source: String)
+    fun openPaywall(source: String, destination: com.jackwallner.mahj.ui.nav.Route? = null)
     fun openFeedback()
     fun openWhatsNew()
 

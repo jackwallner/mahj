@@ -66,6 +66,7 @@ struct QuestionPager<Choices: View>: View {
                         .padding(.bottom, -8)
                 }
                 Text(prompt)
+                    .accessibilityIdentifier("question-prompt")
                     .font(Theme.display(22))
                     .foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.center)
@@ -80,6 +81,7 @@ struct QuestionPager<Choices: View>: View {
                             Image(systemName: "lightbulb.fill")
                                 .foregroundStyle(Theme.gold)
                             Text(explanation)
+                                .accessibilityIdentifier("question-explanation")
                                 .font(.subheadline)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
@@ -168,6 +170,7 @@ struct ChoiceList: View {
         VStack(spacing: 10) {
             ForEach(labels.indices, id: \.self) { index in
                 row(index)
+                    .accessibilityIdentifier("choice-\(index)")
             }
         }
         .onChange(of: answered) { _, isAnswered in

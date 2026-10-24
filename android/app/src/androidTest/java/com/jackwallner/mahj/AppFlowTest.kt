@@ -6,7 +6,9 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -81,6 +83,36 @@ class AppFlowTest {
         waitFor("drill-score")
         tag("drill-done")
         waitFor("The Tile Room")
+    }
+
+    @Test
+    fun quickSessionResumesItsHeldAnswerAfterActivityRecreation() {
+        launch(onboarded = true)
+        tag("get-started")
+        tag("choice-0")
+        tag("next")
+        tag("choice-0")
+        waitFor("next")
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val graph = (context.applicationContext as MahjApplication).graph
+        compose.runOnIdle {
+            org.junit.Assert.assertEquals(1, graph.ordinaryRuns.inProgress?.index)
+            org.junit.Assert.assertNotNull(graph.ordinaryRuns.inProgress?.selection)
+        }
+        scenario?.close()
+        scenario = ActivityScenario.launch(Intent(context, MainActivity::class.java).putExtra("uiTest", true))
+        waitFor("Resume Quick Session")
+        compose.onNodeWithText("Resume Quick Session").performClick()
+        compose.waitUntil(15_000) { compose.onAllNodes(hasText("Resume")).fetchSemanticsNodes().size == 1 }
+        compose.onNodeWithText("Resume").performClick()
+        compose.runOnIdle {
+            org.junit.Assert.assertEquals(1, graph.ordinaryRuns.inProgress?.index)
+            org.junit.Assert.assertNotNull(graph.ordinaryRuns.inProgress?.selection)
+        }
+        waitFor("next")
+        compose.onNodeWithTag("choice-0").assertIsNotEnabled()
+        tag("next")
+        waitFor("3 of 10")
     }
 
     @Test

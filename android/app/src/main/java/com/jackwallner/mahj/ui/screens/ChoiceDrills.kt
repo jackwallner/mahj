@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -30,6 +31,7 @@ import com.jackwallner.mahj.model.HandMatchQuestion
 import com.jackwallner.mahj.model.QuizQuestion
 import com.jackwallner.mahj.model.Tile
 import com.jackwallner.mahj.model.racked
+import com.jackwallner.mahj.data.OrdinaryRun
 import com.jackwallner.mahj.ui.LocalGraph
 import com.jackwallner.mahj.ui.components.ChoiceList
 import com.jackwallner.mahj.ui.components.DrillProgress
@@ -110,13 +112,20 @@ fun ChoiceQuestionBody(
 @Composable
 fun QuizDrillScreen(drill: Drill, questions: List<QuizQuestion>) {
     val graph = LocalGraph.current
+    val saved = remember { graph.ordinaryRuns.run(drill.id) }
     val navigator = LocalNavigator.current
-    var index by rememberSaveable { mutableIntStateOf(0) }
-    var selection by rememberSaveable { mutableStateOf<Int?>(null) }
-    var score by rememberSaveable { mutableIntStateOf(0) }
+    var index by rememberSaveable { mutableIntStateOf(saved?.index ?: 0) }
+    var selection by rememberSaveable { mutableStateOf(saved?.selection) }
+    var score by rememberSaveable { mutableIntStateOf(saved?.score ?: 0) }
+    var answers by rememberSaveable { mutableStateOf(saved?.answers ?: emptyList<Boolean>()) }
     var finished by rememberSaveable { mutableStateOf(false) }
     var confetti by remember { mutableIntStateOf(0) }
     var answerRect by remember { mutableStateOf<Rect?>(null) }
+
+    SideEffect {
+        if (finished) graph.ordinaryRuns.clear(drill.id)
+        else graph.ordinaryRuns.save(OrdinaryRun(drill, index = index, score = score, selection = selection, answers = answers))
+    }
 
     if (finished) {
         DrillCompleteScreen(drill, score, questions.size) { navigator.pop() }
@@ -138,6 +147,7 @@ fun QuizDrillScreen(drill: Drill, questions: List<QuizQuestion>) {
                     if (selection != null) return@ChoiceQuestionBody
                     selection = pick
                     val correct = pick == answerIndex
+                    answers = answers + correct
                     graph.recordAnswer(question.id, DrillLibrary.roomID(drill.id), correct)
                     if (correct) {
                         score += 1
@@ -164,13 +174,20 @@ fun QuizDrillScreen(drill: Drill, questions: List<QuizQuestion>) {
 @Composable
 fun HandMatchDrillScreen(drill: Drill, questions: List<HandMatchQuestion>) {
     val graph = LocalGraph.current
+    val saved = remember { graph.ordinaryRuns.run(drill.id) }
     val navigator = LocalNavigator.current
-    var index by rememberSaveable { mutableIntStateOf(0) }
-    var selection by rememberSaveable { mutableStateOf<Int?>(null) }
-    var score by rememberSaveable { mutableIntStateOf(0) }
+    var index by rememberSaveable { mutableIntStateOf(saved?.index ?: 0) }
+    var selection by rememberSaveable { mutableStateOf(saved?.selection) }
+    var score by rememberSaveable { mutableIntStateOf(saved?.score ?: 0) }
+    var answers by rememberSaveable { mutableStateOf(saved?.answers ?: emptyList<Boolean>()) }
     var finished by rememberSaveable { mutableStateOf(false) }
     var confetti by remember { mutableIntStateOf(0) }
     var answerRect by remember { mutableStateOf<Rect?>(null) }
+
+    SideEffect {
+        if (finished) graph.ordinaryRuns.clear(drill.id)
+        else graph.ordinaryRuns.save(OrdinaryRun(drill, index = index, score = score, selection = selection, answers = answers))
+    }
 
     if (finished) {
         DrillCompleteScreen(drill, score, questions.size) { navigator.pop() }
@@ -202,6 +219,7 @@ fun HandMatchDrillScreen(drill: Drill, questions: List<HandMatchQuestion>) {
                     if (selection != null) return@ChoiceQuestionBody
                     selection = pick
                     val correct = pick == answerIndex
+                    answers = answers + correct
                     graph.recordAnswer(question.id, DrillLibrary.roomID(drill.id), correct)
                     if (correct) {
                         score += 1

@@ -5,6 +5,11 @@ import UserNotifications
 enum AppDestination: Hashable {
     case gameNightPrepSession
     case monthlyChallenge
+    case endlessPicker
+    case gameNightPrep
+    case timedChallenge
+    case review
+    case handPlay
 
     /// Free destinations open for everyone; the rest wait behind the paywall.
     var isFree: Bool { self == .monthlyChallenge }

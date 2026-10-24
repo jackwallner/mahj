@@ -210,7 +210,7 @@ fun HandPlayScreen() {
                             target = null
                             phase = Phase.CHOOSING
                         },
-                        onUpgrade = { actions.openPaywall("mahj_hand_play") },
+                        onUpgrade = { actions.openPaywall("mahj_hand_play", com.jackwallner.mahj.ui.nav.Route.HandPlay) },
                         onDone = { navigator.pop() },
                     )
                 }
