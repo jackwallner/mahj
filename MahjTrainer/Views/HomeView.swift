@@ -576,7 +576,9 @@ struct HomeView: View {
                 }
                 .buttonStyle(PaneHeaderButtonStyle())
             }
-            .padding(.top, 2)
+            // No navigation bar above it while split, so it drops to where
+            // the trailing pane's title sits instead of hugging the edge.
+            .padding(.top, 28)
         } else if layoutSizeClass == .regular {
             HStack(alignment: .top) {
                 headerTitle
