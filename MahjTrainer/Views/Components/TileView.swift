@@ -130,8 +130,11 @@ struct TileView: View {
             .font(.system(size: max(9.5, width * 0.16), weight: .heavy))
             // One line always: on the small review tiles GREEN broke as GREE / N.
             .lineLimit(1)
-            .minimumScaleFactor(0.7)
+            .minimumScaleFactor(0.6)
             .foregroundStyle(color)
+            // Inset from the tile's edge, or FLOWER filled the whole 44 pt
+            // face and touched both sides before it would scale.
+            .padding(.horizontal, width * 0.08)
     }
 
     private func suitColor(_ suit: Suit) -> Color {
