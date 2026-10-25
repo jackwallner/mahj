@@ -36,6 +36,9 @@ final class OrdinaryRunStore: ObservableObject {
     static let key = "practice.ordinaryRun"
 
     @Published private(set) var inProgress: OrdinaryRun?
+    /// The run a runner has on screen. The unfolded Duo keeps Home beside an
+    /// open drill, and its Resume card must not offer the drill in view.
+    @Published private(set) var onScreenID: String?
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
@@ -54,6 +57,20 @@ final class OrdinaryRunStore: ObservableObject {
         guard let data = try? JSONEncoder().encode(run) else { return }
         defaults.set(data, forKey: Self.key)
         inProgress = run
+    }
+
+    func setOnScreen(_ id: String, _ isOnScreen: Bool) {
+        if isOnScreen {
+            onScreenID = id
+        } else if onScreenID == id {
+            onScreenID = nil
+        }
+    }
+
+    /// Home's Resume card, unless that run is already open beside Home.
+    func resumable(besideOpenPane: Bool) -> OrdinaryRun? {
+        guard let inProgress, !(besideOpenPane && onScreenID == inProgress.id) else { return nil }
+        return inProgress
     }
 
     func clear(_ id: String) {

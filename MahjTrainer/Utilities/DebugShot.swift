@@ -31,15 +31,29 @@ enum DebugShot {
         case ("stats", _): StatsView()
         case ("challenge", _): MonthlyChallengeView()
         case ("handplay", _): HandPlayView()
-        case ("quick", _): QuickSessionView(items: SessionBuilder.quickSession(seen: [], missed: [], includePro: true))
+        case ("quick", _):
+            OrdinaryRunEntryView(id: SessionBuilder.sessionDrill.id, title: SessionBuilder.sessionDrill.title) {
+                QuickSessionView(items: SessionBuilder.quickSession(seen: [], missed: [], includePro: true))
+            }
         case ("room", let id?):
             if let room = DrillLibrary.room(id: id) { RoomView(room: room) }
         case ("drill", let id?):
             if let room = DrillLibrary.room(id: DrillLibrary.roomID(forDrillID: id)),
                let drill = room.drills.first(where: { $0.id == id }) {
-                RoomView(room: room).destination(drill)
+                RoomView(room: room).drillScreen(drill)
             }
         default: EmptyView()
+        }
+    }
+
+    /// `-mahj.shot <name>` opens the same screen at launch, for runs where
+    /// `simctl openurl` stops on iOS's "Open in" prompt. Held a beat so Home
+    /// has measured the fold and the screen lands in the trailing pane.
+    static func routeIfRequested(_ router: AppRouter) {
+        guard let name = UserDefaults.standard.string(forKey: "mahj.shot") else { return }
+        Task {
+            try? await Task.sleep(for: .seconds(2))
+            router.route(to: .debugShot(name))
         }
     }
 

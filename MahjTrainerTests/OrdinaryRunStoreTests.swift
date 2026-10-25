@@ -76,4 +76,20 @@ final class OrdinaryRunStoreTests: XCTestCase {
         XCTAssertFalse(progress.missedItems.contains(card.id))
     }
 
+    func testResumeHidesOnlyTheRunOpenBesideHome() throws {
+        let suite = UUID().uuidString
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = OrdinaryRunStore(defaults: defaults)
+        let drill = try XCTUnwrap(DrillLibrary.rooms.first?.drills.first)
+        store.save(OrdinaryRun(drill: drill))
+        store.setOnScreen(drill.id, true)
+        XCTAssertNil(store.resumable(besideOpenPane: true))
+        // Folded, the kept pane is hidden, so Home offers the run again.
+        XCTAssertEqual(store.resumable(besideOpenPane: false)?.id, drill.id)
+        store.setOnScreen("another-drill", false)
+        XCTAssertNil(store.resumable(besideOpenPane: true))
+        store.setOnScreen(drill.id, false)
+        XCTAssertEqual(store.resumable(besideOpenPane: true)?.id, drill.id)
+    }
 }

@@ -2,18 +2,27 @@ import SwiftUI
 
 /// Keep the decision outside the runner so Start over builds fresh view state.
 struct OrdinaryRunEntryView<Content: View>: View {
+    let id: String
     let title: String
     let content: () -> Content
     @State private var saved: OrdinaryRun?
     @State private var decided = false
 
     init(id: String, title: String, @ViewBuilder content: @escaping () -> Content) {
+        self.id = id
         self.title = title
         self.content = content
         _saved = State(initialValue: OrdinaryRunStore.shared.run(for: id))
     }
 
     var body: some View {
+        entry
+            .onAppear { OrdinaryRunStore.shared.setOnScreen(id, true) }
+            .onDisappear { OrdinaryRunStore.shared.setOnScreen(id, false) }
+    }
+
+    @ViewBuilder
+    private var entry: some View {
         if let saved, !decided {
             VStack(spacing: 18) {
                 Spacer()

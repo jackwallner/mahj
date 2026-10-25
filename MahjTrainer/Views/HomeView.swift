@@ -124,14 +124,20 @@ struct HomeView: View {
                     RoomView(room: room)
                 }
             }
+            .trailingPaneEdge()
             .id(paneRoomID)
-            .navigationDestination(for: PaneScreen.self) { $0.view.navigationBarBackButtonHidden(true) }
+            .navigationDestination(for: PaneScreen.self) {
+                $0.view.navigationBarBackButtonHidden(true).trailingPaneEdge()
+            }
         }
+        .environment(\.isTrailingPane, true)
         .tint(Theme.jade)
     }
 
+    /// Outlined on Home only while the room itself is in the pane, not
+    /// under a screen Home opened over it.
     private func paneShows(_ room: Room) -> Bool {
-        split != nil && paneRoomID == room.id
+        split != nil && paneRoomID == room.id && panePath.isEmpty
     }
 
     /// Unfolded, Home's links open in the trailing pane instead of pushing
@@ -216,6 +222,9 @@ struct HomeView: View {
                     homeContent
                     .padding(.bottom, 24)
                 }
+                // iOS 27.1 hands the Duo's status column inset to this pane
+                // too, which stopped Home about 120 pt short of the fold.
+                .ignoresSafeArea(.container, edges: split != nil ? .trailing : [])
                 .onAppear {
                     homeOnScreen = true
                     consumeRecommendedRoomHint(proxy: proxy)
@@ -233,25 +242,12 @@ struct HomeView: View {
                 // The reference is a toolbar button rather than a card
                 // because the moment it is wanted is mid-game, and it must
                 // cost Home no vertical space to be worth that.
-                ToolbarItem(placement: .topBarLeading) {
-                    paneLink("reference") {
-                        ReferenceView()
-                    } label: {
-                        Image(systemName: "book")
-                            .foregroundStyle(Theme.inkSecondary)
-                    }
-                    .accessibilityLabel("Reference and glossary")
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showSettings = true
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .foregroundStyle(Theme.inkSecondary)
-                    }
-                    .accessibilityLabel("Settings")
-                }
+                ToolbarItem(placement: .topBarLeading) { referenceButton }
+                ToolbarItem(placement: .topBarTrailing) { settingsButton }
             }
+            // Unfolded, iOS 27.1 stacks toolbar items in a column down the
+            // pane's trailing edge, so the buttons move into the header.
+            .toolbar(split != nil ? .hidden : .automatic, for: .navigationBar)
             // No `.toolbarBackground(.hidden)`: it also removed the system's
             // scroll-edge blur, and scrolled rooms ran straight under the
             // clock and the book and gear buttons. The bar is still clear at
@@ -420,7 +416,7 @@ struct HomeView: View {
 
     @ViewBuilder
     private var todaySession: some View {
-        if let run = ordinaryRuns.inProgress {
+        if let run = ordinaryRuns.resumable(besideOpenPane: split != nil) {
             Button {
                 show(.ordinaryRun)
             } label: {
@@ -567,7 +563,21 @@ struct HomeView: View {
     /// than tuning a padding that only holds at one text size.
     @ViewBuilder
     private var header: some View {
-        if layoutSizeClass == .regular {
+        if split != nil {
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 10) {
+                    headerTitle
+                    statsRow
+                }
+                Spacer(minLength: 8)
+                HStack(spacing: 10) {
+                    referenceButton
+                    settingsButton
+                }
+                .buttonStyle(PaneHeaderButtonStyle())
+            }
+            .padding(.top, 2)
+        } else if layoutSizeClass == .regular {
             HStack(alignment: .top) {
                 headerTitle
                 Spacer(minLength: 8)
@@ -583,6 +593,26 @@ struct HomeView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, 2)
         }
+    }
+
+    private var referenceButton: some View {
+        paneLink("reference") {
+            ReferenceView()
+        } label: {
+            Image(systemName: "book")
+                .foregroundStyle(Theme.inkSecondary)
+        }
+        .accessibilityLabel("Reference and glossary")
+    }
+
+    private var settingsButton: some View {
+        Button {
+            showSettings = true
+        } label: {
+            Image(systemName: "gearshape")
+                .foregroundStyle(Theme.inkSecondary)
+        }
+        .accessibilityLabel("Settings")
     }
 
     private var headerTitle: some View {
@@ -1355,4 +1385,17 @@ private struct PaneScreen: Hashable {
 
     static func == (lhs: PaneScreen, rhs: PaneScreen) -> Bool { lhs.token == rhs.token }
     func hash(into hasher: inout Hasher) { hasher.combine(token) }
+}
+
+/// The toolbar's round buttons, drawn in Home's header on the unfolded Duo.
+private struct PaneHeaderButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.title3)
+            .frame(width: 44, height: 44)
+            .background(.ultraThinMaterial, in: Circle())
+            .overlay(Circle().strokeBorder(Theme.rule, lineWidth: 1))
+            .opacity(configuration.isPressed ? 0.6 : 1)
+            .contentShape(Circle())
+    }
 }

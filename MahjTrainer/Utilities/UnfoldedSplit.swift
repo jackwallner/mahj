@@ -51,3 +51,32 @@ extension GeometryProxy {
         return fold.minX...fold.maxX
     }
 }
+
+extension EnvironmentValues {
+    /// Set on the unfolded Duo's trailing pane, see `trailingPaneEdge()`.
+    @Entry var isTrailingPane = false
+}
+
+extension View {
+    /// iOS 27.1 insets the trailing pane by the Duo's status column the whole
+    /// way down, though the clock only sits at the top, so the pane's content
+    /// ran off-centre with a dead strip at the screen edge. Ignored per
+    /// screen (on the pane's NavigationStack it never reached the screens),
+    /// and the content starts below the clock instead.
+    func trailingPaneEdge() -> some View {
+        modifier(TrailingPaneEdge())
+    }
+}
+
+private struct TrailingPaneEdge: ViewModifier {
+    @Environment(\.isTrailingPane) private var isTrailingPane
+    /// From the inline navigation bar's bottom to below the status column's
+    /// battery ring (iPhone Duo, iOS 27.1).
+    private let statusClearance: CGFloat = 20
+
+    func body(content: Content) -> some View {
+        content
+            .safeAreaPadding(.top, isTrailingPane ? statusClearance : 0)
+            .ignoresSafeArea(.container, edges: isTrailingPane ? .trailing : [])
+    }
+}

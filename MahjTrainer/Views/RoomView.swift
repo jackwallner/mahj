@@ -192,7 +192,11 @@ struct RoomView: View {
     }
 
     @ViewBuilder
-    func destination(_ drill: Drill) -> some View {
+    private func destination(_ drill: Drill) -> some View {
+        drillScreen(drill).trailingPaneEdge()
+    }
+
+    func drillScreen(_ drill: Drill) -> some View {
         OrdinaryRunEntryView(id: drill.id, title: drill.title) {
             RoomDrillView(drill: OrdinaryRunStore.shared.run(for: drill.id)?.drill ?? drill, accent: room.accent)
         }

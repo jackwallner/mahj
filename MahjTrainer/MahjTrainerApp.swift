@@ -35,6 +35,7 @@ struct MahjTrainerApp: App {
                 .onAppear {
                     #if DEBUG
                     DebugShot.seedIfRequested()
+                    DebugShot.routeIfRequested(router)
                     #endif
                     // Before anything reads mastery: pre-1.1 installs carry
                     // their whole history in ProgressStore's flat sets, and
