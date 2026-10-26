@@ -957,7 +957,7 @@ struct HomeView: View {
                 // indicators are off, so without a cue the visible cards read
                 // as the whole offering and Timed Challenge and Fix My
                 // Mistakes are never found.
-                if layoutSizeClass != .regular, !dynamicTypeSize.isAccessibilitySize {
+                if layoutSizeClass != .regular, split == nil, !dynamicTypeSize.isAccessibilitySize {
                     HStack(spacing: 3) {
                         Text("SWIPE FOR MORE")
                             .font(.caption2.weight(.heavy))
@@ -977,19 +977,27 @@ struct HomeView: View {
                     trainingTiles
                 }
                 .padding(.horizontal, 4)
-            } else if layoutSizeClass == .regular {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 10)], spacing: 10) {
+            } else if layoutSizeClass == .regular || split != nil {
+                // Unfolded, Home's pane stops short of the fold, so a carousel
+                // clipped its fourth tile in mid-air. Every mode fits as a grid.
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: split != nil ? 128 : 150), spacing: 10)], spacing: 10) {
                     trainingTiles
                 }
                 .padding(.horizontal, 4)
             } else {
+                // The scroll view clips, and with only 2pt of room the tile
+                // shadows were cut into a hard grey box around the row. Room
+                // for the shadow inside, taken back outside, so the row keeps
+                // its place and clips at the screen edge instead of the inset.
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
                         trainingTiles
                     }
-                    .padding(.horizontal, 4)
-                    .padding(.vertical, 2)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 16)
                 }
+                .padding(.horizontal, -16)
+                .padding(.vertical, -14)
             }
         }
     }
@@ -1148,7 +1156,7 @@ struct HomeView: View {
         }
         .padding(12)
         .modifier(TrainingTileFrame(
-            fullWidth: layoutSizeClass == .regular || dynamicTypeSize.isAccessibilitySize,
+            fullWidth: layoutSizeClass == .regular || split != nil || dynamicTypeSize.isAccessibilitySize,
             fixedHeight: !dynamicTypeSize.isAccessibilitySize
         ))
         .themedCard(corner: 16)
