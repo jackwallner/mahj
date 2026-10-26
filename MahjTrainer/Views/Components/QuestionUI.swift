@@ -27,6 +27,12 @@ extension View {
     }
 }
 
+extension EnvironmentValues {
+    /// Tighter question metrics for a viewport too short for the regular ones
+    /// (an unfolded iPhone Duo pane, an iPhone SE). Set by `QuestionPager`.
+    @Entry var compactQuestion = false
+}
+
 /// Scroll target for the coaching note revealed on grading. Lives outside
 /// `QuestionPager` because a generic type cannot hold a static stored property.
 private let questionExplanationID = "question-explanation"
@@ -52,29 +58,42 @@ struct QuestionPager<Choices: View>: View {
     var requeued: Bool = false
     @ViewBuilder let choices: () -> Choices
 
+    /// Nil until the regular layout has been measured against the viewport.
+    /// Decided once per question, before grading, so the explanation growing
+    /// the content never flips the metrics under the player mid-answer.
+    @State private var compact: Bool?
+    @State private var viewportHeight: CGFloat = 0
+    @State private var questionHeight: CGFloat = 0
+
     var body: some View {
         // Centering, not top-aligned: on a 13-inch iPad a three-choice question
         // used to sit in the top quarter of the screen. See CenteringScrollView.
         CenteringScrollView {
             ScrollViewReader { proxy in
-            VStack(spacing: 20) {
-                if let eyebrow {
-                    Text(eyebrow)
-                        .font(.caption2.weight(.heavy))
-                        .kerning(1.4)
-                        .foregroundStyle(Theme.inkTertiary)
-                        .padding(.bottom, -8)
+            VStack(spacing: isCompact ? 12 : 20) {
+                VStack(spacing: isCompact ? 12 : 20) {
+                    if let eyebrow {
+                        Text(eyebrow)
+                            .font(.caption2.weight(.heavy))
+                            .kerning(1.4)
+                            .foregroundStyle(Theme.inkTertiary)
+                            .padding(.bottom, -8)
+                    }
+                    Text(prompt)
+                        .accessibilityIdentifier("question-prompt")
+                        .font(Theme.display(isCompact ? 19 : 22))
+                        .foregroundStyle(Theme.ink)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, isCompact ? 0 : 8)
+                    if !tiles.isEmpty {
+                        TileRackView(tiles: tiles, tileWidth: isCompact ? 36 : 44)
+                    }
+                    choices()
                 }
-                Text(prompt)
-                    .accessibilityIdentifier("question-prompt")
-                    .font(Theme.display(22))
-                    .foregroundStyle(Theme.ink)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 8)
-                if !tiles.isEmpty {
-                    TileRackView(tiles: tiles, tileWidth: 44)
+                .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { height in
+                    questionHeight = height
+                    fit()
                 }
-                choices()
                 if answered {
                     VStack(spacing: 10) {
                         HStack(alignment: .top, spacing: 10) {
@@ -114,6 +133,10 @@ struct QuestionPager<Choices: View>: View {
             // navigation bar above and the drill's Next button below.
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
+            // One hidden frame while the regular layout is measured, so a
+            // short screen never shows it and then snaps to the compact one.
+            .opacity(compact == nil ? 0 : 1)
+            .environment(\.compactQuestion, isCompact)
             .onChange(of: answered) { _, isAnswered in
                 guard isAnswered else { return }
                 // Bring the coaching note into view rather than leaving it
@@ -135,6 +158,12 @@ struct QuestionPager<Choices: View>: View {
             }
             }
         }
+        .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { height in
+            // Unfolding or rotating changes the room: measure again.
+            if abs(height - viewportHeight) > 1, !answered { compact = nil }
+            viewportHeight = height
+            fit()
+        }
         // The prompt, tiles and choices move as ONE when the note makes the
         // content taller and the centring shifts. Each row used to animate on
         // its own while everything around it jumped, so the rows slid across
@@ -143,6 +172,16 @@ struct QuestionPager<Choices: View>: View {
     }
 
     static var gradeSpring: Animation { .spring(response: 0.3, dampingFraction: 0.8) }
+
+    private var isCompact: Bool { compact ?? false }
+
+    /// Compact only when the regular question (prompt, tiles, choices and the
+    /// pager's 10pt padding) would not fit, so the player never has to scroll
+    /// to reach the last choice.
+    private func fit() {
+        guard compact == nil, viewportHeight > 0, questionHeight > 0 else { return }
+        compact = questionHeight + 20 > viewportHeight
+    }
 }
 
 /// The answer buttons every question type shares. On reveal the correct
@@ -160,6 +199,7 @@ struct ChoiceList: View {
     let onPick: (Int) -> Void
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.compactQuestion) private var compact
     @State private var shineTrigger = 0
     @State private var landed = false
     @State private var shakes: CGFloat = 0
@@ -167,7 +207,7 @@ struct ChoiceList: View {
     private var answered: Bool { selection != nil }
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: compact ? 8 : 10) {
             ForEach(labels.indices, id: \.self) { index in
                 row(index)
                     .accessibilityIdentifier("choice-\(index)")
@@ -225,7 +265,8 @@ struct ChoiceList: View {
                 resultIcon(isAnswer: isAnswer, isMiss: isMiss)
                     .frame(width: 22, alignment: .center)
             }
-            .padding(16)
+            .padding(.horizontal, 16)
+            .padding(.vertical, compact ? 11 : 16)
             .frame(maxWidth: .infinity)
             .background(background(index), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
             .overlay(
