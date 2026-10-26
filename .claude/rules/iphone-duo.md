@@ -27,6 +27,12 @@ paths:
   every trailing-pane screen applies `trailingPaneEdge()` (ignore the inset,
   start 20 pt lower to clear the clock). It must sit on each screen; on the
   pane's NavigationStack it never reaches them.
+- A pane is only about 670 pt tall. `QuestionPager` measures the regular
+  question against its viewport and, if the last choice would need a scroll,
+  switches to compact metrics (`compactQuestion`: smaller prompt, 36 pt tiles,
+  tighter rows), decided once per question before grading. The same rule
+  fits the iPhone SE. Home's Training row is a grid while split: the pane
+  stops short of the fold, so a carousel clipped its last tile in mid-air.
 - The split also runs on a full-screen iPad (regular, wider than 720 pt):
   Home's two-column iPad layout only remains for regular widths too narrow to
   split. Re-shoot the iPad set before the next iPad screenshot upload.
@@ -49,7 +55,9 @@ paths:
   capture launch also clears the run in progress). Local slot-11 captures
   show the home indicator across the fold, gh-sim's do not. Launch args: `-progress.hasOnboarded YES
   -mahj.hasReadPrimer YES -mahj.skillLevel some -subscription.localProOverride
-  YES -mahj.suppressWhatsNew YES -mahj.demoSeed YES`.
+  YES -mahj.suppressWhatsNew YES -mahj.demoSeed YES`. Phone devices need
+  `--wait 60`: gh-sim shoots `--wait` seconds after each relaunch, and at 20
+  the slow runner returned the cream launch screen.
 - Full unit suite on the Duo runtime (gh-sim, iOS 27.1, 2026-10-22):
   `TrialEligibilityTests.testFreeWeekUntilTheAccountHasUsedIt` hung until
   GitHub's 60-minute job cap killed the run, and everything before it passed. Until that is fixed,
