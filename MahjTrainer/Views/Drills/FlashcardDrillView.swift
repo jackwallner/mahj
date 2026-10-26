@@ -185,6 +185,7 @@ struct FlashcardDrillView: View {
                 // are scenery: left in the tree they give VoiceOver two cards
                 // that answer nothing, which reads as a broken deck.
                 .accessibilityHidden(slot != 0)
+                .environment(\.isDeckScenery, slot != 0)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -703,6 +704,7 @@ private struct MahjCardFace<Content: View>: View {
     let accent: Color
     let eyebrow: String
     @ViewBuilder let content: () -> Content
+    @Environment(\.isDeckScenery) private var isDeckScenery
 
     var body: some View {
         VStack(spacing: 10) {
@@ -734,6 +736,10 @@ private struct MahjCardFace<Content: View>: View {
                 // frame, and the clip let the glyph spill onto the deck.
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .bottomTrailing)
                 .clipShape(RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous))
+                // Only the top card carries it. The cards behind drew theirs
+                // in the strips that peek below, which lined up into one glyph
+                // running off the top card's edge.
+                .opacity(isDeckScenery ? 0 : 1)
                 .allowsHitTesting(false)
         }
         .overlay {
@@ -783,6 +789,11 @@ private struct FlipRotation<Front: View, Back: View>: View, @preconcurrency Anim
         }
         .rotation3DEffect(.degrees(angle), axis: (x: 0, y: 1, z: 0), perspective: 0.35)
     }
+}
+
+private extension EnvironmentValues {
+    /// True for the cards stacked behind the deck's top card.
+    @Entry var isDeckScenery = false
 }
 
 private extension View {
