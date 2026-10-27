@@ -351,7 +351,7 @@ struct OnboardingView: View {
 
     private var trialPageTitle: String {
         if subscriptions.isPro { return "\(Membership.name) is on your account" }
-        return subscriptions.trialTitle.text
+        return subscriptions.trialTitle.text(trialEligible: subscriptions.offersTrial)
     }
 
     /// The plan this tap buys: monthly unless RevenueCat's `onboarding_plan`
@@ -377,7 +377,7 @@ struct OnboardingView: View {
         // Nobody is being charged anything here, so quoting a price would be
         // a lie about the button next to it.
         if subscriptions.isPro { return "" }
-        return PaywallPricing.terms(amount: PaywallPricing.price(subscriptions, onboardingPlan), plan: onboardingPlan)
+        return PaywallPricing.terms(amount: PaywallPricing.price(subscriptions, onboardingPlan), plan: onboardingPlan, trial: subscriptions.offersTrial)
     }
 
     /// A player who already owns \(Membership.name) is not a trial prospect.
@@ -388,7 +388,7 @@ struct OnboardingView: View {
     /// "you're already subscribed" sheet. Recognise them and just let them in.
     private var trialCTATitle: String {
         if subscriptions.isPro { return "Continue" }
-        return subscriptions.trialCTA(.onboarding)
+        return subscriptions.trialCTAArm.title(.onboarding, trialEligible: subscriptions.offersTrial)
     }
 
     // MARK: - Footer (identical geometry on every page: zero-shift CTA)
@@ -529,6 +529,7 @@ struct OnboardingView: View {
             return
         }
         purchasing = true
+        let shownTrial = subscriptions.offersTrial
         Task {
             defer { purchasing = false }
             // Also re-runs the reinstall check: a member StoreKit knows about
@@ -538,6 +539,9 @@ struct OnboardingView: View {
                 startTour()
                 return
             }
+            // StoreKit answered after the page drew: show the real terms and
+            // let them tap again rather than buy on the old ones.
+            guard subscriptions.offersTrial == shownTrial else { return }
             // Monthly by default, and this is deliberate. Two different people
             // reach the two purchase surfaces: whoever taps through onboarding
             // has not used the app yet and is reacting to the number on Apple's

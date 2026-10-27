@@ -21,6 +21,43 @@ final class TrialCopyTests: XCTestCase {
         XCTAssertEqual(TrialCTA.sevenDay.title(.onboarding), "Start 7-day free trial")
     }
 
+    /// An eligible account sees exactly the 1.3.2 words, so its trial page
+    /// and paywall are unchanged.
+    func testEligibleAccountsKeepTheShippedWords() {
+        for arm in TrialCTA.allCases {
+            XCTAssertEqual(arm.title(.onboarding, trialEligible: true), arm.title(.onboarding))
+            XCTAssertEqual(arm.title(.paywall, trialEligible: true), arm.title(.paywall))
+        }
+        for title in TrialTitle.allCases {
+            XCTAssertEqual(title.text(trialEligible: true), title.text)
+        }
+        XCTAssertEqual(PaywallPlan.yearly.detail(trialEligible: true), "7 days free, then billed yearly. Auto-renews.")
+        XCTAssertEqual(PaywallPlan.monthly.detail(trialEligible: true), "7 days free, then billed monthly. Auto-renews.")
+        XCTAssertEqual(PaywallPlan.lifetime.detail(trialEligible: true), "One payment. No subscription, nothing renews.")
+    }
+
+    /// An Apple Account that already had its free week is charged on day
+    /// one, so nothing on either surface may promise a trial (3.1.2).
+    func testIneligibleAccountsArePromisedNoTrial() {
+        var lines: [String] = []
+        for arm in TrialCTA.allCases {
+            lines.append(arm.title(.onboarding, trialEligible: false))
+            lines.append(arm.title(.paywall, trialEligible: false))
+        }
+        lines += TrialTitle.allCases.map { $0.text(trialEligible: false) }
+        lines += PaywallPlan.allCases.map { $0.detail(trialEligible: false) }
+        for plan in [PaywallPlan.monthly, .yearly] {
+            lines.append(PaywallPricing.terms(amount: "$9.99", plan: plan, trial: false))
+            lines.append(PaywallPricing.terms(amount: nil, plan: plan, trial: false))
+        }
+        for line in lines {
+            XCTAssertFalse(line.localizedCaseInsensitiveContains("free"), line)
+            XCTAssertFalse(line.localizedCaseInsensitiveContains("trial"), line)
+            XCTAssertFalse(line.contains("7 days"), line)
+        }
+        XCTAssertEqual(PaywallPricing.terms(amount: "$9.99/month", plan: .monthly, trial: false), "$9.99/month, billed today. Auto-renews until canceled.")
+    }
+
     /// No metadata, a typo, or a non-string all mean the control.
     func testOfferingMetadataPicksOnlyAKnownArm() {
         XCTAssertEqual(TrialCTA.from(metadata: nil), .sevenDay)

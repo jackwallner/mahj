@@ -66,6 +66,11 @@ final class SubscriptionService: NSObject, ObservableObject {
     /// and not yet asked about. Home presents the one-question prompt and
     /// clears it. Survives a launch: the ask is stored, not just published.
     @Published private(set) var pendingChurnMoment: ChurnMoment?
+    /// StoreKit says this Apple Account already had its free week (one per
+    /// subscription group), so it is charged on day one. False until
+    /// StoreKit answers: unknown reads as eligible, as 1.3.2 assumed, so an
+    /// eligible player's trial page and paywall stay exactly 1.3.2's.
+    @Published private(set) var trialIneligible = false
 
     private var isConfigured = false
     private let localOverrideKey = "subscription.localProOverride"
@@ -81,6 +86,10 @@ final class SubscriptionService: NSObject, ObservableObject {
     override private init() {
         super.init()
         isPro = UserDefaults.standard.bool(forKey: localOverrideKey)
+        #if DEBUG
+        // Captures: `-mahj.trialIneligible YES` shows an account without a free week.
+        trialIneligible = UserDefaults.standard.bool(forKey: "mahj.trialIneligible")
+        #endif
         pendingChurnMoment = UserDefaults.standard.string(forKey: pendingChurnKey)
             .flatMap(ChurnMoment.init(rawValue:))
     }
@@ -287,6 +296,14 @@ final class SubscriptionService: NSObject, ObservableObject {
     func loadOfferings() async {
         guard isConfigured else { return }
         offerings = try? await Purchases.shared.offerings()
+        await refreshTrialEligibility()
+    }
+
+    /// Both plans share one subscription group, so the onboarding plan's
+    /// answer is the paywall's too.
+    private func refreshTrialEligibility() async {
+        let eligible = await isTrialEligible(for: onboardingPlan.plan)
+        if trialIneligible == eligible { trialIneligible = !eligible }
     }
 
     func package(for plan: PaywallPlan) -> Package? {

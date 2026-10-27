@@ -9,6 +9,17 @@ enum PaywallPlan: String, CaseIterable {
         self == .lifetime ? "Unlock \(Membership.name) Forever" : trialTitle
     }
 
+    /// The plan card's line. Without a free week left, no trial is named.
+    func detail(trialEligible: Bool) -> String {
+        switch (self, trialEligible) {
+        case (.yearly, true): return "7 days free, then billed yearly. Auto-renews."
+        case (.monthly, true): return "7 days free, then billed monthly. Auto-renews."
+        case (.yearly, false): return "Billed yearly. Auto-renews."
+        case (.monthly, false): return "Billed monthly. Auto-renews."
+        case (.lifetime, _): return "One payment. No subscription, nothing renews."
+        }
+    }
+
     var packageType: PackageType {
         switch self {
         case .yearly: return .annual
@@ -89,14 +100,14 @@ struct PaywallContent: View {
             planCard(.yearly, title: "Yearly", price: PaywallPricing.priceText(subscriptions, .yearly),
                      perMonth: PaywallPricing.perMonthEquivalent(subscriptions),
                      anchor: PaywallPricing.monthlyAnchor(subscriptions),
-                     detail: "7 days free, then billed yearly. Auto-renews.",
+                     detail: PaywallPlan.yearly.detail(trialEligible: subscriptions.offersTrial),
                      badge: PaywallPricing.savingsBadge(subscriptions))
             planCard(.monthly, title: "Monthly", price: PaywallPricing.priceText(subscriptions, .monthly),
                      perMonth: nil, anchor: nil,
-                     detail: "7 days free, then billed monthly. Auto-renews.", badge: nil)
+                     detail: PaywallPlan.monthly.detail(trialEligible: subscriptions.offersTrial), badge: nil)
             planCard(.lifetime, title: "Lifetime", price: PaywallPricing.priceText(subscriptions, .lifetime),
                      perMonth: nil, anchor: nil,
-                     detail: "One payment. No subscription, nothing renews.", badge: "NO SUBSCRIPTION")
+                     detail: PaywallPlan.lifetime.detail(trialEligible: subscriptions.offersTrial), badge: "NO SUBSCRIPTION")
         }
     }
 
@@ -360,7 +371,7 @@ struct PaywallView: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Theme.jade)
             }
-            Text(PaywallPricing.terms(subscriptions, selectedPlan))
+            Text(PaywallPricing.terms(subscriptions, selectedPlan, trial: subscriptions.offersTrial))
                 .font(.caption)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -372,7 +383,7 @@ struct PaywallView: View {
                     if purchasing || loadingPrices || (!priceLoadAttempted && !priceReady) {
                         ProgressView().tint(Theme.onFill)
                     } else {
-                        Text(selectedPlan.ctaTitle(trialTitle: subscriptions.trialCTA(.paywall)))
+                        Text(selectedPlan.ctaTitle(trialTitle: subscriptions.trialCTAArm.title(.paywall, trialEligible: subscriptions.offersTrial)))
                     }
                 }
                 .primaryCTA()
@@ -422,12 +433,16 @@ struct PaywallView: View {
 
     private func purchase() {
         purchasing = true
+        let shownTrial = subscriptions.offersTrial
         Task {
             defer { purchasing = false }
             do {
                 await subscriptions.ensureOfferings()
                 // A reinstalled member recovered just now: nothing to sell.
                 guard !subscriptions.isPro else { return }
+                // StoreKit answered after the screen drew: show the real
+                // terms and let them tap again rather than buy on the old ones.
+                guard subscriptions.offersTrial == shownTrial else { return }
                 let outcome = try await subscriptions.purchase(subscriptions.package(for: selectedPlan))
                 guard outcome == .purchased else { return }
                 Haptics.success()

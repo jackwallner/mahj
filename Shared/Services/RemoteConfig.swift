@@ -39,6 +39,12 @@ enum TrialCTA: String, CaseIterable, Sendable {
         case (.your, .paywall): return "Start Your Free Trial"
         }
     }
+
+    /// An Apple Account that already had its free week is charged on day
+    /// one, so its button promises no trial (3.1.2).
+    func title(_ surface: Surface, trialEligible: Bool) -> String {
+        trialEligible ? title(surface) : "Join \(Membership.name)"
+    }
 }
 
 /// The onboarding trial page's headline.
@@ -55,6 +61,12 @@ enum TrialTitle: String, CaseIterable, Sendable {
         case .tryFree: return "Try \(Membership.name) free"
         case .gameNight: return "Get ready for game night"
         }
+    }
+
+    /// Both arms read as a trial page, so an account without a free week
+    /// gets the paywall's plain headline instead.
+    func text(trialEligible: Bool) -> String {
+        trialEligible ? text : "Get \(Membership.name)"
     }
 }
 
@@ -199,6 +211,10 @@ extension SubscriptionService {
     }
 
     func trialCTA(_ surface: TrialCTA.Surface) -> String { trialCTAArm.title(surface) }
+
+    /// The onboarding page and the paywall promise a free week only while
+    /// StoreKit has not said this Apple Account used it.
+    var offersTrial: Bool { !trialIneligible }
 
     func isOn(_ remoteSwitch: RemoteSwitch) -> Bool { RemoteConfig.isOn(remoteSwitch, in: remoteMetadata) }
 
