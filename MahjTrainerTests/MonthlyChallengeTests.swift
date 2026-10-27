@@ -355,6 +355,25 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(store.monthScore("2026-11"), MonthScore(points: 1, daysPlayed: 1))
     }
 
+    /// A clock or time zone moved back a day must not score the later
+    /// round half played: only days before today close.
+    @MainActor
+    func testAClockMovedBackLeavesTheLaterRoundOpen() {
+        let (store, _) = freshStore("MonthlyChallengeClockBack")
+        let later = round(2026, 11, 2)
+        store.recordAnswer(round: later, correct: true, pick: 0)
+
+        store.closeEarlierRounds(than: round(2026, 11, 1))
+        XCTAssertNil(store.result(for: later))
+        XCTAssertEqual(store.progress(for: later)?.answers, [true])
+
+        store.closeEarlierRounds(than: nil)
+        XCTAssertNil(store.result(for: later))
+
+        store.closeEarlierRounds(than: round(2026, 11, 3))
+        XCTAssertEqual(store.result(for: later)?.answers, [true])
+    }
+
     /// A Mahj Minute played across midnight: the session holds the round it
     /// started with, and its answers stay in that day.
     @MainActor

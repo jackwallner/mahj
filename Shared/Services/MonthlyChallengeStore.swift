@@ -188,8 +188,14 @@ final class MonthlyChallengeStore: ObservableObject {
     /// A round left half done when its day ended keeps the answers it has.
     /// The day is over, so it cannot be finished, and dropping it would throw
     /// away points the player earned.
+    ///
+    /// Only days before today: round keys ("YYYY-MM-DD") sort by date, so a
+    /// clock or time zone moved back a day leaves the later round open
+    /// instead of scoring it half played. Before the first month (no round
+    /// today) nothing is earlier.
     func closeEarlierRounds(than current: ChallengeRound?, now: Date = Date()) {
-        let stale = inProgress.keys.filter { $0 != current?.key && $0 != roundOnScreen }
+        guard let today = current?.key else { return }
+        let stale = inProgress.keys.filter { $0 < today && $0 != roundOnScreen }
         guard !stale.isEmpty else { return }
         for key in stale {
             guard let run = inProgress[key], !run.answers.isEmpty,
