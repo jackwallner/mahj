@@ -108,6 +108,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        #if DEBUG
+        LaunchTiming.mark("delegate")
+        #endif
         UNUserNotificationCenter.current().delegate = self
         MetaAds.start(application, launchOptions: launchOptions)
         return true

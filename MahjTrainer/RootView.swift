@@ -7,6 +7,10 @@ struct RootView: View {
     @AppStorage("progress.hasOnboarded") private var hasOnboarded = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    #if DEBUG
+    init() { LaunchTiming.mark("root init") }
+    #endif
+
     var body: some View {
         ZStack {
             if hasOnboarded {

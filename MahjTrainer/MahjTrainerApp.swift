@@ -102,8 +102,9 @@ struct MahjTrainerApp: App {
 
 #if DEBUG
 /// "launch-timing" lines in the device log: milliseconds from process start
-/// to the App's init, the first appear and the commit after it, so a blank
-/// launch can be split into the app's own work and the simulator's.
+/// to the App's init, the app delegate, RootView's init, its first appear
+/// and the commit after it, so a blank launch can be split into the app's
+/// own work and the simulator's.
 enum LaunchTiming {
     static func mark(_ step: String) {
         var info = kinfo_proc()
