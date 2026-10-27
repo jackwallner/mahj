@@ -8,6 +8,7 @@ struct ReferenceView: View {
     @State private var query = ""
     @State private var tab: Tab = .glossary
     @State private var expandedSection: HandCategory?
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     enum Tab: String, CaseIterable, Identifiable {
         case glossary, sections
@@ -148,7 +149,7 @@ struct ReferenceView: View {
         let expanded = expandedSection == reference.category
         return VStack(alignment: .leading, spacing: 12) {
             Button {
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.85)) {
                     expandedSection = expanded ? nil : reference.category
                 }
             } label: {

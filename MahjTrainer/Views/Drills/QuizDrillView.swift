@@ -122,14 +122,14 @@ struct QuizDrillView: View {
     private func advance() {
         guard DrillNext.allowed(answered: answered, finished: finished) else { return }
         if index + 1 < questions.count {
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+            withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.85)) {
                 selection = nil
                 index += 1
                 saveRun()
             }
         } else {
             OrdinaryRunStore.shared.clear(drill.id)
-            withAnimation(.easeInOut(duration: 0.3)) { finished = true }
+            withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.3)) { finished = true }
         }
     }
 }

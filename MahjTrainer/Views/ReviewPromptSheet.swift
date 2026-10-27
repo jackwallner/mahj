@@ -20,6 +20,7 @@ struct ReviewPromptSheet: View {
 
     @EnvironmentObject private var subscriptions: SubscriptionService
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var step: Step
     @State private var feedbackText = ""
     @State private var chosenChip: String?
@@ -209,7 +210,7 @@ struct ReviewPromptSheet: View {
                 // Back to the form with the text intact, so a refused send
                 // never costs the player what they wrote.
                 Button {
-                    withAnimation(.easeOut(duration: 0.25)) { sendOutcome = nil }
+                    withAnimation(reduceMotion ? nil : .easeOut(duration: 0.25)) { sendOutcome = nil }
                 } label: {
                     Text("Try again")
                         .font(.subheadline.weight(.semibold))
@@ -255,7 +256,7 @@ struct ReviewPromptSheet: View {
             )
             sending = false
             if outcome == .sent { Haptics.success() }
-            withAnimation(.easeOut(duration: 0.25)) { sendOutcome = outcome }
+            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.25)) { sendOutcome = outcome }
             // The Send button VoiceOver was on is gone: say what happened.
             AccessibilityNotification.Announcement(Self.announcement(outcome)).post()
         }

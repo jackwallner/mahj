@@ -16,6 +16,7 @@ struct CharlestonDrillView: View {
     }
 
     @EnvironmentObject private var progress: ProgressStore
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var index = 0
     @State private var selected: Set<Int> = []
@@ -64,7 +65,7 @@ struct CharlestonDrillView: View {
                             // count leaves at once: the card used to appear
                             // under tiles still sliding across it (2026-10-19
                             // frame capture).
-                            .transition(.asymmetric(
+                            .transition(reduceMotion ? .identity : .asymmetric(
                                 insertion: .scale(scale: 0.94).combined(with: .opacity)
                                     .animation(.spring(response: 0.4, dampingFraction: 0.8).delay(0.2)),
                                 removal: .identity
@@ -185,7 +186,7 @@ struct CharlestonDrillView: View {
     private func submit() {
         guard !submitted, selected.count == 3 else { return }
         defer { saveRun() }
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) { submitted = true }
+        withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.8)) { submitted = true }
         answers.append(matchCount >= 2)
         score += matchCount
         progress.recordItem(id: scenario.id, correct: matchCount >= 2)

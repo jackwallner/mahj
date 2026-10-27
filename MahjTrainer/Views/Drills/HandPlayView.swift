@@ -16,6 +16,7 @@ struct HandPlayView: View {
     @StateObject private var records = PracticeRecordStore.shared
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     enum Phase: Equatable {
         case choosing
@@ -247,7 +248,7 @@ struct HandPlayView: View {
 
     private func choose(_ category: HandCategory) {
         Haptics.impact(.light)
-        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.85)) {
             target = category
             phase = .committed
         }
@@ -255,7 +256,7 @@ struct HandPlayView: View {
 
     private func startPlaying() {
         handPlay.recordStart(isMember: subscriptions.isPro)
-        withAnimation(.easeInOut(duration: 0.25)) { phase = .playing }
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) { phase = .playing }
         draw()
     }
 
@@ -280,7 +281,7 @@ struct HandPlayView: View {
                             .multilineTextAlignment(.center)
                             .fixedSize(horizontal: false, vertical: true)
                             .id(prompt)
-                            .transition(Self.settleIn)
+                            .transition(reduceMotion ? .identity : Self.settleIn)
                     }
                     TileRackView(
                         tiles: rack,
@@ -295,7 +296,7 @@ struct HandPlayView: View {
                         Text("Tap the tile you want to throw")
                             .font(.caption)
                             .foregroundStyle(Theme.inkTertiary)
-                            .transition(Self.settleIn)
+                            .transition(reduceMotion ? .identity : Self.settleIn)
                     }
                 }
             }
@@ -375,7 +376,7 @@ struct HandPlayView: View {
             (grade.wasBest ? Theme.bamGreen : Theme.gold).opacity(0.12),
             in: RoundedRectangle(cornerRadius: 14)
         )
-        .transition(Self.settleIn)
+        .transition(reduceMotion ? .identity : Self.settleIn)
     }
 
     /// Text around the rack leaves at once and arrives after the tiles have
@@ -395,7 +396,7 @@ struct HandPlayView: View {
         wallIndex += 1
         turn += 1
         drawn = tile
-        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.85)) {
             rack = (rack + [tile]).racked
         }
         saveProgress()
@@ -410,7 +411,7 @@ struct HandPlayView: View {
 
         var updated = rack
         updated.remove(at: index)
-        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.85)) {
             rack = updated
             grade = Grade(discard: tile, wasBest: wasBest, note: note)
         }
@@ -442,7 +443,7 @@ struct HandPlayView: View {
         guard grade != nil else { return }
         // One transaction for the whole turn change: the card leaving, the
         // prompt and the drawn tile used to run on two different curves.
-        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.85)) {
             grade = nil
             if turn >= HandPlayEngine.turnCount {
                 finish()
@@ -469,7 +470,7 @@ struct HandPlayView: View {
             Haptics.correctAnswer()
             SoundPlayer.play(.success)
         }
-        withAnimation(.easeInOut(duration: 0.3)) { phase = .finished }
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.3)) { phase = .finished }
         if !canPlayAgain { freeHandSpent += 1 }
     }
 
@@ -596,6 +597,6 @@ struct HandPlayView: View {
         cleanDiscards = 0
         verdict = nil
         target = nil
-        withAnimation(.easeInOut(duration: 0.25)) { phase = .choosing }
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) { phase = .choosing }
     }
 }

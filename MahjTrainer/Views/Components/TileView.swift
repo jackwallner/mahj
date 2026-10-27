@@ -263,7 +263,7 @@ struct TileRackView: View {
             .animation(reduceMotion ? nil : .spring(duration: 0.25), value: selected)
             // A thrown tile leaves at once: fading, it sat at its old spot
             // while the rest of the rack slid across it.
-            .transition(.asymmetric(insertion: tileInsertion, removal: .identity))
+            .transition(.asymmetric(insertion: reduceMotion ? .identity : tileInsertion, removal: .identity))
     }
 }
 

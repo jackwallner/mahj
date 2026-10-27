@@ -104,3 +104,15 @@ Charleston deal showed only the tiles both deals share for 0.2s. Text and
 cards around a moving rack (`HandPlayView.settleIn`, the Charleston coach
 card) leave at once and fade in after the tiles settle, so no tile slides
 across them.
+
+**Release gate accessibility pass (1.4.2, 2026-10-27):** every `withAnimation`,
+`.animation` and inserted `.transition` reads `accessibilityReduceMotion` and
+drops to `nil`/`.identity` (`PressableCardStyle` dims instead of scaling).
+Accent text goes through `Theme.readable(_:)` (darker in light, lighter in
+dark) and secondary ink is `inkSecondary`/`inkTertiary`, all at 7:1 or more
+on the card. Small text links grow to 44pt with `hitPadding(_:)` inside the
+label plus `.padding(-insets)` on the control, so nothing moves. The launch
+screen color is the light cream in both modes. Apple's contrast audit flags
+text that draws at 7 to 15:1 (it samples off-element pixels); those are
+accepted in `qa/ledger.jsonl` with the ratio measured off the gate
+screenshot, so measure before darkening a token further.

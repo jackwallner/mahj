@@ -205,9 +205,20 @@ extension View {
 /// Press-scale feedback for card-shaped buttons.
 struct PressableCardStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.975 : 1)
-            .animation(.spring(response: 0.28, dampingFraction: 0.7), value: configuration.isPressed)
+        PressableCard(configuration: configuration)
+    }
+
+    /// A view, so it can read Reduce Motion: the press dims instead of scaling.
+    private struct PressableCard: View {
+        let configuration: Configuration
+        @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+        var body: some View {
+            configuration.label
+                .scaleEffect(configuration.isPressed && !reduceMotion ? 0.975 : 1)
+                .opacity(configuration.isPressed && reduceMotion ? 0.85 : 1)
+                .animation(reduceMotion ? nil : .spring(response: 0.28, dampingFraction: 0.7), value: configuration.isPressed)
+        }
     }
 }
 

@@ -395,7 +395,7 @@ struct PracticeRunView: View {
         }
         topUpIfNeeded()
         let next = Self.advanced(items: items, index: index, isGenerated: mode.isGenerated)
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.85)) {
             selection = nil
             items = next.items
             index = next.index
@@ -437,6 +437,6 @@ struct PracticeRunView: View {
             dismiss()
             return
         }
-        withAnimation(.easeInOut(duration: 0.3)) { finished = true }
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.3)) { finished = true }
     }
 }

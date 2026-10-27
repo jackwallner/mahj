@@ -10,6 +10,7 @@ struct DrillCompleteView: View {
 
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var recorded = false
     /// Bumped once when the drill is banked: the rating prompt's cue.
     @State private var reviewMoment = 0
@@ -81,7 +82,7 @@ struct DrillCompleteView: View {
                         .foregroundStyle(Theme.jade)
                 }
             }
-            .animation(.spring(response: 0.5, dampingFraction: 0.6), value: celebrate)
+            .animation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.6), value: celebrate)
             VStack(spacing: 8) {
                 Text(headline)
                     .font(Theme.display(30))
