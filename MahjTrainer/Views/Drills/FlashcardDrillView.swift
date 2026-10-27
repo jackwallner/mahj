@@ -26,6 +26,7 @@ struct FlashcardDrillView: View {
 
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var queue: [Flashcard] = []
     @State private var isFlipped = false
@@ -133,7 +134,7 @@ struct FlashcardDrillView: View {
                     Capsule()
                         .fill(accent)
                         .frame(width: geo.size.width * CGFloat(mastered) / CGFloat(max(cards.count, 1)))
-                        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: mastered)
+                        .animation(deckMotion(.spring(response: 0.4, dampingFraction: 0.8)), value: mastered)
                 }
             }
             .frame(height: 8)
@@ -338,13 +339,13 @@ struct FlashcardDrillView: View {
                     return
                 }
                 guard isFlipped else {
-                    withAnimation(.spring(response: 0.32, dampingFraction: 0.78)) {
+                    withAnimation(deckMotion(.spring(response: 0.32, dampingFraction: 0.78))) {
                         drag = .zero
                     }
                     return
                 }
                 guard !choiceAnswered else {
-                    withAnimation(.spring(response: 0.32, dampingFraction: 0.78)) {
+                    withAnimation(deckMotion(.spring(response: 0.32, dampingFraction: 0.78))) {
                         drag = .zero
                     }
                     return
@@ -355,7 +356,7 @@ struct FlashcardDrillView: View {
                 if flung {
                     fling(direction: dx >= 0 ? 1 : -1, size: size)
                 } else {
-                    withAnimation(.spring(response: 0.32, dampingFraction: 0.78)) {
+                    withAnimation(deckMotion(.spring(response: 0.32, dampingFraction: 0.78))) {
                         drag = .zero
                     }
                 }
@@ -373,8 +374,9 @@ struct FlashcardDrillView: View {
         hasSwipedDeck = true
         Haptics.impact(.rigid, intensity: 0.7)
         let exit = CGSize(width: direction * size.width * 1.5, height: drag.height * 1.1)
-        withAnimation(.easeIn(duration: 0.34)) {
-            drag = exit
+        // Reduce Motion: the card fades where it is instead of flying off.
+        withAnimation(reduceMotion ? .easeOut(duration: 0.2) : .easeIn(duration: 0.34)) {
+            if !reduceMotion { drag = exit }
             flingOpacity = 0
         } completion: {
             var t = Transaction()
@@ -427,7 +429,7 @@ struct FlashcardDrillView: View {
         lastSwipe = nil
         pendingAnswer = nil
         choicePick = nil
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+        withAnimation(deckMotion(.spring(response: 0.4, dampingFraction: 0.8))) {
             if !record.gotIt, queue.last?.id == record.card.id {
                 queue.removeLast()
             }
@@ -436,10 +438,16 @@ struct FlashcardDrillView: View {
         }
     }
 
+    /// The deck's springs, or none with Reduce Motion on: the cards cut to
+    /// their places instead of sliding there.
+    private func deckMotion(_ animation: Animation) -> Animation? {
+        reduceMotion ? nil : animation
+    }
+
     /// One-time teaching beat: after the first-ever flip the card eases toward
     /// the edge and springs back, previewing the swipe and the rise behind it.
     private func maybeHintSwipe() {
-        guard !hasSwipedDeck, !didHint, queue.count > 1 else { return }
+        guard !hasSwipedDeck, !didHint, !reduceMotion, queue.count > 1 else { return }
         didHint = true
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 700_000_000)

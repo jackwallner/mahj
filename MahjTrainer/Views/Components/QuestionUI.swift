@@ -62,6 +62,7 @@ struct QuestionPager<Choices: View>: View {
     /// Decided once per question, before grading, so the explanation growing
     /// the content never flips the metrics under the player mid-answer.
     @State private var compact: Bool?
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var viewportHeight: CGFloat = 0
     @State private var questionHeight: CGFloat = 0
 
@@ -152,7 +153,8 @@ struct QuestionPager<Choices: View>: View {
                 // overflows and both spellings land at the same place. Leave
                 // it alone. What a tall coaching block costs the prompt is a
                 // content-height problem, not a scroll-anchor one.
-                withAnimation(.easeOut(duration: 0.35)) {
+                // Reduce Motion: the note fades in and the scroll jumps.
+                withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
                     proxy.scrollTo(questionExplanationID, anchor: .bottom)
                 }
             }
@@ -168,7 +170,7 @@ struct QuestionPager<Choices: View>: View {
         // content taller and the centring shifts. Each row used to animate on
         // its own while everything around it jumped, so the rows slid across
         // the coaching note (2026-10-19 frame capture).
-        .animation(Self.gradeSpring, value: answered)
+        .animation(reduceMotion ? nil : Self.gradeSpring, value: answered)
     }
 
     static var gradeSpring: Animation { .spring(response: 0.3, dampingFraction: 0.8) }
@@ -289,7 +291,7 @@ struct ChoiceList: View {
             .scaleEffect(answered && isAnswer && landed ? 1.035 : 1)
             .modifier(ShakeEffect(travels: isMiss ? shakes : 0))
             .opacity(recedes ? 0.72 : 1)
-            .animation(.spring(response: 0.3, dampingFraction: 0.8), value: answered)
+            .animation(reduceMotion ? nil : .spring(response: 0.3, dampingFraction: 0.8), value: answered)
         }
         .buttonStyle(.plain)
         .allowsHitTesting(!answered)
