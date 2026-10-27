@@ -123,8 +123,12 @@ Reading Your Rack from the rotation.
   the reminder button (only reachable on a pre-October clock now).
 - `MonthlyChallengeStore` keeps the FIRST run per round, saved after every
   answer (`recordAnswer`); leaving resumes at the same question and the last
-  answer finishes it. A half-played round from an earlier day is closed on
-  open (`closeEarlierRounds`), scored on what was answered. Legacy month
+  answer finishes it. A half-played round from an earlier day is closed
+  (`closeEarlierRounds`), scored on what was answered, when Home or the
+  challenge screen appears and when the day changes (1.4.2: it used to
+  wait for the challenge screen). The round a session has on screen
+  (`roundOnScreen`) is skipped, so a player mid-round at midnight finishes
+  the day they started. Legacy month
   keys (`monthlyChallenge.results`/`.progress`) are deleted on init: only
   test builds ever wrote them.
 - Standing: `ChallengeStandingService` posts the month score to Supabase
@@ -144,12 +148,24 @@ Reading Your Rack from the rotation.
   one with DEBUG `-mahj.standing players,below`. Declared in App Privacy as
   Gameplay Content, not linked, App Functionality, and in the privacy
   policy.
-- `MonthlyChallengeReminder`: opt-in, one notification on the 1st of each
-  of the next three months, re-laid on launch. The button checks the real
+- `MonthlyChallengeReminder`: opt-in, one notification at 10:00 on the 1st
+  of each of the next three months, re-laid on launch and on every return to
+  the app. Each re-lay clears them all, so `months(now:)` keeps this month's
+  too until its 10:00 passes (1.4.2: opening the app at 8 on the 1st cancelled
+  that morning's). The button checks the real
   notification permission on appear and says notifications are off rather
   than show "Reminder On" for nothing.
-- The hero reads the date once per render, so a Resume tapped after
-  midnight finishes the round its saved answers belong to.
+- Midnight (1.4.2 review fixes): `QuickSessionView` pins its round in
+  `@State` with its questions, so a redraw after midnight (which passes the
+  next day's round) cannot send answers to the wrong day.
+  `MonthlyChallengeView` holds today's round in `@State` too, refreshed on
+  appear and when `DayClock.dayKey` changes. `DayClock` is bumped by the app
+  on `significantTimeChangeNotification` and whenever the scene becomes
+  active; Home watches it as well. The event link and reminder tap re-key
+  the challenge screen (`challengeOpenCount`), so a Nov 1 tap redraws it
+  even when it is already on top.
+- Past months lists only months the player played (1.4.2): from Nov 1 every
+  player saw "October 2026 · Not played".
 - The closers can be Mahj+ questions. A free player who misses one never gets
   "This one will come back" (`SessionBuilder.isMemberOnly`): free sessions
   never bring Mahj+ questions back.

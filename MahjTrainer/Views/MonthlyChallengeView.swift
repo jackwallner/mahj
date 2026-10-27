@@ -23,7 +23,10 @@ struct MonthlyChallengeView: View {
                 } else {
                     upcoming
                 }
-                let past = round.map { MonthlyChallengeContent.pastMonths(before: $0.month.start) } ?? []
+                // Only months this player played: a list of "Not played"
+                // rows is a reminder of nothing.
+                let past = (round.map { MonthlyChallengeContent.pastMonths(before: $0.month.start) } ?? [])
+                    .filter { store.monthScore(MonthlyChallengeContent.challenge(for: $0).monthKey).daysPlayed > 0 }
                 if !past.isEmpty { archive(past) }
                 if !minuteStore.results.isEmpty { earlierMinutes }
             }
@@ -202,7 +205,7 @@ struct MonthlyChallengeView: View {
         let score = store.monthScore(past.monthKey)
         return HStack(spacing: 12) {
             Image(systemName: past.theme.icon)
-                .foregroundStyle(score.daysPlayed > 0 ? Theme.plum : Theme.inkTertiary)
+                .foregroundStyle(Theme.plum)
                 .frame(width: 28)
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 1) {
@@ -215,15 +218,13 @@ struct MonthlyChallengeView: View {
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 1) {
-                Text(score.daysPlayed > 0 ? "\(score.points)\u{00A0}points" : "Not played")
+                Text("\(score.points)\u{00A0}points")
                     .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(score.daysPlayed > 0 ? Theme.plum : Theme.inkTertiary)
+                    .foregroundStyle(Theme.plum)
                     .monospacedDigit()
-                if score.daysPlayed > 0 {
-                    Text("\(score.daysPlayed)\u{00A0}\(score.daysPlayed == 1 ? "day" : "days")")
-                        .font(.caption)
-                        .foregroundStyle(Theme.inkSecondary)
-                }
+                Text("\(score.daysPlayed)\u{00A0}\(score.daysPlayed == 1 ? "day" : "days")")
+                    .font(.caption)
+                    .foregroundStyle(Theme.inkSecondary)
             }
         }
         .padding(14)
