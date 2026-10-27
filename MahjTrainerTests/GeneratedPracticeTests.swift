@@ -332,4 +332,26 @@ final class GeneratedPracticeTests: XCTestCase {
         XCTAssertNotNil(notes[2])
         XCTAssertTrue(notes[0]?.contains("2468") ?? false)
     }
+    /// Endless never looks back, so an answered question is dropped as the
+    /// next one comes up instead of piling up for the whole run.
+    @MainActor
+    func testAGeneratedRunKeepsOnlyWhatIsAhead() {
+        let batch = EndlessPractice.mixedItems(count: 6)
+        XCTAssertEqual(batch.count, 6)
+        let next = PracticeRunView.advanced(items: batch, index: 0, isGenerated: true)
+        XCTAssertEqual(next.index, 0)
+        XCTAssertEqual(next.items.map(\.id), batch.dropFirst().map(\.id))
+        var run = (items: batch, index: 0)
+        for _ in 0..<5 { run = PracticeRunView.advanced(items: run.items, index: run.index, isGenerated: true) }
+        XCTAssertEqual(run.items.map(\.id), [batch[5].id])
+    }
+
+    /// Fix My Mistakes walks a fixed list and keeps all of it.
+    @MainActor
+    func testAReviewRunKeepsItsList() {
+        let batch = EndlessPractice.mixedItems(count: 3)
+        let next = PracticeRunView.advanced(items: batch, index: 1, isGenerated: false)
+        XCTAssertEqual(next.index, 2)
+        XCTAssertEqual(next.items.map(\.id), batch.map(\.id))
+    }
 }

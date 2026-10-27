@@ -322,7 +322,7 @@ struct PracticeRunView: View {
     }
 
     private var counterText: String {
-        mode == .review ? "\(index + 1) of \(items.count)" : "Question \(index + 1)"
+        mode == .review ? "\(index + 1) of \(items.count)" : "Question \(attempted + 1)"
     }
 
     // MARK: - Clock
@@ -394,10 +394,21 @@ struct PracticeRunView: View {
             return
         }
         topUpIfNeeded()
+        let next = Self.advanced(items: items, index: index, isGenerated: mode.isGenerated)
         withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
             selection = nil
-            index += 1
+            items = next.items
+            index = next.index
         }
+    }
+
+    /// A generated run never goes back: no resume, no review, and its ids
+    /// never enter the review queue. So the answered question is dropped as
+    /// the next one comes up, and an hour of Endless holds a batch, not every
+    /// question dealt. Fix My Mistakes keeps its fixed list.
+    static func advanced(items: [QuickItem], index: Int, isGenerated: Bool) -> (items: [QuickItem], index: Int) {
+        guard isGenerated else { return (items, index + 1) }
+        return (Array(items.dropFirst(index + 1)), 0)
     }
 
     /// Keeps a generated run supplied without ever letting the index run past
