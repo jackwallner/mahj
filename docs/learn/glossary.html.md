@@ -1,4 +1,4 @@
-# American Mah Jongg Glossary: Soap, Pung, Kong, Charleston and More
+# American Mah Jongg Glossary: Soap, Pung, Kong and More
 
 > A plain-English glossary of American Mah Jongg terms: craks, bams, dots, soap, pung, kong, quint, exposure, Charleston, blind pass, joker swap and more.
 
@@ -8,7 +8,7 @@ Web page: https://jackwallner.com/ios/mahj/learn/glossary.html
 
 ## Mah Jongg glossary
 
-Last updated October 21, 2026
+Last updated October 25, 2026
 
 American Mah Jongg is a four-player tile game that has its own vocabulary, from craks and soap to pungs and joker swaps. Short definitions, written to be read standing at a table with a rack in front of you.
 
