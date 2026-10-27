@@ -11,7 +11,7 @@ enum RevenueCatConfig {
 }
 
 /// What actually happened at Apple's sheet. A cancel is an outcome, not an error.
-enum PurchaseOutcome: Sendable {
+enum PurchaseOutcome: Equatable, Sendable {
     case purchased
     case cancelled
     /// A reinstall's StoreKit sync found this Apple Account already owns
@@ -25,9 +25,13 @@ enum MembershipRecovery: Equatable, Sendable {
     case ownsNothing
     /// RevenueCat synced what StoreKit holds.
     case recovered
-    /// StoreKit holds an entitlement but RevenueCat's sync failed, so the
-    /// account owns Mahj+ while the app still reads it as free.
+    /// StoreKit holds an entitlement but RevenueCat's sync failed, or
+    /// synced without an active Mahj+ entitlement, so the account owns Mahj+
+    /// while the app still reads it as free.
     case ownedUnsynced
+    /// The check outlived its lifetime without an answer. Ownership is still
+    /// unknown, so nothing is sold; the next tap starts a fresh check.
+    case unresolved
 }
 
 /// What `purchase` may do while a reinstall's membership sync runs.
@@ -42,7 +46,63 @@ enum PurchaseGate: Equatable, Sendable {
     static func decide(isRecovering: Bool, lastRecovery: MembershipRecovery?, isPro: Bool) -> PurchaseGate {
         if isRecovering { return .unsettled }
         if isPro { return .alreadyMember }
-        return lastRecovery == .ownedUnsynced ? .unsettled : .sell
+        switch lastRecovery {
+        case .ownedUnsynced, .unresolved: return .unsettled
+        case .ownsNothing, .recovered, nil: return .sell
+        }
+    }
+}
+
+/// What the screen showed when the player tapped buy: the plan, its product,
+/// the price drawn and the trial wording. A purchase runs only on exactly
+/// these terms. Lifetime has no free week, so its `trial` is always false.
+struct PurchaseIntent: Equatable, Sendable {
+    let plan: PaywallPlan
+    let productID: String?
+    /// nil when the screen showed "Loading price..." instead of an amount.
+    let price: String?
+    let trial: Bool
+
+    init(plan: PaywallPlan, productID: String?, price: String?, trial: Bool) {
+        self.plan = plan
+        self.productID = productID
+        self.price = price
+        self.trial = plan == .lifetime ? false : trial
+    }
+}
+
+/// The one preflight rule, applied after one bounded wait: buy only when the
+/// live state still equals what the player tapped on; otherwise redraw and
+/// ask for another tap.
+enum PreflightVerdict: Equatable, Sendable {
+    case buy
+    /// The screen's terms are stale (no price drawn, a new price, a lost free
+    /// week, another plan): it redraws and nothing is bought.
+    case redraw
+    case alreadyMember
+    /// Ownership or the free-week answer did not settle in time: the store
+    /// reads as unreachable, and a later tap tries again.
+    case unavailable
+    /// The store answered without this plan's product.
+    case noProduct
+
+    static func decide(
+        intent: PurchaseIntent,
+        live: PurchaseIntent,
+        gate: PurchaseGate,
+        eligibilityKnown: Bool
+    ) -> PreflightVerdict {
+        switch gate {
+        case .alreadyMember: return .alreadyMember
+        case .unsettled: return .unavailable
+        case .sell: break
+        }
+        guard live.productID != nil, live.price != nil else { return .noProduct }
+        guard intent.plan == .lifetime || eligibilityKnown else { return .unavailable }
+        // A tap on "Loading price..." never buys: the price has to be on
+        // screen first (3.1.2(c)).
+        guard intent.price != nil else { return .redraw }
+        return live == intent ? .buy : .redraw
     }
 }
 
@@ -60,30 +120,69 @@ enum PurchaseTerms: Equatable, Sendable {
 
 /// Runs one membership check at a time. Every caller, the one that starts it
 /// included, waits at most `timeout`; the check keeps running past that, and
-/// the next caller waits on the same one instead of starting another.
+/// the next caller waits on the same one instead of starting another. A check
+/// older than `lifetime` is given up (`last` = `.unresolved`, which still
+/// blocks sales) and the next caller starts a fresh one, so one stalled sync
+/// cannot fail every later tap.
 @MainActor
 final class MembershipRecoveryRunner {
-    private var task: Task<MembershipRecovery, Never>?
+    private var task: Task<Void, Never>?
+    private var attempt = 0
+    private var startedAt: Date?
     private(set) var last: MembershipRecovery?
+    let lifetime: TimeInterval
+    private let now: () -> Date
 
-    var isRunning: Bool { task != nil }
+    init(lifetime: TimeInterval = 15, now: @escaping () -> Date = Date.init) {
+        self.lifetime = lifetime
+        self.now = now
+    }
+
+    var isRunning: Bool {
+        expireIfStale()
+        return task != nil
+    }
 
     func run(timeout: TimeInterval, _ work: @escaping @MainActor () async -> MembershipRecovery) async {
+        expireIfStale()
         if task == nil {
+            attempt += 1
+            let mine = attempt
+            startedAt = now()
             task = Task { @MainActor in
                 let result = await work()
+                // A check given up on must not overwrite a newer one.
+                guard mine == self.attempt else { return }
                 self.last = result
                 self.task = nil
-                return result
+                self.startedAt = nil
             }
         }
         // Poll rather than await the task: an await on it cannot be cut
         // short, and a task group waits for every child before it returns.
         let deadline = Date().addingTimeInterval(timeout)
-        while task != nil, Date() < deadline {
+        while task != nil, Date() < deadline, !Task.isCancelled {
             try? await Task.sleep(nanoseconds: 50_000_000)
         }
     }
+
+    private func expireIfStale() {
+        guard task != nil, let startedAt, now().timeIntervalSince(startedAt) >= lifetime else { return }
+        task?.cancel()
+        task = nil
+        self.startedAt = nil
+        attempt += 1
+        last = .unresolved
+    }
+}
+
+/// What a tap on buy came to.
+enum PurchaseAttempt: Equatable, Sendable {
+    case bought(PurchaseOutcome)
+    /// The terms on screen were stale; nothing was bought.
+    case redraw
+    /// The store answered without the plan's product.
+    case noProduct
 }
 
 enum PurchaseError: LocalizedError {
@@ -136,8 +235,16 @@ final class SubscriptionService: NSObject, ObservableObject {
     private let reinstallSyncKey = "membership.reinstallSyncDone"
     private var paywallImpressionsThisSession: Set<String> = []
     private let membershipRecovery = MembershipRecoveryRunner()
-    /// StoreKit's free-week answer for this account, nil until it is asked.
+    /// StoreKit's free-week answer for this account: nil until StoreKit has
+    /// answered about a real product, and again whenever offerings reload.
     private var trialEligibility: Bool?
+    private var eligibilityTask: Task<Void, Never>?
+    /// Bumped on every offerings load, so an answer about the old products
+    /// cannot land on the new ones.
+    private var offeringsGeneration = 0
+    /// How long a tap waits on StoreKit, for the membership check and the
+    /// free-week answer alike.
+    static let preflightTimeout: TimeInterval = 3
 
     override private init() {
         super.init()
@@ -234,8 +341,18 @@ final class SubscriptionService: NSObject, ObservableObject {
         // A failed sync is not "owns nothing": StoreKit just said this
         // account owns Mahj+, so nothing may be sold until a sync succeeds.
         guard let info = try? await Purchases.shared.syncPurchases() else { return .ownedUnsynced }
-        UserDefaults.standard.set(true, forKey: reinstallSyncKey)
         apply(info)
+        return Self.syncOutcome(entitled: info.entitlements["pro"]?.isActive == true, markSynced: {
+            UserDefaults.standard.set(true, forKey: reinstallSyncKey)
+        })
+    }
+
+    /// A sync that returns without an active Mahj+ entitlement has not
+    /// recovered anything: StoreKit still says the account owns it, so it
+    /// stays owned-but-unsynced (no sale) and the sync runs again next time.
+    nonisolated static func syncOutcome(entitled: Bool, markSynced: () -> Void) -> MembershipRecovery {
+        guard entitled else { return .ownedUnsynced }
+        markSynced()
         return .recovered
     }
 
@@ -348,16 +465,39 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     func loadOfferings() async {
         guard isConfigured else { return }
-        offerings = try? await Purchases.shared.offerings()
+        let loaded = try? await Purchases.shared.offerings()
+        offerings = loaded
+        offeringsGeneration += 1
+        trialEligibility = nil
+        eligibilityTask?.cancel()
+        eligibilityTask = nil
         await refreshTrialEligibility()
     }
 
     /// Both plans share one subscription group, so the onboarding plan's
-    /// answer is the paywall's too.
-    private func refreshTrialEligibility() async {
-        let eligible = await isTrialEligible(for: onboardingPlan.plan)
-        trialEligibility = eligible
-        if trialIneligible == eligible { trialIneligible = !eligible }
+    /// answer is the paywall's too. Waits at most `timeout` on StoreKit and
+    /// returns whether the answer is known. No product, no answer: a failed
+    /// offerings fetch must not pass for "eligible".
+    @discardableResult
+    func refreshTrialEligibility(timeout: TimeInterval = SubscriptionService.preflightTimeout) async -> Bool {
+        if trialEligibility != nil { return true }
+        guard let package = package(for: onboardingPlan.plan) else { return false }
+        if eligibilityTask == nil {
+            let generation = offeringsGeneration
+            let product = package.storeProduct.sk2Product
+            eligibilityTask = Task { @MainActor in
+                let eligible = await Self.isTrialEligible(product)
+                guard generation == self.offeringsGeneration, !Task.isCancelled else { return }
+                self.trialEligibility = eligible
+                if self.trialIneligible == eligible { self.trialIneligible = !eligible }
+                self.eligibilityTask = nil
+            }
+        }
+        let deadline = Date().addingTimeInterval(timeout)
+        while trialEligibility == nil, eligibilityTask != nil, Date() < deadline, !Task.isCancelled {
+            try? await Task.sleep(nanoseconds: 50_000_000)
+        }
+        return trialEligibility != nil
     }
 
     func package(for plan: PaywallPlan) -> Package? {
@@ -388,13 +528,58 @@ final class SubscriptionService: NSObject, ObservableObject {
         if offerings?.current == nil { await loadOfferings() }
         // Offerings publish before StoreKit's free-week answer: a tap in
         // between must not buy under trial wording the account cannot get.
-        if offerings?.current != nil, trialEligibility == nil { await refreshTrialEligibility() }
+        if offerings?.current != nil { await refreshTrialEligibility() }
         return offerings?.current != nil
     }
 
     /// Whether a purchase may run on the trial terms the screen showed.
     func purchaseTerms(shownTrial: Bool) -> PurchaseTerms {
         PurchaseTerms.check(shownTrial: shownTrial, offersTrial: !trialIneligible)
+    }
+
+    /// What a purchase screen is showing for `plan` right now. Screens call
+    /// this at the tap, with the trial wording they drew.
+    func intent(for plan: PaywallPlan, trialShown: Bool) -> PurchaseIntent {
+        let product = package(for: plan)?.storeProduct
+        return PurchaseIntent(
+            plan: plan,
+            productID: product?.productIdentifier,
+            price: product?.localizedPriceString,
+            trial: trialShown
+        )
+    }
+
+    /// The one preflight every purchase surface runs after the tap: settle
+    /// ownership, load the products, get StoreKit's free-week answer, each
+    /// bounded, then compare the live terms with the tapped ones.
+    func preflight(_ intent: PurchaseIntent) async -> PreflightVerdict {
+        // No store at all: the same as a store without the product.
+        guard isConfigured else { return .noProduct }
+        await recoverReinstalledMembershipIfNeeded()
+        if offerings?.current == nil || package(for: intent.plan) == nil { await loadOfferings() }
+        let eligibilityKnown = await refreshTrialEligibility()
+        return PreflightVerdict.decide(
+            intent: intent,
+            live: self.intent(for: intent.plan, trialShown: offersTrial),
+            gate: PurchaseGate.decide(isRecovering: isRecoveringMembership, lastRecovery: membershipRecovery.last, isPro: isPro),
+            eligibilityKnown: eligibilityKnown
+        )
+    }
+
+    /// Preflight, then buy exactly the tapped plan if its terms still hold.
+    /// `.redraw` means nothing was bought and the screen now shows the live
+    /// terms; the player taps again. Throws `productsUnavailable` when the
+    /// store did not settle in time, and `CancellationError` when the screen
+    /// went away during the wait.
+    func buy(_ intent: PurchaseIntent) async throws -> PurchaseAttempt {
+        switch await preflight(intent) {
+        case .buy: break
+        case .redraw: return .redraw
+        case .alreadyMember: return .bought(.alreadyMember)
+        case .unavailable: throw PurchaseError.productsUnavailable
+        case .noProduct: return .noProduct
+        }
+        return .bought(try await purchase(package(for: intent.plan)))
     }
 
     func purchase(_ package: Package?) async throws -> PurchaseOutcome {
@@ -412,6 +597,9 @@ final class SubscriptionService: NSObject, ObservableObject {
         case .alreadyMember: return .alreadyMember
         case .unsettled: throw PurchaseError.productsUnavailable
         }
+        // The screen may have gone away during the preflight (Close, a swipe
+        // down): nothing may reach Apple's sheet for a screen nobody sees.
+        try Task.checkCancellation()
         let result = try await Purchases.shared.purchase(package: package)
         // RevenueCat reports a user backing out of Apple's sheet as a normal
         // result, not an error. Treating it as a failure is what used to shove

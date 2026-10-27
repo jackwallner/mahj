@@ -314,6 +314,9 @@ struct PaywallView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var selectedPlan: PaywallPlan = .yearly
     @State private var purchasing = false
+    /// The tap's preflight and purchase. Closing the paywall cancels it, so
+    /// nothing reaches Apple's sheet after the paywall is gone.
+    @State private var purchaseTask: Task<Void, Never>?
     @State private var restoring = false
     @State private var loadingPrices = false
     /// Whether a price fetch has actually been tried yet. Without it the
@@ -328,6 +331,9 @@ struct PaywallView: View {
         NavigationStack {
             ScrollView {
                 PaywallContent(selectedPlan: $selectedPlan)
+                    // The tap buys the plan it was made on: no switching
+                    // plans while that purchase is being prepared.
+                    .disabled(purchasing)
                     .padding()
                     .frame(maxWidth: 680)
                     .frame(maxWidth: .infinity)
@@ -377,6 +383,7 @@ struct PaywallView: View {
             .onChange(of: subscriptions.isPro) { _, isPro in
                 if isPro { dismiss() }
             }
+            .onDisappear { purchaseTask?.cancel() }
             .task {
                 subscriptions.trackPaywallImpression(id: source)
                 if !priceReady { await loadPrices() }
@@ -479,18 +486,26 @@ struct PaywallView: View {
 
     private func purchase() {
         purchasing = true
-        let shownTrial = subscriptions.offersTrial
-        Task {
+        // Exactly what the player tapped on: the selected plan, its price and
+        // the trial wording. The plan cards are locked until this settles.
+        let intent = subscriptions.intent(for: selectedPlan, trialShown: subscriptions.offersTrial)
+        purchaseTask = Task {
             defer { purchasing = false }
             do {
-                await subscriptions.ensureOfferings()
-                // A reinstalled member recovered just now: nothing to sell.
-                guard !subscriptions.isPro else { return }
-                // StoreKit answered after the screen drew: show the real
-                // terms and let them tap again rather than buy on the old ones.
-                guard selectedPlan == .lifetime || subscriptions.purchaseTerms(shownTrial: shownTrial) == .buy else { return }
-                let outcome = try await subscriptions.purchase(subscriptions.package(for: selectedPlan))
-                guard outcome == .purchased else { return }
+                // One bounded preflight, then a purchase only on these terms.
+                // Changed terms (a lost free week, a new price) just redraw.
+                switch try await subscriptions.buy(intent) {
+                case .redraw, .bought(.cancelled):
+                    return
+                case .noProduct:
+                    message = PurchaseError.productsUnavailable.localizedDescription
+                    return
+                case .bought(.alreadyMember):
+                    // A reinstalled member recovered just now: nothing to sell.
+                    return
+                case .bought(.purchased):
+                    break
+                }
                 Haptics.success()
                 // The sheet dismisses itself the moment `isPro` flips. If the
                 // entitlement hasn't landed after a few seconds, say so and
@@ -499,6 +514,8 @@ struct PaywallView: View {
                 if await !subscriptions.confirmEntitlement() {
                     message = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore. You will not be charged twice."
                 }
+            } catch is CancellationError {
+                return
             } catch {
                 // A cancel never lands here (it's an outcome, not a throw), so
                 // anything that does is worth telling the player about.

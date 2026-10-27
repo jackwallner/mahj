@@ -77,8 +77,10 @@ final class AppRouter: ObservableObject {
 
     @Published private(set) var pendingDestination: AppDestination?
     /// Numbers each route, so a wait that timed out for one link does not
-    /// excuse the next one from waiting.
-    private(set) var pendingRouteID = 0
+    /// excuse the next one from waiting. Published, and what Home observes:
+    /// a second identical link leaves `pendingDestination` unchanged, and
+    /// must still start its own wait.
+    @Published private(set) var pendingRouteID = 0
     private var waitOverRouteID: Int?
 
     func route(to destination: AppDestination) {

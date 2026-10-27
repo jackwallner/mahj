@@ -47,9 +47,8 @@ struct TrialOfferSheet: View {
     @State private var height: CGFloat = 520
     /// Picked once, so a metadata refresh never swaps the body mid-read.
     @State private var pitch: OfferPitch?
-    /// False once StoreKit says this Apple Account already had its free week:
-    /// the sheet then states the price billed today and promises no trial.
-    @State private var trialEligible = true
+    /// The tap's preflight and purchase; cancelled if the sheet goes away.
+    @State private var purchaseTask: Task<Void, Never>?
 
     static let benefits = [
         "Play coached practice hands, as many as you want",
@@ -58,6 +57,12 @@ struct TrialOfferSheet: View {
     ]
 
     private var plan: PaywallPlan { subscriptions.onboardingPlan.plan }
+
+    /// False once StoreKit says this Apple Account already had its free week:
+    /// the sheet then states the price billed today and promises no trial.
+    /// The service's answer, so the sheet and the purchase check read the
+    /// same value.
+    private var trialEligible: Bool { subscriptions.offersTrial }
 
     var body: some View {
         Group {
@@ -86,11 +91,15 @@ struct TrialOfferSheet: View {
         .onChange(of: subscriptions.isPro) { _, isPro in
             if isPro { dismiss() }
         }
+        .onDisappear { purchaseTask?.cancel() }
         .task {
             let shown = pitch ?? subscriptions.offerPitch
             pitch = shown
-            if PaywallPricing.price(subscriptions, plan) == nil { await subscriptions.loadOfferings() }
-            trialEligible = await subscriptions.isTrialEligible(for: plan)
+            if PaywallPricing.price(subscriptions, plan) == nil {
+                await subscriptions.loadOfferings()
+            } else {
+                await subscriptions.refreshTrialEligibility()
+            }
             // Before the impression, which syncs it to RevenueCat with the
             // view. A lapsed member sees neither pitch but keeps an arm; the
             // coin is independent of eligibility, so both arms dilute alike.
@@ -230,40 +239,30 @@ struct TrialOfferSheet: View {
     /// stay put. The plan picker is only for products that failed to load.
     private func startTrial() {
         purchasing = true
-        Task {
+        // What the sheet shows at this tap; the purchase runs on exactly that.
+        let intent = subscriptions.intent(for: plan, trialShown: trialEligible)
+        purchaseTask = Task {
             defer { purchasing = false }
-            await subscriptions.ensureOfferings()
-            guard !subscriptions.isPro else { return dismiss() }
-            // A reinstalled member whose purchases are still syncing must not
-            // reach Apple's sheet as a stranger.
-            guard !subscriptions.isRecoveringMembership else {
-                message = "Still checking what this Apple Account owns. Try again in a moment, or tap Restore."
-                return
-            }
-            guard let package = subscriptions.package(for: plan) else {
-                showPlans = true
-                return
-            }
-            // The sheet may have drawn before StoreKit answered. If the free
-            // week is gone, show the real terms and let them tap again.
-            let eligible = await subscriptions.isTrialEligible(for: plan)
-            guard eligible == trialEligible else {
-                trialEligible = eligible
-                return
-            }
             do {
-                switch try await subscriptions.purchase(package) {
-                case .purchased:
+                // One bounded preflight, then Apple's sheet only if the terms
+                // still hold. A tap on "Loading price...", or on a free week
+                // StoreKit just said is gone, redraws for another tap.
+                switch try await subscriptions.buy(intent) {
+                case .redraw, .bought(.cancelled):
+                    break
+                case .noProduct:
+                    showPlans = true
+                case .bought(.alreadyMember):
+                    dismiss()
+                case .bought(.purchased):
                     if await subscriptions.confirmEntitlement() {
                         dismiss()
                     } else {
                         message = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore."
                     }
-                case .cancelled:
-                    break
-                case .alreadyMember:
-                    dismiss()
                 }
+            } catch is CancellationError {
+                return
             } catch {
                 message = error.localizedDescription
             }

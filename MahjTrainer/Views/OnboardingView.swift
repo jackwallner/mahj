@@ -552,45 +552,43 @@ struct OnboardingView: View {
             return
         }
         purchasing = true
-        let shownTrial = subscriptions.offersTrial
+        // Exactly what the page shows at this tap. Monthly by default, and
+        // this is deliberate. Two different people reach the two purchase
+        // surfaces: whoever taps through onboarding has not used the app yet
+        // and is reacting to the number on Apple's sheet, while whoever hits
+        // the paywall later has already decided the app is worth something.
+        // The paywall still leads with yearly. Here the smaller recurring
+        // figure is what gets the trial started; yearly is a RevenueCat test
+        // (`onboarding_plan`), and `trialDisclosure` always names this plan.
+        let intent = subscriptions.intent(for: onboardingPlan, trialShown: subscriptions.offersTrial)
         Task {
             defer { purchasing = false }
-            // Also re-runs the reinstall check: a member StoreKit knows about
-            // must never be sold what they already own.
-            await subscriptions.ensureOfferings()
-            guard !subscriptions.isPro else {
-                startTour()
-                return
-            }
-            // StoreKit answered after the page drew: show the real terms and
-            // let them tap again rather than buy on the old ones.
-            guard subscriptions.purchaseTerms(shownTrial: shownTrial) == .buy else { return }
-            // Monthly by default, and this is deliberate. Two different people
-            // reach the two purchase surfaces: whoever taps through onboarding
-            // has not used the app yet and is reacting to the number on Apple's
-            // sheet, while whoever hits the paywall later has already decided the
-            // app is worth something. The paywall still leads with yearly. Here
-            // the smaller recurring figure is what gets the trial started;
-            // yearly is a RevenueCat test (`onboarding_plan`), and
-            // `trialDisclosure` above always names the plan bought here.
-            guard let package = subscriptions.package(for: onboardingPlan) else {
-                showPaywallFallback = true
-                return
-            }
             do {
-                let outcome = try await subscriptions.purchase(package)
-                switch outcome {
-                case .purchased:
+                // One bounded preflight (membership sync, products, the
+                // free-week answer), then a purchase only on the terms this
+                // page showed. A tap on "Loading price..." or on terms that
+                // changed underneath just redraws the page for another tap.
+                switch try await subscriptions.buy(intent) {
+                case .redraw:
+                    break
+                case .noProduct:
+                    // Products genuinely failed to load: the plan picker, so
+                    // the button is never dead.
+                    showPaywallFallback = true
+                case .bought(.purchased):
                     if await subscriptions.confirmEntitlement() {
                         startTour()
                     } else {
                         purchaseError = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore."
                     }
-                case .cancelled:
+                case .bought(.cancelled):
                     break // They said no to Apple, not to the app. Stay put.
-                case .alreadyMember:
+                case .bought(.alreadyMember):
+                    // A member StoreKit knows about is never sold what they own.
                     startTour()
                 }
+            } catch is CancellationError {
+                return
             } catch {
                 purchaseError = error.localizedDescription
             }

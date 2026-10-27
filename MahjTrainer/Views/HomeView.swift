@@ -315,7 +315,7 @@ struct HomeView: View {
             // drill in the split pane never brings Home back on screen.
             .onChange(of: records.records) { _, _ in recordMastery() }
             .onChange(of: dayClock.dayKey) { _, _ in closeEarlierChallengeRounds() }
-            .onChange(of: router.pendingDestination) { _, _ in consumePendingDestination() }
+            .onChange(of: router.pendingRouteID) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.membershipResolved) { _, _ in recordMastery() }
             .onChange(of: subscriptions.isPro) { _, _ in recordMastery() }
             .onChange(of: subscriptions.membershipResolved) { _, _ in consumePendingDestination() }

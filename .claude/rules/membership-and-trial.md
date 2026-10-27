@@ -82,18 +82,34 @@ price slot is reserved on every page as before, so the CTA never moves
 between pages. A tap re-checks after offerings load and redraws instead of
 buying if the answer changed. DEBUG pins it with `-mahj.trialIneligible YES`.
 
-Every purchase goes through `SubscriptionService.purchase`, which first lets
-a reinstall's StoreKit sync settle (`PurchaseGate`): a member found by it
-gets `PurchaseOutcome.alreadyMember` and nothing is sold; a sync still
-stalled after the 3s wait, or one where StoreKit holds an entitlement but
-RevenueCat's sync failed (`MembershipRecovery.ownedUnsynced`), throws
-`productsUnavailable` (the existing "App Store isn't reachable" copy)
-rather than charge a member, and the next tap retries the sync (1.4.2).
-`MembershipRecoveryRunner` runs one check at a time and holds every caller,
-the one that started it included, at most 3s. `ensureOfferings` also waits
-for StoreKit's free-week answer (offerings publish before it), and the
-onboarding page and paywall redraw instead of buying when it changed the
-terms they showed (`PurchaseTerms`).
+Purchase preflight, one rule (1.4.2, fifth review): every purchase surface
+(onboarding trial page, paywall, `TrialOfferSheet`) captures a
+`PurchaseIntent` at the tap (plan, product id, the price string drawn, the
+trial wording drawn; lifetime has no trial) and calls
+`SubscriptionService.buy(intent)`. That runs one bounded preflight (the
+reinstall's membership check, offerings, StoreKit's free-week answer, each
+at most `preflightTimeout` = 3s) and `PreflightVerdict.decide`: buy only if
+the live intent equals the tapped one; otherwise `.redraw` (nothing bought,
+the screen shows the live terms, the player taps again). A tap while the
+screen shows "Loading price..." never buys. Unknown eligibility or an
+unsettled ownership check throws `productsUnavailable` (the existing "App
+Store isn't reachable" copy) and a later tap retries; no product returns
+`.noProduct` (onboarding and the sheet open the plan picker). The paywall
+locks its plan cards while purchasing and buys the captured plan; closing
+or swiping away a paywall or the sheet cancels the preflight, and
+`purchase` checks cancellation right before StoreKit.
+
+`purchase` itself still lets a reinstall's StoreKit sync settle
+(`PurchaseGate`): a member found by it gets `PurchaseOutcome.alreadyMember`;
+a stalled sync, an owner whose RevenueCat sync failed or came back without
+an active `pro` entitlement (`MembershipRecovery.ownedUnsynced`), or a check
+that outlived its 15s lifetime (`.unresolved`) sells nothing. The runner
+runs one check at a time, holds each caller at most 3s, and gives up a
+check older than its lifetime so the next tap starts a fresh one.
+Eligibility (`trialEligibility`) is known only after StoreKit answered about
+a real product, resets on every offerings load, and never comes from a
+failed fetch. Tests: `PurchasePreflightTests`, `PurchaseGateTests`,
+`MembershipRecoveryLifetimeTests`.
 
 One exception since (Jack, 2026-10-19): benefit rows 2 and 4 changed, because
 the Mahj Minute went free in 1.4.1 and 1.3.2's row 2 sold it as paid. 1.3.2
