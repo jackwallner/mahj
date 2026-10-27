@@ -91,11 +91,11 @@ enum ProContent {
         ),
         QuizQuestion(
             id: "pro-def-quints-dead",
-            prompt: "You are chasing a quint (five of a kind) of 5 Dots using jokers. Three 5 Dots are already visible around the table. Keep pushing?",
+            prompt: "You are chasing a quint (five of a kind) of 5 Dots. You hold one 5 Dot and one joker, and the other three 5 Dots are in the discards. Keep pushing?",
             tiles: [.d(5), .d(5), .d(5)],
             choices: ["Yes, jokers will cover it", "No, it is effectively dead", "Only if you draw two more jokers first"],
             answerIndex: 1,
-            explanation: "A quint needs five tiles, and only four 5 Dots exist. With three gone, you would have to build almost the whole group from jokers. That is a fantasy, not a plan. Count the naturals before you chase any quint, and fold this one."
+            explanation: "Only four 5 Dots exist, and the three in the discards are gone for good, so your quint needs four jokers beside your 5 Dot. You hold one, so three more of the set's eight jokers would have to reach you, and even two more leaves you a tile short. Count the naturals and your jokers before you chase any quint, and fold this one."
         ),
         QuizQuestion(
             id: "pro-def-safe-discard",

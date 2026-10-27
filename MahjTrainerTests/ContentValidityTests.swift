@@ -306,4 +306,40 @@ final class ContentValidityTests: XCTestCase {
         XCTAssertEqual(session.dropFirst().first?.id, missed.id)
         XCTAssertEqual(Set(session.map(\.id)).count, session.count)
     }
+    // MARK: - Answers that hold up
+
+    /// The drill counts a pass as good when two of its three tiles match the
+    /// coach. A deal with five interchangeable strays let a player pass three
+    /// of them, match one, and be marked wrong. Here every tile the coach
+    /// keeps has a job in a Winds & Dragons hand, so the pass is the only one.
+    func testJunkDealHasNoSpareStrays() throws {
+        let scenario = try XCTUnwrap(CharlestonContent.scenarios.first { $0.id == "cs-junk" })
+        var kept = scenario.deal
+        for tile in scenario.recommendedPass {
+            kept.remove(at: try XCTUnwrap(kept.firstIndex(of: tile)))
+        }
+        for tile in kept {
+            switch tile {
+            case .wind, .dragon, .joker, .flower: continue
+            default: XCTFail("cs-junk keeps \(tile.shortLabel), a stray as passable as the coach's three")
+            }
+        }
+    }
+
+    /// Five of a kind is one natural plus four jokers once the other three
+    /// naturals are discarded. The question names the jokers in hand, so the
+    /// answer and the "two more jokers" choice can be checked by counting.
+    func testDeadQuintCountsTheJokersInHand() throws {
+        let question = try XCTUnwrap(ProContent.defenseQuiz.first { $0.id == "pro-def-quints-dead" })
+        let naturalsLeft = 4 - 3
+        let jokersHeld = 1
+        let jokersStillNeeded = 5 - naturalsLeft - jokersHeld
+        XCTAssertTrue(question.prompt.contains("one joker"), question.prompt)
+        XCTAssertTrue(question.prompt.contains("three 5 Dots are in the discards"), question.prompt)
+        XCTAssertTrue(question.explanation.contains("three more"), question.explanation)
+        XCTAssertEqual(jokersStillNeeded, 3)
+        let twoMore = try XCTUnwrap(question.choices.firstIndex(of: "Only if you draw two more jokers first"))
+        XCTAssertNotEqual(twoMore, question.answerIndex)
+        XCTAssertLessThan(2, jokersStillNeeded, "two more jokers would finish the quint")
+    }
 }

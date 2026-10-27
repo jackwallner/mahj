@@ -41,7 +41,6 @@ export type PracticeTopic = (typeof PRACTICE_TOPICS)[number];
 // Deals where several strays are equally good passes: any of `also` can
 // stand in for the coach's `swap` picks, and the rest of the pass is required.
 const PASS_ALSO: Record<string, { swap: TileCode[]; also: TileCode[] }> = {
-  "cs-junk": { swap: ["1D", "9C", "5B"], also: ["2C", "8D"] },
   "cs-commit": { swap: ["3B"], also: ["5B", "7B", "9B"] },
 };
 

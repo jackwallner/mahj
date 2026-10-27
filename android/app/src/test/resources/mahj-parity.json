@@ -2827,10 +2827,10 @@
         "Yes, jokers will cover it",
         "No, it is effectively dead"
       ],
-      "explanation" : "A quint needs five tiles, and only four 5 Dots exist. With three gone, you would have to build almost the whole group from jokers. That is a fantasy, not a plan. Count the naturals before you chase any quint, and fold this one.",
+      "explanation" : "Only four 5 Dots exist, and the three in the discards are gone for good, so your quint needs four jokers beside your 5 Dot. You hold one, so three more of the set's eight jokers would have to reach you, and even two more leaves you a tile short. Count the naturals and your jokers before you chase any quint, and fold this one.",
       "id" : "pro-def-quints-dead",
       "isReviewable" : true,
-      "prompt" : "You are chasing a quint (five of a kind) of 5 Dots using jokers. Three 5 Dots are already visible around the table. Keep pushing?",
+      "prompt" : "You are chasing a quint (five of a kind) of 5 Dots. You hold one 5 Dot and one joker, and the other three 5 Dots are in the discards. Keep pushing?",
       "roomID" : "pro-tables",
       "sourceLabel" : "The Master Tables",
       "tiles" : [
@@ -3163,7 +3163,7 @@
         "2468 (Evens)",
         "Year Hands"
       ],
-      "explanation" : "2468 is the decoy since 2s and 6s are even. But the soaps are the giveaway: they stand in for the zeros in 2, 0, 2, 6. With no 4s or 8s and a fistful of flowers, this is a Year hand.",
+      "explanation" : "2468 is the decoy since 2s and 6s are even. But the soaps are the giveaway: they stand in for the zeros in 2, 0, 2, 6. With no 4s or 8s and three flowers, this is a Year hand.",
       "id" : "pro-rack-4",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -5829,29 +5829,29 @@
           "item" : {
             "answerIndex" : 1,
             "choiceNotes" : [
-              "This pass gives away two West Winds, which the strongest pass keeps.",
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the South Wind, which the strongest pass holds back.",
               null,
-              "This pass gives away the Flower, which the strongest pass keeps. It also sends the East Wind, which the strongest pass holds back.",
-              "This pass gives away two West Winds, which the strongest pass keeps. It also sends the 8 Dot, which the strongest pass holds back."
+              "This pass gives away the Flower, which the strongest pass keeps. It also sends the North Wind, which the strongest pass holds back.",
+              "This pass gives away two West Winds, which the strongest pass keeps. It also sends the East Wind, which the strongest pass holds back."
             ],
             "choices" : [
-              "1 Dot, West Wind, West Wind",
+              "1 Dot, South Wind, Flower",
               "9 Crak, 5 Bam, 1 Dot",
-              "1 Dot, East Wind, Flower",
-              "8 Dot, West Wind, West Wind"
+              "1 Dot, North Wind, Flower",
+              "East Wind, West Wind, West Wind"
             ],
-            "explanation" : "Five winds plus two jokers is the start of a Winds & Dragons hand, so the five scattered number tiles are the likeliest passes. Send the 1 Dot, 9 Crak and 5 Bam now, and pass the 2 Crak and 8 Dot next. Keep the West pair, and the flower too, since many hands use flowers. Jokers can never be passed.",
+            "explanation" : "Five winds, a Red Dragon pair and two jokers are the start of a Winds & Dragons hand, so the three number tiles are the passes: the 1 Dot, 9 Crak and 5 Bam. Keep the West and Red pairs, the lone winds a Winds & Dragons hand can use, and the flower too, since many hands use flowers. Jokers can never be passed.",
             "id" : "mahj-minute-charleston-2026-10-01",
             "isReviewable" : false,
-            "prompt" : "First Charleston, pass right. Five winds and five scattered numbers. Which three tiles make the strongest pass?",
+            "prompt" : "First Charleston, pass right. Five winds, a dragon pair and a few strays. Which three tiles make the strongest pass?",
             "roomID" : "charleston-room",
             "sourceLabel" : "Mahj Minute: Charleston",
             "tiles" : [
-              "2C",
               "9C",
               "5B",
               "1D",
-              "8D",
+              "RD",
+              "RD",
               "N",
               "E",
               "W",

@@ -112,11 +112,11 @@ enum CharlestonContent {
         ),
         CharlestonScenario(
             id: "cs-junk",
-            situation: "First Charleston, pass right. Five winds and five scattered numbers. Pick 3.",
-            deal: [.wind(.west), .wind(.west), .wind(.north), .wind(.east), .wind(.south), .c(2), .b(5), .d(8), .c(9), .d(1), .joker, .joker, .flower],
+            situation: "First Charleston, pass right. Five winds, a dragon pair and a few strays. Pick 3.",
+            deal: [.wind(.west), .wind(.west), .wind(.north), .wind(.east), .wind(.south), .dragon(.red), .dragon(.red), .b(5), .c(9), .d(1), .joker, .joker, .flower],
             recommendedPass: [.d(1), .c(9), .b(5)],
-            reasoning: "Five winds plus two jokers is the start of a Winds & Dragons hand, so the five scattered number tiles are the likeliest passes. Send the 1 Dot, 9 Crak and 5 Bam now, and pass the 2 Crak and 8 Dot next. Keep the West pair, and the flower too, since many hands use flowers. Jokers can never be passed.",
-            tip: "With a junk deal, let the strongest group set the plan. Strays are interchangeable; pairs and flowers are not."
+            reasoning: "Five winds, a Red Dragon pair and two jokers are the start of a Winds & Dragons hand, so the three number tiles are the passes: the 1 Dot, 9 Crak and 5 Bam. Keep the West and Red pairs, the lone winds a Winds & Dragons hand can use, and the flower too, since many hands use flowers. Jokers can never be passed.",
+            tip: "With a junk deal, let the strongest group set the plan, and pass the strays that fit none of it."
         ),
         CharlestonScenario(
             id: "cs-flowers",
