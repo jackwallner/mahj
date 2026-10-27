@@ -41,6 +41,30 @@ enum AppDestination: Hashable {
     }
 }
 
+/// What Home does with a routed destination right now.
+enum PendingRouteAction: Equatable {
+    /// The customer record or the offering's switches are still loading.
+    case wait
+    /// Switched off remotely: the link just opens Home.
+    case drop
+    case paywall
+    case open
+}
+
+extension AppDestination {
+    /// A member opening a notification cold reads as free until the customer
+    /// record loads, and a cold `mahj://challenge` reads the challenge as on
+    /// until the offering says otherwise, so both wait for the answer.
+    func routeAction(membershipKnown: Bool, isMember: Bool, remoteConfigKnown: Bool, challengeOn: Bool) -> PendingRouteAction {
+        if !isFree, !membershipKnown { return .wait }
+        if self == .monthlyChallenge {
+            guard remoteConfigKnown else { return .wait }
+            guard challengeOn else { return .drop }
+        }
+        return isFree || isMember ? .open : .paywall
+    }
+}
+
 enum AppNotification {
     static let routeKey = "mahj.route"
     static let gameNightPrepValue = "game-night-prep"

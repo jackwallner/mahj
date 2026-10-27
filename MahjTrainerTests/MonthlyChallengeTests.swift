@@ -440,6 +440,24 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertTrue(AppDestination.monthlyChallenge.isFree)
         XCTAssertFalse(AppDestination.gameNightPrepSession.isFree)
     }
+
+    /// A cold `mahj://challenge` launch must not open the challenge before
+    /// the offering has said whether `monthly_challenge` is off.
+    func testAColdChallengeLinkWaitsForTheOffSwitch() {
+        let link = AppDestination.monthlyChallenge
+        XCTAssertEqual(link.routeAction(membershipKnown: false, isMember: false, remoteConfigKnown: false, challengeOn: true), .wait)
+        XCTAssertEqual(link.routeAction(membershipKnown: false, isMember: false, remoteConfigKnown: true, challengeOn: false), .drop)
+        XCTAssertEqual(link.routeAction(membershipKnown: false, isMember: false, remoteConfigKnown: true, challengeOn: true), .open)
+    }
+
+    /// Paid destinations still wait for the customer record, never for the
+    /// challenge switch.
+    func testPaidLinksWaitOnlyForTheMembership() {
+        let prep = AppDestination.gameNightPrepSession
+        XCTAssertEqual(prep.routeAction(membershipKnown: false, isMember: false, remoteConfigKnown: true, challengeOn: true), .wait)
+        XCTAssertEqual(prep.routeAction(membershipKnown: true, isMember: false, remoteConfigKnown: false, challengeOn: false), .paywall)
+        XCTAssertEqual(prep.routeAction(membershipKnown: true, isMember: true, remoteConfigKnown: false, challengeOn: false), .open)
+    }
 }
 
 /// Writes every question for a run of days as JSON when `CHALLENGE_DUMP`

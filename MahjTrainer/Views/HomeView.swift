@@ -15,7 +15,7 @@ struct HomeView: View {
     @EnvironmentObject private var router: AppRouter
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @State private var membershipWaitOver = false
+    @State private var routeWaitOver = false
     @StateObject private var ordinaryRuns = OrdinaryRunStore.shared
     @StateObject private var records = PracticeRecordStore.shared
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
@@ -289,6 +289,8 @@ struct HomeView: View {
                 // The tracking and challenge switches ride on the offering:
                 // act on them once it is known.
                 guard loaded else { return }
+                // A cold `mahj://challenge` waits for the off switch.
+                consumePendingDestination()
                 MonthlyChallengeReminder.refresh()
                 Task { await askForTrackingIfNeeded() }
             }
@@ -472,34 +474,41 @@ struct HomeView: View {
     }
 
     private func consumePendingDestination() {
-        // A member opening a notification cold has isPro false until the
-        // customer record loads; wait for it rather than sell them a paywall.
-        if !subscriptions.membershipResolved, !membershipWaitOver,
-           let waiting = router.pendingDestination, !waiting.isFree {
-            // Offline with no cached record it may never resolve: give it a
-            // few seconds, then fall back to the normal paywall guard.
+        guard let waiting = router.pendingDestination else { return }
+        #if DEBUG
+        if case .debugShot(let name) = waiting {
+            _ = router.consumePendingDestination()
+            showShot(name)
+            return
+        }
+        #endif
+        let action = waiting.routeAction(
+            membershipKnown: subscriptions.membershipResolved || routeWaitOver,
+            isMember: subscriptions.isPro,
+            remoteConfigKnown: subscriptions.remoteConfigKnown || routeWaitOver,
+            challengeOn: showsMonthlyChallenge
+        )
+        if action == .wait {
+            // Offline with no cached record or offering, it may never
+            // resolve: give it a few seconds, then go on what is known.
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: 4_000_000_000)
-                membershipWaitOver = true
+                routeWaitOver = true
                 consumePendingDestination()
             }
             return
         }
         guard let destination = router.consumePendingDestination() else { return }
-        #if DEBUG
-        if case .debugShot(let name) = destination {
-            showShot(name)
+        switch action {
+        case .wait, .drop:
+            // Switched off remotely: the event link and an old reminder just open Home.
             return
-        }
-        #endif
-        // Switched off remotely: the event link and an old reminder just open Home.
-        if destination == .monthlyChallenge, !showsMonthlyChallenge { return }
-        guard destination.isFree || subscriptions.isPro else {
+        case .paywall:
             upgrade.destination = destination
             showPaywall = true
-            return
+        case .open:
+            show(destination)
         }
-        show(destination)
     }
 
     #if DEBUG
