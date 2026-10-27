@@ -300,6 +300,27 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(store.monthScore("2026-12"), .empty)
     }
 
+    /// Past twenty days only the best rounds count, so the result's "+N
+    /// today" is what the month score moved, not what the round scored.
+    @MainActor
+    func testTheDaysGainIsWhatTheMonthScoreMoved() {
+        let (store, _) = freshStore("MonthlyChallengeGain")
+        for day in 1...20 {
+            store.record(round: round(2026, 11, day), answers: [true, true, true, false, false])
+        }
+        XCTAssertEqual(store.monthScore("2026-11").points, 60)
+        let low = store.record(round: round(2026, 11, 21), answers: [true, true, false, false, false])
+        XCTAssertEqual(store.monthGain(from: low), 0)
+        XCTAssertEqual(store.monthScore("2026-11").points, 60)
+        let high = store.record(round: round(2026, 11, 22), answers: [true, true, true, true, true])
+        XCTAssertEqual(store.monthGain(from: high), 2)
+        XCTAssertEqual(store.monthScore("2026-11").points, 62)
+
+        let (fresh, _) = freshStore("MonthlyChallengeGainEarly")
+        let first = fresh.record(round: round(2026, 11, 1), answers: [true, false, true, false, false])
+        XCTAssertEqual(fresh.monthGain(from: first), 2)
+    }
+
     @MainActor
     func testARoundResumesAndTheLastAnswerFinishesIt() {
         let (store, defaults) = freshStore("MonthlyChallengeResume")

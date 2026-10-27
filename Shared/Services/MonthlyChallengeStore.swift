@@ -136,8 +136,19 @@ final class MonthlyChallengeStore: ObservableObject {
 
     func monthScore(_ monthKey: String) -> MonthScore {
         let rounds = results(inMonth: monthKey)
-        let best = rounds.map(\.score).sorted(by: >).prefix(MonthlyChallengeContent.countedDays)
-        return MonthScore(points: best.reduce(0, +), daysPlayed: rounds.count)
+        return MonthScore(points: Self.bestDays(rounds.map(\.score)), daysPlayed: rounds.count)
+    }
+
+    /// What a round adds to its month's score. Only the best `countedDays`
+    /// count, so past twenty days a round can add less than it scored, or
+    /// nothing at all.
+    func monthGain(from result: MonthlyChallengeResult) -> Int {
+        let others = results(inMonth: result.monthKey).filter { $0.roundKey != result.roundKey }.map(\.score)
+        return Self.bestDays(others + [result.score]) - Self.bestDays(others)
+    }
+
+    private static func bestDays(_ scores: [Int]) -> Int {
+        scores.sorted(by: >).prefix(MonthlyChallengeContent.countedDays).reduce(0, +)
     }
 
     func standing(for monthKey: String) -> ChallengeStanding? {

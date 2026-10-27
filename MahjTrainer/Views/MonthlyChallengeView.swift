@@ -532,12 +532,14 @@ struct MonthlyChallengeResultView: View {
         return fraction >= 0.6 ? "Solid Minute" : "A tough one"
     }
 
+    /// The gain is what the month score actually moved: past twenty days a
+    /// round only counts if it beats one of the best, so it can add nothing.
     private var monthLine: String {
-        let points = "\(month.points)\u{00A0}\(month.points == 1 ? "point" : "points") in the \(round.month.monthName) Challenge"
-        if let top = store.standing(for: round.monthKey)?.topPercent {
-            return "+\(result.score) today · \(points) · Top\u{00A0}\(top)%"
-        }
-        return "+\(result.score) today · \(points)"
+        var parts = ["\(month.points)\u{00A0}\(month.points == 1 ? "point" : "points") in the \(round.month.monthName) Challenge"]
+        let gain = store.monthGain(from: result)
+        if gain > 0 { parts.insert("+\(gain) today", at: 0) }
+        if let top = store.standing(for: round.monthKey)?.topPercent { parts.append("Top\u{00A0}\(top)%") }
+        return parts.joined(separator: " · ")
     }
 
     private var shareText: String {
