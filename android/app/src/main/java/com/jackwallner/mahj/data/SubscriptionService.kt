@@ -16,6 +16,7 @@ import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.PurchasesConfiguration
+import com.revenuecat.purchases.syncPurchasesWith
 import com.revenuecat.purchases.PurchasesTransactionException
 import com.revenuecat.purchases.awaitCustomerInfo
 import com.revenuecat.purchases.awaitOfferings
@@ -124,7 +125,8 @@ class SubscriptionService(
     suspend fun loadOfferings() {
         if (!configureIfNeeded()) return
         try {
-            offering = Purchases.sharedInstance.awaitOfferings().current
+            val offerings = Purchases.sharedInstance.awaitOfferings()
+            offering = offerings.all[ANDROID_OFFERING_ID] ?: offerings.current
         } catch (error: CancellationException) {
             throw error
         } catch (_: Throwable) {
@@ -252,12 +254,23 @@ class SubscriptionService(
         if (key.startsWith("test_")) builder.appUserID(QA_APP_USER_ID)
         Purchases.configure(builder.build())
         Purchases.sharedInstance.updatedCustomerInfoListener = UpdatedCustomerInfoListener { apply(it) }
+        // The Play app moved into the iOS app's RevenueCat project on 2026-10-27.
+        // Post this install's Play purchases there once, so a trial or purchase
+        // made under the old Android-only project keeps its access.
+        if (key.startsWith("goog_") && !defaults.getBoolean(SYNCED_TO_SHARED_PROJECT)) {
+            Purchases.sharedInstance.syncPurchasesWith(onError = {}) {
+                defaults.putBoolean(SYNCED_TO_SHARED_PROJECT, true)
+                apply(it)
+            }
+        }
         isConfigured = true
         return true
     }
 
     companion object {
         private const val QA_APP_USER_ID = "qa-android"
+        private const val ANDROID_OFFERING_ID = "android"
+        private const val SYNCED_TO_SHARED_PROJECT = "subscription.syncedToSharedProject"
         private const val LOCAL_OVERRIDE = "subscription.localProOverride"
         private const val UNAVAILABLE = "Google Play isn't reachable right now. Check your connection and try again."
     }

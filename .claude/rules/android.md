@@ -19,6 +19,7 @@ holds only what is specific to this app.
   `Mahj Trainer: Mahjong Practice`, category Education, audience 18+.
 - Version name follows iOS (`1.3.1`); `versionCode` starts at 1 and bumps on
   every upload.
+- Moving into the iOS project (2026-10-27): Play app `app8da2718cbb` in `proj28030dc2` has the Play products on entitlement `pro` and a non-current `android` offering. The next release swaps `REVENUECAT_PLAY_KEY` to that app's `goog_` key, and the code syncs existing Play purchases once (`SYNCED_TO_SHARED_PROJECT`) so old-project trials keep access. Upload the service-account JSON to that app first. Until then the release ships the old key below. Live Play vc7 was built from `chore/android-staging-20261002`, whose Android fixes (Play trial eligibility, pending-payment restore, lifetime manage, short-phone layout) are not on main; merge that branch before the next Play upload or it regresses.
 - RevenueCat project `projba4fbe38` "Mahj Trainer Android" (separate from
   iOS `proj28030dc2`), Play app `appeb48abdaf2`, whose `goog_` key the release
   ships. The older Play app `app8da2718cbb` in the iOS project is unused.
