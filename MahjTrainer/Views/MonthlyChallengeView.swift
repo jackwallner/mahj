@@ -77,7 +77,7 @@ struct MonthlyChallengeView: View {
                 NavigationLink {
                     QuickSessionView(monthlyRound: round, resume: progress)
                 } label: {
-                    Text(progress == nil ? "Play Today's Mahj Minute" : "Resume Today's Mahj Minute")
+                    Text(progress == nil ? String(localized: "Play Today's Mahj Minute") : String(localized: "Resume Today's Mahj Minute"))
                         .primaryCTA(color: Theme.plum)
                 }
             }
@@ -107,8 +107,8 @@ struct MonthlyChallengeView: View {
             .accessibilityElement(children: .combine)
             .accessibilityLabel("Today: \(result.score) of \(result.total) right")
             Text(lastDay
-                 ? "That was the last round of \(round.month.monthName)."
-                 : "Day \(round.day + 1) opens tomorrow.")
+                 ? String(localized: "That was the last round of \(round.month.monthName).")
+                 : String(localized: "Day \(round.day + 1) opens tomorrow."))
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -116,7 +116,7 @@ struct MonthlyChallengeView: View {
                 NavigationLink {
                     MonthlyChallengeAnswersView(round: round, result: result)
                 } label: {
-                    Text(result.score == result.total ? "Review Today's Answers" : "See What You Missed")
+                    Text(result.score == result.total ? String(localized: "Review Today's Answers") : String(localized: "See What You Missed"))
                         .font(.headline)
                         .foregroundStyle(Theme.plum)
                         .padding(.vertical, 10)
@@ -129,8 +129,10 @@ struct MonthlyChallengeView: View {
 
     private func footnote(_ month: MonthlyChallenge) -> String {
         let days = month.daysLeft()
-        let end = days <= 1 ? "Today is the last day." : "Runs through \(month.monthName)\u{00A0}\(month.dayCount)."
-        return "Each square is a day's Mahj Minute: \(MonthlyChallengeContent.questionsPerRound) new questions, the same for every player. Every right answer is a point, and your best \(MonthlyChallengeContent.countedDays) days make your month score, up to \(MonthlyChallengeContent.maxMonthPoints). Missed days are fine. \(end)"
+        let end = days <= 1
+            ? String(localized: "Today is the last day.")
+            : String(localized: "Runs through \(month.dayTitle(month.dayCount)).", comment: "The month's last day, as \"November 30\"")
+        return String(localized: "Each square is a day's Mahj Minute: \(MonthlyChallengeContent.questionsPerRound) new questions, the same for every player. Every right answer is a point, and your best \(MonthlyChallengeContent.countedDays) days make your month score, up to \(MonthlyChallengeContent.maxMonthPoints). Missed days are fine.") + " " + end
     }
 
     /// Before the first month: what it is and when it starts, plus the one
@@ -207,12 +209,12 @@ struct MonthlyChallengeView: View {
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 1) {
-                Text(score.daysPlayed > 0 ? "\(score.points)\u{00A0}points" : "Not played")
+                Text(score.daysPlayed > 0 ? String(localized: "\(score.points) points") : String(localized: "Not played"))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(score.daysPlayed > 0 ? Theme.plum : Theme.inkTertiary)
                     .monospacedDigit()
                 if score.daysPlayed > 0 {
-                    Text("\(score.daysPlayed)\u{00A0}\(score.daysPlayed == 1 ? "day" : "days")")
+                    Text(String(localized: "\(score.daysPlayed) days"))
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
                 }
@@ -269,10 +271,10 @@ private struct MonthScoreSummary: View {
 
     @ViewBuilder
     private var pills: some View {
-        pill("\(score.points)", "of \(MonthlyChallengeContent.maxMonthPoints) points")
-        pill("\(score.daysPlayed)", score.daysPlayed == 1 ? "day played" : "days played")
+        pill("\(score.points)", String(localized: "of \(MonthlyChallengeContent.maxMonthPoints) points"))
+        pill("\(score.daysPlayed)", score.daysPlayed == 1 ? String(localized: "day played") : String(localized: "days played"))
         if let top = standing?.topPercent {
-            pill("Top \(top)%", "this month")
+            pill(String(localized: "Top \(top)%"), String(localized: "this month"))
         }
     }
 
@@ -423,7 +425,7 @@ private struct MonthlyChallengeReminderButton: View {
                     }
                 }
             } label: {
-                Label(isOn ? "Reminder On · 1st of Each Month" : "Remind Me When \(nextMonthName) Opens",
+                Label(isOn ? String(localized: "Reminder On · 1st of Each Month") : String(localized: "Remind Me When \(nextMonthName) Opens"),
                       systemImage: isOn ? "bell.fill" : "bell")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(isOn ? Theme.jade : Theme.plum)
@@ -434,7 +436,7 @@ private struct MonthlyChallengeReminderButton: View {
                                 in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             }
             .buttonStyle(.plain)
-            .accessibilityHint(isOn ? "Turns the monthly reminder off" : "Sends one notification on the 1st of each month")
+            .accessibilityHint(isOn ? String(localized: "Turns the monthly reminder off") : String(localized: "Sends one notification on the 1st of each month"))
             .task {
                 // Notifications switched off in iOS Settings: say so rather
                 // than show a reminder that will never arrive.
@@ -487,7 +489,7 @@ struct MonthlyChallengeResultView: View {
                     NavigationLink {
                         MonthlyChallengeAnswersView(round: round, result: result)
                     } label: {
-                        Text(result.score == result.total ? "Review Your Answers" : "See What You Missed")
+                        Text(result.score == result.total ? String(localized: "Review Your Answers") : String(localized: "See What You Missed"))
                             .primaryCTA(color: Theme.plum)
                     }
                 }
@@ -500,8 +502,8 @@ struct MonthlyChallengeResultView: View {
                         .background(Theme.plum.opacity(0.1), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
                 MahjPlusPitchCard(
-                    headline: "Want more than five a day?",
-                    detail: "\(Membership.name) adds coached practice hands as often as you want, with fresh racks that never run out."
+                    headline: String(localized: "Want more than five a day?"),
+                    detail: String(localized: "\(Membership.name) adds coached practice hands as often as you want, with fresh racks that never run out.")
                 ) { showPaywall = true }
             }
             .padding()
@@ -530,21 +532,25 @@ struct MonthlyChallengeResultView: View {
     }
 
     private var verdict: String {
-        if result.score == result.total { return "A perfect Minute!" }
-        return fraction >= 0.6 ? "Solid Minute" : "A tough one"
+        if result.score == result.total { return String(localized: "A perfect Minute!") }
+        return fraction >= 0.6 ? String(localized: "Solid Minute") : String(localized: "A tough one")
     }
 
     private var monthLine: String {
-        let points = "\(month.points)\u{00A0}\(month.points == 1 ? "point" : "points") in the \(round.month.monthName) Challenge"
+        var parts = [
+            String(localized: "+\(result.score) today"),
+            String(localized: "\(String(localized: "\(month.points) points")) in the \(round.month.monthName) Challenge", comment: "A point count, then the month's name"),
+        ]
         if let top = store.standing(for: round.monthKey)?.topPercent {
-            return "+\(result.score) today · \(points) · Top\u{00A0}\(top)%"
+            parts.append(String(localized: "Top\u{00A0}\(top)%"))
         }
-        return "+\(result.score) today · \(points)"
+        return parts.joined(separator: " · ")
     }
 
     private var shareText: String {
         let squares = result.answers.map { $0 ? "🟩" : "⬜️" }.joined()
-        return "Mahj Minute, \(result.title)\n\(squares) · \(month.points) points in the \(result.monthName) Challenge\nFive new questions a day, the same for every player: \(AppStoreLinks.productURL.absoluteString)"
+        let points = String(localized: "\(String(localized: "\(month.points) points")) in the \(result.monthName) Challenge", comment: "A point count, then the month's name")
+        return String(localized: "Mahj Minute, \(result.title)\n\(squares) · \(points)\nFive new questions a day, the same for every player: \(AppStoreLinks.productURL.absoluteString)", comment: "Shared challenge result: the day, a row of squares and points, then the App Store link")
     }
 
     private var scoreCard: some View {
@@ -575,8 +581,8 @@ struct MonthlyChallengeResultView: View {
             MonthlyChallengeGrid(answers: result.answers)
                 .padding(.top, 2)
             Text(round.day >= round.month.dayCount
-                 ? "That was the last round of \(round.month.monthName)."
-                 : "A new Mahj Minute tomorrow.")
+                 ? String(localized: "That was the last round of \(round.month.monthName).")
+                 : String(localized: "A new Mahj Minute tomorrow."))
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -673,7 +679,9 @@ struct MonthlyChallengeAnswersView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .accessibilityElement(children: .combine)
-            .accessibilityLabel("Question \(index + 1), \(correct ? "right" : "missed"), \(MonthlyChallengeContent.skillTitle(of: item))")
+            .accessibilityLabel(correct
+                ? String(localized: "Question \(index + 1), right, \(MonthlyChallengeContent.skillTitle(of: item))")
+                : String(localized: "Question \(index + 1), missed, \(MonthlyChallengeContent.skillTitle(of: item))"))
             Text(item.prompt)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Theme.ink)
@@ -731,6 +739,8 @@ struct MonthlyChallengeAnswersView: View {
             }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(label)\(isAnswer ? ", the answer" : "")\(isPick ? ", your pick" : "")")
+        .accessibilityLabel(([label]
+            + (isAnswer ? [String(localized: "the answer")] : [])
+            + (isPick ? [String(localized: "your pick")] : [])).joined(separator: ", "))
     }
 }

@@ -233,30 +233,32 @@ enum HandPlayEngine {
 
         if wasBest {
             if case .joker = discard {
-                return "That was the only throw available, but jokers are never junk. Hold them."
+                return String(localized: "That was the only throw available, but jokers are never junk. Hold them.")
             }
             if !fits {
-                return "Right. The \(discard.spokenName) is outside the \(target.displayName) shape you are building, and tiles that don't fit your shape are the ones to spend first."
+                return String(localized: "Right. The \(discard.spokenName) is outside the \(target.displayName) shape you are building, and tiles that don't fit your shape are the ones to spend first.")
             }
-            return "Good throw. It fits \(target.displayName), but you were holding only \(copies == 1 ? "one" : "\(copies)") of it, so it was the cheapest thing on your rack."
+            return copies == 1
+                ? String(localized: "Good throw. It fits \(target.displayName), but you were holding only one of it, so it was the cheapest thing on your rack.")
+                : String(localized: "Good throw. It fits \(target.displayName), but you were holding only \(copies) of it, so it was the cheapest thing on your rack.")
         }
 
         let best = bestDiscards(from: rack, target: target)
         let suggestion = best.sorted { $0.sortKey < $1.sortKey }.first
         var note: String
         if case .joker = discard {
-            note = "Never throw a joker. It can fill any group of three or more, which makes it the most valuable tile on your rack."
+            note = String(localized: "Never throw a joker. It can fill any group of three or more, which makes it the most valuable tile on your rack.")
         } else if copies >= 3 {
-            note = "You just broke a group. You were holding \(copies) of the \(discard.spokenName), and rebuilding that costs you tiles somebody else may already be collecting."
+            note = String(localized: "You just broke a group. You were holding \(copies) of the \(discard.spokenName), and rebuilding that costs you tiles somebody else may already be collecting.")
         } else if copies == 2 {
-            note = "That was half a pair. A pair is the cheapest route to a pung, so it is worth more than the two loose tiles it looks like."
+            note = String(localized: "That was half a pair. A pair is the cheapest route to a pung, so it is worth more than the two loose tiles it looks like.")
         } else if fits {
-            note = "The \(discard.spokenName) fits \(target.displayName), so throwing it costs you a tile you would have wanted back."
+            note = String(localized: "The \(discard.spokenName) fits \(target.displayName), so throwing it costs you a tile you would have wanted back.")
         } else {
-            note = "That tile was already outside \(target.displayName), so the throw was not wrong so much as second best."
+            note = String(localized: "That tile was already outside \(target.displayName), so the throw was not wrong so much as second best.")
         }
         if let suggestion {
-            note += " The cheapest throw here was the \(suggestion.spokenName)."
+            note += " " + String(localized: "The cheapest throw here was the \(suggestion.spokenName).")
         }
         return note
     }
@@ -326,16 +328,20 @@ enum HandPlayEngine {
 
         let headline: String
         switch stars {
-        case 3: headline = "That is how you build a hand"
-        case 2: headline = "Solid hand"
-        case 1: headline = "You got there in the end"
-        default: headline = "That one fought you"
+        case 3: headline = String(localized: "That is how you build a hand")
+        case 2: headline = String(localized: "Solid hand")
+        case 1: headline = String(localized: "You got there in the end")
+        default: headline = String(localized: "That one fought you")
         }
 
         let grouped = working == 0
-            ? "None of them have paired up yet, and pairs are what turn a collection into a hand."
-            : "\(working) of them are already sitting in a group of two or more, which is the half that counts."
-        let body = "You finished with \(fitting) of \(rack.count) tiles that fit \(target.displayName). \(grouped) \(cleanDiscards) of your \(discards) throws were the cheapest one available, and that is the number to chase: the shape you are building toward is the whole game, and everything outside it is what you spend."
+            ? String(localized: "None of them have paired up yet, and pairs are what turn a collection into a hand.")
+            : String(localized: "\(working) of them are already sitting in a group of two or more, which is the half that counts.")
+        let body = [
+            String(localized: "You finished with \(fitting) of \(rack.count) tiles that fit \(target.displayName)."),
+            grouped,
+            String(localized: "\(cleanDiscards) of your \(discards) throws were the cheapest one available, and that is the number to chase: the shape you are building toward is the whole game, and everything outside it is what you spend."),
+        ].joined(separator: " ")
 
         return Verdict(
             fitting: fitting,

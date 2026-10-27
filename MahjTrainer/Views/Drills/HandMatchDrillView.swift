@@ -64,7 +64,7 @@ struct HandMatchDrillView: View {
                 .tint(Theme.jade)
             VStack(spacing: 16) {
                 QuestionPager(
-                    prompt: "Which section is this rack chasing?",
+                    prompt: String(localized: "Which section is this rack chasing?"),
                     tiles: question.tiles.racked,
                     explanation: question.explanation,
                     answered: answered,
@@ -106,7 +106,7 @@ struct HandMatchDrillView: View {
                 Button {
                     advance()
                 } label: {
-                    Text(index + 1 < questions.count ? "Next Rack" : "Finish").primaryCTA()
+                    Text(index + 1 < questions.count ? String(localized: "Next Rack") : String(localized: "Finish")).primaryCTA()
                 }
             } else {
                 Text("Rack \(index + 1) of \(questions.count)")

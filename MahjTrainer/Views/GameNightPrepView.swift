@@ -75,7 +75,7 @@ struct GameNightPrepView: View {
                         .font(.caption.weight(.heavy))
                         .kerning(1.4)
                         .foregroundStyle(Theme.inkSecondary)
-                    Text(settings.gameNightReminderEnabled ? "Prep is scheduled" : "Choose your game night")
+                    Text(settings.gameNightReminderEnabled ? String(localized: "Prep is scheduled") : String(localized: "Choose your game night"))
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
                 }
@@ -90,7 +90,7 @@ struct GameNightPrepView: View {
                 }
             }
             DatePicker(
-                "Prep Reminder",
+                String(localized: "Prep Reminder"),
                 selection: $settings.gameNightReminderTime,
                 displayedComponents: .hourAndMinute
             )
@@ -134,14 +134,14 @@ struct GameNightPrepView: View {
         // promise on the card matches the questions it deals.
         let due = records.dueCount(among: reviewableIDs)
         if due > 0, let weakest {
-            return "\(due) due mistake\(due == 1 ? "" : "s") first, then extra work in \(weakest.name)."
+            return String(localized: "\(String(localized: "\(due) due mistakes")) first, then extra work in \(weakest.name).", comment: "A count of due mistakes, then a room name")
         }
         if due > 0 {
-            return "\(due) due mistake\(due == 1 ? "" : "s") first, followed by material you have not seen yet."
+            return String(localized: "\(String(localized: "\(due) due mistakes")) first, followed by material you have not seen yet.", comment: "A count of due mistakes")
         }
         if let weakest {
-            return "Extra work in \(weakest.name), followed by a balanced mix from the other rooms."
+            return String(localized: "Extra work in \(weakest.name), followed by a balanced mix from the other rooms.")
         }
-        return "A balanced member mix now. As you answer more questions, this session will zero in on your real weak spots."
+        return String(localized: "A balanced member mix now. As you answer more questions, this session will zero in on your real weak spots.")
     }
 }

@@ -195,13 +195,13 @@ struct HandPlayView: View {
             HStack(spacing: 8) {
                 Image(systemName: agrees ? "checkmark.seal.fill" : "graduationcap.fill")
                     .foregroundStyle(agrees ? Theme.bamGreen : Theme.gold)
-                Text(agrees ? "The coach agrees" : "The coach reads it differently")
+                Text(agrees ? String(localized: "The coach agrees") : String(localized: "The coach reads it differently"))
                     .font(.headline)
                     .foregroundStyle(Theme.ink)
             }
             Text(agrees
-                 ? "\(chosen.displayName) is where most of this rack already points. Play it out."
-                 : "The coach would have started \(coachPick?.displayName ?? chosen.displayName) with this deal. You are not wrong to try \(chosen.displayName), and a hand you have committed to beats a hand you keep changing your mind about, so that is what these twelve turns will be graded against.")
+                 ? String(localized: "\(chosen.displayName) is where most of this rack already points. Play it out.")
+                 : String(localized: "The coach would have started \(coachPick?.displayName ?? chosen.displayName) with this deal. You are not wrong to try \(chosen.displayName), and a hand you have committed to beats a hand you keep changing your mind about, so that is what these twelve turns will be graded against."))
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -214,7 +214,7 @@ struct HandPlayView: View {
                             .font(.footnote.weight(entry.target == chosen ? .bold : .regular))
                             .foregroundStyle(entry.target == chosen ? Theme.ink : Theme.inkSecondary)
                         Spacer()
-                        Text("\(fitting) tile\(fitting == 1 ? "" : "s") fit")
+                        Text("\(fitting) tiles fit")
                             .font(.caption)
                             .foregroundStyle(Theme.inkTertiary)
                             .monospacedDigit()
@@ -268,8 +268,8 @@ struct HandPlayView: View {
                 VStack(spacing: 16) {
                     if let drawn {
                         let prompt = grade == nil
-                            ? "You drew the \(drawn.spokenName). What goes?"
-                            : "You threw the \(grade?.discard.spokenName ?? "")."
+                            ? String(localized: "You drew the \(drawn.spokenName). What goes?")
+                            : String(localized: "You threw the \(grade?.discard.spokenName ?? ")")."
                         // The old line leaves at once and the new one fades in
                         // once the rack has settled. Cross-faded while the rack
                         // re-centred, both lines showed on top of each other
@@ -303,7 +303,7 @@ struct HandPlayView: View {
                 Button {
                     advance()
                 } label: {
-                    Text(turn >= HandPlayEngine.turnCount ? "See how you did" : "Next turn").primaryCTA()
+                    Text(turn >= HandPlayEngine.turnCount ? String(localized: "See how you did") : String(localized: "Next turn")).primaryCTA()
                 }
             }
         }
@@ -495,9 +495,9 @@ struct HandPlayView: View {
                         .multilineTextAlignment(.center)
 
                     HStack(spacing: 0) {
-                        metric("\(verdict.fitting)/\(verdict.total)", "tiles fit", Theme.jade)
+                        metric("\(verdict.fitting)/\(verdict.total)", String(localized: "tiles fit"), Theme.jade)
                         Divider().frame(height: 34)
-                        metric("\(verdict.cleanDiscards)/\(verdict.discards)", "clean throws", Theme.coral)
+                        metric("\(verdict.cleanDiscards)/\(verdict.discards)", String(localized: "clean throws"), Theme.coral)
                     }
                     .padding(.vertical, 16)
                     .frame(maxWidth: .infinity)

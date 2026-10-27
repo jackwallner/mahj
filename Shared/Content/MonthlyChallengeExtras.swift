@@ -501,7 +501,7 @@ extension MonthlyChallengeContent {
             choices: choices,
             answerIndex: 0,
             explanation: explanation,
-            sourceLabel: "Monthly Challenge",
+            sourceLabel: String(localized: "Monthly Challenge"),
             roomID: "table-room",
             isReviewable: false,
             choiceNotes: [nil] + notes

@@ -9,9 +9,9 @@ enum MahjMinuteCategory: String, CaseIterable, Codable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .rackReading: return "Rack Reading"
-        case .charleston: return "Charleston"
-        case .tableJudgment: return "Table Judgment"
+        case .rackReading: return String(localized: "Rack Reading")
+        case .charleston: return String(localized: "Charleston")
+        case .tableJudgment: return String(localized: "Table Judgment")
         }
     }
 
@@ -47,8 +47,8 @@ enum MahjMinuteContent {
 
     static let drill = Drill(
         id: "mahj-minute",
-        title: "Mahj Minute",
-        subtitle: "Today's shared five-question challenge",
+        title: String(localized: "Mahj Minute"),
+        subtitle: String(localized: "Today's shared five-question challenge"),
         kind: .quiz([]),
         isPlus: true
     )
@@ -94,12 +94,12 @@ enum MahjMinuteContent {
             let answerIndex = rack.choices.firstIndex(of: rack.answer) ?? 0
             let item = QuickItem(
                 id: PracticeSkill.rackReading.itemPrefix + "minute-\(dayKey)-\(index)",
-                prompt: "Which section is this rack chasing?",
+                prompt: String(localized: "Which section is this rack chasing?"),
                 tiles: rack.tiles,
                 choices: labels,
                 answerIndex: answerIndex,
                 explanation: rack.explanation,
-                sourceLabel: "Mahj Minute: Rack Read",
+                sourceLabel: String(localized: "Mahj Minute: Rack Read"),
                 roomID: PracticeSkill.rackReading.roomID,
                 trackingID: PracticeSkill.rackReading.rawValue,
                 isReviewable: false
@@ -112,7 +112,7 @@ enum MahjMinuteContent {
         let item = authoredCharlestonItem(
             seed: "mahj-minute-\(dayKey)-charleston",
             id: "mahj-minute-charleston-\(dayKey)",
-            sourceLabel: "Mahj Minute: Charleston",
+            sourceLabel: String(localized: "Mahj Minute: Charleston"),
             trackingID: "mahj-minute-charleston",
             distractorSeed: dayKey
         )
@@ -159,7 +159,7 @@ enum MahjMinuteContent {
         let item = QuickItem(
             id: id,
             // The drill's "Pick 3." cue says the same thing as the question.
-            prompt: "\(scenario.situation.replacingOccurrences(of: " Pick 3 tiles to pass.", with: "").replacingOccurrences(of: " Pick 3.", with: "")) Which three tiles make the strongest pass?",
+            prompt: String(localized: "\(scenario.situationStem) Which three tiles make the strongest pass?"),
             tiles: scenario.deal.racked,
             choices: [answer] + distractors.map(\.label),
             answerIndex: 0,
@@ -196,10 +196,10 @@ enum MahjMinuteContent {
         let keepers = given.filter(isKeeper)
         let others = given.filter { !isKeeper($0) }
         guard !keepers.isEmpty else {
-            return "This pass sends \(phrase(others)), which the strongest pass holds back."
+            return String(localized: "This pass sends \(phrase(others)), which the strongest pass holds back.")
         }
-        let note = "This pass gives away \(phrase(keepers)), which the strongest pass keeps."
-        return others.isEmpty ? note : note + " It also sends \(phrase(others)), which the strongest pass holds back."
+        let note = String(localized: "This pass gives away \(phrase(keepers)), which the strongest pass keeps.")
+        return others.isEmpty ? note : note + " " + String(localized: "It also sends \(phrase(others)), which the strongest pass holds back.")
     }
 
     /// "the 7 Bam", "two Flowers", "the 6 Dot and the Flower".
@@ -208,8 +208,13 @@ enum MahjMinuteContent {
         for tile in tiles {
             if let index = groups.firstIndex(where: { $0.tile == tile }) { groups[index].count += 1 } else { groups.append((tile, 1)) }
         }
-        return groups.map { $0.count == 1 ? "the \($0.tile.spokenName)" : "\($0.count == 2 ? "two" : "three") \($0.tile.spokenName)s" }
-            .joined(separator: " and ")
+        return PhraseList.chained(groups.map { group in
+            switch group.count {
+            case 1: return String(localized: "the \(group.tile.spokenName)", comment: "One tile a pass gives away")
+            case 2: return String(localized: "two \(group.tile.pluralName)", comment: "Two copies of a tile a pass gives away")
+            default: return String(localized: "three \(group.tile.pluralName)", comment: "Three copies of a tile a pass gives away")
+            }
+        })
     }
 
     private static func distractorPasses(for scenario: CharlestonScenario, seed: String) -> [(label: String, tiles: [Tile])] {
@@ -238,14 +243,19 @@ enum MahjMinuteContent {
                     // answer would mark that equally good pass wrong.
                     guard overlap(pass, scenario.recommendedPass) <= 1 else { continue }
                     if givesAwayKeeper, !pass.contains(where: isKeeper) { continue }
-                    let label = passLabel(pass)
+                    // Keyed by the English names, so the sort below, and with it
+                    // the day's shared question, is the same in every language.
+                    let label = pass.racked.map(\.englishName).joined(separator: ", ")
                     if labels[label] == nil { labels[label] = pass }
                 }
             }
         }
         let sorted = labels.keys.sorted()
         let order = ChoiceShuffle.permutation(count: sorted.count, seed: "mahj-minute-\(seed)-passes")
-        return order.prefix(3).map { (label: sorted[$0], tiles: labels[sorted[$0]] ?? []) }
+        return order.prefix(3).map { index in
+            let tiles = labels[sorted[index]] ?? []
+            return (label: passLabel(tiles), tiles: tiles)
+        }
     }
 
     /// Tiles two passes share, counting duplicates the way the drill grades.

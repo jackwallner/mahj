@@ -8,9 +8,9 @@ enum TrialOfferContext {
 
     var headline: String {
         switch self {
-        case .drillResult: return "Keep the practice going"
-        case .minuteResult: return "Want more than five a day?"
-        case .handSpent: return "Play another hand now"
+        case .drillResult: return String(localized: "Keep the practice going")
+        case .minuteResult: return String(localized: "Want more than five a day?")
+        case .handSpent: return String(localized: "Play another hand now")
         }
     }
 
@@ -52,9 +52,9 @@ struct TrialOfferSheet: View {
     @State private var trialEligible = true
 
     static let benefits = [
-        "Play coached practice hands, as many as you want",
-        "Fresh racks and passes that never run out",
-        "Your misses come back until they stick",
+        String(localized: "Play coached practice hands, as many as you want"),
+        String(localized: "Fresh racks and passes that never run out"),
+        String(localized: "Your misses come back until they stick"),
     ]
 
     private var plan: PaywallPlan { subscriptions.onboardingPlan.plan }
@@ -113,7 +113,7 @@ struct TrialOfferSheet: View {
                     .foregroundStyle(Theme.ink)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
-                Text(trialEligible ? "Try \(Membership.name) free for 7 days." : "Everything in \(Membership.name), starting today.")
+                Text(trialEligible ? String(localized: "Try \(Membership.name) free for 7 days.") : String(localized: "Everything in \(Membership.name), starting today."))
                     .font(.subheadline)
                     .foregroundStyle(Theme.inkSecondary)
                     .multilineTextAlignment(.center)
@@ -139,7 +139,7 @@ struct TrialOfferSheet: View {
                         if purchasing {
                             ProgressView().tint(Theme.onFill)
                         } else {
-                            Text(trialEligible ? subscriptions.trialCTA(.onboarding) : "Join \(Membership.name)")
+                            Text(trialEligible ? subscriptions.trialCTA(.onboarding) : String(localized: "Join \(Membership.name)"))
                         }
                     }
                     .primaryCTA()
@@ -185,9 +185,11 @@ struct TrialOfferSheet: View {
         let cancelBy = Calendar.current.date(byAdding: .day, value: -1, to: ends) ?? ends
         let day = Date.FormatStyle().month(.abbreviated).day()
         return VStack(alignment: .leading, spacing: 12) {
-            timelineRow("lock.open.fill", "Today", "All of \(Membership.name) opens: coached practice hands, fresh racks, Fix My Mistakes")
-            timelineRow("calendar", "By \(cancelBy.formatted(day))", "Cancel in Settings and you pay nothing")
-            timelineRow("star.fill", ends.formatted(day), "Your \(plan == .yearly ? "yearly" : "monthly") plan begins")
+            timelineRow("lock.open.fill", String(localized: "Today"), String(localized: "All of \(Membership.name) opens: coached practice hands, fresh racks, Fix My Mistakes"))
+            timelineRow("calendar", String(localized: "By \(cancelBy.formatted(day))"), String(localized: "Cancel in Settings and you pay nothing"))
+            timelineRow("star.fill", ends.formatted(day), plan == .yearly
+                ? String(localized: "Your yearly plan begins")
+                : String(localized: "Your monthly plan begins"))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -237,7 +239,7 @@ struct TrialOfferSheet: View {
             // A reinstalled member whose purchases are still syncing must not
             // reach Apple's sheet as a stranger.
             guard !subscriptions.isRecoveringMembership else {
-                message = "Still checking what this Apple Account owns. Try again in a moment, or tap Restore."
+                message = String(localized: "Still checking what this Apple Account owns. Try again in a moment, or tap Restore.")
                 return
             }
             guard let package = subscriptions.package(for: plan) else {
@@ -257,7 +259,7 @@ struct TrialOfferSheet: View {
                     if await subscriptions.confirmEntitlement() {
                         dismiss()
                     } else {
-                        message = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore."
+                        message = String(localized: "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore.")
                     }
                 case .cancelled:
                     break
@@ -276,7 +278,7 @@ struct TrialOfferSheet: View {
             do {
                 try await subscriptions.restore()
                 if !subscriptions.isPro {
-                    message = "No previous purchase found on this Apple Account."
+                    message = String(localized: "No previous purchase found on this Apple Account.")
                 }
             } catch {
                 message = error.localizedDescription

@@ -51,33 +51,33 @@ enum WhatsNew {
             // Shipping as 1.4.1: 1.4.0 was pulled before release, and this
             // matches CFBundleShortVersionString exactly.
             version: "1.4.1",
-            headline: "Built around your week",
+            headline: String(localized: "Built around your week"),
             items: [
                 WhatsNewItem(
                     id: monthlyChallengeItemID,
                     icon: "calendar",
-                    title: "Mahj Minute, now for everyone",
-                    body: "Five new questions every day, the same for every player. Each day counts toward the month's challenge: your best 20 days make your score, and a strong month shows where you rank.",
+                    title: String(localized: "Mahj Minute, now for everyone"),
+                    body: String(localized: "Five new questions every day, the same for every player. Each day counts toward the month's challenge: your best 20 days make your score, and a strong month shows where you rank."),
                     isAppleOnly: true
                 ),
                 WhatsNewItem(
                     id: "week-gain",
                     icon: "arrow.up.right",
-                    title: "Your week, counted",
-                    body: "Home and Your Progress now show how many questions you locked in this week, so you can see the practice working."
+                    title: String(localized: "Your week, counted"),
+                    body: String(localized: "Home and Your Progress now show how many questions you locked in this week, so you can see the practice working.")
                 ),
                 WhatsNewItem(
                     id: "game-night-card",
                     icon: "person.2.fill",
-                    title: "Game night, front and center",
-                    body: "Members can set their game night from Home, and a prep reminder brings you back before you play.",
+                    title: String(localized: "Game night, front and center"),
+                    body: String(localized: "Members can set their game night from Home, and a prep reminder brings you back before you play."),
                     isPlus: true
                 ),
                 WhatsNewItem(
                     id: "feedback",
                     icon: "paperplane.fill",
-                    title: "Feedback without the email",
-                    body: "Send Feedback is a text box and one button now. No mail app, no account."
+                    title: String(localized: "Feedback without the email"),
+                    body: String(localized: "Send Feedback is a text box and one button now. No mail app, no account.")
                 ),
             ]
         ),
@@ -85,116 +85,116 @@ enum WhatsNew {
             // Shipped as 1.3.1: 1.3.0 never reached the App Store, and this
             // matches CFBundleShortVersionString exactly.
             version: "1.3.1",
-            headline: "Play a hand, not just a flashcard",
+            headline: String(localized: "Play a hand, not just a flashcard"),
             items: [
                 WhatsNewItem(
                     id: "hand-play",
                     icon: "hand.draw.fill",
-                    title: "Play a Hand",
-                    body: "Commit to a section, then draw and discard for twelve turns while a coach grades every throw. One hand a day is free, and members can deal as many as they like.",
+                    title: String(localized: "Play a Hand"),
+                    body: String(localized: "Commit to a section, then draw and discard for twelve turns while a coach grades every throw. One hand a day is free, and members can deal as many as they like."),
                     isPlus: true
                 ),
                 WhatsNewItem(
                     id: "table-rules",
                     icon: "dollarsign.circle.fill",
-                    title: "Scoring and table rules",
-                    body: "Who pays what, when a call is too late, and what happens after a wrong mah jongg, in the Table Room. Free for everyone."
+                    title: String(localized: "Scoring and table rules"),
+                    body: String(localized: "Who pays what, when a call is too late, and what happens after a wrong mah jongg, in the Table Room. Free for everyone.")
                 ),
                 WhatsNewItem(
                     id: "card-lines",
                     icon: "menucard.fill",
-                    title: "Read a line on the card",
-                    body: "Matching and opposite dragons, NEWS, zeros, and which numbers can slide, in Know the Sections. Free for everyone."
+                    title: String(localized: "Read a line on the card"),
+                    body: String(localized: "Matching and opposite dragons, NEWS, zeros, and which numbers can slide, in Know the Sections. Free for everyone.")
                 ),
                 WhatsNewItem(
                     id: "reference",
                     icon: "book.closed.fill",
-                    title: "Reference and glossary",
-                    body: "Search any term or read any section from the book icon on Home. Free, and built for looking something up mid-game."
+                    title: String(localized: "Reference and glossary"),
+                    body: String(localized: "Search any term or read any section from the book icon on Home. Free, and built for looking something up mid-game.")
                 ),
                 WhatsNewItem(
                     id: "mastery",
                     icon: "checkmark.seal.fill",
-                    title: "Rooms that track what is holding",
-                    body: "Each room's ring now fills as questions stick rather than as drills get opened, and Your Progress shows where you actually stand."
+                    title: String(localized: "Rooms that track what is holding"),
+                    body: String(localized: "Each room's ring now fills as questions stick rather than as drills get opened, and Your Progress shows where you actually stand.")
                 ),
                 WhatsNewItem(
                     id: "why-not",
                     icon: "questionmark.circle.fill",
-                    title: "Why your answer was wrong",
-                    body: "Miss a question and you can now open a note on the answer you chose, not just a reminder of the one you did not."
+                    title: String(localized: "Why your answer was wrong"),
+                    body: String(localized: "Miss a question and you can now open a note on the answer you chose, not just a reminder of the one you did not.")
                 ),
                 WhatsNewItem(
                     id: "more-endless",
                     icon: "infinity",
-                    title: "Two more endless skills",
-                    body: "Endless Practice now deals Charleston passes and defensive discards as well as racks and tile counts.",
+                    title: String(localized: "Two more endless skills"),
+                    body: String(localized: "Endless Practice now deals Charleston passes and defensive discards as well as racks and tile counts."),
                     isPlus: true
                 ),
             ]
         ),
         WhatsNewRelease(
             version: "1.2.0",
-            headline: "A smarter rhythm for game night",
+            headline: String(localized: "A smarter rhythm for game night"),
             items: [
                 WhatsNewItem(
                     id: "mahj-minute",
                     icon: "calendar.badge.clock",
-                    title: "Mahj Minute",
-                    body: "Take the same five-question challenge as every other member, share your score, and keep a forgiving five-day weekly rhythm.",
+                    title: String(localized: "Mahj Minute"),
+                    body: String(localized: "Take the same five-question challenge as every other member, share your score, and keep a forgiving five-day weekly rhythm."),
                     isPlus: true
                 ),
                 WhatsNewItem(
                     id: "game-night-prep",
                     icon: "person.2.fill",
-                    title: "Game Night Prep",
-                    body: "Choose your usual game night and get a five-minute session built from your mistakes and weakest room when it matters.",
+                    title: String(localized: "Game Night Prep"),
+                    body: String(localized: "Choose your usual game night and get a five-minute session built from your mistakes and weakest room when it matters."),
                     isPlus: true
                 ),
                 WhatsNewItem(
                     id: "ipad",
                     icon: "ipad.landscape",
-                    title: "Made for iPad",
-                    body: "Practice at the table with a native iPad layout in portrait or landscape."
+                    title: String(localized: "Made for iPad"),
+                    body: String(localized: "Practice at the table with a native iPad layout in portrait or landscape.")
                 ),
             ]
         ),
         WhatsNewRelease(
             version: "1.1",
-            headline: "Practice that never runs out",
+            headline: String(localized: "Practice that never runs out"),
             items: [
                 WhatsNewItem(
                     id: "endless",
                     icon: "infinity",
-                    title: "Endless Practice",
-                    body: "Freshly dealt racks, every time. Read the section or count what is still live for as long as you like, with a full explanation after every answer.",
+                    title: String(localized: "Endless Practice"),
+                    body: String(localized: "Freshly dealt racks, every time. Read the section or count what is still live for as long as you like, with a full explanation after every answer."),
                     isPlus: true
                 ),
                 WhatsNewItem(
                     id: "review",
                     icon: "arrow.trianglehead.counterclockwise",
-                    title: "Fix My Mistakes",
-                    body: "The app now remembers what you get wrong and brings it back on a schedule, so the weak spots actually close instead of piling up.",
+                    title: String(localized: "Fix My Mistakes"),
+                    body: String(localized: "The app now remembers what you get wrong and brings it back on a schedule, so the weak spots actually close instead of piling up."),
                     isPlus: true
                 ),
                 WhatsNewItem(
                     id: "challenge",
                     icon: "timer",
-                    title: "Timed Challenge",
-                    body: "Ninety seconds, as many correct reads as you can manage, and a personal best to chase.",
+                    title: String(localized: "Timed Challenge"),
+                    body: String(localized: "Ninety seconds, as many correct reads as you can manage, and a personal best to chase."),
                     isPlus: true
                 ),
                 WhatsNewItem(
                     id: "stats",
                     icon: "chart.bar.fill",
-                    title: "Your progress, in detail",
-                    body: "Accuracy for every room, your weakest area, and how much you have practiced overall."
+                    title: String(localized: "Your progress, in detail"),
+                    body: String(localized: "Accuracy for every room, your weakest area, and how much you have practiced overall.")
                 ),
                 WhatsNewItem(
                     id: "content",
                     icon: "plus.rectangle.on.folder.fill",
-                    title: "More drills in every room",
-                    body: "New hand-written questions across the tiles, the card, the Charleston, the table, and the Master Tables."
+                    title: String(localized: "More drills in every room"),
+                    body: String(localized: "New hand-written questions across the tiles, the card, the Charleston, the table, and the Master Tables.")
                 ),
             ]
         )

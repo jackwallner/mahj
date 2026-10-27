@@ -57,8 +57,8 @@ enum MonthlyChallengeReminder {
             parts.hour = 10
             parts.minute = 0
             let content = UNMutableNotificationContent()
-            content.title = "The \(challenge.monthName) Challenge is here"
-            content.body = "\(challenge.theme.title): \(challenge.theme.blurb) A new Mahj Minute every day this month."
+            content.title = String(localized: "The \(challenge.monthName) Challenge is here", comment: "Notification title: the month's name")
+            content.body = String(localized: "\(challenge.theme.title): \(challenge.theme.blurb) A new Mahj Minute every day this month.", comment: "Notification body: the month's theme, then its one-line description")
             content.sound = .default
             content.userInfo = [AppNotification.routeKey: AppNotification.monthlyChallengeValue]
             let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)

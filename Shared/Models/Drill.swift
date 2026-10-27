@@ -7,7 +7,7 @@ struct CardChoice: Codable, Sendable {
     let answerIndex: Int
 
     init(_ first: String, _ second: String, answerIndex: Int) {
-        options = [first, second]
+        options = ContentText.localized([first, second])
         self.answerIndex = answerIndex
     }
 }
@@ -24,11 +24,11 @@ struct Flashcard: Codable, Identifiable, Sendable {
     init(id: String, frontTitle: String, frontTiles: [Tile] = [], frontSubtitle: String? = nil,
          backTitle: String, backBody: String, choice: CardChoice? = nil) {
         self.id = id
-        self.frontTitle = frontTitle
+        self.frontTitle = ContentText.localized(frontTitle)
         self.frontTiles = frontTiles
-        self.frontSubtitle = frontSubtitle
-        self.backTitle = backTitle
-        self.backBody = backBody
+        self.frontSubtitle = ContentText.localized(frontSubtitle)
+        self.backTitle = ContentText.localized(backTitle)
+        self.backBody = ContentText.localized(backBody)
         self.choice = choice
     }
 }
@@ -44,11 +44,11 @@ struct QuizQuestion: Codable, Identifiable, Sendable {
     init(id: String, prompt: String, tiles: [Tile] = [], choices: [String], answerIndex: Int,
          explanation: String) {
         self.id = id
-        self.prompt = prompt
+        self.prompt = ContentText.localized(prompt)
         self.tiles = tiles
-        self.choices = choices
+        self.choices = ContentText.localized(choices)
         self.answerIndex = answerIndex
-        self.explanation = explanation
+        self.explanation = ContentText.localized(explanation)
     }
 }
 
@@ -58,6 +58,14 @@ struct HandMatchQuestion: Codable, Identifiable, Sendable {
     let choices: [HandCategory]
     let answer: HandCategory
     let explanation: String
+
+    init(id: String, tiles: [Tile], choices: [HandCategory], answer: HandCategory, explanation: String) {
+        self.id = id
+        self.tiles = tiles
+        self.choices = choices
+        self.answer = answer
+        self.explanation = ContentText.localized(explanation)
+    }
 }
 
 struct CharlestonScenario: Codable, Identifiable, Sendable {
@@ -67,6 +75,22 @@ struct CharlestonScenario: Codable, Identifiable, Sendable {
     let recommendedPass: [Tile]
     let reasoning: String
     let tip: String
+    /// The situation without its "Pick 3" cue, for prompts that ask the
+    /// question in their own words.
+    let situationStem: String
+
+    init(id: String, situation: String, deal: [Tile], recommendedPass: [Tile], reasoning: String, tip: String) {
+        self.id = id
+        self.situation = ContentText.localized(situation)
+        self.deal = deal
+        self.recommendedPass = recommendedPass
+        self.reasoning = ContentText.localized(reasoning)
+        self.tip = ContentText.localized(tip)
+        let stem = situation
+            .replacingOccurrences(of: " Pick 3 tiles to pass.", with: "")
+            .replacingOccurrences(of: " Pick 3.", with: "")
+        situationStem = ContentText.localized(stem)
+    }
 }
 
 enum DrillKind: Codable, Sendable {
@@ -97,8 +121,8 @@ struct Drill: Codable, Identifiable, Sendable {
 
     init(id: String, title: String, subtitle: String, kind: DrillKind, isPlus: Bool = false) {
         self.id = id
-        self.title = title
-        self.subtitle = subtitle
+        self.title = ContentText.localized(title)
+        self.subtitle = ContentText.localized(subtitle)
         self.kind = kind
         self.isPlus = isPlus
     }
@@ -113,6 +137,15 @@ struct Room: Identifiable, Sendable {
     /// it are the locked extras. A non-free room is locked whole.
     let isFree: Bool
     let drills: [Drill]
+
+    init(id: String, name: String, tagline: String, icon: String, isFree: Bool, drills: [Drill]) {
+        self.id = id
+        self.name = ContentText.localized(name)
+        self.tagline = ContentText.localized(tagline)
+        self.icon = icon
+        self.isFree = isFree
+        self.drills = drills
+    }
 
     /// Drills a member unlocks here: the whole room if it's paid, otherwise
     /// just the extra sets.

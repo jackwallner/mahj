@@ -99,12 +99,12 @@ struct PracticeRunView: View {
             Image(systemName: "checkmark.circle")
                 .font(.system(size: 48))
                 .foregroundStyle(Theme.jade)
-            Text(mode == .review ? "Nothing due" : "Nothing to practice")
+            Text(mode == .review ? String(localized: "Nothing due") : String(localized: "Nothing to practice"))
                 .font(Theme.display(28))
                 .foregroundStyle(Theme.ink)
             Text(mode == .review
-                 ? "No choice questions are due. Review missed three-tile passes and flip cards in their room drills."
-                 : "No questions could be prepared for this run. Try again in a moment.")
+                 ? String(localized: "No choice questions are due. Review missed three-tile passes and flip cards in their room drills.")
+                 : String(localized: "No questions could be prepared for this run. Try again in a moment."))
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -179,8 +179,8 @@ struct PracticeRunView: View {
     private var title: String {
         switch mode {
         case .endless(let skill): return skill.title
-        case .timed: return "Timed Challenge"
-        case .review: return "Fix My Mistakes"
+        case .timed: return String(localized: "Timed Challenge")
+        case .review: return String(localized: "Fix My Mistakes")
         }
     }
 
@@ -228,7 +228,7 @@ struct PracticeRunView: View {
             // An endless run has no natural end, so it must always offer one.
             if mode != .timed {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(mode == .review ? "Close" : "Finish") { finish() }
+                    Button(mode == .review ? String(localized: "Close") : String(localized: "Finish")) { finish() }
                         .foregroundStyle(Theme.jade)
                 }
             }
@@ -291,7 +291,7 @@ struct PracticeRunView: View {
                 Button {
                     advance()
                 } label: {
-                    Text(isLastItem ? "Finish" : "Next").primaryCTA()
+                    Text(isLastItem ? String(localized: "Finish") : String(localized: "Next")).primaryCTA()
                 }
             } else {
                 Text(counterText)
@@ -322,7 +322,7 @@ struct PracticeRunView: View {
     }
 
     private var counterText: String {
-        mode == .review ? "\(index + 1) of \(items.count)" : "Question \(index + 1)"
+        mode == .review ? String(localized: "\(index + 1) of \(items.count)") : String(localized: "Question \(index + 1)")
     }
 
     // MARK: - Clock

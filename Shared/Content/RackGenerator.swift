@@ -248,29 +248,29 @@ enum RackGenerator {
     /// half fits it would argue for the wrong answer.
     static func missNote(tiles: [Tile], choice: HandCategory, answer: HandCategory) -> String {
         let ranks = suitedRanks(tiles).sorted()
-        let generic = "\(choice.displayName) could use some of these tiles, but more of them point to \(answer.displayName)."
-        let noNumbers = "This rack has no numbered tiles at all, and \(choice.displayName) is built from numbers."
+        let generic = String(localized: "\(choice.displayName) could use some of these tiles, but more of them point to \(answer.displayName).")
+        let noNumbers = String(localized: "This rack has no numbered tiles at all, and \(choice.displayName) is built from numbers.")
         switch choice {
         case .evens2468:
             let odd = ranks.filter { !$0.isMultiple(of: 2) }
             if ranks.isEmpty { return noNumbers }
-            return odd.isEmpty ? generic : "This rack holds \(plural(odd)), and a finished 2468 hand never uses an odd number."
+            return odd.isEmpty ? generic : String(localized: "This rack holds \(plural(odd)), and a finished 2468 hand never uses an odd number.")
         case .odds13579:
             let even = ranks.filter { $0.isMultiple(of: 2) }
             if ranks.isEmpty { return noNumbers }
-            return even.isEmpty ? generic : "This rack holds \(plural(even)), and a finished 13579 hand never uses an even number."
+            return even.isEmpty ? generic : String(localized: "This rack holds \(plural(even)), and a finished 13579 hand never uses an even number.")
         case .threeSixNine:
             let outside = ranks.filter { $0 % 3 != 0 }
             if ranks.isEmpty { return noNumbers }
-            if !outside.isEmpty { return "This rack holds \(plural(outside)), and a finished 369 hand never uses them." }
-            return ranks.contains(6) ? generic : "There is no 6 here, and 369 needs the 6 to read as anything other than odds."
+            if !outside.isEmpty { return String(localized: "This rack holds \(plural(outside)), and a finished 369 hand never uses them.") }
+            return ranks.contains(6) ? generic : String(localized: "There is no 6 here, and 369 needs the 6 to read as anything other than odds.")
         case .consecutiveRun:
-            if ranks.isEmpty { return "A run is all numbers stepping up in order, and this rack has no numbered tiles." }
-            if ranks.count < 3 { return "A run steps up with no gaps, and this rack only has \(plural(ranks))." }
+            if ranks.isEmpty { return String(localized: "A run is all numbers stepping up in order, and this rack has no numbered tiles.") }
+            if ranks.count < 3 { return String(localized: "A run steps up with no gaps, and this rack only has \(plural(ranks)).") }
             // Any three numbers in a row is the start of a run, so only a rack
             // without one is ruled out by its gaps.
             let hasThreeInARow = ranks.contains { ranks.contains($0 + 1) && ranks.contains($0 + 2) }
-            return hasThreeInARow ? generic : "The numbers here (\(ranks.map(String.init).joined(separator: ", "))) never make three in a row, and a run steps up with no gaps."
+            return hasThreeInARow ? generic : String(localized: "The numbers here (\(ranks.map(String.init).joined(separator: ", "))) never make three in a row, and a run steps up with no gaps.")
         case .windsDragons:
             let suited = tiles.filter { if case .suited = $0 { return true }; return false }.count
             let honors = tiles.filter { tile in
@@ -278,28 +278,37 @@ enum RackGenerator {
                 if case .dragon = tile { return true }
                 return false
             }.count
-            let honorCount = honors == 0 ? "no winds or dragons" : honors == 1 ? "only one wind or dragon" : "only \(honors) winds or dragons"
-            return suited > honors ? "This rack has \(suited) numbered tiles and \(honorCount), so it has little to build a Winds & Dragons hand from." : generic
+            guard suited > honors else { return generic }
+            switch honors {
+            case 0: return String(localized: "This rack has \(suited) numbered tiles and no winds or dragons, so it has little to build a Winds & Dragons hand from.")
+            case 1: return String(localized: "This rack has \(suited) numbered tiles and only one wind or dragon, so it has little to build a Winds & Dragons hand from.")
+            default: return String(localized: "This rack has \(suited) numbered tiles and only \(honors) winds or dragons, so it has little to build a Winds & Dragons hand from.")
+            }
         case .likeNumbers:
             if ranks.isEmpty { return noNumbers }
-            if ranks.count >= 3 { return "Like Numbers repeats one number across the suits, and this rack spreads across \(plural(ranks))." }
+            if ranks.count >= 3 { return String(localized: "Like Numbers repeats one number across the suits, and this rack spreads across \(plural(ranks)).") }
             let numbered = tiles.filter { if case .suited = $0 { return true }; return false }.count
-            if numbered < 5 { return "Like Numbers is built from one number in several suits, and this rack has only \(numbered) number tile\(numbered == 1 ? "" : "s")." }
+            if numbered == 1 { return String(localized: "Like Numbers is built from one number in several suits, and this rack has only 1 number tile.") }
+            if numbered < 5 { return String(localized: "Like Numbers is built from one number in several suits, and this rack has only \(numbered) number tiles.") }
             return generic
         case .year:
             // The digits change with every card, so the note never names them.
             return ranks.isEmpty ? noNumbers : generic
         case .quints:
             let jokers = tiles.filter { $0 == .joker }.count
-            return jokers < 2 ? "Quints need five of a kind, which takes jokers, and this rack has \(jokers == 0 ? "none" : "just one")." : generic
+            switch jokers {
+            case 0: return String(localized: "Quints need five of a kind, which takes jokers, and this rack has none.")
+            case 1: return String(localized: "Quints need five of a kind, which takes jokers, and this rack has just one.")
+            default: return generic
+            }
         case .singlesAndPairs:
             // Flowers are left out: a third flower is just a spare, not a pung.
             let counts = Dictionary(grouping: tiles.filter { $0 != .joker && $0 != .flower }, by: { $0 }).mapValues(\.count)
-            if let pung = counts.filter({ $0.value >= 3 }).keys.sorted(by: { $0.spokenName < $1.spokenName }).first {
-                return "This rack holds three or more \(pung.spokenName), and Singles & Pairs never uses a pung."
+            if let pung = counts.filter({ $0.value >= 3 }).keys.sorted(by: { $0.englishName < $1.englishName }).first {
+                return String(localized: "This rack holds three or more \(pung.spokenName), and Singles & Pairs never uses a pung.")
             }
             if tiles.contains(.joker) {
-                return "Singles & Pairs never takes jokers, so the joker on this rack could not help it."
+                return String(localized: "Singles & Pairs never takes jokers, so the joker on this rack could not help it.")
             }
             return generic
         }
@@ -307,9 +316,7 @@ enum RackGenerator {
 
     /// "5s", "5s and 7s", "1s, 3s and 7s".
     private static func plural(_ ranks: [Int]) -> String {
-        let words = ranks.map { "\($0)s" }
-        guard words.count > 1 else { return words.first ?? "" }
-        return words.dropLast().joined(separator: ", ") + " and " + words[words.count - 1]
+        PhraseList.and(ranks.map { String(localized: "\($0)s", comment: "A number as a group of tiles, as in 'this rack holds 5s'") })
     }
 
     static func explain(_ tiles: [Tile], answer: HandCategory) -> String {
@@ -318,15 +325,15 @@ enum RackGenerator {
 
         switch answer {
         case .evens2468:
-            return "Every number on this rack is even (\(list)), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it."
+            return String(localized: "Every number on this rack is even (\(list)), with no honors at all. That is 2468 territory, and every odd tile you pick up is dead weight for it.")
         case .odds13579:
-            return "Every number here is odd (\(list)). That points straight at 13579, the mirror image of the evens section."
+            return String(localized: "Every number here is odd (\(list)). That points straight at 13579, the mirror image of the evens section.")
         case .threeSixNine:
-            return "Every number here is a 3, 6 or 9. The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read."
+            return String(localized: "Every number here is a 3, 6 or 9. The 6 rules out a pure odds hand and the 3 or 9 rules out a pure evens hand, so 369 is the read.")
         case .consecutiveRun:
-            return "The numbers step up in order (\(list)). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run."
+            return String(localized: "The numbers step up in order (\(list)). A run mixes odd and even by definition, so it cannot be an evens or odds hand: this is a Consecutive Run.")
         case .windsDragons:
-            return "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look."
+            return String(localized: "Nothing but winds and dragons, with no numbered tiles anywhere. When honors pile up like this, Winds and Dragons is where to look.")
         default:
             return HandCategory.year.howToSpot
         }

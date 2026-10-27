@@ -109,21 +109,21 @@ struct DrillCompleteView: View {
     }
 
     private var headline: String {
-        guard let score else { return "Deck cleared!" }
+        guard let score else { return String(localized: "Deck cleared!") }
         let fraction = Double(score) / Double(max(total, 1))
-        if fraction >= 1 { return "Perfect round!" }
-        if fraction >= 0.7 { return "Nice work!" }
-        return "Good practice!"
+        if fraction >= 1 { return String(localized: "Perfect round!") }
+        if fraction >= 0.7 { return String(localized: "Nice work!") }
+        return String(localized: "Good practice!")
     }
 
     private var subheadline: String {
         if score == nil {
-            return "All \(total) cards down. They'll stick a little better every pass."
+            return String(localized: "All \(total) cards down. They'll stick a little better every pass.")
         }
         switch drill.kind {
-        case .charleston: return "Every pass you pick here is one you'll make faster at the table."
-        case .handMatch: return "Every rack you read here is one you'll read faster at the table."
-        case .quiz, .flashcards: return "Every call you make here is one you'll make faster at the table."
+        case .charleston: return String(localized: "Every pass you pick here is one you'll make faster at the table.")
+        case .handMatch: return String(localized: "Every rack you read here is one you'll read faster at the table.")
+        case .quiz, .flashcards: return String(localized: "Every call you make here is one you'll make faster at the table.")
         }
     }
 }

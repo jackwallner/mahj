@@ -14,8 +14,8 @@ struct ReferenceView: View {
         var id: String { rawValue }
         var title: String {
             switch self {
-            case .glossary: return "Glossary"
-            case .sections: return "Sections"
+            case .glossary: return String(localized: "Glossary")
+            case .sections: return String(localized: "Sections")
             }
         }
     }
@@ -46,7 +46,7 @@ struct ReferenceView: View {
         }
         .background(Theme.background)
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always),
-                    prompt: tab == .glossary ? "Search terms" : "Search sections")
+                    prompt: tab == .glossary ? String(localized: "Search terms") : String(localized: "Search sections"))
         .navigationTitle("Reference")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -62,8 +62,8 @@ struct ReferenceView: View {
             if groups.isEmpty {
                 emptyState(
                     icon: "magnifyingglass",
-                    title: "Nothing matches \"\(query)\"",
-                    body: "Try a shorter word. Nicknames work too: soap, news, wild."
+                    title: String(localized: "Nothing matches \"\(query)\""),
+                    body: String(localized: "Try a shorter word. Nicknames work too: soap, news, wild.")
                 )
             } else {
                 ForEach(groups, id: \.0.id) { group, terms in
@@ -121,8 +121,8 @@ struct ReferenceView: View {
             if matches.isEmpty {
                 emptyState(
                     icon: "menucard",
-                    title: "No section matches \"\(query)\"",
-                    body: "Sections are families like evens, odds, 369 and consecutive runs."
+                    title: String(localized: "No section matches \"\(query)\""),
+                    body: String(localized: "Sections are families like evens, odds, 369 and consecutive runs.")
                 )
             } else {
                 disclaimer

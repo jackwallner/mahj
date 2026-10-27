@@ -45,7 +45,7 @@ struct TileView: View {
         .accessibilityLabel(tile.spokenName)
         .accessibilityIdentifier(identifier ?? "")
         .accessibilityAddTraits(accessibilityTraits)
-        .accessibilityHint(action == nil ? "" : "Double tap to choose this tile")
+        .accessibilityHint(action == nil ? "" : String(localized: "Double tap to choose this tile"))
     }
 
     private var accessibilityTraits: AccessibilityTraits {
@@ -64,7 +64,7 @@ struct TileView: View {
                 Text("\(rank)")
                     .font(.system(size: width * 0.5, weight: .bold, design: .serif))
                     .foregroundStyle(Theme.crakRed)
-                Text("萬")
+                Text(verbatim: "萬")
                     .font(.system(size: width * 0.3, weight: .semibold))
                     .foregroundStyle(Theme.crakRed)
             }
@@ -81,42 +81,42 @@ struct TileView: View {
                 Text(wind.letter)
                     .font(.system(size: width * 0.52, weight: .bold, design: .serif))
                     .foregroundStyle(.black.opacity(0.85))
-                caption("WIND", color: .black.opacity(0.5))
+                caption(String(localized: "WIND"), color: .black.opacity(0.5))
             }
         case .dragon(.red):
             VStack(spacing: width * 0.02) {
-                Text("中")
+                Text(verbatim: "中")
                     .font(.system(size: width * 0.5, weight: .bold))
                     .foregroundStyle(Theme.crakRed)
-                caption("RED", color: Theme.crakRed)
+                caption(String(localized: "RED"), color: Theme.crakRed)
             }
         case .dragon(.green):
             VStack(spacing: width * 0.02) {
-                Text("發")
+                Text(verbatim: "發")
                     .font(.system(size: width * 0.5, weight: .bold))
                     .foregroundStyle(Theme.bamGreen)
-                caption("GREEN", color: Theme.bamGreen)
+                caption(String(localized: "GREEN"), color: Theme.bamGreen)
             }
         case .dragon(.soap):
             VStack(spacing: width * 0.06) {
                 RoundedRectangle(cornerRadius: width * 0.06)
                     .strokeBorder(Theme.dotBlue, lineWidth: width * 0.055)
                     .frame(width: width * 0.5, height: width * 0.62)
-                caption("SOAP", color: Theme.dotBlue)
+                caption(String(localized: "SOAP"), color: Theme.dotBlue)
             }
         case .flower:
             VStack(spacing: width * 0.02) {
                 Image(systemName: "camera.macro")
                     .font(.system(size: width * 0.42, weight: .semibold))
                     .foregroundStyle(Theme.flowerPink)
-                caption("FLOWER", color: Theme.flowerPink)
+                caption(String(localized: "FLOWER"), color: Theme.flowerPink)
             }
         case .joker:
             VStack(spacing: width * 0.02) {
                 Image(systemName: "theatermasks.fill")
                     .font(.system(size: width * 0.4, weight: .semibold))
                     .foregroundStyle(Theme.jokerPurple)
-                caption("JOKER", color: Theme.jokerPurple)
+                caption(String(localized: "JOKER"), color: Theme.jokerPurple)
             }
         }
     }

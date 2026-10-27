@@ -27,21 +27,21 @@ enum PracticeSkill: String, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .rackReading: return "Read the Rack"
-        case .tileCounting: return "Count What's Left"
-        case .charlestonPass: return "Pass the Junk"
-        case .defense: return "Read the Exposures"
-        case .handPlay: return "Play a Hand"
+        case .rackReading: return String(localized: "Read the Rack")
+        case .tileCounting: return String(localized: "Count What's Left")
+        case .charlestonPass: return String(localized: "Pass the Junk")
+        case .defense: return String(localized: "Read the Exposures")
+        case .handPlay: return String(localized: "Play a Hand")
         }
     }
 
     var subtitle: String {
         switch self {
-        case .rackReading: return "Freshly dealt racks, unlimited reps"
-        case .tileCounting: return "Track the tiles still in play"
-        case .charlestonPass: return "Find the tile that fits nothing"
-        case .defense: return "Discard without feeding the table"
-        case .handPlay: return "Commit to a section and play it out"
+        case .rackReading: return String(localized: "Freshly dealt racks, unlimited reps")
+        case .tileCounting: return String(localized: "Track the tiles still in play")
+        case .charlestonPass: return String(localized: "Find the tile that fits nothing")
+        case .defense: return String(localized: "Discard without feeding the table")
+        case .handPlay: return String(localized: "Commit to a section and play it out")
         }
     }
 
@@ -84,8 +84,8 @@ enum EndlessPractice {
 
     static let challengeDrill = Drill(
         id: "timed-challenge",
-        title: "Timed Challenge",
-        subtitle: "Beat the clock",
+        title: String(localized: "Timed Challenge"),
+        subtitle: String(localized: "Beat the clock"),
         kind: .quiz([])
     )
 
@@ -116,11 +116,11 @@ enum EndlessPractice {
     static func rackItem(
         _ rack: RackGenerator.GeneratedRack,
         id: String = PracticeSkill.rackReading.itemPrefix + UUID().uuidString,
-        sourceLabel: String = "Endless Practice"
+        sourceLabel: String = String(localized: "Endless Practice")
     ) -> QuickItem {
         QuickItem(
             id: id,
-            prompt: "Which section is this rack chasing?",
+            prompt: String(localized: "Which section is this rack chasing?"),
             tiles: rack.tiles,
             choices: rack.choices.map(\.displayName),
             answerIndex: rack.choices.firstIndex(of: rack.answer) ?? 0,
@@ -156,12 +156,17 @@ enum EndlessPractice {
             let sorted = Array(values.sorted().prefix(4))
             guard let answerIndex = sorted.firstIndex(of: remaining), sorted.count >= 3 else { continue }
 
-            let heldPhrase = held == 0 ? "none on your rack" : "\(held) on your rack"
-            let exposedPhrase = exposed == 0 ? "none showing on the table" : "\(exposed) exposed on other racks"
+            let seen: String
+            switch (held, exposed) {
+            case (0, 0): seen = String(localized: "You have none on your rack and can see none showing on the table.")
+            case (0, _): seen = String(localized: "You have none on your rack and can see \(exposed) exposed on other racks.")
+            case (_, 0): seen = String(localized: "You have \(held) on your rack and can see none showing on the table.")
+            default: seen = String(localized: "You have \(held) on your rack and can see \(exposed) exposed on other racks.")
+            }
 
             items.append(QuickItem(
                 id: PracticeSkill.tileCounting.itemPrefix + UUID().uuidString,
-                prompt: "You have \(heldPhrase) and can see \(exposedPhrase). How many \(tile.spokenName)s are still unaccounted for?",
+                prompt: seen + " " + String(localized: "How many \(tile.pluralName) are still unaccounted for?"),
                 // Exactly what the prompt says is on the rack. Forcing one tile
                 // when `held` is zero put a tile on screen directly under the
                 // words "none on your rack"; the prompt already names the tile
@@ -169,8 +174,8 @@ enum EndlessPractice {
                 tiles: Array(repeating: tile, count: held),
                 choices: sorted.map(String.init),
                 answerIndex: answerIndex,
-                explanation: "Four of every tile exist. \(held) held plus \(exposed) exposed leaves \(remaining) unaccounted for. Jokers cannot stand in for a tile in a pair, so counting matters most when you are waiting on one.",
-                sourceLabel: "Endless Practice",
+                explanation: String(localized: "Four of every tile exist. \(held) held plus \(exposed) exposed leaves \(remaining) unaccounted for. Jokers cannot stand in for a tile in a pair, so counting matters most when you are waiting on one."),
+                sourceLabel: String(localized: "Endless Practice"),
                 roomID: PracticeSkill.tileCounting.roomID
             ))
         }
@@ -194,17 +199,27 @@ enum EndlessPractice {
         let sorted = Array(values.sorted().prefix(4))
         let answerIndex = sorted.firstIndex(of: remaining) ?? 0
 
-        let heldPhrase = held == 0 ? "no jokers" : held == 1 ? "1 joker" : "\(held) jokers"
-        let exposedPhrase = exposed == 0 ? "none" : "\(exposed)"
-        let discardedPhrase = discarded == 0 ? "none" : "\(discarded)"
+        let holding: String
+        switch held {
+        case 0: holding = String(localized: "You hold no jokers.")
+        case 1: holding = String(localized: "You hold 1 joker.")
+        default: holding = String(localized: "You hold \(held) jokers.")
+        }
+        let seen: String
+        switch (exposed, discarded) {
+        case (0, 0): seen = String(localized: "You can see none in exposures and none in the discards.")
+        case (0, _): seen = String(localized: "You can see none in exposures and \(discarded) in the discards.")
+        case (_, 0): seen = String(localized: "You can see \(exposed) in exposures and none in the discards.")
+        default: seen = String(localized: "You can see \(exposed) in exposures and \(discarded) in the discards.")
+        }
         return QuickItem(
             id: PracticeSkill.tileCounting.itemPrefix + UUID().uuidString,
-            prompt: "You hold \(heldPhrase). You can see \(exposedPhrase) in exposures and \(discardedPhrase) in the discards. How many jokers are still unseen?",
+            prompt: [holding, seen, String(localized: "How many jokers are still unseen?")].joined(separator: " "),
             tiles: Array(repeating: .joker, count: held),
             choices: sorted.map(String.init),
             answerIndex: answerIndex,
-            explanation: "Eight jokers are in the set. \(held) held, \(exposed) exposed and \(discarded) discarded leaves \(remaining) unseen. The exposed ones are not gone: hold the matching real tile and you can swap one out on your turn.",
-            sourceLabel: "Endless Practice",
+            explanation: String(localized: "Eight jokers are in the set. \(held) held, \(exposed) exposed and \(discarded) discarded leaves \(remaining) unseen. The exposed ones are not gone: hold the matching real tile and you can swap one out on your turn."),
+            sourceLabel: String(localized: "Endless Practice"),
             roomID: PracticeSkill.tileCounting.roomID
         )
     }
@@ -227,12 +242,12 @@ enum EndlessPractice {
     static func passItem(
         _ pass: CharlestonGenerator.GeneratedPass,
         id: String = PracticeSkill.charlestonPass.itemPrefix + UUID().uuidString,
-        sourceLabel: String = "Endless Practice",
+        sourceLabel: String = String(localized: "Endless Practice"),
         prompt: String? = nil
     ) -> QuickItem {
         QuickItem(
             id: id,
-            prompt: prompt ?? "The first pass is coming. Which tile is the first to go?",
+            prompt: prompt ?? String(localized: "The first pass is coming. Which tile is the first to go?"),
             tiles: pass.tiles,
             choices: pass.choices.map(\.spokenName),
             answerIndex: pass.choices.firstIndex(of: pass.answer) ?? 0,
@@ -256,15 +271,14 @@ enum EndlessPractice {
     static func defenseItem(
         _ question: DefenseGenerator.GeneratedDefense,
         id: String = PracticeSkill.defense.itemPrefix + UUID().uuidString,
-        sourceLabel: String = "Endless Practice"
+        sourceLabel: String = String(localized: "Endless Practice")
     ) -> QuickItem {
-        let shown = question.exposures
+        let shown = PhraseList.chained(question.exposures
             .compactMap(\.first)
-            .map { "a pung of \($0.spokenName)" }
-            .joined(separator: " and ")
+            .map { String(localized: "a pung of \($0.spokenName)") })
         return QuickItem(
             id: id,
-            prompt: "Only one player has tiles out: \(shown). Which discard is safest?",
+            prompt: String(localized: "Only one player has tiles out: \(shown). Which discard is safest?"),
             // The exposed groups themselves, so the read is on the table
             // rather than buried in the sentence above it.
             tiles: question.exposures.flatMap { $0 },

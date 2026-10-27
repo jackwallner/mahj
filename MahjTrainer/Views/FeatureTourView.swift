@@ -107,13 +107,13 @@ struct FeatureTourView: View {
             Button {
                 advance(pageCount: pageCount)
             } label: {
-                Text(isLast ? "Start my first session" : "Show me").primaryCTA()
+                Text(isLast ? String(localized: "Start my first session") : String(localized: "Show me")).primaryCTA()
             }
             Button {
                 Haptics.impact(.light, intensity: 0.6)
                 onDone()
             } label: {
-                Text(isLast ? "Skip it, take me to the app" : "Skip the tour")
+                Text(isLast ? String(localized: "Skip it, take me to the app") : String(localized: "Skip the tour"))
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(Theme.inkSecondary)
             }
@@ -139,38 +139,40 @@ struct FeatureTourView: View {
     private var tourPages: [TourPage] {
         [
             TourPage(
-                eyebrow: "THE ROOMS",
-                title: "Four rooms, four skills",
-                body: "Home is the lobby. Each room holds its own drills: meet the tiles, read the card, run the Charleston, play the table. All four beginner rooms are free, forever.",
+                eyebrow: String(localized: "THE ROOMS"),
+                title: String(localized: "Four rooms, four skills"),
+                body: String(localized: "Home is the lobby. Each room holds its own drills: meet the tiles, read the card, run the Charleston, play the table. All four beginner rooms are free, forever."),
                 hero: AnyView(roomsHero)
             ),
             TourPage(
-                eyebrow: "KEEP IT LIT",
-                title: "Streaks make it stick",
-                body: "Finish a drill a day and your streak grows. Anything you miss quietly returns until you own it.",
+                eyebrow: String(localized: "KEEP IT LIT"),
+                title: String(localized: "Streaks make it stick"),
+                body: String(localized: "Finish a drill a day and your streak grows. Anything you miss quietly returns until you own it."),
                 hero: AnyView(streakHero)
             ),
             subscriptions.isPro
                 ? TourPage(
-                    eyebrow: "YOURS NOW",
-                    title: "\(Membership.name) is open",
-                    body: "\(subscriptions.isTrialing ? "Your free week" : "Your membership") already includes Play a Hand as often as you like, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables.",
+                    eyebrow: String(localized: "YOURS NOW"),
+                    title: String(localized: "\(Membership.name) is open"),
+                    body: subscriptions.isTrialing
+                        ? String(localized: "Your free week already includes Play a Hand as often as you like, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables.")
+                        : String(localized: "Your membership already includes Play a Hand as often as you like, personalized Game Night Prep, Endless Practice, the timed challenge, the extra sets in every room, and the Master Tables."),
                     hero: AnyView(proHero(locked: false)),
                     accentGold: true
                 )
                 : TourPage(
-                    eyebrow: "BEHIND THE GOLD DOOR",
-                    title: "\(Membership.name) adds more of it",
-                    body: "Play a Hand as often as you like, Game Night Prep targets your weak spots before you play, and Endless Practice never runs out. Nothing you have now goes away. Unlock any time from Home or Settings.",
+                    eyebrow: String(localized: "BEHIND THE GOLD DOOR"),
+                    title: String(localized: "\(Membership.name) adds more of it"),
+                    body: String(localized: "Play a Hand as often as you like, Game Night Prep targets your weak spots before you play, and Endless Practice never runs out. Nothing you have now goes away. Unlock any time from Home or Settings."),
                     hero: AnyView(proHero(locked: true)),
                     accentGold: true
                 ),
             // Last on purpose: this is the one page whose CTA is real. Tapping
             // it opens an actual Quick Session, not a preview of one.
             TourPage(
-                eyebrow: "YOUR TURN",
-                title: "Let's try a real one",
-                body: "Get Started builds this same five-minute mix any time from Home: exactly what you need next, misses first. Let's run your first one now.",
+                eyebrow: String(localized: "YOUR TURN"),
+                title: String(localized: "Let's try a real one"),
+                body: String(localized: "Get Started builds this same five-minute mix any time from Home: exactly what you need next, misses first. Let's run your first one now."),
                 hero: AnyView(getStartedHero)
             ),
         ]
@@ -259,7 +261,7 @@ struct FeatureTourView: View {
             // The same three modes the paywall leads with. Extra sets and the
             // Master Tables are carried by the page body, so the hero does not
             // have to say everything.
-            ForEach(["Play a Hand, as often as you like", "Game Night Prep, built around your weak spots", "Endless Practice, never repeats"], id: \.self) { line in
+            ForEach([String(localized: "Play a Hand, as often as you like"), String(localized: "Game Night Prep, built around your weak spots"), String(localized: "Endless Practice, never repeats")], id: \.self) { line in
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: locked ? "sparkles" : "checkmark.circle.fill")
                         .font(.footnote)

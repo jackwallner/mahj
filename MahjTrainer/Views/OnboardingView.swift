@@ -53,20 +53,20 @@ struct OnboardingView: View {
             TabView(selection: $page) {
                 infoPage(
                     icon: "square.grid.3x3.fill",
-                    title: "Make it stick between games",
-                    body: "Mah Jongg fades fast between games. Mahj Trainer gives you five-minute drills you can run anywhere, whether you are still meeting the tiles or sharpening instincts you already have.",
+                    title: String(localized: "Make it stick between games"),
+                    body: String(localized: "Mah Jongg fades fast between games. Mahj Trainer gives you five-minute drills you can run anywhere, whether you are still meeting the tiles or sharpening instincts you already have."),
                     tiles: [.c(2), .dragon(.soap), .c(2), .b(6)]
                 ).tag(0).accessibilityHidden(page != 0)
                 infoPage(
                     icon: "rectangle.stack.fill",
-                    title: "Practice, not pressure",
-                    body: "Swipe through flashcards, read racks, make keep-or-throw calls, and pick your Charleston pass, with the why behind every answer.",
+                    title: String(localized: "Practice, not pressure"),
+                    body: String(localized: "Swipe through flashcards, read racks, make keep-or-throw calls, and pick your Charleston pass, with the why behind every answer."),
                     tiles: [.b(4), .b(5), .b(6), .joker]
                 ).tag(1).accessibilityHidden(page != 1)
                 infoPage(
                     icon: "figure.walk",
-                    title: "Walk in confident",
-                    body: "Know which dragon matches which suit, spot your section fast, and stop dreading the Charleston. Practice at your own pace, with no opponents and no required timers.",
+                    title: String(localized: "Walk in confident"),
+                    body: String(localized: "Know which dragon matches which suit, spot your section fast, and stop dreading the Charleston. Practice at your own pace, with no opponents and no required timers."),
                     tiles: [.dragon(.red), .dragon(.green), .flower]
                 ).tag(2).accessibilityHidden(page != 2)
                 skillLevelPage.tag(3).accessibilityHidden(page != 3)
@@ -191,9 +191,9 @@ struct OnboardingView: View {
     }
 
     private let skillOptions: [SkillOption] = [
-        SkillOption(id: "new", title: "Brand new", detail: "Still learning what the tiles even are"),
-        SkillOption(id: "basics", title: "Know the basics", detail: "Met the tiles, still slow on the card"),
-        SkillOption(id: "played", title: "Played real games", detail: "Comfortable, want sharper instincts"),
+        SkillOption(id: "new", title: String(localized: "Brand new"), detail: String(localized: "Still learning what the tiles even are")),
+        SkillOption(id: "basics", title: String(localized: "Know the basics"), detail: String(localized: "Met the tiles, still slow on the card")),
+        SkillOption(id: "played", title: String(localized: "Played real games"), detail: String(localized: "Comfortable, want sharper instincts")),
     ]
 
     /// Full page as in 1.3.2. On an iPhone SE it overflowed by a card's last
@@ -242,7 +242,7 @@ struct OnboardingView: View {
                     skillCard(option)
                 }
             }
-            Text(skillLevel.isEmpty ? "Pick one to continue." : " ")
+            Text(skillLevel.isEmpty ? String(localized: "Pick one to continue.") : " ")
                 .font(.footnote)
                 .foregroundStyle(Theme.inkSecondary)
         }
@@ -350,7 +350,7 @@ struct OnboardingView: View {
     }
 
     private var trialPageTitle: String {
-        if subscriptions.isPro { return "\(Membership.name) is on your account" }
+        if subscriptions.isPro { return String(localized: "\(Membership.name) is on your account") }
         return subscriptions.trialTitle.text
     }
 
@@ -387,7 +387,7 @@ struct OnboardingView: View {
     /// they already hold, which Apple answers with its own confusing
     /// "you're already subscribed" sheet. Recognise them and just let them in.
     private var trialCTATitle: String {
-        if subscriptions.isPro { return "Continue" }
+        if subscriptions.isPro { return String(localized: "Continue") }
         return subscriptions.trialCTA(.onboarding)
     }
 
@@ -427,7 +427,7 @@ struct OnboardingView: View {
                     if purchasing || restoring {
                         ProgressView().tint(Theme.onFill)
                     } else {
-                        Text(onTrialPage ? trialCTATitle : "Continue")
+                        Text(onTrialPage ? trialCTATitle : String(localized: "Continue"))
                     }
                 }
                 .primaryCTA()
@@ -557,7 +557,7 @@ struct OnboardingView: View {
                     if await subscriptions.confirmEntitlement() {
                         startTour()
                     } else {
-                        purchaseError = "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore."
+                        purchaseError = String(localized: "Your purchase went through, but \(Membership.name) hasn't unlocked yet. Give it a moment, then tap Restore.")
                     }
                 case .cancelled:
                     break // They said no to Apple, not to the app. Stay put.
@@ -578,7 +578,7 @@ struct OnboardingView: View {
                 if subscriptions.isPro {
                     startTour()
                 } else {
-                    purchaseError = "No previous purchase found on this Apple Account."
+                    purchaseError = String(localized: "No previous purchase found on this Apple Account.")
                 }
             } catch {
                 purchaseError = error.localizedDescription

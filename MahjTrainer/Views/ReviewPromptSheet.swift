@@ -41,16 +41,16 @@ struct ReviewPromptSheet: View {
                 case .feedback:
                     composer(
                         kind: .general,
-                        question: "What would make Mahj Trainer better for you?",
+                        question: String(localized: "What would make Mahj Trainer better for you?"),
                         chips: [],
-                        thanks: "Thanks. It went straight to the developer."
+                        thanks: String(localized: "Thanks. It went straight to the developer.")
                     )
                 case .churn(let moment):
                     composer(
                         kind: .churn,
                         question: churnQuestion(moment),
                         chips: churnChips(moment),
-                        thanks: "Thanks for saying. It helps more than you'd think.",
+                        thanks: String(localized: "Thanks for saying. It helps more than you'd think."),
                         context: ["moment": moment.rawValue]
                     )
                 }
@@ -62,7 +62,7 @@ struct ReviewPromptSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(sendOutcome == nil ? "Not now" : "Done") { dismiss() }
+                    Button(sendOutcome == nil ? String(localized: "Not now") : String(localized: "Done")) { dismiss() }
                     .foregroundStyle(Theme.inkSecondary)
                 }
             }
@@ -73,8 +73,8 @@ struct ReviewPromptSheet: View {
 
     private var navigationTitle: String {
         switch step {
-        case .feedback: "Help us improve"
-        case .churn(let moment): moment == .trialRenewalOff ? "Before your trial ends" : "Before you go"
+        case .feedback: String(localized: "Help us improve")
+        case .churn(let moment): moment == .trialRenewalOff ? String(localized: "Before your trial ends") : String(localized: "Before you go")
         }
     }
 
@@ -107,7 +107,7 @@ struct ReviewPromptSheet: View {
                     .focused($feedbackFocused)
                     .overlay(alignment: .topLeading) {
                         if feedbackText.isEmpty {
-                            Text(chips.isEmpty ? "Anything at all." : "Add a few words if you like.")
+                            Text(chips.isEmpty ? String(localized: "Anything at all.") : String(localized: "Add a few words if you like."))
                                 .font(.body)
                                 .foregroundStyle(Theme.inkTertiary)
                                 .padding(.horizontal, 15)
@@ -149,7 +149,8 @@ struct ReviewPromptSheet: View {
                     HStack(spacing: 10) {
                         Image(systemName: selected ? "checkmark.circle.fill" : "circle")
                             .foregroundStyle(selected ? Theme.jade : Theme.inkTertiary)
-                        Text(chip)
+                        // The chip's English stays the sent tag; only the label translates.
+                        Text(LocalizedStringKey(chip))
                             .font(.subheadline.weight(.medium))
                             .foregroundStyle(Theme.ink)
                             .multilineTextAlignment(.leading)
@@ -263,9 +264,9 @@ struct ReviewPromptSheet: View {
 
     static func announcement(_ outcome: FeedbackService.Outcome) -> String {
         switch outcome {
-        case .sent: return "Sent. Thank you."
-        case .queued: return "Saved. It will send the next time you open the app with a connection."
-        case .failed: return "That didn't go through. Try again, or copy your message."
+        case .sent: return String(localized: "Sent. Thank you.")
+        case .queued: return String(localized: "Saved. It will send the next time you open the app with a connection.")
+        case .failed: return String(localized: "That didn't go through. Try again, or copy your message.")
         }
     }
 
@@ -273,10 +274,10 @@ struct ReviewPromptSheet: View {
 
     private func churnQuestion(_ moment: ChurnMoment) -> String {
         switch moment {
-        case .trialRenewalOff: return "Your trial won't renew. What held you back?"
-        case .trialLapsed: return "Your free week ended. What held you back from keeping Mahj+?"
-        case .paidRenewalOff: return "Your membership won't renew. What would have kept you?"
-        case .paidLapsed: return "Your membership ended. What would have kept you?"
+        case .trialRenewalOff: return String(localized: "Your trial won't renew. What held you back?")
+        case .trialLapsed: return String(localized: "Your free week ended. What held you back from keeping Mahj+?")
+        case .paidRenewalOff: return String(localized: "Your membership won't renew. What would have kept you?")
+        case .paidLapsed: return String(localized: "Your membership ended. What would have kept you?")
         }
     }
 
