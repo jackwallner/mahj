@@ -269,7 +269,7 @@ struct HandPlayView: View {
                     if let drawn {
                         let prompt = grade == nil
                             ? String(localized: "You drew the \(drawn.spokenName). What goes?")
-                            : String(localized: "You threw the \(grade?.discard.spokenName ?? ")")."
+                            : String(localized: "You threw the \(grade?.discard.spokenName ?? "").")
                         // The old line leaves at once and the new one fades in
                         // once the rack has settled. Cross-faded while the rack
                         // re-centred, both lines showed on top of each other

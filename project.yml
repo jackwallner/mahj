@@ -11,6 +11,9 @@ options:
     iOS: "17.0"
   createIntermediateGroups: true
   lastUpgradeCheck: "1600"
+  # knownRegions (en, de, es, fr, id, vi) come from the String Catalogs in
+  # MahjTrainer/Resources; see .claude/rules/localization.md.
+  developmentLanguage: en
 settings:
   base:
     SWIFT_VERSION: "6.0"

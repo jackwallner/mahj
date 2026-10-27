@@ -250,7 +250,7 @@ struct PracticeRunView: View {
             HStack(spacing: 10) {
                 Image(systemName: "timer")
                     .foregroundStyle(secondsRemaining <= 10 ? Theme.coral : Theme.inkSecondary)
-                Text("\(secondsRemaining)s")
+                Text(Duration.seconds(secondsRemaining).formatted(.units(allowed: [.seconds], width: .narrow)))
                     .font(.title3.weight(.bold))
                     .monospacedDigit()
                     .foregroundStyle(secondsRemaining <= 10 ? Theme.coral : Theme.ink)

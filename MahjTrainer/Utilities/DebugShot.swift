@@ -8,6 +8,12 @@ import SwiftUI
 /// Unfolded, Home stays in the leading pane and the screen opens beside it.
 @MainActor
 enum DebugShot {
+    /// `-mahj.onboardingPage <n>` opens onboarding on that page (4 is the
+    /// trial page), so a language capture can shoot it without taps.
+    nonisolated static var onboardingStartPage: Int {
+        UserDefaults.standard.integer(forKey: "mahj.onboardingPage")
+    }
+
     static func pushes(_ name: String) -> Bool {
         !["home", "settings", "paywall"].contains(name)
     }

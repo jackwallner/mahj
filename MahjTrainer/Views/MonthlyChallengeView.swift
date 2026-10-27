@@ -693,7 +693,7 @@ struct MonthlyChallengeAnswersView: View {
                     // whole rack's label and VoiceOver read it 13 times over.
                     // "Tiles", not "Rack": table calls show other players' exposures.
                     .accessibilityElement(children: .ignore)
-                    .accessibilityLabel("Tiles: " + item.tiles.map(\.spokenName).joined(separator: ", "))
+                    .accessibilityLabel(String(localized: "Tiles: \(item.tiles.map(\.spokenName).joined(separator: ", "))"))
             }
             VStack(alignment: .leading, spacing: 6) {
                 ForEach(Array(item.choices.enumerated()), id: \.offset) { choice, label in

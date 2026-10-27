@@ -17,7 +17,11 @@ struct OnboardingView: View {
     @EnvironmentObject private var progress: ProgressStore
     @EnvironmentObject private var subscriptions: SubscriptionService
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    #if DEBUG
+    @State private var page = DebugShot.onboardingStartPage
+    #else
     @State private var page = 0
+    #endif
     @State private var purchasing = false
     @State private var restoring = false
     @State private var showPaywallFallback = false
