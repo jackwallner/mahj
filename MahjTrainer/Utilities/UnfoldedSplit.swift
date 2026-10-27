@@ -4,7 +4,8 @@ import SwiftUI
 /// fold, the room or drill it opened on the trailing side, so no card
 /// straddles the crease. `nil` keeps the single column (every ordinary
 /// iPhone, the folded Duo, and the unfolded Duo held in portrait, where each
-/// half would be too narrow).
+/// half would be too narrow) and every iPad, which keeps its own two-column
+/// Home: a full-screen iPad is just as wide, but it is not a fold.
 struct UnfoldedSplit: Equatable, Sendable {
     var primaryWidth: CGFloat
     var secondaryX: CGFloat
@@ -15,10 +16,16 @@ struct UnfoldedSplit: Equatable, Sendable {
 
     /// - Parameters:
     ///   - width: the container's width.
+    ///   - idiom: the device's; only a phone splits.
     ///   - fold: the vertical fold's leading and trailing edge in the same
     ///     coordinate space, or `nil` when the system reports none.
-    static func make(width: CGFloat, isRegularWidth: Bool, fold: ClosedRange<CGFloat>?) -> UnfoldedSplit? {
-        guard isRegularWidth, width >= minimumPaneWidth * 2 else { return nil }
+    static func make(
+        width: CGFloat,
+        isRegularWidth: Bool,
+        idiom: UIUserInterfaceIdiom,
+        fold: ClosedRange<CGFloat>?
+    ) -> UnfoldedSplit? {
+        guard idiom == .phone, isRegularWidth, width >= minimumPaneWidth * 2 else { return nil }
         if let fold,
            fold.lowerBound >= minimumPaneWidth,
            width - fold.upperBound >= minimumPaneWidth {

@@ -7,8 +7,8 @@ paths:
 
 # Mahj: iPhone Duo (2026-10-22)
 
-- Unfolded (regular width, at least 720 pt), `HomeView` is two panes: Home
-  (the lobby, phone layout) on the leading side of the fold, a room on the
+- Unfolded (phone idiom, regular width, at least 720 pt), `HomeView` is two
+  panes: Home (the lobby, phone layout) on the leading side of the fold, a room on the
   trailing side. A room card replaces the trailing pane's room (and outlines
   itself as the selection); every other Home link (Get Started, Play a Hand,
   the training tiles, stats chips, the reference, the challenge, routed deep
@@ -19,7 +19,11 @@ paths:
   button (it sat beside the fold); a drill opened from the pane's room keeps
   its own. A room card is outlined only while that room is on screen, and
   Home's Resume card hides for the run open beside it
-  (`OrdinaryRunStore.onScreenID`, set by `OrdinaryRunEntryView`).
+  (`OrdinaryRunStore.onScreenID`, set by `tracksOrdinaryRun`). While split,
+  Home counts as covered (`homeIsBare` is false, so no What's New, churn
+  question or ATT prompt) whenever the pane shows anything but a room: a
+  screen Home opened there (`panePath`) or a drill opened from its room
+  (`onScreenID`). Emptying it calls `homeIsBareAgain()`.
 - iOS 27.1 quirks (2026-10-25): toolbar items stack in a column down each
   pane's trailing edge, so Home hides its navigation bar while split and
   draws the book and gear in its header. The status column's trailing inset
@@ -33,18 +37,21 @@ paths:
   tighter rows), decided once per question before grading. The same rule
   fits the iPhone SE. Home's Training row is a grid while split: the pane
   stops short of the fold, so a carousel clipped its last tile in mid-air.
-- The split also runs on a full-screen iPad (regular, wider than 720 pt):
-  Home's two-column iPad layout only remains for regular widths too narrow to
-  split. Re-shoot the iPad set before the next iPad screenshot upload.
+- Phone idiom only (1.4.2): `UnfoldedSplit.make` takes the idiom, and an
+  iPad keeps 1.4.1's two-column Home at every width. The first cut split
+  any regular container of 720 pt or more, which turned every full-screen
+  iPad into the two-pane Home.
 - Fold edges come from `GeometryProxy.verticalFold()` (iOS 27.1
   `reservedRegions(.division)`), else an even split; math in
   `UnfoldedSplit`, tested in `UnfoldedSplitTests`. Same design as Vitals
   (`jackwallner/vitals`, `.claude/rules/iphone-duo.md`).
-- One view tree: folding only moves frames. The trailing pane is mounted the
-  first time the Duo unfolds and then kept (hidden when folded), so an open
-  drill survives fold and unfold. Never swap layouts with an `if` around the
-  panes. Home reads `layoutSizeClass`, not the raw size class: the
-  environment override on the pane only reaches its children.
+- Home's stack is one view tree: folding only moves its frame, so a screen
+  pushed over Home survives fold and unfold. The trailing pane exists only
+  while split, and folding clears `panePath` (1.4.2): kept hidden, a drill
+  stayed mounted while Home offered Resume for the same run. The drill's
+  answers are saved (`OrdinaryRunStore`), so Home's Resume card picks it up
+  on the phone layout. Home reads `layoutSizeClass`, not the raw size class:
+  the environment override on the pane only reaches its children.
 - The container is framed to the full width before `onGeometryChange`: a
   ZStack that shrank to Home's pane width measured "too narrow", undid the
   split, and oscillated.

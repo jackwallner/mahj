@@ -60,9 +60,6 @@ struct HomeView: View {
     /// The trailing pane's room, and whatever Home opened on top of it.
     @State private var paneRoomID = DrillLibrary.rooms[0].id
     @State private var panePath: [PaneScreen] = []
-    /// Mounted once the Duo first unfolds, then kept, so folding and
-    /// unfolding only move frames and an open drill survives the trip.
-    @State private var paneHasAppeared = false
 
     private var showsPrimerCard: Bool { skillLevel == "new" && !hasReadPrimer }
 
@@ -70,6 +67,7 @@ struct HomeView: View {
         UnfoldedSplit.make(
             width: paneGeometry.width,
             isRegularWidth: horizontalSizeClass == .regular,
+            idiom: UIDevice.current.userInterfaceIdiom,
             fold: paneGeometry.fold
         )
     }
@@ -84,14 +82,14 @@ struct HomeView: View {
             homeStack
                 .environment(\.horizontalSizeClass, layoutSizeClass)
                 .frame(maxWidth: split?.primaryWidth ?? .infinity, maxHeight: .infinity)
-            if paneHasAppeared {
+            // Only while split. Kept hidden after a fold, a drill stayed
+            // mounted while Home offered Resume for the same run. Its run is
+            // saved, so the Resume card picks it up on the phone layout.
+            if let split {
                 trailingPane
                     .environment(\.horizontalSizeClass, .compact)
-                    .frame(maxWidth: split?.secondaryWidth ?? .infinity, maxHeight: .infinity)
-                    .padding(.leading, split?.secondaryX ?? 0)
-                    .opacity(split != nil ? 1 : 0)
-                    .allowsHitTesting(split != nil)
-                    .accessibilityHidden(split == nil)
+                    .frame(maxWidth: split.secondaryWidth, maxHeight: .infinity)
+                    .padding(.leading, split.secondaryX)
             }
         }
         // Measured at the full width whatever the panes take, or a narrower
@@ -112,8 +110,11 @@ struct HomeView: View {
         .onGeometryChange(for: PaneGeometry.self) { proxy in
             PaneGeometry(width: proxy.size.width, fold: proxy.verticalFold())
         } action: { paneGeometry = $0 }
-        .onChange(of: split != nil, initial: true) { _, isSplit in
-            if isSplit { paneHasAppeared = true }
+        .onChange(of: split != nil) { _, isSplit in
+            if !isSplit { panePath = [] }
+        }
+        .onChange(of: paneBusy) { _, busy in
+            if !busy { homeIsBareAgain() }
         }
     }
 
@@ -401,7 +402,14 @@ struct HomeView: View {
 
     /// Nothing pushed and no sheet up: the only state Home may put a prompt on.
     private var homeIsBare: Bool {
-        homeOnScreen && path.isEmpty && !showWhatsNew && !showPaywall && !showSettings && churnPrompt == nil
+        homeOnScreen && path.isEmpty && !paneBusy && !showWhatsNew && !showPaywall && !showSettings
+            && churnPrompt == nil
+    }
+
+    /// Split, the trailing pane counts as pushed while it shows anything but
+    /// a room: a screen Home opened there, or a drill opened from its room.
+    private var paneBusy: Bool {
+        split != nil && (!panePath.isEmpty || ordinaryRuns.onScreenID != nil)
     }
 
     /// A round left half done on an earlier day is scored on what was
