@@ -64,7 +64,9 @@ struct QuickSessionView: View {
         _items = State(initialValue: round.items)
         _purpose = State(initialValue: .monthlyChallenge(round))
         self.onClose = onClose
-        if let resume, resume.answers.count < round.items.count {
+        // Answers saved against different questions (an update changed the
+        // day) start the round again instead of resuming mismatched.
+        if let resume, resume.matches(round), resume.answers.count < round.items.count {
             _index = State(initialValue: resume.answers.count)
             _answers = State(initialValue: resume.answers)
             _score = State(initialValue: resume.answers.filter { $0 }.count)

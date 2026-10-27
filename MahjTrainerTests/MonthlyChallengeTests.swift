@@ -321,6 +321,26 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(MonthlyChallengeStore(defaults: defaults).result(for: today)?.score, 3)
     }
 
+    /// An update that changes today's questions must not resume yesterday's
+    /// build's answers against them: the round starts again.
+    @MainActor
+    func testARoundWhoseQuestionsChangedStartsFresh() throws {
+        let (store, _) = freshStore("MonthlyChallengeChangedRound")
+        let today = round(2026, 11, 3)
+        store.recordAnswer(round: today, correct: true, pick: 0)
+        store.recordAnswer(round: today, correct: true, pick: 1)
+        let saved = try XCTUnwrap(store.progress(for: today))
+        XCTAssertTrue(saved.matches(today))
+
+        let changed = ChallengeRound(month: today.month, day: today.day, items: today.items.reversed())
+        XCTAssertFalse(saved.matches(changed))
+        XCTAssertNil(store.progress(for: changed))
+
+        store.recordAnswer(round: changed, correct: false, pick: 2)
+        XCTAssertEqual(store.progress(for: changed)?.answers, [false])
+        XCTAssertEqual(store.progress(for: changed)?.picks, [2])
+    }
+
     /// A round left half done at midnight keeps what it earned.
     @MainActor
     func testAnUnfinishedRoundIsClosedWhenItsDayEnds() {

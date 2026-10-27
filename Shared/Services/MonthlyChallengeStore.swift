@@ -37,6 +37,14 @@ struct MonthlyChallengeProgress: Codable, Sendable {
     var answers: [Bool]
     var picks: [Int]
     var fingerprints: [String]?
+
+    /// True when `round` still opens with exactly the questions answered so
+    /// far. An update that changed today's questions must not resume the
+    /// old answers against new ones; a run without fingerprints cannot show
+    /// that it matches.
+    func matches(_ round: ChallengeRound) -> Bool {
+        fingerprints == round.items.prefix(answers.count).map(\.challengeFingerprint)
+    }
 }
 
 /// A month so far: the best `countedDays` rounds added up.
@@ -114,9 +122,11 @@ final class MonthlyChallengeStore: ObservableObject {
         results[round.key]
     }
 
+    /// The round's saved answers, unless the questions changed under them
+    /// (an app update), in which case the round starts again.
     func progress(for round: ChallengeRound) -> MonthlyChallengeProgress? {
-        guard results[round.key] == nil else { return nil }
-        return inProgress[round.key]
+        guard results[round.key] == nil, let run = inProgress[round.key], run.matches(round) else { return nil }
+        return run
     }
 
     /// A month's finished rounds, first day first.
@@ -156,7 +166,7 @@ final class MonthlyChallengeStore: ObservableObject {
     @discardableResult
     func recordAnswer(round: ChallengeRound, correct: Bool, pick: Int, now: Date = Date()) -> MonthlyChallengeResult? {
         guard results[round.key] == nil else { return results[round.key] }
-        var run = inProgress[round.key] ?? MonthlyChallengeProgress(answers: [], picks: [], fingerprints: [])
+        var run = progress(for: round) ?? MonthlyChallengeProgress(answers: [], picks: [], fingerprints: [])
         guard run.answers.count < round.items.count else { return finish(round, run, now: now) }
         run.fingerprints?.append(round.items[run.answers.count].challengeFingerprint)
         run.answers.append(correct)
