@@ -1,0 +1,17 @@
+{
+  "project": "MahjTrainer.xcodeproj",
+  "scheme": "Screenshots",
+  "uitests_dir": "MahjTrainerScreenshots",
+  "journeys": [
+    "MahjTrainerScreenshots/ReleaseJourneysUITests"
+  ],
+  "personas": [
+    "newcomer",
+    "accessibility",
+    "reduce-motion",
+    "german"
+  ],
+  "persona_overrides": {},
+  "slot": null,
+  "bundle_id": "com.jackwallner.mahj"
+}
