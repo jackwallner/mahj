@@ -36,3 +36,18 @@ because on Home that button is the Settings gear and the extra tap opens
 Settings while the elements underneath still answer queries; and the test never
 calls `XCTFail`, because a failing UI test spends ten minutes collecting
 simulator diagnostics before it tells you anything.
+
+## Release gate journeys
+
+`ReleaseJourneysUITests` runs per persona in `qa-gate run` (newcomer, AX3,
+Reduce Motion, iPhone Duo). `testCoreLoopPracticeFinishesAndResumes` is the
+core loop: one answer in Tile Check, back to Home, Resume reopens the same
+question with the answer held; then a whole Get Started session to its
+result, and Home shows "Today's session is done", one more drill counted and
+a streak, again after `QA.relaunch`. It must not pass launch arguments for
+anything it asserts: arguments win over saved values on every relaunch. The
+helpers that call `QA.checkpoint` take `journey: String = #function`, so
+findings carry the test's name (ledger matches before 1.4.2's batch 7 said
+`home(_:in:)`). DEBUG builds log `launch-timing` lines (process start to the
+App's init, the first appear and the commit after it) for blank-launch
+findings.
