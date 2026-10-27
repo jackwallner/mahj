@@ -82,14 +82,18 @@ struct HomeView: View {
             homeStack
                 .environment(\.horizontalSizeClass, layoutSizeClass)
                 .frame(maxWidth: split?.primaryWidth ?? .infinity, maxHeight: .infinity)
-            // Only while split. Kept hidden after a fold, a drill stayed
-            // mounted while Home offered Resume for the same run. Its run is
-            // saved, so the Resume card picks it up on the phone layout.
-            if let split {
+            // While split, and after a fold for as long as Home's screen is
+            // still open in it: the pane then fills the phone, so a Timed
+            // Challenge or Game Night Prep keeps its questions, clock and
+            // score (they live in view state, and this branch keeps its
+            // identity across the fold). Never hidden: a room on its own
+            // goes away with the fold, and a drill opened from it is saved,
+            // so Home's Resume card picks it up.
+            if split != nil || !panePath.isEmpty {
                 trailingPane
                     .environment(\.horizontalSizeClass, .compact)
-                    .frame(maxWidth: split.secondaryWidth, maxHeight: .infinity)
-                    .padding(.leading, split.secondaryX)
+                    .frame(maxWidth: split?.secondaryWidth ?? .infinity, maxHeight: .infinity)
+                    .padding(.leading, split?.secondaryX ?? 0)
             }
         }
         // Measured at the full width whatever the panes take, or a narrower
@@ -110,9 +114,6 @@ struct HomeView: View {
         .onGeometryChange(for: PaneGeometry.self) { proxy in
             PaneGeometry(width: proxy.size.width, fold: proxy.verticalFold())
         } action: { paneGeometry = $0 }
-        .onChange(of: split != nil) { _, isSplit in
-            if !isSplit { panePath = [] }
-        }
         .onChange(of: paneBusy) { _, busy in
             if !busy { homeIsBareAgain() }
         }
@@ -132,10 +133,11 @@ struct HomeView: View {
             .trailingPaneEdge()
             .id(paneRoomID)
             .navigationDestination(for: PaneScreen.self) {
-                $0.view.navigationBarBackButtonHidden(true).trailingPaneEdge()
+                $0.view.modifier(PaneScreenBackButton()).trailingPaneEdge()
             }
         }
-        .environment(\.isTrailingPane, true)
+        .background(Theme.background.ignoresSafeArea())
+        .environment(\.isTrailingPane, split != nil)
         .tint(Theme.jade)
     }
 
@@ -186,7 +188,9 @@ struct HomeView: View {
     /// pushed over Home otherwise.
     private func show(_ destination: AppDestination) {
         if destination == .monthlyChallenge { challengeOpenCount += 1 }
-        guard split != nil else {
+        // Folded with Home's screen still open in the pane, the pane is the
+        // screen on top, so the new one goes there too.
+        guard split != nil || !panePath.isEmpty else {
             path = [destination]
             return
         }
@@ -411,10 +415,11 @@ struct HomeView: View {
             && churnPrompt == nil
     }
 
-    /// Split, the trailing pane counts as pushed while it shows anything but
-    /// a room: a screen Home opened there, or a drill opened from its room.
+    /// The trailing pane counts as pushed while it shows anything but a
+    /// room: a screen Home opened there (split, or carried over a fold), or a
+    /// drill opened from its room.
     private var paneBusy: Bool {
-        split != nil && (!panePath.isEmpty || ordinaryRuns.onScreenID != nil)
+        !panePath.isEmpty || (split != nil && ordinaryRuns.onScreenID != nil)
     }
 
     /// A round left half done on an earlier day is scored on what was
@@ -1429,6 +1434,16 @@ private struct TrainingTileFrame: ViewModifier {
 
 /// A screen Home opened in the unfolded Duo's trailing pane. Each open is a
 /// new value, so tapping the same card again starts it fresh.
+/// Beside Home, a screen Home opened has no back button (Home is the
+/// navigator). Carried over a fold it fills the phone, and Back closes it.
+private struct PaneScreenBackButton: ViewModifier {
+    @Environment(\.isTrailingPane) private var isTrailingPane
+
+    func body(content: Content) -> some View {
+        content.navigationBarBackButtonHidden(isTrailingPane)
+    }
+}
+
 private struct PaneScreen: Hashable {
     let id: String
     let view: AnyView
