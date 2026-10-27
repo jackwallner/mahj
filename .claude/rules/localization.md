@@ -76,6 +76,14 @@ note) use `Tile.englishName`, never `spokenName`.
 
 ## Checking a language
 
-`gh-sim all --screen "-AppleLanguages (de) -AppleLocale de_DE"` with the
-onboarding and paywall launch args (`-mahj.shot paywall`, a fresh install
-for onboarding). Look for truncation, clipped buttons and leftover English.
+`gh-sim all --screen "-AppleLanguages (de) -AppleLocale de_DE ..."`, one
+`--screen` per screen: `-mahj.onboardingPage 0` and `-mahj.onboardingPage 4`
+(the trial page, DEBUG only) on a fresh install, and `-progress.hasOnboarded
+YES -mahj.suppressWhatsNew YES -mahj.hasReadPrimer YES -mahj.skillLevel some`
+plus `-mahj.shot paywall` for the paywall. Pass `--skip
+MahjTrainerTests/TrialEligibilityTests/testFreeWeekUntilTheAccountHasUsedIt`:
+it hangs on the iOS 27.0 iPhone 17 runtime too (2026-10-27), and keep a run
+to about ten screens or GitHub's job cap cuts the screenshots short. Look for
+truncation, clipped buttons, leftover English, and a soft exit that repeats
+the trial button's verb (Spanish and Indonesian did). The simulator's
+storefront is US, so a non-US locale shows US prices; that is expected.
