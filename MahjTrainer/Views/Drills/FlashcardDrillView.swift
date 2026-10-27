@@ -30,7 +30,7 @@ struct FlashcardDrillView: View {
     @State private var queue: [Flashcard] = []
     @State private var isFlipped = false
     @State private var drag: CGSize = .zero
-    @State private var isFlinging = false
+    @State private var flingGate = DeckFlingGate()
     @State private var crossedThreshold = false
     @State private var lastSwipe: SwipeRecord?
     @State private var pendingAnswer: AnswerSnapshot?
@@ -46,6 +46,8 @@ struct FlashcardDrillView: View {
     /// One-time teaching nudge after the first-ever flip.
     @AppStorage("mahj.hasSwipedDeck") private var hasSwipedDeck = false
     @State private var didHint = false
+
+    private var isFlinging: Bool { flingGate.isFlinging }
 
     private typealias SwipeRecord = OrdinaryRun.SwipeRecord
     private typealias AnswerSnapshot = OrdinaryRun.AnswerSnapshot
@@ -365,7 +367,9 @@ struct FlashcardDrillView: View {
     /// fades as it goes, so the verdict stamp leaves with it instead of being
     /// cut off the instant the queue drops the card.
     private func fling(direction: CGFloat, size: CGSize) {
-        isFlinging = true
+        // A second tap on Next while the card is still in the air used to
+        // throw again, and the second commit graded the next card unseen.
+        guard flingGate.begin() else { return }
         hasSwipedDeck = true
         Haptics.impact(.rigid, intensity: 0.7)
         let exit = CGSize(width: direction * size.width * 1.5, height: drag.height * 1.1)
@@ -379,7 +383,7 @@ struct FlashcardDrillView: View {
                 commit(gotIt: direction > 0)
                 drag = .zero
                 flingOpacity = 1
-                isFlinging = false
+                flingGate.end()
                 isFlipped = false
             }
         }
@@ -449,6 +453,23 @@ struct FlashcardDrillView: View {
                 drag = .zero
             }
         }
+    }
+}
+
+/// One throw at a time. Every way of grading the top card (Next, a swipe,
+/// the VoiceOver actions) goes through `begin`, so a double tap during the
+/// fling cannot reach the card that rises behind it.
+struct DeckFlingGate {
+    private(set) var isFlinging = false
+
+    mutating func begin() -> Bool {
+        guard !isFlinging else { return false }
+        isFlinging = true
+        return true
+    }
+
+    mutating func end() {
+        isFlinging = false
     }
 }
 
