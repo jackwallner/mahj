@@ -138,6 +138,47 @@ enum OfferPitch: String, CaseIterable, Sendable {
     }
 }
 
+/// A short note from the studio under the trial page's benefits. Tested in
+/// the app like `offer_pitch`, so it runs beside the trial button Experiment
+/// instead of splitting its new customers. `split` deals each player one arm
+/// for good just before the trial page, the arm rides to RevenueCat as the
+/// `trial_note` attribute once the page has been seen, and
+/// `~/ios/growth/indie-note-readout.py` reads it. Deploy the winner by
+/// setting the key to it on every offering.
+enum TrialNote: String, CaseIterable, Sendable {
+    static let metadataKey = "trial_note"
+    static let armKey = "trialNote.arm"
+    static let seenKey = "trialNote.seen"
+
+    /// Control: no note, the 1.3.2 page.
+    case none
+    case indie
+    /// Half the players get each arm, kept per install.
+    case split
+
+    static let indieText = "We're a small indie studio. Your trial helps us keep building. Not for you? Cancel anytime and tell us what to fix."
+
+    /// The arm a player was dealt or will see, never `split`. Dealing is
+    /// `deal`'s job, so a page built ahead of time does not enrol anyone.
+    func arm(kept: String?) -> TrialNote {
+        guard self == .split else { return self }
+        return kept.flatMap(TrialNote.init(rawValue:)).flatMap { $0 == .split ? nil : $0 } ?? .none
+    }
+
+    /// Deals a `split` player one arm and keeps it. Anything else deals nothing.
+    func deal(defaults: UserDefaults = .standard, coin: () -> Bool = { Bool.random() }) {
+        guard self == .split, defaults.string(forKey: Self.armKey) == nil else { return }
+        defaults.set((coin() ? TrialNote.indie : .none).rawValue, forKey: Self.armKey)
+    }
+
+    /// The arm this player saw on the trial page, for the attribute and the
+    /// churn question. Nil until a dealt player has seen the page.
+    static func seenArm(defaults: UserDefaults = .standard) -> TrialNote? {
+        guard defaults.bool(forKey: seenKey) else { return nil }
+        return defaults.string(forKey: armKey).flatMap(TrialNote.init(rawValue:))
+    }
+}
+
 /// Remote off switches, for what is worth pausing without a release. On
 /// unless the metadata says "off".
 enum RemoteSwitch: String, CaseIterable, Sendable {
@@ -193,6 +234,8 @@ extension SubscriptionService {
         RemoteConfig.value(OnboardingPlan.metadataKey, in: remoteMetadata, default: .monthly)
     }
 
+    var trialNote: TrialNote { RemoteConfig.value(TrialNote.metadataKey, in: remoteMetadata, default: .none) }
+
     /// The trial sheet's body for this player (an arm, never `split`).
     var offerPitch: OfferPitch {
         RemoteConfig.value(OfferPitch.metadataKey, in: remoteMetadata, default: OfferPitch.benefits).arm()
@@ -214,6 +257,10 @@ extension SubscriptionService {
         // not in the pitch test.
         if let arm = UserDefaults.standard.string(forKey: OfferPitch.armKey) {
             attributes[OfferPitch.metadataKey] = arm
+        }
+        // Only once a dealt player has seen the trial page.
+        if let arm = TrialNote.seenArm() {
+            attributes[TrialNote.metadataKey] = arm.rawValue
         }
         return attributes
     }

@@ -23,6 +23,7 @@ struct OnboardingView: View {
     @State private var showPaywallFallback = false
     @State private var purchaseError: String?
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
+    @AppStorage(TrialNote.armKey) private var trialNoteArm: String?
 
     private enum Stage: Equatable { case pages, tour, howToPlay }
     @State private var stage: Stage = .pages
@@ -87,7 +88,10 @@ struct OnboardingView: View {
                 page = skillPage
                 return
             }
+            // Dealt a page early, so the trial page slides in already drawn.
+            if newPage >= lastPage - 1 { subscriptions.trialNote.deal() }
             guard newPage == lastPage else { return }
+            if trialNoteArm != nil { UserDefaults.standard.set(true, forKey: TrialNote.seenKey) }
             subscriptions.trackPaywallImpression(id: "mahj_onboarding_trial", oncePerSession: true)
         }
         .sheet(isPresented: $showPaywallFallback, onDismiss: paywallDismissed) {
@@ -300,6 +304,7 @@ struct OnboardingView: View {
             fittedPage(spacing: 22) {
                 trialHeader
                 trialBenefits
+                trialNote
                 if !subscriptions.isPro {
                     priceSlot
                     softExit
@@ -311,6 +316,7 @@ struct OnboardingView: View {
                 Spacer()
                 trialHeader
                 trialBenefits
+                trialNote
                 Spacer()
                 Spacer()
             }
@@ -334,6 +340,19 @@ struct OnboardingView: View {
     private var trialBenefits: some View {
         VStack(alignment: .leading, spacing: 12) {
             ForEach(subscriptions.trialBenefits.lines, id: \.self) { trialBenefit($0) }
+        }
+    }
+
+    /// The `trial_note` test's variant line. Absent in the control, so the
+    /// control page is 1.3.2's.
+    @ViewBuilder
+    private var trialNote: some View {
+        if !subscriptions.isPro, subscriptions.trialNote.arm(kept: trialNoteArm) == .indie {
+            Text(TrialNote.indieText)
+                .font(.footnote)
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 
