@@ -252,7 +252,9 @@ hides the Home card and drops `mahj://challenge` (event and reminder taps
 just open Home). Saved runs stay. Set it on every offering, like the other
 switches. A cold link waits for the offering before deciding
 (`AppDestination.routeAction`, 1.4.2; before, the switch read "on" until
-offerings loaded), giving up after 4s offline and going on the default. Players reach a month's questions only from the 1st of that month
+offerings loaded), giving up after 4s offline and going on the default.
+The 4s belongs to that link (`AppRouter.pendingRouteID`): a later link
+waits again. Players reach a month's questions only from the 1st of that month
 in their own time zone. The What's New line for the challenge
 (`WhatsNew.monthlyChallengeItemID`) and the monthly reminder follow the same
 switch. `MahjTrainerScreenshots/ChallengeSwitchTests.swift` checks off, on and

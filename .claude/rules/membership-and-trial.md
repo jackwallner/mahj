@@ -85,8 +85,15 @@ buying if the answer changed. DEBUG pins it with `-mahj.trialIneligible YES`.
 Every purchase goes through `SubscriptionService.purchase`, which first lets
 a reinstall's StoreKit sync settle (`PurchaseGate`): a member found by it
 gets `PurchaseOutcome.alreadyMember` and nothing is sold; a sync still
-stalled after the 3s wait throws `productsUnavailable` (the existing "App
-Store isn't reachable" copy) rather than charge a member (1.4.2).
+stalled after the 3s wait, or one where StoreKit holds an entitlement but
+RevenueCat's sync failed (`MembershipRecovery.ownedUnsynced`), throws
+`productsUnavailable` (the existing "App Store isn't reachable" copy)
+rather than charge a member, and the next tap retries the sync (1.4.2).
+`MembershipRecoveryRunner` runs one check at a time and holds every caller,
+the one that started it included, at most 3s. `ensureOfferings` also waits
+for StoreKit's free-week answer (offerings publish before it), and the
+onboarding page and paywall redraw instead of buying when it changed the
+terms they showed (`PurchaseTerms`).
 
 One exception since (Jack, 2026-10-19): benefit rows 2 and 4 changed, because
 the Mahj Minute went free in 1.4.1 and 1.3.2's row 2 sold it as paid. 1.3.2
