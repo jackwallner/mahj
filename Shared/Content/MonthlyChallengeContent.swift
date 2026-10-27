@@ -78,11 +78,7 @@ struct MonthlyChallenge: Identifiable, Sendable {
     }
 
     func round(day: Int) -> ChallengeRound {
-        ChallengeRound(
-            month: self,
-            day: day,
-            items: MonthlyChallengeContent.roundItems(for: self, day: day)
-        )
+        ChallengeRound(month: self, day: day)
     }
 }
 
@@ -92,7 +88,20 @@ struct MonthlyChallenge: Identifiable, Sendable {
 struct ChallengeRound: Identifiable, Sendable {
     let month: MonthlyChallenge
     let day: Int
-    let items: [QuickItem]
+    /// Set only when a test pins the questions.
+    private let pinnedItems: [QuickItem]?
+
+    init(month: MonthlyChallenge, day: Int, items: [QuickItem]? = nil) {
+        self.month = month
+        self.day = day
+        pinnedItems = items
+    }
+
+    /// Built on first use and cached, never just to name the round. The
+    /// first build plans the month's racks (0.4s in a Debug build), and
+    /// Home names today's round on its first frame, so building it there
+    /// held up the launch (release gate, blank launch).
+    var items: [QuickItem] { pinnedItems ?? MonthlyChallengeContent.roundItems(for: month, day: day) }
 
     var key: String { MonthlyChallengeContent.roundKey(monthKey: month.monthKey, day: day) }
     var id: String { key }

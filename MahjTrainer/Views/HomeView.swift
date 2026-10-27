@@ -911,11 +911,14 @@ struct HomeView: View {
         if let run {
             return "\(run.answers.count) of \(round.items.count) answered today"
         }
+        // The count every round has (`MonthlyChallengeTests`), so Home's
+        // first frame never builds today's questions just to count them.
+        let count = MonthlyChallengeContent.questionsPerRound
         let score = monthlyStore.monthScore(round.monthKey)
         if score.daysPlayed == 0 {
-            return "\(round.items.count) new questions a day, the same for every player"
+            return "\(count) new questions a day, the same for every player"
         }
-        return "\(round.items.count) questions · \(score.points)\u{00A0}\(score.points == 1 ? "point" : "points") this month"
+        return "\(count) questions · \(score.points)\u{00A0}\(score.points == 1 ? "point" : "points") this month"
     }
 
     /// Today's round is done: the month score rides beside the stats instead

@@ -49,6 +49,12 @@ up from November so App Review, and players who get the release in
 October, have rounds to play before November's event; October takes
 Reading Your Rack from the rotation.
 
+- `ChallengeRound.items` is built on first use (cached in `itemCache`),
+  never to name a round (1.4.2 release gate): the first build plans the
+  month's racks, 0.4s in a Debug build and 50ms in Release on an M3, and
+  Home names today's round on its first frame. Home's card counts
+  `questionsPerRound` (every round has that many, `MonthlyChallengeTests`),
+  and the app warms today's questions off the main thread after launch.
 - `MonthlyChallenge.round(day:)` builds a `ChallengeRound` (key
   "YYYY-MM-DD"): [themed generated, other skill (the two alternate by day),
   themed harder]. Every third day the closer is hand-written, taken in

@@ -10,6 +10,10 @@ struct MahjTrainerApp: App {
     @StateObject private var router = AppRouter.shared
     @Environment(\.scenePhase) private var scenePhase
 
+    #if DEBUG
+    init() { LaunchTiming.mark("app init") }
+    #endif
+
     var body: some Scene {
         WindowGroup {
             RootView()
@@ -40,6 +44,8 @@ struct MahjTrainerApp: App {
                 }
                 .onAppear {
                     #if DEBUG
+                    LaunchTiming.mark("root appear")
+                    DispatchQueue.main.async { LaunchTiming.mark("first commit") }
                     DebugShot.seedIfRequested()
                     DebugShot.routeIfRequested(router)
                     #endif
@@ -59,6 +65,9 @@ struct MahjTrainerApp: App {
                     Task { @MainActor in
                         await Task.yield()
                         subscriptions.start()
+                        // Today's questions, built off the main thread so
+                        // opening the challenge does not wait for them.
+                        Task.detached(priority: .utility) { _ = MonthlyChallengeContent.currentRound()?.items }
                         MonthlyChallengeReminder.refresh()
                         await FeedbackService.shared.flushPending()
                     }
@@ -89,3 +98,20 @@ struct MahjTrainerApp: App {
         }
     }
 }
+
+#if DEBUG
+/// "launch-timing" lines in the device log: milliseconds from process start
+/// to the App's init, the first appear and the commit after it, so a blank
+/// launch can be split into the app's own work and the simulator's.
+enum LaunchTiming {
+    static func mark(_ step: String) {
+        var info = kinfo_proc()
+        var size = MemoryLayout<kinfo_proc>.stride
+        var mib: [Int32] = [CTL_KERN, KERN_PROC, KERN_PROC_PID, getpid()]
+        guard sysctl(&mib, 4, &info, &size, nil, 0) == 0 else { return }
+        let start = info.kp_proc.p_starttime
+        let started = Double(start.tv_sec) + Double(start.tv_usec) / 1_000_000
+        NSLog("launch-timing %@ %.0f ms", step, (Date().timeIntervalSince1970 - started) * 1000)
+    }
+}
+#endif
