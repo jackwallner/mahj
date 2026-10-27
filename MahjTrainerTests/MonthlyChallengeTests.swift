@@ -522,6 +522,26 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(link.routeAction(membershipKnown: false, isMember: false, remoteConfigKnown: true, challengeOn: true), .open)
     }
 
+    /// A wait that timed out for one link must not let a later link skip
+    /// its own wait while the offering is still unknown.
+    @MainActor
+    func testEachLinkWaitsOnItsOwnClock() {
+        let router = AppRouter()
+        router.route(to: .monthlyChallenge)
+        let first = router.pendingRouteID
+        XCTAssertFalse(router.pendingWaitIsOver)
+        router.endWait(forRoute: first)
+        XCTAssertTrue(router.pendingWaitIsOver)
+        _ = router.consumePendingDestination()
+
+        router.route(to: .monthlyChallenge)
+        XCTAssertFalse(router.pendingWaitIsOver, "the first link's timeout carried over")
+        router.endWait(forRoute: first)
+        XCTAssertFalse(router.pendingWaitIsOver, "a stale timer ended the new link's wait")
+        router.endWait(forRoute: router.pendingRouteID)
+        XCTAssertTrue(router.pendingWaitIsOver)
+    }
+
     /// Paid destinations still wait for the customer record, never for the
     /// challenge switch.
     func testPaidLinksWaitOnlyForTheMembership() {

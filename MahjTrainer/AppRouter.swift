@@ -76,9 +76,23 @@ final class AppRouter: ObservableObject {
     static let shared = AppRouter()
 
     @Published private(set) var pendingDestination: AppDestination?
+    /// Numbers each route, so a wait that timed out for one link does not
+    /// excuse the next one from waiting.
+    private(set) var pendingRouteID = 0
+    private var waitOverRouteID: Int?
 
     func route(to destination: AppDestination) {
+        pendingRouteID += 1
         pendingDestination = destination
+    }
+
+    /// The pending route has waited long enough for the customer record and
+    /// the offering; go on what is known.
+    var pendingWaitIsOver: Bool { waitOverRouteID == pendingRouteID }
+
+    func endWait(forRoute id: Int) {
+        guard id == pendingRouteID else { return }
+        waitOverRouteID = id
     }
 
     func consumePendingDestination() -> AppDestination? {

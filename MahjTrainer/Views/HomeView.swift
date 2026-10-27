@@ -15,7 +15,9 @@ struct HomeView: View {
     @EnvironmentObject private var router: AppRouter
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    @State private var routeWaitOver = false
+    /// The route whose 4s wait is already counting, so repeat calls while it
+    /// waits do not stack timers.
+    @State private var routeWaitTimer: Int?
     @StateObject private var ordinaryRuns = OrdinaryRunStore.shared
     @StateObject private var records = PracticeRecordStore.shared
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
@@ -493,17 +495,20 @@ struct HomeView: View {
         }
         #endif
         let action = waiting.routeAction(
-            membershipKnown: subscriptions.membershipResolved || routeWaitOver,
+            membershipKnown: subscriptions.membershipResolved || router.pendingWaitIsOver,
             isMember: subscriptions.isPro,
-            remoteConfigKnown: subscriptions.remoteConfigKnown || routeWaitOver,
+            remoteConfigKnown: subscriptions.remoteConfigKnown || router.pendingWaitIsOver,
             challengeOn: showsMonthlyChallenge
         )
         if action == .wait {
             // Offline with no cached record or offering, it may never
-            // resolve: give it a few seconds, then go on what is known.
+            // resolve: give this route a few seconds, then go on what is known.
+            let id = router.pendingRouteID
+            guard routeWaitTimer != id else { return }
+            routeWaitTimer = id
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: 4_000_000_000)
-                routeWaitOver = true
+                router.endWait(forRoute: id)
                 consumePendingDestination()
             }
             return
