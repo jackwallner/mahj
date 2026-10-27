@@ -541,7 +541,7 @@ struct OnboardingView: View {
             }
             // StoreKit answered after the page drew: show the real terms and
             // let them tap again rather than buy on the old ones.
-            guard subscriptions.offersTrial == shownTrial else { return }
+            guard subscriptions.purchaseTerms(shownTrial: shownTrial) == .buy else { return }
             // Monthly by default, and this is deliberate. Two different people
             // reach the two purchase surfaces: whoever taps through onboarding
             // has not used the app yet and is reacting to the number on Apple's

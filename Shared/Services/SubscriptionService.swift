@@ -19,16 +19,70 @@ enum PurchaseOutcome: Sendable {
     case alreadyMember
 }
 
+/// What a reinstall's membership check found.
+enum MembershipRecovery: Equatable, Sendable {
+    /// StoreKit holds no current entitlement for this Apple Account.
+    case ownsNothing
+    /// RevenueCat synced what StoreKit holds.
+    case recovered
+    /// StoreKit holds an entitlement but RevenueCat's sync failed, so the
+    /// account owns Mahj+ while the app still reads it as free.
+    case ownedUnsynced
+}
+
 /// What `purchase` may do while a reinstall's membership sync runs.
 enum PurchaseGate: Equatable, Sendable {
     case sell
     case alreadyMember
-    /// The sync has not settled: selling now could charge a member.
+    /// The sync has not settled, or StoreKit says the account already owns
+    /// Mahj+ and RevenueCat has not caught up: selling now could charge a
+    /// member for a second plan.
     case unsettled
 
-    static func decide(isRecovering: Bool, isPro: Bool) -> PurchaseGate {
+    static func decide(isRecovering: Bool, lastRecovery: MembershipRecovery?, isPro: Bool) -> PurchaseGate {
         if isRecovering { return .unsettled }
-        return isPro ? .alreadyMember : .sell
+        if isPro { return .alreadyMember }
+        return lastRecovery == .ownedUnsynced ? .unsettled : .sell
+    }
+}
+
+/// Whether a purchase may run on the terms the screen showed. The free-week
+/// answer can land after the screen drew; then the screen redraws with the
+/// real terms and the player taps again.
+enum PurchaseTerms: Equatable, Sendable {
+    case buy
+    case redraw
+
+    static func check(shownTrial: Bool, offersTrial: Bool) -> PurchaseTerms {
+        offersTrial == shownTrial ? .buy : .redraw
+    }
+}
+
+/// Runs one membership check at a time. Every caller, the one that starts it
+/// included, waits at most `timeout`; the check keeps running past that, and
+/// the next caller waits on the same one instead of starting another.
+@MainActor
+final class MembershipRecoveryRunner {
+    private var task: Task<MembershipRecovery, Never>?
+    private(set) var last: MembershipRecovery?
+
+    var isRunning: Bool { task != nil }
+
+    func run(timeout: TimeInterval, _ work: @escaping @MainActor () async -> MembershipRecovery) async {
+        if task == nil {
+            task = Task { @MainActor in
+                let result = await work()
+                self.last = result
+                self.task = nil
+                return result
+            }
+        }
+        // Poll rather than await the task: an await on it cannot be cut
+        // short, and a task group waits for every child before it returns.
+        let deadline = Date().addingTimeInterval(timeout)
+        while task != nil, Date() < deadline {
+            try? await Task.sleep(nanoseconds: 50_000_000)
+        }
     }
 }
 
@@ -81,7 +135,9 @@ final class SubscriptionService: NSObject, ObservableObject {
     private let pendingChurnKey = "membership.pendingChurnMoment"
     private let reinstallSyncKey = "membership.reinstallSyncDone"
     private var paywallImpressionsThisSession: Set<String> = []
-    private var membershipRecovery: Task<Void, Never>?
+    private let membershipRecovery = MembershipRecoveryRunner()
+    /// StoreKit's free-week answer for this account, nil until it is asked.
+    private var trialEligibility: Bool?
 
     override private init() {
         super.init()
@@ -139,7 +195,7 @@ final class SubscriptionService: NSObject, ObservableObject {
     /// but never holds the button more than a few seconds on a stalled one.
     /// A reinstall's StoreKit sync is still running. The one-tap sheet will
     /// not sell until it knows what this Apple Account already owns.
-    var isRecoveringMembership: Bool { membershipRecovery != nil }
+    var isRecoveringMembership: Bool { membershipRecovery.isRunning }
 
     /// Whether this Apple Account still gets the plan's free week. Apple gives
     /// an introductory offer once per subscription group, so a lapsed member
@@ -155,24 +211,18 @@ final class SubscriptionService: NSObject, ObservableObject {
         return await subscription.isEligibleForIntroOffer
     }
 
+    /// Starts the check if it is needed, or joins one already running, and
+    /// waits at most 3s either way: a stalled sync must not hold a purchase
+    /// spinner for good. The check itself keeps going.
     func recoverReinstalledMembershipIfNeeded() async {
-        if membershipRecovery != nil {
-            // Poll rather than await the task: an await on it cannot be cut
-            // short, and a task group waits for every child before it returns.
-            let deadline = Date().addingTimeInterval(3)
-            while membershipRecovery != nil, Date() < deadline {
-                try? await Task.sleep(nanoseconds: 100_000_000)
-            }
-            return
+        let needed = isConfigured && !isPro && !UserDefaults.standard.bool(forKey: reinstallSyncKey)
+        guard needed || membershipRecovery.isRunning else { return }
+        await membershipRecovery.run(timeout: 3) { [weak self] in
+            await self?.recoverReinstalledMembership() ?? .ownsNothing
         }
-        guard isConfigured, !isPro, !UserDefaults.standard.bool(forKey: reinstallSyncKey) else { return }
-        let recovery = Task { await recoverReinstalledMembership() }
-        membershipRecovery = recovery
-        await recovery.value
-        membershipRecovery = nil
     }
 
-    private func recoverReinstalledMembership() async {
+    private func recoverReinstalledMembership() async -> MembershipRecovery {
         var ownsSomething = false
         for await result in Transaction.currentEntitlements {
             if case .verified = result {
@@ -180,10 +230,13 @@ final class SubscriptionService: NSObject, ObservableObject {
                 break
             }
         }
-        guard ownsSomething else { return }
-        guard let info = try? await Purchases.shared.syncPurchases() else { return }
+        guard ownsSomething else { return .ownsNothing }
+        // A failed sync is not "owns nothing": StoreKit just said this
+        // account owns Mahj+, so nothing may be sold until a sync succeeds.
+        guard let info = try? await Purchases.shared.syncPurchases() else { return .ownedUnsynced }
         UserDefaults.standard.set(true, forKey: reinstallSyncKey)
         apply(info)
+        return .recovered
     }
 
     /// Dev/testing switch: flips Pro without a live RC key (Settings toggle).
@@ -303,6 +356,7 @@ final class SubscriptionService: NSObject, ObservableObject {
     /// answer is the paywall's too.
     private func refreshTrialEligibility() async {
         let eligible = await isTrialEligible(for: onboardingPlan.plan)
+        trialEligibility = eligible
         if trialIneligible == eligible { trialIneligible = !eligible }
     }
 
@@ -331,9 +385,16 @@ final class SubscriptionService: NSObject, ObservableObject {
     func ensureOfferings() async -> Bool {
         guard isConfigured else { return false }
         await recoverReinstalledMembershipIfNeeded()
-        if offerings?.current != nil { return true }
-        await loadOfferings()
+        if offerings?.current == nil { await loadOfferings() }
+        // Offerings publish before StoreKit's free-week answer: a tap in
+        // between must not buy under trial wording the account cannot get.
+        if offerings?.current != nil, trialEligibility == nil { await refreshTrialEligibility() }
         return offerings?.current != nil
+    }
+
+    /// Whether a purchase may run on the trial terms the screen showed.
+    func purchaseTerms(shownTrial: Bool) -> PurchaseTerms {
+        PurchaseTerms.check(shownTrial: shownTrial, offersTrial: !trialIneligible)
     }
 
     func purchase(_ package: Package?) async throws -> PurchaseOutcome {
@@ -346,7 +407,7 @@ final class SubscriptionService: NSObject, ObservableObject {
         // sync still stalled after the wait reads as the store being
         // unreachable, which it is.
         await recoverReinstalledMembershipIfNeeded()
-        switch PurchaseGate.decide(isRecovering: isRecoveringMembership, isPro: isPro) {
+        switch PurchaseGate.decide(isRecovering: isRecoveringMembership, lastRecovery: membershipRecovery.last, isPro: isPro) {
         case .sell: break
         case .alreadyMember: return .alreadyMember
         case .unsettled: throw PurchaseError.productsUnavailable

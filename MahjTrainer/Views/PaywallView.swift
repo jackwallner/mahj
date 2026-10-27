@@ -442,7 +442,7 @@ struct PaywallView: View {
                 guard !subscriptions.isPro else { return }
                 // StoreKit answered after the screen drew: show the real
                 // terms and let them tap again rather than buy on the old ones.
-                guard subscriptions.offersTrial == shownTrial else { return }
+                guard selectedPlan == .lifetime || subscriptions.purchaseTerms(shownTrial: shownTrial) == .buy else { return }
                 let outcome = try await subscriptions.purchase(subscriptions.package(for: selectedPlan))
                 guard outcome == .purchased else { return }
                 Haptics.success()
