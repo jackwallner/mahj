@@ -57,7 +57,11 @@ Full write-up: `project-docs/marketing/meta-ads.md`.
   `error`. Any other 4xx is `error` at once. Before this, one blip dropped the
   trial's StartTrial for good. Retries resend the same `event_id`, which Meta
   deduplicates. Apply `20261016120000_meta_trial_relay_retries.sql` BEFORE
-  deploying the function (it selects the new columns). Test:
+  deploying the function (it selects the new columns). It was not, and every
+  sweep returned 500 from 2026-10-20 to 2026-10-27 (35 trials stuck
+  `pending`, nothing sent) until it was applied. Health check: rows with
+  `checked_at` null and `trial_started_at` over an hour old, or
+  `net._http_response` showing 500s, mean the sweep is broken. Test:
   `deno test -A supabase/functions/meta-trial-relay` (all network faked).
 - The in-app 50/50 `CTAExperiment` was removed in build 47: it had no
   control arm and needed a release to change. The wording is now `TrialCTA`,
