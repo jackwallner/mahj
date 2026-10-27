@@ -21,7 +21,11 @@ struct HomeView: View {
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
     @StateObject private var handPlay = HandPlayStore.shared
     @StateObject private var ledger = MasteryLedger.shared
+    @StateObject private var dayClock = DayClock.shared
     @State private var path: [AppDestination] = []
+    /// Bumped on every open of the challenge, so the event link redraws it
+    /// for today even when it is already the screen on top.
+    @State private var challengeOpenCount = 0
     @State private var showPaywall = false
     #if DEBUG
     /// `-mahj.previewTrialOffer` opens the result-screen trial sheet over
@@ -180,6 +184,7 @@ struct HomeView: View {
     /// Opens a routed destination: in the trailing pane while unfolded,
     /// pushed over Home otherwise.
     private func show(_ destination: AppDestination) {
+        if destination == .monthlyChallenge { challengeOpenCount += 1 }
         guard split != nil else {
             path = [destination]
             return
@@ -201,7 +206,7 @@ struct HomeView: View {
         case .gameNightPrepSession:
             QuickSessionView(gameNightPrep: gameNightPrepItems)
         case .monthlyChallenge:
-            MonthlyChallengeView()
+            MonthlyChallengeView().id(challengeOpenCount)
         case .endlessPicker: EndlessPickerView()
         case .gameNightPrep: GameNightPrepView()
         case .timedChallenge: PracticeRunView(mode: .timed)
@@ -231,6 +236,7 @@ struct HomeView: View {
                     consumeRecommendedRoomHint(proxy: proxy)
                     consumePendingDestination()
                     recordMastery()
+                    closeEarlierChallengeRounds()
                     homeIsBareAgain()
                 }
                 .onDisappear { homeOnScreen = false }
@@ -293,6 +299,7 @@ struct HomeView: View {
             }
             .onChange(of: subscriptions.pendingChurnMoment) { _, _ in presentChurnPromptIfNeeded() }
             .onChange(of: records.records.count) { _, _ in recordMastery() }
+            .onChange(of: dayClock.dayKey) { _, _ in closeEarlierChallengeRounds() }
             .onChange(of: router.pendingDestination) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.membershipResolved) { _, _ in recordMastery() }
             .onChange(of: subscriptions.isPro) { _, _ in recordMastery() }
@@ -395,6 +402,12 @@ struct HomeView: View {
     /// Nothing pushed and no sheet up: the only state Home may put a prompt on.
     private var homeIsBare: Bool {
         homeOnScreen && path.isEmpty && !showWhatsNew && !showPaywall && !showSettings && churnPrompt == nil
+    }
+
+    /// A round left half done on an earlier day is scored on what was
+    /// answered, without waiting for the challenge screen to open.
+    private func closeEarlierChallengeRounds() {
+        monthlyStore.closeEarlierRounds(than: MonthlyChallengeContent.currentRound())
     }
 
     /// A sheet closed or the player came back to Home: anything that waited

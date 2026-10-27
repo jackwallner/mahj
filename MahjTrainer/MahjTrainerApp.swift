@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 @main
 struct MahjTrainerApp: App {
@@ -25,12 +26,17 @@ struct MahjTrainerApp: App {
                     // iOS rarely cold-launches an app, so a report queued
                     // offline also retries every time the app comes back.
                     guard phase == .active else { return }
+                    DayClock.shared.refresh()
                     TrialOfferPacer.noteForeground()
                     Task { await FeedbackService.shared.flushPending() }
                     // Keeps "1st of each month" true for players who never
                     // cold-launch: the three scheduled months roll forward.
                     MonthlyChallengeReminder.refresh()
                     MetaAds.activateApp()
+                }
+                // Midnight with the app open, and clock or time zone changes.
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.significantTimeChangeNotification)) { _ in
+                    DayClock.shared.refresh()
                 }
                 .onAppear {
                     #if DEBUG

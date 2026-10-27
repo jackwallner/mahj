@@ -335,6 +335,55 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(store.monthScore("2026-11"), MonthScore(points: 1, daysPlayed: 1))
     }
 
+    /// A Mahj Minute played across midnight: the session holds the round it
+    /// started with, and its answers stay in that day.
+    @MainActor
+    func testAnswersAfterMidnightLandInTheDayTheRoundStarted() throws {
+        let (store, _) = freshStore("MonthlyChallengeMidnight")
+        let started = try XCTUnwrap(MonthlyChallengeContent.currentRound(now: date(2026, 10, 31, hour: 23), calendar: calendar))
+        store.recordAnswer(round: started, correct: true, pick: 0, now: date(2026, 10, 31, hour: 23))
+        let nextDay = try XCTUnwrap(MonthlyChallengeContent.currentRound(now: date(2026, 11, 1, hour: 0), calendar: calendar))
+        XCTAssertNotEqual(nextDay.key, started.key)
+
+        store.recordAnswer(round: started, correct: false, pick: 1, now: date(2026, 11, 1, hour: 0))
+
+        XCTAssertEqual(store.progress(for: started)?.answers, [true, false])
+        XCTAssertNil(store.progress(for: nextDay))
+        XCTAssertEqual(store.monthScore("2026-11"), .empty)
+
+        // Midnight closes earlier rounds, but not the one being played.
+        store.roundOnScreen = started.key
+        store.closeEarlierRounds(than: nextDay)
+        XCTAssertNil(store.result(for: started))
+        store.roundOnScreen = nil
+        store.closeEarlierRounds(than: nextDay)
+        XCTAssertEqual(store.result(for: started)?.answers, [true, false])
+    }
+
+    /// Home and the challenge screen redraw when the day turns, and only then.
+    @MainActor
+    func testTheDayTokenChangesOnlyWhenTheDayDoes() {
+        let clock = DayClock(now: date(2026, 10, 31, hour: 8), calendar: calendar)
+        XCTAssertEqual(clock.dayKey, "2026-10-31")
+        XCTAssertFalse(clock.refresh(now: date(2026, 10, 31, hour: 23), calendar: calendar))
+        XCTAssertTrue(clock.refresh(now: date(2026, 11, 1, hour: 0), calendar: calendar))
+        XCTAssertEqual(clock.dayKey, "2026-11-01")
+        XCTAssertEqual(clock.dayKey, round(2026, 11, 1).key)
+    }
+
+    /// Opening the app at 8:00 on the 1st re-lays the reminders, and must
+    /// keep that morning's 10:00 one.
+    func testTheReminderKeepsTheFirstOfTheMonthUntilItFires() {
+        let early = MonthlyChallengeReminder.months(now: date(2026, 11, 1, hour: 8), calendar: calendar)
+        XCTAssertEqual(early.map(\.monthKey), ["2026-11", "2026-12", "2027-01", "2027-02"])
+        let late = MonthlyChallengeReminder.months(now: date(2026, 11, 1, hour: 11), calendar: calendar)
+        XCTAssertEqual(late.map(\.monthKey), ["2026-12", "2027-01", "2027-02"])
+        let midMonth = MonthlyChallengeReminder.months(now: date(2026, 10, 15), calendar: calendar)
+        XCTAssertEqual(midMonth.map(\.monthKey), ["2026-11", "2026-12", "2027-01"])
+        let fire = MonthlyChallengeReminder.fireComponents(for: early[0], calendar: calendar)
+        XCTAssertEqual(calendar.date(from: fire), date(2026, 11, 1, hour: 10))
+    }
+
     @MainActor
     func testTheReviewIsOnlyOfferedForTheQuestionsThatWereAnswered() throws {
         let (store, defaults) = freshStore("MonthlyChallengeFingerprints")

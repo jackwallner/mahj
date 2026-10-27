@@ -8,11 +8,13 @@ import UserNotifications
 struct MonthlyChallengeView: View {
     @StateObject private var store = MonthlyChallengeStore.shared
     @StateObject private var minuteStore = MahjMinuteStore.shared
+    @StateObject private var dayClock = DayClock.shared
+    /// Today's round, held rather than read per render, so a redraw after
+    /// midnight cannot swap the day under the screen. Refreshed when the
+    /// screen appears and when the day changes.
+    @State private var round = MonthlyChallengeContent.currentRound()
 
     var body: some View {
-        // One read of "today" per render: a round tapped just after midnight
-        // still opens the day it was showing.
-        let round = MonthlyChallengeContent.currentRound()
         ScrollView {
             VStack(spacing: 16) {
                 if let round {
@@ -32,10 +34,16 @@ struct MonthlyChallengeView: View {
         .background(Theme.background)
         .navigationTitle("\(round?.month.monthName ?? MonthlyChallengeContent.firstChallenge().monthName) Challenge")
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            store.closeEarlierRounds(than: round)
-            if let round { await ChallengeStandingService.refresh(monthKey: round.monthKey) }
+        .onAppear(perform: refreshRound)
+        .onChange(of: dayClock.dayKey) { _, _ in refreshRound() }
+        .task(id: round?.monthKey) {
+            if let monthKey = round?.monthKey { await ChallengeStandingService.refresh(monthKey: monthKey) }
         }
+    }
+
+    private func refreshRound() {
+        round = MonthlyChallengeContent.currentRound()
+        store.closeEarlierRounds(than: round)
     }
 
     private func hero(_ round: ChallengeRound) -> some View {

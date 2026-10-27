@@ -89,6 +89,9 @@ final class MonthlyChallengeStore: ObservableObject {
     @Published private(set) var results: [String: MonthlyChallengeResult]
     @Published private(set) var inProgress: [String: MonthlyChallengeProgress]
     @Published private(set) var standings: [String: ChallengeStanding]
+    /// The round a session has on screen. Closing rounds at midnight skips
+    /// it, so a player mid-round finishes the day they started.
+    var roundOnScreen: String?
 
     private let defaults: UserDefaults
     private static let resultsKey = "monthlyChallenge.rounds"
@@ -176,7 +179,7 @@ final class MonthlyChallengeStore: ObservableObject {
     /// The day is over, so it cannot be finished, and dropping it would throw
     /// away points the player earned.
     func closeEarlierRounds(than current: ChallengeRound?, now: Date = Date()) {
-        let stale = inProgress.keys.filter { $0 != current?.key }
+        let stale = inProgress.keys.filter { $0 != current?.key && $0 != roundOnScreen }
         guard !stale.isEmpty else { return }
         for key in stale {
             guard let run = inProgress[key], !run.answers.isEmpty,
