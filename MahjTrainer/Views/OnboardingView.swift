@@ -47,6 +47,10 @@ struct OnboardingView: View {
             }
         }
         .animation(reduceMotion ? nil : .spring(response: 0.45, dampingFraction: 0.85), value: stage)
+        // Cream under the stage change: while the trial page fades out and
+        // the tour slides in, both are partly see-through, and the bare
+        // window drew a white flash between two cream screens (release gate).
+        .background(Theme.background.ignoresSafeArea())
     }
 
     private var pagesBody: some View {

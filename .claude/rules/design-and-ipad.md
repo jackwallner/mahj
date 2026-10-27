@@ -115,7 +115,10 @@ on the card. Small text links grow to 44pt with `hitPadding(_:)` inside the
 label plus `.padding(-insets)` on the control, so nothing moves. The launch
 screen color is the light cream in both modes. At AX3 the scroll to the
 coaching note runs one main-queue turn after grading: in the same update the
-note had no frame and stayed behind Next. Apple's contrast audit flags
+note had no frame and stayed behind Next (unverified on video: the run-4
+AX3 screenshot still shows the note mostly behind Next). `OnboardingView` draws
+`Theme.background` under its stage change, or the trial-to-tour transition
+flashed the bare white window. Apple's contrast audit flags
 text that draws at 7 to 15:1 (it samples off-element pixels); those are
 accepted in `qa/ledger.jsonl` with the ratio measured off the gate
 screenshot, so measure before darkening a token further.
