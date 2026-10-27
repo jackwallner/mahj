@@ -213,6 +213,9 @@ struct SettingsView: View {
     private var aboutSection: some View {
         Section("About") {
             LabeledContent("Version", value: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0")
+            // Members never see the paywall's links again, so the policy
+            // lives here for everyone.
+            Link("Privacy Policy", destination: PaywallLinks.privacy)
             Text("Mahj Trainer teaches American Mah Jongg skills with original practice hands. It is not affiliated with or endorsed by the National Mah Jongg League. For official hands and values, pick up the current NMJL card.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
