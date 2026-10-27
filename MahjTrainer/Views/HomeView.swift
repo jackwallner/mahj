@@ -301,7 +301,10 @@ struct HomeView: View {
                 ReviewPromptSheet(initialStep: .churn(moment))
             }
             .onChange(of: subscriptions.pendingChurnMoment) { _, _ in presentChurnPromptIfNeeded() }
-            .onChange(of: records.records.count) { _, _ in recordMastery() }
+            // The records themselves, not their count: answering an item
+            // already on file changes mastery without adding a row, and a
+            // drill in the split pane never brings Home back on screen.
+            .onChange(of: records.records) { _, _ in recordMastery() }
             .onChange(of: dayClock.dayKey) { _, _ in closeEarlierChallengeRounds() }
             .onChange(of: router.pendingDestination) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.membershipResolved) { _, _ in recordMastery() }

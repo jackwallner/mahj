@@ -7,7 +7,7 @@ import Foundation
 /// missed once and then answered right four times still sits in `missedItems`
 /// forever. This record carries the counts and the interval, so review can be
 /// spaced instead of permanent.
-struct PracticeRecord: Codable, Sendable {
+struct PracticeRecord: Codable, Equatable, Sendable {
     var attempts: Int = 0
     var correct: Int = 0
     var streak: Int = 0
