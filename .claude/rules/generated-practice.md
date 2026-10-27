@@ -82,6 +82,10 @@ motivated player exhausted Mahj+ in two sittings and then paid for nothing new.
   schedule over per-item history. An item leaves the queue after two correct in
   a row, not one.
 - **Timed Challenge**: 90 seconds of mixed generated items, best score kept.
+- Endless and Timed never look back (no resume, no review), so Next drops the
+  answered question (`PracticeRunView.advanced`, 1.4.2) and a long run holds
+  one batch instead of every question dealt. The counter reads from
+  `attempted`. Fix My Mistakes keeps its fixed list.
 
 `PracticeRecordStore` records EVERY graded answer app-wide (each drill view
 calls it alongside `progress.recordItem`). Generated ids are unique per

@@ -82,7 +82,9 @@ Minute asks only at half right or better, like drills and the challenge.
 ## Weekly gain
 
 `MasteryLedger` records known-question counts per room once a day (Home's
-`onAppear` and whenever the record count changes). `weeklyGain()` is today
+`onAppear` and whenever the records change; 1.4.2 watches the records
+themselves, since a re-answered item changes mastery without adding a row
+and a drill in the Duo's pane never brings Home back on screen). `weeklyGain()` is today
 minus the oldest day inside the 7-day window, positive only; nil on day one
 and on a backwards week. It drives the plum "+N" chip on Home and the "Up N this
 week" card on Your Progress. NOT the reminders: 1.4.0 baked the count into

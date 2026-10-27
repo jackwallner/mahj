@@ -11,6 +11,17 @@ gotcha: the deck uses ONE
 tap. A separate `.onTapGesture` loses arbitration against the drag and
 silently never fires. Don't "simplify" it back to `onTapGesture`.
 
+**One throw at a time (1.4.2):** every grade of the top card (Next, a swipe,
+the VoiceOver actions) goes through `DeckFlingGate.begin()`; a second Next
+during the 0.34s throw used to commit twice and grade the next card unseen.
+The quiz, hand match and Charleston drills guard Next the same way with
+`DrillNext.allowed(answered:finished:)`: two taps before the button hides
+skipped a question, or finished the drill with the last one unanswered.
+Reduce Motion fades the card where it is instead of throwing it, cuts the
+deck's springs and skips the first-flip swipe hint. At accessibility sizes
+the front scrolls its question (`ViewThatFits`: the designed stack first)
+with the choice buttons pinned below, as the back does.
+
 **Flip gotcha (fixed 2026-07-12):** the whole card must rotate as ONE unit.
 `FlipRotation` is `Animatable` and swaps faces exactly at 90° while the card is
 edge-on. Never rotate the text faces inside a static card background; that's

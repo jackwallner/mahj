@@ -70,6 +70,24 @@ pages and footer that had narrowed the trial CTA on large iPads. A reinstalled m
 still synced from StoreKit before the purchase runs, and `startedTrial`
 comes from the entitlement, not the product.
 
+Second exception, compliance (3.1.2, coordinator 1.4.2 review): an Apple
+Account StoreKit says already had its free week (`trialIneligible`, set
+after each offerings load from `isTrialEligible` on the onboarding plan;
+unknown reads as eligible) sees no trial wording on the onboarding page or
+the paywall: title "Get Mahj+", button "Join Mahj+", disclosure
+`PaywallPricing.terms(..., trial: false)` ("billed today"), plan cards
+"Billed yearly/monthly. Auto-renews.". Eligible accounts get the exact
+1.3.2 strings (`TrialCopyTests`), so their pages are unchanged, and the
+price slot is reserved on every page as before, so the CTA never moves
+between pages. A tap re-checks after offerings load and redraws instead of
+buying if the answer changed. DEBUG pins it with `-mahj.trialIneligible YES`.
+
+Every purchase goes through `SubscriptionService.purchase`, which first lets
+a reinstall's StoreKit sync settle (`PurchaseGate`): a member found by it
+gets `PurchaseOutcome.alreadyMember` and nothing is sold; a sync still
+stalled after the 3s wait throws `productsUnavailable` (the existing "App
+Store isn't reachable" copy) rather than charge a member (1.4.2).
+
 One exception since (Jack, 2026-10-19): benefit rows 2 and 4 changed, because
 the Mahj Minute went free in 1.4.1 and 1.3.2's row 2 sold it as paid. 1.3.2
 had "Mahj Minute and a personalized Game Night Prep" and "Fix My Mistakes

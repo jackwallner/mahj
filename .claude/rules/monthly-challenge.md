@@ -125,13 +125,22 @@ Reading Your Rack from the rotation.
   answer (`recordAnswer`); leaving resumes at the same question and the last
   answer finishes it. A half-played round from an earlier day is closed
   (`closeEarlierRounds`), scored on what was answered, when Home or the
-  challenge screen appears and when the day changes (1.4.2: it used to
-  wait for the challenge screen). The round a session has on screen
+  challenge screen appears, when the day changes and when a round's
+  session closes (1.4.2: it used to wait for the challenge screen, and a
+  Minute replaced in the Duo's pane after midnight stayed unbanked). Only
+  keys before today close (keys sort by date), so a clock or time zone
+  moved back a day leaves the later round open. A saved round whose
+  fingerprints no longer match the rebuilt questions (an update changed
+  the day) is not resumed: `progress(for:)` drops it and the round starts
+  again. The result's "+N today" is what the month score moved
+  (`monthGain`): past twenty days a round can add less than it scored, or
+  nothing, and then the line has no gain. The round a session has on screen
   (`roundOnScreen`) is skipped, so a player mid-round at midnight finishes
   the day they started. Legacy month
   keys (`monthlyChallenge.results`/`.progress`) are deleted on init: only
   test builds ever wrote them.
-- Standing: `ChallengeStandingService` posts the month score to Supabase
+- Standing: overlapping refreshes keep only the newest reply per month
+  (`LatestRequest`, 1.4.2). `ChallengeStandingService` posts the month score to Supabase
   RPC `challenge_submit` (migration `20261018120000_challenge_scores.sql`,
   project `ucoveqbyfuxqvpysmixu`) with a random per-month token
   (`scoreToken`) and the feedback publishable key. The function keeps the
@@ -241,7 +250,9 @@ link works from 1.4.0 on, so it never needs the new version.
 **Remote off switch (1.4.1, build 54):** offering metadata `monthly_challenge: off`
 hides the Home card and drops `mahj://challenge` (event and reminder taps
 just open Home). Saved runs stay. Set it on every offering, like the other
-switches. Players reach a month's questions only from the 1st of that month
+switches. A cold link waits for the offering before deciding
+(`AppDestination.routeAction`, 1.4.2; before, the switch read "on" until
+offerings loaded), giving up after 4s offline and going on the default. Players reach a month's questions only from the 1st of that month
 in their own time zone. The What's New line for the challenge
 (`WhatsNew.monthlyChallengeItemID`) and the monthly reminder follow the same
 switch. `MahjTrainerScreenshots/ChallengeSwitchTests.swift` checks off, on and

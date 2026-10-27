@@ -46,11 +46,15 @@ paths:
   `UnfoldedSplit`, tested in `UnfoldedSplitTests`. Same design as Vitals
   (`jackwallner/vitals`, `.claude/rules/iphone-duo.md`).
 - Home's stack is one view tree: folding only moves its frame, so a screen
-  pushed over Home survives fold and unfold. The trailing pane exists only
-  while split, and folding clears `panePath` (1.4.2): kept hidden, a drill
-  stayed mounted while Home offered Resume for the same run. The drill's
-  answers are saved (`OrdinaryRunStore`), so Home's Resume card picks it up
-  on the phone layout. Home reads `layoutSizeClass`, not the raw size class:
+  pushed over Home survives fold and unfold. The trailing pane exists while
+  split and, after a fold, while a screen Home opened is still in it
+  (`panePath`): it then fills the phone with a back button, so a Timed
+  Challenge or Game Night Prep keeps its questions, clock and score (view
+  state, kept because the pane branch keeps its identity). Back empties
+  `panePath` and Home shows; anything Home opens meanwhile goes into the
+  pane. A room alone, or a drill opened from it, is never kept hidden (a
+  hidden drill once stayed mounted while Home offered Resume for the same
+  run): it goes with the fold, and its saved run resumes from Home. Home reads `layoutSizeClass`, not the raw size class:
   the environment override on the pane only reaches its children.
 - The container is framed to the full width before `onGeometryChange`: a
   ZStack that shrank to Home's pane width measured "too narrow", undid the

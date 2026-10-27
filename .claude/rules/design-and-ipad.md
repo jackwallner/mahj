@@ -86,7 +86,9 @@ on the whole pager. A per-row `.animation` left the prompt and tiles jumping
 while the rows glided across the coaching note. The note fades in after the
 rows settle. `questionSlide` removes the old question at once (`.identity`)
 and eases the new one in from 40pt: any fade-out, even 0.1s, drew both tile
-racks on top of each other for several frames.
+racks on top of each other for several frames. With Reduce Motion on (1.4.2)
+the pager and choice rows take no spring and the scroll to the note jumps;
+the note still fades in, and grading keeps its colours, icons and border.
 
 **Rack motion (2026-10-19 frame capture, Play a Hand):** `TileRackView`
 keys each tile by what it is plus which copy, never by position, and lays
