@@ -52,7 +52,9 @@ final class SubscriptionService: NSObject, ObservableObject {
     @Published private(set) var pendingChurnMoment: ChurnMoment?
 
     private var isConfigured = false
+    #if DEBUG
     private let localOverrideKey = "subscription.localProOverride"
+    #endif
     private let snapshotKey = "membership.lastSnapshot"
     /// How old a customer record may be and still serve as the first baseline.
     static let freshBaselineAge: TimeInterval = 300
@@ -64,7 +66,9 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     override private init() {
         super.init()
+        #if DEBUG
         isPro = UserDefaults.standard.bool(forKey: localOverrideKey)
+        #endif
         pendingChurnMoment = UserDefaults.standard.string(forKey: pendingChurnKey)
             .flatMap(ChurnMoment.init(rawValue:))
     }
@@ -163,7 +167,9 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     /// Dev/testing switch: flips Pro without a live RC key (Settings toggle).
     func setLocalOverride(isPro: Bool) {
+        #if DEBUG
         UserDefaults.standard.set(isPro, forKey: localOverrideKey)
+        #endif
         self.isPro = isPro
     }
 
@@ -198,9 +204,12 @@ final class SubscriptionService: NSObject, ObservableObject {
         // per install, so test installs don't inflate the live project's
         // customer charts. Never with the App Store key.
         if RevenueCatConfig.apiKey.hasPrefix("test_") {
-            configuration = configuration.with(
-                appUserID: ProcessInfo.processInfo.environment["RC_APP_USER_ID"] ?? "qa-ios"
-            )
+            #if DEBUG
+            let qaUserID = ProcessInfo.processInfo.environment["RC_APP_USER_ID"] ?? "qa-ios"
+            #else
+            let qaUserID = "qa-ios"
+            #endif
+            configuration = configuration.with(appUserID: qaUserID)
         }
         Purchases.configure(with: configuration.build())
         Purchases.shared.delegate = self
@@ -354,7 +363,11 @@ final class SubscriptionService: NSObject, ObservableObject {
     private func apply(_ info: CustomerInfo) {
         let entitlement = info.entitlements["pro"]
         let entitled = entitlement?.isActive == true
+        #if DEBUG
         let override = UserDefaults.standard.bool(forKey: localOverrideKey)
+        #else
+        let override = false
+        #endif
         isPro = entitled || override
         membershipResolved = true
         isTrialing = entitled && entitlement?.periodType == .trial
