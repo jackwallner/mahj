@@ -179,19 +179,14 @@ struct QuestionPager<Choices: View>: View {
     }
 
     private func scrollToNote(_ proxy: ScrollViewProxy) {
-        // The anchor was audited (REG94-003) on the theory that
-        // `.bottom` pins the block to the foot of the viewport and
-        // throws the prompt off the top. It does not, and dropping
-        // the anchor for a minimum scroll changes NOTHING: this block
-        // is the last thing in the VStack, and `CenteringScrollView`
-        // gives the content a minHeight of the viewport, so either
-        // the question fits and there is no scroll range at all, or
-        // it overflows and both spellings land at the same place.
-        // Leave it alone. What a tall coaching block costs the prompt
-        // is a content-height problem, not a scroll-anchor one.
-        // Reduce Motion: the note fades in and the scroll jumps.
+        // `.top`, clamped by the scroll range: the block is the last thing
+        // in the content, so while it fits on screen this lands exactly
+        // where `.bottom` did (block at the foot, as much prompt as fits
+        // above it; REG94-003 audited that). Taller than the screen, as at
+        // AX3, it starts at the note's first line instead of cutting it
+        // off under the navigation bar. Reduce Motion: the scroll jumps.
         withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
-            proxy.scrollTo(questionExplanationID, anchor: .bottom)
+            proxy.scrollTo(questionExplanationID, anchor: .top)
         }
     }
 

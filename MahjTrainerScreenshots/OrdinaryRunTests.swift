@@ -49,8 +49,8 @@ final class OrdinaryRunTests: XCTestCase {
         XCTAssertTrue(app.buttons["choice-0"].firstMatch.isEnabled)
     }
 
-    /// At AX3 the graded coaching note scrolls up above Next. It stayed
-    /// behind Next in the 1.4.2 release gate's AX3 screenshots.
+    /// At AX3 the graded coaching note scrolls up above Next, from its first
+    /// line. It stayed behind Next in the 1.4.2 release gate's AX3 shots.
     func testCoachingNoteScrollsAboveNextAtAX3() {
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -71,14 +71,20 @@ final class OrdinaryRunTests: XCTestCase {
         let note = app.staticTexts["question-explanation"].firstMatch
         XCTAssertTrue(note.waitForExistence(timeout: 10))
         let deadline = Date().addingTimeInterval(5)
-        while Date() < deadline, note.frame.maxY > next.frame.minY {
+        let bar = app.navigationBars.firstMatch
+        func readable() -> Bool {
+            // Its first line under the bar, and its end above Next or, for a
+            // note taller than the screen, scrolled on from the first line.
+            note.frame.minY >= bar.frame.maxY - 1
+                && (note.frame.maxY <= next.frame.minY || note.frame.minY <= bar.frame.maxY + 100)
+        }
+        while Date() < deadline, !readable() {
             RunLoop.current.run(until: Date().addingTimeInterval(0.25))
         }
         let shot = XCTAttachment(screenshot: app.screenshot())
         shot.name = "ax3-coaching-note"
         shot.lifetime = .keepAlways
         add(shot)
-        XCTAssertLessThanOrEqual(note.frame.maxY, next.frame.minY, "note \(note.frame), Next \(next.frame)")
-        XCTAssertGreaterThan(note.frame.minY, 0, "note \(note.frame)")
+        XCTAssertTrue(readable(), "note \(note.frame), bar \(bar.frame), Next \(next.frame)")
     }
 }

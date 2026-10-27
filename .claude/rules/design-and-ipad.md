@@ -122,7 +122,10 @@ turn after the content's `onGeometryChange` reports it grown (a scroll asked
 for inside the layout pass is dropped), and on iOS 18 a graded pager's
 scroll view keeps its bottom on growth (`CenteringScrollView(keepsBottom:)`,
 `defaultScrollAnchor(.bottom, for: .sizeChanges)`, off until graded so the
-compact switch never scrolls an unanswered prompt away). Checked by
+compact switch never scrolls an unanswered prompt away). The scroll uses
+the `.top` anchor: clamped by the scroll range it lands where `.bottom` did
+whenever the note fits, and a note taller than the screen (AX3) starts at
+its first line instead of under the navigation bar. Checked by
 `OrdinaryRunTests.testCoachingNoteScrollsAboveNextAtAX3`. `OnboardingView` draws
 `Theme.background` under its stage change, or the trial-to-tour transition
 flashed the bare white window. Apple's contrast audit flags
