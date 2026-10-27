@@ -70,13 +70,15 @@ final class OrdinaryRunTests: XCTestCase {
         XCTAssertTrue(next.waitForExistence(timeout: 10))
         let note = app.staticTexts["question-explanation"].firstMatch
         XCTAssertTrue(note.waitForExistence(timeout: 10))
-        let above = expectation(for: NSPredicate { _, _ in
-            note.frame.maxY <= next.frame.minY && note.frame.minY > 0
-        }, evaluatedWith: nil)
-        wait(for: [above], timeout: 5)
+        let deadline = Date().addingTimeInterval(5)
+        while Date() < deadline, note.frame.maxY > next.frame.minY {
+            RunLoop.current.run(until: Date().addingTimeInterval(0.25))
+        }
         let shot = XCTAttachment(screenshot: app.screenshot())
         shot.name = "ax3-coaching-note"
         shot.lifetime = .keepAlways
         add(shot)
+        XCTAssertLessThanOrEqual(note.frame.maxY, next.frame.minY, "note \(note.frame), Next \(next.frame)")
+        XCTAssertGreaterThan(note.frame.minY, 0, "note \(note.frame)")
     }
 }

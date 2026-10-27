@@ -12,6 +12,8 @@ import SwiftUI
 /// keeps its natural size and scrolls, so nothing about the iPhone layout, the
 /// answer-glow headroom, or `scrollTo` changes.
 struct CenteringScrollView<Content: View>: View {
+    /// On iOS 18, content that grows keeps its bottom in view.
+    var keepsBottom = false
     @ViewBuilder let content: () -> Content
 
     var body: some View {
@@ -28,6 +30,19 @@ struct CenteringScrollView<Content: View>: View {
                         alignment: .center
                     )
             }
+            .modifier(BottomOnGrowth(isOn: keepsBottom))
+        }
+    }
+}
+
+private struct BottomOnGrowth: ViewModifier {
+    let isOn: Bool
+
+    func body(content: Content) -> some View {
+        if #available(iOS 18.0, *) {
+            content.defaultScrollAnchor(isOn ? .bottom : nil, for: .sizeChanges)
+        } else {
+            content
         }
     }
 }

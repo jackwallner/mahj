@@ -79,7 +79,10 @@ struct QuestionPager<Choices: View>: View {
     private func pager(_ proxy: ScrollViewProxy) -> some View {
         // Centering, not top-aligned: on a 13-inch iPad a three-choice question
         // used to sit in the top quarter of the screen. See CenteringScrollView.
-        CenteringScrollView {
+        // iOS 18: a graded question that grows keeps its bottom, the note,
+        // in view. Only once graded: before that, the compact switch must
+        // not scroll an unanswered question off its prompt.
+        CenteringScrollView(keepsBottom: answered) {
             VStack(spacing: isCompact ? 12 : 20) {
                 VStack(spacing: isCompact ? 12 : 20) {
                     if let eyebrow {
@@ -149,26 +152,14 @@ struct QuestionPager<Choices: View>: View {
             .environment(\.compactQuestion, isCompact)
             // Bring the coaching note into view rather than leaving it
             // parked below the fold behind the Next button. Scrolled once
-            // the content has grown to hold it: from `onChange(of:
-            // answered)` the note had no frame yet, and at AX3 it stayed
-            // behind Next (release gate, 1.4.2).
+            // the content has grown to hold it (from `onChange(of:
+            // answered)` the note had no frame yet), on the next main-queue
+            // turn (a scroll asked for inside the layout pass is dropped).
+            // At AX3 the note stayed behind Next (release gate, 1.4.2).
             .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { _ in
                 guard answered, !noteScrolled else { return }
                 noteScrolled = true
-                // The anchor was audited (REG94-003) on the theory that
-                // `.bottom` pins the block to the foot of the viewport and
-                // throws the prompt off the top. It does not, and dropping
-                // the anchor for a minimum scroll changes NOTHING: this block
-                // is the last thing in the VStack, and `CenteringScrollView`
-                // gives the content a minHeight of the viewport, so either
-                // the question fits and there is no scroll range at all, or
-                // it overflows and both spellings land at the same place.
-                // Leave it alone. What a tall coaching block costs the prompt
-                // is a content-height problem, not a scroll-anchor one.
-                // Reduce Motion: the note fades in and the scroll jumps.
-                withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
-                    proxy.scrollTo(questionExplanationID, anchor: .bottom)
-                }
+                Task { @MainActor in scrollToNote(proxy) }
             }
         }
         .onChange(of: answered) { _, isAnswered in
@@ -185,6 +176,23 @@ struct QuestionPager<Choices: View>: View {
         // its own while everything around it jumped, so the rows slid across
         // the coaching note (2026-10-19 frame capture).
         .animation(reduceMotion ? nil : Self.gradeSpring, value: answered)
+    }
+
+    private func scrollToNote(_ proxy: ScrollViewProxy) {
+        // The anchor was audited (REG94-003) on the theory that
+        // `.bottom` pins the block to the foot of the viewport and
+        // throws the prompt off the top. It does not, and dropping
+        // the anchor for a minimum scroll changes NOTHING: this block
+        // is the last thing in the VStack, and `CenteringScrollView`
+        // gives the content a minHeight of the viewport, so either
+        // the question fits and there is no scroll range at all, or
+        // it overflows and both spellings land at the same place.
+        // Leave it alone. What a tall coaching block costs the prompt
+        // is a content-height problem, not a scroll-anchor one.
+        // Reduce Motion: the note fades in and the scroll jumps.
+        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
+            proxy.scrollTo(questionExplanationID, anchor: .bottom)
+        }
     }
 
     static var gradeSpring: Animation { .spring(response: 0.3, dampingFraction: 0.8) }

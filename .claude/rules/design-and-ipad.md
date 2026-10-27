@@ -117,9 +117,13 @@ screen color is the light cream in both modes. At AX3 the coaching note
 never scrolled into view (gate runs 4 and 5 left it behind Next): the
 `ScrollViewReader` sat inside the scroll view's content, where `scrollTo`
 did nothing, and grading's `onChange` fired before the note had a frame.
-The reader now wraps `CenteringScrollView` and the scroll runs from the
-content's `onGeometryChange` once it has grown to hold the note
-(`OrdinaryRunTests.testCoachingNoteScrollsAboveNextAtAX3`). `OnboardingView` draws
+The reader now wraps `CenteringScrollView`, the scroll runs one main-queue
+turn after the content's `onGeometryChange` reports it grown (a scroll asked
+for inside the layout pass is dropped), and on iOS 18 a graded pager's
+scroll view keeps its bottom on growth (`CenteringScrollView(keepsBottom:)`,
+`defaultScrollAnchor(.bottom, for: .sizeChanges)`, off until graded so the
+compact switch never scrolls an unanswered prompt away). Checked by
+`OrdinaryRunTests.testCoachingNoteScrollsAboveNextAtAX3`. `OnboardingView` draws
 `Theme.background` under its stage change, or the trial-to-tour transition
 flashed the bare white window. Apple's contrast audit flags
 text that draws at 7 to 15:1 (it samples off-element pixels); those are
