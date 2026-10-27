@@ -28,6 +28,9 @@ struct PaywallPrice {
     let amount: Decimal
     let localized: String
     let locale: Locale
+    /// The storefront's currency. The locale alone can name another one when
+    /// the device region differs from the storefront ("3,33 €" beside "9,99 $").
+    let currencyCode: String?
 }
 
 @MainActor
@@ -296,7 +299,8 @@ final class SubscriptionService: NSObject, ObservableObject {
         return PaywallPrice(
             amount: product.price,
             localized: product.localizedPriceString,
-            locale: product.priceFormatter?.locale ?? .current
+            locale: product.priceFormatter?.locale ?? .current,
+            currencyCode: product.currencyCode
         )
     }
 

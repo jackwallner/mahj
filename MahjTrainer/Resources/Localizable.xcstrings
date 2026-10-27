@@ -3642,7 +3642,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "1 gratuite aujourd'hui"
+            "value": "1 offerte"
           }
         },
         "id": {
@@ -3654,7 +3654,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "1 ván miễn phí hôm nay"
+            "value": "Miễn phí 1 ván"
           }
         }
       }
@@ -17855,7 +17855,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Empezar 7 días gratis"
+            "value": "Probar 7 días gratis"
           }
         },
         "fr": {
@@ -17867,7 +17867,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mulai Uji Coba Gratis 7 Hari"
+            "value": "Coba Gratis 7 Hari"
           }
         },
         "vi": {
@@ -17890,7 +17890,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Empezar 7 días gratis"
+            "value": "Probar 7 días gratis"
           }
         },
         "fr": {
@@ -17902,7 +17902,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mulai uji coba gratis 7 hari"
+            "value": "Coba gratis 7 hari"
           }
         },
         "vi": {

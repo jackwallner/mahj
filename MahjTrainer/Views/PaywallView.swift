@@ -214,6 +214,7 @@ enum PaywallPricing {
         let fmt = NumberFormatter()
         fmt.numberStyle = .currency
         fmt.locale = product.locale
+        if let code = product.currencyCode { fmt.currencyCode = code }
         guard let text = fmt.string(from: monthly as NSDecimalNumber) else { return nil }
         return String(localized: "\(text)/mo")
     }
