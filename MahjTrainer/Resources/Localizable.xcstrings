@@ -22065,41 +22065,6 @@
         }
       }
     },
-    "We're a small indie studio. Your trial helps us keep building. Not for you? Cancel anytime and tell us what to fix.": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wir sind ein kleines Indie-Studio. Dein Test hilft uns weiterzumachen. Nichts für dich? Kündige jederzeit und sag uns, was wir verbessern sollen."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Somos un pequeño estudio independiente. Tu prueba nos ayuda a seguir creando. ¿No es para ti? Cancela cuando quieras y dinos qué mejorar."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nous sommes un petit studio indépendant. Votre essai nous aide à continuer. Pas pour vous ? Résiliez à tout moment et dites-nous quoi améliorer."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kami studio indie kecil. Uji cobamu membantu kami terus berkarya. Tidak cocok? Batalkan kapan saja dan beri tahu apa yang perlu diperbaiki."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chúng tôi là một studio độc lập nhỏ. Bản dùng thử của bạn giúp chúng tôi tiếp tục phát triển. Không hợp? Hủy bất cứ lúc nào và cho chúng tôi biết cần sửa gì."
-          }
-        }
-      }
-    },
     "Weekly": {
       "extractionState": "manual",
       "localizations": {
@@ -23920,41 +23885,6 @@
         }
       }
     },
-    "Your free week ended. What should we fix?": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deine Gratiswoche ist vorbei. Was sollen wir verbessern?"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu semana gratis terminó. ¿Qué deberíamos mejorar?"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Votre semaine gratuite est terminée. Que devons-nous améliorer ?"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Minggu gratismu sudah berakhir. Apa yang perlu kami perbaiki?"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tuần miễn phí đã kết thúc. Chúng tôi nên sửa gì?"
-          }
-        }
-      }
-    },
     "Your game night prep is ready": {
       "extractionState": "manual",
       "localizations": {
@@ -24371,41 +24301,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bản dùng thử sẽ không gia hạn. Điều gì khiến bạn ngần ngại?"
-          }
-        }
-      }
-    },
-    "Your trial won't renew. What should we fix?": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Deine Testphase verlängert sich nicht. Was sollen wir verbessern?"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tu prueba no se renovará. ¿Qué deberíamos mejorar?"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Votre essai ne sera pas renouvelé. Que devons-nous améliorer ?"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uji cobamu tidak akan diperpanjang. Apa yang perlu kami perbaiki?"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bản dùng thử sẽ không gia hạn. Chúng tôi nên sửa gì?"
           }
         }
       }
