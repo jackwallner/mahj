@@ -1,0 +1,1 @@
+{"created": "2026-10-27T13:12:23+00:00", "id": "Q001", "match": "cta-jump|test1FirstRunToHome|tour|show me", "reason": "screen change from the frozen trial page to the tour, whose own full-width button is a different control", "status": "accepted"}
