@@ -210,6 +210,7 @@ struct CharlestonDrillView: View {
     }
 
     private func advance() {
+        guard DrillNext.allowed(answered: submitted, finished: finished) else { return }
         if index + 1 < scenarios.count {
             selected = []
             submitted = false

@@ -120,6 +120,7 @@ struct QuizDrillView: View {
     }
 
     private func advance() {
+        guard DrillNext.allowed(answered: answered, finished: finished) else { return }
         if index + 1 < questions.count {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
                 selection = nil

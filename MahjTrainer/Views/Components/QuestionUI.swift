@@ -441,3 +441,14 @@ extension AnyTransition {
         )
     }
 }
+
+/// Next on a graded item. Two quick taps both land before the button hides,
+/// so each reads the live state: the first clears the answer (or finishes the
+/// drill) and the second finds nothing to advance. Without it the second tap
+/// skipped a question, and from the second to last it finished the drill
+/// with the last one unanswered.
+enum DrillNext {
+    static func allowed(answered: Bool, finished: Bool) -> Bool {
+        answered && !finished
+    }
+}
