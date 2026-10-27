@@ -1,3 +1,4 @@
+import os
 import SwiftUI
 import UIKit
 
@@ -111,7 +112,12 @@ enum LaunchTiming {
         guard sysctl(&mib, 4, &info, &size, nil, 0) == 0 else { return }
         let start = info.kp_proc.p_starttime
         let started = Double(start.tv_sec) + Double(start.tv_usec) / 1_000_000
-        NSLog("launch-timing %@ %.0f ms", step, (Date().timeIntervalSince1970 - started) * 1000)
+        let ms = Int((Date().timeIntervalSince1970 - started) * 1000)
+        // A Logger, not NSLog: `log show` can compose a message whose format
+        // lives in the app's own image.
+        logger.notice("launch-timing \(step, privacy: .public) \(ms, privacy: .public) ms")
     }
+
+    private static let logger = Logger(subsystem: "com.jackwallner.mahj", category: "launch")
 }
 #endif

@@ -49,7 +49,9 @@ final class ReleaseJourneysUITests: XCTestCase {
         ])
         home("home", in: app)
 
-        let session = app.buttons.containing(label("Get Started")).firstMatch
+        // "Resume Quick Session" when an earlier test left a run.
+        let session = app.buttons.matching(NSPredicate(
+            format: "label BEGINSWITH 'Get Started' OR label BEGINSWITH 'Resume Quick Session'")).firstMatch
         XCTAssertTrue(session.waitForExistence(timeout: 10))
         session.tap()
         QA.checkpoint(app, "quick-session")
