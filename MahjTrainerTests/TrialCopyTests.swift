@@ -53,33 +53,6 @@ final class TrialCopyTests: XCTestCase {
         XCTAssertEqual(RemoteConfig.value(TrialBenefits.metadataKey, in: ["trial_benefits": "paid_first"], default: TrialBenefits.reassureFirst), .paidFirst)
     }
 
-    /// No metadata is no note; `split` deals once and keeps the arm, and
-    /// only a player who saw the page reports one.
-    func testTrialNoteDealsOnceAndDefaultsToNone() throws {
-        let defaults = try XCTUnwrap(UserDefaults(suiteName: "TrialNoteTests"))
-        defaults.removePersistentDomain(forName: "TrialNoteTests")
-        XCTAssertEqual(RemoteConfig.value(TrialNote.metadataKey, in: nil, default: TrialNote.none), .none)
-        XCTAssertEqual(RemoteConfig.value(TrialNote.metadataKey, in: ["trial_note": "loud"], default: TrialNote.none), .none)
-        XCTAssertEqual(TrialNote.split.arm(kept: nil), .none, "an undealt page shows the control")
-
-        TrialNote.none.deal(defaults: defaults, coin: { true })
-        TrialNote.indie.deal(defaults: defaults, coin: { true })
-        XCTAssertNil(defaults.string(forKey: TrialNote.armKey), "only split deals")
-
-        TrialNote.split.deal(defaults: defaults, coin: { true })
-        TrialNote.split.deal(defaults: defaults, coin: { false })
-        let kept = defaults.string(forKey: TrialNote.armKey)
-        XCTAssertEqual(kept, "indie", "kept for good")
-        XCTAssertEqual(TrialNote.split.arm(kept: kept), .indie)
-        XCTAssertEqual(TrialNote.none.arm(kept: kept), .none, "a remote stop wins over the kept arm")
-        XCTAssertNil(TrialNote.seenArm(defaults: defaults), "dealt is not seen")
-        defaults.set(true, forKey: TrialNote.seenKey)
-        XCTAssertEqual(TrialNote.seenArm(defaults: defaults), .indie)
-
-        XCTAssertFalse(TrialNote.indieText.contains("\u{2014}"))
-        XCTAssertLessThanOrEqual(TrialNote.indieText.count, 120)
-    }
-
     /// Switches are on unless RevenueCat says exactly "off".
     func testSwitchesDefaultOn() {
         // The keys set in RevenueCat; renaming one would silently disarm it.

@@ -75,30 +75,6 @@ final class MetaAndCTARenderTests: XCTestCase {
         app.terminate()
     }
 
-    /// The `trial_note` test: the control page has no note, the indie arm has
-    /// it under the benefits, and the CTA keeps its place in both.
-    func testTrialNoteArms() {
-        let note = "We're a small indie studio. Your trial helps us keep building. Not for you? Cancel anytime and tell us what to fix."
-        var ctaFrames: [CGRect] = []
-        for arm in ["none", "indie"] {
-            launch(onboarded: false, extra: ["-mahj.rc.trial_note", arm])
-            walkToTrialPage()
-            capture("trial_note_\(arm)")
-            let cta = app.buttons["Start 7-day free trial"]
-            check("\(arm): CTA present", cta.waitForExistence(timeout: 4))
-            ctaFrames.append(cta.frame)
-            let shown = app.staticTexts[note].exists
-            check("\(arm): note \(arm == "indie" ? "shown" : "absent")", shown == (arm == "indie"))
-            if shown {
-                let last = app.staticTexts["Extra sets in all four rooms, plus the Master Tables"]
-                check("indie: all five benefits still on screen", last.exists && last.isHittable)
-                check("indie: note clear of the footer", app.staticTexts[note].frame.maxY < app.buttons["Get Started"].frame.minY)
-            }
-            app.terminate()
-        }
-        check("CTA does not move between arms", ctaFrames.count == 2 && ctaFrames[0] == ctaFrames[1])
-    }
-
     func testTrackingPromptOnlyAfterATrial() {
         launch(onboarded: false, extra: ["-mahj.previewMetaATT"])
         check("no tracking prompt on the first onboarding page", !trackingAlert.waitForExistence(timeout: 3))

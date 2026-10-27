@@ -51,7 +51,7 @@ struct ReviewPromptSheet: View {
                         question: churnQuestion(moment),
                         chips: churnChips(moment),
                         thanks: "Thanks for saying. It helps more than you'd think.",
-                        context: churnContext(moment)
+                        context: ["moment": moment.rawValue]
                     )
                 }
             }
@@ -271,26 +271,13 @@ struct ReviewPromptSheet: View {
 
     // MARK: - Churn copy
 
-    /// The trial page's indie note promised "tell us what to fix", so a
-    /// player who saw it is asked exactly that when the trial ends.
     private func churnQuestion(_ moment: ChurnMoment) -> String {
-        if moment.isTrial, TrialNote.seenArm() == .indie {
-            return moment == .trialRenewalOff
-                ? "Your trial won't renew. What should we fix?"
-                : "Your free week ended. What should we fix?"
-        }
         switch moment {
         case .trialRenewalOff: return "Your trial won't renew. What held you back?"
         case .trialLapsed: return "Your free week ended. What held you back from keeping Mahj+?"
         case .paidRenewalOff: return "Your membership won't renew. What would have kept you?"
         case .paidLapsed: return "Your membership ended. What would have kept you?"
         }
-    }
-
-    private func churnContext(_ moment: ChurnMoment) -> [String: String] {
-        var context = ["moment": moment.rawValue]
-        if let arm = TrialNote.seenArm() { context[TrialNote.metadataKey] = arm.rawValue }
-        return context
     }
 
     private func churnChips(_ moment: ChurnMoment) -> [String] {
