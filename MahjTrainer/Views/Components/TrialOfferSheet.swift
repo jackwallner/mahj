@@ -261,6 +261,8 @@ struct TrialOfferSheet: View {
                     }
                 case .cancelled:
                     break
+                case .alreadyMember:
+                    dismiss()
                 }
             } catch {
                 message = error.localizedDescription

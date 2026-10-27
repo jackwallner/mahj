@@ -14,6 +14,22 @@ enum RevenueCatConfig {
 enum PurchaseOutcome: Sendable {
     case purchased
     case cancelled
+    /// A reinstall's StoreKit sync found this Apple Account already owns
+    /// Mahj+, so nothing was sold.
+    case alreadyMember
+}
+
+/// What `purchase` may do while a reinstall's membership sync runs.
+enum PurchaseGate: Equatable, Sendable {
+    case sell
+    case alreadyMember
+    /// The sync has not settled: selling now could charge a member.
+    case unsettled
+
+    static func decide(isRecovering: Bool, isPro: Bool) -> PurchaseGate {
+        if isRecovering { return .unsettled }
+        return isPro ? .alreadyMember : .sell
+    }
 }
 
 enum PurchaseError: LocalizedError {
@@ -308,6 +324,16 @@ final class SubscriptionService: NSObject, ObservableObject {
             throw PurchaseError.productsUnavailable
         }
         guard let package else { throw PurchaseError.productsUnavailable }
+        // Every purchase surface goes through here, so this is the one place
+        // that makes sure a reinstall's StoreKit sync has settled first. A
+        // sync still stalled after the wait reads as the store being
+        // unreachable, which it is.
+        await recoverReinstalledMembershipIfNeeded()
+        switch PurchaseGate.decide(isRecovering: isRecoveringMembership, isPro: isPro) {
+        case .sell: break
+        case .alreadyMember: return .alreadyMember
+        case .unsettled: throw PurchaseError.productsUnavailable
+        }
         let result = try await Purchases.shared.purchase(package: package)
         // RevenueCat reports a user backing out of Apple's sheet as a normal
         // result, not an error. Treating it as a failure is what used to shove

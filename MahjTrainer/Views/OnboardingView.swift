@@ -561,6 +561,8 @@ struct OnboardingView: View {
                     }
                 case .cancelled:
                     break // They said no to Apple, not to the app. Stay put.
+                case .alreadyMember:
+                    startTour()
                 }
             } catch {
                 purchaseError = error.localizedDescription
