@@ -10,6 +10,7 @@ struct FeatureTourView: View {
     @EnvironmentObject private var subscriptions: SubscriptionService
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var index = 0
     @State private var shineTrigger = 0
     @State private var confettiTrigger = 0
@@ -34,7 +35,7 @@ struct FeatureTourView: View {
                     Capsule()
                         .fill(dot == index ? Theme.jade : Theme.jade.opacity(0.22))
                         .frame(width: dot == index ? 20 : 7, height: 7)
-                        .animation(.snappy(duration: 0.22), value: index)
+                        .animation(reduceMotion ? nil : .snappy(duration: 0.22), value: index)
                 }
             }
             .padding(.top, 10)
@@ -102,6 +103,8 @@ struct FeatureTourView: View {
     // The escape hatch is offered on EVERY page, not just at the session
     // prompt: by the time someone has tapped through a trial page and a tour,
     // "let me just use the app" is a fair ask.
+    private static let skipHit = EdgeInsets(top: 8, leading: 0, bottom: 16, trailing: 0)
+
     private func buttons(isLast: Bool, pageCount: Int) -> some View {
         VStack(spacing: 10) {
             Button {
@@ -116,7 +119,11 @@ struct FeatureTourView: View {
                 Text(isLast ? "Skip it, take me to the app" : "Skip the tour")
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(Theme.inkSecondary)
+                    .hitPadding(Self.skipHit)
             }
+            // A 44pt target, grown mostly downward so it never reaches the
+            // button above; the layout is unchanged.
+            .padding(-Self.skipHit)
         }
     }
 
@@ -298,7 +305,7 @@ struct FeatureTourView: View {
             return
         }
         Haptics.impact(.soft, intensity: 0.6)
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.85)) {
             index += 1
         }
         if tourPages[index].accentGold {

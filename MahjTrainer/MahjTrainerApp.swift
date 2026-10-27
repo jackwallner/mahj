@@ -50,12 +50,18 @@ struct MahjTrainerApp: App {
                         seen: progress.seenItems,
                         missed: progress.missedItems
                     )
-                    subscriptions.start()
-                    MonthlyChallengeReminder.refresh()
                     ReviewPromptTracker.recordAppLaunch()
                     ConversionDiagnostics.recordAppOpen()
                     TrialOfferPacer.noteForeground()
-                    Task { await FeedbackService.shared.flushPending() }
+                    // After the first frame: none of this draws anything, and
+                    // run here it held the launch screen up (release gate,
+                    // blank launch).
+                    Task { @MainActor in
+                        await Task.yield()
+                        subscriptions.start()
+                        MonthlyChallengeReminder.refresh()
+                        await FeedbackService.shared.flushPending()
+                    }
                     #if DEBUG
                     if RevenueCatProbe.isEnabled {
                         // Same entry point the real paywall screens call, so

@@ -130,7 +130,7 @@ struct PaywallContent: View {
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
                                 .background(Theme.gold.opacity(0.18), in: Capsule())
-                                .foregroundStyle(Theme.gold)
+                                .foregroundStyle(Theme.goldText)
                         }
                     }
                     Text(detail)
@@ -212,6 +212,21 @@ enum PaywallPricing {
     /// The same, ready to render: the amount or the placeholder.
     static func priceText(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String {
         price(subscriptions, plan) ?? placeholder
+    }
+
+    /// The billed amount as VoiceOver should say it, "9.99 US dollars per
+    /// month": "$9.99/month" was read out symbol by symbol.
+    static func spokenPrice(_ subscriptions: SubscriptionService, _ plan: PaywallPlan) -> String? {
+        guard let product = subscriptions.paywallPrice(for: plan) else { return nil }
+        let fmt = NumberFormatter()
+        fmt.numberStyle = .currencyPlural
+        fmt.locale = product.locale
+        guard let amount = fmt.string(from: product.amount as NSDecimalNumber) else { return nil }
+        switch plan {
+        case .yearly: return "\(amount) per year"
+        case .monthly: return "\(amount) per month"
+        case .lifetime: return amount
+        }
     }
 
     /// Yearly billed amount restated per month, e.g. "$3.33/mo". Yearly is the
@@ -316,28 +331,39 @@ struct PaywallView: View {
                     .padding()
                     .frame(maxWidth: 680)
                     .frame(maxWidth: .infinity)
-                // At accessibility sizes a pinned footer covered most of the
-                // screen and clipped Restore, Terms and Privacy, so there it
-                // scrolls with the plans instead.
+                // At accessibility sizes the whole pinned footer covered most
+                // of the screen and clipped Restore, Terms and Privacy, so
+                // those scroll with the plans; the price terms and the button
+                // stay pinned (below), so a price is always on screen (3.1.2).
                 if dynamicTypeSize.isAccessibilitySize {
-                    purchaseFooter
-                        .padding()
-                        .frame(maxWidth: 680)
-                        .frame(maxWidth: .infinity)
+                    VStack(spacing: 8) {
+                        priceRetry
+                        footerLinks
+                    }
+                    .padding()
+                    .frame(maxWidth: 680)
+                    .frame(maxWidth: .infinity)
                 }
             }
             .background(Theme.background)
             .safeAreaInset(edge: .bottom) {
-                if !dynamicTypeSize.isAccessibilitySize {
-                    purchaseFooter
-                        .padding()
-                        .background(.thinMaterial)
+                Group {
+                    if dynamicTypeSize.isAccessibilitySize {
+                        VStack(spacing: 8) {
+                            priceTerms
+                            purchaseButton
+                        }
+                    } else {
+                        purchaseFooter
+                    }
                 }
+                .padding()
+                .background(.thinMaterial)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Close") { dismiss() }
-                        .foregroundStyle(Theme.inkSecondary)
+                        .foregroundStyle(Theme.ink)
                 }
             }
             .alert("Mahj Trainer", isPresented: .init(
@@ -360,44 +386,57 @@ struct PaywallView: View {
 
     private var purchaseFooter: some View {
         VStack(spacing: 8) {
-            if priceLoadAttempted && !priceReady && !loadingPrices {
-                Text("Prices aren't available right now. Check your connection and try again.")
-                    .font(.caption)
-                    .foregroundStyle(Theme.inkSecondary)
-                    .multilineTextAlignment(.center)
-                Button("Retry loading prices") {
-                    Task { await loadPrices() }
-                }
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(Theme.jade)
-            }
-            Text(PaywallPricing.terms(subscriptions, selectedPlan, trial: subscriptions.offersTrial))
+            priceRetry
+            priceTerms
+            purchaseButton
+            footerLinks
+        }
+    }
+
+    @ViewBuilder
+    private var priceRetry: some View {
+        if priceLoadAttempted && !priceReady && !loadingPrices {
+            Text("Prices aren't available right now. Check your connection and try again.")
                 .font(.caption)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            Button {
-                purchase()
-            } label: {
-                Group {
-                    if purchasing || loadingPrices || (!priceLoadAttempted && !priceReady) {
-                        ProgressView().tint(Theme.onFill)
-                    } else {
-                        Text(selectedPlan.ctaTitle(trialTitle: subscriptions.trialCTAArm.title(.paywall, trialEligible: subscriptions.offersTrial)))
-                    }
-                }
-                .primaryCTA()
+            Button("Retry loading prices") {
+                Task { await loadPrices() }
             }
-            // Dead until there is a price. Enabled over an unresolved
-            // product, this button ran a second offerings fetch and
-            // then showed a generic "products unavailable" alert, which
-            // reads as the app being broken rather than the store being
-            // slow.
-            .disabled(purchasing || restoring || !priceReady)
-            .opacity(priceReady ? 1 : 0.75)
-            .accessibilityHint(priceReady ? "" : "Waiting for the App Store to return prices")
-            footerLinks
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(Theme.jade)
         }
+    }
+
+    private var priceTerms: some View {
+        Text(PaywallPricing.terms(subscriptions, selectedPlan, trial: subscriptions.offersTrial))
+            .font(.caption)
+            .foregroundStyle(Theme.inkSecondary)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+    }
+
+    private var purchaseButton: some View {
+        Button {
+            purchase()
+        } label: {
+            Group {
+                if purchasing || loadingPrices || (!priceLoadAttempted && !priceReady) {
+                    ProgressView().tint(Theme.onFill)
+                } else {
+                    Text(selectedPlan.ctaTitle(trialTitle: subscriptions.trialCTAArm.title(.paywall, trialEligible: subscriptions.offersTrial)))
+                }
+            }
+            .primaryCTA()
+        }
+        // Dead until there is a price. Enabled over an unresolved
+        // product, this button ran a second offerings fetch and
+        // then showed a generic "products unavailable" alert, which
+        // reads as the app being broken rather than the store being
+        // slow.
+        .disabled(purchasing || restoring || !priceReady)
+        .opacity(priceReady ? 1 : 0.75)
+        .accessibilityHint(priceReady ? "" : "Waiting for the App Store to return prices")
     }
 
     /// Whether the selected plan has a real amount to charge. 3.1.2 wants the
@@ -421,11 +460,18 @@ struct PaywallView: View {
         let layout = dynamicTypeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(spacing: 10))
             : AnyLayout(HStackLayout(spacing: 16))
+        // 44pt targets, grown into the footer's bottom margin; the layout
+        // and the drawn text do not move.
+        // Stacked at accessibility sizes, where the text alone is tall enough.
+        let hit = dynamicTypeSize.isAccessibilitySize ? EdgeInsets() : EdgeInsets(top: 8, leading: 6, bottom: 20, trailing: 6)
         return layout {
-            Button("Restore") { restore() }
+            Button { restore() } label: { Text("Restore").hitPadding(hit) }
+                .padding(-hit)
                 .disabled(restoring || purchasing)
-            Link("Terms of Use", destination: PaywallLinks.terms)
-            Link("Privacy Policy", destination: PaywallLinks.privacy)
+            Link(destination: PaywallLinks.terms) { Text("Terms of Use").hitPadding(hit) }
+                .padding(-hit)
+            Link(destination: PaywallLinks.privacy) { Text("Privacy Policy").hitPadding(hit) }
+                .padding(-hit)
         }
         .font(.caption)
         .foregroundStyle(Theme.inkSecondary)

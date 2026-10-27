@@ -81,7 +81,7 @@ struct TileView: View {
                 Text(wind.letter)
                     .font(.system(size: width * 0.52, weight: .bold, design: .serif))
                     .foregroundStyle(.black.opacity(0.85))
-                caption("WIND", color: .black.opacity(0.5))
+                caption("WIND", color: .black.opacity(0.66))
             }
         case .dragon(.red):
             VStack(spacing: width * 0.02) {
@@ -109,7 +109,7 @@ struct TileView: View {
                 Image(systemName: "camera.macro")
                     .font(.system(size: width * 0.42, weight: .semibold))
                     .foregroundStyle(Theme.flowerPink)
-                caption("FLOWER", color: Theme.flowerPink)
+                caption("FLOWER", color: Theme.flowerText)
             }
         case .joker:
             VStack(spacing: width * 0.02) {
@@ -202,6 +202,7 @@ struct TileRackView: View {
     /// once its neighbours have moved aside (`TileRackView.dropIn`); a whole
     /// new deal must not wait, or only the tiles both deals share show first.
     var tileInsertion: AnyTransition = .opacity
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     static let dropIn = AnyTransition.offset(y: -10).combined(with: .opacity)
         .animation(.easeOut(duration: 0.2).delay(0.22))
@@ -259,7 +260,7 @@ struct TileRackView: View {
             }
             .offset(y: selected ? -8 : 0)
             .onTapGesture { onTap?(index) }
-            .animation(.spring(duration: 0.25), value: selected)
+            .animation(reduceMotion ? nil : .spring(duration: 0.25), value: selected)
             // A thrown tile leaves at once: fading, it sat at its old spot
             // while the rest of the rack slid across it.
             .transition(.asymmetric(insertion: tileInsertion, removal: .identity))

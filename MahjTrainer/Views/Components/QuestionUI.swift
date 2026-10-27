@@ -120,7 +120,7 @@ struct QuestionPager<Choices: View>: View {
                     // final spot while the stack above slid up, the note sat
                     // under the last choice for a quarter second.
                     .transition(.asymmetric(
-                        insertion: .opacity.animation(.easeOut(duration: 0.22).delay(0.2)),
+                        insertion: reduceMotion ? .identity : .opacity.animation(.easeOut(duration: 0.22).delay(0.2)),
                         removal: .identity
                     ))
                 }

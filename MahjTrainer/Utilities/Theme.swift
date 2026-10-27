@@ -17,9 +17,28 @@ enum Theme {
     /// Gold for TEXT. The fill gold is about 2.5:1 on cream, under AA for the
     /// small badge and caption text it was used for; this one clears 4.5:1 on
     /// cream and on a gold-tinted pill.
-    static let goldText = Color(light: (0.52, 0.37, 0.08), dark: (0.88, 0.72, 0.38))
+    static let goldText = Color(light: (0.46, 0.32, 0.06), dark: (0.88, 0.72, 0.38))
     /// Plum: Charleston room identity.
     static let plum = Color(light: (0.48, 0.28, 0.52), dark: (0.72, 0.53, 0.76))
+
+    /// An accent color made readable as small TEXT: darker in light mode,
+    /// lighter in dark. The fill accents measure about 6:1 on a card, which
+    /// Apple's audit fails for thin caption type ("1 free today"); this keeps
+    /// the hue and clears it.
+    static func readable(_ accent: Color) -> Color {
+        #if canImport(UIKit)
+        Color(uiColor: UIColor { traits in
+            var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+            UIColor(accent).resolvedColor(with: traits).getRed(&r, green: &g, blue: &b, alpha: &a)
+            if traits.userInterfaceStyle == .dark {
+                return UIColor(red: r + (1 - r) * 0.25, green: g + (1 - g) * 0.25, blue: b + (1 - b) * 0.25, alpha: a)
+            }
+            return UIColor(red: r * 0.75, green: g * 0.75, blue: b * 0.75, alpha: a)
+        })
+        #else
+        accent
+        #endif
+    }
 
     // MARK: Surfaces
 
@@ -36,14 +55,16 @@ enum Theme {
 
     // Contrast is not a style knob here. This app's readers skew 50+ and read
     // it on a couch in bad light, and tertiary ink carries the money disclosure
-    // and the swipe instructions. Every level below clears WCAG AA (4.5:1) on
-    // both backgrounds; tertiary used to sit at 2.8:1, which is decorative-text
-    // territory. Re-check with a contrast calculator before darkening the cream.
+    // and the swipe instructions. WCAG AA (4.5:1) is the floor, not the target:
+    // Apple's accessibility audit measures the drawn glyphs, and thin regular
+    // text at 6:1 on cream failed it (release gate, Oct 2026). Secondary sits
+    // near 8:1 and tertiary near 6.5:1 on every surface, light and dark.
+    // Re-check with a contrast calculator before darkening the cream.
     static let ink = Color(light: (0.16, 0.14, 0.12), dark: (0.94, 0.92, 0.88))
-    /// 6.3:1 light / 7.6:1 dark.
-    static let inkSecondary = Color(light: (0.38, 0.35, 0.31), dark: (0.72, 0.69, 0.64))
-    /// 4.6:1 light / 6.0:1 dark.
-    static let inkTertiary = Color(light: (0.46, 0.42, 0.38), dark: (0.62, 0.59, 0.55))
+    /// 8.3:1 on the background, 7.7:1 in a well / 9.6:1 dark.
+    static let inkSecondary = Color(light: (0.30, 0.275, 0.24), dark: (0.78, 0.75, 0.70))
+    /// 6.6:1 on the background, 6.2:1 in a well / 7.6:1 dark.
+    static let inkTertiary = Color(light: (0.36, 0.33, 0.29), dark: (0.70, 0.67, 0.62))
 
     // MARK: Tiles
 
@@ -54,6 +75,8 @@ enum Theme {
     static let dotBlue = Color(red: 0.15, green: 0.32, blue: 0.60)
     static let jokerPurple = Color(red: 0.45, green: 0.25, blue: 0.60)
     static let flowerPink = Color(red: 0.80, green: 0.33, blue: 0.47)
+    /// The FLOWER caption: the icon's pink measured 3.8:1 on the ivory face.
+    static let flowerText = Color(red: 0.62, green: 0.18, blue: 0.32)
 
     // MARK: Legacy aliases (kept so tile faces read as one system)
 
@@ -161,6 +184,21 @@ extension View {
             .frame(minHeight: 56)
             .background(color, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
             .shadow(color: color.opacity(0.35), radius: 8, y: 4)
+    }
+}
+
+extension EdgeInsets {
+    static prefix func - (insets: EdgeInsets) -> EdgeInsets {
+        EdgeInsets(top: -insets.top, leading: -insets.leading, bottom: -insets.bottom, trailing: -insets.trailing)
+    }
+}
+
+extension View {
+    /// Inside a small text control's label: grows its tap and accessibility
+    /// frame to 44pt. Pair it with `.padding(-insets)` on the control, which
+    /// takes the room back out of the layout, so nothing on screen moves.
+    func hitPadding(_ insets: EdgeInsets) -> some View {
+        padding(insets).contentShape(Rectangle())
     }
 }
 

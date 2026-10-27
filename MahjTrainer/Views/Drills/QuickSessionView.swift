@@ -346,13 +346,13 @@ struct QuickSessionView: View {
     private func announceStreak(_ streak: Int) {
         streakBannerTrigger += 1
         let trigger = streakBannerTrigger
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.7)) {
             streakBannerText = "\(streak) in a row!"
         }
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 1_600_000_000)
             guard trigger == streakBannerTrigger else { return }
-            withAnimation(.easeOut(duration: 0.3)) { streakBannerText = nil }
+            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.3)) { streakBannerText = nil }
         }
     }
 
@@ -366,13 +366,13 @@ struct QuickSessionView: View {
         case .gameNightPrep:
             break
         }
-        withAnimation(.easeInOut(duration: 0.3)) { finished = true }
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.3)) { finished = true }
     }
 
     private func advance() {
         guard answered else { return }
         if index + 1 < items.count {
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
+            withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.85)) {
                 selection = nil
                 index += 1
                 saveRun()

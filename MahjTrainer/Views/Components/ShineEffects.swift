@@ -7,6 +7,7 @@ struct ShineSweep: ViewModifier {
     var corner: CGFloat = 14
 
     @State private var phase: CGFloat = -1
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     /// Drawn in a Canvas, not as an offset gradient view, and that is not a
     /// style choice. The band is parked a full width off to the left between
@@ -52,7 +53,7 @@ struct ShineSweep: ViewModifier {
                 .accessibilityHidden(true)
             }
             .onChange(of: trigger) { _, _ in
-                guard trigger > 0 else { return }
+                guard trigger > 0, !reduceMotion else { return }
                 phase = -1
                 withAnimation(.easeInOut(duration: 0.85)) { phase = 1.4 }
             }

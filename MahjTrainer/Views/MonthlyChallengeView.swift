@@ -65,7 +65,7 @@ struct MonthlyChallengeView: View {
                 Text("\(month.monthName.uppercased()) CHALLENGE")
                     .font(.caption.weight(.heavy))
                     .kerning(1.4)
-                    .foregroundStyle(Theme.plum)
+                    .foregroundStyle(Theme.readable(Theme.plum))
                 Text(month.theme.title)
                     .font(Theme.display(27))
                     .foregroundStyle(Theme.ink)
@@ -89,7 +89,7 @@ struct MonthlyChallengeView: View {
                     QuickSessionView(monthlyRound: round, resume: progress)
                 } label: {
                     Text(progress == nil ? "Play Today's Mahj Minute" : "Resume Today's Mahj Minute")
-                        .primaryCTA(color: Theme.plum)
+                        .primaryCTA(color: Theme.readable(Theme.plum))
                 }
             }
         }

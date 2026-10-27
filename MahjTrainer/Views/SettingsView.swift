@@ -35,6 +35,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") { dismiss() }
+                        .foregroundStyle(Theme.ink)
                 }
             }
             .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_settings_sheet") }
@@ -87,18 +88,25 @@ struct SettingsView: View {
         }
     }
 
+    /// The system header grey measured under 4.5:1 on the cream.
+    private func sectionHeader(_ title: String) -> some View {
+        Text(title).foregroundStyle(Theme.inkSecondary)
+    }
+
     private var appearanceSection: some View {
-        Section("Appearance") {
+        Section {
             Picker("Theme", selection: $settings.appearance) {
                 ForEach(AppSettings.Appearance.allCases) { appearance in
                     Text(appearance.displayName).tag(appearance)
                 }
             }
+        } header: {
+            sectionHeader("Appearance")
         }
     }
 
     private var practiceSection: some View {
-        Section("Practice") {
+        Section {
             Toggle("Haptics", isOn: $settings.hapticsEnabled)
             Toggle("Sound Effects", isOn: $settings.soundEnabled)
             Toggle("Daily Reminder", isOn: $settings.reminderEnabled)
@@ -112,6 +120,8 @@ struct SettingsView: View {
                     Label("Game Night Prep", systemImage: "person.2.fill")
                 }
             }
+        } header: {
+            sectionHeader("Practice")
         }
     }
 
@@ -119,7 +129,7 @@ struct SettingsView: View {
     /// Haptics and Sound Effects is a trap for anyone who taps to see what
     /// something does.
     private var dataSection: some View {
-        Section("Your Practice History") {
+        Section {
             NavigationLink {
                 StatsView()
             } label: {
@@ -128,11 +138,16 @@ struct SettingsView: View {
             Button("Reset Progress", role: .destructive) {
                 showResetConfirm = true
             }
+            // The system red measured 3.6:1 on the row; the tile red is the
+            // same warning at 6:1.
+            .foregroundStyle(Theme.crakRed)
+        } header: {
+            sectionHeader("Your Practice History")
         }
     }
 
     private var proSection: some View {
-        Section("Membership") {
+        Section {
             if subscriptions.isPro {
                 Label("\(Membership.name) unlocked", systemImage: "checkmark.seal.fill")
                     .foregroundStyle(Theme.jade)
@@ -171,11 +186,13 @@ struct SettingsView: View {
                 }
             }
             .disabled(restoring)
+        } header: {
+            sectionHeader("Membership")
         }
     }
 
     private var supportSection: some View {
-        Section("Support") {
+        Section {
             NavigationLink {
                 ReferenceView()
             } label: {
@@ -207,11 +224,13 @@ struct SettingsView: View {
             } label: {
                 Label("Send Feedback", systemImage: "bubble.left.fill")
             }
+        } header: {
+            sectionHeader("Support")
         }
     }
 
     private var aboutSection: some View {
-        Section("About") {
+        Section {
             LabeledContent("Version", value: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0")
             // Members never see the paywall's links again, so the policy
             // lives here for everyone.
@@ -219,16 +238,20 @@ struct SettingsView: View {
             Text("Mahj Trainer teaches American Mah Jongg skills with original practice hands. It is not affiliated with or endorsed by the National Mah Jongg League. For official hands and values, pick up the current NMJL card.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
+        } header: {
+            sectionHeader("About")
         }
     }
 
     #if DEBUG
     private var debugSection: some View {
-        Section("Developer") {
+        Section {
             Toggle("Local Pro override", isOn: .init(
                 get: { subscriptions.isPro },
                 set: { subscriptions.setLocalOverride(isPro: $0) }
             ))
+        } header: {
+            sectionHeader("Developer")
         }
     }
     #endif

@@ -17,6 +17,7 @@ struct OnboardingView: View {
     @EnvironmentObject private var progress: ProgressStore
     @EnvironmentObject private var subscriptions: SubscriptionService
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var page = 0
     @State private var purchasing = false
     @State private var restoring = false
@@ -45,7 +46,7 @@ struct OnboardingView: View {
                     .transition(.move(edge: .trailing).combined(with: .opacity))
             }
         }
-        .animation(.spring(response: 0.45, dampingFraction: 0.85), value: stage)
+        .animation(reduceMotion ? nil : .spring(response: 0.45, dampingFraction: 0.85), value: stage)
     }
 
     private var pagesBody: some View {
@@ -76,7 +77,9 @@ struct OnboardingView: View {
             // walks off the first screen straight into the trial page's price,
             // Restore, Terms and Privacy controls before they are visible.
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.easeInOut, value: page)
+            // Reduce Motion: the page changes in place instead of sliding.
+            .animation(reduceMotion ? nil : .easeInOut, value: page)
+            .transaction { if reduceMotion { $0.animation = nil } }
             footer
         }
         .background(Theme.background)
@@ -292,8 +295,9 @@ struct OnboardingView: View {
     /// Frozen at 1.3.2. Below the accessibility sizes this is 1.3.2's page
     /// exactly: same stack, same spacers, benefit lines on one line each.
     /// Only at accessibility sizes, where 1.3.2 pushed the heading off the
-    /// screen and squeezed the CTA, does the page scroll and carry the price,
-    /// the free exit and the legal links.
+    /// screen and squeezed the CTA, does the page scroll and carry the free
+    /// exit and the legal links. The price and its terms stay pinned above
+    /// the CTA there (see `footer`).
     @ViewBuilder
     private var trialPage: some View {
         if dynamicTypeSize.isAccessibilitySize {
@@ -301,7 +305,6 @@ struct OnboardingView: View {
                 trialHeader
                 trialBenefits
                 if !subscriptions.isPro {
-                    priceSlot
                     softExit
                     legalRow
                 }
@@ -409,16 +412,20 @@ struct OnboardingView: View {
             // reserved on every page.
             if reservesTrialSlots {
                 softExit
-                    .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
-                    .accessibilityHidden(!onTrialPage || subscriptions.isPro)
+                    .modifier(ReservedSlot(shown: onTrialPage && !subscriptions.isPro))
                 // Pricing slot, reserved on every page. The billed amount is the
                 // most conspicuous pricing element (App Review 3.1.2(c) flagged
                 // the trial outshining it); the disclosure under it stays small.
                 // Cribbage Trainer's approved fix, ported as-is. minHeight so the
                 // disclosure can wrap without moving the CTA on any page.
                 priceSlot
-                    .opacity(onTrialPage ? 1 : 0)
-                    .accessibilityHidden(!onTrialPage || subscriptions.isPro)
+                    .modifier(ReservedSlot(shown: onTrialPage && !subscriptions.isPro))
+            } else if onTrialPage && !subscriptions.isPro {
+                // At accessibility sizes the page scrolls, and the price and its
+                // terms scrolled with it, below the fold: the CTA sold a free
+                // week with no price on screen (3.1.2). They stay pinned to the
+                // CTA here; the free exit and the legal links scroll.
+                priceSlot
             }
             Button {
                 primaryAction()
@@ -437,8 +444,7 @@ struct OnboardingView: View {
             // Legal footer slot, reserved on every page.
             if reservesTrialSlots {
                 legalRow
-                    .opacity(onTrialPage && !subscriptions.isPro ? 1 : 0)
-                    .accessibilityHidden(!onTrialPage || subscriptions.isPro)
+                    .modifier(ReservedSlot(shown: onTrialPage && !subscriptions.isPro))
             }
         }
         .padding(.horizontal, 24)
@@ -458,9 +464,12 @@ struct OnboardingView: View {
                 .font(.subheadline.weight(.medium))
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
+                .hitPadding(Self.softExitHit)
         }
+        .padding(-Self.softExitHit)
         // 30pt, as shipped in 1.3.2: the trial page's geometry is the proven
         // one. Only the accessibility-size layout, where it scrolls, grows it.
+        // The tap target is 44pt either way (`softExitHit`), drawn nowhere.
         .frame(minHeight: dynamicTypeSize.isAccessibilitySize ? 44 : 30)
         .frame(height: dynamicTypeSize.isAccessibilitySize ? nil : 30)
         .disabled(!onTrialPageNow || subscriptions.isPro || purchasing || restoring)
@@ -471,6 +480,7 @@ struct OnboardingView: View {
             Text(trialPrice)
                 .font(Theme.display(22))
                 .foregroundStyle(Theme.ink)
+                .accessibilityLabel(PaywallPricing.spokenPrice(subscriptions, onboardingPlan) ?? trialPrice)
             Text(trialDisclosure)
                 .font(.caption2)
                 .foregroundStyle(Theme.inkTertiary)
@@ -484,12 +494,19 @@ struct OnboardingView: View {
         let layout = dynamicTypeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(spacing: 8))
             : AnyLayout(HStackLayout(spacing: 14))
+        // Stacked at accessibility sizes, where the text alone is tall enough.
+        let hit = dynamicTypeSize.isAccessibilitySize ? EdgeInsets() : Self.legalHit
         return layout {
-            Link("Terms", destination: PaywallLinks.terms)
-            Link("Privacy", destination: PaywallLinks.privacy)
-            Button("Restore") {
+            Link(destination: PaywallLinks.terms) { Text("Terms").hitPadding(hit) }
+                .padding(-hit)
+            Link(destination: PaywallLinks.privacy) { Text("Privacy").hitPadding(hit) }
+                .padding(-hit)
+            Button {
                 restorePurchases()
+            } label: {
+                Text("Restore").hitPadding(hit)
             }
+            .padding(-hit)
         }
         .font(.caption2)
         .foregroundStyle(Theme.inkTertiary)
@@ -497,13 +514,19 @@ struct OnboardingView: View {
         .disabled(!onTrialPageNow || subscriptions.isPro || purchasing || restoring)
     }
 
+    /// 44pt tap targets around the small trial-page controls without moving
+    /// them. The legal links grow mostly downward, into the bottom margin,
+    /// so they never reach the CTA above.
+    private static let softExitHit = EdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0)
+    private static let legalHit = EdgeInsets(top: 8, leading: 8, bottom: 24, trailing: 8)
+
     private var pageDots: some View {
         HStack(spacing: 6) {
             ForEach(0...lastPage, id: \.self) { dot in
                 Capsule()
                     .fill(dot == page ? Theme.jade : Theme.jade.opacity(0.22))
                     .frame(width: dot == page ? 20 : 7, height: 7)
-                    .animation(.snappy(duration: 0.22), value: page)
+                    .animation(reduceMotion ? nil : .snappy(duration: 0.22), value: page)
             }
         }
         .padding(.bottom, 2)
@@ -615,6 +638,22 @@ struct OnboardingView: View {
         // The tour's closing practice does not count toward Home's extras.
         progress.sessionsAtOnboarding = progress.totalSessions
         progress.hasOnboarded = true
+    }
+}
+
+/// A footer slot kept on every page so the CTA never moves, drawn only on
+/// the trial page. Hidden rather than faded to zero: an invisible Terms link
+/// at opacity 0 stayed in the accessibility tree, and the audit measured its
+/// contrast on every page before the trial.
+private struct ReservedSlot: ViewModifier {
+    let shown: Bool
+
+    func body(content: Content) -> some View {
+        if shown {
+            content
+        } else {
+            content.hidden().accessibilityHidden(true)
+        }
     }
 }
 

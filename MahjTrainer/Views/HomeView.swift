@@ -15,6 +15,7 @@ struct HomeView: View {
     @EnvironmentObject private var router: AppRouter
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     /// The route whose 4s wait is already counting, so repeat calls while it
     /// waits do not stack timers.
     @State private var routeWaitTimer: Int?
@@ -590,12 +591,12 @@ struct HomeView: View {
         guard DrillLibrary.rooms.contains(where: { $0.id == roomID }) else { return }
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 400_000_000)
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.85)) {
+            withAnimation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.85)) {
                 proxy.scrollTo(roomID, anchor: .center)
                 highlightedRoomID = roomID
             }
             try? await Task.sleep(nanoseconds: 2_200_000_000)
-            withAnimation(.easeOut(duration: 0.4)) { highlightedRoomID = nil }
+            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.4)) { highlightedRoomID = nil }
         }
     }
 
@@ -879,7 +880,7 @@ struct HomeView: View {
                     Text("\(round.month.monthName.uppercased()) CHALLENGE · DAY\u{00A0}\(round.day)")
                         .font(.caption2.weight(.heavy))
                         .kerning(1.2)
-                        .foregroundStyle(Theme.plum)
+                        .foregroundStyle(Theme.readable(Theme.plum))
                     Text("Today's Mahj Minute")
                         .font(.headline)
                         .foregroundStyle(Theme.ink)
@@ -961,7 +962,7 @@ struct HomeView: View {
             }
             .buttonStyle(PressableCardStyle())
             Button {
-                withAnimation(.easeOut(duration: 0.25)) { gameNightCardDismissed = true }
+                withAnimation(reduceMotion ? nil : .easeOut(duration: 0.25)) { gameNightCardDismissed = true }
             } label: {
                 Image(systemName: "xmark")
                     .font(.footnote.weight(.semibold))
@@ -1175,7 +1176,7 @@ struct HomeView: View {
             if let badge {
                 Text(badge)
                     .font(.caption2.weight(.semibold))
-                    .foregroundStyle(color)
+                    .foregroundStyle(Theme.readable(color))
             } else {
                 Text(locked ? Membership.name : " ")
                     .font(.caption2.weight(.semibold))
@@ -1328,6 +1329,7 @@ struct HomeView: View {
 struct MasteryRing: View {
     let mastery: RoomMastery
     var color: Color
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     /// 9pt at the default size, as designed, and growing a little with the
     /// player's text size. Capped at 12pt: any wider and "Learning" took the
@@ -1343,7 +1345,7 @@ struct MasteryRing: View {
                     .trim(from: 0, to: mastery.fraction)
                     .stroke(color, style: StrokeStyle(lineWidth: 3, lineCap: .round))
                     .rotationEffect(.degrees(-90))
-                    .animation(.spring(response: 0.5, dampingFraction: 0.8), value: mastery.fraction)
+                    .animation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.8), value: mastery.fraction)
                 switch mastery.level {
                 case .sharp:
                     Image(systemName: "star.fill")
