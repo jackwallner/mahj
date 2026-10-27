@@ -113,10 +113,13 @@ Accent text goes through `Theme.readable(_:)` (darker in light, lighter in
 dark) and secondary ink is `inkSecondary`/`inkTertiary`, all at 7:1 or more
 on the card. Small text links grow to 44pt with `hitPadding(_:)` inside the
 label plus `.padding(-insets)` on the control, so nothing moves. The launch
-screen color is the light cream in both modes. At AX3 the scroll to the
-coaching note runs one main-queue turn after grading: in the same update the
-note had no frame and stayed behind Next (unverified on video: the run-4
-AX3 screenshot still shows the note mostly behind Next). `OnboardingView` draws
+screen color is the light cream in both modes. At AX3 the coaching note
+never scrolled into view (gate runs 4 and 5 left it behind Next): the
+`ScrollViewReader` sat inside the scroll view's content, where `scrollTo`
+did nothing, and grading's `onChange` fired before the note had a frame.
+The reader now wraps `CenteringScrollView` and the scroll runs from the
+content's `onGeometryChange` once it has grown to hold the note
+(`OrdinaryRunTests.testCoachingNoteScrollsAboveNextAtAX3`). `OnboardingView` draws
 `Theme.background` under its stage change, or the trial-to-tour transition
 flashed the bare white window. Apple's contrast audit flags
 text that draws at 7 to 15:1 (it samples off-element pixels); those are

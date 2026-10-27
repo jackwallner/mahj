@@ -48,4 +48,35 @@ final class OrdinaryRunTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["3 of 10"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["choice-0"].firstMatch.isEnabled)
     }
+
+    /// At AX3 the graded coaching note scrolls up above Next. It stayed
+    /// behind Next in the 1.4.2 release gate's AX3 screenshots.
+    func testCoachingNoteScrollsAboveNextAtAX3() {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = [
+            "-progress.hasOnboarded", "YES", "-mahj.hasReadPrimer", "YES",
+            "-mahj.suppressWhatsNew", "YES", "-practice.ordinaryRun", "", "-progress.lastQuickSessionDay", "",
+            "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
+        ]
+        app.launch()
+        let getStarted = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Get Started")).firstMatch
+        XCTAssertTrue(getStarted.waitForExistence(timeout: 15))
+        getStarted.tap()
+        let choice = app.buttons["choice-0"].firstMatch
+        XCTAssertTrue(choice.waitForExistence(timeout: 10))
+        choice.tap()
+        let next = app.buttons["Next"].firstMatch
+        XCTAssertTrue(next.waitForExistence(timeout: 10))
+        let note = app.staticTexts["question-explanation"].firstMatch
+        XCTAssertTrue(note.waitForExistence(timeout: 10))
+        let above = expectation(for: NSPredicate { _, _ in
+            note.frame.maxY <= next.frame.minY && note.frame.minY > 0
+        }, evaluatedWith: nil)
+        wait(for: [above], timeout: 5)
+        let shot = XCTAttachment(screenshot: app.screenshot())
+        shot.name = "ax3-coaching-note"
+        shot.lifetime = .keepAlways
+        add(shot)
+    }
 }

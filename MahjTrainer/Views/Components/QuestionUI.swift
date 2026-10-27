@@ -65,12 +65,21 @@ struct QuestionPager<Choices: View>: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var viewportHeight: CGFloat = 0
     @State private var questionHeight: CGFloat = 0
+    /// The graded note has been scrolled to for this answer.
+    @State private var noteScrolled = false
 
     var body: some View {
+        // The reader wraps the scroll view: inside its content, `scrollTo`
+        // never moved it, and at AX3 the note stayed behind Next (1.4.2).
+        ScrollViewReader { proxy in
+            pager(proxy)
+        }
+    }
+
+    private func pager(_ proxy: ScrollViewProxy) -> some View {
         // Centering, not top-aligned: on a 13-inch iPad a three-choice question
         // used to sit in the top quarter of the screen. See CenteringScrollView.
         CenteringScrollView {
-            ScrollViewReader { proxy in
             VStack(spacing: isCompact ? 12 : 20) {
                 VStack(spacing: isCompact ? 12 : 20) {
                     if let eyebrow {
@@ -138,34 +147,32 @@ struct QuestionPager<Choices: View>: View {
             // short screen never shows it and then snaps to the compact one.
             .opacity(compact == nil ? 0 : 1)
             .environment(\.compactQuestion, isCompact)
-            .onChange(of: answered) { _, isAnswered in
-                guard isAnswered else { return }
-                // Bring the coaching note into view rather than leaving it
-                // parked below the fold behind the Next button.
-                //
+            // Bring the coaching note into view rather than leaving it
+            // parked below the fold behind the Next button. Scrolled once
+            // the content has grown to hold it: from `onChange(of:
+            // answered)` the note had no frame yet, and at AX3 it stayed
+            // behind Next (release gate, 1.4.2).
+            .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { _ in
+                guard answered, !noteScrolled else { return }
+                noteScrolled = true
                 // The anchor was audited (REG94-003) on the theory that
                 // `.bottom` pins the block to the foot of the viewport and
-                // throws the prompt off the top. It does not, and dropping the
-                // anchor for a minimum scroll changes NOTHING: this block is
-                // the last thing in the VStack, and `CenteringScrollView`
-                // gives the content a minHeight of the viewport, so either the
-                // question fits and there is no scroll range at all, or it
-                // overflows and both spellings land at the same place. Leave
-                // it alone. What a tall coaching block costs the prompt is a
-                // content-height problem, not a scroll-anchor one.
+                // throws the prompt off the top. It does not, and dropping
+                // the anchor for a minimum scroll changes NOTHING: this block
+                // is the last thing in the VStack, and `CenteringScrollView`
+                // gives the content a minHeight of the viewport, so either
+                // the question fits and there is no scroll range at all, or
+                // it overflows and both spellings land at the same place.
+                // Leave it alone. What a tall coaching block costs the prompt
+                // is a content-height problem, not a scroll-anchor one.
                 // Reduce Motion: the note fades in and the scroll jumps.
-                //
-                // One main-queue turn later: in the update that inserts the
-                // note it has no frame yet, so the scroll stopped short and
-                // left the note behind Next at AX3 (release gate, 1.4.2).
-                Task { @MainActor in
-                    await Task.yield()
-                    withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
-                        proxy.scrollTo(questionExplanationID, anchor: .bottom)
-                    }
+                withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
+                    proxy.scrollTo(questionExplanationID, anchor: .bottom)
                 }
             }
-            }
+        }
+        .onChange(of: answered) { _, isAnswered in
+            if !isAnswered { noteScrolled = false }
         }
         .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { height in
             // Unfolding or rotating changes the room: measure again.
