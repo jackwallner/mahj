@@ -82,6 +82,8 @@ struct HomeView: View {
             homeStack
                 .environment(\.horizontalSizeClass, layoutSizeClass)
                 .frame(maxWidth: split?.primaryWidth ?? .infinity, maxHeight: .infinity)
+                // Covered by a pane carried over a fold.
+                .accessibilityHidden(split == nil && !panePath.isEmpty)
             // While split, and after a fold for as long as Home's screen is
             // still open in it: the pane then fills the phone, so a Timed
             // Challenge or Game Night Prep keeps its questions, clock and
