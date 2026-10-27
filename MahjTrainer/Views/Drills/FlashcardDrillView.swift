@@ -545,30 +545,71 @@ struct FlipCardFace: View {
 
     private var front: some View {
         MahjCardFace(accent: accent, eyebrow: "MAHJ TRAINER") {
-            VStack(spacing: 18) {
-                Spacer(minLength: 0)
-                Text(card.frontTitle)
-                    .font(Theme.display(25))
-                    .foregroundStyle(Theme.ink)
-                    .multilineTextAlignment(.center)
-                if !card.frontTiles.isEmpty {
-                    TileRackView(tiles: card.frontTiles, tileWidth: frontTileWidth)
-                }
-                if let subtitle = card.frontSubtitle {
-                    Text(subtitle)
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.inkSecondary)
-                        .multilineTextAlignment(.center)
-                }
-                Spacer(minLength: 0)
-                if let choice = card.choice, let onChoose {
-                    choiceButtons(choice, onChoose: onChoose)
-                } else {
-                    Label("Tap to reveal", systemImage: "hand.tap.fill")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(Theme.inkTertiary)
+            if dynamicTypeSize.isAccessibilitySize {
+                accessibleFront
+            } else {
+                VStack(spacing: 18) {
+                    Spacer(minLength: 0)
+                    frontQuestion
+                    Spacer(minLength: 0)
+                    frontAction
                 }
             }
+        }
+    }
+
+    @ViewBuilder
+    private var frontQuestion: some View {
+        Text(card.frontTitle)
+            .font(Theme.display(25))
+            .foregroundStyle(Theme.ink)
+            .multilineTextAlignment(.center)
+        if !card.frontTiles.isEmpty {
+            TileRackView(tiles: card.frontTiles, tileWidth: frontTileWidth)
+        }
+        if let subtitle = card.frontSubtitle {
+            Text(subtitle)
+                .font(.subheadline)
+                .foregroundStyle(Theme.inkSecondary)
+                .multilineTextAlignment(.center)
+        }
+    }
+
+    @ViewBuilder
+    private var frontAction: some View {
+        if let choice = card.choice, let onChoose {
+            choiceButtons(choice, onChoose: onChoose)
+        } else {
+            Label("Tap to reveal", systemImage: "hand.tap.fill")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(Theme.inkTertiary)
+        }
+    }
+
+    /// At accessibility sizes a long subtitle under a two-row rack outgrows
+    /// the card on a small phone and was cut off. The question scrolls only
+    /// when it has to, with the choices pinned below, as on the back.
+    private var accessibleFront: some View {
+        VStack(spacing: 14) {
+            ViewThatFits(in: .vertical) {
+                VStack(spacing: 18) {
+                    Spacer(minLength: 0)
+                    frontQuestion
+                    Spacer(minLength: 0)
+                }
+                ScrollView {
+                    VStack(spacing: 18) {
+                        frontQuestion
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .frame(maxWidth: .infinity)
+                }
+                .scrollIndicators(.visible)
+                .scrollIndicatorsFlash(onAppear: true)
+                .scrollBounceBehavior(.basedOnSize)
+                .hidesScrollEdgeEffect()
+            }
+            frontAction
         }
     }
 
