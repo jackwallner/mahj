@@ -116,7 +116,11 @@ struct QuickSessionView: View {
             drillBody
                 .onAppear { if let monthlyRoundKey { monthlyStore.roundOnScreen = monthlyRoundKey } }
                 .onDisappear {
-                    if let monthlyRoundKey, monthlyStore.roundOnScreen == monthlyRoundKey { monthlyStore.roundOnScreen = nil }
+                    guard let monthlyRoundKey, monthlyStore.roundOnScreen == monthlyRoundKey else { return }
+                    monthlyStore.roundOnScreen = nil
+                    // Left unfinished after midnight (the Duo's pane can
+                    // replace it while Home stays put): bank what it earned now.
+                    monthlyStore.closeEarlierRounds(than: MonthlyChallengeContent.currentRound())
                 }
         }
     }
