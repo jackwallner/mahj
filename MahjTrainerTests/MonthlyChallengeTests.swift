@@ -432,6 +432,18 @@ final class MonthlyChallengeTests: XCTestCase {
         XCTAssertEqual(ChallengeStanding(players: 200, below: 100, points: 20).topPercent, 50)
     }
 
+    /// Overlapping standing refreshes: only the newest reply for a month may
+    /// land, so a slow answer for an older score cannot show an older rank.
+    func testOnlyTheNewestStandingReplyLands() {
+        var requests = LatestRequest<String>()
+        let first = requests.next(for: "2026-11")
+        let second = requests.next(for: "2026-11")
+        let december = requests.next(for: "2026-12")
+        XCTAssertFalse(requests.isLatest(first, for: "2026-11"))
+        XCTAssertTrue(requests.isLatest(second, for: "2026-11"))
+        XCTAssertTrue(requests.isLatest(december, for: "2026-12"))
+    }
+
     /// A Buddhist or Hebrew system calendar must not change which day a
     /// player is on, or stretch the archive back thousands of months.
     func testTheChallengeIgnoresTheSystemCalendar() {

@@ -41,10 +41,15 @@ enum ChallengeStandingService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(FeedbackEndpoint.production.apiKey, forHTTPHeaderField: "apikey")
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        let ticket = requests.next(for: monthKey)
         guard let (data, response) = try? await URLSession.shared.data(for: request),
               (response as? HTTPURLResponse)?.statusCode == 200,
               let reply = try? JSONDecoder().decode(Reply.self, from: data)
         else { return }
+        // Two refreshes can overlap (a finished round, then the screen
+        // opening). A slow reply for an older, lower score must not replace
+        // the newer rank.
+        guard requests.isLatest(ticket, for: monthKey) else { return }
         lastFetch[monthKey] = Date()
         store.setStanding(ChallengeStanding(players: reply.players, below: reply.below, points: score.points), for: monthKey)
     }
@@ -55,6 +60,7 @@ enum ChallengeStandingService {
     }
 
     private static var lastFetch: [String: Date] = [:]
+    private static var requests = LatestRequest<String>()
 
     private static var isSimulator: Bool {
         #if targetEnvironment(simulator)
@@ -74,4 +80,20 @@ enum ChallengeStandingService {
         return ChallengeStanding(players: parts[0], below: parts[1], points: points)
     }
     #endif
+}
+
+/// Numbers each request per key, so a reply can tell whether a newer request
+/// went out after it.
+struct LatestRequest<Key: Hashable> {
+    private var issued: [Key: Int] = [:]
+
+    mutating func next(for key: Key) -> Int {
+        let ticket = (issued[key] ?? 0) + 1
+        issued[key] = ticket
+        return ticket
+    }
+
+    func isLatest(_ ticket: Int, for key: Key) -> Bool {
+        issued[key] == ticket
+    }
 }
