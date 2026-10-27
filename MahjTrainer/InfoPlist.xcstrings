@@ -1,0 +1,47 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "NSUserTrackingUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This lets Meta tell us which Facebook or Instagram ad brought you to Mahj Trainer, so we stop paying for ads that don't work. Your practice and progress are never shared."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "So erfahren wir von Meta, welche Facebook- oder Instagram-Werbung dich zu Mahj Trainer gebracht hat. So zahlen wir nicht weiter für Werbung, die nicht wirkt. Deine Übungen und Fortschritte werden nie geteilt."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta nos ayuda a saber qué anuncio de Facebook o Instagram te trajo a Mahj Trainer, para dejar de pagar por anuncios que no funcionan. Nunca compartimos tus ejercicios ni tu progreso."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta nous indique quelle publicité Facebook ou Instagram vous a amené à Mahj Trainer, afin de ne plus payer pour celles qui ne fonctionnent pas. Vos exercices et vos progrès ne sont jamais partagés."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta membantu kami mengetahui iklan Facebook atau Instagram yang membawa Anda ke Mahj Trainer, agar kami tidak terus membayar iklan yang tidak efektif. Latihan dan kemajuan Anda tidak pernah dibagikan."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meta giúp chúng tôi biết quảng cáo Facebook hoặc Instagram nào đưa bạn đến Mahj Trainer, để ngừng trả tiền cho quảng cáo không hiệu quả. Bài luyện tập và tiến độ của bạn không bao giờ được chia sẻ."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
