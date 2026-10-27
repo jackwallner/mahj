@@ -32,9 +32,8 @@ enum DebugShot {
         case ("challenge", _): MonthlyChallengeView()
         case ("handplay", _): HandPlayView()
         case ("quick", _):
-            OrdinaryRunEntryView(id: SessionBuilder.sessionDrill.id, title: SessionBuilder.sessionDrill.title) {
-                QuickSessionView(items: SessionBuilder.quickSession(seen: [], missed: [], includePro: true))
-            }
+            QuickSessionView(items: SessionBuilder.quickSession(seen: [], missed: [], includePro: true))
+                .tracksOrdinaryRun(SessionBuilder.sessionDrill.id)
         case ("room", let id?):
             if let room = DrillLibrary.room(id: id) { RoomView(room: room) }
         case ("drill", let id?):

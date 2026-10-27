@@ -44,7 +44,8 @@ struct QuickSessionView: View {
     private let purpose: QuickSessionPurpose
 
     init(items: [QuickItem], isDaily: Bool = true, onClose: (() -> Void)? = nil) {
-        let saved = isDaily && onClose == nil ? OrdinaryRunStore.shared.run(for: SessionBuilder.sessionDrill.id) : nil
+        let saved = isDaily && onClose == nil ? OrdinaryRunStore.shared.run(for: SessionBuilder.sessionDrill.id)
+            .flatMap { $0.isLocked(isMember: SubscriptionService.shared.isPro) ? nil : $0 } : nil
         _items = State(initialValue: saved?.items ?? items)
         _index = State(initialValue: saved?.index ?? 0)
         _score = State(initialValue: saved?.score ?? 0)
@@ -108,7 +109,7 @@ struct QuickSessionView: View {
             // session that asked nothing.
             emptySession
         } else {
-            drillBody.onAppear { saveRun() }
+            drillBody
         }
     }
 

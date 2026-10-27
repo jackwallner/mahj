@@ -24,7 +24,9 @@ flagged `isPlus`, ids `plus-*`, same mechanics as the room's free drills, just
 more original questions) plus the whole `pro-tables` room, now shown as **The
 Master Tables** (`Shared/Content/ProContent.swift`). Locking is per-drill:
 `Room.isLocked(_:isMember:)` is the single source of truth, and `SessionBuilder`
-filters the Quick Session pool through it. The onboarding trial page
+filters the Quick Session pool through it. A saved run follows it too: a
+lapsed member is never offered Resume for a locked drill
+(`OrdinaryRun.isLocked`, 1.4.2). The onboarding trial page
 follows the OT710 zero-shift pattern (`~/OT710.md`, StatScout reference): no
 plan cards, soft "Get Started" exit ABOVE the primary, primary CTA in the exact
 Continue slot, one tap → MONTHLY trial purchase → Apple confirm; full

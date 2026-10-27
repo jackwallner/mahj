@@ -2,7 +2,7 @@ import XCTest
 
 @MainActor
 final class OrdinaryRunTests: XCTestCase {
-    func testQuickSessionResumesHeldAnswerAfterRelaunchAndCanStartOver() {
+    func testQuickSessionResumesHeldAnswerAfterRelaunchFromGetStarted() {
         continueAfterFailure = false
         let app = XCUIApplication()
         let arguments = [
@@ -28,11 +28,11 @@ final class OrdinaryRunTests: XCTestCase {
 
         app.launchArguments = arguments
         app.launch()
+        // The Get Started card itself resumes, straight into the run.
         let resumeCard = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Resume Quick Session")).firstMatch
         XCTAssertTrue(resumeCard.waitForExistence(timeout: 15))
+        XCTAssertFalse(getStarted.exists)
         resumeCard.tap()
-        XCTAssertTrue(app.buttons["Resume"].waitForExistence(timeout: 10))
-        app.buttons["Resume"].tap()
         XCTAssertTrue(app.buttons["Next"].waitForExistence(timeout: 10))
         XCTAssertEqual(app.staticTexts["question-prompt"].firstMatch.label, prompt)
         XCTAssertTrue((app.buttons["choice-0"].firstMatch.value as? String)?.contains("Your answer") == true)
@@ -45,9 +45,7 @@ final class OrdinaryRunTests: XCTestCase {
         app.navigationBars.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(resumeCard.waitForExistence(timeout: 10))
         resumeCard.tap()
-        XCTAssertTrue(app.buttons["Start over"].waitForExistence(timeout: 10))
-        app.buttons["Start over"].tap()
-        XCTAssertTrue(app.staticTexts["1 of 10"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["3 of 10"].waitForExistence(timeout: 10))
         XCTAssertTrue(app.buttons["choice-0"].firstMatch.isEnabled)
     }
 }

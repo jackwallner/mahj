@@ -96,3 +96,19 @@ own snapshot so clearing the store for Start over or completion cannot remove
 the destination. In Compose, construct the snapshot during composition and
 persist it in `SideEffect`: reading answer state only inside the effect does
 not observe a pick, so the held answer can be lost before Next.
+
+Saved runs, 1.4.2 (review fixes): the slot only ever holds a run with an
+answer (`OrdinaryRun.hasAnswers`). Drills save on the first answer, never on
+appear: every drill used to save an empty run when it opened, so peeking at
+another drill wiped a half-done one and Home offered "Resume Quick Session"
+with nothing answered. An unanswered run never replaces the slot, the same
+run undone back to nothing drops out, and an empty run left on disk by 1.4.1
+is ignored on load. `resumable(besideOpenPane:isMember:)` also refuses a run
+`isLocked` for this player: a room drill through `Room.isLocked`, a Quick
+Session built with Mahj+ questions; the run stays on disk for a returning
+member. Home's room-drill Resume card goes straight into the run
+(`SavedOrdinaryRunView`, which checks the lock again). A saved Quick Session
+has no card of its own: the Get Started card reads "Resume Quick Session" and
+`QuickSessionView` picks the run up (skipping a locked one, which then builds
+a fresh mix). Resume / Start over (`OrdinaryRunEntryView`) is only asked when
+a room's drill row opens a drill with a saved run.

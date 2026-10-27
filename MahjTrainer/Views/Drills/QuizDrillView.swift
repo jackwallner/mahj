@@ -30,7 +30,7 @@ struct QuizDrillView: View {
         if finished {
             DrillCompleteView(drill: drill, score: score, total: questions.count)
         } else {
-            drillBody.onAppear { saveRun() }
+            drillBody
         }
     }
 

@@ -30,7 +30,7 @@ struct CharlestonDrillView: View {
         if finished {
             DrillCompleteView(drill: drill, score: score, total: scenarios.count * 3)
         } else {
-            drillBody.onAppear { saveRun() }
+            drillBody
         }
     }
 

@@ -191,10 +191,11 @@ struct HomeView: View {
     private func destinationView(_ destination: AppDestination) -> some View {
         switch destination {
         case .quickSession:
-            OrdinaryRunEntryView(id: SessionBuilder.sessionDrill.id, title: SessionBuilder.sessionDrill.title) {
-                QuickSessionView(items: SessionBuilder.quickSession(
-                    seen: progress.seenItems, missed: progress.missedItems, includePro: subscriptions.isPro))
-            }
+            // A saved run resumes itself (`QuickSessionView` reads it);
+            // otherwise this is a fresh mix.
+            QuickSessionView(items: SessionBuilder.quickSession(
+                seen: progress.seenItems, missed: progress.missedItems, includePro: subscriptions.isPro))
+                .tracksOrdinaryRun(SessionBuilder.sessionDrill.id)
         case .ordinaryRun:
             SavedOrdinaryRunView()
         case .gameNightPrepSession:
@@ -414,9 +415,13 @@ struct HomeView: View {
         .frame(maxWidth: .infinity, alignment: .top)
     }
 
+    /// A saved Quick Session resumes from the Get Started card itself, so
+    /// Home never shows two cards for the same thing; a saved room drill gets
+    /// its own Resume card above it.
     @ViewBuilder
     private var todaySession: some View {
-        if let run = ordinaryRuns.resumable(besideOpenPane: split != nil) {
+        let run = ordinaryRuns.resumable(besideOpenPane: split != nil, isMember: subscriptions.isPro)
+        if let run, !run.isQuickSession {
             Button {
                 show(.ordinaryRun)
             } label: {
@@ -432,7 +437,7 @@ struct HomeView: View {
         if progress.quickSessionCompletedToday() {
             getStartedDoneCard
         } else {
-            getStartedCard
+            getStartedCard(resuming: run?.isQuickSession == true)
         }
     }
 
@@ -695,21 +700,18 @@ struct HomeView: View {
     }
 
     /// The one-tap way in: builds a short mixed session, no browsing needed.
-    private var getStartedCard: some View {
+    /// With a session saved it says Resume and picks that one up.
+    private func getStartedCard(resuming: Bool) -> some View {
         Button {
             show(.quickSession)
         } label: {
             HStack(spacing: 14) {
-                VStack(alignment: .leading, spacing: 4) {
-                    // `onFill`, not white: dark mode lightens the jade, and
-                    // white on it measured 2.45:1.
-                    Text("Get Started")
-                        .font(Theme.display(24))
-                        .foregroundStyle(Theme.onFill)
-                    Text("A five-minute mix of what you need next")
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.onFill.opacity(0.9))
-                }
+                // `onFill`, not white: dark mode lightens the jade, and
+                // white on it measured 2.45:1.
+                Text(resuming ? "Resume \(SessionBuilder.sessionDrill.title)" : "Get Started")
+                    .font(Theme.display(24))
+                    .foregroundStyle(Theme.onFill)
+                    .multilineTextAlignment(.leading)
                 Spacer(minLength: 4)
                 Image(systemName: "play.circle.fill")
                     .font(.system(size: 44))
