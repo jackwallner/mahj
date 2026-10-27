@@ -1,3 +1,4 @@
+import UIKit
 import XCTest
 @testable import MahjTrainer
 
@@ -6,36 +7,42 @@ import XCTest
 final class UnfoldedSplitTests: XCTestCase {
     func testCompactWidthNeverSplits() {
         // The folded Duo's outer display, and every other iPhone.
-        XCTAssertNil(UnfoldedSplit.make(width: 466, isRegularWidth: false, fold: nil))
-        XCTAssertNil(UnfoldedSplit.make(width: 951, isRegularWidth: false, fold: 470...481))
+        XCTAssertNil(UnfoldedSplit.make(width: 466, isRegularWidth: false, idiom: .phone, fold: nil))
+        XCTAssertNil(UnfoldedSplit.make(width: 951, isRegularWidth: false, idiom: .phone, fold: 470...481))
+    }
+
+    func testIPadNeverSplits() {
+        // A full-screen iPad keeps its two-column Home, however wide.
+        XCTAssertNil(UnfoldedSplit.make(width: 1032, isRegularWidth: true, idiom: .pad, fold: nil))
+        XCTAssertNil(UnfoldedSplit.make(width: 1366, isRegularWidth: true, idiom: .pad, fold: nil))
     }
 
     func testRegularWidthTooNarrowForTwoPanesStaysOneColumn() {
         // The unfolded Duo held in portrait: two halves under 360 pt each.
-        XCTAssertNil(UnfoldedSplit.make(width: 669, isRegularWidth: true, fold: nil))
-        XCTAssertNil(UnfoldedSplit.make(width: 719, isRegularWidth: true, fold: nil))
+        XCTAssertNil(UnfoldedSplit.make(width: 669, isRegularWidth: true, idiom: .phone, fold: nil))
+        XCTAssertNil(UnfoldedSplit.make(width: 719, isRegularWidth: true, idiom: .phone, fold: nil))
     }
 
     func testPanesMeetTheFoldEdges() {
-        let split = UnfoldedSplit.make(width: 951, isRegularWidth: true, fold: 470...481)
+        let split = UnfoldedSplit.make(width: 951, isRegularWidth: true, idiom: .phone, fold: 470...481)
         XCTAssertEqual(split, UnfoldedSplit(primaryWidth: 470, secondaryX: 481, secondaryWidth: 470))
     }
 
     func testNoReportedFoldSplitsEvenly() {
-        let split = UnfoldedSplit.make(width: 951, isRegularWidth: true, fold: nil)
+        let split = UnfoldedSplit.make(width: 951, isRegularWidth: true, idiom: .phone, fold: nil)
         XCTAssertEqual(split, UnfoldedSplit(primaryWidth: 475, secondaryX: 475, secondaryWidth: 476))
     }
 
     func testFoldThatLeavesANarrowPaneFallsBackToEvenSplit() {
         // A fold off to one side would squeeze a pane under the phone width.
-        let split = UnfoldedSplit.make(width: 951, isRegularWidth: true, fold: 300...310)
+        let split = UnfoldedSplit.make(width: 951, isRegularWidth: true, idiom: .phone, fold: 300...310)
         XCTAssertEqual(split, UnfoldedSplit(primaryWidth: 475, secondaryX: 475, secondaryWidth: 476))
     }
 
     func testPanesNeverOverlapOrSpillPastTheWidth() {
         for width in stride(from: CGFloat(720), through: 1400, by: 37) {
             for fold in [nil, (width / 2 - 6)...(width / 2 + 6)] as [ClosedRange<CGFloat>?] {
-                guard let split = UnfoldedSplit.make(width: width, isRegularWidth: true, fold: fold) else {
+                guard let split = UnfoldedSplit.make(width: width, isRegularWidth: true, idiom: .phone, fold: fold) else {
                     return XCTFail("no split at \(width)")
                 }
                 XCTAssertGreaterThanOrEqual(split.primaryWidth, UnfoldedSplit.minimumPaneWidth)

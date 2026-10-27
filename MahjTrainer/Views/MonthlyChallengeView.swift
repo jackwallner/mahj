@@ -8,11 +8,13 @@ import UserNotifications
 struct MonthlyChallengeView: View {
     @StateObject private var store = MonthlyChallengeStore.shared
     @StateObject private var minuteStore = MahjMinuteStore.shared
+    @StateObject private var dayClock = DayClock.shared
+    /// Today's round, held rather than read per render, so a redraw after
+    /// midnight cannot swap the day under the screen. Refreshed when the
+    /// screen appears and when the day changes.
+    @State private var round = MonthlyChallengeContent.currentRound()
 
     var body: some View {
-        // One read of "today" per render: a round tapped just after midnight
-        // still opens the day it was showing.
-        let round = MonthlyChallengeContent.currentRound()
         ScrollView {
             VStack(spacing: 16) {
                 if let round {
@@ -21,7 +23,10 @@ struct MonthlyChallengeView: View {
                 } else {
                     upcoming
                 }
-                let past = round.map { MonthlyChallengeContent.pastMonths(before: $0.month.start) } ?? []
+                // Only months this player played: a list of "Not played"
+                // rows is a reminder of nothing.
+                let past = (round.map { MonthlyChallengeContent.pastMonths(before: $0.month.start) } ?? [])
+                    .filter { store.monthScore(MonthlyChallengeContent.challenge(for: $0).monthKey).daysPlayed > 0 }
                 if !past.isEmpty { archive(past) }
                 if !minuteStore.results.isEmpty { earlierMinutes }
             }
@@ -32,10 +37,16 @@ struct MonthlyChallengeView: View {
         .background(Theme.background)
         .navigationTitle("\(round?.month.monthName ?? MonthlyChallengeContent.firstChallenge().monthName) Challenge")
         .navigationBarTitleDisplayMode(.inline)
-        .task {
-            store.closeEarlierRounds(than: round)
-            if let round { await ChallengeStandingService.refresh(monthKey: round.monthKey) }
+        .onAppear(perform: refreshRound)
+        .onChange(of: dayClock.dayKey) { _, _ in refreshRound() }
+        .task(id: round?.monthKey) {
+            if let monthKey = round?.monthKey { await ChallengeStandingService.refresh(monthKey: monthKey) }
         }
+    }
+
+    private func refreshRound() {
+        round = MonthlyChallengeContent.currentRound()
+        store.closeEarlierRounds(than: round)
     }
 
     private func hero(_ round: ChallengeRound) -> some View {
@@ -81,11 +92,6 @@ struct MonthlyChallengeView: View {
                         .primaryCTA(color: Theme.plum)
                 }
             }
-            Text(footnote(month))
-                .font(.caption)
-                .foregroundStyle(Theme.inkSecondary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(20)
         .themedCard()
@@ -125,12 +131,6 @@ struct MonthlyChallengeView: View {
                 }
             }
         }
-    }
-
-    private func footnote(_ month: MonthlyChallenge) -> String {
-        let days = month.daysLeft()
-        let end = days <= 1 ? "Today is the last day." : "Runs through \(month.monthName)\u{00A0}\(month.dayCount)."
-        return "Each square is a day's Mahj Minute: \(MonthlyChallengeContent.questionsPerRound) new questions, the same for every player. Every right answer is a point, and your best \(MonthlyChallengeContent.countedDays) days make your month score, up to \(MonthlyChallengeContent.maxMonthPoints). Missed days are fine. \(end)"
     }
 
     /// Before the first month: what it is and when it starts, plus the one
@@ -194,7 +194,7 @@ struct MonthlyChallengeView: View {
         let score = store.monthScore(past.monthKey)
         return HStack(spacing: 12) {
             Image(systemName: past.theme.icon)
-                .foregroundStyle(score.daysPlayed > 0 ? Theme.plum : Theme.inkTertiary)
+                .foregroundStyle(Theme.plum)
                 .frame(width: 28)
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 1) {
@@ -207,15 +207,13 @@ struct MonthlyChallengeView: View {
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 1) {
-                Text(score.daysPlayed > 0 ? "\(score.points)\u{00A0}points" : "Not played")
+                Text("\(score.points)\u{00A0}points")
                     .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(score.daysPlayed > 0 ? Theme.plum : Theme.inkTertiary)
+                    .foregroundStyle(Theme.plum)
                     .monospacedDigit()
-                if score.daysPlayed > 0 {
-                    Text("\(score.daysPlayed)\u{00A0}\(score.daysPlayed == 1 ? "day" : "days")")
-                        .font(.caption)
-                        .foregroundStyle(Theme.inkSecondary)
-                }
+                Text("\(score.daysPlayed)\u{00A0}\(score.daysPlayed == 1 ? "day" : "days")")
+                    .font(.caption)
+                    .foregroundStyle(Theme.inkSecondary)
             }
         }
         .padding(14)

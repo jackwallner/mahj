@@ -62,7 +62,6 @@ struct FlashcardDrillView: View {
             DrillCompleteView(drill: drill, score: nil, total: cards.count)
         } else {
             drillBody
-                .onAppear { saveRun() }
                 .onChange(of: isFlipped) { _, _ in saveRun() }
                 .onChange(of: answers) { _, _ in saveRun() }
                 .onChange(of: choicePick) { _, _ in saveRun() }

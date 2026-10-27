@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// Keep the decision outside the runner so Start over builds fresh view state.
+/// A room drill with a saved run asks Resume or Start over. Keep the decision
+/// outside the runner so Start over builds fresh view state.
 struct OrdinaryRunEntryView<Content: View>: View {
     let id: String
     let title: String
@@ -16,9 +17,7 @@ struct OrdinaryRunEntryView<Content: View>: View {
     }
 
     var body: some View {
-        entry
-            .onAppear { OrdinaryRunStore.shared.setOnScreen(id, true) }
-            .onDisappear { OrdinaryRunStore.shared.setOnScreen(id, false) }
+        entry.tracksOrdinaryRun(id)
     }
 
     @ViewBuilder
@@ -49,12 +48,16 @@ struct OrdinaryRunEntryView<Content: View>: View {
     }
 }
 
+/// Home's Resume card goes straight back into the run, no second choice.
+/// Home only offers a run this player may open; the check here keeps a
+/// lapsed member out of a locked drill whatever the route.
 struct SavedOrdinaryRunView: View {
+    @EnvironmentObject private var subscriptions: SubscriptionService
     @State private var run = OrdinaryRunStore.shared.inProgress
 
     var body: some View {
-        if let run {
-            OrdinaryRunEntryView(id: run.id, title: run.drill.title) {
+        if let run, !run.isLocked(isMember: subscriptions.isPro) {
+            Group {
                 if run.isQuickSession {
                     QuickSessionView(items: run.items)
                 } else {
@@ -63,7 +66,17 @@ struct SavedOrdinaryRunView: View {
                     }?.accent ?? Theme.jade)
                 }
             }
+            .tracksOrdinaryRun(run.id)
         }
+    }
+}
+
+extension View {
+    /// Marks the run as on screen, so Home's Resume card hides beside it on
+    /// the unfolded Duo.
+    func tracksOrdinaryRun(_ id: String) -> some View {
+        onAppear { OrdinaryRunStore.shared.setOnScreen(id, true) }
+            .onDisappear { OrdinaryRunStore.shared.setOnScreen(id, false) }
     }
 }
 

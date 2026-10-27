@@ -2,14 +2,15 @@ import Foundation
 import UserNotifications
 
 /// "Tell me when the next one opens": one local notification on the morning
-/// of the 1st for each of the next three months. Only ever set by the player
+/// of the 1st for each of the next three months (and this month's, until it
+/// fires). Only ever set by the player
 /// tapping the button, never silently, and re-laid on every launch so the
 /// three always run ahead of today.
 @MainActor
 enum MonthlyChallengeReminder {
     private static let enabledKey = "monthlyChallenge.reminder"
     private static let idPrefix = "mahj.monthlyChallenge."
-    private static let monthsAhead = 3
+    nonisolated private static let monthsAhead = 3
 
     static var isOn: Bool { UserDefaults.standard.bool(forKey: enabledKey) }
 
@@ -43,19 +44,41 @@ enum MonthlyChallengeReminder {
         schedule()
     }
 
+    /// The months to remind about: the next three, plus this one while its
+    /// 10:00 on the 1st is still ahead. Every refresh clears and re-lays the
+    /// reminders, so leaving this month out cancelled the day's reminder for
+    /// anyone who opened the app early on the 1st.
+    nonisolated static func months(now: Date, calendar: Calendar = .gregorianLocal) -> [MonthlyChallenge] {
+        let current = MonthlyChallengeContent.challenge(for: now, calendar: calendar)
+        var months: [MonthlyChallenge] = []
+        if let fire = calendar.date(from: fireComponents(for: current, calendar: calendar)), fire > now {
+            months.append(current)
+        }
+        var challenge = current
+        for _ in 0..<monthsAhead {
+            challenge = MonthlyChallengeContent.next(after: challenge, calendar: calendar)
+            months.append(challenge)
+        }
+        return months
+    }
+
+    /// 10:00 on the month's 1st.
+    nonisolated static func fireComponents(for challenge: MonthlyChallenge, calendar: Calendar) -> DateComponents {
+        var parts = calendar.dateComponents([.year, .month, .day], from: challenge.start)
+        // The trigger matches in the system calendar unless told
+        // otherwise, and a Buddhist or Japanese year never equals 2026.
+        parts.calendar = calendar
+        parts.timeZone = calendar.timeZone
+        parts.hour = 10
+        parts.minute = 0
+        return parts
+    }
+
     private static func schedule(now: Date = Date(), calendar: Calendar = .gregorianLocal) {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: identifiers())
-        var challenge = MonthlyChallengeContent.challenge(for: now, calendar: calendar)
-        for _ in 0..<monthsAhead {
-            challenge = MonthlyChallengeContent.next(after: challenge, calendar: calendar)
-            var parts = calendar.dateComponents([.year, .month, .day], from: challenge.start)
-            // The trigger matches in the system calendar unless told
-            // otherwise, and a Buddhist or Japanese year never equals 2026.
-            parts.calendar = calendar
-            parts.timeZone = calendar.timeZone
-            parts.hour = 10
-            parts.minute = 0
+        for challenge in months(now: now, calendar: calendar) {
+            let parts = fireComponents(for: challenge, calendar: calendar)
             let content = UNMutableNotificationContent()
             content.title = "The \(challenge.monthName) Challenge is here"
             content.body = "\(challenge.theme.title): \(challenge.theme.blurb) A new Mahj Minute every day this month."

@@ -21,7 +21,11 @@ struct HomeView: View {
     @StateObject private var monthlyStore = MonthlyChallengeStore.shared
     @StateObject private var handPlay = HandPlayStore.shared
     @StateObject private var ledger = MasteryLedger.shared
+    @StateObject private var dayClock = DayClock.shared
     @State private var path: [AppDestination] = []
+    /// Bumped on every open of the challenge, so the event link redraws it
+    /// for today even when it is already the screen on top.
+    @State private var challengeOpenCount = 0
     @State private var showPaywall = false
     #if DEBUG
     /// `-mahj.previewTrialOffer` opens the result-screen trial sheet over
@@ -56,9 +60,6 @@ struct HomeView: View {
     /// The trailing pane's room, and whatever Home opened on top of it.
     @State private var paneRoomID = DrillLibrary.rooms[0].id
     @State private var panePath: [PaneScreen] = []
-    /// Mounted once the Duo first unfolds, then kept, so folding and
-    /// unfolding only move frames and an open drill survives the trip.
-    @State private var paneHasAppeared = false
 
     private var showsPrimerCard: Bool { skillLevel == "new" && !hasReadPrimer }
 
@@ -66,6 +67,7 @@ struct HomeView: View {
         UnfoldedSplit.make(
             width: paneGeometry.width,
             isRegularWidth: horizontalSizeClass == .regular,
+            idiom: UIDevice.current.userInterfaceIdiom,
             fold: paneGeometry.fold
         )
     }
@@ -80,14 +82,14 @@ struct HomeView: View {
             homeStack
                 .environment(\.horizontalSizeClass, layoutSizeClass)
                 .frame(maxWidth: split?.primaryWidth ?? .infinity, maxHeight: .infinity)
-            if paneHasAppeared {
+            // Only while split. Kept hidden after a fold, a drill stayed
+            // mounted while Home offered Resume for the same run. Its run is
+            // saved, so the Resume card picks it up on the phone layout.
+            if let split {
                 trailingPane
                     .environment(\.horizontalSizeClass, .compact)
-                    .frame(maxWidth: split?.secondaryWidth ?? .infinity, maxHeight: .infinity)
-                    .padding(.leading, split?.secondaryX ?? 0)
-                    .opacity(split != nil ? 1 : 0)
-                    .allowsHitTesting(split != nil)
-                    .accessibilityHidden(split == nil)
+                    .frame(maxWidth: split.secondaryWidth, maxHeight: .infinity)
+                    .padding(.leading, split.secondaryX)
             }
         }
         // Measured at the full width whatever the panes take, or a narrower
@@ -108,8 +110,11 @@ struct HomeView: View {
         .onGeometryChange(for: PaneGeometry.self) { proxy in
             PaneGeometry(width: proxy.size.width, fold: proxy.verticalFold())
         } action: { paneGeometry = $0 }
-        .onChange(of: split != nil, initial: true) { _, isSplit in
-            if isSplit { paneHasAppeared = true }
+        .onChange(of: split != nil) { _, isSplit in
+            if !isSplit { panePath = [] }
+        }
+        .onChange(of: paneBusy) { _, busy in
+            if !busy { homeIsBareAgain() }
         }
     }
 
@@ -180,6 +185,7 @@ struct HomeView: View {
     /// Opens a routed destination: in the trailing pane while unfolded,
     /// pushed over Home otherwise.
     private func show(_ destination: AppDestination) {
+        if destination == .monthlyChallenge { challengeOpenCount += 1 }
         guard split != nil else {
             path = [destination]
             return
@@ -191,16 +197,17 @@ struct HomeView: View {
     private func destinationView(_ destination: AppDestination) -> some View {
         switch destination {
         case .quickSession:
-            OrdinaryRunEntryView(id: SessionBuilder.sessionDrill.id, title: SessionBuilder.sessionDrill.title) {
-                QuickSessionView(items: SessionBuilder.quickSession(
-                    seen: progress.seenItems, missed: progress.missedItems, includePro: subscriptions.isPro))
-            }
+            // A saved run resumes itself (`QuickSessionView` reads it);
+            // otherwise this is a fresh mix.
+            QuickSessionView(items: SessionBuilder.quickSession(
+                seen: progress.seenItems, missed: progress.missedItems, includePro: subscriptions.isPro))
+                .tracksOrdinaryRun(SessionBuilder.sessionDrill.id)
         case .ordinaryRun:
             SavedOrdinaryRunView()
         case .gameNightPrepSession:
             QuickSessionView(gameNightPrep: gameNightPrepItems)
         case .monthlyChallenge:
-            MonthlyChallengeView()
+            MonthlyChallengeView().id(challengeOpenCount)
         case .endlessPicker: EndlessPickerView()
         case .gameNightPrep: GameNightPrepView()
         case .timedChallenge: PracticeRunView(mode: .timed)
@@ -230,6 +237,7 @@ struct HomeView: View {
                     consumeRecommendedRoomHint(proxy: proxy)
                     consumePendingDestination()
                     recordMastery()
+                    closeEarlierChallengeRounds()
                     homeIsBareAgain()
                 }
                 .onDisappear { homeOnScreen = false }
@@ -292,6 +300,7 @@ struct HomeView: View {
             }
             .onChange(of: subscriptions.pendingChurnMoment) { _, _ in presentChurnPromptIfNeeded() }
             .onChange(of: records.records.count) { _, _ in recordMastery() }
+            .onChange(of: dayClock.dayKey) { _, _ in closeEarlierChallengeRounds() }
             .onChange(of: router.pendingDestination) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.membershipResolved) { _, _ in recordMastery() }
             .onChange(of: subscriptions.isPro) { _, _ in recordMastery() }
@@ -393,7 +402,20 @@ struct HomeView: View {
 
     /// Nothing pushed and no sheet up: the only state Home may put a prompt on.
     private var homeIsBare: Bool {
-        homeOnScreen && path.isEmpty && !showWhatsNew && !showPaywall && !showSettings && churnPrompt == nil
+        homeOnScreen && path.isEmpty && !paneBusy && !showWhatsNew && !showPaywall && !showSettings
+            && churnPrompt == nil
+    }
+
+    /// Split, the trailing pane counts as pushed while it shows anything but
+    /// a room: a screen Home opened there, or a drill opened from its room.
+    private var paneBusy: Bool {
+        split != nil && (!panePath.isEmpty || ordinaryRuns.onScreenID != nil)
+    }
+
+    /// A round left half done on an earlier day is scored on what was
+    /// answered, without waiting for the challenge screen to open.
+    private func closeEarlierChallengeRounds() {
+        monthlyStore.closeEarlierRounds(than: MonthlyChallengeContent.currentRound())
     }
 
     /// A sheet closed or the player came back to Home: anything that waited
@@ -414,9 +436,13 @@ struct HomeView: View {
         .frame(maxWidth: .infinity, alignment: .top)
     }
 
+    /// A saved Quick Session resumes from the Get Started card itself, so
+    /// Home never shows two cards for the same thing; a saved room drill gets
+    /// its own Resume card above it.
     @ViewBuilder
     private var todaySession: some View {
-        if let run = ordinaryRuns.resumable(besideOpenPane: split != nil) {
+        let run = ordinaryRuns.resumable(besideOpenPane: split != nil, isMember: subscriptions.isPro)
+        if let run, !run.isQuickSession {
             Button {
                 show(.ordinaryRun)
             } label: {
@@ -432,7 +458,7 @@ struct HomeView: View {
         if progress.quickSessionCompletedToday() {
             getStartedDoneCard
         } else {
-            getStartedCard
+            getStartedCard(resuming: run?.isQuickSession == true)
         }
     }
 
@@ -618,14 +644,9 @@ struct HomeView: View {
     }
 
     private var headerTitle: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text("Mahj Trainer")
-                .font(Theme.display(32))
-                .foregroundStyle(Theme.ink)
-            Text("Your seat at the table.")
-                .font(.subheadline)
-                .foregroundStyle(Theme.inkSecondary)
-        }
+        Text("Mahj Trainer")
+            .font(Theme.display(32))
+            .foregroundStyle(Theme.ink)
     }
 
     /// The chips were already the honest summary of practice, so they are also
@@ -695,21 +716,18 @@ struct HomeView: View {
     }
 
     /// The one-tap way in: builds a short mixed session, no browsing needed.
-    private var getStartedCard: some View {
+    /// With a session saved it says Resume and picks that one up.
+    private func getStartedCard(resuming: Bool) -> some View {
         Button {
             show(.quickSession)
         } label: {
             HStack(spacing: 14) {
-                VStack(alignment: .leading, spacing: 4) {
-                    // `onFill`, not white: dark mode lightens the jade, and
-                    // white on it measured 2.45:1.
-                    Text("Get Started")
-                        .font(Theme.display(24))
-                        .foregroundStyle(Theme.onFill)
-                    Text("A five-minute mix of what you need next")
-                        .font(.subheadline)
-                        .foregroundStyle(Theme.onFill.opacity(0.9))
-                }
+                // `onFill`, not white: dark mode lightens the jade, and
+                // white on it measured 2.45:1.
+                Text(resuming ? "Resume \(SessionBuilder.sessionDrill.title)" : "Get Started")
+                    .font(Theme.display(24))
+                    .foregroundStyle(Theme.onFill)
+                    .multilineTextAlignment(.leading)
                 Spacer(minLength: 4)
                 Image(systemName: "play.circle.fill")
                     .font(.system(size: 44))
@@ -947,29 +965,12 @@ struct HomeView: View {
     /// space.
     private var trainingSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 6) {
-                Text("TRAINING")
-                    .font(.caption.weight(.heavy))
-                    .kerning(1.4)
-                    .foregroundStyle(Theme.inkSecondary)
-                Spacer()
-                // A phone fits two and a bit of these tiles and the scroll
-                // indicators are off, so without a cue the visible cards read
-                // as the whole offering and Timed Challenge and Fix My
-                // Mistakes are never found.
-                if layoutSizeClass != .regular, split == nil, !dynamicTypeSize.isAccessibilitySize {
-                    HStack(spacing: 3) {
-                        Text("SWIPE FOR MORE")
-                            .font(.caption2.weight(.heavy))
-                            .kerning(1.1)
-                        Image(systemName: "chevron.compact.right")
-                            .font(.caption2.weight(.bold))
-                    }
-                    .foregroundStyle(Theme.inkTertiary)
-                    .accessibilityHidden(true)
-                }
-            }
-            .padding(.horizontal, 4)
+            Text("TRAINING")
+                .font(.caption.weight(.heavy))
+                .kerning(1.4)
+                .foregroundStyle(Theme.inkSecondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 4)
             if dynamicTypeSize.isAccessibilitySize {
                 // One full-width column that grows with its text. Fixed-height
                 // tiles drew over each other at the largest sizes.
@@ -989,11 +990,14 @@ struct HomeView: View {
                 // shadows were cut into a hard grey box around the row. Room
                 // for the shadow inside, taken back outside, so the row keeps
                 // its place and clips at the screen edge instead of the inset.
+                // The tiles are sized so the row always ends partway through
+                // one (`TrainingCarousel`): that cut tile is the only cue that
+                // Timed Challenge and Fix My Mistakes are there.
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
+                    HStack(spacing: TrainingCarousel.spacing) {
                         trainingTiles
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, TrainingCarousel.leadingInset)
                     .padding(.vertical, 16)
                 }
                 .padding(.horizontal, -16)
@@ -1364,6 +1368,31 @@ extension DrillKind {
     }
 }
 
+/// The phone's scrolling row of training tiles. Its width is set so the row
+/// always ends about 40% into a tile at any phone width: a row of whole
+/// tiles reads as the whole offering (a 440pt phone showed exactly three).
+enum TrainingCarousel {
+    static let leadingInset: CGFloat = 20
+    static let spacing: CGFloat = 10
+    static let preferredTileWidth: CGFloat = 128
+    /// Narrower and "Challenge" broke mid-word at the larger text sizes.
+    static let minimumTileWidth: CGFloat = 120
+    static let peek: CGFloat = 0.4
+
+    /// - Parameter rowWidth: the scroll view's visible width.
+    static func tileWidth(rowWidth: CGFloat) -> CGFloat {
+        let room = rowWidth - leadingInset
+        guard room > preferredTileWidth else { return preferredTileWidth }
+        var whole = max(1, ((room + spacing) / (preferredTileWidth + spacing)).rounded(.down))
+        while whole > 1, width(room: room, whole: whole) < minimumTileWidth { whole -= 1 }
+        return width(room: room, whole: whole)
+    }
+
+    private static func width(room: CGFloat, whole: CGFloat) -> CGFloat {
+        ((room - whole * spacing) / (whole + peek)).rounded(.down)
+    }
+}
+
 /// A training tile is a fixed 118pt card in the phone's scrolling row and the
 /// iPad grid, and grows with its text at accessibility sizes.
 private struct TrainingTileFrame: ViewModifier {
@@ -1371,10 +1400,15 @@ private struct TrainingTileFrame: ViewModifier {
     let fixedHeight: Bool
 
     func body(content: Content) -> some View {
-        if fixedHeight {
+        if fixedHeight, fullWidth {
             content
-                .frame(width: fullWidth ? nil : 128, height: 118, alignment: .leading)
-                .frame(maxWidth: fullWidth ? .infinity : nil, alignment: .leading)
+                .frame(height: 118, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        } else if fixedHeight {
+            content
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .containerRelativeFrame(.horizontal) { length, _ in TrainingCarousel.tileWidth(rowWidth: length) }
+                .frame(height: 118, alignment: .leading)
         } else {
             content.frame(maxWidth: .infinity, minHeight: 118, alignment: .leading)
         }

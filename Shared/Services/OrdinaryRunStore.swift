@@ -28,6 +28,19 @@ struct OrdinaryRun: Codable, Sendable {
 
     var id: String { drill.id }
     var isQuickSession: Bool { id == SessionBuilder.sessionDrill.id }
+    /// Only a run with an answer is worth resuming. Opening a drill and
+    /// leaving it is not progress.
+    var hasAnswers: Bool { !answers.isEmpty }
+
+    /// A lapsed member keeps the run on disk but never replays it: a room
+    /// drill locks through `Room.isLocked`, a Quick Session on the Mahj+
+    /// questions it was built with.
+    func isLocked(isMember: Bool) -> Bool {
+        guard !isMember else { return false }
+        if isQuickSession { return items.contains { SessionBuilder.isMemberOnly($0.id) } }
+        guard let room = DrillLibrary.room(id: DrillLibrary.roomID(forDrillID: id)) else { return false }
+        return room.isLocked(drill, isMember: isMember)
+    }
 }
 
 @MainActor
@@ -43,8 +56,9 @@ final class OrdinaryRunStore: ObservableObject {
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        if let data = defaults.data(forKey: Self.key) {
-            inProgress = try? JSONDecoder().decode(OrdinaryRun.self, from: data)
+        if let data = defaults.data(forKey: Self.key),
+           let run = try? JSONDecoder().decode(OrdinaryRun.self, from: data), run.hasAnswers {
+            inProgress = run
         }
     }
 
@@ -52,8 +66,12 @@ final class OrdinaryRunStore: ObservableObject {
         inProgress?.id == id ? inProgress : nil
     }
 
+    /// The one slot holds a run with answers. An unanswered run never
+    /// replaces it (a peek at another drill wiped a half-done one), and the
+    /// same run undone back to nothing drops out.
     func save(_ run: OrdinaryRun) {
         guard run.drill.kind.itemCount > 0 || !run.items.isEmpty else { return }
+        guard run.hasAnswers else { return clear(run.id) }
         guard let data = try? JSONEncoder().encode(run) else { return }
         defaults.set(data, forKey: Self.key)
         inProgress = run
@@ -67,9 +85,11 @@ final class OrdinaryRunStore: ObservableObject {
         }
     }
 
-    /// Home's Resume card, unless that run is already open beside Home.
-    func resumable(besideOpenPane: Bool) -> OrdinaryRun? {
-        guard let inProgress, !(besideOpenPane && onScreenID == inProgress.id) else { return nil }
+    /// Home's Resume card, unless that run is already open beside Home or
+    /// locked to this player.
+    func resumable(besideOpenPane: Bool, isMember: Bool) -> OrdinaryRun? {
+        guard let inProgress, inProgress.hasAnswers, !inProgress.isLocked(isMember: isMember),
+              !(besideOpenPane && onScreenID == inProgress.id) else { return nil }
         return inProgress
     }
 

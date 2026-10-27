@@ -40,18 +40,21 @@ struct QuickSessionView: View {
     private let onClose: (() -> Void)?
     /// Home's daily session spends the day's Get Started; the onboarding tour's
     /// demo run does not, so a brand-new player still finds a fresh Get Started
-    /// waiting the first time they reach Home.
-    private let purpose: QuickSessionPurpose
+    /// waiting the first time they reach Home. Pinned like `items`: a parent
+    /// redrawn after midnight passes the next day's round, and answers to the
+    /// questions on screen must still land in the day they belong to.
+    @State private var purpose: QuickSessionPurpose
 
     init(items: [QuickItem], isDaily: Bool = true, onClose: (() -> Void)? = nil) {
-        let saved = isDaily && onClose == nil ? OrdinaryRunStore.shared.run(for: SessionBuilder.sessionDrill.id) : nil
+        let saved = isDaily && onClose == nil ? OrdinaryRunStore.shared.run(for: SessionBuilder.sessionDrill.id)
+            .flatMap { $0.isLocked(isMember: SubscriptionService.shared.isPro) ? nil : $0 } : nil
         _items = State(initialValue: saved?.items ?? items)
         _index = State(initialValue: saved?.index ?? 0)
         _score = State(initialValue: saved?.score ?? 0)
         _selection = State(initialValue: saved?.selection)
         _answers = State(initialValue: saved?.answers ?? [])
         _streak = State(initialValue: saved?.answers.reversed().prefix(while: { $0 }).count ?? 0)
-        purpose = .quickSession(isDaily: isDaily)
+        _purpose = State(initialValue: .quickSession(isDaily: isDaily))
         self.onClose = onClose
     }
 
@@ -59,7 +62,7 @@ struct QuickSessionView: View {
     /// first run, so leaving mid-way must neither lose answers nor offer a reset.
     init(monthlyRound round: ChallengeRound, resume: MonthlyChallengeProgress? = nil, onClose: (() -> Void)? = nil) {
         _items = State(initialValue: round.items)
-        purpose = .monthlyChallenge(round)
+        _purpose = State(initialValue: .monthlyChallenge(round))
         self.onClose = onClose
         if let resume, resume.answers.count < round.items.count {
             _index = State(initialValue: resume.answers.count)
@@ -70,7 +73,7 @@ struct QuickSessionView: View {
 
     init(gameNightPrep items: [QuickItem], onClose: (() -> Void)? = nil) {
         _items = State(initialValue: items)
-        purpose = .gameNightPrep
+        _purpose = State(initialValue: .gameNightPrep)
         self.onClose = onClose
     }
 
@@ -108,7 +111,7 @@ struct QuickSessionView: View {
             // session that asked nothing.
             emptySession
         } else {
-            drillBody.onAppear { saveRun() }
+            drillBody
         }
     }
 
