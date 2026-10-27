@@ -154,8 +154,15 @@ struct QuestionPager<Choices: View>: View {
                 // it alone. What a tall coaching block costs the prompt is a
                 // content-height problem, not a scroll-anchor one.
                 // Reduce Motion: the note fades in and the scroll jumps.
-                withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
-                    proxy.scrollTo(questionExplanationID, anchor: .bottom)
+                //
+                // One main-queue turn later: in the update that inserts the
+                // note it has no frame yet, so the scroll stopped short and
+                // left the note behind Next at AX3 (release gate, 1.4.2).
+                Task { @MainActor in
+                    await Task.yield()
+                    withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
+                        proxy.scrollTo(questionExplanationID, anchor: .bottom)
+                    }
                 }
             }
             }

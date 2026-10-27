@@ -48,7 +48,8 @@ screens must stay identical.
   wavs in `MahjTrainer/Resources/Sounds` (gated on `settings.sound`;
   regenerate via a make_sounds.py-style script if changed). All colors are
   light/dark adaptive; launch screen color is the `LaunchBackground` asset
-  (keep in sync with `Theme.background`).
+  (the light `Theme.background` cream in both modes, because `AppSettings.appearance`
+  defaults to Light and the first frame is cream even in system dark mode).
 
 ## iPad layout: centre what underfills
 
@@ -112,7 +113,9 @@ Accent text goes through `Theme.readable(_:)` (darker in light, lighter in
 dark) and secondary ink is `inkSecondary`/`inkTertiary`, all at 7:1 or more
 on the card. Small text links grow to 44pt with `hitPadding(_:)` inside the
 label plus `.padding(-insets)` on the control, so nothing moves. The launch
-screen color is the light cream in both modes. Apple's contrast audit flags
+screen color is the light cream in both modes. At AX3 the scroll to the
+coaching note runs one main-queue turn after grading: in the same update the
+note had no frame and stayed behind Next. Apple's contrast audit flags
 text that draws at 7 to 15:1 (it samples off-element pixels); those are
 accepted in `qa/ledger.jsonl` with the ratio measured off the gate
 screenshot, so measure before darkening a token further.
