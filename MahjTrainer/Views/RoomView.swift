@@ -13,7 +13,6 @@ struct RoomView: View {
     @State private var unlockedDrill: Drill?
     @State private var openUnlockedDrill = false
 
-    private var roomLocked: Bool { !room.isFree && !subscriptions.isPro }
     private var lockedCount: Int {
         room.drills.filter { room.isLocked($0, isMember: subscriptions.isPro) }.count
     }
@@ -70,14 +69,6 @@ struct RoomView: View {
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
-            if roomLocked {
-                // A locked room still shows its drills below, so this is a
-                // preview, not a dead end. Say so, or the lock reads as a wall.
-                Text("Look around. Every drill here opens with \(Membership.name).")
-                    .font(.caption.weight(.medium))
-                    .foregroundStyle(Theme.goldText)
-                    .multilineTextAlignment(.center)
-            }
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 8)

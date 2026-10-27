@@ -644,14 +644,9 @@ struct HomeView: View {
     }
 
     private var headerTitle: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text("Mahj Trainer")
-                .font(Theme.display(32))
-                .foregroundStyle(Theme.ink)
-            Text("Your seat at the table.")
-                .font(.subheadline)
-                .foregroundStyle(Theme.inkSecondary)
-        }
+        Text("Mahj Trainer")
+            .font(Theme.display(32))
+            .foregroundStyle(Theme.ink)
     }
 
     /// The chips were already the honest summary of practice, so they are also
@@ -970,29 +965,12 @@ struct HomeView: View {
     /// space.
     private var trainingSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 6) {
-                Text("TRAINING")
-                    .font(.caption.weight(.heavy))
-                    .kerning(1.4)
-                    .foregroundStyle(Theme.inkSecondary)
-                Spacer()
-                // A phone fits two and a bit of these tiles and the scroll
-                // indicators are off, so without a cue the visible cards read
-                // as the whole offering and Timed Challenge and Fix My
-                // Mistakes are never found.
-                if layoutSizeClass != .regular, split == nil, !dynamicTypeSize.isAccessibilitySize {
-                    HStack(spacing: 3) {
-                        Text("SWIPE FOR MORE")
-                            .font(.caption2.weight(.heavy))
-                            .kerning(1.1)
-                        Image(systemName: "chevron.compact.right")
-                            .font(.caption2.weight(.bold))
-                    }
-                    .foregroundStyle(Theme.inkTertiary)
-                    .accessibilityHidden(true)
-                }
-            }
-            .padding(.horizontal, 4)
+            Text("TRAINING")
+                .font(.caption.weight(.heavy))
+                .kerning(1.4)
+                .foregroundStyle(Theme.inkSecondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 4)
             if dynamicTypeSize.isAccessibilitySize {
                 // One full-width column that grows with its text. Fixed-height
                 // tiles drew over each other at the largest sizes.
@@ -1012,11 +990,14 @@ struct HomeView: View {
                 // shadows were cut into a hard grey box around the row. Room
                 // for the shadow inside, taken back outside, so the row keeps
                 // its place and clips at the screen edge instead of the inset.
+                // The tiles are sized so the row always ends partway through
+                // one (`TrainingCarousel`): that cut tile is the only cue that
+                // Timed Challenge and Fix My Mistakes are there.
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
+                    HStack(spacing: TrainingCarousel.spacing) {
                         trainingTiles
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, TrainingCarousel.leadingInset)
                     .padding(.vertical, 16)
                 }
                 .padding(.horizontal, -16)
@@ -1387,6 +1368,31 @@ extension DrillKind {
     }
 }
 
+/// The phone's scrolling row of training tiles. Its width is set so the row
+/// always ends about 40% into a tile at any phone width: a row of whole
+/// tiles reads as the whole offering (a 440pt phone showed exactly three).
+enum TrainingCarousel {
+    static let leadingInset: CGFloat = 20
+    static let spacing: CGFloat = 10
+    static let preferredTileWidth: CGFloat = 128
+    /// Narrower and "Challenge" broke mid-word at the larger text sizes.
+    static let minimumTileWidth: CGFloat = 120
+    static let peek: CGFloat = 0.4
+
+    /// - Parameter rowWidth: the scroll view's visible width.
+    static func tileWidth(rowWidth: CGFloat) -> CGFloat {
+        let room = rowWidth - leadingInset
+        guard room > preferredTileWidth else { return preferredTileWidth }
+        var whole = max(1, ((room + spacing) / (preferredTileWidth + spacing)).rounded(.down))
+        while whole > 1, width(room: room, whole: whole) < minimumTileWidth { whole -= 1 }
+        return width(room: room, whole: whole)
+    }
+
+    private static func width(room: CGFloat, whole: CGFloat) -> CGFloat {
+        ((room - whole * spacing) / (whole + peek)).rounded(.down)
+    }
+}
+
 /// A training tile is a fixed 118pt card in the phone's scrolling row and the
 /// iPad grid, and grows with its text at accessibility sizes.
 private struct TrainingTileFrame: ViewModifier {
@@ -1394,10 +1400,15 @@ private struct TrainingTileFrame: ViewModifier {
     let fixedHeight: Bool
 
     func body(content: Content) -> some View {
-        if fixedHeight {
+        if fixedHeight, fullWidth {
             content
-                .frame(width: fullWidth ? nil : 128, height: 118, alignment: .leading)
-                .frame(maxWidth: fullWidth ? .infinity : nil, alignment: .leading)
+                .frame(height: 118, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        } else if fixedHeight {
+            content
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .containerRelativeFrame(.horizontal) { length, _ in TrainingCarousel.tileWidth(rowWidth: length) }
+                .frame(height: 118, alignment: .leading)
         } else {
             content.frame(maxWidth: .infinity, minHeight: 118, alignment: .leading)
         }

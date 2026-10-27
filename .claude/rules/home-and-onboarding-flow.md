@@ -58,3 +58,15 @@ per page so a player can see there is more.
   stays available from Home for new players and from Settings for everyone.
   `HowToPlayView` pages by swipe as well as by buttons, and its Back button
   sits NEXT to Continue, not in the top-left corner a thumb can't reach.
+
+**1.4.2 copy cuts (Jack's bar: no taglines, helper text or secondary
+labels; fix the layout instead).** Home lost "Your seat at the table.", the
+Get Started subtitle and the "SWIPE FOR MORE" label over Training; the
+challenge screen lost its rules footnote; a locked room lost "Look around.
+Every drill here opens with Mahj+." The Training carousel signals that it
+scrolls by always ending about 40% into a tile (`TrainingCarousel`, sized
+with `containerRelativeFrame`, tested in `HomeLayoutTests`): at a fixed
+128 pt a 440 pt phone showed exactly three whole tiles. The tour's own
+"A five-minute mix" line is frozen with the trial flow and stays. Home
+reads `DayClock`, so a resume on a new day redraws Get Started and the
+challenge card for today.

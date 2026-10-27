@@ -92,11 +92,6 @@ struct MonthlyChallengeView: View {
                         .primaryCTA(color: Theme.plum)
                 }
             }
-            Text(footnote(month))
-                .font(.caption)
-                .foregroundStyle(Theme.inkSecondary)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(20)
         .themedCard()
@@ -136,12 +131,6 @@ struct MonthlyChallengeView: View {
                 }
             }
         }
-    }
-
-    private func footnote(_ month: MonthlyChallenge) -> String {
-        let days = month.daysLeft()
-        let end = days <= 1 ? "Today is the last day." : "Runs through \(month.monthName)\u{00A0}\(month.dayCount)."
-        return "Each square is a day's Mahj Minute: \(MonthlyChallengeContent.questionsPerRound) new questions, the same for every player. Every right answer is a point, and your best \(MonthlyChallengeContent.countedDays) days make your month score, up to \(MonthlyChallengeContent.maxMonthPoints). Missed days are fine. \(end)"
     }
 
     /// Before the first month: what it is and when it starts, plus the one
