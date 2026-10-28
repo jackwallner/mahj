@@ -87,7 +87,7 @@ struct MahjMinuteResultView: View {
                         .foregroundStyle(Theme.inkSecondary)
                 }
             }
-            Text(result.score == result.total ? "Perfect minute!" : "Minute complete")
+            Text(result.score == result.total ? String(localized: "Perfect minute!") : String(localized: "Minute complete"))
                 .font(Theme.display(28))
                 .foregroundStyle(Theme.ink)
             Text("Mahj Minute \(result.shortDate)")

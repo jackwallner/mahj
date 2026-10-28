@@ -13,10 +13,10 @@ struct HowToPlayPage: Identifiable, Sendable {
     init(id: String, icon: String, title: String, body: String, tiles: [Tile] = [], tip: String? = nil) {
         self.id = id
         self.icon = icon
-        self.title = title
-        self.body = body
+        self.title = ContentText.localized(title)
+        self.body = ContentText.localized(body)
         self.tiles = tiles
-        self.tip = tip
+        self.tip = ContentText.localized(tip)
     }
 }
 

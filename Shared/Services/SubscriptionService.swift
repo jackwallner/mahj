@@ -189,7 +189,7 @@ enum PurchaseError: LocalizedError {
     case productsUnavailable
 
     var errorDescription: String? {
-        "The App Store isn't reachable right now. Check your connection and try again."
+        String(localized: "The App Store isn't reachable right now. Check your connection and try again.")
     }
 }
 
@@ -197,6 +197,9 @@ struct PaywallPrice {
     let amount: Decimal
     let localized: String
     let locale: Locale
+    /// The storefront's currency. The locale alone can name another one when
+    /// the device region differs from the storefront ("3,33 €" beside "9,99 $").
+    let currencyCode: String?
 }
 
 @MainActor
@@ -226,7 +229,9 @@ final class SubscriptionService: NSObject, ObservableObject {
     @Published private(set) var trialIneligible = false
 
     private var isConfigured = false
+    #if DEBUG
     private let localOverrideKey = "subscription.localProOverride"
+    #endif
     private let snapshotKey = "membership.lastSnapshot"
     /// How old a customer record may be and still serve as the first baseline.
     static let freshBaselineAge: TimeInterval = 300
@@ -248,8 +253,8 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     override private init() {
         super.init()
-        isPro = UserDefaults.standard.bool(forKey: localOverrideKey)
         #if DEBUG
+        isPro = UserDefaults.standard.bool(forKey: localOverrideKey)
         // Captures: `-mahj.trialIneligible YES` shows an account without a free week.
         trialIneligible = UserDefaults.standard.bool(forKey: "mahj.trialIneligible")
         #endif
@@ -358,7 +363,9 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     /// Dev/testing switch: flips Pro without a live RC key (Settings toggle).
     func setLocalOverride(isPro: Bool) {
+        #if DEBUG
         UserDefaults.standard.set(isPro, forKey: localOverrideKey)
+        #endif
         self.isPro = isPro
     }
 
@@ -393,9 +400,12 @@ final class SubscriptionService: NSObject, ObservableObject {
         // per install, so test installs don't inflate the live project's
         // customer charts. Never with the App Store key.
         if RevenueCatConfig.apiKey.hasPrefix("test_") {
-            configuration = configuration.with(
-                appUserID: ProcessInfo.processInfo.environment["RC_APP_USER_ID"] ?? "qa-ios"
-            )
+            #if DEBUG
+            let qaUserID = ProcessInfo.processInfo.environment["RC_APP_USER_ID"] ?? "qa-ios"
+            #else
+            let qaUserID = "qa-ios"
+            #endif
+            configuration = configuration.with(appUserID: qaUserID)
         }
         Purchases.configure(with: configuration.build())
         Purchases.shared.delegate = self
@@ -514,7 +524,8 @@ final class SubscriptionService: NSObject, ObservableObject {
         return PaywallPrice(
             amount: product.price,
             localized: product.localizedPriceString,
-            locale: product.priceFormatter?.locale ?? .current
+            locale: product.priceFormatter?.locale ?? .current,
+            currencyCode: product.currencyCode
         )
     }
 
@@ -646,7 +657,11 @@ final class SubscriptionService: NSObject, ObservableObject {
     private func apply(_ info: CustomerInfo) {
         let entitlement = info.entitlements["pro"]
         let entitled = entitlement?.isActive == true
+        #if DEBUG
         let override = UserDefaults.standard.bool(forKey: localOverrideKey)
+        #else
+        let override = false
+        #endif
         isPro = entitled || override
         membershipResolved = true
         isTrialing = entitled && entitlement?.periodType == .trial

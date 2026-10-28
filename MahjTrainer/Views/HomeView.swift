@@ -695,14 +695,14 @@ struct HomeView: View {
 
     @ViewBuilder private var statChips: some View {
         statChip(value: progress.currentStreak(), icon: "flame.fill", color: Theme.coral,
-                 label: "\(progress.currentStreak()) day streak")
+                 label: String(localized: "\(progress.currentStreak()) day streak"))
         statChip(value: progress.totalSessions, icon: "checkmark.seal.fill", color: Theme.jade,
-                 label: "\(progress.totalSessions) drills done")
+                 label: String(localized: "\(progress.totalSessions) drills done"))
         // Only ever positive. A week that went backwards is not news
         // worth a chip; the ring already says where things stand.
         if let gain = ledger.weeklyGain() {
             statChip(value: gain, icon: "arrow.up.right", color: Theme.plum,
-                     label: "\(gain) \(gain == 1 ? "question" : "questions") locked in this week", prefix: "+")
+                     label: String(localized: "\(gain) questions locked in this week"), prefix: "+")
         }
     }
 
@@ -751,7 +751,7 @@ struct HomeView: View {
             HStack(spacing: 14) {
                 // `onFill`, not white: dark mode lightens the jade, and
                 // white on it measured 2.45:1.
-                Text(resuming ? "Resume \(SessionBuilder.sessionDrill.title)" : "Get Started")
+                Text(resuming ? String(localized: "Resume \(SessionBuilder.sessionDrill.title)") : String(localized: "Get Started"))
                     .font(Theme.display(24))
                     .foregroundStyle(Theme.onFill)
                     .multilineTextAlignment(.leading)
@@ -911,16 +911,16 @@ struct HomeView: View {
 
     private func monthlyChallengeLine(_ round: ChallengeRound, run: MonthlyChallengeProgress?) -> String {
         if let run {
-            return "\(run.answers.count) of \(round.items.count) answered today"
+            return String(localized: "\(run.answers.count) of \(round.items.count) answered today")
         }
         // The count every round has (`MonthlyChallengeTests`), so Home's
         // first frame never builds today's questions just to count them.
         let count = MonthlyChallengeContent.questionsPerRound
         let score = monthlyStore.monthScore(round.monthKey)
         if score.daysPlayed == 0 {
-            return "\(count) new questions a day, the same for every player"
+            return String(localized: "\(count) new questions a day, the same for every player")
         }
-        return "\(count) questions · \(score.points)\u{00A0}\(score.points == 1 ? "point" : "points") this month"
+        return String(localized: "\(count) questions") + " · " + String(localized: "\(score.points) points this month")
     }
 
     /// Today's round is done: the month score rides beside the stats instead
@@ -930,10 +930,10 @@ struct HomeView: View {
         if let round = homeChallengeRound, monthlyStore.result(for: round) != nil {
             let points = monthlyStore.monthScore(round.monthKey).points
             paneLink(value: .monthlyChallenge) {
-                chipBody(text: "\(points)\u{00A0}pts", icon: "calendar", color: Theme.plum)
+                chipBody(text: String(localized: "\(points)\u{00A0}pts"), icon: "calendar", color: Theme.plum)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("\(round.month.monthName) challenge: \(points) \(points == 1 ? "point" : "points"). Today's Mahj Minute is done.")
+            .accessibilityLabel(String(localized: "\(round.month.monthName) challenge: \(String(localized: "\(points) points")). Today's Mahj Minute is done.", comment: "The month's name, then a point count"))
             .accessibilityHint("Opens the challenge")
         }
     }
@@ -1041,7 +1041,7 @@ struct HomeView: View {
         handPlayTile
         trainingTile(
             requested: .endlessPicker,
-            title: "Endless\nPractice",
+            title: String(localized: "Endless\nPractice"),
             icon: "infinity",
             color: Theme.jade,
             badge: nil
@@ -1050,19 +1050,19 @@ struct HomeView: View {
         }
         trainingTile(
             requested: .gameNightPrep,
-            title: "Game Night\nPrep",
+            title: String(localized: "Game Night\nPrep"),
             icon: "person.2.fill",
             color: Theme.plum,
-            badge: settings.gameNightReminderEnabled ? settings.gameNightDay.displayName : "Weekly"
+            badge: settings.gameNightReminderEnabled ? settings.gameNightDay.displayName : String(localized: "Weekly")
         ) {
             GameNightPrepView()
         }
         trainingTile(
             requested: .timedChallenge,
-            title: "Timed\nChallenge",
+            title: String(localized: "Timed\nChallenge"),
             icon: "timer",
             color: Theme.coral,
-            badge: records.bestChallengeScore > 0 ? "Best \(records.bestChallengeScore)" : nil
+            badge: records.bestChallengeScore > 0 ? String(localized: "Best \(records.bestChallengeScore)") : nil
         ) {
             PracticeRunView(mode: .timed)
         }
@@ -1074,10 +1074,10 @@ struct HomeView: View {
         if due > 0 {
             trainingTile(
                 requested: .review,
-                title: "Fix My\nMistakes",
+                title: String(localized: "Fix My\nMistakes"),
                 icon: "arrow.trianglehead.counterclockwise",
                 color: Theme.plum,
-                badge: "\(min(due, 12)) due"
+                badge: String(localized: "\(min(due, 12)) due")
             ) {
                 PracticeRunView(
                     mode: .review,
@@ -1103,12 +1103,12 @@ struct HomeView: View {
                 HandPlayView()
             } label: {
                 trainingTileLabel(
-                    title: "Play a\nHand",
+                    title: String(localized: "Play a\nHand"),
                     icon: "hand.draw.fill",
                     color: Theme.jade,
                     badge: handPlay.inProgress != nil
-                        ? "Resume"
-                        : (free ? "1 free today" : handPlayBadge),
+                        ? String(localized: "Resume")
+                        : (free ? String(localized: "1 free today") : handPlayBadge),
                     locked: false
                 )
             }
@@ -1116,10 +1116,10 @@ struct HomeView: View {
         } else {
             Button { upgrade.destination = .handPlay; showPaywall = true } label: {
                 trainingTileLabel(
-                    title: "Play a\nHand",
+                    title: String(localized: "Play a\nHand"),
                     icon: "hand.draw.fill",
                     color: Theme.jade,
-                    badge: "Back tomorrow",
+                    badge: String(localized: "Back tomorrow"),
                     locked: true
                 )
             }
@@ -1130,7 +1130,7 @@ struct HomeView: View {
 
     private var handPlayBadge: String? {
         guard handPlay.handsPlayed > 0 else { return nil }
-        return handPlay.bestStars > 0 ? "Best \(handPlay.bestStars)/3" : "\(handPlay.handsPlayed) played"
+        return handPlay.bestStars > 0 ? String(localized: "Best \(handPlay.bestStars)/3") : String(localized: "\(handPlay.handsPlayed) played")
     }
 
     /// A compact training tile. Locked for free players: tapping opens the
@@ -1275,8 +1275,8 @@ struct HomeView: View {
         }
         .buttonStyle(PressableCardStyle())
         .accessibilityHint(locked
-            ? "Locked. \(room.drills.count) drills, included with \(Membership.name)"
-            : "\(mastery.level.title). \(mastery.known) of \(mastery.total) questions solid")
+            ? String(localized: "Locked. \(room.drills.count) drills, included with \(Membership.name)")
+            : String(localized: "\(mastery.level.title). \(mastery.known) of \(mastery.total) questions solid"))
         .id(room.id)
     }
 
@@ -1369,7 +1369,7 @@ struct MasteryRing: View {
                 }
             }
             .frame(width: 32, height: 32)
-            Text(mastery.level == .untouched ? "New" : mastery.level.title)
+            Text(mastery.level == .untouched ? String(localized: "New") : mastery.level.title)
                 .font(.system(size: min(captionSize, 12), weight: .semibold))
                 .foregroundStyle(Theme.inkTertiary)
                 .fixedSize()
@@ -1389,12 +1389,14 @@ extension DrillKind {
         }
     }
 
-    var unitName: String {
+    /// "12 cards", "8 racks".
+    var countLabel: String {
+        let count = itemCount
         switch self {
-        case .flashcards: return "cards"
-        case .quiz: return "questions"
-        case .handMatch: return "racks"
-        case .charleston: return "deals"
+        case .flashcards: return String(localized: "\(count) cards")
+        case .quiz: return String(localized: "\(count) questions")
+        case .handMatch: return String(localized: "\(count) racks")
+        case .charleston: return String(localized: "\(count) deals")
         }
     }
 }

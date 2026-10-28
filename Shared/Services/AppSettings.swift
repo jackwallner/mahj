@@ -14,9 +14,9 @@ final class AppSettings: ObservableObject {
 
         var displayName: String {
             switch self {
-            case .light: return "Light"
-            case .dark: return "Dark"
-            case .system: return "Match Device"
+            case .light: return String(localized: "Light")
+            case .dark: return String(localized: "Dark")
+            case .system: return String(localized: "Match Device")
             }
         }
 
@@ -34,16 +34,11 @@ final class AppSettings: ObservableObject {
 
         var id: Int { rawValue }
 
+        /// The weekday's name in the player's language.
         var displayName: String {
-            switch self {
-            case .sunday: return "Sunday"
-            case .monday: return "Monday"
-            case .tuesday: return "Tuesday"
-            case .wednesday: return "Wednesday"
-            case .thursday: return "Thursday"
-            case .friday: return "Friday"
-            case .saturday: return "Saturday"
-            }
+            var calendar = Calendar(identifier: .gregorian)
+            calendar.locale = .current
+            return calendar.standaloneWeekdaySymbols[rawValue - 1]
         }
     }
 
@@ -160,8 +155,8 @@ final class AppSettings: ObservableObject {
     /// was written, then repeated every day to exactly the player who had
     /// stopped opening the app. The weekly count lives on Home and Your
     /// Progress, where it is always current.
-    static let dailyReminderBody = "Five minutes of practice keeps your Charleston calm and your rack reading sharp."
-    static let gameNightReminderBody = "Five personalized minutes now can make the table feel calmer later."
+    static let dailyReminderBody = String(localized: "Five minutes of practice keeps your Charleston calm and your rack reading sharp.")
+    static let gameNightReminderBody = String(localized: "Five personalized minutes now can make the table feel calmer later.")
 
     /// Rewrites the reminders a 1.4.0 install scheduled with a count in them.
     /// Runs once: the legacy key is the marker.
@@ -185,8 +180,8 @@ final class AppSettings: ObservableObject {
         center.removePendingNotificationRequests(withIdentifiers: [Self.trialEndReminderID])
         guard let fireAt = Self.trialReminderFireDate(trialEndsAt: end, daysBefore: daysBefore, now: now) else { return }
         let content = UNMutableNotificationContent()
-        content.title = "Your \(Membership.name) trial ends in \(daysBefore) days"
-        content.body = "Keep it and nothing changes. Not for you? Cancel in Settings > Apple Account > Subscriptions and you won't be charged."
+        content.title = String(localized: "Your \(Membership.name) trial ends in \(daysBefore) days")
+        content.body = String(localized: "Keep it and nothing changes. Not for you? Cancel in Settings > Apple Account > Subscriptions and you won't be charged.")
         content.sound = .default
         let parts = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: fireAt)
         let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)
@@ -249,7 +244,7 @@ final class AppSettings: ObservableObject {
         center.removePendingNotificationRequests(withIdentifiers: [Self.reminderID])
 
         let content = UNMutableNotificationContent()
-        content.title = "Time for a quick drill"
+        content.title = String(localized: "Time for a quick drill")
         content.body = Self.dailyReminderBody
         content.sound = .default
 
@@ -284,7 +279,7 @@ final class AppSettings: ObservableObject {
         center.removePendingNotificationRequests(withIdentifiers: [Self.gameNightReminderID])
 
         let content = UNMutableNotificationContent()
-        content.title = "Your game night prep is ready"
+        content.title = String(localized: "Your game night prep is ready")
         content.body = Self.gameNightReminderBody
         content.sound = .default
         content.userInfo = [AppNotification.routeKey: AppNotification.gameNightPrepValue]

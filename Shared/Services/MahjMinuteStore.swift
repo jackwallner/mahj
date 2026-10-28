@@ -12,6 +12,22 @@ struct MahjMinuteResult: Codable, Identifiable, Sendable {
     var score: Int { answers.filter { $0 }.count }
     var total: Int { answers.count }
 
+    /// The day as "11/05", in the player's own date order. `shortDate` is the
+    /// stored US form; this falls back to it if the key does not parse.
+    var displayDate: String {
+        let parts = dayKey.split(separator: "-").compactMap { Int($0) }
+        let calendar = Calendar.gregorianLocal
+        guard parts.count == 3,
+              let date = calendar.date(from: DateComponents(year: parts[0], month: parts[1], day: parts[2], hour: 12))
+        else { return shortDate }
+        let formatter = DateFormatter()
+        formatter.calendar = calendar
+        formatter.timeZone = calendar.timeZone
+        formatter.locale = .current
+        formatter.setLocalizedDateFormatFromTemplate("MMdd")
+        return formatter.string(from: date)
+    }
+
     func correct(in category: MahjMinuteCategory) -> Int {
         correctByCategory[category.rawValue, default: 0]
     }
@@ -22,7 +38,7 @@ struct MahjMinuteResult: Codable, Identifiable, Sendable {
 
     var shareText: String {
         let grid = answers.map { $0 ? "🟩" : "⬜️" }.joined()
-        return "Mahj Minute \(shortDate): \(score)/\(total)\n\(grid)\nCan you beat me? \(AppStoreLinks.productURL.absoluteString)"
+        return String(localized: "Mahj Minute \(displayDate): \(score)/\(total)\n\(grid)\nCan you beat me? \(AppStoreLinks.productURL.absoluteString)", comment: "Shared Mahj Minute result: date, score, a row of squares, then the App Store link")
     }
 }
 

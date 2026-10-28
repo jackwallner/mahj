@@ -89,7 +89,7 @@ struct SettingsView: View {
     }
 
     /// The system header grey measured under 4.5:1 on the cream.
-    private func sectionHeader(_ title: String) -> some View {
+    private func sectionHeader(_ title: LocalizedStringKey) -> some View {
         Text(title).foregroundStyle(Theme.inkSecondary)
     }
 
@@ -170,8 +170,8 @@ struct SettingsView: View {
                     do {
                         try await subscriptions.restore()
                         restoreMessage = subscriptions.isPro
-                            ? "\(Membership.name) restored!"
-                            : "No previous purchase found on this Apple Account."
+                            ? String(localized: "\(Membership.name) restored!")
+                            : String(localized: "No previous purchase found on this Apple Account.")
                     } catch {
                         restoreMessage = error.localizedDescription
                     }

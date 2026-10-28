@@ -88,7 +88,7 @@ struct MonthlyChallengeView: View {
                 NavigationLink {
                     QuickSessionView(monthlyRound: round, resume: progress)
                 } label: {
-                    Text(progress == nil ? "Play Today's Mahj Minute" : "Resume Today's Mahj Minute")
+                    Text(progress == nil ? String(localized: "Play Today's Mahj Minute") : String(localized: "Resume Today's Mahj Minute"))
                         .primaryCTA(color: Theme.readable(Theme.plum))
                 }
             }
@@ -113,8 +113,8 @@ struct MonthlyChallengeView: View {
             .accessibilityElement(children: .combine)
             .accessibilityLabel("Today: \(result.score) of \(result.total) right")
             Text(lastDay
-                 ? "That was the last round of \(round.month.monthName)."
-                 : "Day \(round.day + 1) opens tomorrow.")
+                 ? String(localized: "That was the last round of \(round.month.monthName).")
+                 : String(localized: "Day \(round.day + 1) opens tomorrow."))
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -122,7 +122,7 @@ struct MonthlyChallengeView: View {
                 NavigationLink {
                     MonthlyChallengeAnswersView(round: round, result: result)
                 } label: {
-                    Text(result.score == result.total ? "Review Today's Answers" : "See What You Missed")
+                    Text(result.score == result.total ? String(localized: "Review Today's Answers") : String(localized: "See What You Missed"))
                         .font(.headline)
                         .foregroundStyle(Theme.plum)
                         .padding(.vertical, 10)
@@ -207,11 +207,11 @@ struct MonthlyChallengeView: View {
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 1) {
-                Text("\(score.points)\u{00A0}points")
+                Text(String(localized: "\(score.points) points"))
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.plum)
                     .monospacedDigit()
-                Text("\(score.daysPlayed)\u{00A0}\(score.daysPlayed == 1 ? "day" : "days")")
+                Text(String(localized: "\(score.daysPlayed) days"))
                     .font(.caption)
                     .foregroundStyle(Theme.inkSecondary)
             }
@@ -267,10 +267,10 @@ private struct MonthScoreSummary: View {
 
     @ViewBuilder
     private var pills: some View {
-        pill("\(score.points)", "of \(MonthlyChallengeContent.maxMonthPoints) points")
-        pill("\(score.daysPlayed)", score.daysPlayed == 1 ? "day played" : "days played")
+        pill("\(score.points)", String(localized: "of \(MonthlyChallengeContent.maxMonthPoints) points"))
+        pill("\(score.daysPlayed)", score.daysPlayed == 1 ? String(localized: "day played") : String(localized: "days played"))
         if let top = standing?.topPercent {
-            pill("Top \(top)%", "this month")
+            pill(String(localized: "Top \(top)%"), String(localized: "this month"))
         }
     }
 
@@ -421,7 +421,7 @@ private struct MonthlyChallengeReminderButton: View {
                     }
                 }
             } label: {
-                Label(isOn ? "Reminder On · 1st of Each Month" : "Remind Me When \(nextMonthName) Opens",
+                Label(isOn ? String(localized: "Reminder On · 1st of Each Month") : String(localized: "Remind Me When \(nextMonthName) Opens"),
                       systemImage: isOn ? "bell.fill" : "bell")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(isOn ? Theme.jade : Theme.plum)
@@ -432,7 +432,7 @@ private struct MonthlyChallengeReminderButton: View {
                                 in: RoundedRectangle(cornerRadius: 12, style: .continuous))
             }
             .buttonStyle(.plain)
-            .accessibilityHint(isOn ? "Turns the monthly reminder off" : "Sends one notification on the 1st of each month")
+            .accessibilityHint(isOn ? String(localized: "Turns the monthly reminder off") : String(localized: "Sends one notification on the 1st of each month"))
             .task {
                 // Notifications switched off in iOS Settings: say so rather
                 // than show a reminder that will never arrive.
@@ -485,7 +485,7 @@ struct MonthlyChallengeResultView: View {
                     NavigationLink {
                         MonthlyChallengeAnswersView(round: round, result: result)
                     } label: {
-                        Text(result.score == result.total ? "Review Your Answers" : "See What You Missed")
+                        Text(result.score == result.total ? String(localized: "Review Your Answers") : String(localized: "See What You Missed"))
                             .primaryCTA(color: Theme.plum)
                     }
                 }
@@ -498,8 +498,8 @@ struct MonthlyChallengeResultView: View {
                         .background(Theme.plum.opacity(0.1), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
                 }
                 MahjPlusPitchCard(
-                    headline: "Want more than five a day?",
-                    detail: "\(Membership.name) adds coached practice hands as often as you want, with fresh racks that never run out."
+                    headline: String(localized: "Want more than five a day?"),
+                    detail: String(localized: "\(Membership.name) adds coached practice hands as often as you want, with fresh racks that never run out.")
                 ) { showPaywall = true }
             }
             .padding()
@@ -528,23 +528,24 @@ struct MonthlyChallengeResultView: View {
     }
 
     private var verdict: String {
-        if result.score == result.total { return "A perfect Minute!" }
-        return fraction >= 0.6 ? "Solid Minute" : "A tough one"
+        if result.score == result.total { return String(localized: "A perfect Minute!") }
+        return fraction >= 0.6 ? String(localized: "Solid Minute") : String(localized: "A tough one")
     }
 
     /// The gain is what the month score actually moved: past twenty days a
     /// round only counts if it beats one of the best, so it can add nothing.
     private var monthLine: String {
-        var parts = ["\(month.points)\u{00A0}\(month.points == 1 ? "point" : "points") in the \(round.month.monthName) Challenge"]
+        var parts = [String(localized: "\(String(localized: "\(month.points) points")) in the \(round.month.monthName) Challenge", comment: "A point count, then the month's name")]
         let gain = store.monthGain(from: result)
-        if gain > 0 { parts.insert("+\(gain) today", at: 0) }
-        if let top = store.standing(for: round.monthKey)?.topPercent { parts.append("Top\u{00A0}\(top)%") }
+        if gain > 0 { parts.insert(String(localized: "+\(gain) today"), at: 0) }
+        if let top = store.standing(for: round.monthKey)?.topPercent { parts.append(String(localized: "Top\u{00A0}\(top)%")) }
         return parts.joined(separator: " · ")
     }
 
     private var shareText: String {
         let squares = result.answers.map { $0 ? "🟩" : "⬜️" }.joined()
-        return "Mahj Minute, \(result.title)\n\(squares) · \(month.points) points in the \(result.monthName) Challenge\nFive new questions a day, the same for every player: \(AppStoreLinks.productURL.absoluteString)"
+        let points = String(localized: "\(String(localized: "\(month.points) points")) in the \(result.monthName) Challenge", comment: "A point count, then the month's name")
+        return String(localized: "Mahj Minute, \(result.title)\n\(squares) · \(points)\nFive new questions a day, the same for every player: \(AppStoreLinks.productURL.absoluteString)", comment: "Shared challenge result: the day, a row of squares and points, then the App Store link")
     }
 
     private var scoreCard: some View {
@@ -575,8 +576,8 @@ struct MonthlyChallengeResultView: View {
             MonthlyChallengeGrid(answers: result.answers)
                 .padding(.top, 2)
             Text(round.day >= round.month.dayCount
-                 ? "That was the last round of \(round.month.monthName)."
-                 : "A new Mahj Minute tomorrow.")
+                 ? String(localized: "That was the last round of \(round.month.monthName).")
+                 : String(localized: "A new Mahj Minute tomorrow."))
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
@@ -673,7 +674,9 @@ struct MonthlyChallengeAnswersView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .accessibilityElement(children: .combine)
-            .accessibilityLabel("Question \(index + 1), \(correct ? "right" : "missed"), \(MonthlyChallengeContent.skillTitle(of: item))")
+            .accessibilityLabel(correct
+                ? String(localized: "Question \(index + 1), right, \(MonthlyChallengeContent.skillTitle(of: item))")
+                : String(localized: "Question \(index + 1), missed, \(MonthlyChallengeContent.skillTitle(of: item))"))
             Text(item.prompt)
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Theme.ink)
@@ -685,7 +688,7 @@ struct MonthlyChallengeAnswersView: View {
                     // whole rack's label and VoiceOver read it 13 times over.
                     // "Tiles", not "Rack": table calls show other players' exposures.
                     .accessibilityElement(children: .ignore)
-                    .accessibilityLabel("Tiles: " + item.tiles.map(\.spokenName).joined(separator: ", "))
+                    .accessibilityLabel(String(localized: "Tiles: \(item.tiles.map(\.spokenName).joined(separator: ", "))"))
             }
             VStack(alignment: .leading, spacing: 6) {
                 ForEach(Array(item.choices.enumerated()), id: \.offset) { choice, label in
@@ -731,6 +734,8 @@ struct MonthlyChallengeAnswersView: View {
             }
         }
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(label)\(isAnswer ? ", the answer" : "")\(isPick ? ", your pick" : "")")
+        .accessibilityLabel(([label]
+            + (isAnswer ? [String(localized: "the answer")] : [])
+            + (isPick ? [String(localized: "your pick")] : [])).joined(separator: ", "))
     }
 }

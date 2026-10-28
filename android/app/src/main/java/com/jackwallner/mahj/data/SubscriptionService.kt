@@ -16,6 +16,8 @@ import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.PurchasesConfiguration
+import com.revenuecat.purchases.PurchasesException
+import com.revenuecat.purchases.syncPurchasesWith
 import com.revenuecat.purchases.PurchasesTransactionException
 import com.revenuecat.purchases.awaitCustomerInfo
 import com.revenuecat.purchases.awaitOfferings
@@ -53,6 +55,20 @@ data class PaywallPrice(val amount: BigDecimal, val localized: String, val curre
 
 enum class PurchaseOutcome { PURCHASED, PENDING, CANCELLED }
 
+internal fun purchaseOutcome(code: PurchasesErrorCode, userCancelled: Boolean): PurchaseOutcome? = when {
+    userCancelled || code == PurchasesErrorCode.PurchaseCancelledError -> PurchaseOutcome.CANCELLED
+    code == PurchasesErrorCode.PaymentPendingError -> PurchaseOutcome.PENDING
+    else -> null
+}
+
+internal fun restoreFailureMessage(code: PurchasesErrorCode): String =
+    if (code == PurchasesErrorCode.PaymentPendingError) {
+        "Google Play is still processing your payment. ${Membership.NAME} unlocks as soon as it completes."
+    } else "Couldn't restore purchases. Try again."
+
+internal fun managedSubscriptionId(activeSubscriptions: Set<String>): String? =
+    activeSubscriptions.map { it.substringBefore(":") }.sorted().firstOrNull()
+
 class PurchaseException(message: String) : Exception(message)
 
 /**
@@ -64,9 +80,12 @@ class SubscriptionService(
     private val defaults: KeyValueStore,
     private val diagnostics: ConversionDiagnostics,
 ) {
-    var isPro by mutableStateOf(BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE))
+    private val reviewAccess = ReviewAccess(defaults, BuildConfig.PLAY_REVIEW_CODE_SHA256)
+    var isPro by mutableStateOf(reviewAccess.isGranted || (BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE)))
         private set
     var offering by mutableStateOf<Offering?>(null)
+        private set
+    var hasSubscriptionHistory by mutableStateOf(false)
         private set
 
     /**
@@ -84,6 +103,7 @@ class SubscriptionService(
 
     private var isConfigured = false
     private var forcePro = false
+    private var subscriptionHistoryOverride: Boolean? = null
     private val impressionsThisSession = mutableSetOf<String>()
 
     /** Debug-only: open the paid boundary for screenshots and tests. */
@@ -98,7 +118,19 @@ class SubscriptionService(
     fun setLocalOverride(value: Boolean) {
         if (!BuildConfig.DEBUG) return
         defaults.putBoolean(LOCAL_OVERRIDE, value)
-        isPro = value
+        isPro = value || reviewAccess.isGranted
+    }
+
+    fun setSubscriptionHistoryForDebug(value: Boolean) {
+        if (!BuildConfig.DEBUG) return
+        subscriptionHistoryOverride = value
+        hasSubscriptionHistory = value
+    }
+
+    fun activateReviewAccess(code: String): Boolean {
+        if (!reviewAccess.activate(code)) return false
+        isPro = true
+        return true
     }
 
     suspend fun start() {
@@ -124,7 +156,8 @@ class SubscriptionService(
     suspend fun loadOfferings() {
         if (!configureIfNeeded()) return
         try {
-            offering = Purchases.sharedInstance.awaitOfferings().current
+            val offerings = Purchases.sharedInstance.awaitOfferings()
+            offering = offerings.all[ANDROID_OFFERING_ID] ?: offerings.current
         } catch (error: CancellationException) {
             throw error
         } catch (_: Throwable) {
@@ -150,10 +183,11 @@ class SubscriptionService(
      * Whether the purchase surfaces may promise the free week for `plan`.
      * Play only returns the offers this account is eligible for, so a free
      * phase on the default option is the eligibility answer; no offering yet
-     * means not known, and that gets plain pricing too.
+     * means not known, and that gets plain pricing too. Anyone with a past
+     * subscription in this app never gets the free week (see `TrialPolicy`).
      */
     fun offersFreeTrial(plan: PaywallPlan): Boolean =
-        plan != PaywallPlan.LIFETIME && packageFor(plan)?.product?.defaultOption?.freePhase != null
+        TrialPolicy.offered(plan, hasSubscriptionHistory, packageFor(plan)?.product?.defaultOption?.freePhase != null)
 
     fun paywallPrice(plan: PaywallPlan): PaywallPrice? {
         val price = packageFor(plan)?.product?.price ?: return null
@@ -180,8 +214,13 @@ class SubscriptionService(
     /** A cancel is an outcome, not an error. Throws only with a player-facing message. */
     suspend fun purchase(activity: Activity, pkg: Package?): PurchaseOutcome {
         if (!configureIfNeeded() || pkg == null) throw PurchaseException(UNAVAILABLE)
+        val option = if (hasSubscriptionHistory) pkg.product.subscriptionOptions?.basePlan
+        else pkg.product.defaultOption
+        val params = if (option != null) {
+            PurchaseParams.Builder(activity, option).presentedOfferingContext(pkg.presentedOfferingContext).build()
+        } else PurchaseParams.Builder(activity, pkg).build()
         return try {
-            val result = Purchases.sharedInstance.awaitPurchase(PurchaseParams.Builder(activity, pkg).build())
+            val result = Purchases.sharedInstance.awaitPurchase(params)
             apply(result.customerInfo)
             // What Play actually sold, not what the product offers. An entitlement
             // that has not landed yet is lag for `confirmEntitlement`, not a pending
@@ -191,11 +230,8 @@ class SubscriptionService(
             syncConversionAttributes()
             PurchaseOutcome.PURCHASED
         } catch (error: PurchasesTransactionException) {
-            when {
-                error.userCancelled -> PurchaseOutcome.CANCELLED
-                error.code == PurchasesErrorCode.PaymentPendingError -> PurchaseOutcome.PENDING
-                else -> throw PurchaseException("Couldn't complete the purchase. Please try again.")
-            }
+            purchaseOutcome(error.code, error.userCancelled)
+                ?: throw PurchaseException("Couldn't complete the purchase. Please try again.")
         }
     }
 
@@ -216,6 +252,8 @@ class SubscriptionService(
             apply(Purchases.sharedInstance.awaitRestore())
         } catch (error: CancellationException) {
             throw error
+        } catch (error: PurchasesException) {
+            throw PurchaseException(restoreFailureMessage(error.code))
         } catch (_: Throwable) {
             throw PurchaseException("Couldn't restore purchases. Try again.")
         }
@@ -227,11 +265,12 @@ class SubscriptionService(
 
     private fun apply(info: CustomerInfo) {
         membershipResolved = true
+        hasSubscriptionHistory = subscriptionHistoryOverride ?: info.allExpirationDatesByProduct.isNotEmpty()
         if (forcePro) return
         val entitlement = info.entitlements["pro"]
-        activeProductId = entitlement?.productIdentifier?.substringBefore(":")
+        activeProductId = managedSubscriptionId(info.activeSubscriptions)
         val override = BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE)
-        isPro = entitlement?.isActive == true || override
+        isPro = entitlement?.isActive == true || override || reviewAccess.isGranted
         isTrialing = entitlement?.isActive == true && entitlement.periodType == PeriodType.TRIAL
     }
 
@@ -252,12 +291,23 @@ class SubscriptionService(
         if (key.startsWith("test_")) builder.appUserID(QA_APP_USER_ID)
         Purchases.configure(builder.build())
         Purchases.sharedInstance.updatedCustomerInfoListener = UpdatedCustomerInfoListener { apply(it) }
+        // The Play app moved into the iOS app's RevenueCat project on 2026-10-27.
+        // Post this install's Play purchases there once, so a trial or purchase
+        // made under the old Android-only project keeps its access.
+        if (key.startsWith("goog_") && !defaults.getBoolean(SYNCED_TO_SHARED_PROJECT)) {
+            Purchases.sharedInstance.syncPurchasesWith(onError = {}) {
+                defaults.putBoolean(SYNCED_TO_SHARED_PROJECT, true)
+                apply(it)
+            }
+        }
         isConfigured = true
         return true
     }
 
     companion object {
         private const val QA_APP_USER_ID = "qa-android"
+        private const val ANDROID_OFFERING_ID = "android"
+        private const val SYNCED_TO_SHARED_PROJECT = "subscription.syncedToSharedProject"
         private const val LOCAL_OVERRIDE = "subscription.localProOverride"
         private const val UNAVAILABLE = "Google Play isn't reachable right now. Check your connection and try again."
     }

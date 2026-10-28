@@ -17,17 +17,22 @@ import re
 import subprocess
 import time
 import xml.etree.ElementTree as ET
+from io import BytesIO
 from pathlib import Path
 
+from PIL import Image
+
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "android" / "play-assets" / "raw"
+OUT = Path(os.environ.get("MAHJ_CAPTURE_OUTPUT", ROOT / "android" / "play-assets" / "raw"))
+APPEARANCE = os.environ.get("MAHJ_CAPTURE_APPEARANCE", "light")
 SDK = Path(os.environ.get("ANDROID_HOME", Path.home() / "Library/Android/sdk"))
-ADB = [str(SDK / "platform-tools/adb")] + (["-s", os.environ["ANDROID_SERIAL"]] if "ANDROID_SERIAL" in os.environ else [])
+SERIAL = os.environ.get("ANDROID_SERIAL", "")
+ADB = [str(SDK / "platform-tools/adb"), "-s", SERIAL]
 PACKAGE = "com.jackwallner.mahj"
 
 
 def adb(*args: str) -> bytes:
-    return subprocess.run(ADB + list(args), capture_output=True, check=False).stdout
+    return subprocess.run(ADB + list(args), capture_output=True, check=True, timeout=30).stdout
 
 
 def demo_mode(on: bool) -> None:
@@ -84,16 +89,34 @@ def launch(**extras: object) -> None:
 
 
 def shot(name: str) -> None:
+    image = adb("exec-out", "screencap", "-p")
+    if not image.startswith(b"\x89PNG\r\n\x1a\n"):
+        raise ValueError(f"Screenshot {name!r} did not return a PNG")
+    with Image.open(BytesIO(image)) as screenshot:
+        if screenshot.size != (1080, 2424):
+            raise ValueError(f"Screenshot {name!r} is {screenshot.size}, expected 1080x2424")
+        screenshot.verify()
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / f"{name}.png").write_bytes(adb("exec-out", "screencap", "-p"))
+    (OUT / f"{name}.png").write_bytes(image)
     print("captured", name)
 
 
 def home(**extras: object) -> None:
-    launch(resetAll=True, onboarded=True, appearance="light", **extras)
+    launch(resetAll=True, onboarded=True, appearance=APPEARANCE, **extras)
 
 
 def main() -> None:
+    if not re.fullmatch(r"emulator-\d+", SERIAL):
+        raise ValueError("Set ANDROID_SERIAL to the intended headless emulator")
+    if APPEARANCE not in {"light", "dark"}:
+        raise ValueError("MAHJ_CAPTURE_APPEARANCE must be light or dark")
+    if os.environ.get("MAHJ_CAPTURE_FRESH_INSTALL") == "1":
+        package = adb("shell", "dumpsys", "package", PACKAGE).decode()
+        if "DEBUGGABLE" not in package:
+            raise ValueError("Fresh-install captures require the local debug APK")
+        # A second capture pass otherwise uses up today's one free hand.
+        # Reset only this debug app, never the AVD or a Play-installed release.
+        adb("shell", "pm", "clear", PACKAGE)
     demo_mode(True)
     try:
         home()

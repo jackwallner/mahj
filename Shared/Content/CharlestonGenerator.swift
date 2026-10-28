@@ -343,20 +343,22 @@ enum CharlestonGenerator {
 
         // Real cards put a few numbers in Winds & Dragons hands, so a lone
         // number there is the weakest fit, not an impossible one.
-        let strayFit = section == .windsDragons
-            ? "is a lone number, the tile this rack has least use for"
-            : "is a number \(section.displayName) never uses"
+        let honorsRack = section == .windsDragons
         groupLeaders.shuffle(using: &generator)
         var choices = [stray, keeper] + Array(groupLeaders.prefix(2))
         choices.shuffle(using: &generator)
         let notes: [String?] = choices.map { tile in
             if tile == stray { return nil }
             if tile == keeper {
-                return "The \(keeper.spokenName) is a single too, but it fits \(section.displayName): one more draw makes it a pair. The \(stray.spokenName) \(strayFit)."
+                return honorsRack
+                    ? String(localized: "The \(keeper.spokenName) is a single too, but it fits \(section.displayName): one more draw makes it a pair. The \(stray.spokenName) is a lone number, the tile this rack has least use for.")
+                    : String(localized: "The \(keeper.spokenName) is a single too, but it fits \(section.displayName): one more draw makes it a pair. The \(stray.spokenName) is a number \(section.displayName) never uses.")
             }
             return note(passing: tile, held: rack.filter { $0 == tile }.count)
         }
-        let explanation = "This rack is pointed at \(section.displayName), and two tiles are singles. The \(keeper.spokenName) fits that plan and can still grow into a pair or a pung. The \(stray.spokenName) \(strayFit), so it is the one to pass. Keep the single that can still help."
+        let explanation = honorsRack
+            ? String(localized: "This rack is pointed at \(section.displayName), and two tiles are singles. The \(keeper.spokenName) fits that plan and can still grow into a pair or a pung. The \(stray.spokenName) is a lone number, the tile this rack has least use for, so it is the one to pass. Keep the single that can still help.")
+            : String(localized: "This rack is pointed at \(section.displayName), and two tiles are singles. The \(keeper.spokenName) fits that plan and can still grow into a pair or a pung. The \(stray.spokenName) is a number \(section.displayName) never uses, so it is the one to pass. Keep the single that can still help.")
         return GeneratedPass(tiles: rack, section: section, answer: stray, choices: choices, explanation: explanation, choiceNotes: notes)
     }
 
@@ -374,20 +376,21 @@ enum CharlestonGenerator {
     }
 
     static func note(passing tile: Tile, held: Int) -> String {
-        let cost: String
         switch held {
-        case 4...: cost = "Passing one turns a kong back into a pung"
-        case 3: cost = "Passing one breaks up a pung you have already made"
-        default: cost = "Passing one splits a pair"
+        case 4...:
+            return String(localized: "You hold \(held) of the \(tile.spokenName). Passing one turns a kong back into a pung, when another tile on this rack costs you nothing.")
+        case 3:
+            return String(localized: "You hold \(held) of the \(tile.spokenName). Passing one breaks up a pung you have already made, when another tile on this rack costs you nothing.")
+        default:
+            return String(localized: "You hold \(held) of the \(tile.spokenName). Passing one splits a pair, when another tile on this rack costs you nothing.")
         }
-        return "You hold \(held) of the \(tile.spokenName). \(cost), when another tile on this rack costs you nothing."
     }
 
     static func explain(rack: [Tile], section: HandCategory, answer: Tile) -> String {
         let copies = rack.filter { $0 == answer }.count
-        let alone = copies == 1
-            ? "your only single tile"
-            : "\(copies) of a tile nothing else on the rack works with"
-        return "This rack is pointed at \(section.displayName). The \(answer.spokenName) is \(alone). It might fit some hand, but every other choice is part of a group you have already built, so it is the one tile you can pass without breaking anything. Junk goes on the first pass."
+        if copies == 1 {
+            return String(localized: "This rack is pointed at \(section.displayName). The \(answer.spokenName) is your only single tile. It might fit some hand, but every other choice is part of a group you have already built, so it is the one tile you can pass without breaking anything. Junk goes on the first pass.")
+        }
+        return String(localized: "This rack is pointed at \(section.displayName). The \(answer.spokenName) is \(copies) of a tile nothing else on the rack works with. It might fit some hand, but every other choice is part of a group you have already built, so it is the one tile you can pass without breaking anything. Junk goes on the first pass.")
     }
 }

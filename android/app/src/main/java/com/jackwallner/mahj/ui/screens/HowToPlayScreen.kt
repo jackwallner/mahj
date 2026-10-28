@@ -14,6 +14,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -122,6 +123,10 @@ fun HowToPlayScreen(onDone: () -> Unit, onSkip: (() -> Unit)? = null, onBack: ((
             Readable(Modifier.fillMaxSize()) {
                 Column(Modifier.fillMaxSize().screenPadding(), verticalArrangement = Arrangement.spacedBy(18.dp)) {
                     Dots(pages.size, index, Modifier.align(Alignment.CenterHorizontally).padding(top = 6.dp))
+                    // Under 500dp of room (a 640dp phone) the card draws its compact
+                    // variant, so the primer is read rather than cut off at the card edge.
+                    BoxWithConstraints(Modifier.fillMaxWidth().weight(1f)) {
+                    val compact = maxHeight < 500.dp
                     AnimatedContent(
                         targetState = index,
                         transitionSpec = {
@@ -129,7 +134,7 @@ fun HowToPlayScreen(onDone: () -> Unit, onSkip: (() -> Unit)? = null, onBack: ((
                             (slideInHorizontally(tween(320)) { it * direction } + fadeIn(tween(320))) togetherWith
                                 (slideOutHorizontally(tween(320)) { -it * direction } + fadeOut(tween(320)))
                         },
-                        modifier = Modifier.fillMaxWidth().weight(1f),
+                        modifier = Modifier.fillMaxSize(),
                         label = "primer",
                     ) { shown ->
                         val page = pages[shown]
@@ -161,14 +166,15 @@ fun HowToPlayScreen(onDone: () -> Unit, onSkip: (() -> Unit)? = null, onBack: ((
                                     }
                                     .themedCard(22.dp)
                                     .shine(shineTrigger, 22.dp)
-                                    .padding(24.dp),
+                                    .padding(if (compact) 18.dp else 24.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(if (compact) 12.dp else 16.dp),
                             ) {
-                                IconBadge(page.icon, colors.jade, size = 76.dp, iconSize = 34.dp, alpha = 0.12f)
-                                Text(page.title, style = MahjType.display(27.sp), color = colors.ink, textAlign = TextAlign.Center)
-                                if (page.tiles.isNotEmpty()) TileRack(page.tiles, tileWidth = 46.dp)
-                                Text(page.body, style = MahjType.body, color = colors.inkSecondary, textAlign = TextAlign.Center)
+                                if (compact) IconBadge(page.icon, colors.jade, size = 60.dp, iconSize = 28.dp, alpha = 0.12f)
+                                else IconBadge(page.icon, colors.jade, size = 76.dp, iconSize = 34.dp, alpha = 0.12f)
+                                Text(page.title, style = MahjType.display(if (compact) 23.sp else 27.sp), color = colors.ink, textAlign = TextAlign.Center)
+                                if (page.tiles.isNotEmpty()) TileRack(page.tiles, tileWidth = if (compact) 40.dp else 46.dp)
+                                Text(page.body, style = if (compact) MahjType.subheadline else MahjType.body, color = colors.inkSecondary, textAlign = TextAlign.Center)
                                 page.tip?.let { tip ->
                                     Row(
                                         Modifier.fillMaxWidth().background(colors.gold.copy(alpha = 0.12f), rounded(10.dp)).padding(10.dp),
@@ -200,6 +206,7 @@ fun HowToPlayScreen(onDone: () -> Unit, onSkip: (() -> Unit)? = null, onBack: ((
                                 }
                             }
                         }
+                    }
                     }
                     Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {

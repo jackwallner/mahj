@@ -98,6 +98,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/meta-ads.md` | Meta SDK + ATT (inert until a Meta app exists), the 15-minute StartTrial relay | `MetaAds`, `TrialCTA`, `supabase/`, ATT timing |
 | `.claude/rules/android.md` | The Android port: exported content, RNG parity, Play identity, deliberate differences | Anything under `android/` or the content export |
 | `.claude/rules/chatgpt-plugin.md` | The free ChatGPT plugin and Claude connector: MCP server on Cloudflare, widget, packaging and submission | Anything under `chatgpt/` |
+| `.claude/rules/localization.md` | de/es/fr/id/vi String Catalogs, the Content table looked up at model init, rules for adding copy | Any user-facing string, `Shared/Content`, the catalogs |
 
 ## Flashcard deck (signature interaction)
 

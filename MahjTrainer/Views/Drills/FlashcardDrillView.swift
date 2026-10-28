@@ -209,10 +209,10 @@ struct FlashcardDrillView: View {
     }
 
     private var swipeAccessibilityHint: String {
-        guard isFlipped else { return "Reveals the answer" }
+        guard isFlipped else { return String(localized: "Reveals the answer") }
         return choiceAnswered
-            ? "Tap Next to continue"
-            : "Swipe right if you knew it, left to see it again, or use the Knew It and Again actions"
+            ? String(localized: "Tap Next to continue")
+            : String(localized: "Swipe right if you knew it, left to see it again, or use the Knew It and Again actions")
     }
 
     /// KNEW IT / AGAIN stamps fade in with the drag so the swipe directions
@@ -221,10 +221,10 @@ struct FlashcardDrillView: View {
     private var verdictStamps: some View {
         ZStack {
             if !choiceAnswered {
-                stamp("KNEW IT", color: Theme.jade, angle: -12)
+                stamp(String(localized: "KNEW IT"), color: Theme.jade, angle: -12)
                     .opacity(isFlipped ? stampOpacity(forDirection: 1) : 0)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                stamp("AGAIN", color: Theme.coral, angle: 12)
+                stamp(String(localized: "AGAIN"), color: Theme.coral, angle: 12)
                     .opacity(isFlipped ? stampOpacity(forDirection: -1) : 0)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             }
@@ -544,7 +544,7 @@ struct FlipCardFace: View {
     }
 
     private var front: some View {
-        MahjCardFace(accent: accent, eyebrow: "MAHJ TRAINER") {
+        MahjCardFace(accent: accent, eyebrow: String(localized: "MAHJ TRAINER")) {
             if dynamicTypeSize.isAccessibilitySize {
                 accessibleFront
             } else {
@@ -614,7 +614,7 @@ struct FlipCardFace: View {
     }
 
     private var back: some View {
-        MahjCardFace(accent: accent, eyebrow: "THE CALL") {
+        MahjCardFace(accent: accent, eyebrow: String(localized: "THE CALL")) {
             if dynamicTypeSize.isAccessibilitySize {
                 accessibleBack
             } else {
@@ -691,7 +691,9 @@ struct FlipCardFace: View {
     private var backSpoken: String {
         let answer = "\(card.backTitle). \(card.backBody)"
         guard let verdict else { return answer }
-        return "\(verdict.correct ? "Right" : "Not this time"). \(answer)"
+        return verdict.correct
+            ? String(localized: "Right. \(answer)")
+            : String(localized: "Not this time. \(answer)")
     }
 
     private var answerText: some View {
@@ -714,13 +716,13 @@ struct FlipCardFace: View {
     private var verdict: (text: String, correct: Bool)? {
         guard let choice = card.choice, let pick = choicePick else { return nil }
         let correct = pick == choice.answerIndex
-        return ("You said \"\(choice.options[pick])\"", correct)
+        return (String(localized: "You said \"\(choice.options[pick])\""), correct)
     }
 
     private func verdictBanner(_ verdict: (text: String, correct: Bool)) -> some View {
         HStack(spacing: 8) {
             Image(systemName: verdict.correct ? "checkmark.circle.fill" : "xmark.circle.fill")
-            Text(verdict.correct ? "\(verdict.text). Right!" : "\(verdict.text). Not this time.")
+            Text(verdict.correct ? String(localized: "\(verdict.text). Right!") : String(localized: "\(verdict.text). Not this time."))
                 .font(.footnote.weight(.semibold))
                 .fixedSize(horizontal: false, vertical: true)
         }

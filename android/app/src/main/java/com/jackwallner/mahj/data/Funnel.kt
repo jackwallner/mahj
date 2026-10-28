@@ -8,7 +8,7 @@ object StoreLinks {
     const val PLAY_MARKET_URI = "market://details?id=$PACKAGE"
     const val FEEDBACK_EMAIL = "jackwallner+m@gmail.com"
     const val TERMS_URL = "https://jackwallner.github.io/mahj/terms.html"
-    const val PRIVACY_URL = "https://jackwallner.github.io/mahj/privacy-policy"
+    const val PRIVACY_URL = "https://jackwallner.github.io/mahj/android-privacy.html"
     const val SUPPORT_URL = "https://jackwallner.github.io/mahj/support.html"
 
     fun manageSubscriptionURL(productId: String?): String =

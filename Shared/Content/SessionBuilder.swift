@@ -41,19 +41,20 @@ struct QuickItem: Codable, Identifiable, Sendable {
         choiceNotes: [String?] = []
     ) {
         self.id = id
-        self.prompt = prompt
+        self.prompt = ContentText.localized(prompt)
         self.tiles = tiles
-        self.choices = choices
+        self.choices = ContentText.localized(choices)
         self.answerIndex = answerIndex
-        self.explanation = explanation
-        self.sourceLabel = sourceLabel
+        self.explanation = ContentText.localized(explanation)
+        self.sourceLabel = ContentText.localized(sourceLabel)
         self.roomID = roomID
         self.trackingID = trackingID ?? id
         self.isReviewable = isReviewable
         // Padded so a caller can never index past the end of a short list.
-        self.choiceNotes = choiceNotes.count == choices.count
-            ? choiceNotes
-            : choices.indices.map { index in index < choiceNotes.count ? choiceNotes[index] : nil }
+        let notes = choiceNotes.map { ContentText.localized($0) }
+        self.choiceNotes = notes.count == choices.count
+            ? notes
+            : choices.indices.map { index in index < notes.count ? notes[index] : nil }
     }
 
     /// The coaching line for a wrong pick, if there is one.
@@ -72,22 +73,22 @@ enum SessionBuilder {
 
     static let sessionDrill = Drill(
         id: "quick-session",
-        title: "Quick Session",
-        subtitle: "A short mix of what you need next",
+        title: String(localized: "Quick Session"),
+        subtitle: String(localized: "A short mix of what you need next"),
         kind: .flashcards([])
     )
 
     static let reviewDrill = Drill(
         id: "review-session",
-        title: "Fix My Mistakes",
-        subtitle: "The questions you keep getting wrong",
+        title: String(localized: "Fix My Mistakes"),
+        subtitle: String(localized: "The questions you keep getting wrong"),
         kind: .flashcards([])
     )
 
     static let gameNightPrepDrill = Drill(
         id: "game-night-prep",
-        title: "Game Night Prep",
-        subtitle: "A five-minute mix for your next table",
+        title: String(localized: "Game Night Prep"),
+        subtitle: String(localized: "A five-minute mix for your next table"),
         kind: .flashcards([])
     )
 
@@ -226,7 +227,7 @@ enum SessionBuilder {
                         let answerIndex = question.choices.firstIndex(of: question.answer) ?? 0
                         return QuickItem(
                             id: question.id,
-                            prompt: "Which section is this rack chasing?",
+                            prompt: String(localized: "Which section is this rack chasing?"),
                             tiles: question.tiles.racked,
                             choices: labels,
                             answerIndex: answerIndex,

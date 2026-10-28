@@ -103,7 +103,7 @@ enum DefenseGenerator {
 
         let notes: [String?] = choices.map { tile in
             guard tile != safe else { return nil }
-            return "The \(tile.spokenName) fits \(readingNames(readings)), which is where those exposures point. Late in a hand it could be the tile that hands them the game."
+            return String(localized: "The \(tile.spokenName) fits \(readingNames(readings)), which is where those exposures point. Late in a hand it could be the tile that hands them the game.")
         }
 
         return GeneratedDefense(
@@ -263,8 +263,8 @@ enum DefenseGenerator {
         var choices = question.choices
         choices[bait] = runTile
         var notes = question.choiceNotes
-        let shown = exposed.map(\.spokenName).joined(separator: " and ")
-        notes[bait] = "The \(runTile.spokenName) sits right between their \(shown), so it could feed a run through both pungs. That makes it a trap, not a safe throw."
+        let shown = PhraseList.chained(exposed.map(\.spokenName))
+        notes[bait] = String(localized: "The \(runTile.spokenName) sits right between their \(shown), so it could feed a run through both pungs. That makes it a trap, not a safe throw.")
         return GeneratedDefense(
             exposures: question.exposures,
             impliedSection: question.impliedSection,
@@ -277,11 +277,13 @@ enum DefenseGenerator {
 
     /// "369", or "369 and 13579 (Odds)" when the exposures fit both.
     static func readingNames(_ readings: [HandCategory]) -> String {
-        readings.map(\.displayName).joined(separator: " and ")
+        PhraseList.chained(readings.map(\.displayName))
     }
 
     static func explain(exposures: [[Tile]], section: HandCategory, safe: Tile) -> String {
-        let shown = exposures.compactMap(\.first).map(\.spokenName).joined(separator: " and a pung of ")
+        let shown = exposures.compactMap(\.first).map(\.spokenName).reduce("") { list, name in
+            list.isEmpty ? name : String(localized: "\(list) and a pung of \(name)", comment: "Joins two exposed tiles after 'A pung of'")
+        }
         let readings = sectionsFitting(exposures.compactMap(\.first))
         let exposedRanks = exposures.compactMap(\.first).compactMap { rank(of: $0) }
         // Pungs in one suit within five numbers of each other can also sit in
@@ -290,15 +292,25 @@ enum DefenseGenerator {
         let runSuit = sharedSuit(exposures.compactMap(\.first))
         let runPossible = runSuit != nil && (exposedRanks.max() ?? 0) - (exposedRanks.min() ?? 0) <= 4
         var read = readings.count > 1
-            ? "A pung of \(shown) fit both \(readingNames(readings)), so read the table both ways."
-            : "A pung of \(shown) both sit inside \(section.displayName), so that is the family their exposures point to."
+            ? String(localized: "A pung of \(shown) fit both \(readingNames(readings)), so read the table both ways.")
+            : String(localized: "A pung of \(shown) both sit inside \(section.displayName), so that is the family their exposures point to.")
         if runPossible, let suit = runSuit, let low = exposedRanks.min(), let high = exposedRanks.max() {
-            read += " A Consecutive Run in \(suit.displayName)s from \(low) to \(high) could hold both, too."
+            read += " " + String(localized: "A Consecutive Run in \(suit.pluralName) from \(low) to \(high) could hold both, too.")
         }
         let value = rank(of: safe) ?? 0
-        let article = value == 8 ? "an" : "a"
-        var never = readings.map { "\($0.displayName) never uses \(article) \(value)" }
-        if runPossible { never.append("no run through both of them reaches \(article) \(value)") }
-        return "\(read) The \(safe.spokenName) fits none of it: \(never.joined(separator: ", and ")). Of these four it is the safest throw, because every other choice feeds what they are showing."
+        var never = readings.map { reading in
+            value == 8
+                ? String(localized: "\(reading.displayName) never uses an 8")
+                : String(localized: "\(reading.displayName) never uses a \(value)")
+        }
+        if runPossible {
+            never.append(value == 8
+                ? String(localized: "no run through both of them reaches an 8")
+                : String(localized: "no run through both of them reaches a \(value)"))
+        }
+        let list = never.dropFirst().reduce(never.first ?? "") { list, item in
+            String(localized: "\(list), and \(item)", comment: "Joins reasons a tile is safe")
+        }
+        return String(localized: "\(read) The \(safe.spokenName) fits none of it: \(list). Of these four it is the safest throw, because every other choice feeds what they are showing.")
     }
 }

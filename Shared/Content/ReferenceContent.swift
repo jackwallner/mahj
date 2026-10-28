@@ -13,10 +13,10 @@ struct GlossaryTerm: Identifiable, Sendable {
 
     init(id: String, term: String, aliases: [String] = [], group: GlossaryGroup, definition: String) {
         self.id = id
-        self.term = term
+        self.term = ContentText.localized(term)
         self.aliases = aliases
         self.group = group
-        self.definition = definition
+        self.definition = ContentText.localized(definition)
     }
 
     func matches(_ query: String) -> Bool {
@@ -38,10 +38,10 @@ enum GlossaryGroup: String, CaseIterable, Identifiable, Sendable {
 
     var title: String {
         switch self {
-        case .tiles: return "Tiles"
-        case .groups: return "Groups & Hands"
-        case .charleston: return "The Charleston"
-        case .play: return "At the Table"
+        case .tiles: return String(localized: "Tiles")
+        case .groups: return String(localized: "Groups & Hands")
+        case .charleston: return String(localized: "The Charleston")
+        case .play: return String(localized: "At the Table")
         }
     }
 
@@ -61,6 +61,12 @@ struct SectionReference: Identifiable, Sendable {
     /// An ORIGINAL 13-tile teaching rack for the shape. Never a card hand.
     let exampleRack: [Tile]
     let watchOut: String
+
+    init(category: HandCategory, exampleRack: [Tile], watchOut: String) {
+        self.category = category
+        self.exampleRack = exampleRack
+        self.watchOut = ContentText.localized(watchOut)
+    }
 
     var id: String { category.rawValue }
 }

@@ -1,0 +1,27 @@
+# Mahj Trainer: Mahjong Practice
+
+> Mahj Trainer is a free American Mah Jongg practice app for iPhone and iPad. Five-minute drills on tiles, the card, the Charleston and keep-or-throw calls.
+
+## App
+
+- [American Mahjong Practice App | Mahj Trainer](https://jackwallner.com/ios/mahj/index.html.md): Mahj Trainer is a free American Mah Jongg practice app for iPhone and iPad. Five-minute drills on tiles, the card, the Charleston and keep-or-throw calls.
+
+## Guides
+
+- [Best American Mahjong App (2026): 5 Apps Compared](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html.md): The best American Mahjong apps for iPhone and iPad compared in October 2026: courses, bot games, card hints and drills, with strengths and trade-offs for each.
+- [Mahj Trainer for ChatGPT](https://jackwallner.com/ios/mahj/chatgpt/index.html.md): Mahj Trainer teaches American mah jongg inside ChatGPT: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.
+- [Mahj Trainer for Claude](https://jackwallner.com/ios/mahj/claude/index.html.md): Mahj Trainer teaches American mah jongg inside Claude: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.
+- [How to Read the Mah Jongg Card: the 9 Sections Explained](https://jackwallner.com/ios/mahj/learn/card-sections.html.md): How to read the NMJL card: the nine sections that keep their shape every year, from 2468 and Like Numbers to Quints and Singles and Pairs.
+- [The Charleston in American Mah Jongg: Rules, Order and Strategy](https://jackwallner.com/ios/mahj/learn/charleston.html.md): How the Charleston works in American Mah Jongg: the three passes, the optional second Charleston, blind and courtesy passes, and which tiles to pass.
+- [American Mah Jongg Glossary: Soap, Pung, Kong and More](https://jackwallner.com/ios/mahj/learn/glossary.html.md): A plain-English glossary of American Mah Jongg terms: craks, bams, dots, soap, pung, kong, quint, exposure, Charleston, blind pass, joker swap and more.
+- [How to Play American Mah Jongg: Rules for Beginners (2026 Guide)](https://jackwallner.com/ios/mahj/learn/how-to-play-american-mahjong.html.md): The rules of American Mah Jongg in plain English: the 152 tiles, the card, the Charleston, calling, jokers, and how a hand is won. For brand-new players.
+- [Learn American Mah Jongg: Rules, Card, Jokers and Scoring](https://jackwallner.com/ios/mahj/learn/index.html.md): Free guides to American Mah Jongg from the makers of Mahj Trainer: how to play, how to read the card's nine sections, the Charleston, joker rules, scoring and a full glossary.
+- [Joker Rules in American Mah Jongg: Where They Can and Cannot Go](https://jackwallner.com/ios/mahj/learn/jokers.html.md): Every joker rule in American Mah Jongg: groups of three or more only, never in pairs or singles, never passed in the Charleston, and how joker swaps work.
+- [American Mah Jongg Scoring and Table Rules: Who Pays What](https://jackwallner.com/ios/mahj/learn/scoring-and-table-rules.html.md): How payment works when someone wins at American Mah Jongg, when a call is too late, what happens after a wrong mah jongg, dead hands, and wall games.
+
+## Optional
+
+- [Mahj Trainer Android Privacy Policy](https://jackwallner.github.io/mahj/android-privacy.html.md): Mahj Trainer works without an account. Practice progress, streaks, review history, onboarding choices, and preferences are stored locally on your device.
+- [Mahj Trainer Privacy Policy](https://jackwallner.com/ios/mahj/privacy-policy.html.md): Mahj Trainer works without an account. Practice progress, streaks, review history, onboarding choices, and preferences are stored locally on your device.
+- [Support - Mahj Trainer](https://jackwallner.com/ios/mahj/support.html.md): Need help with Mahj Trainer? Email jackwallner+m@gmail.com and I'll get back to you quickly.
+- [Mahj Trainer Terms of Use](https://jackwallner.com/ios/mahj/terms.html.md): By using Mahj Trainer, you agree to these Terms of Use and, on iPhone and iPad, Apple's Standard Licensed Application End User License Agreement, or on...

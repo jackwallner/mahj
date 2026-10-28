@@ -5,9 +5,17 @@ enum Suit: String, Codable, CaseIterable, Sendable {
 
     var displayName: String {
         switch self {
-        case .crak: return "Crak"
-        case .bam: return "Bam"
-        case .dot: return "Dot"
+        case .crak: return String(localized: "Crak")
+        case .bam: return String(localized: "Bam")
+        case .dot: return String(localized: "Dot")
+        }
+    }
+
+    var pluralName: String {
+        switch self {
+        case .crak: return String(localized: "Craks")
+        case .bam: return String(localized: "Bams")
+        case .dot: return String(localized: "Dots")
         }
     }
 }
@@ -16,7 +24,14 @@ enum Wind: String, Codable, CaseIterable, Sendable {
     case north, east, west, south
 
     var letter: String { rawValue.prefix(1).uppercased() }
-    var displayName: String { rawValue.capitalized }
+    var displayName: String {
+        switch self {
+        case .north: return String(localized: "North")
+        case .east: return String(localized: "East")
+        case .west: return String(localized: "West")
+        case .south: return String(localized: "South")
+        }
+    }
 }
 
 enum Dragon: String, Codable, CaseIterable, Sendable {
@@ -24,9 +39,17 @@ enum Dragon: String, Codable, CaseIterable, Sendable {
 
     var displayName: String {
         switch self {
-        case .red: return "Red Dragon"
-        case .green: return "Green Dragon"
-        case .soap: return "Soap"
+        case .red: return String(localized: "Red Dragon")
+        case .green: return String(localized: "Green Dragon")
+        case .soap: return String(localized: "Soap")
+        }
+    }
+
+    var pluralName: String {
+        switch self {
+        case .red: return String(localized: "Red Dragons")
+        case .green: return String(localized: "Green Dragons")
+        case .soap: return String(localized: "Soaps")
         }
     }
 
@@ -66,11 +89,45 @@ enum Tile: Hashable, Codable, Sendable {
 
     var spokenName: String {
         switch self {
-        case .suited(let rank, let suit): return "\(rank) \(suit.displayName)"
-        case .wind(let wind): return "\(wind.displayName) Wind"
+        case .suited(let rank, let suit):
+            return String(localized: "\(rank) \(suit.displayName)", comment: "A tile's name: its number, then its suit")
+        case .wind(.north): return String(localized: "North Wind")
+        case .wind(.east): return String(localized: "East Wind")
+        case .wind(.west): return String(localized: "West Wind")
+        case .wind(.south): return String(localized: "South Wind")
         case .dragon(let dragon): return dragon.displayName
+        case .flower: return String(localized: "Flower")
+        case .joker: return String(localized: "Joker")
+        }
+    }
+
+    /// The English name, for orderings that must not change with the
+    /// player's language (a shared daily question has to be the same
+    /// question everywhere). Never shown.
+    var englishName: String {
+        switch self {
+        case .suited(let rank, let suit): return "\(rank) \(suit.rawValue.capitalized)"
+        case .wind(let wind): return "\(wind.rawValue.capitalized) Wind"
+        case .dragon(.red): return "Red Dragon"
+        case .dragon(.green): return "Green Dragon"
+        case .dragon(.soap): return "Soap"
         case .flower: return "Flower"
         case .joker: return "Joker"
+        }
+    }
+
+    /// The name for two or more of this tile: "7 Bams", "Flowers".
+    var pluralName: String {
+        switch self {
+        case .suited(let rank, let suit):
+            return String(localized: "\(rank) \(suit.pluralName)", comment: "Several of one tile: its number, then its suit in the plural")
+        case .wind(.north): return String(localized: "North Winds")
+        case .wind(.east): return String(localized: "East Winds")
+        case .wind(.west): return String(localized: "West Winds")
+        case .wind(.south): return String(localized: "South Winds")
+        case .dragon(let dragon): return dragon.pluralName
+        case .flower: return String(localized: "Flowers")
+        case .joker: return String(localized: "Jokers")
         }
     }
 

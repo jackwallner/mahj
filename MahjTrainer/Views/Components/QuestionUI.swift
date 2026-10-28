@@ -320,9 +320,9 @@ struct ChoiceList: View {
     private func gradeDescription(isAnswer: Bool, isPick: Bool) -> String {
         guard answered else { return "" }
         switch (isAnswer, isPick) {
-        case (true, true): return "Your answer, correct"
-        case (true, false): return "Correct answer"
-        case (false, true): return "Your answer, wrong"
+        case (true, true): return String(localized: "Your answer, correct")
+        case (true, false): return String(localized: "Correct answer")
+        case (false, true): return String(localized: "Your answer, wrong")
         case (false, false): return ""
         }
     }
@@ -330,8 +330,8 @@ struct ChoiceList: View {
     private func announceGrade() {
         guard let selection, labels.indices.contains(answerIndex) else { return }
         let message = selection == answerIndex
-            ? "Correct."
-            : "Not quite. The answer is \(labels[answerIndex])."
+            ? String(localized: "Correct.")
+            : String(localized: "Not quite. The answer is \(labels[answerIndex]).")
         AccessibilityNotification.Announcement(message).post()
     }
 
@@ -421,7 +421,7 @@ struct RequeuedChip: View {
                 .font(.caption)
             // Fix My Mistakes is a Mahj+ tile; a free player's misses still
             // come back first in Get Started, so promise that instead.
-            Text(subscriptions.isPro ? "Saved to Fix My Mistakes" : "This one will come back")
+            Text(subscriptions.isPro ? String(localized: "Saved to Fix My Mistakes") : String(localized: "This one will come back"))
                 .font(.caption.weight(.semibold))
             Spacer(minLength: 0)
         }

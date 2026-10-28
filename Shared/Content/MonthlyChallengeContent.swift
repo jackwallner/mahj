@@ -9,26 +9,26 @@ enum MonthlyChallengeTheme: String, CaseIterable, Codable, Sendable {
 
     var title: String {
         switch self {
-        case .charleston: return "The Charleston"
-        case .defense: return "Safe Discards"
-        case .rackReading: return "Reading Your Rack"
+        case .charleston: return String(localized: "The Charleston")
+        case .defense: return String(localized: "Safe Discards")
+        case .rackReading: return String(localized: "Reading Your Rack")
         }
     }
 
     var blurb: String {
         switch self {
-        case .charleston: return "Pass smart: the tiles that do nothing for your hand, and the three that make the strongest pass."
-        case .defense: return "Read the tiles other players have out, and throw the one nobody can use."
-        case .rackReading: return "Look at a rack and spot which section of the card it is heading for."
+        case .charleston: return String(localized: "Pass smart: the tiles that do nothing for your hand, and the three that make the strongest pass.")
+        case .defense: return String(localized: "Read the tiles other players have out, and throw the one nobody can use.")
+        case .rackReading: return String(localized: "Look at a rack and spot which section of the card it is heading for.")
         }
     }
 
     /// The skill's name on chips, the result screen and the answer review.
     var skillTitle: String {
         switch self {
-        case .charleston: return "Charleston"
-        case .defense: return "Safe Discards"
-        case .rackReading: return "Reading Your Rack"
+        case .charleston: return String(localized: "Charleston")
+        case .defense: return String(localized: "Safe Discards")
+        case .rackReading: return String(localized: "Reading Your Rack")
         }
     }
 
@@ -60,6 +60,22 @@ struct MonthlyChallenge: Identifiable, Sendable {
     var monthIndex: Int {
         let parts = monthKey.split(separator: "-").compactMap { Int($0) }
         return parts.count == 2 ? parts[0] * 12 + parts[1] : 0
+    }
+
+    /// "November 5", in the player's language.
+    func dayTitle(_ day: Int) -> String {
+        let date = calendar.date(byAdding: .day, value: day - 1, to: start) ?? start
+        return Self.format(date, template: "MMMMd", calendar: calendar)
+    }
+
+    /// A date in the player's language on the challenge's own calendar.
+    static func format(_ date: Date, template: String, calendar: Calendar) -> String {
+        let formatter = DateFormatter()
+        formatter.calendar = calendar
+        formatter.timeZone = calendar.timeZone
+        formatter.locale = .current
+        formatter.setLocalizedDateFormatFromTemplate(template)
+        return formatter.string(from: date)
     }
 
     /// Days in the month, so rounds 1...dayCount.
@@ -107,7 +123,7 @@ struct ChallengeRound: Identifiable, Sendable {
     var id: String { key }
     var monthKey: String { month.monthKey }
     /// "November 5"
-    var title: String { "\(month.monthName) \(day)" }
+    var title: String { month.dayTitle(day) }
 }
 
 /// A month-long challenge, free for everyone, built from each day's Mahj
@@ -138,8 +154,8 @@ enum MonthlyChallengeContent {
     /// The id stays "monthly-challenge": it keys saved sessions.
     static let drill = Drill(
         id: "monthly-challenge",
-        title: "Mahj Minute",
-        subtitle: "Five new questions a day, the same for every player",
+        title: String(localized: "Mahj Minute"),
+        subtitle: String(localized: "Five new questions a day, the same for every player"),
         kind: .quiz([])
     )
 
@@ -199,14 +215,14 @@ enum MonthlyChallengeContent {
         let month = parts.month ?? 1
         let start = calendar.date(from: DateComponents(year: year, month: month, day: 1)) ?? date
         let end = calendar.date(byAdding: .month, value: 1, to: start) ?? date
-        // The app's copy is English, so the month name is too, whatever the
-        // calendar's locale (a bare Calendar answers "M11").
-        var english = calendar
-        english.locale = Locale(identifier: "en_US_POSIX")
-        let monthName = english.standaloneMonthSymbols[month - 1]
+        // Named in the player's language but always on the Gregorian
+        // calendar the challenge runs on (a bare Calendar answers "M11").
+        var local = calendar
+        local.locale = .current
+        let monthName = local.standaloneMonthSymbols[month - 1]
         return MonthlyChallenge(
             monthKey: key(year: year, month: month),
-            title: "\(monthName) \(year)",
+            title: MonthlyChallenge.format(start, template: "MMMMy", calendar: calendar),
             monthName: monthName,
             theme: theme(year: year, month: month),
             start: start,
@@ -279,7 +295,7 @@ enum MonthlyChallengeContent {
     static func roundItems(for month: MonthlyChallenge, day: Int) -> [QuickItem] {
         let key = roundKey(monthKey: month.monthKey, day: day)
         return itemCache.value(for: key) {
-            items(month: month, day: day, roundKey: key, label: "\(month.monthName) Challenge")
+            items(month: month, day: day, roundKey: key, label: String(localized: "\(month.monthName) Challenge", comment: "Label over a question: the month's name, then Challenge"))
         }
     }
 
@@ -327,7 +343,7 @@ enum MonthlyChallengeContent {
     /// The label over an answer in the review: the month's skill, or the
     /// table call it is.
     static func skillTitle(of item: QuickItem) -> String {
-        tableCallIDs.contains(item.id) ? "Table Judgment" : skill(of: item).skillTitle
+        tableCallIDs.contains(item.id) ? String(localized: "Table Judgment") : skill(of: item).skillTitle
     }
 
     /// The skill for the day's middle question: the two off-theme skills
@@ -367,7 +383,7 @@ enum MonthlyChallengeContent {
                     entry.pass,
                     id: PracticeSkill.charlestonPass.itemPrefix + "\(seed)-\(index)",
                     sourceLabel: label,
-                    prompt: entry.twoSingles ? "Two of these tiles are singles. Which one should you pass?" : nil
+                    prompt: entry.twoSingles ? String(localized: "Two of these tiles are singles. Which one should you pass?") : nil
                 )
             }
         case .defense:
@@ -425,7 +441,7 @@ enum MonthlyChallengeContent {
     }
 
     private static func rackKey(_ rack: RackGenerator.GeneratedRack) -> String {
-        rack.tiles.map(\.spokenName).sorted().joined(separator: "|")
+        rack.tiles.map(\.englishName).sorted().joined(separator: "|")
     }
 
     /// The rack with suits taken away: how many of each number or honor.
@@ -513,12 +529,12 @@ enum MonthlyChallengeContent {
             guard tiles.count == 6, kinds.count == 2, kinds.allSatisfy({ kind in tiles.filter { $0 == kind }.count == 3 }),
                   item.choices.indices.contains(item.answerIndex)
             else { return nil }
-            return (day, kinds.map(\.spokenName).sorted().joined(separator: "|"), item.choices[item.answerIndex])
+            return (day, kinds.map(\.englishName).sorted().joined(separator: "|"), item.choices[item.answerIndex])
         }
     }
 
     private static func tableKey(_ question: DefenseGenerator.GeneratedDefense) -> String {
-        exposuresKey(question) + "|" + question.answer.spokenName
+        exposuresKey(question) + "|" + question.answer.englishName
     }
 
     /// The safe tile's number, not the tile: the same exposures with an 8
@@ -530,7 +546,7 @@ enum MonthlyChallengeContent {
 
     /// Order-free: the same two pungs called the other way round are the same table.
     private static func exposuresKey(_ question: DefenseGenerator.GeneratedDefense) -> String {
-        question.exposures.compactMap(\.first).map(\.spokenName).sorted().joined(separator: "|")
+        question.exposures.compactMap(\.first).map(\.englishName).sorted().joined(separator: "|")
     }
 
     private static func numbersKey(_ question: DefenseGenerator.GeneratedDefense) -> String {
@@ -620,7 +636,7 @@ enum MonthlyChallengeContent {
     /// Every authored rack read except those tied to the year, whose digits
     /// change with the card.
     static var rackPool: [QuickItem] {
-        let rackPrompt = "Which section is this rack chasing?"
+        let rackPrompt = String(localized: "Which section is this rack chasing?")
         let library = (SessionBuilder.choiceItems(in: "card-room", includePro: true)
             + SessionBuilder.choiceItems(in: "pro-tables", includePro: true))
             .filter { $0.prompt == rackPrompt && $0.choices[$0.answerIndex] != HandCategory.year.displayName && !yearBoundIDs.contains($0.id) }
@@ -632,7 +648,7 @@ enum MonthlyChallengeContent {
                 choices: question.choices.map(\.displayName),
                 answerIndex: question.choices.firstIndex(of: question.answer) ?? 0,
                 explanation: question.explanation,
-                sourceLabel: "Monthly Challenge",
+                sourceLabel: String(localized: "Monthly Challenge"),
                 roomID: "card-room",
                 isReviewable: false,
                 choiceNotes: RackGenerator.missNotes(tiles: question.tiles, choices: question.choices, answer: question.answer)
@@ -659,7 +675,7 @@ enum MonthlyChallengeContent {
             choices: ["2 Crak", "7 Bam", "3 Dot", "1 Crak"],
             answerIndex: 0,
             explanation: "5s and 9s are both odd, so this could point at 13579 (Odds). The 7 Bam, 3 Dot and 1 Crak are all odd and feed that read, and the 7 Bam is in the same suit as both pungs. The 2 Crak is even and in another suit, so it misses that read.",
-            sourceLabel: "Monthly Challenge",
+            sourceLabel: String(localized: "Monthly Challenge"),
             roomID: "table-room",
             isReviewable: false,
             choiceNotes: [
@@ -676,7 +692,7 @@ enum MonthlyChallengeContent {
             choices: ["A joker", "A tile that fits the pattern of their exposures", "A flower", "A wind nobody has thrown yet"],
             answerIndex: 0,
             explanation: "Nobody can call a discarded joker, so it can never be the tile that hands someone the game, and with your own hand out of reach it costs you nothing. Flowers and unseen winds can still finish someone's hand, and a tile that fits the pattern of their exposures is the riskiest throw.",
-            sourceLabel: "Monthly Challenge",
+            sourceLabel: String(localized: "Monthly Challenge"),
             roomID: "table-room",
             isReviewable: false,
             choiceNotes: [
@@ -698,7 +714,7 @@ enum MonthlyChallengeContent {
             ],
             answerIndex: 0,
             explanation: "The player you fear could have called that exact tile a moment ago for mah jongg and did not, and the only tile drawn since is the one you just took. That makes your 6 Dot one of the safest throws you have. Not certain, since a player can miss a tile or pass on it, but it beats a fresh tile.",
-            sourceLabel: "Monthly Challenge",
+            sourceLabel: String(localized: "Monthly Challenge"),
             roomID: "table-room",
             isReviewable: false,
             choiceNotes: [

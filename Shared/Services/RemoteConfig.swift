@@ -31,19 +31,19 @@ enum TrialCTA: String, CaseIterable, Sendable {
 
     func title(_ surface: Surface) -> String {
         switch (self, surface) {
-        case (.sevenDay, .onboarding): return "Start 7-day free trial"
-        case (.sevenDay, .paywall): return "Start 7-Day Free Trial"
-        case (.my, .onboarding): return "Start my free trial"
-        case (.my, .paywall): return "Start My Free Trial"
-        case (.your, .onboarding): return "Start your free trial"
-        case (.your, .paywall): return "Start Your Free Trial"
+        case (.sevenDay, .onboarding): return String(localized: "Start 7-day free trial")
+        case (.sevenDay, .paywall): return String(localized: "Start 7-Day Free Trial")
+        case (.my, .onboarding): return String(localized: "Start my free trial")
+        case (.my, .paywall): return String(localized: "Start My Free Trial")
+        case (.your, .onboarding): return String(localized: "Start your free trial")
+        case (.your, .paywall): return String(localized: "Start Your Free Trial")
         }
     }
 
     /// An Apple Account that already had its free week is charged on day
     /// one, so its button promises no trial (3.1.2).
     func title(_ surface: Surface, trialEligible: Bool) -> String {
-        trialEligible ? title(surface) : "Join \(Membership.name)"
+        trialEligible ? title(surface) : String(localized: "Join \(Membership.name)")
     }
 }
 
@@ -58,15 +58,15 @@ enum TrialTitle: String, CaseIterable, Sendable {
 
     var text: String {
         switch self {
-        case .tryFree: return "Try \(Membership.name) free"
-        case .gameNight: return "Get ready for game night"
+        case .tryFree: return String(localized: "Try \(Membership.name) free")
+        case .gameNight: return String(localized: "Get ready for game night")
         }
     }
 
     /// Both arms read as a trial page, so an account without a free week
     /// gets the paywall's plain headline instead.
     func text(trialEligible: Bool) -> String {
-        trialEligible ? text : "Get \(Membership.name)"
+        trialEligible ? text : String(localized: "Get \(Membership.name)")
     }
 }
 
@@ -83,19 +83,19 @@ enum TrialBenefits: String, CaseIterable, Sendable {
         switch self {
         case .reassureFirst:
             return [
-                "Every beginner room is free, forever",
-                "Play coached practice hands, as many as you want",
-                "Endless Practice deals a fresh rack every time",
-                "Fix My Mistakes and Game Night Prep, from your misses",
-                "Extra sets in all four rooms, plus the Master Tables",
+                String(localized: "Every beginner room is free, forever"),
+                String(localized: "Play coached practice hands, as many as you want"),
+                String(localized: "Endless Practice deals a fresh rack every time"),
+                String(localized: "Fix My Mistakes and Game Night Prep, from your misses"),
+                String(localized: "Extra sets in all four rooms, plus the Master Tables"),
             ]
         case .paidFirst:
             return [
-                "Play coached practice hands, as many as you want",
-                "Endless Practice deals a fresh rack every time",
-                "Fix My Mistakes brings back what you miss",
-                "Game Night Prep, five minutes built from your misses",
-                "Extra sets in all four rooms, plus the Master Tables",
+                String(localized: "Play coached practice hands, as many as you want"),
+                String(localized: "Endless Practice deals a fresh rack every time"),
+                String(localized: "Fix My Mistakes brings back what you miss"),
+                String(localized: "Game Night Prep, five minutes built from your misses"),
+                String(localized: "Extra sets in all four rooms, plus the Master Tables"),
             ]
         }
     }

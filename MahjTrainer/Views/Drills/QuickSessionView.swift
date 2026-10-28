@@ -257,7 +257,7 @@ struct QuickSessionView: View {
                 Button {
                     advance()
                 } label: {
-                    Text(index + 1 < items.count ? "Next" : "Finish").primaryCTA(color: accent)
+                    Text(index + 1 < items.count ? String(localized: "Next") : String(localized: "Finish")).primaryCTA(color: accent)
                 }
             } else {
                 Text("\(index + 1) of \(items.count)")
@@ -347,7 +347,7 @@ struct QuickSessionView: View {
         streakBannerTrigger += 1
         let trigger = streakBannerTrigger
         withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.7)) {
-            streakBannerText = "\(streak) in a row!"
+            streakBannerText = String(localized: "\(streak) in a row!")
         }
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 1_600_000_000)

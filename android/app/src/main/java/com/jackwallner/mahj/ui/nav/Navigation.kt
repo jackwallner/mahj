@@ -22,7 +22,9 @@ import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModel
 import com.jackwallner.mahj.content.QuickItem
+import com.jackwallner.mahj.data.UnlockContinuation
 import com.jackwallner.mahj.content.MahjMinuteChallenge
 import com.jackwallner.mahj.content.PracticeSkill
 import com.jackwallner.mahj.data.MahjMinuteResult
@@ -62,6 +64,12 @@ sealed interface Route {
 }
 
 internal data class Entry(val id: Int, val route: Route)
+
+/** Keeps the active drill and its navigation entries through activity recreation. */
+class NavigationViewModel : ViewModel() {
+    val navigator = Navigator()
+    val upgrade = UnlockContinuation<Route>()
+}
 
 /** One navigation stack, the Compose counterpart of a `NavigationStack`. */
 @Stable

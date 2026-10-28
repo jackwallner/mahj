@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
@@ -199,6 +200,10 @@ private fun PipBlock(rank: Int, suit: Suit, width: Dp, color: Color) {
 /**
  * A wrapping row of tiles. Rows are balanced rather than filled: eight tiles
  * split 4 and 4, not 7 and a lone tile. A 13-tile rack reads 7 and 6.
+ *
+ * Tiles shrink to fit the width they are given: seven 44dp tiles need 344dp,
+ * and a 360dp phone has 328dp inside the screen padding, so without this the
+ * seventh tile of every rack question was cut off at the edge.
  */
 @Composable
 fun TileRack(
@@ -209,26 +214,31 @@ fun TileRack(
     onTap: ((Int) -> Unit)? = null,
 ) {
     val columns = 7
+    val gap = 6.dp
     val rowCount = maxOf(1, (tiles.size + columns - 1) / columns)
     val perRow = maxOf(1, (tiles.size + rowCount - 1) / rowCount)
     val rows = tiles.withIndex().chunked(perRow)
     val gold = Mahj.colors.gold
-    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        rows.forEach { row ->
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                row.forEach { (index, tile) ->
-                    val selected = index in highlighted
-                    val lift by animateDpAsState(if (selected) (-8).dp else 0.dp, spring(dampingRatio = 0.7f, stiffness = 500f), label = "lift")
-                    Box(Modifier.offset(y = lift)) {
-                        TileView(
-                            tile,
-                            tileWidth,
-                            tag = "rack-tile-$index",
-                            selected = selected,
-                            onClick = onTap?.let { tap -> { tap(index) } },
-                        )
-                        if (selected) {
-                            Box(Modifier.size(tileWidth, tileWidth * 1.35f).border(3.dp, gold, RoundedCornerShape(tileWidth * 0.16f)))
+    BoxWithConstraints(modifier, contentAlignment = Alignment.Center) {
+        val fitted = if (maxWidth.value.isFinite()) minOf(tileWidth, (maxWidth - gap * (perRow - 1)) / perRow) else tileWidth
+        val width = maxOf(fitted, 24.dp)
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            rows.forEach { row ->
+                Row(horizontalArrangement = Arrangement.spacedBy(gap)) {
+                    row.forEach { (index, tile) ->
+                        val selected = index in highlighted
+                        val lift by animateDpAsState(if (selected) (-8).dp else 0.dp, spring(dampingRatio = 0.7f, stiffness = 500f), label = "lift")
+                        Box(Modifier.offset(y = lift)) {
+                            TileView(
+                                tile,
+                                width,
+                                tag = "rack-tile-$index",
+                                selected = selected,
+                                onClick = onTap?.let { tap -> { tap(index) } },
+                            )
+                            if (selected) {
+                                Box(Modifier.size(width, width * 1.35f).border(3.dp, gold, RoundedCornerShape(width * 0.16f)))
+                            }
                         }
                     }
                 }

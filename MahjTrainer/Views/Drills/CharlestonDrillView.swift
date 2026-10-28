@@ -127,10 +127,10 @@ struct CharlestonDrillView: View {
 
     private var headline: String {
         switch matchCount {
-        case 3: return "Perfect pass! 3 of 3"
-        case 2: return "Close! 2 of 3 match"
-        case 1: return "1 of 3 matched the coach"
-        default: return "The coach saw it differently"
+        case 3: return String(localized: "Perfect pass! 3 of 3")
+        case 2: return String(localized: "Close! 2 of 3 match")
+        case 1: return String(localized: "1 of 3 matched the coach")
+        default: return String(localized: "The coach saw it differently")
         }
     }
 
@@ -153,7 +153,7 @@ struct CharlestonDrillView: View {
                 Button {
                     advance()
                 } label: {
-                    Text(index + 1 < scenarios.count ? "Next Deal" : "Finish").primaryCTA()
+                    Text(index + 1 < scenarios.count ? String(localized: "Next Deal") : String(localized: "Finish")).primaryCTA()
                 }
             } else {
                 Button {

@@ -12,7 +12,7 @@ enum CategoryContent {
             frontTiles: [.c(2), .dragon(.soap), .c(2), .b(6)],
             frontSubtitle: "2 - 0 - 2 - 6",
             backTitle: "Year Hands",
-            backBody: HandCategory.year.howToSpot + " The digits are easy to spot on a rack, but year lines are specific, so read them closely."
+            backBody: HandCategory.year.howToSpot + " " + ContentText.localized("The digits are easy to spot on a rack, but year lines are specific, so read them closely.")
         ),
         Flashcard(
             id: "cat-2468",
@@ -20,7 +20,7 @@ enum CategoryContent {
             frontTiles: [.c(2), .c(4), .b(6), .b(8)],
             frontSubtitle: "Even numbers only",
             backTitle: "2468",
-            backBody: HandCategory.evens2468.howToSpot + " If your deal is heavy on 2s, 4s, 6s and 8s, start here and pass every odd tile."
+            backBody: HandCategory.evens2468.howToSpot + " " + ContentText.localized("If your deal is heavy on 2s, 4s, 6s and 8s, start here and pass every odd tile.")
         ),
         Flashcard(
             id: "cat-like",
@@ -28,7 +28,7 @@ enum CategoryContent {
             frontTiles: [.c(5), .b(5), .d(5)],
             frontSubtitle: "Same number, different suits",
             backTitle: "Any Like Numbers",
-            backBody: HandCategory.likeNumbers.howToSpot + " A good fallback when one number keeps turning up in several suits."
+            backBody: HandCategory.likeNumbers.howToSpot + " " + ContentText.localized("A good fallback when one number keeps turning up in several suits.")
         ),
         Flashcard(
             id: "cat-quints",
@@ -36,7 +36,7 @@ enum CategoryContent {
             frontTiles: [.d(7), .d(7), .d(7), .d(7), .joker],
             frontSubtitle: "Five of a kind",
             backTitle: "Quints",
-            backBody: HandCategory.quints.howToSpot + " As a rule of thumb, don't commit to Quints with fewer than two jokers."
+            backBody: HandCategory.quints.howToSpot + " " + ContentText.localized("As a rule of thumb, don't commit to Quints with fewer than two jokers.")
         ),
         Flashcard(
             id: "cat-run",
@@ -44,7 +44,7 @@ enum CategoryContent {
             frontTiles: [.b(4), .b(5), .b(6), .b(7)],
             frontSubtitle: "Numbers in a row",
             backTitle: "Consecutive Run",
-            backBody: HandCategory.consecutiveRun.howToSpot + " Read the note beside each line, because a run that names its numbers cannot slide."
+            backBody: HandCategory.consecutiveRun.howToSpot + " " + ContentText.localized("Read the note beside each line, because a run that names its numbers cannot slide.")
         ),
         Flashcard(
             id: "cat-13579",
@@ -52,7 +52,7 @@ enum CategoryContent {
             frontTiles: [.c(1), .c(3), .d(5), .d(7), .d(9)],
             frontSubtitle: "Odd numbers only",
             backTitle: "13579",
-            backBody: HandCategory.odds13579.howToSpot + " Count how many lines your card gives this section. The more lines it has, the more places an odd-heavy deal can go."
+            backBody: HandCategory.odds13579.howToSpot + " " + ContentText.localized("Count how many lines your card gives this section. The more lines it has, the more places an odd-heavy deal can go.")
         ),
         Flashcard(
             id: "cat-winds",
@@ -60,7 +60,7 @@ enum CategoryContent {
             frontTiles: [.wind(.north), .wind(.east), .wind(.west), .wind(.south)],
             frontSubtitle: "N E W S + dragons",
             backTitle: "Winds & Dragons",
-            backBody: HandCategory.windsDragons.howToSpot + " Count the winds on your rack. With one or two, plan to pass them. With four or five, consider committing here."
+            backBody: HandCategory.windsDragons.howToSpot + " " + ContentText.localized("Count the winds on your rack. With one or two, plan to pass them. With four or five, consider committing here.")
         ),
         Flashcard(
             id: "cat-369",
@@ -68,7 +68,7 @@ enum CategoryContent {
             frontTiles: [.c(3), .b(6), .d(9)],
             frontSubtitle: "Threes, sixes, nines",
             backTitle: "369",
-            backBody: HandCategory.threeSixNine.howToSpot + " The 3s and 9s are odd and the 6s are even, so a 369 start can still move to 13579 or 2468."
+            backBody: HandCategory.threeSixNine.howToSpot + " " + ContentText.localized("The 3s and 9s are odd and the 6s are even, so a 369 start can still move to 13579 or 2468.")
         ),
         Flashcard(
             id: "cat-sp",
@@ -76,7 +76,7 @@ enum CategoryContent {
             frontTiles: [.c(1), .c(1), .b(3), .b(3)],
             frontSubtitle: "The no-joker zone",
             backTitle: "Singles & Pairs",
-            backBody: HandCategory.singlesAndPairs.howToSpot + " Because nothing can be called except the winning tile, every other tile must be drawn or come through the Charleston. That makes it a hard target for a new player."
+            backBody: HandCategory.singlesAndPairs.howToSpot + " " + ContentText.localized("Because nothing can be called except the winning tile, every other tile must be drawn or come through the Charleston. That makes it a hard target for a new player.")
         ),
         // Reading a single line of the card. The notation here is generic
         // teaching shorthand (a group of 4s, a D), never a line from the card.

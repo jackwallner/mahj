@@ -1,6 +1,7 @@
 package com.jackwallner.mahj.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,13 +14,18 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,6 +38,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jackwallner.mahj.BuildConfig
@@ -82,6 +89,9 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
     val service = graph.subscriptions
     var restoreMessage by remember { mutableStateOf<String?>(null) }
     var confirmReset by remember { mutableStateOf(false) }
+    var showReviewAccess by remember { mutableStateOf(false) }
+    var reviewCode by remember { mutableStateOf("") }
+    var reviewCodeRejected by remember { mutableStateOf(false) }
 
     MahjScreen("Settings", onBack = { navigator.pop() }) {
         Readable(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
@@ -115,8 +125,10 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
                 FormSection("Membership") {
                     if (service.isPro) {
                         FormRow("${Membership.NAME} unlocked", icon = "checkmark.seal.fill", tint = colors.jade)
-                        FormDivider()
-                        FormRow("Manage Subscription", onClick = { context.openUrl(StoreLinks.manageSubscriptionURL(service.activeProductId)) }) { Chevron() }
+                        service.activeProductId?.let { productId ->
+                            FormDivider()
+                            FormRow("Manage Subscription", onClick = { context.openUrl(StoreLinks.manageSubscriptionURL(productId)) }) { Chevron() }
+                        }
                     } else {
                         FormRow("Get ${Membership.NAME}", icon = "sparkles", onClick = { actions.openPaywall("mahj_settings_sheet") }) { PlusBadge() }
                     }
@@ -154,7 +166,9 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
                     FormRow("Send Feedback", icon = "envelope.fill", onClick = { actions.openFeedback() })
                 }
                 FormSection("About") {
-                    FormRow("Version") { Text(BuildConfig.VERSION_NAME, style = MahjType.body, color = colors.inkSecondary) }
+                    FormRow("Version", Modifier.combinedClickable(onClick = {}, onLongClick = { showReviewAccess = true })) {
+                        Text(BuildConfig.VERSION_NAME, style = MahjType.body, color = colors.inkSecondary)
+                    }
                     FormDivider()
                     Text(
                         "Mahj Trainer teaches American Mah Jongg skills with original practice hands. It is not affiliated with or endorsed by the National Mah Jongg League. For official hands and values, pick up the current NMJL card.",
@@ -175,6 +189,51 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
     }
 
     restoreMessage?.let { MahjAlert("Restore", it, onConfirm = { restoreMessage = null }) }
+    if (showReviewAccess) {
+        // Reviewer-only, but it still wears the app's palette rather than stock Material.
+        AlertDialog(
+            onDismissRequest = { showReviewAccess = false },
+            containerColor = colors.card,
+            titleContentColor = colors.ink,
+            textContentColor = colors.inkSecondary,
+            title = { Text("Review access", style = MahjType.headline) },
+            text = {
+                OutlinedTextField(
+                    value = reviewCode,
+                    onValueChange = { reviewCode = it; reviewCodeRejected = false },
+                    label = { Text("Access code") },
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation(),
+                    isError = reviewCodeRejected,
+                    supportingText = { if (reviewCodeRejected) Text("Code not recognized.") },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = colors.ink,
+                        unfocusedTextColor = colors.ink,
+                        cursorColor = colors.jade,
+                        focusedBorderColor = colors.jade,
+                        unfocusedBorderColor = colors.rule,
+                        focusedLabelColor = colors.jade,
+                        unfocusedLabelColor = colors.inkSecondary,
+                        errorBorderColor = colors.crakRed,
+                        errorLabelColor = colors.crakRed,
+                        errorSupportingTextColor = colors.crakRed,
+                    ),
+                    modifier = Modifier.testTag("review-access-code"),
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    if (service.activateReviewAccess(reviewCode)) {
+                        showReviewAccess = false
+                        reviewCode = ""
+                    } else reviewCodeRejected = true
+                }) { Text("Unlock", style = MahjType.headline, color = colors.jade) }
+            },
+            dismissButton = {
+                TextButton(onClick = { showReviewAccess = false }) { Text("Cancel", style = MahjType.body, color = colors.inkSecondary) }
+            },
+        )
+    }
     if (confirmReset) {
         MahjAlert(
             "Reset all progress?",
@@ -256,7 +315,7 @@ fun FeedbackSheet(onClose: () -> Unit) {
     val context = LocalContext.current
     val clipboard: ClipboardManager = LocalClipboardManager.current
     val colors = Mahj.colors
-    var text by remember { mutableStateOf("") }
+    var text by rememberSaveable { mutableStateOf("") }
     var mailFailed by remember { mutableStateOf(false) }
     val focus = remember { FocusRequester() }
     LaunchedEffect(Unit) { focus.requestFocus() }
