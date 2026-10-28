@@ -1,7 +1,9 @@
 package com.jackwallner.mahj.ui
 
 import android.Manifest
+import android.content.Intent
 import android.os.Build
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
@@ -16,15 +18,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.jackwallner.mahj.data.UnlockContinuation
 import com.jackwallner.mahj.AppGraph
 import com.jackwallner.mahj.data.AlarmReminderScheduler
 import com.jackwallner.mahj.ui.nav.LocalNavigator
 import com.jackwallner.mahj.ui.nav.NavStack
-import com.jackwallner.mahj.ui.nav.Navigator
+import com.jackwallner.mahj.ui.nav.NavigationViewModel
 import com.jackwallner.mahj.ui.nav.Route
 import com.jackwallner.mahj.ui.nav.SessionPurpose
 import com.jackwallner.mahj.ui.screens.DrillScreen
@@ -61,12 +65,13 @@ import kotlinx.coroutines.launch
 fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val navigator = remember { Navigator() }
-    val upgrade = remember { UnlockContinuation<Route>() }
-    var paywallSource by remember { mutableStateOf<String?>(null) }
-    var showWhatsNew by remember { mutableStateOf(false) }
-    var showFeedback by remember { mutableStateOf(false) }
-    var prepAfterUpgrade by remember { mutableStateOf(false) }
+    val navigation: NavigationViewModel = viewModel()
+    val navigator = navigation.navigator
+    val upgrade = navigation.upgrade
+    var paywallSource by rememberSaveable { mutableStateOf<String?>(null) }
+    var showWhatsNew by rememberSaveable { mutableStateOf(false) }
+    var showFeedback by rememberSaveable { mutableStateOf(false) }
+    var prepAfterUpgrade by rememberSaveable { mutableStateOf(false) }
     var pendingGrant by remember { mutableStateOf<(() -> Unit)?>(null) }
     val isPro = graph.subscriptions.isPro
 

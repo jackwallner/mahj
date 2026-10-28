@@ -3163,7 +3163,7 @@
         "2468 (Evens)",
         "Year Hands"
       ],
-      "explanation" : "2468 is the decoy since 2s and 6s are even. But the soaps are the giveaway: they stand in for the zeros in 2, 0, 2, 6. With no 4s or 8s and a fistful of flowers, this is a Year hand.",
+      "explanation" : "2468 is the decoy since 2s and 6s are even. But the soaps are the giveaway: they stand in for the zeros in 2, 0, 2, 6. With no 4s or 8s and three flowers, this is a Year hand.",
       "id" : "pro-rack-4",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -5049,7 +5049,7 @@
       "note" : "Right. The 3 Bam is outside the 2468 (Evens) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-1",
       "target" : "evens2468",
-      "value" : 6.1000000000000005,
+      "value" : 6.0999999999999996,
       "working" : 3
     },
     {
@@ -5058,7 +5058,7 @@
         "2D",
         "W"
       ],
-      "cost" : 0.60000000000000053,
+      "cost" : 0.59999999999999998,
       "discard" : "3B",
       "fitting" : 9,
       "note" : "The 3 Bam fits 13579 (Odds), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 4 Crak.",
@@ -5077,7 +5077,7 @@
         "2D",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.59999999999999998,
       "discard" : "3B",
       "fitting" : 4,
       "note" : "The 3 Bam fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 1 Crak.",
@@ -5138,7 +5138,7 @@
       "note" : "Right. The 1 Dot is outside the 2468 (Evens) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "evens2468",
-      "value" : 9.8999999999999986,
+      "value" : 9.9000000000000004,
       "working" : 4
     },
     {
@@ -5149,13 +5149,13 @@
         "GD",
         "E"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.59999999999999998,
       "discard" : "1D",
       "fitting" : 8,
       "note" : "The 1 Dot fits 13579 (Odds), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 2 Crak.",
       "seed" : "deal-2",
       "target" : "odds13579",
-      "value" : 10.499999999999998,
+      "value" : 10.5,
       "working" : 4
     },
     {
@@ -5183,13 +5183,13 @@
         "GD",
         "E"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.59999999999999998,
       "discard" : "1D",
       "fitting" : 10,
       "note" : "The 1 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 6 Bam.",
       "seed" : "deal-2",
       "target" : "consecutiveRun",
-      "value" : 11.699999999999998,
+      "value" : 11.699999999999999,
       "working" : 4
     },
     {
@@ -5208,7 +5208,7 @@
       "note" : "Right. The 1 Dot is outside the Winds & Dragons shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-2",
       "target" : "windsDragons",
-      "value" : 9.2999999999999989,
+      "value" : 9.3000000000000007,
       "working" : 4
     },
     {
@@ -5221,7 +5221,7 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.59999999999999998,
       "discard" : "6D",
       "fitting" : 5,
       "note" : "The 6 Dot fits 2468 (Evens), so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
@@ -5244,7 +5244,7 @@
       "note" : "Right. The 6 Dot is outside the 13579 (Odds) shape you are building, and tiles that don't fit your shape are the ones to spend first.",
       "seed" : "deal-3",
       "target" : "odds13579",
-      "value" : 7.2999999999999989,
+      "value" : 7.2999999999999998,
       "working" : 3
     },
     {
@@ -5255,13 +5255,13 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.59999999999999998,
       "discard" : "6D",
       "fitting" : 7,
       "note" : "The 6 Dot fits 369, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 5 Crak.",
       "seed" : "deal-3",
       "target" : "threeSixNine",
-      "value" : 7.2999999999999989,
+      "value" : 7.2999999999999998,
       "working" : 3
     },
     {
@@ -5271,13 +5271,13 @@
         "SO",
         "W"
       ],
-      "cost" : 0.59999999999999964,
+      "cost" : 0.59999999999999998,
       "discard" : "6D",
       "fitting" : 8,
       "note" : "The 6 Dot fits Consecutive Run, so throwing it costs you a tile you would have wanted back. The cheapest throw here was the 7 Bam.",
       "seed" : "deal-3",
       "target" : "consecutiveRun",
-      "value" : 7.8999999999999986,
+      "value" : 7.9000000000000004,
       "working" : 3
     },
     {

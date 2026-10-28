@@ -1,0 +1,117 @@
+# Android parity and Play release verification
+
+## Verified baseline
+
+- iOS 1.3.1, build 36: 167 unit tests and 3 screenshot UI tests passed.
+- Android build 4: 44 unit tests and 26 connected device tests passed on API 36.
+- Screenshot helper: 8 Python tests passed.
+- Minified QA reviewer access unlocked membership and survived a restart without a production RevenueCat connection.
+- Signed release bundle: package `com.jackwallner.mahj`, version 1.3.1 (4), target API 36. All four native libraries use at least 16 KB ELF load alignment.
+- Play internal track: build 4 active and installed from Google Play on the MacBook Pro. Production review request accepted with managed publishing enabled; Google quick checks completed; Console confirms the changes are now in review.
+
+## Coverage
+
+Onboarding and escape routes, free room completion, locked extra sets, membership access, deck flip and swipe grading, undo, Charleston selection and coaching, hand matching, hand completion and resume, glossary nicknames, all four generated skills, queue refill, daily challenge completion, game-night preparation, timed expiry, feedback drafts and selected purchase plans across activity recreation. Seeded racks, passes, defenses, hand scoring and daily challenges match the Swift exporter fixtures.
+
+## Commands
+
+```sh
+cd android
+./gradlew testDebugUnitTest
+ANDROID_SERIAL=emulator-5586 ./gradlew connectedDebugAndroidTest --max-workers=2
+./gradlew assembleQa assembleRelease bundleRelease --max-workers=2
+```
+
+```sh
+python3 -m unittest discover -s scripts/tests -v
+```
+
+## Evidence
+
+Runtime logs and captures are in `/tmp/mahj-ios-parity/` and `/tmp/mahj-android-parity/`. The passing Android instrumentation XML is in `/tmp/mahj-android-final-passing-results/`. Temporary evidence is local and is not committed. iOS captures include Home, quick sessions, card matching, Keep or Throw, Charleston, hand play, Reference, onboarding, primer, paywall, Settings and dark mode. A follow-up headless iOS run captured the first Meet the Tiles front, revealed answer and undo state. Runtime snapshots verify that a pre-reveal swipe does not advance, swipe right changes progress from 0 to 1, undo restores Craks and 0, and swipe left advances to Bams without increasing progress. Tapping the locked Extra Reps set opens the paywall. These match the assertions in Android `ParityFlowTest.deckRequiresFlipThenSupportsSwipeAndUndo`. Evidence is in `/tmp/mahj-ios-parity/deck-runtime-evidence.json`; the simulator lease was released afterward.
+
+## iOS protection
+
+Android uses RevenueCat project `projba4fbe38`, Play app `appeb48abdaf2`, its own `android` offering and a separate Test Store. The original iOS project is `proj28030dc2`. Its Apple products, current offering, entitlement metadata, packages and product assignments were compared against the pre-port snapshot and are identical. No iOS app source, signing credentials, App Store prices or App Store metadata have been changed. Android privacy disclosures use `android-privacy.html`; the existing shared privacy policy is outside this task commit. Android changes do not trigger an iOS release.
+
+## Remaining release checks
+
+Monthly, yearly and standard Lifetime purchase and restore passed. Content rating is saved. Build 4 production review has been requested, with managed publishing enabled. Google quick checks completed successfully. Inspect any generated pre-launch device report when available. The delayed Lifetime order ended refunded, so its approval completion remains unverified.
+
+## Play installation verification
+
+Build 1 was installed through Google Play on the signed-in remote Play AVD. Its installer is `com.android.vending` and the package has no debuggable flag. First-run pages, skill choice, free exit, tour escape and Home render correctly on the 720 x 1280 display. The monthly no-charge Google license-test purchase and restore have now passed in this Play-installed release.
+
+## Store setup status
+
+Data Safety is saved with purchase history, app interaction analytics and anonymous app identifiers, encrypted transit, no third-party sharing outside service-provider processing, and an email-based deletion request route. The Android privacy page is published and separate from the iOS page. Education and support contact details are saved. IARC Terms approval is pending. The complete English store listing, icon, feature graphic and eight phone screenshots were saved through the signed-in Console. Publishing overview confirms the listing is ready to send for review. The service account can stage these assets but cannot commit them with its current testing access. The requested permission expansion is optional now that Console billing edits work. The pre-launch report currently has no generated report and suggests a closed-testing upload. Sequential keyboard input resolved the plan-ID and price-editor issues. Production review remains incomplete.
+
+## Google billing verification
+
+All three Play products are active. Monthly uses base plan `monthly` (P1M), yearly uses `yearly` (P1Y), and lifetime uses backwards-compatible Buy option `lifetime`. Each subscription has active offer `trial-7d`: one P7D free phase in 174 regions, restricted to people who never had any subscription in this app. The Google API verifies these durations, eligibility rules and active states.
+
+Current Apple prices were read through GET requests, excluding preserved subscription cohorts. Google prices match those Apple prices exactly in all 127 shared markets using the same currency, for each of the three products. Other markets use the currencies and conversions supported by Google. The before/after Apple RevenueCat configuration still matches exactly across all five snapshot sections.
+
+Android RevenueCat products are monthly `prod3c3a1dfc62`, yearly `prod1c0204b5c3`, and lifetime `prod123d5bd30c`. They are attached to the corresponding packages in offering `android` and entitlement `pro`, within the separate Android project. The original iOS project has received no writes.
+
+The existing signed-in Play account is already in the selected license tester list; no account-wide license settings were changed. The Google purchase sheet explicitly displayed the test card and no-charge notice. Closing the monthly purchase sheet returned to the paywall without an error. Completing the test subscription unlocked Mahj+ in release build 1. RevenueCat reports the real receipt as Play Store, sandbox, trialing, `gives_access=true`, monthly product `prod3c3a1dfc62`, with entitlement `pro`. The in-app Restore Purchases action reported "Mahj+ restored!". Google accelerated the seven-day trial to three minutes for this test account.
+
+Price and trial verification artifacts are in `/tmp/mahj-google-*-verified-prices.json` and `/tmp/mahj-google-*-trial.json`. Private receipt and runtime diagnostics stay outside git. IARC terms approval remains pending.
+
+## Returning subscriber correction (build 2)
+
+The real Google yearly purchase sheet rejected a second free trial after the monthly test. Build 1 still advertised that trial. Android now derives subscription history from RevenueCat CustomerInfo, displays regular billing terms and a Subscribe action for returning subscribers, and purchases the paid base plan. New subscribers retain the original trial copy. Onboarding uses the same policy. Lifetime remains a one-time purchase. iOS source and configuration are unchanged.
+
+Four new policy tests and two device flows cover new and returning subscribers, both subscription periods, lifetime copy, unavailable prices, onboarding and activity recreation. All 40 unit tests and 25 device tests pass. Logs are `/tmp/mahj-trial-policy-unit.log`, `/tmp/mahj-trial-policy-connected.log` and `/tmp/mahj-trial-policy-release.log`. Device XML is saved in `/tmp/mahj-trial-policy-passing-results/`.
+
+The signed 1.3.1 (2) bundle is 6,432,623 bytes, SHA256 `157bea4283fca2778f13690c86299c51ab85a02d69690d7ce48db32441a8869c`. Its package and version are verified, and all four native libraries retain at least 16 KB ELF load alignment. The official Play CLI uploaded it, Console activated it, and the remote test device updated through Google Play. Installed versionCode is 2, installer is `com.android.vending`, and the package is not debuggable.
+
+The monthly test subscription was cancelled through the app's Manage Subscription route. Google confirmed cancellation, and the release app returned to free access after expiry. Annual and lifetime purchase verification remain pending.
+
+## Build 2 store-flow evidence
+
+The returning-subscriber paywall displays Subscribe and regular billing terms in the Play-installed build. Its yearly purchase selects the base plan, and the Google checkout omits the previous ineligible-trial warning. The no-charge yearly purchase unlocks Mahj+, has a sandbox receipt granting `pro`, and in-app restore reports "Mahj+ restored!". The yearly sandbox order was refunded and revoked for the next test; Google confirms it is a refunded test order with an expired test subscription. RevenueCat receipt refresh and in-app restore returned the app to free access.
+
+Lifetime uses Google's slow test card that approves after a few minutes. The checkout explicitly states this is a test order with no charge. The app displays the pending-payment explanation; RevenueCat has no lifetime purchase yet, and both prior subscription receipts have lost access. Completion and lifetime restore are pending.
+
+## Pending restore correction (build 3)
+
+Restoring while Google's delayed payment remained pending produced a generic retry error in build 2. Android now maps RevenueCat PaymentPendingError to the same pending-payment explanation used by purchase, while preserving retry messages for network and store failures. Two additional unit tests cover those cases. All 42 unit tests and 25 device tests pass; the QA APK, release APK and signed bundle build successfully. Evidence is in `/tmp/mahj-build3-full-verification.log` and `/tmp/mahj-build3-passing-results/`.
+
+Signed bundle SHA256 is `2c933f8e5439b10bdb3f1e0696930952898b8e5222564383772aba0ae2e78c54`. Version 1.3.1 (3) is active and available to internal testers, not reviewed. Play installation of build 3 and the remaining delayed Lifetime completion/restore check are pending. IARC terms consent is still required.
+
+## Lifetime verification and management correction (build 4)
+
+Google's delayed Lifetime test order ended as refunded. It verified pending-state messaging and absence of entitlement access; approval completion for that delayed order was not verified. A subsequent standard no-charge test card purchase succeeded in Play-installed build 3, unlocked Mahj+, and produced a sandbox Play Store one-time receipt for `prod123d5bd30c` attached to `pro`. In-app restore reported "Mahj+ restored!".
+
+The Lifetime membership incorrectly exposed a subscription-specific Google link, which returned "We couldn't find your subscription." Android now derives the management target from active subscriptions and displays that row only when such a subscription exists. Lifetime restore stays available. Two unit cases and one device flow cover the correction; all 44 unit tests and 26 device tests pass, and QA, release APK and signed bundle builds succeed. Logs are `/tmp/mahj-build4-full-verification.log`; XML is in `/tmp/mahj-build4-passing-results/`.
+
+IARC terms were accepted with explicit user approval on October 8. The completed questionnaire returns Everyone (ESRB), PEGI 3, and equivalent all-ages ratings, with In-App Purchases disclosed. The rating is saved for review.
+
+Build 4 signed bundle SHA256 is `ed9fcb1d0c4508e3b10c96f869ddaa6a711eab06064ab927446c6323de0b43bc`. Build 4 is active on internal testing and installed from Google Play on the MacBook Pro. The release package is non-debuggable, installer com.android.vending. Lifetime Settings hides Manage Subscription while retaining Restore Purchases; restore reports "Mahj+ restored!". The existing iOS app source, release and RevenueCat configuration remain unchanged.
+
+## Review request accepted (October 8)
+
+Google accepted submission of 17 changes, including production 1.3.1 (4), full rollout to 177 countries/regions plus Rest of World, the US Alpha test, listing and policy declarations. Quick checks completed successfully. Publishing overview confirms "Your changes are now in review" and lists production build 4 and the submitted metadata. Managed publishing is on, so approved changes remain held for publication. This is a review request, not a public release.
+
+The pre-launch overview currently has no generated device report. Google documents that reports run on bundle upload or a saved production release subject to device-lab capacity. Production was saved to trigger that path. Do not report a passing Google device-lab result until one exists.
+
+All further emulator work uses the MacBook Pro only, per Jack's instruction. The Air's Mahj emulator is absent. The Pro Play AVD retains its account, installation and sandbox Lifetime purchase. Its emulator process was stopped after verification.
+
+## Final content audit (October 8, 13:44 UTC)
+
+Reran `./scripts/sync-android-content.sh` against the current Swift source. Both exported JSON files remain byte-identical to git. The `mahj-content.json` embedded in the signed build 4 bundle is byte-identical to this fresh export. The bundle hash remains the submitted build 4 hash above.
+
+The existing passing generator parity tests compare all 129 prepared choice items and their shuffled coaching notes, 62 free and 129 member reviewable IDs, 25 permutations, five RNG streams, three rack/pass/defense batches each, three hand deals, 15 hand-scoring cases, 25 verdicts and four daily challenges against Swift fixtures. Property tests additionally exercise legal generated racks, passes, defense choices and hand play. Device tests cover the corresponding navigation, grading, locking, persistence and purchase copy.
+
+| Requirement | Current evidence | State |
+| --- | --- | --- |
+| Shared teaching content and deterministic behavior | Fresh Swift export matches git and the shipped bundle; passing parity assertions | Verified |
+| Feature flows and rendered screens | iOS runtime captures and passing Android device assertions described above | Verified for documented coverage |
+| Billing and restore | Play-installed no-charge monthly, yearly and standard Lifetime purchases, sandbox receipts and restores | Verified; delayed order approval completion remains unverified |
+| Preserve existing iOS | Separate Android RevenueCat project; identical five-section iOS snapshot; no iOS release | Verified |
+| Pro-only emulator work | Air device list empty; Pro test completed and owned emulator stopped | Verified |
+| Production submission | Console confirms build 4 changes in review, managed publishing on | Verified |
+| Google device-lab report | Live overview still has no report after bundle upload and saved production release | Unavailable |
+
+Google [documents capacity-dependent device-lab report generation](https://support.google.com/googleplay/android-developer/answer/9842757?hl=en-GB). The report is not a passing result and cannot be inspected until Google generates it. The goal remains active for this check.

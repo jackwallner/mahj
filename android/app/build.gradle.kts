@@ -12,6 +12,7 @@ val localProperties = Properties().apply {
 
 val playKey = localProperties.getProperty("REVENUECAT_PLAY_KEY", "")
 val testKey = localProperties.getProperty("REVENUECAT_TEST_KEY", "")
+val reviewCodeDigest = localProperties.getProperty("PLAY_REVIEW_CODE_SHA256", "")
 val uploadKeyStore = localProperties.getProperty("PLAY_UPLOAD_KEYSTORE", "")
 val uploadKeyAlias = localProperties.getProperty("PLAY_UPLOAD_KEY_ALIAS", "")
 val uploadStorePassword = localProperties.getProperty("PLAY_UPLOAD_STORE_PASSWORD", "")
@@ -20,6 +21,9 @@ val uploadKeyPassword = localProperties.getProperty("PLAY_UPLOAD_KEY_PASSWORD", 
 val validateReleaseConfiguration = tasks.register("validateReleaseConfiguration") {
     doLast {
         check(playKey.startsWith("goog_")) { "Set REVENUECAT_PLAY_KEY in android/local.properties before a release build." }
+        check(reviewCodeDigest.matches(Regex("[a-f0-9]{64}"))) {
+            "Set PLAY_REVIEW_CODE_SHA256 in android/local.properties before submitting a release."
+        }
         check(uploadKeyStore.isNotBlank() && rootProject.file(uploadKeyStore).isFile) {
             "Set PLAY_UPLOAD_KEYSTORE to the external upload keystore before a release build."
         }
@@ -37,12 +41,13 @@ android {
         applicationId = "com.jackwallner.mahj"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
+        versionCode = 7
         versionName = "1.3.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Every connected test starts from a clean install: no progress, no purchase.
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
         buildConfigField("String", "REVENUECAT_API_KEY", "\"$testKey\"")
+        buildConfigField("String", "PLAY_REVIEW_CODE_SHA256", "\"$reviewCodeDigest\"")
     }
 
     buildFeatures {
@@ -67,6 +72,8 @@ android {
         }
         release {
             isMinifyEnabled = true
+            // Play's release dashboard flags an unshrunk bundle as a memory cost.
+            isShrinkResources = true
             if (uploadKeyStore.isNotBlank()) signingConfig = signingConfigs.getByName("playUpload")
             buildConfigField("String", "REVENUECAT_API_KEY", "\"$playKey\"")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
@@ -128,4 +135,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")
+
+    constraints {
+        // review-ktx 2.0.2 pulls fragment 1.1.0, which Play reports as outdated.
+        implementation("androidx.fragment:fragment:1.8.9") { because("Play flags fragment 1.1.0 as an outdated SDK") }
+    }
 }
