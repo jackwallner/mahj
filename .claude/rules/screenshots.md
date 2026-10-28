@@ -48,6 +48,9 @@ a streak, again after `QA.relaunch`. It must not pass launch arguments for
 anything it asserts: arguments win over saved values on every relaunch. The
 helpers that call `QA.checkpoint` take `journey: String = #function`, so
 findings carry the test's name (ledger matches before 1.4.2's batch 7 said
-`home(_:in:)`). DEBUG builds log `launch-timing` lines (process start to the
+`home(_:in:)`). `back(in:)` taps the `BackButton` identifier first: the iPhone Duo draws a
+pushed screen's back button in a side bar, and the navigation bar's first
+button there is Home's (gate run 6 left the drill open beside Home, so no
+Resume card). DEBUG builds log `launch-timing` lines (process start to the
 App's init, the first appear and the commit after it) for blank-launch
 findings.
