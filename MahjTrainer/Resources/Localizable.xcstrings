@@ -3246,7 +3246,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$lld aciertos, %2$lld fallos"
+            "value": "Aciertos: %1$lld, fallos: %2$lld"
           }
         },
         "fr": {
@@ -4622,7 +4622,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une question difficile"
+            "value": "Minute difficile"
           }
         },
         "id": {
@@ -4692,7 +4692,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "ENCORE"
+            "value": "À REVOIR"
           }
         },
         "id": {
@@ -4867,7 +4867,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Encore"
+            "value": "À revoir"
           }
         },
         "id": {
@@ -4902,7 +4902,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les %lld"
+            "value": "Toutes (%lld)"
           }
         },
         "id": {
@@ -5089,7 +5089,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Số giống nhau"
+            "value": "Cùng số bất kỳ"
           }
         }
       }
@@ -5217,7 +5217,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "À table"
+            "value": "À la table"
           }
         },
         "id": {
@@ -5392,7 +5392,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Retour demain"
+            "value": "De retour demain"
           }
         },
         "id": {
@@ -5841,7 +5841,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Totalmente nuevo"
+            "value": "Empiezo de cero"
           }
         },
         "fr": {
@@ -5853,13 +5853,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Baru"
+            "value": "Pemula"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hoàn toàn mới"
+            "value": "Mới bắt đầu"
           }
         }
       }
@@ -9523,7 +9523,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bon entraînement !"
+            "value": "Bel entraînement !"
           }
         },
         "id": {
@@ -9535,7 +9535,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Làm tốt lắm!"
+            "value": "Luyện tập tốt lắm!"
           }
         }
       }
@@ -9676,7 +9676,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Phát"
+            "value": "Rồng Xanh"
           }
         }
       }
@@ -9711,7 +9711,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Phát"
+            "value": "Rồng Xanh"
           }
         }
       }
@@ -10545,13 +10545,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kenali dasar-dasarnya"
+            "value": "Paham dasarnya"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nắm vững căn bản"
+            "value": "Biết căn bản"
           }
         }
       }
@@ -11193,7 +11193,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mahj Minute"
+            "value": "Mahj-Minute"
           }
         },
         "es": {
@@ -11228,7 +11228,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mahj Minute %@"
+            "value": "Mahj-Minute %@"
           }
         },
         "es": {
@@ -11370,7 +11370,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mahj Minute: Charleston"
+            "value": "Mahj-Minute: Charleston"
           }
         },
         "es": {
@@ -11405,7 +11405,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mahj Minute: Rack lesen"
+            "value": "Mahj-Minute: Rack lesen"
           }
         },
         "es": {
@@ -11878,7 +11878,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Menit selesai"
+            "value": "Mahj Minute selesai"
           }
         },
         "vi": {
@@ -12076,7 +12076,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "LO PRÓXIMO"
+            "value": "A CONTINUACIÓN"
           }
         },
         "fr": {
@@ -12111,19 +12111,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "SIN SUSCRIPCIÓN"
+            "value": "PAGO ÚNICO"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "SANS ABONNEMENT"
+            "value": "ACHAT UNIQUE"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "TANPA LANGGANAN"
+            "value": "SEKALI BAYAR"
           }
         },
         "vi": {
@@ -12132,7 +12132,8 @@
             "value": "MUA MỘT LẦN"
           }
         }
-      }
+      },
+      "comment": "Paywall badge on a plan row. Short ALL-CAPS pill; must fit about 14 characters. Shown on the lifetime plan: it is a one-time purchase."
     },
     "Needs five of a kind, and only four of each tile exist, so quints are impossible without jokers. Only chase these when you're joker-rich.": {
       "extractionState": "manual",
@@ -12350,7 +12351,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nächstes Blatt"
+            "value": "Nächste Hand"
           }
         },
         "es": {
@@ -13979,7 +13980,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Menit sempurna!"
+            "value": "Mahj Minute sempurna!"
           }
         },
         "vi": {
@@ -14136,7 +14137,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heutige Mahj Minute spielen"
+            "value": "Heutige Mahj-Minute spielen"
           }
         },
         "es": {
@@ -14451,7 +14452,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ausspielen"
+            "value": "Zu Ende spielen"
           }
         },
         "es": {
@@ -16131,7 +16132,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heutige Mahj Minute fortsetzen"
+            "value": "Heutige Mahj-Minute fortsetzen"
           }
         },
         "es": {
@@ -16471,7 +16472,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "TIẾT KIỆM %lld%%"
+            "value": "GIẢM %lld%%"
           }
         }
       }
@@ -16506,7 +16507,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "RỒNG TRẮNG"
+            "value": "TRẮNG"
           }
         }
       }
@@ -16879,7 +16880,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Voir mes erreurs"
+            "value": "Voir vos erreurs"
           }
         },
         "id": {
@@ -17725,7 +17726,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Menit Mantap"
+            "value": "Mahj Minute mantap"
           }
         },
         "vi": {
@@ -18672,7 +18673,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "RUANG-RUANG"
+            "value": "RUANGAN"
           }
         },
         "vi": {
@@ -20965,7 +20966,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die heutige Mahj-Minute"
+            "value": "Heutige Mahj-Minute"
           }
         },
         "es": {
@@ -20989,7 +20990,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Phút luyện Mahj hôm nay"
+            "value": "Mahj Minute hôm nay"
           }
         }
       }
@@ -21047,7 +21048,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "La séance du jour est terminée"
+            "value": "La session du jour est terminée"
           }
         },
         "id": {
@@ -21538,19 +21539,19 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deux compétences supplémentaires en illimité"
+            "value": "Deux compétences de plus en entraînement infini"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dua keterampilan tanpa batas lagi"
+            "value": "Dua keterampilan baru di Latihan Tanpa Batas"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Thêm hai kỹ năng vô tận"
+            "value": "Thêm hai kỹ năng Luyện tập vô tận"
           }
         }
       }
@@ -21942,7 +21943,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "CE QUE VOUS AVEZ EN MAIN"
+            "value": "CE QUI EST ACQUIS"
           }
         },
         "id": {
@@ -22047,7 +22048,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Arrivez confiant"
+            "value": "Arrivez en confiance"
           }
         },
         "id": {
@@ -22258,7 +22259,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Rappel hebdomadaire de la soirée de mahjong"
+            "value": "Rappel hebdomadaire de la soirée de jeu"
           }
         },
         "id": {
@@ -22322,7 +22323,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Viento del Oeste"
+            "value": "Viento del oeste"
           }
         },
         "fr": {
@@ -22357,7 +22358,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vientos del Oeste"
+            "value": "Vientos del oeste"
           }
         },
         "fr": {
@@ -22503,7 +22504,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "C'est quand, votre soirée de mahjong ?"
+            "value": "C'est quand, votre soirée de jeu ?"
           }
         },
         "id": {
@@ -22707,7 +22708,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vientos y Dragones"
+            "value": "Vientos y dragones"
           }
         },
         "fr": {
@@ -22742,7 +22743,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vientos y Dragones"
+            "value": "Vientos y dragones"
           }
         },
         "fr": {
@@ -22865,7 +22866,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "GIÁ BÀI CUỐI VÁN"
+            "value": "BÀI CUỐI CỦA BẠN"
           }
         }
       }
@@ -23005,7 +23006,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bộ bài Năm"
+            "value": "Tay bài Năm"
           }
         }
       }
@@ -23926,7 +23927,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dein Blatt"
+            "value": "Deine Hand"
           }
         },
         "es": {
@@ -24521,7 +24522,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "einen Pung aus %@"
+            "value": "einen Pung %@"
           }
         },
         "es": {
