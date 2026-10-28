@@ -11971,25 +11971,25 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "SIN SUSCRIPCIÓN"
+            "value": "PAGO ÚNICO"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "SANS ABONNEMENT"
+            "value": "ACHAT UNIQUE"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "BUKAN LANGGANAN"
+            "value": "SEKALI BAYAR"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "KHÔNG ĐĂNG KÝ"
+            "value": "MUA MỘT LẦN"
           }
         }
       }
