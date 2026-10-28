@@ -126,7 +126,9 @@ compact switch never scrolls an unanswered prompt away). The scroll uses
 the `.top` anchor: clamped by the scroll range it lands where `.bottom` did
 whenever the note fits, and a note taller than the screen (AX3) starts at
 its first line instead of under the navigation bar. Checked by
-`OrdinaryRunTests.testCoachingNoteScrollsAboveNextAtAX3`. `OnboardingView` draws
+`OrdinaryRunTests.testCoachingNoteScrollsAboveNextAtAX3`. Home's Reference button carries its label on the image: a
+`NavigationLink` in the toolbar read the symbol name ("book") and dropped
+a label set on the link. `OnboardingView` draws
 `Theme.background` under its stage change, or the trial-to-tour transition
 flashed the bare white window. Apple's contrast audit flags
 text that draws at 7 to 15:1 (it samples off-element pixels); those are
