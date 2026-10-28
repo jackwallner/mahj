@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/best-american-mahjong-app.html
 
 ## Best American Mahjong App
 
-By Jack Wallner · Last updated October 21, 2026
+By Jack Wallner · Last updated October 28, 2026
 
 **Best for learning from scratch:** MAHJ: Learn American Mahjong, an 18-lesson course with a one-time purchase. **Best for seeing which card hand your tiles fit:** American Mahjong Practice. **Best for full games against bots with the official card:** Maylee. **Best for a guided plan and an Apple Watch drill:** Mahjong Trainer: Learn & Win. **Best for short drills with the reason on every answer:** Mahj Trainer, the app I make.
 
