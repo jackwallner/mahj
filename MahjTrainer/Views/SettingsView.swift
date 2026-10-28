@@ -88,6 +88,15 @@ struct SettingsView: View {
         }
     }
 
+    /// The language the app is running in, named in that language, as iOS
+    /// Settings names it ("Deutsch", "Español").
+    private static var currentLanguageName: String {
+        let code = Bundle.main.preferredLocalizations.first ?? "en"
+        let locale = Locale(identifier: code)
+        guard let name = locale.localizedString(forLanguageCode: code) else { return code }
+        return name.prefix(1).uppercased(with: locale) + name.dropFirst()
+    }
+
     /// The system header grey measured under 4.5:1 on the cream.
     private func sectionHeader(_ title: LocalizedStringKey) -> some View {
         Text(title).foregroundStyle(Theme.inkSecondary)
@@ -100,6 +109,28 @@ struct SettingsView: View {
                     Text(appearance.displayName).tag(appearance)
                 }
             }
+            // iOS keeps the per-app language on the app's own Settings page,
+            // where few players think to look. This row only points there.
+            Button {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    openURL(url)
+                }
+            } label: {
+                LabeledContent {
+                    HStack(spacing: 6) {
+                        Text(Self.currentLanguageName).foregroundStyle(Theme.inkSecondary)
+                        // Leaves the app, so the outward arrow rather than a
+                        // chevron, which would promise a page inside it.
+                        Image(systemName: "arrow.up.forward")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(Theme.inkTertiary)
+                            .accessibilityHidden(true)
+                    }
+                } label: {
+                    Text("Language").foregroundStyle(Theme.ink)
+                }
+            }
+            .accessibilityHint("Opens iOS Settings")
         } header: {
             sectionHeader("Appearance")
         }

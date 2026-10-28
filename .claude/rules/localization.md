@@ -87,3 +87,13 @@ to about ten screens or GitHub's job cap cuts the screenshots short. Look for
 truncation, clipped buttons, leftover English, and a soft exit that repeats
 the trial button's verb (Spanish and Indonesian did). The simulator's
 storefront is US, so a non-US locale shows US prices; that is expected.
+
+## Language row (2026-10-28)
+
+Settings > Appearance > Language names the running localization in itself
+(`Bundle.main.preferredLocalizations`) and opens `openSettingsURLString`,
+Apple's recommended route for a per-app language change. iOS hides the
+app's Language option on a device with one preferred language unless
+`UIPrefersShowingLanguageSettings` is YES in `Info.plist` (WWDC24 10185), so
+keep that key. The simulator's Settings opens at its root for this link;
+check the landing on a real iPhone.
