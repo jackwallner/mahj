@@ -48,6 +48,7 @@ final class ReleaseJourneysUITests: XCTestCase {
             "-whatsnew.lastSeenVersion", "99",
         ])
         home("home", in: app)
+        XCTAssertTrue(app.buttons["Reference and glossary"].firstMatch.exists, "the Reference button reads its symbol name")
 
         // "Resume Quick Session" when an earlier test left a run.
         let session = app.buttons.matching(NSPredicate(

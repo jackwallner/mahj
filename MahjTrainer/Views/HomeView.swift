@@ -652,10 +652,12 @@ struct HomeView: View {
         paneLink("reference") {
             ReferenceView()
         } label: {
+            // On the image: a NavigationLink in the toolbar read the symbol
+            // name ("book") and dropped a label set on the link (1.4.2 gate).
             Image(systemName: "book")
                 .foregroundStyle(Theme.inkSecondary)
+                .accessibilityLabel("Reference and glossary")
         }
-        .accessibilityLabel("Reference and glossary")
     }
 
     private var settingsButton: some View {
