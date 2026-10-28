@@ -235,6 +235,11 @@ final class ReleaseJourneysUITests: XCTestCase {
     }
 
     private func back(in app: XCUIApplication) {
+        // The iPhone Duo draws a pushed screen's back button in a bar down
+        // the side, named only by its identifier; the navigation bar's first
+        // button there is Home's.
+        let side = app.buttons["BackButton"].firstMatch
+        if side.exists, side.isHittable { side.tap(); return }
         let bar = app.navigationBars.buttons.firstMatch
         if bar.waitForExistence(timeout: 5), bar.label != "Settings" { bar.tap(); return }
         for name in ["Close", "Done", "Back"] where app.buttons[name].exists {
