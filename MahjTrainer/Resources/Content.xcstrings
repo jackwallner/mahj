@@ -89,7 +89,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "1-2-3 en Crak, 2-3-4 en Bam et une paire de 3 Dot : une suite consécutive dans les petits chiffres. Le 8 Crak et le 9 Bam sont peu probables pour une suite bâtie sur 1 à 4, et l'Ouest est un vent isolé."
+            "value": "1-2-3 en Crak, 2-3-4 en Bam et une paire de 3 Dot : le début d'une Suite dans les petits chiffres. Le 8 Crak et le 9 Bam sont peu probables pour une suite bâtie sur 1 à 4, et l'Ouest est un vent isolé."
           }
         },
         "id": {
@@ -124,7 +124,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "108 tuiles chiffrées (trois familles, 1-9, quatre de chaque) + 16 vents + 12 dragons + 8 fleurs + 8 jokers = 152. C'est 8 de plus que le jeu chinois habituel de 144 tuiles, et ces 8 sont les jokers."
+            "value": "108 tuiles numérotées (trois familles, 1-9, quatre de chaque) + 16 vents + 12 dragons + 8 fleurs + 8 jokers = 152. C'est 8 de plus que le jeu chinois habituel de 144 tuiles, et ces 8 sont les jokers."
           }
         },
         "id": {
@@ -614,7 +614,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "2468 est le leurre, puisque les 2 et les 6 sont pairs. Mais les Soap vous trahissent : ils remplacent les zéros de 2, 0, 2, 6. Sans 4 ni 8 et avec trois fleurs, c'est une main de l'année."
+            "value": "2468 est le leurre, puisque les 2 et les 6 sont pairs. Mais ce sont les Soap qui trahissent la main : ils remplacent les zéros de 2, 0, 2, 6. Sans 4 ni 8 et avec trois fleurs, c'est une main de l'année."
           }
         },
         "id": {
@@ -742,7 +742,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "3-4-5 in Bam und 4-5-6 in Dot mit einem Paar 6-Dot-Steinen und einem 6-Crak-Stein: Dieses Rack führt durch mittlere Zahlen und zeigt den Anfang einer Folge. Die 1 Bam und 9 Dot sind für eine Folge von 3 bis 6 unwahrscheinlich, und der Nord ist ein einzelner Wind."
+            "value": "3-4-5 in Bam und 4-5-6 in Dot mit einem Paar 6-Dot-Steinen und einem 6-Crak-Stein: Dieses Rack führt durch mittlere Zahlen und zeigt den Anfang einer Folge. Die 1 Bam und 9 Dot sind für eine Folge von 3 bis 6 unwahrscheinlich, und der Nordwind ist ein Einzelstein."
           }
         },
         "es": {
@@ -894,7 +894,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "369 et une suite se chevauchent ici. 369 utilise dix de vos douze chiffres, tous les 3, 6 et 9. Une suite sur le noyau 3-4-5-6 en utilise huit, et elle ne peut pas atteindre vos quatre 9 sans les 7 et les 8 qui vous manquent. 369 est devant : engagez-vous, gardez les paires de 6 Dot et de 9 Crak, et passez le 4 Bam et le 5 Bam, dont 369 n'a pas l'usage, avec le Nord isolé."
+            "value": "369 et une suite se chevauchent ici. 369 utilise dix de vos douze chiffres, tous les 3, 6 et 9. Une suite sur le noyau 3-4-5-6 en utilise huit, et elle ne peut pas atteindre vos quatre 9 sans les 7 et les 8 qui vous manquent. 369 a l'avantage : engagez-vous, gardez les paires de 6 Dot et de 9 Crak, et passez le 4 Bam et le 5 Bam, dont 369 n'a pas l'usage, avec le Nord isolé."
           }
         },
         "id": {
@@ -964,7 +964,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "369 a besoin de ses 6. Sans eux, les mêmes 3 et 9 ne forment qu'une main d'impairs."
+            "value": "369 a besoin de ses 6. Sans eux, les mêmes 3 et 9 ne forment qu'une main impaire."
           }
         },
         "id": {
@@ -1582,7 +1582,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "8 Blumensteine, und im American Mahj sind sie alle austauschbar. Jede Blume passt überall, wo die Karte ein F zeigt. Viele Kartenhände nutzen Blumen, also behalte sie früh."
+            "value": "8 Blumensteine, und im American Mahj sind sie alle austauschbar. Jede Blume passt überall, wo die Karte ein F zeigt. Viele Kartenhände nutzen Blumen, also behalte sie von Anfang an."
           }
         },
         "es": {
@@ -1734,7 +1734,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un 1 est impair et ce n'est pas un 4 : il ne correspond ni à la catégorie Nombres identiques ni à la catégorie Pairs. Le 4 Bam convient aux deux."
+            "value": "Un 1 est impair et ce n'est pas un 4 : il ne correspond ni à la section Nombres identiques ni à la section Pairs. Le 4 Bam convient aux deux."
           }
         },
         "id": {
@@ -2014,7 +2014,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un 4 est pair et ce n'est pas un 1 : il ne correspond ni à la catégorie Nombres identiques ni à la catégorie Impairs. Le 1 Crak convient aux deux."
+            "value": "Un 4 est pair et ce n'est pas un 1 : il ne correspond ni à la section Nombres identiques ni à la section Impairs. Le 1 Crak convient aux deux."
           }
         },
         "id": {
@@ -2119,7 +2119,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un 6 est pair et ce n'est pas un 1 : il ne correspond ni à la catégorie Nombres identiques ni à la catégorie Impairs. Le 1 Crak convient aux deux."
+            "value": "Un 6 est pair et ce n'est pas un 1 : il ne correspond ni à la section Nombres identiques ni à la section Impairs. Le 1 Crak convient aux deux."
           }
         },
         "id": {
@@ -2189,7 +2189,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un 7 est impair et ce n'est pas un 4 : il ne correspond ni à la catégorie Nombres identiques ni à la catégorie Pairs. Le 4 Bam convient aux deux."
+            "value": "Un 7 est impair et ce n'est pas un 4 : il ne correspond ni à la section Nombres identiques ni à la section Pairs. Le 4 Bam convient aux deux."
           }
         },
         "id": {
@@ -2259,7 +2259,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un 9 est impair et ce n'est pas un 4 : il ne correspond ni à la catégorie Nombres identiques ni à la catégorie Pairs. Le 4 Bam convient aux deux."
+            "value": "Un 9 est impair et ce n'est pas un 4 : il ne correspond ni à la section Nombres identiques ni à la section Pairs. Le 4 Bam convient aux deux."
           }
         },
         "id": {
@@ -2405,13 +2405,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah baris Urutan dicetak dengan angka 1, 2, dan 3."
+            "value": "Baris Urutan dicetak dengan angka 1, 2, dan 3."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một dòng Dãy liên tiếp được in bằng các quân 1, 2 và 3."
+            "value": "Một dòng Dãy liên tiếp được in bằng các số 1, 2 và 3."
           }
         }
       }
@@ -2492,7 +2492,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Zeile für gleiche Zahlen zeigt 1er."
+            "value": "Eine Zeile für gleiche Zahlen zeigt 1er."
           }
         },
         "es": {
@@ -2510,13 +2510,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah baris Angka Sama dicetak dengan angka 1."
+            "value": "Baris Angka Sama dicetak dengan angka 1."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một dòng Số giống nhau được in bằng các quân 1."
+            "value": "Một dòng Số giống nhau được in bằng số 1."
           }
         }
       }
@@ -2737,7 +2737,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eine tote Hand kann nicht gewinnen und zieht und wirft nicht mehr ab, aber du sitzt weiter am Tisch und zahlst dem Gewinner wie alle anderen."
+            "value": "Eine tote Hand kann nicht gewinnen, zieht nicht mehr und wirft nicht mehr ab, aber du sitzt weiter am Tisch und zahlst dem Gewinner wie alle anderen."
           }
         },
         "es": {
@@ -2784,7 +2784,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une défausse peut être appelée pour un pung ou un groupe plus grand, mais pour une paire ou une tuile isolée seulement quand elle complète mah jongg. Une tuile qui ne va que dans la paire de quelqu'un n'est donc dangereuse que si c'est sa dernière tuile."
+            "value": "Une défausse peut être appelée pour un pung ou un groupe plus grand, mais pour une paire ou une tuile isolée seulement si elle permet de faire mah jongg. Une tuile qui ne va que dans la paire de quelqu'un n'est donc dangereuse que si c'est sa dernière tuile."
           }
         },
         "id": {
@@ -2860,7 +2860,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah buangan akan menyelesaikan kong untukmu. Bisakah kamu memanggilnya?"
+            "value": "Ada buangan yang bisa melengkapi kong-mu. Bisakah kamu memanggilnya?"
           }
         },
         "vi": {
@@ -2912,7 +2912,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein abgeworfener Joker ist tot, also kann ihn niemand für irgendetwas rufen. Er ist sicher abzuwerfen, aber du gibst deinen flexibelsten Stein her, deshalb lohnt es sich selten."
+            "value": "Ein abgeworfener Joker ist tot, also kann ihn niemand für irgendetwas rufen. Er ist ein sicherer Abwurf, aber du gibst deinen flexibelsten Stein her, deshalb lohnt es sich selten."
           }
         },
         "es": {
@@ -2953,13 +2953,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un comodín descartado está muerto: nadie puede cantarlo, ni para una exposición ni para mah jongg. Eso lo hace un descarte seguro, pero regalas la ficha más flexible del juego y le dices a la mesa que te sobraba uno."
+            "value": "Un comodín descartado está muerto: nadie puede cantarlo, ni para una exposición ni para mah jongg. Eso lo convierte en un descarte seguro, pero regalas la ficha más flexible del juego y le dices a la mesa que te sobraba uno."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un joker défaussé est mort : personne ne peut l'appeler, ni pour exposer une combinaison ni pour gagner au mah jongg. La défausse est donc sans risque, mais vous abandonnez la tuile la plus polyvalente du jeu et révélez à la table que vous pouviez vous en passer."
+            "value": "Un joker défaussé est mort : personne ne peut l'appeler, ni pour exposer une combinaison ni pour faire mah jongg. La défausse est donc sans risque, mais vous abandonnez la tuile la plus polyvalente du jeu et révélez à la table que vous pouviez vous en passer."
           }
         },
         "id": {
@@ -3000,7 +3000,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah naga"
+            "value": "Ubin naga"
           }
         },
         "vi": {
@@ -3017,7 +3017,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein Drache in einer anderen Druckfarbe als die Zahlen gehört zu einer anderen Zahlenfarbe. Der grüne Drache gehört zu Bam und passt zu diesen 4 Bam, statt sich von ihnen abzuheben. Ein roter Drache oder ein Soap würde passen."
+            "value": "Ein Drache in einer anderen Druckfarbe als die Zahlen gehört zu einer anderen Zahlenfarbe. Der Grüne Drache gehört zu Bam und passt zu diesen 4 Bam, statt sich von ihnen abzuheben. Ein Roter Drache oder ein Soap würde passen."
           }
         },
         "es": {
@@ -3041,7 +3041,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quân rồng khác màu với các số phải thuộc chất khác. Xanh lá là rồng của Bam, nên nó khớp với 4 Bam này chứ không đối lập. Rồng Đỏ hoặc Soap thì mới khớp."
+            "value": "Quân rồng khác màu với các số phải thuộc chất khác. Rồng Xanh là rồng của Bam, nên nó cùng chất với 4 Bam này chứ không khác chất. Rồng Đỏ hoặc Soap mới hợp."
           }
         }
       }
@@ -3058,13 +3058,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un dragón impreso del mismo color que un grupo de números es el dragón de ese palo. 4 Crak van con el Dragón Rojo, así que encaja. El verde correspondería a los Bam y el blanco a los Dot."
+            "value": "Un dragón impreso del mismo color que un grupo de números es el dragón de ese palo. Los 4 Crak van con el Dragón Rojo, así que encaja. El verde correspondería a los Bam y el blanco a los Dot."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un dragon imprimé de la même couleur qu'un groupe de chiffres est le dragon de cette famille. 4 Crak vont avec le Dragon Rouge : cela convient. Le vert irait avec les Bam, et le Soap avec les Dot."
+            "value": "Un dragon imprimé de la même couleur qu'un groupe de chiffres est le dragon de cette famille. Les 4 Crak vont avec le Dragon Rouge : cela convient. Le vert irait avec les Bam, et le Soap avec les Dot."
           }
         },
         "id": {
@@ -3140,13 +3140,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah bunga"
+            "value": "Ubin bunga"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một bông hoa"
+            "value": "Một quân hoa"
           }
         }
       }
@@ -3181,7 +3181,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quân vừa rút chưa có lịch sử gì. Bạn không thể biết ai cần nó."
+            "value": "Quân chưa ai đánh ra thì chưa có lịch sử gì. Bạn không thể biết ai cần nó."
           }
         }
       }
@@ -3262,7 +3262,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eine Hand, die nicht mehr regelkonform gewinnen kann, meist wegen einer Auslage, zu der keine Kartenhand passt, oder eines falsch angesagten Mah Jongg. Erklärt ein anderer Spieler sie für tot und bestätigen die Steine das, ziehst und wirfst du für den Rest der Hand nicht mehr, zahlst aber trotzdem dem Gewinner. Niemand erklärt die eigene Hand für tot, also spiel weiter und wirf defensiv ab, bis es jemand tut."
+            "value": "Eine Hand, die nicht mehr regelkonform gewinnen kann, meist wegen einer Auslage, zu der keine Kartenhand passt, oder eines falsch angesagten Mah Jongg. Erklärt ein anderer Spieler sie für tot und bestätigen die Steine das, ziehst du für den Rest der Hand nicht mehr und wirfst nicht mehr ab, zahlst aber trotzdem dem Gewinner. Niemand erklärt die eigene Hand für tot, also spiel weiter und wirf defensiv ab, bis es jemand tut."
           }
         },
         "es": {
@@ -3274,7 +3274,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une main qui ne peut plus légalement gagner, généralement à cause d'une exposition qu'aucune main de la carte ne peut égaler ou d'une fausse annonce de mah jongg. Une fois qu'un autre joueur la déclare morte et que les tuiles le prouvent, vous cessez de piocher et de défausser jusqu'à la fin de la manche, mais vous payez quand même le gagnant. Personne ne déclare sa propre main morte : tant que personne ne le fait, continuez à jouer et défaussez prudemment."
+            "value": "Une main qui ne peut plus légalement gagner, généralement à cause d'une exposition qui ne correspond à aucune main de la carte ou d'une fausse annonce de mah jongg. Une fois qu'un autre joueur la déclare morte et que les tuiles le prouvent, vous cessez de piocher et de défausser jusqu'à la fin de la manche, mais vous payez quand même le gagnant. Personne ne déclare sa propre main morte : tant que personne ne le fait, continuez à jouer et défaussez prudemment."
           }
         },
         "id": {
@@ -3350,7 +3350,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah joker"
+            "value": "Ubin joker"
           }
         },
         "vi": {
@@ -3420,7 +3420,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Joker tidak boleh dioper dalam Charleston, baik pada blind pass maupun courtesy pass."
+            "value": "Joker tidak boleh dioper di operan Charleston mana pun, termasuk blind pass, maupun di courtesy pass."
           }
         },
         "vi": {
@@ -3490,7 +3490,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kong 3 Dot, pung 9 Bam, dan tiga joker. Satu joker bisa mengubah kong menjadi quint, atau dua joker bisa mengubah pung. Rak yang penuh joker seperti ini bisa membentuk tangan Quint."
+            "value": "Kong 3 Dot, pung 9 Bam, dan tiga joker. Satu joker bisa mengubah kong menjadi quint, atau dua joker untuk pung. Rak yang penuh joker seperti ini bisa membentuk tangan Quint."
           }
         },
         "vi": {
@@ -3560,7 +3560,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kong 9 Crak dan pung 4 Dot, ditambah tiga joker: satu joker bisa mengubah kong menjadi quint, atau dua joker bisa mengubah pung. Quint terdiri dari lima ubin yang sama dan hanya bisa dibuat dengan joker."
+            "value": "Kong 9 Crak dan pung 4 Dot, ditambah tiga joker: satu joker bisa mengubah kong menjadi quint, atau dua joker untuk pung. Quint terdiri dari lima ubin yang sama dan hanya bisa dibuat dengan joker."
           }
         },
         "vi": {
@@ -3630,7 +3630,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah baris memuat NEWS."
+            "value": "Ada baris yang memuat NEWS."
           }
         },
         "vi": {
@@ -3647,7 +3647,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eine Zeile zeigt 4444 und ein D, beides in derselben Farbe."
+            "value": "Eine Zeile zeigt 4444 und ein D, beides in derselben Druckfarbe."
           }
         },
         "es": {
@@ -3665,7 +3665,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah baris menampilkan 4444 dan sebuah D, keduanya dengan warna sama."
+            "value": "Ada baris yang menampilkan 4444 dan D, keduanya dengan warna sama."
           }
         },
         "vi": {
@@ -3700,13 +3700,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebuah baris menampilkan 4444 dalam satu warna dan sebuah D dalam warna lain."
+            "value": "Ada baris yang menampilkan 4444 dalam satu warna dan D dalam warna lain."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một dòng có 4444 trong một màu và chữ D trong màu khác."
+            "value": "Một dòng có 4444 một màu và chữ D màu khác."
           }
         }
       }
@@ -3729,7 +3729,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un Nord isolé sans partenaire demande deux autres Nord ou des jokers rien que pour faire un pung, et votre main n'est pas bâtie sur les vents. Tôt, avant que quiconque s'engage, c'est presque une défausse gratuite. La même tuile tard, après que quelqu'un a exposé des vents, est une grenade dégoupillée."
+            "value": "Un Nord isolé sans partenaire demande deux autres Nord ou des jokers rien que pour faire un pung, et votre main n'est pas bâtie sur les vents. Tôt, avant que quiconque s'engage, c'est presque une défausse gratuite. Plus tard, après que quelqu'un a exposé des vents, la même tuile est une grenade dégoupillée."
           }
         },
         "id": {
@@ -4009,7 +4009,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un joueur a 13 tuiles entre deux tours, groupes exposés compris. Trois pungs exposés en comptent 9 : 4 sont donc cachées. Ce joueur peut être proche, surveillez donc ce que vous lui donnez."
+            "value": "Un joueur a 13 tuiles entre deux tours, groupes exposés compris. Trois pungs exposés en comptent 9 : 4 sont donc cachées. Ce joueur est peut-être proche de gagner, surveillez donc ce que vous lui donnez."
           }
         },
         "id": {
@@ -4021,7 +4021,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một người chơi cầm 13 quân giữa các lượt, kể cả nhóm lộ. Ba pung lộ là 9, nên 4 quân úp. Người đó có thể sắp thắng, nên hãy cẩn thận với quân bạn đưa."
+            "value": "Một người chơi cầm 13 quân giữa các lượt, kể cả nhóm lộ. Ba pung lộ là 9, nên 4 quân úp. Người đó có thể sắp thắng, nên hãy cẩn thận với quân bạn đánh ra."
           }
         }
       }
@@ -4102,7 +4102,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein Pung 3 Bam, Paare 6 Dot und 9 Crak und eine 6 Bam: acht Steine aus 3ern, 6ern und 9ern. Die 5 Dot und 8 Crak fallen aus dieser Familie, und der Ost ist ein einzelner Wind."
+            "value": "Ein Pung 3 Bam, Paare 6 Dot und 9 Crak und eine 6 Bam: acht Steine aus 3ern, 6ern und 9ern. Die 5 Dot und 8 Crak fallen aus dieser Familie heraus, und der Ost ist ein einzelner Wind."
           }
         },
         "es": {
@@ -4172,7 +4172,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein Pung 3 Dot und Paare aus 1ern, 5ern und 9ern ergeben ein 13579-Rack. Die 6 Bam und 8 Dot sind gerade, eine ungerade Hand kann sie also nie nutzen, und der West ist ein einzelner Wind. Diese drei gehen."
+            "value": "Ein Pung 3 Dot und Paare aus 1ern, 5ern und 9ern ergeben ein 13579-Rack. Die 6 Bam und 8 Dot sind gerade, eine ungerade Hand kann sie also nie nutzen, und der West ist ein einzelner Wind. Diese drei gibst du ab."
           }
         },
         "es": {
@@ -4190,7 +4190,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pung 3 Dot dan pasangan 1, 5, dan 9 membentuk rak 13579. 6 Bam dan 8 Dot genap, jadi tangan ganjil tidak pernah bisa memakainya, dan ubin Barat adalah angin tunggal. Buang ketiganya."
+            "value": "Pung 3 Dot dan pasangan 1, 5, dan 9 membentuk rak 13579. 6 Bam dan 8 Dot genap, jadi tangan ganjil tidak pernah bisa memakainya, dan ubin Barat adalah angin tunggal. Operkan ketiganya."
           }
         },
         "vi": {
@@ -4260,13 +4260,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pung 5 Crak dan pasangan 7 Bam dan 1 Dot, ditambah 9 dan 3: sembilan ubin ganjil. 4 Dot dan 6 Crak genap, dan ubin Timur adalah angin tunggal. Buang ketiganya."
+            "value": "Pung 5 Crak dan pasangan 7 Bam dan 1 Dot, ditambah 9 dan 3: sembilan ubin ganjil. 4 Dot dan 6 Crak genap, dan ubin Timur adalah angin tunggal. Operkan ketiganya."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một pung 5 Crak và các đôi 7 Bam và 1 Dot, cùng một 9 và một 3: chín quân lẻ. 4 Dot và 6 Crak chẵn, và Đông là gió lẻ. Chuyền cả ba quân đó."
+            "value": "Một pung 5 Crak, các đôi 7 Bam và 1 Dot, cùng một 9 và một 3: chín quân lẻ. 4 Dot và 6 Crak là số chẵn, còn Đông là gió lẻ. Chuyền cả ba quân đó."
           }
         }
       }
@@ -4400,7 +4400,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pung Naga Merah, sepasang Naga Hijau dan sepasang Soap, dan dua ubin angin: rak ini didominasi ubin kehormatan, jadi Angin & Naga adalah pilihan yang paling masuk akal. Tiga ubin angka tersebar di berbagai jenis dan tidak berpasangan, jadi paling mudah dibuang."
+            "value": "Pung Naga Merah, sepasang Naga Hijau dan sepasang Soap, dan dua ubin angin: rak ini didominasi ubin kehormatan, jadi Angin & Naga adalah pilihan yang paling masuk akal. Tiga ubin angka tersebar di berbagai jenis dan tidak berpasangan, jadi paling mudah dioperkan."
           }
         },
         "vi": {
@@ -4435,7 +4435,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pung angin adalah sebuah komitmen. Begitu punya satu, susun tanganmu di sekitarnya."
+            "value": "Pung angin adalah sebuah komitmen. Begitu punya satu, jadikan itu dasar tanganmu."
           }
         },
         "vi": {
@@ -4534,7 +4534,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une suite passant par 3 et 9 devrait couvrir sept chiffres : Suite est donc peu probable. Des 3 et des 9 ensemble signalent 369 (une main d'impairs peut aussi les utiliser). Considérez les 3, 6 et 9 comme des tuiles chaudes face à ce joueur."
+            "value": "Une suite passant par 3 et 9 devrait couvrir sept chiffres : la section Suite est donc peu probable. Des 3 et des 9 ensemble signalent 369 (une main d'impairs peut aussi les utiliser). Considérez les 3, 6 et 9 comme des tuiles chaudes face à ce joueur."
           }
         },
         "id": {
@@ -4843,7 +4843,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un honor suelto que no pertenece a ninguna sección que persigues es puro lastre. Cuanto antes salga, más seguro."
+            "value": "Un honor suelto que no pertenece a ninguna sección que persigas es puro lastre. Cuanto antes salga, más seguro."
           }
         },
         "fr": {
@@ -4872,13 +4872,13 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein Gleichstand wird nach Zugreihenfolge entschieden. Jemand bekommt den Stein immer."
+            "value": "Ein Gleichstand wird nach Zugreihenfolge entschieden. Den Stein bekommt immer jemand."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un empate se resuelve por el orden de turno. Siempre hay alguien que se queda la ficha."
+            "value": "Un empate se resuelve por el orden de turno. Siempre hay alguien que se queda con la ficha."
           }
         },
         "fr": {
@@ -4954,7 +4954,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une tuile identique à une déjà défaussée dans cette manche"
+            "value": "Une tuile identique à une autre déjà défaussée dans cette manche"
           }
         },
         "id": {
@@ -4966,7 +4966,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một quân giống một quân đã bị bỏ ván này"
+            "value": "Một quân giống một quân đã bị bỏ trong ván này"
           }
         }
       }
@@ -5642,7 +5642,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nach dem Charleston könnt ihr mit dem Spieler gegenüber 0 bis 3 Steine tauschen. Ihr gebt beide gleich viele ab, wie ihr laut vereinbart habt („zwei?“). Bitte um weniger Steine, wenn du kurz vor Mah Jongg stehst."
+            "value": "Nach dem Charleston könnt ihr mit dem Spieler gegenüber 0 bis 3 Steine tauschen. Ihr gebt beide gleich viele ab und vereinbart die Zahl laut („zwei?“). Bitte um weniger Steine, wenn du kurz vor Mah Jongg stehst."
           }
         },
         "es": {
@@ -5660,7 +5660,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setelah Charleston, kamu dan pemain di seberang bisa bertukar 0 sampai 3 ubin. Kalian sepakati jumlahnya dengan suara keras (misalnya, 'dua?'), lalu masing-masing mengoper jumlah ubin yang sama. Minta lebih sedikit kalau tanganmu hampir jadi."
+            "value": "Setelah Charleston, kamu dan pemain di seberang bisa bertukar 0 sampai 3 ubin. Kalian sepakati jumlahnya secara lisan (misalnya, 'dua?'), lalu masing-masing mengoper jumlah ubin yang sama. Minta lebih sedikit kalau tanganmu hampir jadi."
           }
         },
         "vi": {
@@ -5712,7 +5712,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle acht Blumen sind austauschbar, jede Blume, die du abwirfst, passt also zu jedem, der Blumen sammelt. Ein Ost passt nur zu einem Spieler, der Ost sammelt, und es gibt nur drei weitere. Beide sind nicht wirklich sicher, aber zu Beginn ist der einzelne Wind meist der leichtere Abwurf."
+            "value": "Alle acht Blumen sind austauschbar, jede Blume, die du abwirfst, passt also zu jedem, der Blumen sammelt. Ein Ost passt nur zu einem Spieler, der Ost sammelt, und es gibt nur drei weitere. Keiner von beiden ist wirklich sicher, aber zu Beginn ist der einzelne Wind meist der leichtere Abwurf."
           }
         },
         "es": {
@@ -5806,7 +5806,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cả bốn quân 2 Bam đã bị bỏ từ đầu ván, và các quân khác bị bỏ sau đó. Điều nào đúng?"
+            "value": "Cả bốn quân 2 Bam đã bị bỏ trước đó trong ván, và sau đó đã có thêm quân khác bị bỏ. Điều nào đúng?"
           }
         }
       }
@@ -6016,7 +6016,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cả ba đều trả theo giá trị của bộ bài."
+            "value": "Cả ba đều trả theo giá trị của bộ bài"
           }
         }
       }
@@ -6261,7 +6261,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Những bộ bài có thể theo hai hướng khi cả hai nhóm đều có vẻ phù hợp"
+            "value": "Những giá bài có hai nhóm đều có vẻ phù hợp"
           }
         }
       }
@@ -6290,7 +6290,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Angka 8 itu genap dan bukan 1, jadi meleset dari bacaan Angka Sama dan ganjil. 1 Crak cocok dengan keduanya."
+            "value": "Angka 8 itu genap dan bukan 1, jadi tidak cocok dengan bacaan Angka Sama maupun ganjil. 1 Crak cocok dengan keduanya."
           }
         },
         "vi": {
@@ -6307,7 +6307,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eine 8 liegt weit von den 3ern und 4ern entfernt. Eine Folge, die beide umfasst, ist daher unwahrscheinlich. Die 5 Bam kommt als Nächstes."
+            "value": "Eine 8 liegt weit von den 3ern und 4ern entfernt. Eine Folge, die beide umfasst, ist daher unwahrscheinlich. Die 5 Bam schließt direkt an."
           }
         },
         "es": {
@@ -6815,7 +6815,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lawan punya pung 3 Crak yang diekspos, dibuat dari dua ubin asli dan satu joker. Kamu memegang 3 Crak asli. Di gilirmu kamu boleh:"
+            "value": "Lawan punya pung 3 Crak yang diekspos, dibuat dari dua ubin asli dan satu joker. Kamu memegang 3 Crak asli. Di giliranmu kamu boleh:"
           }
         },
         "vi": {
@@ -6885,7 +6885,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lawan telah mengekspos 5 Dot, 5 Dot, dan joker. Di gilirmu kamu memegang 5 Dot yang tidak kamu perlukan. Apa langkah terbaik?"
+            "value": "Lawan telah mengekspos 5 Dot, 5 Dot, dan joker. Di giliranmu kamu memegang 5 Dot yang tidak kamu perlukan. Apa langkah terbaik?"
           }
         },
         "vi": {
@@ -7532,7 +7532,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jeder ausgelegte Joker kann von jedem Spieler eingelöst werden, der den Stein hält, den er vertritt, im eigenen Zug. Den Joker eines Gegners zu nehmen, ist einer der stärksten Züge im Spiel."
+            "value": "Jeder Spieler kann in seinem Zug einen ausgelegten Joker gegen den Stein eintauschen, den der Joker vertritt. Den Joker eines Gegners zu nehmen, ist einer der stärksten Züge im Spiel."
           }
         },
         "es": {
@@ -7567,13 +7567,13 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beliebige vier Steine in Folge"
+            "value": "Vier beliebige Steine in Folge"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cualquier cuatro fichas seguidas"
+            "value": "Cuatro fichas seguidas cualesquiera"
           }
         },
         "fr": {
@@ -7643,7 +7643,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cualquiera puede canjear esos comodines por la ficha correspondiente, así que intenta conseguirlos."
+            "value": "Cualquiera puede dar la ficha correspondiente a cambio de esos comodines, así que intenta conseguirlos."
           }
         },
         "fr": {
@@ -7655,7 +7655,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pemain mana pun bisa menebusnya dengan ubin yang cocok, jadi bersiaplah mengambilnya."
+            "value": "Pemain mana pun bisa menebusnya dengan ubin yang cocok, jadi bersiaplah mengambilnya"
           }
         },
         "vi": {
@@ -8104,7 +8104,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "À table"
+            "value": "À la table"
           }
         },
         "id": {
@@ -8302,7 +8302,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Da nichts außer dem Gewinnstein gerufen werden darf, müssen alle anderen Steine gezogen oder über den Charleston kommen. Für Neulinge ist das schwer."
+            "value": "Da nur der Gewinnstein gerufen werden darf, musst du alle anderen Steine ziehen oder über den Charleston bekommen. Für Neulinge ist das schwer."
           }
         },
         "es": {
@@ -8390,13 +8390,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebelum mengoperkan Soap, periksa tangan di kartu tahunan. Ubin kosong itu bernilai nol."
+            "value": "Sebelum mengoperkan Soap, periksa tangan angka tahun. Ubin kosong itu bernilai nol."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trước khi chuyền quân Soap, hãy kiểm tra các bộ bài trên thẻ năm nay. Quân trắng đó là số 0."
+            "value": "Trước khi chuyền quân Soap, hãy kiểm tra các bài có số năm trên thẻ. Quân trắng đó là số 0."
           }
         }
       }
@@ -8407,7 +8407,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "In jedem Pass gibt jeder drei unerwünschte Steine ab: zuerst nach rechts, dann zum Gegenüber und schließlich nach links. Eine zweite Runde ist optional. Joker werden nie weitergegeben. Der Charleston macht aus einem chaotischen Blatt einen Plan."
+            "value": "Vor Spielbeginn gibt jeder drei unerwünschte Steine ab: zuerst nach rechts, dann zum Gegenüber und schließlich nach links. Eine zweite Runde ist optional. Joker werden nie weitergegeben. Der Charleston macht aus einem chaotischen Blatt einen Plan."
           }
         },
         "es": {
@@ -8425,13 +8425,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebelum main dimulai, semua orang mengoperkan tiga ubin yang tidak diinginkan ke kanan, lalu ke seberang, lalu ke kiri, dengan putaran kedua opsional. Joker tidak pernah dioperkan. Charleston adalah cara pembagian yang berantakan berubah jadi rencana."
+            "value": "Sebelum main dimulai, semua orang mengoperkan tiga ubin yang tidak diinginkan ke kanan, lalu ke seberang, lalu ke kiri, dengan putaran kedua opsional. Joker tidak pernah dioperkan. Lewat Charleston, pembagian ubin yang berantakan berubah jadi rencana."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trước khi chơi, mọi người chuyền ba quân không cần sang phải, rồi đối diện, rồi sang trái, với vòng hai tùy chọn. Joker không bao giờ được chuyền. Charleston là cách biến một ván bài lộn xộn thành kế hoạch."
+            "value": "Trước khi chơi, mọi người chuyền ba quân không cần sang phải, rồi đối diện, rồi sang trái, với vòng hai tùy chọn. Joker không bao giờ được chuyền. Charleston là cách biến bài chia lộn xộn thành kế hoạch."
           }
         }
       }
@@ -8623,13 +8623,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Robar del muro"
+            "value": "Tomar prestado del muro"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Piocher dans le mur"
+            "value": "Emprunter au mur"
           }
         },
         "id": {
@@ -9160,7 +9160,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ada Harga untuk Memanggil"
+            "value": "Memanggil Ada Harganya"
           }
         },
         "vi": {
@@ -9446,7 +9446,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đối thủ có hô quân 6 Bam bạn bỏ chỉ để tạo đôi trong bài không?"
+            "value": "Đối thủ có được hô quân 6 Bam bạn bỏ chỉ để tạo đôi trong bài không?"
           }
         }
       }
@@ -9959,7 +9959,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Réclamer une tuile qui vient d'être défaussée pour compléter un pung, un kong ou un quint que vous exposez, ou pour gagner. Vous pouvez la réclamer jusqu'à ce que le joueur suivant pose sur son chevalet la tuile piochée, défausse une tuile ou commence un échange de joker. Vous ne pouvez réclamer une défausse pour compléter une paire ou une tuile isolée que si elle vous fait gagner."
+            "value": "Réclamer une tuile qui vient d'être défaussée pour compléter un pung, un kong ou un quint que vous exposez, ou pour gagner. Vous pouvez la réclamer jusqu'à ce que le joueur suivant pose sur son chevalet la tuile piochée, défausse une tuile ou commence un échange de joker. Vous ne pouvez réclamer une défausse pour une paire ou une tuile isolée que si elle vous fait gagner."
           }
         },
         "id": {
@@ -10023,7 +10023,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Comprometerte con 2468"
+            "value": "Comprometerse con 2468"
           }
         },
         "fr": {
@@ -10134,7 +10134,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une main cachée interdit seulement les expositions avant le mahj. Toute main, cachée ou non, peut réclamer la tuile qui lui donne la victoire. Si cette tuile vous fait gagner, réclamez-la."
+            "value": "Une main cachée interdit seulement les expositions avant la victoire. Toute main, cachée ou non, peut réclamer la tuile qui lui donne la victoire. Si cette tuile vous fait gagner, réclamez-la."
           }
         },
         "id": {
@@ -11114,7 +11114,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les défausses après la moitié de la manche sont notées"
+            "value": "Les défausses après la mi-manche rapportent des points"
           }
         },
         "id": {
@@ -11149,7 +11149,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les défausses ne sont jamais notées. Seule la main gagnante est payée."
+            "value": "Les défausses ne rapportent jamais de points. Seule la main gagnante est payée."
           }
         },
         "id": {
@@ -11406,7 +11406,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đừng lộ bài"
+            "value": "Đừng lộ ý đồ"
           }
         }
       }
@@ -11639,7 +11639,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Des dragons obligatoires"
+            "value": "Dragons obligatoires"
           }
         },
         "id": {
@@ -11738,13 +11738,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Seguir robando para completar tu propia mano de todas formas"
+            "value": "Seguir con tu propia mano de todos modos"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Piocher quand même vers votre main"
+            "value": "Continuer à jouer pour votre propre main"
           }
         },
         "id": {
@@ -12106,7 +12106,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tám quân 2 ở ba chất. Khi giá phần lớn là một số ở mọi chất, đây là Số giống nhau. 9 Dot là quân số duy nhất không hợp, và quân Bắc là gió lẻ."
+            "value": "Tám quân 2 ở ba chất. Khi giá bài phần lớn là cùng một số ở mọi chất, đây là Số giống nhau. 9 Dot là quân số duy nhất không hợp, và quân Bắc là gió lẻ."
           }
         }
       }
@@ -12234,7 +12234,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Huit tuiles paires réparties dans les trois familles forment une solide ossature 2468. Les deux vents isolés n'aident presque pas 2468, et le 3 Dot est votre seule tuile impaire. Passez ces trois tuiles sans hésiter."
+            "value": "Huit tuiles paires réparties dans les trois familles forment une solide ossature 2468. Les deux vents isolés ne servent presque à rien pour 2468, et le 3 Dot est votre seule tuile impaire. Passez ces trois tuiles sans hésiter."
           }
         },
         "id": {
@@ -12246,7 +12246,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tám quân chẵn ở cả ba chất tạo nên nền tảng vững chắc cho bài 2468. Hai quân gió lẻ gần như không giúp gì cho 2468, còn 3 Dot là quân số lẻ duy nhất. Bỏ cả ba, khỏi cần nghĩ."
+            "value": "Tám quân chẵn ở cả ba chất tạo nên nền tảng vững chắc cho bài 2468. Hai quân gió lẻ gần như không giúp gì cho 2468, còn 3 Dot là quân số lẻ duy nhất. Chuyền cả ba, khỏi cần nghĩ."
           }
         }
       }
@@ -12362,7 +12362,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Es gibt acht Joker, und Mitzählen hilft. Wenn du sechs auf den Racks und unter den abgelegten Steinen gesehen hast, sind nur noch zwei im Spiel."
+            "value": "Es gibt acht Joker, und Mitzählen hilft. Wenn du sechs auf den Racks und in den Abwürfen gesehen hast, sind nur noch zwei im Spiel."
           }
         },
         "es": {
@@ -12421,7 +12421,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tám quân lẻ và một đôi 5 Crak: đây là bộ 13579. Các Dot chẵn (2, 4, 6) là quân để chuyền. ĐỪNG chuyền hoa cho dễ chọn. Nhiều nhóm cần hoa, và chuyền một quân là trao cho hàng xóm quân mà bộ bài của bạn có thể cần sau này."
+            "value": "Tám quân lẻ và một đôi 5 Crak: đây là bộ 13579. Các Dot chẵn (2, 4, 6) là quân để chuyền. ĐỪNG chuyền hoa cho dễ chọn. Nhiều nhóm cần hoa, và chuyền một quân hoa là trao cho người bên cạnh quân mà bộ bài của bạn có thể cần sau này."
           }
         }
       }
@@ -12502,7 +12502,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Acht Winde mit einem Pung Nord, dazu zwei Drachen und nur ein Zahlenstein im ganzen Rack. Das Blatt ist Winde & Drachen."
+            "value": "Acht Winde mit einem Pung Nord, dazu zwei Drachen und nur ein Zahlenstein im ganzen Rack. Das spricht für Winde & Drachen."
           }
         },
         "es": {
@@ -12514,7 +12514,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Huit vents dont un pung de Nord, plus deux dragons, et une seule tuile chiffrée sur tout le chevalet. Tout indique la section Vents et Dragons."
+            "value": "Huit vents dont un pung de Nord, plus deux dragons, et une seule tuile numérotée sur tout le chevalet. Tout indique la section Vents et Dragons."
           }
         },
         "id": {
@@ -12549,7 +12549,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Huit vents, un pung d'Est et trois dragons, sans une seule tuile chiffrée sur le chevalet. Toute section fondée sur les chiffres partirait de zéro. C'est donc la section Vents et Dragons qu'il faut viser."
+            "value": "Huit vents, un pung d'Est et trois dragons, sans une seule tuile numérotée sur le chevalet. Toute section fondée sur les chiffres partirait de zéro. C'est donc la section Vents et Dragons qu'il faut viser."
           }
         },
         "id": {
@@ -12712,13 +12712,13 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gerade Zahlen in Crak liegen knapp vor ungeraden Zahlen in Bam: fünf Steine, darunter ein Paar, gegenüber vier Einzelsteinen. Tendiere zu 2468. Die zwei einzelnen Winde helfen keinem Plan und gehen jetzt weg; wirf dazu die 3 Bam ab, um auch die ungeraden Steine nach und nach loszuwerden. Die übrigen ungeraden Bam-Steine kannst du in späteren Pässen abgeben."
+            "value": "Gerade Zahlen in Crak liegen knapp vor ungeraden Zahlen in Bam: fünf Steine, darunter ein Paar, gegenüber vier Einzelsteinen. Tendiere zu 2468. Die zwei einzelnen Winde helfen keinem Plan, gib sie jetzt zusammen mit der 3 Bam ab. Die übrigen ungeraden Bam-Steine kannst du in späteren Pässen abgeben."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las fichas pares de Crak superan en número a las impares de Bam: son cinco, incluida una pareja, frente a cuatro sueltas, así que conviene optar por 2468. Los dos vientos sueltos no ayudan a ninguno de los dos planes, así que descarta ambos ahora junto con el 3 Bam para empezar a pasar los impares. Puedes pasar los demás Bam impares en rondas posteriores."
+            "value": "Las fichas pares de Crak superan en número a las impares de Bam: son cinco, incluida una pareja, frente a cuatro sueltas, así que conviene optar por 2468. Los dos vientos sueltos no ayudan a ninguno de los dos planes, así que pasa ambos ahora junto con el 3 Bam para empezar a soltar los impares. Puedes pasar los demás Bam impares en rondas posteriores."
           }
         },
         "fr": {
@@ -12771,7 +12771,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cả bốn quân 2 Bam đều ngửa trong đống bỏ, nên không còn quân nào trong tường bài hay trên giá bài của ai. Quân đã bỏ không thể được gọi lại, và ván tiếp tục như bình thường."
+            "value": "Cả bốn quân 2 Bam đều ngửa trong đống bỏ, nên không còn quân nào trong tường bài hay trên giá bài của ai. Không thể hô các quân đã bỏ từ trước, và ván tiếp tục như bình thường."
           }
         }
       }
@@ -12782,13 +12782,13 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jede Auslage muss zu einer echten Hand der Karte gehören. Erklärt ein anderer Spieler deine Hand für tot und die Auslage belegt es, ziehst und wirfst du für den Rest der Hand nicht mehr, und zahlst trotzdem dem Gewinner. Prüf die Karte, bevor du rufst."
+            "value": "Jede Auslage muss zu einer echten Hand der Karte gehören. Erklärt ein anderer Spieler deine Hand für tot und die Auslage belegt es, ziehst du für den Rest der Hand nicht mehr und wirfst nicht mehr ab, zahlst aber trotzdem an den Gewinner. Prüf die Karte, bevor du rufst."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Toda exposición debe pertenecer a una mano real de la tarjeta. Cuando otro jugador declara muerta tu mano y la exposición lo demuestra, dejas de robar y descartar el resto de la mano, y aun así le pagas al ganador. Revisa la tarjeta antes de declarar una mano muerta."
+            "value": "Toda exposición debe pertenecer a una mano real de la tarjeta. Cuando otro jugador declara muerta tu mano y la exposición lo demuestra, dejas de robar y descartar el resto de la mano, y aun así le pagas al ganador. Revisa la tarjeta antes de cantar."
           }
         },
         "fr": {
@@ -12829,7 +12829,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tous les chiffres sont des 3, 6 ou 9, sauf le 2 Bam isolé. Un pung de 6 Crak plus des paires de 9 donnent à la section 369 un bon départ."
+            "value": "Tous les chiffres sont des 3, 6 ou 9, sauf le 2 Bam isolé. Un pung de 6 Crak et des paires de 9 donnent à la section 369 un bon départ."
           }
         },
         "id": {
@@ -13121,7 +13121,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mọi người đua nhau tạo bộ 14 quân khớp chính xác với một bài in trên thẻ năm. Bạn giữ 13 quân trên giá bài; quân thứ 14 là quân bốc hoặc hô để hoàn thành mẫu. Ai hoàn thành trước sẽ hô mahj."
+            "value": "Mọi người đua nhau tạo bộ 14 quân khớp chính xác với một bài in trên thẻ hằng năm. Bạn giữ 13 quân trên giá bài; quân thứ 14 là quân bốc hoặc hô để hoàn thành mẫu. Ai hoàn thành trước sẽ hô mahj."
           }
         }
       }
@@ -13144,7 +13144,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tout le monde a treize tuiles entre deux tours. Neuf sont visibles dans les trois pungs ; il ne lui en reste donc que quatre cachées, auxquelles s'ajoute une tuile pour former sa main. Moins il a de tuiles cachées, plus sa main est facile à lire et plus il est généralement proche de gagner."
+            "value": "Tout le monde a treize tuiles entre deux tours. Neuf sont visibles dans les trois pungs : il n'en reste donc que quatre cachées, qui, avec une tuile de plus, formeront la main. Moins un joueur a de tuiles cachées, plus sa main est facile à lire et plus il est généralement proche de gagner."
           }
         },
         "id": {
@@ -13331,7 +13331,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Để lộ pung, rồi bỏ"
+            "value": "Để lộ pung rồi bỏ một quân"
           }
         }
       }
@@ -13430,7 +13430,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pung yang diekspos bisa tumbuh jadi kong"
+            "value": "Pung yang diekspos bisa ditambah jadi kong"
           }
         },
         "vi": {
@@ -14112,7 +14112,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erster Charleston, nach LINKS. Deine Zahlen steigen von 5 bis 8."
+            "value": "Erster Charleston, nach LINKS. Deine Zahlen reichen von 5 bis 8."
           }
         },
         "es": {
@@ -14147,7 +14147,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erster Charleston, nach LINKS. Deine Zahlen steigen von 5 bis 8. Wähl 3."
+            "value": "Erster Charleston, nach LINKS. Deine Zahlen reichen von 5 bis 8. Wähl 3."
           }
         },
         "es": {
@@ -14188,7 +14188,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Primer Charleston, pasa a la DERECHA. Ocho fichas pares y una pareja aislada de fichas de Viento Norte."
+            "value": "Primer Charleston, pasa a la DERECHA. Ocho fichas pares y una pareja solitaria de Nortes."
           }
         },
         "fr": {
@@ -14252,7 +14252,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erster Charleston, nach RECHTS. Überall Fünfen, und zwei Joker."
+            "value": "Erster Charleston, nach RECHTS. Überall Fünfen und zwei Joker."
           }
         },
         "es": {
@@ -14276,7 +14276,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Charleston đầu tiên, chuyền sang PHẢI. Quân 5 khắp nơi, và hai joker."
+            "value": "Charleston đầu tiên, chuyền sang PHẢI. Rất nhiều quân 5, cùng hai joker."
           }
         }
       }
@@ -14287,7 +14287,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erster Charleston, nach RECHTS. Überall Fünfen, und zwei Joker. Wähl 3."
+            "value": "Erster Charleston, nach RECHTS. Überall Fünfen und zwei Joker. Wähl 3."
           }
         },
         "es": {
@@ -14311,7 +14311,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Charleston đầu tiên, chuyền sang PHẢI. Quân 5 khắp nơi, và hai joker. Chọn 3."
+            "value": "Charleston đầu tiên, chuyền sang PHẢI. Rất nhiều quân 5, cùng hai joker. Chọn 3."
           }
         }
       }
@@ -14404,7 +14404,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Premier Charleston, passez à DROITE. Deux jokers et un penchant pour les pairs."
+            "value": "Premier Charleston, passez à DROITE. Deux jokers et un penchant pour les chiffres pairs."
           }
         },
         "id": {
@@ -14439,7 +14439,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Premier Charleston, passez à DROITE. Deux jokers et un penchant pour les pairs. Choisissez 3 tuiles."
+            "value": "Premier Charleston, passez à DROITE. Deux jokers et un penchant pour les chiffres pairs. Choisissez 3 tuiles."
           }
         },
         "id": {
@@ -14462,7 +14462,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erster Charleston, nach RECHTS. Die Winde kommen weiter."
+            "value": "Erster Charleston, nach RECHTS. Es kommen immer mehr Winde."
           }
         },
         "es": {
@@ -14486,7 +14486,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Charleston đầu tiên, chuyền sang PHẢI. Quân gió cứ xuất hiện."
+            "value": "Charleston đầu tiên, chuyền sang PHẢI. Quân gió cứ về liên tục."
           }
         }
       }
@@ -14497,7 +14497,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erster Charleston, nach RECHTS. Die Winde kommen weiter. Wähl 3."
+            "value": "Erster Charleston, nach RECHTS. Es kommen immer mehr Winde. Wähl 3."
           }
         },
         "es": {
@@ -14521,7 +14521,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Charleston đầu tiên, chuyền sang PHẢI. Quân gió cứ xuất hiện. Chọn 3."
+            "value": "Charleston đầu tiên, chuyền sang PHẢI. Quân gió cứ về liên tục. Chọn 3."
           }
         }
       }
@@ -14684,7 +14684,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Premier Charleston, passez à DROITE. Vos pairs se mettent en place."
+            "value": "Premier Charleston, passez à DROITE. Vos chiffres pairs se mettent en place."
           }
         },
         "id": {
@@ -14719,7 +14719,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Premier Charleston, passez à DROITE. Vos pairs se mettent en place. Choisissez 3 tuiles."
+            "value": "Premier Charleston, passez à DROITE. Vos chiffres pairs se mettent en place. Choisissez 3 tuiles."
           }
         },
         "id": {
@@ -15553,7 +15553,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tarjetas: cada sección de la tarjeta y cómo leer una línea"
+            "value": "Tarjetas de estudio: cada sección de la tarjeta y cómo leer una línea"
           }
         },
         "fr": {
@@ -15588,7 +15588,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tarjetas: cada familia de fichas y para qué sirve"
+            "value": "Tarjetas de estudio: cada familia de fichas y para qué sirve"
           }
         },
         "fr": {
@@ -15623,7 +15623,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tarjetas: las reglas y la estrategia"
+            "value": "Tarjetas de estudio: las reglas y la estrategia"
           }
         },
         "fr": {
@@ -15757,7 +15757,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Blumen gibst du zuletzt ab. Alle acht sind austauschbar und kommen in vielen Sektionen vor, also gibst du einen Stein ab, den deine Hand später brauchen könnte."
+            "value": "Blumen gibst du zuletzt ab. Alle acht sind austauschbar und kommen in vielen Sektionen vor. Mit jeder abgegebenen Blume gibst du also einen Stein her, den deine Hand später brauchen könnte."
           }
         },
         "es": {
@@ -16230,13 +16230,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Empat kali lipat nilai"
+            "value": "Nilai empat kali lipat"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gấp bốn giá trị"
+            "value": "Gấp bốn lần giá trị"
           }
         }
       }
@@ -16253,7 +16253,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cuatro, así que cuenta"
+            "value": "Cuatro, así que lleva la cuenta"
           }
         },
         "fr": {
@@ -16586,7 +16586,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cảm tính là được"
+            "value": "Theo cảm tính cũng được"
           }
         }
       }
@@ -16632,7 +16632,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Früh behalten"
+            "value": "Anfangs behalten"
           }
         },
         "es": {
@@ -16749,7 +16749,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gardez les paires par défaut, mais une paire qui ne convient à aucune de vos sections visées peut être passée tôt, avant que les adversaires se fixent."
+            "value": "Gardez les paires par défaut, mais une paire qui ne convient à aucune de vos sections visées peut être passée tôt, avant que les adversaires aient fait leur choix."
           }
         },
         "id": {
@@ -17239,7 +17239,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Combien de tuiles contient un jeu américain standard de Mah Jongg ?"
+            "value": "Combien de tuiles contient un jeu standard de Mah Jongg américain ?"
           }
         },
         "id": {
@@ -17507,19 +17507,19 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Illegal, derselbe Stein darf nicht folgen"
+            "value": "Regelwidrig, derselbe Stein darf nicht folgen"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ilegal: no se puede repetir la misma ficha."
+            "value": "Ilegal: no se puede repetir la misma ficha"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "C'est interdit, la même tuile ne peut pas venir ensuite."
+            "value": "Interdit, la même tuile ne peut pas suivre"
           }
         },
         "id": {
@@ -17554,13 +17554,13 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Au mah-jong américain, toutes les fleurs sont équivalentes. Si la carte indique FF, deux fleurs quelconques conviennent."
+            "value": "Au mah jongg américain, toutes les fleurs sont équivalentes. Si la carte indique FF, deux fleurs quelconques conviennent."
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Di mahj Amerika setiap bunga identik dalam permainan. Kalau kartu menulis FF, dua bunga mana pun cocok."
+            "value": "Di mahj Amerika setiap bunga identik dalam permainan. Kalau di kartu tertulis FF, dua bunga mana pun cocok."
           }
         },
         "vi": {
@@ -17752,7 +17752,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Das schränkt die möglichen Hände ein."
+            "value": "Das schränkt die möglichen Hände ein"
           }
         },
         "es": {
@@ -17764,7 +17764,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cela limite les mains possibles."
+            "value": "Cela limite les mains possibles"
           }
         },
         "id": {
@@ -17776,7 +17776,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nó thu hẹp bộ bài của họ"
+            "value": "Nó thu hẹp bài họ có thể theo"
           }
         }
       }
@@ -17945,7 +17945,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ada fungsi kedua juga."
+            "value": "Punya fungsi kedua"
           }
         },
         "vi": {
@@ -18044,7 +18044,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cela limite les mains possibles."
+            "value": "Cela limite les mains possibles"
           }
         },
         "id": {
@@ -18056,7 +18056,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nó thu hẹp bộ bài của họ"
+            "value": "Nó thu hẹp bài họ có thể theo"
           }
         }
       }
@@ -18067,7 +18067,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eine ungerade Zahl aus einer Farbe, die du nicht nutzt, passt also aus zwei Gründen nicht zu deiner Hand. So einen Stein behältst du höchstens spät im Spiel zur Verteidigung. Früh ist er dein naheliegendster Abwurf."
+            "value": "Er ist ungerade und aus einer Farbe, die du nicht nutzt, passt also gleich doppelt nicht zu deiner Hand. So einen Stein behältst du höchstens spät im Spiel zur Verteidigung. Früh ist er dein naheliegendster Abwurf."
           }
         },
         "es": {
@@ -18336,7 +18336,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Joker không bao giờ được chuyền, dù trong Charleston hay lượt chuyền xã giao. Dù được phép chuyền, chúng vẫn là những quân có giá trị nhất trên khay quân của bạn."
+            "value": "Joker không bao giờ được chuyền, dù trong Charleston hay lượt chuyền xã giao. Kể cả nếu được phép chuyền, chúng vẫn là những quân có giá trị nhất trên khay quân của bạn."
           }
         }
       }
@@ -18441,7 +18441,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Joker không thay được đôi, nên đôi thật là nền của bộ bài. Hãy chuyền quân lẻ lạc loài (gió đơn, số đứng riêng) trước khi tách một đôi, trừ khi đôi đó không hợp nhóm nào bạn đang cân nhắc."
+            "value": "Joker không thay được đôi, nên đôi thật là nền của bộ bài. Hãy chuyền các quân đứng riêng (gió đơn, số rời rạc) trước khi tách một đôi, trừ khi đôi đó không hợp nhóm nào bạn đang cân nhắc."
           }
         }
       }
@@ -18511,7 +18511,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Joker có thể thay thế quân trong mọi nhóm từ ba quân trở lên. Người có một quân cùng loại với quân bạn bỏ và một joker, hoặc hai joker, có thể hô quân đó để lộ pung. Quân đó cũng có thể là quân lẻ giúp ai đó thắng bài. Hiếm, nhưng vẫn có thể."
+            "value": "Joker có thể thay thế quân trong mọi nhóm từ ba quân trở lên. Người có một quân cùng loại với quân bạn bỏ và một joker, hoặc hai joker, có thể hô quân đó để lộ pung. Quân đó cũng có thể là quân đơn giúp ai đó thắng bài. Hiếm, nhưng vẫn có thể."
           }
         }
       }
@@ -18604,7 +18604,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les jokers renforcent encore un groupe important d'un même chiffre. Continuez à renforcer le chiffre dont vous avez déjà le plus de tuiles."
+            "value": "Les jokers renforcent encore un groupe important d'un même chiffre. Continuez à miser sur le chiffre dont vous avez déjà le plus de tuiles."
           }
         },
         "id": {
@@ -18651,7 +18651,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không bao giờ được chuyền joker trong Charleston hay lượt chuyền xã giao. Nếu bạn nhận được một quân, có người đã phạm luật. Hoa có thể chuyền, nhưng lúc đầu nên giữ lại."
+            "value": "Không bao giờ được chuyền joker trong Charleston hay lượt chuyền xã giao. Nếu bạn nhận được joker, có người đã phạm luật. Hoa có thể chuyền, nhưng lúc đầu nên giữ lại."
           }
         }
       }
@@ -18686,7 +18686,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không bao giờ được chuyền joker trong Charleston hay lượt chuyền xã giao. Chuyền một quân là phạm luật."
+            "value": "Không bao giờ được chuyền joker trong Charleston hay lượt chuyền xã giao. Chuyền joker là phạm luật."
           }
         }
       }
@@ -18779,7 +18779,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les jokers restent cachés dans une main cachée : vous ne pouvez donc pas savoir combien il en a."
+            "value": "Dans une main cachée, les jokers ne se voient pas : vous ne pouvez donc pas savoir combien l'adversaire en a."
           }
         },
         "id": {
@@ -19491,7 +19491,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nắm các nhóm"
+            "value": "Nắm vững các nhóm"
           }
         }
       }
@@ -19572,7 +19572,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Spätes Spiel. Du musst abwerfen: eine überzählige Blume oder einen Wind, der schon zweimal abgeworfen wurde?"
+            "value": "Spät im Spiel. Du musst abwerfen: eine überzählige Blume oder einen Wind, der schon zweimal abgeworfen wurde?"
           }
         },
         "es": {
@@ -19619,7 +19619,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "En fin de manche, un adversaire a exposé un pung de 5 bambous et un pung de 9 bambous. Quelle défausse est la plus sûre ?"
+            "value": "En fin de manche, un adversaire a exposé un pung de 5 de bambou et un pung de 9 de bambou. Quelle défausse est la plus sûre ?"
           }
         },
         "id": {
@@ -19683,7 +19683,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Con la mano ya avanzada, tres 8 Dot ya están en el montón de descartes y tienes el cuarto. Un oponente con dos exposiciones parece cerca. ¿Qué descarte es el más seguro?"
+            "value": "Con la mano ya avanzada, hay tres 8 Dot en el montón de descartes y tú tienes el cuarto. Un oponente con dos exposiciones parece cerca. ¿Qué descarte es el más seguro?"
           }
         },
         "fr": {
@@ -19817,7 +19817,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lass ihn gehen"
+            "value": "Weg damit"
           }
         },
         "es": {
@@ -19852,7 +19852,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lass ihn gehen"
+            "value": "Weg damit"
           }
         },
         "es": {
@@ -19998,7 +19998,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mah jongg siempre gana la ficha. Una mano ganadora tiene prioridad sobre cualquier canto para exponer un grupo, sin importar quién haya cantado primero ni dónde se siente."
+            "value": "Quien canta mah jongg siempre se lleva la ficha. Una mano ganadora tiene prioridad sobre cualquier canto para exponer un grupo, sin importar quién haya cantado primero ni dónde se siente."
           }
         },
         "fr": {
@@ -20033,13 +20033,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Decide y luego dale la vuelta para ver la respuesta del entrenador."
+            "value": "Decide y luego dale la vuelta para ver la respuesta del entrenador"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prenez la décision, puis retournez pour voir la réponse du coach"
+            "value": "Prenez la décision, puis retournez la fiche pour voir la réponse du coach"
           }
         },
         "id": {
@@ -20185,7 +20185,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Banyak tangan memakai bunga, jadi bunga di akhir adalah buangan berisiko."
+            "value": "Banyak tangan memakai bunga, jadi membuang bunga di akhir permainan berisiko."
           }
         },
         "vi": {
@@ -20202,7 +20202,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Viele Sets zeigen die 1 Bam nicht als einzelnes Stäbchen. Was ist es meistens?"
+            "value": "Viele Sets zeigen die 1 Bam nicht als einzelnes Stäbchen. Was zeigen sie meistens?"
           }
         },
         "es": {
@@ -20377,7 +20377,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Monatschallenge"
+            "value": "Monats-Challenge"
           }
         },
         "es": {
@@ -20401,7 +20401,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Thử thách tháng"
+            "value": "Thử thách hằng tháng"
           }
         }
       }
@@ -20424,7 +20424,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Surtout des pairs, pas encore de paires. Première passe."
+            "value": "Surtout des chiffres pairs, pas encore de paire. Première passe."
           }
         },
         "id": {
@@ -20523,7 +20523,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ninguno, está muerta"
+            "value": "Ninguno, la ficha está muerta"
           }
         },
         "fr": {
@@ -20727,7 +20727,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nie, Abwürfe können das ganze Spiel über noch beansprucht werden."
+            "value": "Nie, Abwürfe können das ganze Spiel über noch gerufen werden."
           }
         },
         "es": {
@@ -20821,7 +20821,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không bao giờ. Joker chỉ dùng trong nhóm từ 3 quân trở lên (pung, kong, quint). Đôi và quân lẻ phải là quân thật."
+            "value": "Không bao giờ. Joker chỉ dùng trong nhóm từ 3 quân trở lên (pung, kong, quint). Đôi và quân đơn phải là quân thật."
           }
         }
       }
@@ -20949,13 +20949,13 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "L'absence d'expositions ne signifie pas l'absence de danger. Une main cachée peut n'être qu'à une tuile de gagner sans rien montrer. Fiez-vous aux tuiles que les autres joueurs ont déjà laissées passer."
+            "value": "Sans expositions, vous n'avez aucune information, mais le danger reste réel. Une main cachée peut n'être qu'à une tuile de gagner sans rien montrer. Fiez-vous aux tuiles que les autres joueurs ont déjà laissées passer."
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tidak ada ekspos bukan berarti tidak ada bahaya. Tangan tertutup bisa hampir selesai tanpa menunjukkan apa pun. Andalkan ubin yang sudah lewat tanpa dipanggil."
+            "value": "Tanpa ekspos berarti tanpa informasi, bukan tanpa bahaya. Tangan tertutup bisa hampir selesai tanpa menunjukkan apa pun. Andalkan ubin yang sudah lewat tanpa dipanggil."
           }
         },
         "vi": {
@@ -20996,7 +20996,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không có bộ nào lộ không cho biết họ còn cách chiến thắng bao xa. Bài kín có thể chỉ còn chờ quân cuối cùng mà vẫn chưa lộ bộ nào."
+            "value": "Việc họ chưa lộ bộ nào không cho biết họ còn cách chiến thắng bao xa. Bài kín có thể chỉ còn chờ quân cuối cùng mà vẫn chưa lộ bộ nào."
           }
         }
       }
@@ -21066,7 +21066,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không có cách nào biết"
+            "value": "Không thể biết"
           }
         }
       }
@@ -21276,7 +21276,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không, mỗi chữ số là một quân lẻ"
+            "value": "Không, mỗi chữ số là một quân đơn"
           }
         }
       }
@@ -21684,7 +21684,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Non, ne dites rien."
+            "value": "Non, ne dites rien"
           }
         },
         "id": {
@@ -21859,7 +21859,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Personne ne peut réclamer un joker défaussé : il ne peut donc jamais faire gagner quelqu'un. Si votre main ne peut plus gagner, le défausser ne vous coûte rien. Les fleurs et les vents encore invisibles peuvent toujours compléter la main d'un joueur, et la tuile la plus risquée à défausser est celle qui correspond au motif de ses expositions."
+            "value": "Personne ne peut réclamer un joker défaussé : il ne peut donc jamais faire gagner quelqu'un. Si votre main ne peut plus gagner, le défausser ne vous coûte rien. Les fleurs et les vents pas encore sortis peuvent toujours compléter la main d'un joueur, et la tuile la plus risquée à défausser est celle qui correspond au motif de ses expositions."
           }
         },
         "id": {
@@ -21871,7 +21871,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không ai có thể gọi joker đã bỏ, nên nó không thể là quân giúp ai thắng. Khi bài của bạn đã hết cơ hội thắng, bỏ quân đó cũng chẳng mất gì. Hoa và các quân gió chưa xuất hiện vẫn có thể giúp người khác hoàn thành bài, còn quân khớp với các bộ họ đã lộ là quân nguy hiểm nhất để bỏ."
+            "value": "Không ai có thể hô joker đã bỏ, nên nó không thể là quân giúp ai thắng. Khi bài của bạn đã hết cơ hội thắng, bỏ quân đó cũng chẳng mất gì. Hoa và các quân gió chưa xuất hiện vẫn có thể giúp người khác hoàn thành bài, còn quân khớp với các bộ họ đã lộ là quân nguy hiểm nhất để bỏ."
           }
         }
       }
@@ -21882,7 +21882,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Niemand kann ihn rufen, er ist sicher, aber für immer weg"
+            "value": "Niemand kann ihn rufen, also ist er sicher, aber für immer weg"
           }
         },
         "es": {
@@ -21917,7 +21917,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Niemand kann in dieser Hand eine 2 Bam ziehen"
+            "value": "Niemand kann in diesem Spiel eine 2 Bam ziehen"
           }
         },
         "es": {
@@ -22186,7 +22186,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không, hoàn toàn không thể"
+            "value": "Không có, hoàn toàn không thể"
           }
         }
       }
@@ -22501,7 +22501,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Khay quân của bạn không có quân số nào. Khi quân danh dự nhiều thế này, rõ ràng nên theo bài Gió & Rồng, vì mọi nhóm dựa vào số đều phải bắt đầu lại từ đầu."
+            "value": "Khay quân của bạn không có quân số nào. Khi quân danh dự nhiều thế này, rõ ràng nên theo bài Gió & Rồng, vì mọi nhóm dựa vào số đều phải bắt đầu từ con số không."
           }
         }
       }
@@ -22623,13 +22623,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "No hay ningún descarte seguro contra ese jugador; quizá esté cerca de ganar con una mano oculta."
+            "value": "No hay ningún descarte seguro contra ese jugador; quizá esté cerca de ganar con una mano oculta"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aucune tuile n'est garantie sûre contre lui : il peut être proche de gagner avec une main cachée."
+            "value": "Aucune tuile n'est garantie sûre contre lui : il peut être proche de gagner avec une main cachée"
           }
         },
         "id": {
@@ -22658,7 +22658,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nada en la mesa apunta a ninguna sección. Podrían ir por cualquier mano oculta."
+            "value": "Nada en la mesa apunta a ninguna sección. Podría ir por cualquier mano oculta."
           }
         },
         "fr": {
@@ -22792,7 +22792,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nichts hält die Hand auf. Das Spiel läuft normal weiter."
+            "value": "Nichts unterbricht das Spiel. Es läuft normal weiter."
           }
         },
         "es": {
@@ -22816,7 +22816,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không gì dừng ván bài. Ván tiếp tục bình thường."
+            "value": "Ván không bị dừng. Mọi người chơi tiếp như bình thường."
           }
         }
       }
@@ -22956,7 +22956,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không cần làm gì, joker đã lộ thì không thể đổi."
+            "value": "Không thể làm gì, joker đã lộ thì không thể đổi."
           }
         }
       }
@@ -23072,7 +23072,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zahlen in Reihe"
+            "value": "Zahlen in Folge"
           }
         },
         "es": {
@@ -23183,7 +23183,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "En el último pase de cada Charleston (el primero a la izquierda y el segundo a la derecha), puedes pasar de 1 a 3 de las fichas que acabas de recibir sin mirarlas. Sigues pasando tres fichas, pero cada pase a ciegas te deja conservar una de las tuyas. Úsalo cuando no quieras soltar fichas que necesitas."
+            "value": "En el último pase de cada Charleston (el primero a la izquierda y el segundo a la derecha), puedes pasar de 1 a 3 de las fichas que acabas de recibir sin mirarlas. Sigues pasando tres fichas, pero cada ficha que pasas a ciegas te deja conservar una de las tuyas. Úsalo cuando no quieras soltar fichas que necesitas."
           }
         },
         "fr": {
@@ -23282,7 +23282,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "In deinem Zug darfst du einen passenden Stein gegen einen Joker in der Auslage jedes Spielers tauschen. Du bekommst einen Joker für jeden Pung und jede größere Gruppe, die du baust, und die 5 Dot verlässt deine Hand, ohne je im Abwurf zu landen."
+            "value": "In deinem Zug darfst du einen passenden Stein gegen einen Joker in der Auslage jedes Spielers tauschen. Du bekommst einen Joker, den du in jedem Pung oder jeder größeren Gruppe einsetzen kannst, und die 5 Dot verlässt deine Hand, ohne je im Abwurf zu landen."
           }
         },
         "es": {
@@ -23492,7 +23492,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hat der Besitzer abgeworfen, kann er einen ausgelegten Pung nicht mehr zum Kong erweitern. Sind drei 6 Dot ausgelegt und eine in deiner Hand, sind alle vier bekannt. Niemand kann also noch ein natürliches Paar davon halten. Nur wer auf einen einzelnen 6 Dot wartet oder ihn mit Jokern ergänzen kann, könnte noch einen wollen. Das ist einer deiner sichereren Abwürfe."
+            "value": "Hat der Besitzer abgeworfen, kann er einen ausgelegten Pung nicht mehr zum Kong erweitern. Sind drei 6 Dot ausgelegt und eine in deiner Hand, sind alle vier bekannt. Niemand kann also noch ein natürliches Paar davon halten. Nur wer auf eine einzelne 6 Dot wartet oder sie mit Jokern ergänzen kann, könnte noch eine wollen. Das ist einer deiner sichereren Abwürfe."
           }
         },
         "es": {
@@ -23539,7 +23539,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une fois que son propriétaire a défaussé, un pung exposé reste un pung. Votre 2 Crak ne peut pas le transformer en kong : vous ne pouvez donc pas ajouter votre tuile à ce groupe. La tuile peut quand même aider un autre joueur, alors regardez ce qui se passe sur la table."
+            "value": "Une fois que son propriétaire a défaussé, un pung exposé reste un pung. Votre 2 Crak ne peut pas le transformer en kong : ce groupe ne peut donc pas utiliser votre tuile. La tuile peut quand même aider un autre joueur, alors regardez ce qui se passe sur la table."
           }
         },
         "id": {
@@ -23831,7 +23831,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một bộ bài in trên thẻ, đọc từ trái sang phải. Mỗi nhóm có vài dòng. Giá trị bên cạnh mỗi dòng cho biết mức trả và nhóm đó là X (được phép bày nhóm) hay C (bài kín)."
+            "value": "Một bộ bài in trên thẻ, đọc từ trái sang phải. Mỗi nhóm có vài dòng. Giá trị bên cạnh mỗi dòng cho biết mức trả và dòng đó là X (được phép bày nhóm) hay C (bài kín)."
           }
         }
       }
@@ -23877,7 +23877,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein einzelner Stein, den die Hand wirklich braucht. Wie ein Paar kann er keinen Joker ersetzen und nicht gerufen werden, außer wenn er deine Hand vollendet."
+            "value": "Ein einzelner Stein, den die Hand wirklich braucht. Wie ein Paar kann er nicht durch einen Joker ersetzt und nicht gerufen werden, außer als Stein, der deine Hand vollendet."
           }
         },
         "es": {
@@ -23889,13 +23889,13 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une tuile isolée dont la main a vraiment besoin. Comme une paire, elle ne peut contenir de joker ni être réclamée, sauf pour compléter votre main gagnante."
+            "value": "Une tuile isolée dont la main a vraiment besoin. Comme une paire, elle ne peut pas être remplacée par un joker ni être réclamée, sauf pour compléter votre main gagnante."
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Satu ubin tunggal yang benar-benar dibutuhkan tangan. Seperti pasangan, ubin ini tidak boleh berisi joker dan tidak bisa diambil dari buangan, kecuali jika ubin itu melengkapi tanganmu."
+            "value": "Satu ubin tunggal yang benar-benar dibutuhkan tangan. Seperti pasangan, ubin ini tidak bisa digantikan joker dan tidak bisa diambil dari buangan, kecuali jika ubin itu melengkapi tanganmu."
           }
         },
         "vi": {
@@ -24076,7 +24076,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một người hô quân bỏ để tạo pung, người khác hô cùng quân đó để mah jongg. Ai được?"
+            "value": "Một người hô quân bỏ để tạo pung, người khác hô cùng quân đó để báo mah jongg. Ai được lấy quân đó?"
           }
         }
       }
@@ -24134,7 +24134,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Seulement des 3, des 6 et des 9. Le 6 exclut une main purement impaire, et le 3 et le 9 excluent une main purement paire : la lecture est 369."
+            "value": "Seulement des 3, des 6 et des 9. Le 6 exclut une main purement impaire, et le 3 et le 9 excluent une main purement paire : c'est donc une main 369."
           }
         },
         "id": {
@@ -24181,7 +24181,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chỉ 4 quân trong số đó"
+            "value": "Chỉ có 4 quân"
           }
         }
       }
@@ -24251,7 +24251,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chỉ sau khi quân bỏ kế tiếp rơi xuống"
+            "value": "Chỉ sau khi có quân bỏ kế tiếp"
           }
         }
       }
@@ -24426,7 +24426,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chỉ để mah jongg"
+            "value": "Chỉ để báo mah jongg"
           }
         }
       }
@@ -24595,7 +24595,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setiap ubin hanya ada empat, jadi kelompok lima selalu butuh minimal satu joker. Kebanyakan pemain tidak akan memilih Quint tanpa dua."
+            "value": "Setiap ubin hanya ada empat, jadi kelompok lima selalu butuh minimal satu joker. Kebanyakan pemain tidak akan memilih Quint tanpa dua joker."
           }
         },
         "vi": {
@@ -24986,7 +24986,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chỉ nếu bạn là Đông"
+            "value": "Chỉ khi bạn là Đông"
           }
         }
       }
@@ -25365,7 +25365,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hanya dari ambilanmu sendiri"
+            "value": "Hanya dari ubin yang kamu ambil sendiri"
           }
         },
         "vi": {
@@ -25674,7 +25674,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Seulement pour compléter un groupe que vous pouvez exposer ou annoncer mah jongg"
+            "value": "Seulement pour compléter un groupe que vous pouvez exposer, ou pour annoncer mah jongg"
           }
         },
         "id": {
@@ -25890,7 +25890,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pasangan tidak bisa dipanggil selama permainan. Hanya mah jongg yang membukanya."
+            "value": "Pasangan tidak bisa diambil dari buangan selama permainan, kecuali untuk mah jongg."
           }
         },
         "vi": {
@@ -26117,7 +26117,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pässe sind Hinweise"
+            "value": "Weitergaben sind Hinweise"
           }
         },
         "es": {
@@ -26170,7 +26170,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mengoperkan joker karena salah"
+            "value": "Tidak sengaja mengoperkan joker"
           }
         },
         "vi": {
@@ -26485,13 +26485,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mainkan yang Sembilan"
+            "value": "Mainkan Ubin Sembilan"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chơi bộ chín quân"
+            "value": "Chơi quân 9"
           }
         }
       }
@@ -26502,7 +26502,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Spieler werfen ab, was sie nicht brauchen. Drei Crak-Abwürfe nacheinander deuten darauf hin, dass Crak gerade nicht sein Plan ist. Das ist eine Tendenz, kein Beweis, aber ein Hinweis, der sich über eine Hand hinweg summiert."
+            "value": "Spieler werfen ab, was sie nicht brauchen. Drei Crak-Abwürfe nacheinander deuten darauf hin, dass der Spieler gerade nicht auf Crak spielt. Das ist eine Tendenz, kein Beweis, aber ein Hinweis, der sich über eine Hand hinweg summiert."
           }
         },
         "es": {
@@ -26561,7 +26561,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ván tập: chọn 3 quân để chuyền, rồi đối chiếu lựa chọn với gợi ý của huấn luyện viên."
+            "value": "Ván tập: chọn 3 quân để chuyền, rồi đối chiếu lựa chọn với gợi ý của huấn luyện viên"
           }
         }
       }
@@ -26613,7 +26613,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prefiere fichas que no coincidan con ninguna exposición de su atril, fichas que otros ya tiraron sin que nadie las cantara y fichas de las que ya se ven 3 copias. Son más seguras, pero no están libres de riesgo. Los comodines aún pueden completar un grupo, y una ficha suelta puede ser su ficha ganadora. A veces lo correcto es deshacer tu propia mano para no tirarla."
+            "value": "Prefiere fichas que no coincidan con ninguna exposición de su atril, fichas que otros ya tiraron sin que nadie las cantara y fichas de las que ya se ven 3 copias. Son más seguras, pero no están libres de riesgo. Los comodines aún pueden completar un grupo, y una ficha suelta puede ser su ficha ganadora. A veces lo correcto es deshacer tu propia mano para no tirar esa ficha."
           }
         },
         "fr": {
@@ -27086,7 +27086,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đọc các nhóm đã bày, đếm quân và đừng giúp đối thủ sắp thắng."
+            "value": "Đọc các nhóm đã bày, đếm quân và đừng giúp đối thủ sắp thắng"
           }
         }
       }
@@ -27325,7 +27325,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Susun ulang tangan di sekitar joker"
+            "value": "Susun ulang tangan bertumpu pada joker"
           }
         },
         "vi": {
@@ -27576,7 +27576,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chỉ an toàn nếu đó là quân duy nhất còn lại."
+            "value": "Chỉ an toàn nếu đó là quân duy nhất còn lại"
           }
         }
       }
@@ -27681,7 +27681,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "An toàn hơn nhiều quân khác: quân này vừa bị bỏ mà không ai ăn."
+            "value": "An toàn hơn nhiều quân khác: quân này vừa bị bỏ mà không ai ăn"
           }
         }
       }
@@ -27821,7 +27821,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Thứ tự chỗ ngồi phân định hòa giữa các lần hô cùng loại. Hô mah jongg được ưu tiên hơn hô để bày nhóm."
+            "value": "Khi có nhiều lời hô cùng loại, thứ tự chỗ ngồi quyết định ai được. Hô mah jongg được ưu tiên hơn hô để bày nhóm."
           }
         }
       }
@@ -28171,7 +28171,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Charleston thứ hai, chuyền sang TRÁI. Không ai dừng Charleston thứ hai, nên nó diễn ra. Bạn có bảy quân 6 ở ba chất."
+            "value": "Charleston thứ hai, chuyền sang TRÁI. Không ai dừng Charleston thứ hai, nên vẫn tiếp tục. Bạn có bảy quân 6 ở ba chất."
           }
         }
       }
@@ -28206,7 +28206,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Charleston thứ hai, chuyền sang TRÁI. Không ai dừng Charleston thứ hai, nên nó diễn ra. Bạn có bảy quân 6 ở ba chất. Chọn 3."
+            "value": "Charleston thứ hai, chuyền sang TRÁI. Không ai dừng Charleston thứ hai, nên vẫn tiếp tục. Bạn có bảy quân 6 ở ba chất. Chọn 3."
           }
         }
       }
@@ -28521,7 +28521,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Charleston thứ hai, lượt cuối, chuyền sang PHẢI. Ở lượt chuyền trái trước đó, hàng xóm bên phải đã đưa bạn ba quân gió, nên họ có lẽ không theo Gió & Rồng."
+            "value": "Charleston thứ hai, lượt cuối, chuyền sang PHẢI. Ở lượt chuyền trái trước đó, người ngồi bên phải đã đưa bạn ba quân gió, nên họ có lẽ không theo Gió & Rồng."
           }
         }
       }
@@ -28556,7 +28556,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Charleston thứ hai, lượt cuối, chuyền sang PHẢI. Ở lượt chuyền trái trước đó, hàng xóm bên phải đã đưa bạn ba quân gió, nên họ có lẽ không theo Gió & Rồng. Chọn 3."
+            "value": "Charleston thứ hai, lượt cuối, chuyền sang PHẢI. Ở lượt chuyền trái trước đó, người ngồi bên phải đã đưa bạn ba quân gió, nên họ có lẽ không theo Gió & Rồng. Chọn 3."
           }
         }
       }
@@ -28626,7 +28626,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nhìn 13 quân, đoán họ đang theo nhóm bài nào"
+            "value": "Nhìn 13 quân, đoán bài đang theo nhóm nào"
           }
         }
       }
@@ -28748,7 +28748,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Siete fichas con el 6 repartidas entre tres palos son un gran comienzo para Números iguales, así que este pase es la ocasión de soltar las fichas que no ayudan con esa mano. La ficha 9 Crak y la 3 Dot sueltas no ayudan a los 6 (como mucho, serían un respaldo remoto), y cualquier otra opción rompe tu combinación de 6 o implica soltar una flor. Por eso, las fichas que menos te cuesta pasar son el 9 Crak, el 3 Dot y el Norte. Guarda las dos flores, porque muchas manos las usan. Recuerda que el segundo Charleston es opcional: cualquier jugador puede detenerlo."
+            "value": "Siete fichas con el 6 repartidas entre tres palos son un gran comienzo para Números iguales, así que este pase es la ocasión de soltar las fichas que no ayudan con esa mano. El 9 Crak y el 3 Dot sueltos no ayudan a los 6 (como mucho, serían un respaldo remoto), y cualquier otra opción rompe tu combinación de 6 o implica soltar una flor. Por eso, las fichas que menos te cuesta pasar son el 9 Crak, el 3 Dot y el Norte. Guarda las dos flores, porque muchas manos las usan. Recuerda que el segundo Charleston es opcional: cualquier jugador puede detenerlo."
           }
         },
         "fr": {
@@ -28760,7 +28760,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tujuh ubin bernomor 6 dari tiga jenis menjadi awal kuat untuk Angka Sama, jadi operan ini kesempatan untuk melepas ubin yang tidak mendukungnya. 9 Crak dan 3 Dot yang tunggal tidak membantu angka 6, paling jauh hanya jadi cadangan yang kecil peluangnya. Pilihan lain akan memecah kumpulan angka 6 atau mengorbankan bunga, jadi 9 Crak, 3 Dot, dan Utara paling mudah dilepas. Simpan kedua bunga karena banyak tangan memakainya. Charleston kedua bersifat opsional: satu pemain saja bisa menghentikannya."
+            "value": "Tujuh ubin bernomor 6 dari tiga jenis menjadi awal kuat untuk Angka Sama, jadi operan ini kesempatan untuk melepas ubin yang tidak mendukungnya. 9 Crak dan 3 Dot yang tunggal tidak membantu angka 6, paling banter hanya jadi cadangan yang kecil peluangnya. Pilihan lain akan memecah kumpulan angka 6 atau mengorbankan bunga, jadi 9 Crak, 3 Dot, dan Utara paling mudah dilepas. Simpan kedua bunga karena banyak tangan memakainya. Charleston kedua bersifat opsional: satu pemain saja bisa menghentikannya."
           }
         },
         "vi": {
@@ -28900,7 +28900,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tujuh angka enam menjadi jangkar Angka Sama. 4 Crak dan 8 Bam tidak berguna bagi angka 6 (paling banter cadangan yang kecil peluangnya), dan ubin Utara tidak punya pasangan, jadi ketiganya yang paling murah untuk dilepas. Operan lain memecah angka 6 atau melepas bunga."
+            "value": "Tujuh angka 6 menjadi dasar Angka Sama. 4 Crak dan 8 Bam tidak berguna bagi angka 6 (paling banter cadangan yang kecil peluangnya), dan ubin Utara tidak punya pasangan, jadi ketiganya yang paling murah untuk dilepas. Operan lain memecah angka 6 atau melepas bunga."
           }
         },
         "vi": {
@@ -28976,7 +28976,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đây là những quân dễ chuyền."
+            "value": "Bảy quân gió và một quân rồng cho thấy đây là ván theo Gió & Rồng. Ba quân số rải rác (3 Crak, 6 Dot, 9 Bam) lạc loài ở ba chất khác nhau, không giúp gì cho hướng gió. Đây là những quân dễ chuyền."
           }
         }
       }
@@ -29022,7 +29022,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Solltest du?"
+            "value": "Solltest du das?"
           }
         },
         "es": {
@@ -29034,7 +29034,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Devriez-vous ?"
+            "value": "Faut-il le faire ?"
           }
         },
         "id": {
@@ -29162,7 +29162,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Singles & Paare hat keine Pungs oder Kongs, also gibt es nichts zu rufen und nichts auszulegen. Sie wird komplett vom eigenen Rack gespielt."
+            "value": "Singles & Paare hat keine Pungs oder Kongs, also gibt es nichts zu rufen und nichts auszulegen. Diese Hand wird komplett vom eigenen Rack gespielt."
           }
         },
         "es": {
@@ -29442,7 +29442,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sechs natürliche Paare und kein einziger Joker. Die Zahlen liegen weit auseinander und mischen gerade und ungerade, daher passen sie weder zu einer Folge noch zu einer Zahlenfamilie. So fängt eine Hand aus Singles & Paaren an."
+            "value": "Sechs natürliche Paare und kein einziger Joker. Die Zahlen liegen weit auseinander und mischen gerade und ungerade, daher passen sie weder zu einer Folge noch zu einer Zahlenfamilie. So fängt eine Singles-&-Paare-Hand an."
           }
         },
         "es": {
@@ -29454,7 +29454,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Six paires naturelles et pas un seul joker. Les chiffres sautent d'un à l'autre et mêlent impairs et pairs : aucune suite ni famille de chiffres ne les contient. Des paires naturelles comme celles-ci, c'est ainsi que commence une main Simples et Paires."
+            "value": "Six paires naturelles et pas un seul joker. Les chiffres ne se suivent pas et mêlent impairs et pairs : aucune suite ni famille de chiffres ne les contient. C'est avec des paires naturelles comme celles-ci que commence une main Simples et Paires."
           }
         },
         "id": {
@@ -29711,7 +29711,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Thêm mười sáu câu: số quân trong các bộ, luật hô, nhóm sáu quân giống nhau và cách xử lý bài chết"
+            "value": "Thêm mười sáu câu: số quân trong các bộ, luật hô, nhóm sáu quân giống nhau và khi nào bài bị chết"
           }
         }
       }
@@ -29839,7 +29839,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les tuiles Soap servent aussi de zéros, elles deviennent donc vite rares. Si deux sont déjà visibles sur d'autres chevalets, la main de l'année que vous visez est peut-être déjà hors d'atteinte."
+            "value": "Les tuiles Soap servent aussi de zéros, elles deviennent donc vite rares. Si deux d'entre elles sont déjà visibles sur d'autres chevalets, la main de l'année que vous visez est peut-être déjà hors d'atteinte."
           }
         },
         "id": {
@@ -29985,7 +29985,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Urutkan, lalu pilih kandidat"
+            "value": "Urutkan, Lalu Pilih Kandidat"
           }
         },
         "vi": {
@@ -30020,7 +30020,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Siapa yang memanggil lebih dulu bukan penentu. Seruan mah jongg selalu didahulukan."
+            "value": "Kecepatan bukan penentu. Seruan mah jongg selalu didahulukan."
           }
         },
         "vi": {
@@ -30037,7 +30037,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bei einem Stein pro Ziffer ist jede Ziffer ein Einzelstein, und Joker füllen nie einen Einzelstein oder ein Paar. Diese vier müssen echte Steine sein. Eine Ziffer, die auf deiner Karte als Pung oder Kong steht, gehört zu einer Gruppe wie jede andere und kann Joker enthalten."
+            "value": "Bei einem Stein pro Ziffer ist jede Ziffer ein Einzelstein, und Joker füllen nie einen Einzelstein oder ein Paar. Diese vier müssen echte Steine sein. Eine Ziffer, die auf deiner Karte als Pung oder Kong steht, ist eine Gruppe wie jede andere und kann Joker enthalten."
           }
         },
         "es": {
@@ -30282,7 +30282,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Joker ersetzen, zurückholen und stehlen"
+            "value": "Wo Joker erlaubt sind, wann du sie zurückholst, wie du sie stiehlst"
           }
         },
         "es": {
@@ -30434,7 +30434,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Échanger votre vrai 3 Crak contre le joker et prendre le joker en main"
+            "value": "Échanger votre 3 Crak naturel contre le joker et prendre le joker en main"
           }
         },
         "id": {
@@ -30580,7 +30580,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beralih ke strategi bertahan: buang hanya ubin yang tidak bisa mereka pakai, meski itu merusak susunan tanganmu."
+            "value": "Beralih ke strategi bertahan: buang hanya ubin yang tidak bisa mereka pakai, meski itu merusak susunan tanganmu"
           }
         },
         "vi": {
@@ -30667,7 +30667,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nimm ihn, wann immer du willst"
+            "value": "Er kann ihn jederzeit nehmen"
           }
         },
         "es": {
@@ -30685,7 +30685,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ambil kapan saja mereka mau"
+            "value": "Bisa diambil kapan saja mereka mau"
           }
         },
         "vi": {
@@ -30778,7 +30778,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Eso les da el 5 Dot y deja el comodín con ellos. Si lo canjeas, te quedas con el comodín."
+            "value": "Así le regalas el 5 Dot y el comodín sigue siendo suyo. Si lo canjeas, te quedas con el comodín."
           }
         },
         "fr": {
@@ -30813,13 +30813,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Así funciona el juego: forma una mano que encaje con la tarjeta, supera el Charleston y aprende a leer los atriles rápido. Los ejercicios enseñan cada habilidad en una sala, en sesiones de cinco minutos."
+            "value": "Así funciona el juego: forma una mano que encaje con la tarjeta, supera el Charleston y aprende a leer los atriles rápido. Los ejercicios enseñan cada habilidad sala por sala, en sesiones de cinco minutos."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Voilà le principe du jeu : construisez votre main en fonction de la carte, tenez bon pendant le Charleston et apprenez à lire rapidement les chevalets. Les exercices vous font travailler chaque compétence, une salle à la fois, pendant cinq minutes d'affilée."
+            "value": "Voilà le principe du jeu : construisez votre main en fonction de la carte, tenez bon pendant le Charleston et apprenez à lire rapidement les chevalets. Les exercices vous font travailler chaque compétence, une salle à la fois, par séances de cinq minutes."
           }
         },
         "id": {
@@ -30982,7 +30982,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die 7 Bam ist ungerade und in derselben Farbe wie beide Pungs, sie passt also zur Lesart Ungerade."
+            "value": "Die 7 Bam ist ungerade und in derselben Farbe wie beide Pungs, sie passt also zum Plan mit ungeraden Zahlen."
           }
         },
         "es": {
@@ -31000,7 +31000,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "7 Bam itu ganjil dan sejenis dengan kedua pung, jadi cocok dengan bacaan ganjil."
+            "value": "7 Bam itu ganjil dan sejenis dengan kedua pung, jadi cocok dengan pola angka ganjil."
           }
         },
         "vi": {
@@ -31437,7 +31437,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Karte der National Mah Jongg League (NMJL) listet alle erlaubten Gewinnhände des Jahres, geordnet nach Sektionen (2468, Folge, 13579 ...). Jedes Frühjahr erscheint eine neue Karte. Die Farben auf der Karte stehen für die Spielfarben, nicht für bestimmte Farben. Jede Spielfarbe kann rot, grün oder blau sein."
+            "value": "Die Karte der National Mah Jongg League (NMJL) listet alle erlaubten Gewinnhände des Jahres, geordnet nach Sektionen (2468, Folge, 13579 ...). Jedes Frühjahr erscheint eine neue Karte. Verschiedene Farben auf der Karte bedeuten verschiedene Spielfarben, nicht bestimmte. Jede Spielfarbe kann rot, grün oder blau sein."
           }
         },
         "es": {
@@ -31542,7 +31542,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Soap ist der Weiße Drache (er sieht aus wie ein Stück Seife). Als Drache der Dot-Farbe steht er außerdem in Jahreshänden für die Null, wie die 0 in 2026."
+            "value": "Soap ist der Weiße Drache (er sieht aus wie ein Stück Seife). Er ist der Drache der Dot-Farbe und steht in Jahreshänden außerdem für die Null, wie die 0 in 2026."
           }
         },
         "es": {
@@ -31577,7 +31577,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Am Tisch"
+            "value": "Der Tischraum"
           }
         },
         "es": {
@@ -31741,7 +31741,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cả bộ bài"
+            "value": "Trọn bộ quân bài"
           }
         }
       }
@@ -31863,7 +31863,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Declaración de mah jongg cuando tu decimocuarta ficha completa una mano de la tarjeta. Hazla antes de exponer tu atril y asegúrate de que sea correcta, porque una mano mal declarada queda muerta."
+            "value": "La declaración que haces cuando tu decimocuarta ficha completa una mano de la tarjeta. Hazla antes de exponer tu atril y asegúrate de que sea correcta, porque una mano mal declarada queda muerta."
           }
         },
         "fr": {
@@ -32038,7 +32038,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "El pase de cortesía es opcional: cada jugador de enfrente indica cuántas fichas quiere pasar, de 0 a 3; si no coinciden, se pasa la cantidad menor. Con un pung de 6 Crak y parejas de 3 y 9 estás metido de lleno en 369, así que las fichas que menos te cuesta pasar son 4 Bam, 5 Bam y 7 Dot."
+            "value": "El pase de cortesía es opcional: los jugadores sentados frente a frente indican cada uno cuántas fichas quieren pasar, de 0 a 3; si no coinciden, se pasa la cantidad menor. Con un pung de 6 Crak y parejas de 3 y 9 estás metido de lleno en 369, así que las fichas que menos te cuesta pasar son 4 Bam, 5 Bam y 7 Dot."
           }
         },
         "fr": {
@@ -32102,7 +32102,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Die Ziffern sind auf dem Rack leicht zu erkennen, aber die Jahreszeilen sind genau festgelegt. Lies sie genau."
+            "value": "Die Ziffern sind auf dem Rack leicht zu erkennen, aber die Jahreszeilen sind genau festgelegt. Lies sie sorgfältig."
           }
         },
         "es": {
@@ -32464,13 +32464,13 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "La main paie le double"
+            "value": "La main rapporte le double"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tangan membayar dua kali lipat"
+            "value": "Tangan dibayar dua kali lipat"
           }
         },
         "vi": {
@@ -32604,7 +32604,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Le dernier échange se fait uniquement avec le joueur d'en face et peut porter sur zéro à trois tuiles, selon votre accord. Les deux joueurs doivent passer le même nombre de tuiles : demandez avant de compter dessus."
+            "value": "Le dernier échange se fait uniquement avec le joueur d'en face et peut porter sur zéro à trois tuiles, d'un commun accord. Les deux joueurs doivent passer le même nombre de tuiles : demandez avant de compter dessus."
           }
         },
         "id": {
@@ -32651,7 +32651,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Người bỏ cuối cùng"
+            "value": "Người bỏ quân cuối cùng"
           }
         }
       }
@@ -33152,7 +33152,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Der Spieler rechts von dir hat dreimal hintereinander Crak abgeworfen. Welche Farbe sammelt er wohl am wenigsten?"
+            "value": "Der Spieler rechts von dir hat dreimal hintereinander Crak abgeworfen. Welche Farbe sammelt er am wahrscheinlichsten nicht?"
           }
         },
         "es": {
@@ -33351,7 +33351,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Giá có 3-4-5, 4-5-6 và 5-6-7, các số nối tiếp ở cả ba chất. Số lẻ lẫn chẵn loại 2468 và 13579, nên đây là Dãy liên tiếp."
+            "value": "Giá có 3-4-5, 4-5-6 và 5-6-7, các số nối tiếp ở cả ba chất. Lẫn cả số lẻ và chẵn nên loại được 2468 và 13579, vậy đây là Dãy liên tiếp."
           }
         }
       }
@@ -33362,7 +33362,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dieselbe Zahl in allen drei Farben ist typisch für den Bereich Gleiche Zahlen in drei Farben. Kommt aus jeder Richtung dieselbe Zahl, solltest du hier nachsehen."
+            "value": "Dieselbe Zahl in allen drei Farben ist typisch für den Bereich Gleiche Zahlen. Kommt aus jeder Richtung dieselbe Zahl, solltest du hier nachsehen."
           }
         },
         "es": {
@@ -33800,7 +33800,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Seluruh tangan dimainkan ulang"
+            "value": "Seluruh ronde dimainkan ulang"
           }
         },
         "vi": {
@@ -33899,7 +33899,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Son pung de Nord est verrouillé dès qu'il défausse : il ne peut donc jamais devenir un kong. Comme il a trois Nord sur son chevalet et que vous en avez un, personne d'autre ne possède de Nord naturel. Un chiffre intermédiaire ou un Soap peut encore convenir à une main Vents et Dragons, et les fleurs conviennent à de nombreuses mains."
+            "value": "Son pung de Nord a été verrouillé quand il a défaussé : il ne peut donc jamais devenir un kong. Comme il a trois Nord sur son chevalet et que vous en avez un, personne d'autre ne possède de Nord naturel. Un chiffre intermédiaire ou un Soap peut encore convenir à une main Vents et Dragons, et les fleurs conviennent à de nombreuses mains."
           }
         },
         "id": {
@@ -33957,7 +33957,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Von jedem Stein gibt es vier, und alle vier 9-Bam-Steine liegen in diesem Kong. An der Mauer kann also kein 9-Bam-Stein mehr auftauchen. Verwirf jeden Plan, der einen braucht."
+            "value": "Von jedem Stein gibt es vier, und alle vier 9-Bam-Steine liegen in diesem Kong. In der Mauer kann also kein 9-Bam-Stein mehr auftauchen. Verwirf jeden Plan, der einen braucht."
           }
         },
         "es": {
@@ -33981,7 +33981,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mỗi quân có bốn bản, và cả bốn quân 9 Bam nằm trong kong đó. Không quân nào xuất hiện trong tường, nên hãy bỏ kế hoạch cần 9 Bam."
+            "value": "Mỗi loại quân có bốn quân, và cả bốn quân 9 Bam đều nằm trong kong đó. Không quân nào còn xuất hiện trong tường, nên hãy bỏ kế hoạch cần 9 Bam."
           }
         }
       }
@@ -33992,7 +33992,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Er ist kurz davor, Mah Jongg zu erklären"
+            "value": "Er ist kurz davor, Mah Jongg zu rufen"
           }
         },
         "es": {
@@ -34261,7 +34261,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Họ đã chọn bỏ 2 Dot, vì người chơi sẽ không bỏ quân mình cần."
+            "value": "Họ đã chọn bỏ 2 Dot, mà chẳng ai lại bỏ quân mình cần."
           }
         }
       }
@@ -34290,13 +34290,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ubin-ubin itu diletakkan terbuka di atas rakmu selama sisa ronde."
+            "value": "Ubin-ubin itu diletakkan terbuka di atas rakmu selama sisa ronde"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chúng được ngửa lên trên giá suốt phần còn lại của ván"
+            "value": "Chúng được đặt ngửa trên giá đến hết ván"
           }
         }
       }
@@ -34389,19 +34389,19 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Il joue peut-être une main cachée : aucune défausse ne peut donc être considérée comme sûre face à lui."
+            "value": "Il joue peut-être une main cachée : aucune défausse ne peut donc être considérée comme sûre face à lui"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mereka mungkin mengejar tangan tertutup, jadi belum ada ubin yang bisa dipastikan aman dibuang."
+            "value": "Mereka mungkin mengejar tangan tertutup, jadi belum ada ubin yang bisa dipastikan aman dibuang"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Họ có thể đang theo bộ bài kín, nên không có quân nào chắc chắn an toàn khi bỏ trước mặt họ."
+            "value": "Họ có thể đang theo bộ bài kín, nên không có quân nào chắc chắn an toàn khi bỏ trước mặt họ"
           }
         }
       }
@@ -34576,7 +34576,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mười ba lượt hô nữa: quân bỏ an toàn, quân chết, đổi joker và khi nào KHÔNG nên hô"
+            "value": "Thêm mười ba tình huống: quân bỏ an toàn, quân chết, đổi joker và khi nào KHÔNG nên hô"
           }
         }
       }
@@ -34640,7 +34640,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mah jongg tercapai saat 14 ubinmu persis cocok dengan salah satu pola tangan di kartu."
+            "value": "Tiga belas. Kamu mengambil ubin ke-14, lalu membuang (atau menyimpannya dan membuang ubin lain). Timur satu-satunya pengecualian: mulai dengan 14 ubin dan membuka permainan dengan membuang. Mah jongg tercapai saat 14 ubinmu persis cocok dengan salah satu pola tangan di kartu."
           }
         },
         "vi": {
@@ -34669,7 +34669,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cette donne penche vers 2468 : vous avez huit tuiles portant un chiffre pair, dont trois paires, ainsi qu'une fleur et un joker à garder. Le 1 Crak et le 9 Bam sont impairs : avec le Nord isolé, ils ne servent pas ce plan. Le joker ne peut jamais être passé, et gardez la fleur pour l'instant."
+            "value": "Cette donne penche vers 2468 : vous avez huit tuiles portant un chiffre pair, dont trois paires, ainsi qu'une fleur et un joker à garder. Le 1 Crak et le 9 Bam sont impairs : avec le Nord isolé, ils ne servent pas ce plan. Le joker ne peut jamais être passé, et mieux vaut garder la fleur pour l'instant."
           }
         },
         "id": {
@@ -34692,7 +34692,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Das ist der Jokertausch. In deinem Zug darfst du vor dem Abwerfen einen ausgelegten Joker gegen den passenden echten Stein tauschen, dann kommt der Joker zurück auf deine Hand. Ein Joker, den du so zurückgewinnst, bringt dir einen großen Vorteil. Achte auf solche Gelegenheiten."
+            "value": "Das ist der Jokertausch. In deinem Zug darfst du vor dem Abwerfen einen ausgelegten Joker gegen den passenden echten Stein tauschen und den Joker auf die Hand nehmen. Ein Joker, den du so zurückgewinnst, bringt dir einen großen Vorteil. Achte auf solche Gelegenheiten."
           }
         },
         "es": {
@@ -34920,7 +34920,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiga bunga dan tujuh ubin ganjil dengan pasangan 1 Bam dan 5 Crak: ini rak 13579. 4 Crak dan 8 Bam genap dan Selatan adalah angin sendirian. Bunga tetap disimpan: banyak tangan memakainya."
+            "value": "Tiga bunga dan tujuh ubin ganjil dengan pasangan 1 Bam dan 5 Crak: ini rak 13579. 4 Crak dan 8 Bam genap, dan Selatan adalah angin tunggal. Bunga tetap disimpan: banyak tangan memakainya."
           }
         },
         "vi": {
@@ -34978,7 +34978,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hay tres flores y la mano es de Sueltas y Parejas."
+            "value": "Hay tres flores y la mano es de Sueltas y Parejas"
           }
         },
         "fr": {
@@ -35124,7 +35124,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trois identiques forment un pung. La plupart des mains sont bâties avec des groupes comme celui-ci."
+            "value": "Trois tuiles identiques forment un pung. La plupart des mains sont bâties avec des groupes comme celui-ci."
           }
         },
         "id": {
@@ -35206,7 +35206,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ba chất chạy từ 1 đến 9. Đó là Crak (đỏ), Bam (xanh lá) và Dot (xanh dương). Gió in là N, E, W, S. Mỗi rồng đi với một chất, đỏ với Crak, xanh lá với Bam và Soap trắng với Dot. Hoa thay thế được cho nhau và xuất hiện trong nhiều bộ bài trên thẻ, còn joker thay cho quân trong các nhóm lớn hơn."
+            "value": "Ba chất chạy từ 1 đến 9. Đó là Crak (đỏ), Bam (xanh lá) và Dot (xanh dương). Quân gió in chữ N, E, W, S. Mỗi rồng đi với một chất, đỏ với Crak, xanh lá với Bam và Soap trắng với Dot. Hoa thay thế được cho nhau và xuất hiện trong nhiều bộ bài trên thẻ, còn joker thay cho quân trong các nhóm lớn hơn."
           }
         }
       }
@@ -35515,7 +35515,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buang Angin"
+            "value": "Buang Ubin Angin"
           }
         },
         "vi": {
@@ -35585,7 +35585,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buang angin"
+            "value": "Buang ubin angin"
           }
         },
         "vi": {
@@ -35882,19 +35882,19 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Steine, die ein Spieler im Charleston weitergibt, wollte er meist loswerden (außer bei einem Blindpass) und hat seitdem Craks gesammelt. Ein Dot dürfte für ihn am ehesten überflüssig sein. Das ist keine sichere Annahme, denn Pläne können sich ändern und manche Hände nutzen alle drei Farben. Aber ein Dot ist eine bessere Wahl als eine Farbe, über die du nichts weißt, oder die Farbe, die er offen auslegt."
+            "value": "Steine, die ein Spieler im Charleston weitergibt, wollte er meist loswerden (außer bei einem Blindpass), und seitdem sammelt er Craks. Ein Dot dürfte für ihn am ehesten überflüssig sein. Das ist keine sichere Annahme, denn Pläne können sich ändern und manche Hände nutzen alle drei Farben. Aber ein Dot ist eine bessere Wahl als eine Farbe, über die du nichts weißt, oder die Farbe, die er offen auslegt."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Las fichas que un jugador pasa en el Charleston suelen ser las que decidió soltar (salvo en un pase a ciegas), y desde entonces ha ido reuniendo fichas de Crak. Lo más probable es que le sobre un Dot. No es seguro, porque los planes cambian y algunas manos usan los tres palos, pero es mejor opción que pasar una ficha de un palo que no conoces o del palo que está mostrando."
+            "value": "Las fichas que un jugador pasa en el Charleston suelen ser las que decidió soltar (salvo en un pase a ciegas), y desde entonces ha ido reuniendo fichas de Crak. Lo más probable es que le sobre un Dot. No es seguro, porque los planes cambian y algunas manos usan los tres palos, pero es mejor opción que una ficha de un palo del que no sabes nada o del palo que está mostrando."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les tuiles qu'un joueur passe au Charleston sont généralement celles qu'il a choisies de donner (la passe à l'aveugle fait exception), et il a depuis construit sa main autour des Crak. Un Dot a le plus de chances d'être du poids mort pour lui. Rien n'est certain, car les plans changent et certaines mains utilisent les trois familles, mais c'est mieux qu'une famille dont vous ne savez rien ou que celle qu'il montre."
+            "value": "Les tuiles qu'un joueur passe au Charleston sont généralement celles qu'il a choisi de donner (la passe à l'aveugle fait exception), et il a depuis construit sa main autour des Crak. Un Dot a le plus de chances d'être du poids mort pour lui. Rien n'est certain, car les plans changent et certaines mains utilisent les trois familles, mais c'est mieux qu'une famille dont vous ne savez rien ou que celle qu'il montre."
           }
         },
         "id": {
@@ -35929,7 +35929,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les tuiles reçues sont souvent celles dont le joueur n'avait pas besoin, sauf si elles ont été passées à l'aveugle. Trois vents de votre droite ? Ce joueur ne vise probablement pas Vents et Dragons. Voyez-y un indice, pas une preuve, car les passes à l'aveugle n'apprennent rien."
+            "value": "Les tuiles reçues sont souvent celles dont le joueur n'avait pas besoin, sauf si elles ont été passées à l'aveugle. Trois vents de votre droite ? Ce joueur ne vise probablement pas Vents et Dragons. Voyez-y un indice, pas une preuve, car les passes à l'aveugle ne vous apprennent rien."
           }
         },
         "id": {
@@ -35993,7 +35993,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Repartos desparejos, cuentas de parejas y defensa con tu pase"
+            "value": "Repartos divididos, cuentas de parejas y defensa con tu pase"
           }
         },
         "fr": {
@@ -36063,7 +36063,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cambiarlo por un 7 Crak en su turno"
+            "value": "Cambiar un 7 Crak por él en su turno"
           }
         },
         "fr": {
@@ -36273,13 +36273,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Doce: cuatro Rojos, cuatro Verdes y cuatro Soap. El 16 representa los vientos. Con solo cuatro de cada dragón, un kong de dragones necesita las cuatro copias o un comodín."
+            "value": "Doce: cuatro Rojos, cuatro Verdes y cuatro Soap. Los vientos son dieciséis. Con solo cuatro de cada dragón, un kong de dragones necesita las cuatro copias o un comodín."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Douze : quatre Rouges, quatre Verts et quatre Soap. Seize, ce sont les vents. Avec seulement quatre exemplaires de chaque dragon, un kong de dragons prend toutes les copies ou un joker."
+            "value": "Douze : quatre Rouges, quatre Verts et quatre Soap. Seize, ce sont les vents. Avec seulement quatre exemplaires de chaque dragon, un kong de dragons demande tous les exemplaires ou un joker."
           }
         },
         "id": {
@@ -36349,7 +36349,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "De deux familles différentes"
+            "value": "Deux familles différentes"
           }
         },
         "id": {
@@ -36372,7 +36372,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zwei Drachen-Pungs könnten auf Winde & Drachen hindeuten, und der Soap ist der dritte Drache. Keiner dieser Steine ist entbehrlich, aber der Soap passt am direktesten zu dem, was dieser Spieler zeigt."
+            "value": "Zwei Drachen-Pungs könnten auf Winde & Drachen hindeuten, und der Soap ist der dritte Drache. Keiner dieser Steine ist ungefährlich, aber der Soap passt am direktesten zu dem, was dieser Spieler zeigt."
           }
         },
         "es": {
@@ -36582,7 +36582,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zwei Pungs und vier Joker. Zwei Joker machen aus einem Pung einen Quint, und auf diesem Rack liegen vier davon. Nur Joker können Quints bilden, davon gibt es hier also reichlich."
+            "value": "Zwei Pungs und vier Joker. Zwei Joker machen aus einem Pung einen Quint, und auf diesem Rack liegen vier davon. Nur Joker können Quints bilden, und davon gibt es hier reichlich."
           }
         },
         "es": {
@@ -36623,7 +36623,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dos pungs del mismo palo, con dos números de diferencia, se leen como una escalera con el centro faltante: el 7 Bam es el puente que la completaría. Guárdalo y tira algo sin relación."
+            "value": "Dos pungs del mismo palo, con dos números de diferencia, se leen como una escalera a la que le falta el número central: el 7 Bam es el puente que la completaría. Guárdalo y tira algo sin relación."
           }
         },
         "fr": {
@@ -36757,7 +36757,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zwei Wind-Pungs deuten gut auf Winde & Drachen hin, und ein Nord ist ein weiterer Wind für dieselbe Hand. Keiner dieser Steine ist entbehrlich, aber der Nord passt am ehesten zu dem, was der Spieler offen zeigt."
+            "value": "Zwei Wind-Pungs könnten auf Winde & Drachen hindeuten, und ein Nord ist ein weiterer Wind für dieselbe Hand. Keiner dieser Steine ist ungefährlich, aber der Nord passt am ehesten zu dem, was der Spieler offen zeigt."
           }
         },
         "es": {
@@ -36781,7 +36781,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hai pung gió có thể là Gió & Rồng, và Bắc là một quân gió nữa cho bộ bài đó. Không quân nào miễn phí, nhưng Bắc hợp trực tiếp nhất với điều họ đang lộ."
+            "value": "Hai pung gió có thể cho thấy họ đang theo Gió & Rồng, và Bắc là một quân gió nữa cho bộ bài đó. Bỏ quân nào cũng có rủi ro, nhưng Bắc phù hợp nhất với những gì họ đang để lộ."
           }
         }
       }
@@ -37078,7 +37078,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Partida de muro"
+            "value": "Mano nula"
           }
         },
         "fr": {
@@ -37090,7 +37090,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Permainan dinding"
+            "value": "Dinding habis"
           }
         },
         "vi": {
@@ -37603,7 +37603,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cuando dos jugadores cantan el mismo descarte para una exposición a la vez, se la queda el siguiente en turno después de ti. Solo una cantada de mah jongg puede saltarse la fila."
+            "value": "Cuando dos jugadores cantan el mismo descarte para una exposición a la vez, se lo queda el siguiente en turno después de ti. Solo una cantada de mah jongg puede saltarse ese orden."
           }
         },
         "fr": {
@@ -37656,7 +37656,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Khi hai người cùng muốn lấy một quân bỏ để lập bộ, quân đó thuộc về người có lượt kế tiếp sau người bỏ quân, trừ khi người gọi kia đã đặt quân lên giá hoặc đã để lộ bộ có quân đó. Hô mah jongg vẫn được ưu tiên hơn mọi bộ đã lộ."
+            "value": "Khi hai người cùng muốn lấy một quân bỏ để lập bộ, quân đó thuộc về người có lượt kế tiếp sau người bỏ quân, trừ khi người hô kia đã đặt quân lên giá hoặc đã để lộ bộ có quân đó. Hô mah jongg vẫn được ưu tiên hơn mọi bộ đã lộ."
           }
         }
       }
@@ -37702,7 +37702,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Konkurrieren zwei Bereiche, orientiere dich an der Zählung. Die längere Seite mit Paaren gewinnt, die kürzere wird zu deinen Abgaben."
+            "value": "Konkurrieren zwei Bereiche, entscheidet die Anzahl. Die längere Seite mit Paaren gewinnt, die kürzere wird zu deinen Abgaben."
           }
         },
         "es": {
@@ -38070,7 +38070,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Selama pola tanganmu masih bisa berubah, simpan satu bunga sebagai cadangan. Kamu bisa menukarnya dengan joker dalam ekspos bunga siapa pun, dan berpindah pola bisa mengubah jumlah bunga yang kamu butuhkan. Setelah kamu mantap pada pola yang tepat membutuhkan dua bunga, bunga ekstra aman dibuang."
+            "value": "Selama pola tanganmu masih bisa berubah, simpan satu bunga sebagai cadangan. Kamu bisa menukarnya dengan joker dalam ekspos bunga siapa pun, dan berpindah pola bisa mengubah jumlah bunga yang kamu butuhkan. Setelah kamu mantap pada pola yang butuh tepat dua bunga, bunga ekstra aman dibuang."
           }
         },
         "vi": {
@@ -38140,7 +38140,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Siapa yang bicara lebih dulu"
+            "value": "Yang bicara lebih dulu"
           }
         },
         "vi": {
@@ -38391,7 +38391,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Với bài lộn xộn, hãy để nhóm mạnh nhất định hướng. Quân lẻ có thể thay thế cho nhau; đôi và hoa thì không."
+            "value": "Với bài lộn xộn, hãy để nhóm mạnh nhất định hướng. Quân rời rạc có thể thay thế cho nhau; đôi và hoa thì không."
           }
         }
       }
@@ -38420,13 +38420,13 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dengan tiga 8 Dot lainnya sudah dibuang, tidak ada yang bisa memiliki pasangan 8 Dot tanpa joker. Jadi 8 Dot-mu hanya bisa membantu pemain yang menunggu satu 8 Dot atau yang siap memanggilnya dengan dua joker. Tiga ubin lainnya masih tersedia dan mungkin diinginkan siapa pun."
+            "value": "Dengan tiga 8 Dot lainnya sudah dibuang, tidak ada yang bisa memegang pasangan asli 8 Dot. Jadi 8 Dot-mu hanya bisa membantu pemain yang menunggu satu 8 Dot atau yang siap memanggilnya dengan dua joker. Tiga ubin lainnya masih tersedia dan mungkin diinginkan siapa pun."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Với ba quân 8 Dot kia ở đống bỏ, không ai có đôi 8 Dot thật, nên 8 Dot của bạn chỉ giúp người đang chờ một quân 8 Dot lẻ hoặc người sẵn sàng hô nó bằng hai joker. Ba quân kia còn sống mà ai cũng có thể cần."
+            "value": "Với ba quân 8 Dot kia ở đống bỏ, không ai có đôi 8 Dot thật, nên 8 Dot của bạn chỉ giúp người đang chờ một quân 8 Dot lẻ hoặc người sẵn sàng hô nó bằng hai joker. Ba quân còn lại đều là quân sống mà ai cũng có thể cần."
           }
         }
       }
@@ -38805,7 +38805,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ya, kecuali dinyatakan lain"
+            "value": "Ya, Kecuali Dinyatakan Lain"
           }
         },
         "vi": {
@@ -38904,7 +38904,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oui, toute fleur peut représenter n'importe quel F."
+            "value": "Oui, toute fleur peut représenter n'importe quel F"
           }
         },
         "id": {
@@ -39009,7 +39009,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oui, vous pouvez l'appeler."
+            "value": "Oui, vous pouvez l'appeler"
           }
         },
         "id": {
@@ -39254,7 +39254,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oui, les jokers peuvent la remplacer."
+            "value": "Oui, les jokers peuvent la remplacer"
           }
         },
         "id": {
@@ -39487,7 +39487,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ja, wenn nichts dasteht"
+            "value": "Ja, wenn nichts anderes dasteht"
           }
         },
         "es": {
@@ -39499,7 +39499,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oui, sauf mention"
+            "value": "Oui, sauf mention contraire"
           }
         },
         "id": {
@@ -40024,7 +40024,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous distribuez la main suivante"
+            "value": "Vous distribuez la manche suivante"
           }
         },
         "id": {
@@ -40065,7 +40065,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kamu membuang 4 Bam dan dua lawan sama-sama memanggilnya untuk pung di saat yang sama. Tidak ada yang menang. Siapa yang mendapatkannya?"
+            "value": "Kamu membuang 4 Bam dan dua lawan sama-sama memanggilnya untuk pung di saat yang sama. Tidak ada yang memanggil untuk mah jongg. Siapa yang mendapatkannya?"
           }
         },
         "vi": {
@@ -40345,7 +40345,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kamu menyerahkannya ke pembuang"
+            "value": "Kamu menyerahkannya ke pemain yang membuang"
           }
         },
         "vi": {
@@ -40526,7 +40526,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bạn có một quân. Hai quân đã nằm trong chồng bỏ, một quân đã lộ trên giá của người khác. Có nên tiếp tục chờ quân đó không?"
+            "value": "Bạn có một quân. Hai quân đã nằm trong đống bỏ, một quân đã lộ trên giá của người khác. Có nên tiếp tục chờ quân đó không?"
           }
         }
       }
@@ -40701,7 +40701,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bạn có thể hô cho đến khi người chơi kế tiếp bốc một quân và đặt lên giá. Sau đó, quân bỏ đó không còn được gọi nữa. Hãy lên tiếng nhanh."
+            "value": "Bạn có thể hô cho đến khi người chơi kế tiếp bốc một quân và đặt lên giá. Sau đó, quân bỏ đó không còn được hô nữa. Hãy lên tiếng nhanh."
           }
         }
       }
@@ -41132,7 +41132,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du legst dich auf Einzelsteine & Paare fest."
+            "value": "Du hast dich auf Einzelsteine & Paare festgelegt."
           }
         },
         "es": {
@@ -41191,7 +41191,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bạn sẵn sàng luyện tập"
+            "value": "Bạn đã sẵn sàng luyện tập"
           }
         }
       }
@@ -41249,7 +41249,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous pouvez défausser toute tuile dont vous ne voulez pas, sans chercher à compléter quoi que ce soit."
+            "value": "Vos défausses n'ont jamais à correspondre à quoi que ce soit. Toute tuile dont vous ne voulez pas peut partir."
           }
         },
         "id": {
@@ -41284,7 +41284,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Votre dernière passe est un outil défensif. Donnez à un voisin le genre de tuile dont il a laissé entendre qu'il ne veut pas."
+            "value": "Votre dernière passe est un outil défensif. Donnez à un voisin le genre de tuile dont il semble ne pas vouloir."
           }
         },
         "id": {
@@ -41319,7 +41319,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Votre main ne peut pas gagner : piocher vers elle ne rapporte rien, et les tuiles risquées doivent bien aller quelque part."
+            "value": "Votre main ne peut pas gagner : piocher pour la compléter ne rapporte rien, et les tuiles risquées doivent bien aller quelque part."
           }
         },
         "id": {
@@ -41348,7 +41348,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tu mano se basa en números y nadie ha expuesto un viento. ¿La guardas o la tiras?"
+            "value": "Tu mano se basa en números y nadie ha expuesto un viento. ¿Lo guardas o lo tiras?"
           }
         },
         "fr": {
@@ -41453,7 +41453,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tu mano va por 2468. ¿La guardas o la tiras?"
+            "value": "Tu mano va por 2468. ¿Guardas la ficha o la tiras?"
           }
         },
         "fr": {
@@ -41622,7 +41622,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deiner Hand fehlt noch ein einzelner Stein zum Gewinn. Kann ein Joker ihn vollenden?"
+            "value": "Deiner Hand fehlt noch ein einzelner Stein zum Gewinn. Kann ein Joker ihn ersetzen?"
           }
         },
         "es": {
@@ -41634,7 +41634,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Il ne vous manque qu'une tuile isolée pour gagner. Un joker peut-il la compléter ?"
+            "value": "Il ne vous manque qu'une tuile isolée pour gagner. Un joker peut-il la remplacer ?"
           }
         },
         "id": {
@@ -41657,7 +41657,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deine Hand schreibt 2026 mit je einem Stein pro Ziffer. Kann ein Joker eine davon ersetzen?"
+            "value": "Deine Hand bildet 2026 mit je einem Stein pro Ziffer. Kann ein Joker eine davon ersetzen?"
           }
         },
         "es": {
@@ -41803,13 +41803,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tu otra opción: una mano oculta a la que le faltan 2 fichas. ¿Te decides por ella?"
+            "value": "Tu otra opción: una mano oculta a la que le faltan 2 fichas. ¿Cantas el descarte?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Votre autre option : une main cachée à 2 tuiles de la victoire. Vous vous engagez dans cette main ?"
+            "value": "Votre autre option : une main cachée à 2 tuiles de la victoire. Appeler la défausse ?"
           }
         },
         "id": {
@@ -41832,7 +41832,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "In deinem eigenen ausgelegten Pung 8 Crak steckt ein Joker."
+            "value": "In deinem eigenen ausgelegten Pung aus 8 Crak steckt ein Joker."
           }
         },
         "es": {
@@ -41984,7 +41984,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aussi appelé le vol"
+            "value": "Aussi appelé « vol »"
           }
         },
         "id": {

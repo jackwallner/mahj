@@ -419,7 +419,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ khi trả theo năm"
+            "value": "%@, tính phí hằng năm"
           }
         }
       }
@@ -656,7 +656,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ est sur votre compte"
+            "value": "%@ est actif sur votre compte"
           }
         },
         "id": {
@@ -983,7 +983,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Đúng %1$@ trên %2$lld câu, thấp nhất của bạn đến nay."
+            "value": "Đúng %1$@ trên %2$lld câu, mức thấp nhất của bạn từ trước đến nay."
           }
         }
       }
@@ -1029,7 +1029,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ schaltet die Extra-Sets hier und in jedem anderen Raum frei, dazu die Meistertische, gecoachte Übungshände so oft du willst, die Spieleabend-Vorbereitung und Endloses Üben. Alles, was du schon hast, bleibt kostenlos."
+            "value": "%@ schaltet die Extra-Sets hier und in jedem anderen Raum frei, dazu die Meistertische, angeleitete Übungshände, so oft du willst, die Spieleabend-Vorbereitung und Endloses Üben. Alles, was du schon hast, bleibt kostenlos."
           }
         },
         "es": {
@@ -1077,7 +1077,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$@, et %2$@"
+            "value": "%1$@ et %2$@"
           }
         },
         "id": {
@@ -1089,7 +1089,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$@, và %2$@"
+            "value": "%1$@ và %2$@"
           }
         }
       }
@@ -1264,7 +1264,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@/th"
+            "value": "%@/tháng"
           }
         }
       }
@@ -3275,7 +3275,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Sekunden mit gemischten Fragen. Die Zeit beginnt, sobald du tippst."
+            "value": "%lld Sekunden mit gemischten Fragen. Die Zeit läuft, sobald du tippst."
           }
         },
         "es": {
@@ -3293,7 +3293,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Soal campuran selama %lld detik. Waktu mulai saat kamu mengetuk."
+            "value": "Soal campuran selama %lld detik. Waktu mulai berjalan saat kamu mengetuk."
           }
         },
         "vi": {
@@ -3735,13 +3735,13 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "1 von 3 Antworten entsprach der Einschätzung des Coaches"
+            "value": "1 von 3 stimmt mit dem Coach überein"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "1 de 3 coincide con la recomendación del entrenador"
+            "value": "1 de 3 coincide con el entrenador"
           }
         },
         "fr": {
@@ -4365,19 +4365,19 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein Pung aus %1$@ passt ebenfalls zu %2$@, also sprechen die offen ausgelegten Gruppen für diese Familie."
+            "value": "Ein Pung aus %1$@ passen beide zu %2$@, also sprechen die offen ausgelegten Gruppen für diese Familie."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un pung de %1$@ cabe en %2$@, así que esa es la familia a la que apuntan sus exposiciones."
+            "value": "Un pung de %1$@ caben en %2$@, así que esa es la familia a la que apuntan sus exposiciones."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un pung de %1$@ peut figurer dans les deux %2$@ : c'est donc la famille que désignent leurs tuiles exposées."
+            "value": "Un pung de %1$@ figurent tous deux dans %2$@ : c'est donc la famille que désignent leurs tuiles exposées."
           }
         },
         "id": {
@@ -4389,7 +4389,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Một pung %1$@ phù hợp với cả hai nhóm bài %2$@, nên các bộ quân đối thủ đã lộ sẽ cho biết họ đang theo nhóm bài nào."
+            "value": "Một pung %1$@ đều nằm trong %2$@, nên đó là nhóm bài mà các quân đối thủ đã lộ đang hướng tới."
           }
         }
       }
@@ -4400,19 +4400,19 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ein Pung aus %1$@ passt zu beiden Möglichkeiten: %2$@. Behalte beim Lesen des Tisches beide im Blick."
+            "value": "Ein Pung aus %1$@ passen zu beiden Möglichkeiten: %2$@. Behalte beim Lesen des Tisches beide im Blick."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un pung de %1$@ encaja en ambas, %2$@, así que lee la mesa de las dos formas."
+            "value": "Un pung de %1$@ encajan en ambas, %2$@, así que lee la mesa de las dos formas."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Un pung de %1$@ convient aux deux %2$@ : lisez la table dans les deux sens."
+            "value": "Un pung de %1$@ conviennent à la fois à %2$@ : lisez la table des deux façons."
           }
         },
         "id": {
@@ -4978,7 +4978,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dengan %@, semua ini terbuka: tangan latihan dengan panduan pelatih, rak baru, Perbaiki Kesalahan"
+            "value": "Dengan %@, semua ini terbuka: sesi latihan dengan arahan pelatih, rak baru, Perbaiki Kesalahan"
           }
         },
         "vi": {
@@ -5112,7 +5112,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tout ce qui vous vient."
+            "value": "Tout ce qui vous vient à l'esprit."
           }
         },
         "id": {
@@ -5188,7 +5188,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setiap %@, notifikasi akan langsung membuka sesi latihan yang disesuaikan untukmu pada waktu tersebut."
+            "value": "Setiap %@ pada jam itu, notifikasi akan langsung membuka sesi latihan yang disesuaikan untukmu."
           }
         },
         "vi": {
@@ -5503,7 +5503,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kalahkan waktu"
+            "value": "Berpacu dengan waktu"
           }
         },
         "vi": {
@@ -5561,7 +5561,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Antes de que termine tu prueba"
+            "value": "Antes de que termine tu prueba gratis"
           }
         },
         "fr": {
@@ -5573,7 +5573,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sebelum uji cobamu berakhir"
+            "value": "Sebelum masa uji cobamu berakhir"
           }
         },
         "vi": {
@@ -5894,7 +5894,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dựa trên các chữ số của năm hiện tại, dùng quân Rồng Trắng thay cho số 0. Hãy để ý khi bạn có các quân số 2 và quân Rồng Trắng."
+            "value": "Dựa trên các chữ số của năm hiện tại, dùng quân Bạch thay cho số 0. Hãy để ý khi bạn có các quân số 2 và quân Bạch."
           }
         }
       }
@@ -5923,7 +5923,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dirancang untuk minggumu"
+            "value": "Sesuai jadwal mingguanmu"
           }
         },
         "vi": {
@@ -6395,7 +6395,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sicher, will aber schärferes Gespür"
+            "value": "Sicher, will aber ein schärferes Gespür"
           }
         },
         "es": {
@@ -6471,7 +6471,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Elige una sección y roba y descarta durante doce turnos mientras un entrenador evalúa cada descarte. Una mano al día es gratis, y los miembros pueden repartir todas las que quieran."
+            "value": "Elige una sección y luego roba y descarta durante doce turnos mientras un entrenador evalúa cada descarte. Una mano al día es gratis, y los miembros pueden repartir todas las que quieran."
           }
         },
         "fr": {
@@ -7050,7 +7050,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Không dùng đủ nhiều"
+            "value": "Ít khi dùng đến"
           }
         }
       }
@@ -7347,7 +7347,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cada casilla es el Mahj Minute de un día: %1$lld preguntas nuevas, las mismas para todos. Cada acierto es un punto, y tus mejores %2$lld días forman tu puntuación del mes, hasta %3$lld. Faltar algún día no pasa nada."
+            "value": "Cada casilla es el Mahj Minute de un día: %1$lld preguntas nuevas, las mismas para todos. Cada acierto es un punto, y tus mejores %2$lld días forman tu puntuación del mes, hasta %3$lld. No pasa nada si faltas algún día."
           }
         },
         "fr": {
@@ -7645,7 +7645,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mỗi lượt Luyện tập vô tận đều có một tay bài mới."
+            "value": "Mỗi lượt Luyện tập vô tận đều có một tay bài mới"
           }
         }
       }
@@ -7814,7 +7814,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setiap call yang kamu latih di sini akan makin cepat kamu lakukan di meja."
+            "value": "Setiap keputusan yang kamu latih di sini akan makin cepat kamu ambil di meja."
           }
         },
         "vi": {
@@ -7960,7 +7960,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mọi quân số trên tay bài này đều chẵn (%@), không có quân danh dự. Đây là dạng bài 2468, nên quân lẻ nào bạn rút cũng không có ích."
+            "value": "Mọi quân số trên tay bài này đều chẵn (%@), không có quân chữ nào. Đây là dạng bài 2468, nên quân lẻ nào bạn rút cũng không có ích."
           }
         }
       }
@@ -7983,7 +7983,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Après les avoir pratiquées ici, vous choisirez plus vite vos passes à table."
+            "value": "Vous choisirez plus vite vos passes à table après vous être entraîné ici."
           }
         },
         "id": {
@@ -8718,7 +8718,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Corriger mes erreurs : les questions ratées reviennent jusqu'à ce que vous reteniez la bonne réponse"
+            "value": "Corriger mes erreurs : les questions ratées reviennent jusqu'à être maîtrisées"
           }
         },
         "id": {
@@ -8730,7 +8730,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sửa lỗi sai: các câu bạn trả lời sai sẽ quay lại cho đến khi bạn nắm chắc."
+            "value": "Sửa lỗi sai: các câu bạn trả lời sai sẽ quay lại cho đến khi bạn nắm chắc"
           }
         }
       }
@@ -8817,7 +8817,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hay cuatro de cada ficha. %1$lld en mano más %2$lld expuestas deja %3$lld sin aparecer. Los comodines no pueden sustituir una ficha en una pareja, así que contar importa más cuando esperas una."
+            "value": "Hay cuatro de cada ficha. %1$lld en mano más %2$lld expuestas dejan %3$lld sin aparecer. Los comodines no pueden sustituir una ficha en una pareja, así que contar importa más cuando esperas una."
           }
         },
         "fr": {
@@ -8928,13 +8928,13 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Des chevalets fraîchement distribués à chaque fois. Étudiez la section ou comptez ce qui reste en jeu aussi longtemps que vous le souhaitez, avec une explication complète après chaque réponse."
+            "value": "Des chevalets fraîchement distribués à chaque fois. Identifiez la section ou comptez ce qui reste en jeu aussi longtemps que vous le souhaitez, avec une explication complète après chaque réponse."
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setiap kali, kamu mendapat rak baru. Baca bagian terkait di kartu NMJL atau hitung ubin yang masih tersedia selama kamu mau, dengan penjelasan lengkap setelah setiap jawaban."
+            "value": "Setiap kali, kamu mendapat rak baru. Tentukan bagiannya atau hitung ubin yang masih tersedia selama kamu mau, dengan penjelasan lengkap setelah setiap jawaban."
           }
         },
         "vi": {
@@ -9482,7 +9482,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Le llega directo al desarrollador, una persona real. Sin cuenta ni correo."
+            "value": "Llega directamente al desarrollador, una persona real. Sin cuenta ni correo."
           }
         },
         "fr": {
@@ -9909,7 +9909,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Combien de %@ reste-t-il à compter ?"
+            "value": "Combien de %@ manquent encore à l'appel ?"
           }
         },
         "id": {
@@ -10096,7 +10096,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lượt chuyền này còn đưa %@ đi, dù lượt chuyền tốt nhất sẽ giữ lại quân đó."
+            "value": "Lượt chuyền này còn đưa đi %@, quân mà lượt chuyền tốt nhất giữ lại."
           }
         }
       }
@@ -10294,7 +10294,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "JE SAVAIS"
+            "value": "JE LE SAVAIS"
           }
         },
         "id": {
@@ -10376,7 +10376,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiếp tục thì không có gì thay đổi. Không hợp với bạn? Hủy trong Cài đặt > Tài khoản Apple > Đăng ký và bạn sẽ không bị tính phí."
+            "value": "Tiếp tục thì không có gì thay đổi. Không hợp với bạn? Hủy trong Cài đặt > Tài khoản Apple > Gói đăng ký và bạn sẽ không bị tính phí."
           }
         }
       }
@@ -10527,13 +10527,13 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Grundlagen lernen"
+            "value": "Ich kenne die Grundlagen"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Conoce lo básico"
+            "value": "Conozco lo básico"
           }
         },
         "fr": {
@@ -10668,7 +10668,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Probieren wir eine echte Hand"
+            "value": "Probieren wir's mit einer echten Hand"
           }
         },
         "es": {
@@ -11516,13 +11516,13 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mahj Trainer enseña Mah Jongg americano con manos de práctica originales. No está afiliada ni respaldada por la National Mah Jongg League. Para las manos y valores oficiales, consigue la tarjeta NMJL actual."
+            "value": "Mahj Trainer enseña Mah Jongg americano con manos de práctica originales. No está afiliada a la National Mah Jongg League ni cuenta con su respaldo. Para las manos y valores oficiales, consigue la tarjeta NMJL actual."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mahj Trainer enseigne le Mah Jongg américain avec des mains d'entraînement originales. L'app n'est ni affiliée ni approuvée par la National Mah Jongg League. Pour les mains et valeurs officielles, procurez-vous la carte NMJL actuelle."
+            "value": "Mahj Trainer enseigne le Mah Jongg américain avec des mains d'entraînement originales. L'app n'est ni affiliée à la National Mah Jongg League ni approuvée par elle. Pour les mains et valeurs officielles, procurez-vous la carte NMJL actuelle."
           }
         },
         "id": {
@@ -11703,7 +11703,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cocokkan Perangkat"
+            "value": "Sesuai Perangkat"
           }
         },
         "vi": {
@@ -12251,7 +12251,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nuevas preguntas redactadas sobre las fichas, la tarjeta, el Charleston, la mesa y las Mesas Maestras."
+            "value": "Nuevas preguntas escritas a mano sobre las fichas, la tarjeta, el Charleston, la mesa y las Mesas Maestras."
           }
         },
         "fr": {
@@ -12263,7 +12263,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Soal baru yang ditulis sendiri seputar ubin, kartu, Charleston, meja, dan Master Tables."
+            "value": "Soal baru yang ditulis manual seputar ubin, kartu, Charleston, meja, dan Master Tables."
           }
         },
         "vi": {
@@ -12374,7 +12374,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lần chia tiếp theo"
+            "value": "Chia bài mới"
           }
         }
       }
@@ -12560,7 +12560,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Auswahlfragen fällig. Wiederhole verpasste Pässe mit drei Steinen und Lernkarten in den jeweiligen Raumübungen."
+            "value": "Keine Auswahlfragen fällig. Wiederhole falsch gelöste Pässe mit drei Steinen und Lernkarten in den jeweiligen Raumübungen."
           }
         },
         "es": {
@@ -12578,7 +12578,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tidak ada soal pilihan ganda yang perlu ditinjau. Tinjau lagi operan tiga ubin yang terlewat dan kartu belajar yang pernah kamu jawab salah di ruang latihan masing-masing."
+            "value": "Tidak ada soal pilihan ganda yang perlu ditinjau. Tinjau lagi operan tiga ubin dan kartu belajar yang salah di ruang latihan masing-masing."
           }
         },
         "vi": {
@@ -13687,7 +13687,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abre el %@."
+            "value": "Abre %@."
           }
         },
         "fr": {
@@ -14335,7 +14335,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Chơi cả một ván, không chỉ xem thẻ ghi nhớ."
+            "value": "Chơi cả một ván, không chỉ xem thẻ ghi nhớ"
           }
         }
       }
@@ -14364,7 +14364,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mainkan tangan lagi sekarang"
+            "value": "Mainkan satu tangan lagi sekarang"
           }
         },
         "vi": {
@@ -14399,7 +14399,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mainkan sebanyak mungkin tangan latihan berpemandu, dengan rak baru yang selalu tersedia."
+            "value": "Mainkan tangan latihan berpemandu sepuasnya, dengan rak baru yang selalu tersedia."
           }
         },
         "vi": {
@@ -14434,7 +14434,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mainkan sebanyak mungkin tangan latihan berpemandu"
+            "value": "Mainkan tangan latihan berpemandu sepuasnya"
           }
         },
         "vi": {
@@ -15151,7 +15151,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Für Quints braucht man fünf gleiche Steine und Joker. Dieses Rack hat nur einen."
+            "value": "Für Quints braucht man fünf gleiche Steine und Joker. Dieses Rack hat nur einen Joker."
           }
         },
         "es": {
@@ -15303,7 +15303,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lire le chevalet"
+            "value": "Lecture du chevalet"
           }
         },
         "id": {
@@ -15799,7 +15799,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ingatkan Saya Saat %@ Dibuka"
+            "value": "Ingatkan Aku Saat %@ Dibuka"
           }
         },
         "vi": {
@@ -17713,7 +17713,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Minuto afianzado"
+            "value": "Buen minuto"
           }
         },
         "fr": {
@@ -18398,7 +18398,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bắt đầu %@. Mỗi ngày một Mahj Minute: năm câu mới, giống nhau cho mọi người."
+            "value": "Bắt đầu từ %@. Mỗi ngày một Mahj Minute: năm câu mới, giống nhau cho mọi người."
           }
         }
       }
@@ -18497,7 +18497,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Latihan beruntun membuat materi lebih mudah diingat"
+            "value": "Latihan rutin membuatmu tetap ingat"
           }
         },
         "vi": {
@@ -19004,7 +19004,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Danke, dass du es sagst. Das hilft mehr, als du denkst."
+            "value": "Danke für deine Rückmeldung. Das hilft mehr, als du denkst."
           }
         },
         "es": {
@@ -19337,7 +19337,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Itu satu-satunya buangan yang ada, tapi joker tidak pernah sampah. Simpan."
+            "value": "Itu satu-satunya buangan yang ada, tapi joker tidak pernah jadi sampah. Simpan."
           }
         },
         "vi": {
@@ -19372,7 +19372,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Itu sesi latihan gratis hari ini"
+            "value": "Itu jatah tangan gratismu hari ini"
           }
         },
         "vi": {
@@ -19402,7 +19402,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Le Défi de %@ est là"
+            "value": "Le Défi du mois est là : %@"
           }
         },
         "id": {
@@ -19425,7 +19425,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$@ passt zu %2$@, also kostet dich der Abwurf einen Stein, den du zurückhaben wolltest."
+            "value": "%1$@ passt zu %2$@, also kostet dich der Abwurf einen Stein, den du noch gebraucht hättest."
           }
         },
         "es": {
@@ -19460,13 +19460,13 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Der %1$@ passt zu %2$@, wie diese Auslagen zeigen. Spät in der Hand könnte genau dieser Stein ihnen das Spiel schenken."
+            "value": "%1$@ passt zu %2$@, und darauf deuten diese Auslagen hin. Gegen Ende einer Hand könnte genau dieser Stein ihnen das Spiel schenken."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "El %1$@ encaja en %2$@, que es adonde apuntan esas exposiciones. Al final de la mano podría ser la ficha que les dé la partida."
+            "value": "El %1$@ encaja en %2$@, que es adonde apuntan esas fichas expuestas. Al final de la mano podría ser la ficha que les dé la partida."
           }
         },
         "fr": {
@@ -19484,7 +19484,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$@ hợp với %2$@, đúng hướng mà các quân lộ đó chỉ tới. Cuối ván, đây có thể là quân giúp họ thắng."
+            "value": "%1$@ hợp với %2$@, đúng hướng mà các bộ đã bày ra đó chỉ tới. Cuối ván, đây có thể là quân giúp họ thắng."
           }
         }
       }
@@ -19513,7 +19513,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%1$@ juga tunggal, tapi cocok dengan %2$@: satu ambilan lagi jadi pasangan. %3$@ angka sendirian, ubin yang paling tidak berguna bagi rak ini."
+            "value": "%1$@ juga tunggal, tapi cocok dengan %2$@: satu ambilan lagi jadi pasangan. %3$@ adalah angka lepas, ubin yang paling tidak berguna bagi rak ini."
           }
         },
         "vi": {
@@ -19723,7 +19723,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buangan termurah di sini adalah %@."
+            "value": "Buangan yang paling tidak merugikan di sini adalah %@."
           }
         },
         "vi": {
@@ -20044,7 +20044,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Các quân cùng số ở nhiều chất khác nhau. Hãy nhận ra khi cùng một số liên tục xuất hiện ở hai hoặc ba chất."
+            "value": "Các quân cùng số ở nhiều chất khác nhau. Dễ nhận ra khi cùng một số liên tục xuất hiện ở hai hoặc ba chất."
           }
         }
       }
@@ -20195,7 +20195,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dieser Pass gibt %@ weg, was der stärkste Pass behält."
+            "value": "Dieser Pass gibt %@ weg, der stärkste Pass dagegen nicht."
           }
         },
         "es": {
@@ -20230,7 +20230,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dieser Pass gibt %@ ab, was der stärkste Pass zurückhält."
+            "value": "Dieser Pass gibt %@ ab, der stärkste Pass dagegen nicht."
           }
         },
         "es": {
@@ -21006,7 +21006,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ya jugaste la mano gratis de hoy. Con %@, puedes jugar todas las manos que quieras."
+            "value": "Ya jugaste la mano gratis de hoy. Manos ilimitadas con %@"
           }
         },
         "fr": {
@@ -21194,7 +21194,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teratas %lld%%"
+            "value": "%lld%% Teratas"
           }
         },
         "vi": {
@@ -21229,7 +21229,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teratas %lld%%"
+            "value": "%lld%% Teratas"
           }
         },
         "vi": {
@@ -21246,7 +21246,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Behalte die Steine im Spiel im Blick"
+            "value": "Verfolge, welche Steine noch im Spiel sind"
           }
         },
         "es": {
@@ -21526,7 +21526,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zwei weitere endlose Fertigkeiten"
+            "value": "Zwei weitere Fertigkeiten zum endlosen Üben"
           }
         },
         "es": {
@@ -21579,7 +21579,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dua ubin ini belum berpasangan. Mana yang sebaiknya dioper?"
+            "value": "Dua dari ubin ini adalah ubin tunggal. Mana yang sebaiknya dioper?"
           }
         },
         "vi": {
@@ -22000,7 +22000,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Warte auf Preise vom App Store"
+            "value": "Warten auf Preise vom App Store"
           }
         },
         "es": {
@@ -22410,7 +22410,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nội dung cần chuẩn bị hôm nay"
+            "value": "Trọng tâm chuẩn bị hôm nay"
           }
         }
       }
@@ -23296,7 +23296,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du hast %1$lld auf deinem Rack und siehst %2$lld davon offen auf den Racks der anderen."
+            "value": "Du hast %1$lld auf deinem Rack und siehst %2$lld offen auf den Racks der anderen."
           }
         },
         "es": {
@@ -23308,7 +23308,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous en avez %1$lld sur votre chevalet et en voyez %2$lld exposées chez les autres."
+            "value": "Vous en avez %1$lld sur votre chevalet et en voyez %2$lld dans les expositions des autres."
           }
         },
         "id": {
@@ -23378,7 +23378,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous n'en avez aucune sur votre chevalet et en voyez %lld exposées chez les autres."
+            "value": "Vous n'en avez aucune sur votre chevalet et en voyez %lld dans les expositions des autres."
           }
         },
         "id": {
@@ -23530,7 +23530,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bạn có %1$lld quân %2$@. Chuyền một quân sẽ tách đôi, trong khi chuyền một quân khác trên giá sẽ không làm bạn mất gì."
+            "value": "Bạn có %1$lld quân %2$@. Chuyền một quân sẽ phá đôi bạn đang có, trong khi chuyền một quân khác trên giá sẽ không làm bạn mất gì."
           }
         }
       }
@@ -23646,7 +23646,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du hast gerade eine Gruppe zerbrochen. Du hattest %1$lld × %2$@, und der Neuaufbau kostet Steine, die vielleicht schon jemand anderes sammelt."
+            "value": "Du hast gerade eine Gruppe aufgelöst. Du hattest %1$lld × %2$@, und der Neuaufbau kostet Steine, die vielleicht schon jemand anderes sammelt."
           }
         },
         "es": {
@@ -23961,7 +23961,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deine Gratiswoche umfasst bereits: beliebig viele Spielhände, individuelle Vorbereitung auf den Spieleabend, endloses Üben, die Zeit-Challenge, zusätzliche Sets in jedem Raum und die Meistertische."
+            "value": "Deine Gratiswoche umfasst bereits: unbegrenzt viele Hände, individuelle Vorbereitung auf den Spieleabend, endloses Üben, die Zeit-Challenge, zusätzliche Sets in jedem Raum und die Meistertische."
           }
         },
         "es": {
@@ -24066,7 +24066,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deine Mitgliedschaft umfasst bereits: beliebig viele Spielhände, individuelle Vorbereitung auf den Spieleabend, endloses Üben, die Zeit-Challenge, zusätzliche Sets in jedem Raum und die Meistertische."
+            "value": "Deine Mitgliedschaft umfasst bereits: unbegrenzt viele Hände, individuelle Vorbereitung auf den Spieleabend, endloses Üben, die Zeit-Challenge, zusätzliche Sets in jedem Raum und die Meistertische."
           }
         },
         "es": {
@@ -24195,7 +24195,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Câu bạn trả lời sai sẽ lặp lại đến khi bạn thuộc."
+            "value": "Câu bạn trả lời sai sẽ lặp lại đến khi bạn thuộc"
           }
         }
       }
@@ -24428,7 +24428,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Votre essai ne sera pas renouvelé. Qu'est-ce qui vous a retenu ?"
+            "value": "Votre essai ne sera pas renouvelé. Qu'est-ce qui vous a freiné ?"
           }
         },
         "id": {
@@ -24603,7 +24603,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "une main de l'année se construit avec les chiffres de l'année et des soaps pour les zéros : elle veut des 2 et des soaps, pas des nombres variés"
+            "value": "une main de l'année se construit avec les chiffres de l'année et des Soap pour les zéros : elle veut des 2 et des Soap, pas des nombres variés"
           }
         },
         "id": {
@@ -24743,7 +24743,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "répondues"
+            "value": "réponses"
           }
         },
         "id": {
@@ -24790,7 +24790,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "thử thách cao nhất"
+            "value": "kỷ lục thử thách"
           }
         }
       }
@@ -24813,7 +24813,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "défausses propres"
+            "value": "défausses sûres"
           }
         },
         "id": {
@@ -24906,7 +24906,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "„Gleiche Zahlen“ bedeutet: dieselbe Zahl in verschiedenen Farben. Ein Rack mit vielen verschiedenen Zahlen passt also nicht dazu."
+            "value": "„Gleiche Zahlen“ bedeutet: dieselbe Zahl in verschiedenen Farben. Ein Rack mit vielen verschiedenen Zahlen passt also nicht dazu"
           }
         },
         "es": {
@@ -24918,7 +24918,7 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "La catégorie Nombres identiques désigne un même chiffre dans plusieurs familles. Un chevalet composé de plusieurs chiffres différents ne correspond donc pas à cette main."
+            "value": "la section Nombres identiques désigne un même nombre dans plusieurs familles : un chevalet réparti sur plusieurs nombres n'y correspond donc pas"
           }
         },
         "id": {
@@ -24941,7 +24941,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "keine Folge durch beide reicht bis zur %lld"
+            "value": "keine Folge, die beide enthält, reicht bis zur %lld"
           }
         },
         "es": {
@@ -24976,7 +24976,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "keine Folge durch beide reicht bis zur 8"
+            "value": "keine Folge, die beide enthält, reicht bis zur 8"
           }
         },
         "es": {
@@ -25087,7 +25087,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "bien"
+            "value": "correctas"
           }
         },
         "fr": {
@@ -25128,13 +25128,13 @@
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les mains Simples et Paires ne comportent ni pung, ni kong, ni joker."
+            "value": "les mains Simples et Paires ne comportent ni pung, ni kong, ni joker"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tangan Tunggal & Pasangan tidak memakai pung atau kong sama sekali, dan tidak boleh memakai joker"
+            "value": "tangan Tunggal & Pasangan tidak memakai pung atau kong sama sekali, dan tidak boleh memakai joker"
           }
         },
         "vi": {
@@ -25257,7 +25257,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "dieser Abschnitt besteht vor allem aus Winden und Drachen, daher passt ein Rack voller Zahlensteine nicht dazu"
+            "value": "Dieser Abschnitt besteht vor allem aus Winden und Drachen, daher passt ein Rack voller Zahlensteine nicht dazu"
           }
         },
         "es": {
@@ -25281,7 +25281,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nhóm này chủ yếu gồm quân gió và quân rồng, nên giá bài toàn quân số không hợp."
+            "value": "nhóm này chủ yếu gồm quân gió và quân rồng, nên giá bài toàn quân số không hợp"
           }
         }
       }
