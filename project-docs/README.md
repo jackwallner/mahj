@@ -2,6 +2,10 @@
 
 Developer notes and historical audits for this repository. The published site remains in the docs directory.
 
+## Releases
+
+- [releases/1.4.2.md](releases/1.4.2.md): 1.4.2 build 71 submission record: contents, gate, tests
+
 ## Audits
 
 - [release-experience-2026-10-16.md](audits/release-experience-2026-10-16.md): 1.4.0 and 1.4.1 changes from the new and existing player's perspective, with verified defects and product tradeoffs
