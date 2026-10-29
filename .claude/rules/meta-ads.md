@@ -14,10 +14,17 @@ paths:
 app).** The Meta SDK, `MetaAds`, the ATT prompt and its `att_prompt`
 switch, `NSUserTrackingUsageDescription`, the Facebook Info.plist keys and
 Meta's SKAdNetwork ids are gone; RevenueCat keeps Apple Ads attribution
-(AdServices, no prompt). Still to do outside the repo: App Privacy labels
-in App Store Connect drop the tracking declarations in the 1.4.3
-submission, and the `meta-trial-relay` RevenueCat webhook can be switched
-off. Everything below is history.
+(AdServices, no prompt). App Privacy labels (2026-10-29, before the 1.4.3
+submission): Advertising Data, Device ID, Coarse Location, Crash Data and
+Other Data removed (Meta-only); Purchase History (App Functionality,
+Analytics) and Product Interaction (Analytics) stay linked, not tracking.
+Product Interaction is still marked tracking: App Store Connect answers
+409 to clearing the last tracking entry while a live binary contains
+`NSUserTrackingUsageDescription` (1.4.2's build 71 does), and the 1.4.3
+review notes say so. Clear it the day 1.4.3 is released (App Privacy >
+Product Interaction > Edit > No, we do not use ... for tracking >
+Publish). The `meta-trial-relay` RevenueCat webhook can be switched off.
+Everything below is history.
 
 Full write-up: `project-docs/marketing/meta-ads.md`.
 

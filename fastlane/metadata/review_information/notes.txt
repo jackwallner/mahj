@@ -1,6 +1,6 @@
 Mahj Trainer is a practice app for American Mah Jongg (flashcards, quizzes, hand-matching, Charleston drills, and a single-player Play a Hand coaching exercise). No live gameplay, opponents, bots or wagering.
 
-CONTENT NOTE: every example hand and deal is an ORIGINAL teaching hand illustrating the stable NMJL category families (2468, Consecutive Run, 13579, and so on). No hand is copied from the copyrighted NMJL card. The app is not affiliated with the National Mah Jongg League; this disclaimer appears in-app (Home footer, Settings) and in the App Store description.
+CONTENT NOTE: every example hand and deal is an ORIGINAL teaching hand illustrating the stable NMJL category families. No hand is copied from the copyrighted NMJL card. The app is not affiliated with the National Mah Jongg League; this disclaimer appears in-app (Home footer, Settings) and in the App Store description.
 
 CORE FLOW
 1. First launch: a short onboarding (skill level) and a brief tour. Every screen can be skipped.
@@ -17,11 +17,13 @@ TRIAL TERMS
 Payment is charged to the Apple ID at the end of the trial unless canceled first. Subscriptions renew unless canceled at least 24 hours before the period ends, managed in Account Settings. Terms of Use is Apple's standard EULA (https://www.apple.com/legal/internet-services/itunes/dev/stdeula/); Privacy Policy is at https://jackwallner.github.io/mahj/privacy-policy.
 
 OTHER NOTES
-No user accounts or login of any kind, and no ads shown in the app. Optional feedback (Settings > Send Feedback, and one optional question when a membership is ending) is posted to our own Supabase database with no account attached. Local notifications (daily practice reminder, members' game night reminder, monthly challenge reminder) are opt-in.
+No user accounts or login of any kind, no ads, and no tracking. Optional feedback (Settings > Send Feedback, and one optional question when a membership is ending) is posted to our own Supabase database with no account attached. Local notifications are opt-in.
 
 IN-APP EVENT: MONTHLY CHALLENGE
-Free for every player and open now: a five-question round each day (the Mahj Minute), the same for everyone: three on the month's skills, then two table calls; the best 20 days make the month score. During review the link mahj://challenge opens October's challenge (theme: reading your rack); the same screen switches to November's Charleston rounds, the event's content, on Nov 1 in the player's time zone. It also opens from the Home card shown after one finished practice. A server-side switch can hide the challenge; it is on.
+Free for every player and open now: a five-question round each day (the Mahj Minute), the same for everyone: three on the month's skills, then two table calls; the best 20 days make the month score. During review the link mahj://challenge opens October's challenge (theme: reading your rack); the same screen switches to November's Charleston rounds, the event's content, on Nov 1 in the player's time zone. It also opens from the Home card, shown from the first visit. A server-side switch can hide the challenge; it is on.
 
-CHALLENGE STANDING: after a round, the app sends the month score (points, days played) with a random per-month code to our own Supabase database, which answers how many players are below it. Until enough real scores exist, 50 baseline scores computed on the server are counted too, so a strong round shows "Top N%" (top half only). No account, name or device id.
+CHALLENGE STANDING: after a round, the app sends the month score (points, days played) with a random per-month code to our own Supabase database, which answers how many players are below it. "Top N%" shows for the top half only. No account, name or device id.
 
 PRICE DISPLAY (3.1.2(c)): the onboarding trial screen shows the billed amount (e.g. "$9.99/month") as the largest pricing element, directly above the purchase button, with the trial wording and auto-renew disclosure beneath it.
+
+PRIVACY (1.4.3): this version removes the Meta SDK and the App Tracking Transparency prompt, so the app no longer tracks. The App Privacy label still marks Product Interaction as used for tracking only because App Store Connect refuses (409) to clear the last tracking entry while the live 1.4.2 binary contains NSUserTrackingUsageDescription. We will remove it the day 1.4.3 is released.

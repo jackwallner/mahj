@@ -1,13 +1,3 @@
-Mahj Trainer est désormais en français.
+Le Défi du mois s'affiche maintenant sur l'accueil dès votre première visite.
 
-Un exercice que vous quittez vous attend maintenant, à la même question.
-
-Sur l'iPhone Duo déplié, l'accueil et votre exercice s'affichent côte à côte.
-
-Toutes les réponses tiennent sur les petits iPhone, et les plus grandes tailles de texte restent lisibles.
-
-La Mahj Minute passe au jour suivant à minuit et au premier du mois sans perdre un point.
-
-Deux réponses ont été corrigées : la passe de tuiles inutiles au Charleston et le quint mort avec jokers.
-
-Le réglage Réduire les animations est respecté partout.
+Les tuiles d'entraînement sont plus claires et plus faciles à lire.

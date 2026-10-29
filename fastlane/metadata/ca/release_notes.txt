@@ -1,11 +1,3 @@
-Un exercici que deixes ara t'espera a la mateixa pregunta.
+El repte mensual ara apareix a l'inici des de la primera visita.
 
-A l'iPhone Duo desplegat, l'inici i el teu exercici es mostren un al costat de l'altre.
-
-Totes les respostes caben als iPhone més petits, i les mides de text més grans es llegeixen bé.
-
-El Mahj Minute canvia a mitjanit i el primer dia del mes sense perdre cap punt.
-
-S'han corregit dues respostes: la passada de fitxes inútils al Charleston i el quint mort amb comodins.
-
-Redueix el moviment es respecta a tota l'app.
+Les fitxes d'entrenament són més clares i fàcils de llegir.

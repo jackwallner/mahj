@@ -1,13 +1,3 @@
-Mahj Trainer kini hadir dalam bahasa Indonesia.
+Tantangan Bulanan kini tampil di Beranda sejak kunjungan pertamamu.
 
-Latihan yang Anda tinggalkan kini menunggu Anda di pertanyaan yang sama.
-
-Di iPhone Duo yang dibuka, Beranda dan latihan Anda tampil berdampingan.
-
-Semua jawaban muat di iPhone yang lebih kecil, dan ukuran teks terbesar tetap mudah dibaca.
-
-Mahj Minute berganti hari pada tengah malam dan tanggal satu tanpa kehilangan satu poin pun.
-
-Dua jawaban diperbaiki: operan ubin tak berguna di Charleston dan quint mati dengan joker.
-
-Kurangi Gerakan dihormati di mana pun.
+Kotak Latihan kini lebih rapi dan mudah dibaca.

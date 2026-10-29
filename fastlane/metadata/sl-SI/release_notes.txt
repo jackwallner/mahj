@@ -1,11 +1,3 @@
-Vaja, ki jo zapustite, vas zdaj počaka pri istem vprašanju.
+Mesečni izziv se zdaj na začetnem zaslonu prikaže že ob prvem obisku.
 
-Na razprtem iPhonu Duo sta začetni zaslon in vaša vaja drug ob drugem.
-
-Vsi odgovori se prilegajo manjšim iPhonom, tudi največje velikosti besedila so berljive.
-
-Mahj Minute se zamenja opolnoči in prvega v mesecu, ne da bi izgubili točko.
-
-Popravili smo dva odgovora: podajo nepotrebnih ploščic v Charlestonu in mrtev quint z jokerji.
-
-Zmanjšanje gibanja je upoštevano povsod.
+Ploščice treninga so preglednejše in lažje berljive.

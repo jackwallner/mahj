@@ -1,11 +1,3 @@
-Un esercizio che lasci ora ti aspetta, alla stessa domanda.
+La sfida mensile ora compare nella Home fin dalla prima visita.
 
-Sull'iPhone Duo aperto, la Home e il tuo esercizio stanno uno accanto all'altro.
-
-Tutte le risposte entrano negli iPhone più piccoli, e le dimensioni di testo più grandi si leggono bene.
-
-La Mahj Minute passa al giorno nuovo a mezzanotte e il primo del mese senza perdere un punto.
-
-Due risposte sono state corrette: il passaggio delle tessere inutili nel Charleston e il quint morto con i jolly.
-
-Riduci movimento è rispettato ovunque.
+I riquadri dell'allenamento sono più ordinati e più facili da leggere.
