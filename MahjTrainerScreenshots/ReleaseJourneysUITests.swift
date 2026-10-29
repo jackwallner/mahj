@@ -68,7 +68,7 @@ final class ReleaseJourneysUITests: XCTestCase {
         back(in: app)
         home("home-after-challenge", in: app)
 
-        let endless = app.buttons.containing(label(String(t("Endless\nPractice").prefix { !$0.isWhitespace }))).firstMatch
+        let endless = app.buttons.containing(label(String(t("Endless Practice").prefix { !$0.isWhitespace }))).firstMatch
         XCTAssertTrue(endless.waitForExistence(timeout: 10))
         endless.tap()
         checkpoint("upgrade", button: t("Close"), in: app, paywall: true)

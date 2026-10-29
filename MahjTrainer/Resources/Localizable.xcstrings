@@ -7545,41 +7545,6 @@
         }
       }
     },
-    "Endless\nPractice": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Endloses\nÜben"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Práctica\nsin fin"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Entraînement\ninfini"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Latihan\nTanpa Batas"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Luyện tập\nvô tận"
-          }
-        }
-      }
-    },
     "Endless Practice": {
       "extractionState": "manual",
       "localizations": {
@@ -8560,41 +8525,6 @@
         }
       }
     },
-    "Fix My\nMistakes": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fehler\nbeheben"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Corregir\nerrores"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Corriger\nmes erreurs"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Perbaiki\nKesalahan"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sửa\nlỗi sai"
-          }
-        }
-      }
-    },
     "Fix My Mistakes": {
       "extractionState": "manual",
       "localizations": {
@@ -9046,41 +8976,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Buổi chơi"
-          }
-        }
-      }
-    },
-    "Game Night\nPrep": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Spieleabend-\nVorbereitung"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Preparar la\nnoche de juego"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Préparer\nla soirée"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Persiapan\nMalam Main"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chuẩn bị\nbuổi chơi"
           }
         }
       }
@@ -14232,41 +14127,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chơi Mahj Minute hôm nay"
-          }
-        }
-      }
-    },
-    "Play a\nHand": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Eine Hand\nspielen"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jugar\nuna mano"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jouer\nune main"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mainkan\nSatu Tangan"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chơi\nmột ván"
           }
         }
       }
@@ -20851,41 +20711,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Đến giờ luyện nhanh rồi"
-          }
-        }
-      }
-    },
-    "Timed\nChallenge": {
-      "extractionState": "manual",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zeit-\nChallenge"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reto\ncontrarreloj"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Défi\nchrono"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tantangan\nWaktu"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thử thách\ntính giờ"
           }
         }
       }

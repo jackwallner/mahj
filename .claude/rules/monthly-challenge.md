@@ -117,12 +117,11 @@ Reading Your Rack from the rotation.
 - Free for everyone. `AppDestination.isFree` lets `mahj://challenge` through
   the Home paywall guard. The result screen shows one Mahj+ pointer to free
   players on every fifth day played (5, 10, 15...); no lock anywhere in the flow.
-- Home: the card appears only after a practice the player finished after
-  the tour (`progress.hasPracticedSinceOnboarding`: `totalSessions` above
-  `sessionsAtOnboarding`, stamped in `OnboardingView.finish`; build 56). The
-  tour's closing practice used to count, so the card, the game night card
-  and the tracking prompt all landed on the very first Home. A brand-new player's Home is the 1.3.2
-  lobby; the event link still opens the challenge for them. The card shows
+- Home: the card shows from the first Home (2026-10-29). Build 56 had
+  gated it on a practice after the tour (`hasPracticedSinceOnboarding`),
+  and with the November event live only 8 players had ever posted a
+  score: a player who installed from the event found no challenge on Home.
+  The game night card and the tracking prompt keep that gate. The card shows
   while today's round is unplayed; once played the challenge collapses to a
   plum points chip in the stats row (`ViewThatFits` stacks the chips at
   large text). Before the first month the link shows the start date with

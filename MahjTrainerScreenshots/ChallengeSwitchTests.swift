@@ -55,13 +55,13 @@ final class ChallengeSwitchTests: XCTestCase {
         }
     }
 
-    /// A brand-new player's Home stays the 1.3.2 lobby until a first
-    /// practice; the event link still opens the challenge for them.
-    func testCardWaitsForAFirstPractice() {
+    /// A brand-new player arriving from the App Store event finds the
+    /// challenge on their first Home, and the event link opens it.
+    func testNewPlayerSeesTheChallenge() {
         launch(switchValue: nil, sessions: 0)
         XCTAssertTrue(app.buttons["Settings"].waitForExistence(timeout: 20), "Home did not load")
         attachScreenshot("new_player_home")
-        XCTAssertFalse(challengeCard.exists, "challenge card shown before any practice")
+        XCTAssertTrue(challengeCard.waitForExistence(timeout: 5), "no challenge card before a first practice")
 
         app.open(URL(string: "mahj://challenge")!)
         XCTAssertTrue(challengeScreen.waitForExistence(timeout: 10), "the event link did not open the challenge for a new player")

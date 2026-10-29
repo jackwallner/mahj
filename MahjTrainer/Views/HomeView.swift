@@ -835,12 +835,11 @@ struct HomeView: View {
     /// without a release.
     private var showsMonthlyChallenge: Bool { subscriptions.isOn(.monthlyChallenge) }
 
-    /// Today's challenge round, for players who have finished a practice of
-    /// their own after the tour: a brand-new player's Home stays the 1.3.2
-    /// lobby, with Get Started the obvious first tap. The event link opens
-    /// the challenge for anyone.
+    /// Today's challenge round, for every player from the first Home. Gated
+    /// on a practice after the tour (1.4.1), a player who installed from the
+    /// App Store event found no challenge anywhere on Home.
     private var homeChallengeRound: ChallengeRound? {
-        guard showsMonthlyChallenge, progress.hasPracticedSinceOnboarding else { return nil }
+        guard showsMonthlyChallenge else { return nil }
         return MonthlyChallengeContent.currentRound()
     }
 
@@ -988,13 +987,12 @@ struct HomeView: View {
 
     // MARK: - Training modes
 
-    /// The cross-cutting practice modes. They sit above the rooms
-    /// because they are what a returning player comes back FOR, but they ride
-    /// in one scrolling row of compact tiles rather than three full-width
-    /// cards: Home's job is still the rooms, and everything else earns its
-    /// space.
+    /// The cross-cutting practice modes. They sit above the rooms because
+    /// they are what a returning player comes back FOR, as compact tiles two
+    /// across: every mode is on screen, aligned with the cards around it.
     private var trainingSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        let tiles = trainingTiles
+        return VStack(alignment: .leading, spacing: 8) {
             Text("TRAINING")
                 .font(.caption.weight(.heavy))
                 .kerning(1.4)
@@ -1002,79 +1000,66 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 4)
             if dynamicTypeSize.isAccessibilitySize {
-                // One full-width column that grows with its text. Fixed-height
-                // tiles drew over each other at the largest sizes.
                 VStack(spacing: 10) {
-                    trainingTiles
+                    ForEach(tiles.indices, id: \.self) { tiles[$0] }
                 }
-                .padding(.horizontal, 4)
-            } else if layoutSizeClass == .regular || split != nil {
-                // Unfolded, Home's pane stops short of the fold, so a carousel
-                // clipped its fourth tile in mid-air. Every mode fits as a grid.
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: split != nil ? 128 : 150), spacing: 10)], spacing: 10) {
-                    trainingTiles
-                }
-                .padding(.horizontal, 4)
             } else {
-                // The scroll view clips, and with only 2pt of room the tile
-                // shadows were cut into a hard grey box around the row. Room
-                // for the shadow inside, taken back outside, so the row keeps
-                // its place and clips at the screen edge instead of the inset.
-                // The tiles are sized so the row always ends partway through
-                // one (`TrainingCarousel`): that cut tile is the only cue that
-                // Timed Challenge and Fix My Mistakes are there.
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: TrainingCarousel.spacing) {
-                        trainingTiles
+                // An odd last tile takes the whole row rather than leaving a
+                // hole beside it.
+                Grid(horizontalSpacing: 10, verticalSpacing: 10) {
+                    ForEach(Array(stride(from: 0, to: tiles.count, by: 2)), id: \.self) { index in
+                        GridRow {
+                            if index + 1 < tiles.count {
+                                tiles[index]
+                                tiles[index + 1]
+                            } else {
+                                tiles[index].gridCellColumns(2)
+                            }
+                        }
                     }
-                    .padding(.horizontal, TrainingCarousel.leadingInset)
-                    .padding(.vertical, 16)
                 }
-                .padding(.horizontal, -16)
-                .padding(.vertical, -14)
             }
         }
     }
 
-    @ViewBuilder
-    private var trainingTiles: some View {
-        handPlayTile
-        trainingTile(
+    private var trainingTiles: [AnyView] {
+        var tiles = [AnyView(handPlayTile)]
+        tiles.append(AnyView(trainingTile(
             requested: .endlessPicker,
-            title: String(localized: "Endless\nPractice"),
+            title: String(localized: "Endless Practice"),
             icon: "infinity",
             color: Theme.jade,
             badge: nil
         ) {
             EndlessPickerView()
-        }
-        trainingTile(
+        }))
+        tiles.append(AnyView(trainingTile(
             requested: .gameNightPrep,
-            title: String(localized: "Game Night\nPrep"),
+            title: String(localized: "Game Night Prep"),
             icon: "person.2.fill",
             color: Theme.plum,
             badge: settings.gameNightReminderEnabled ? settings.gameNightDay.displayName : String(localized: "Weekly")
         ) {
             GameNightPrepView()
-        }
-        trainingTile(
+        }))
+        tiles.append(AnyView(trainingTile(
             requested: .timedChallenge,
-            title: String(localized: "Timed\nChallenge"),
+            title: String(localized: "Timed Challenge"),
             icon: "timer",
             color: Theme.coral,
             badge: records.bestChallengeScore > 0 ? String(localized: "Best \(records.bestChallengeScore)") : nil
         ) {
             PracticeRunView(mode: .timed)
-        }
+        }))
         // Only offered when there is something to fix, counted over the items
         // this runner can actually ask. An empty review session is a dead end
         // dressed up as a feature.
         let reviewable = SessionBuilder.reviewableIDs(includePro: subscriptions.isPro)
         let due = records.dueCount(among: reviewable)
         if due > 0 {
-            trainingTile(
+            tiles.append(AnyView(trainingTile(
                 requested: .review,
-                title: String(localized: "Fix My\nMistakes"),
+                title: String(localized: "Fix My Mistakes"),
                 icon: "arrow.trianglehead.counterclockwise",
                 color: Theme.plum,
                 badge: String(localized: "\(min(due, 12)) due")
@@ -1086,8 +1071,9 @@ struct HomeView: View {
                         includePro: subscriptions.isPro
                     )
                 )
-            }
+            }))
         }
+        return tiles
     }
 
     /// Play a Hand is the one training mode a free player can open, once a
@@ -1103,7 +1089,7 @@ struct HomeView: View {
                 HandPlayView()
             } label: {
                 trainingTileLabel(
-                    title: String(localized: "Play a\nHand"),
+                    title: String(localized: "Play a Hand"),
                     icon: "hand.draw.fill",
                     color: Theme.jade,
                     badge: handPlay.inProgress != nil
@@ -1116,7 +1102,7 @@ struct HomeView: View {
         } else {
             Button { upgrade.destination = .handPlay; showPaywall = true } label: {
                 trainingTileLabel(
-                    title: String(localized: "Play a\nHand"),
+                    title: String(localized: "Play a Hand"),
                     icon: "hand.draw.fill",
                     color: Theme.jade,
                     badge: String(localized: "Back tomorrow"),
@@ -1160,39 +1146,37 @@ struct HomeView: View {
     }
 
     private func trainingTileLabel(title: String, icon: String, color: Color, badge: String?, locked: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 4) {
+        HStack(spacing: 12) {
+            // At accessibility sizes the icon left the title a word's width.
+            if !dynamicTypeSize.isAccessibilitySize {
                 Image(systemName: icon)
-                    .font(.title3.weight(.semibold))
+                    .font(.body.weight(.semibold))
                     .foregroundStyle(color)
-                Spacer(minLength: 0)
-                if locked {
-                    Image(systemName: "lock.fill")
-                        .font(.caption2)
-                        .foregroundStyle(Theme.gold)
+                    .frame(width: 36, height: 36)
+                    .background(color.opacity(0.12), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+            }
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Theme.ink)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
+                if badge != nil || locked {
+                    HStack(spacing: 3) {
+                        if locked {
+                            Image(systemName: "lock.fill")
+                                .foregroundStyle(Theme.goldText)
+                        }
+                        Text(badge ?? Membership.name)
+                            .foregroundStyle(badge == nil ? Theme.goldText : Theme.readable(color))
+                    }
+                    .font(.caption2.weight(.semibold))
                 }
             }
             Spacer(minLength: 0)
-            Text(title)
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(Theme.ink)
-                .multilineTextAlignment(.leading)
-                .fixedSize(horizontal: false, vertical: true)
-            if let badge {
-                Text(badge)
-                    .font(.caption2.weight(.semibold))
-                    .foregroundStyle(Theme.readable(color))
-            } else {
-                Text(locked ? Membership.name : " ")
-                    .font(.caption2.weight(.semibold))
-                    .foregroundStyle(Theme.goldText)
-            }
         }
         .padding(12)
-        .modifier(TrainingTileFrame(
-            fullWidth: layoutSizeClass == .regular || split != nil || dynamicTypeSize.isAccessibilitySize,
-            fixedHeight: !dynamicTypeSize.isAccessibilitySize
-        ))
+        .frame(maxWidth: .infinity, minHeight: 60, maxHeight: .infinity, alignment: .leading)
         .themedCard(corner: 16)
     }
 
@@ -1397,53 +1381,6 @@ extension DrillKind {
         case .quiz: return String(localized: "\(count) questions")
         case .handMatch: return String(localized: "\(count) racks")
         case .charleston: return String(localized: "\(count) deals")
-        }
-    }
-}
-
-/// The phone's scrolling row of training tiles. Its width is set so the row
-/// always ends about 40% into a tile at any phone width: a row of whole
-/// tiles reads as the whole offering (a 440pt phone showed exactly three).
-enum TrainingCarousel {
-    static let leadingInset: CGFloat = 20
-    static let spacing: CGFloat = 10
-    static let preferredTileWidth: CGFloat = 128
-    /// Narrower and "Challenge" broke mid-word at the larger text sizes.
-    static let minimumTileWidth: CGFloat = 120
-    static let peek: CGFloat = 0.4
-
-    /// - Parameter rowWidth: the scroll view's visible width.
-    static func tileWidth(rowWidth: CGFloat) -> CGFloat {
-        let room = rowWidth - leadingInset
-        guard room > preferredTileWidth else { return preferredTileWidth }
-        var whole = max(1, ((room + spacing) / (preferredTileWidth + spacing)).rounded(.down))
-        while whole > 1, width(room: room, whole: whole) < minimumTileWidth { whole -= 1 }
-        return width(room: room, whole: whole)
-    }
-
-    private static func width(room: CGFloat, whole: CGFloat) -> CGFloat {
-        ((room - whole * spacing) / (whole + peek)).rounded(.down)
-    }
-}
-
-/// A training tile is a fixed 118pt card in the phone's scrolling row and the
-/// iPad grid, and grows with its text at accessibility sizes.
-private struct TrainingTileFrame: ViewModifier {
-    let fullWidth: Bool
-    let fixedHeight: Bool
-
-    func body(content: Content) -> some View {
-        if fixedHeight, fullWidth {
-            content
-                .frame(height: 118, alignment: .leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-        } else if fixedHeight {
-            content
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .containerRelativeFrame(.horizontal) { length, _ in TrainingCarousel.tileWidth(rowWidth: length) }
-                .frame(height: 118, alignment: .leading)
-        } else {
-            content.frame(maxWidth: .infinity, minHeight: 118, alignment: .leading)
         }
     }
 }
