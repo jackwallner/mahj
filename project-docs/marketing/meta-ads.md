@@ -1,5 +1,9 @@
 # Meta (Facebook and Instagram) ads: prep
 
+Status 2026-10-29: **switched off.** Meta SDK and ATT removed in 1.4.3; RevenueCat's
+Meta Ads integration and the relay webhook deleted, the relay cron unscheduled and its
+Meta secrets unset. The 2026-10-16 setup below is the record for turning it back on.
+
 Status 2026-10-16: **turned on.** Meta app `987930193620309` (Live, E3 Fitness LLC,
 iOS bundle + store ID, ad account `1842133493904848` authorized, App Page Mahj
 Trainer, automatic in-app event logging off). Dataset `1445876447511793`; its
@@ -29,8 +33,8 @@ $350 to $1,000 and is Jack's call.
 | RevenueCat link: `$fbAnonId`, `collectDeviceIdentifiers()` (again after ATT), `meta_extinfo` | `MetaAds.linkRevenueCat()`, called from `SubscriptionService.configureIfNeeded` | Inert with the SDK |
 | ATT prompt, only after a trial start or purchase (Jack 2026-10-19), on the next bare Home, never over a sheet, never at launch | `HomeView.askForTrackingIfNeeded`, `MetaAds.notePurchase`, `NSUserTrackingUsageDescription` | Shown only when Meta is on |
 | SKAdNetwork ids for Meta | `Info.plist` `SKAdNetworkItems` | Shipping |
-| 15-minute StartTrial relay | `supabase/functions/meta-trial-relay`, `supabase/migrations/20261015170000_meta_trial_relay.sql` | **Live and sending**: the dataset and CAPI secrets are set (checked 2026-10-29), so ATT-authorized trials are `sent` |
-| RevenueCat webhook to the relay | RC project `28030dc2`, webhook `whintgrfb640672ce`, App Store app, production, `initial_purchase`/`cancellation`/`expiration` | **Live** |
+| 15-minute StartTrial relay | `supabase/functions/meta-trial-relay`, `supabase/migrations/20261015170000_meta_trial_relay.sql` | **Off** 2026-10-29: cron unscheduled, Meta secrets unset; function and table kept |
+| RevenueCat webhook to the relay | RC project `28030dc2`, webhook `whintgrfb640672ce`, App Store app, production, `initial_purchase`/`cancellation`/`expiration` | **Deleted** 2026-10-29 |
 | Privacy policy section | `docs/privacy-policy.html`, `docs/privacy-policy/index.html` | Published with this change |
 
 The simulator never starts the SDK. `-mahj.previewMetaATT` (DEBUG) shows the
