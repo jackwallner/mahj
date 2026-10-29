@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Validate App Store metadata fields for the selected locales."""
 
+from __future__ import annotations
+
 import argparse
 import re
 import sys
@@ -41,6 +43,8 @@ def validate_locale(metadata_root: Path, locale: str) -> list[str]:
             continue
         value = read_field(locale_dir, field)
         fields[field] = value
+        if not value.strip():
+            errors.append(f"{locale}: {field} is empty")
         if value != value.strip():
             errors.append(f"{locale}: {field} has leading or trailing whitespace")
         if len(value) > limit:
@@ -60,9 +64,7 @@ def validate_locale(metadata_root: Path, locale: str) -> list[str]:
             continue
         if term != term.strip():
             errors.append(f"{locale}: keywords has whitespace around a token")
-        if any(character.isspace() for character in term):
-            errors.append(f"{locale}: keyword token {term!r} contains spaces")
-        normalized = normalize_token(term)
+        normalized = normalize_token(term.strip())
         if normalized in seen:
             errors.append(f"{locale}: duplicate keyword token {term!r}")
         seen.add(normalized)
@@ -74,7 +76,8 @@ def validate_locale(metadata_root: Path, locale: str) -> list[str]:
     }
     for term in terms:
         normalized = normalize_token(term)
-        if normalized in visible_tokens or (len(normalized) > 1 and normalized in visible_text):
+        unsegmented = any("\u0e00" <= char <= "\u0e7f" or "\u3400" <= char <= "\u9fff" for char in normalized)
+        if normalized in visible_tokens or ((unsegmented or " " in normalized) and normalized in visible_text):
             errors.append(f"{locale}: keyword {term!r} repeats a name or subtitle token")
 
     return errors
