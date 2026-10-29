@@ -29,7 +29,7 @@ $350 to $1,000 and is Jack's call.
 | RevenueCat link: `$fbAnonId`, `collectDeviceIdentifiers()` (again after ATT), `meta_extinfo` | `MetaAds.linkRevenueCat()`, called from `SubscriptionService.configureIfNeeded` | Inert with the SDK |
 | ATT prompt, only after a trial start or purchase (Jack 2026-10-19), on the next bare Home, never over a sheet, never at launch | `HomeView.askForTrackingIfNeeded`, `MetaAds.notePurchase`, `NSUserTrackingUsageDescription` | Shown only when Meta is on |
 | SKAdNetwork ids for Meta | `Info.plist` `SKAdNetworkItems` | Shipping |
-| 15-minute StartTrial relay | `supabase/functions/meta-trial-relay`, `supabase/migrations/20261015170000_meta_trial_relay.sql` | **Live**, recording trials, sends nothing (`would_send`) |
+| 15-minute StartTrial relay | `supabase/functions/meta-trial-relay`, `supabase/migrations/20261015170000_meta_trial_relay.sql` | **Live and sending**: the dataset and CAPI secrets are set (checked 2026-10-29), so ATT-authorized trials are `sent` |
 | RevenueCat webhook to the relay | RC project `28030dc2`, webhook `whintgrfb640672ce`, App Store app, production, `initial_purchase`/`cancellation`/`expiration` | **Live** |
 | Privacy policy section | `docs/privacy-policy.html`, `docs/privacy-policy/index.html` | Published with this change |
 

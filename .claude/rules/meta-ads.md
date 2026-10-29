@@ -23,7 +23,17 @@ Product Interaction is still marked tracking: App Store Connect answers
 `NSUserTrackingUsageDescription` (1.4.2's build 71 does), and the 1.4.3
 review notes say so. Clear it the day 1.4.3 is released (App Privacy >
 Product Interaction > Edit > No, we do not use ... for tracking >
-Publish). The `meta-trial-relay` RevenueCat webhook can be switched off.
+Publish). Still on as of 2026-10-29: the relay's `META_DATASET_ID` and
+`META_CAPI_TOKEN` Supabase secrets are set, so it sends StartTrial for any
+trial whose RevenueCat customer still holds `$attConsentStatus = authorized`
+from 1.4.1/1.4.2, and RevenueCat's own Meta Ads integration (CAPI) keeps
+sending Subscribe on conversions and renewals for those customers. Both
+contradict the not-tracking labels, so switch off RevenueCat's Meta
+integration, the webhook `whintgrfb640672ce` and the `meta-trial-relay`
+pg_cron job, and reword the Meta section of `docs/privacy-policy.html`
+("versions before 1.4.3"), before clearing the Product Interaction flag.
+After 1.4.3, each new trial otherwise sits `pending` 24 hours and is swept
+every minute (two RevenueCat calls each time) before ending `no_consent`.
 Everything below is history.
 
 Full write-up: `project-docs/marketing/meta-ads.md`.
