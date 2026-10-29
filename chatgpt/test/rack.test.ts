@@ -9,7 +9,7 @@ import { test } from "node:test";
 import { content } from "../src/content.ts";
 import { CARD_YEAR, readRack, type SectionId, support } from "../src/rack.ts";
 import { findQuestion, lookUpTerm, practiceSession, type PassQuestion } from "../src/sessions.ts";
-import { parseRack, racked, spokenName, type TileCode } from "../src/tiles.ts";
+import { isHonor, parseRack, racked, rank, spokenName, type TileCode } from "../src/tiles.ts";
 import { checkResult, rackResult } from "../src/tools.ts";
 
 const items = (id: string) => content.drills.find((d) => d.id === id)!.items;
@@ -118,6 +118,38 @@ test("section notes never contradict the counts", () => {
   assert.notEqual(winds.verdict, "poor");
   assert.doesNotMatch(JSON.stringify(read.sections), /Only 10/);
   assert.ok(read.shortlist.includes("singlesAndPairs"));
+});
+
+test("369 counts the 6s a rack holds even with no 3s or 9s", () => {
+  const read = readRack(rackOf("2C 2C 4C 6C 8C 4B 4B 5B 6D 8D F F J"));
+  const note = read.sections.find((s) => s.id === "threeSixNine")!.note;
+  assert.doesNotMatch(note, /None of your tiles/);
+  assert.match(note, /two 6s/);
+});
+
+test("random deals: every tile count in a section note is the rack's real count", () => {
+  const families: [RegExp, (t: TileCode) => boolean][] = [
+    [/2s, 4s, 6s or 8s|a 2, 4, 6 or 8/, (t) => [2, 4, 6, 8].includes(rank(t) ?? 0)],
+    [/1s, 3s, 5s, 7s or 9s|a 1, 3, 5, 7 or 9/, (t) => [1, 3, 5, 7, 9].includes(rank(t) ?? 0)],
+    [/3s, 6s or 9s|a 3, 6 or 9/, (t) => [3, 6, 9].includes(rank(t) ?? 0)],
+    [/winds or dragons|a wind or dragon/, isHonor],
+  ];
+  const words = ["None", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen"];
+  const deal = dealer(369);
+  for (let n = 0; n < 1500; n++) {
+    const tiles = deal();
+    for (const { note } of readRack(tiles).sections) {
+      const said = note.match(/^(?:Only )?(\w+) of your tiles (?:is|are) ([^.]+)\./);
+      const sixes = note.match(/^Your (\w+) 6s? (?:is|are) the only/);
+      const label = `${tiles.join(" ")}: ${note}`;
+      if (sixes) assert.equal(words.indexOf(sixes[1]), tiles.filter((t) => rank(t) === 6).length, label);
+      if (!said) continue;
+      const family = families.find(([phrase]) => phrase.test(said[2]));
+      if (!family) continue;
+      const count = /^\d+$/.test(said[1]) ? Number(said[1]) : words.indexOf(said[1]);
+      assert.equal(count, tiles.filter(family[1]).length, label);
+    }
+  }
 });
 
 test("no passable tile means a plain explanation, not a claim", () => {

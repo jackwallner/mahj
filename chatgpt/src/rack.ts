@@ -247,8 +247,14 @@ function longShot(tiles: TileCode[], id: SectionId, counts: RackRead["counts"]):
       const short = 5 - plan.best.n - counts.jokers;
       return `Your biggest group is ${groupOf(plan.best.tile, plan.best.n)}, and with ${plural(counts.jokers, "joker")} that is ${plural(short, "tile")} short of five of a kind.`;
     }
-    case "threeSixNine":
-      return ranksOf(tiles).includes(6) ? `${only(n, ["is a 3, 6 or 9", "are 3s, 6s or 9s"])}.` : "369 needs 6s to stand apart from an odds hand, and this rack has none.";
+    case "threeSixNine": {
+      // Support stays empty until 3s or 9s join the 6s, so count the tiles themselves.
+      const ranks = ranksOf(tiles);
+      if (!ranks.includes(6)) return "369 needs 6s to stand apart from an odds hand, and this rack has none.";
+      const sixes = inRanks(tiles, [6]).length;
+      if (!ranks.includes(3) && !ranks.includes(9)) return sixes === 1 ? "Your one 6 is the only 3, 6 or 9 here, and 369 needs 3s or 9s beside it." : `Your ${plural(sixes, "6")} are the only 3s, 6s or 9s here, and 369 needs 3s or 9s beside them.`;
+      return `${only(inRanks(tiles, [3, 6, 9]).length, ["is a 3, 6 or 9", "are 3s, 6s or 9s"])}.`;
+    }
     case "consecutiveRun":
       return n ? `${only(n, ["steps", "step"])} up in order with a same-suit neighbor or a twin.` : "No three numbers here step up in order with a same-suit neighbor or a twin.";
     case "likeNumbers":
