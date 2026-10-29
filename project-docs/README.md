@@ -25,3 +25,7 @@ Developer notes and historical audits for this repository. The published site re
 - [marketing/first-screenshot-hook-2026-10-19/](marketing/first-screenshot-hook-2026-10-19/README.md): new first App Store screenshot, 3 frameless hook variants grounded in Meta, Apple Ads and PPO results; pick "Never hold up the Charleston"; not uploaded
 - [marketing/google-ads/install-test-2026-10.md](marketing/google-ads/install-test-2026-10.md): $10 one-day Google Ads App install test on Android: account 580-738-4529, Play link, settings, 5 headlines and 5 descriptions, readout plan; waits on Jack's billing
 - [marketing/localized-screenshots-2026-10-19.md](marketing/localized-screenshots-2026-10-19.md): storefront ranking, localized captions with back-translations, and visual checks for three screenshot sets
+
+## ASO
+
+- [aso/README.md](aso/README.md): App Store search and conversion metadata audits
