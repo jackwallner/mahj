@@ -116,3 +116,5 @@ Spend stopped at the account cap ($59.97 of $60); the campaign spent $40.14.
 Verdict: $40 bought 185 store visits and no measurable trials. Optimizing on
 StartTrial cannot work at this volume while every trial declines ATT. Day-7
 ASC campaign downloads still to check, but they cannot change the answer.
+
+Paused 2026-10-29 in Ads Manager (Jack). Campaign `PAUSED` per the API.
