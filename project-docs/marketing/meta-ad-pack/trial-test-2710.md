@@ -93,3 +93,26 @@ Publish. Spend starts when review clears.
 4. App Store Connect campaign downloads for `meta-trial-c*-2710` (a floor).
 
 Implied cost per trial = spend / incremental RevenueCat trials.
+
+## Readout 2026-10-29 (day 3)
+
+Spend stopped at the account cap ($59.97 of $60); the campaign spent $40.14.
+
+| Day (PT) | Spend | Impressions | Link clicks | Store visits |
+|---|---|---|---|---|
+| 10-27 | $7.98 | 451 | 52 | 49 |
+| 10-28 | $27.38 | 12,586 | 142 | 130 |
+| 10-29 | $4.78 | 4,439 | 6 | 6 |
+| Total | $40.14 | 17,476 | 200 | 185 |
+
+- Reach 1,742 on 17,476 impressions: frequency 10. Day 3 CTR fell to 0.14%.
+  Advantage+ found a tiny pocket and burned it.
+- Meta reports 0 installs and 0 StartTrial (SKAN installs may still post).
+- Relay: 5 trials since launch, all `no_consent`. Meta received no StartTrial,
+  so the optimizer had nothing to learn from.
+- Trials per day: 3 (10-27), 3 (10-28), 0 so far (10-29), against 4.4 a day
+  from 10-20 to 10-26. No lift.
+
+Verdict: $40 bought 185 store visits and no measurable trials. Optimizing on
+StartTrial cannot work at this volume while every trial declines ATT. Day-7
+ASC campaign downloads still to check, but they cannot change the answer.
