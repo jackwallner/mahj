@@ -62,8 +62,6 @@ final class LayoutSweepTests: XCTestCase {
             step("paywall") { paywall() }
             step("home_free") { homeFree() }
             step("whatsnew") { whatsNew() }
-        case "att":
-            step("att") { attFlow() }
         case "rerun":
             // The flows a first pass could not finish, without the screens
             // that already captured cleanly.
@@ -394,77 +392,6 @@ final class LayoutSweepTests: XCTestCase {
             }
         }
 
-    }
-
-    /// The real first-run flow: fresh install, onboard through the free exit,
-    /// no tracking prompt on Home, finish one drill, prompt on Home after.
-    private func attFlow() {
-        app.launchArguments = ["-mahj.previewMetaATT", "-reviewPrompt.launchCount", "0"]
-        app.launch()
-        _ = app.wait(for: .runningForeground, timeout: 30)
-        settle()
-        check("no tracking prompt on the first onboarding page", !trackingAlert.waitForExistence(timeout: 3))
-        for _ in 0..<3 { _ = tapButton("Continue") }
-        if !tapContaining("Know the basics") { note("att: could not pick skill") }
-        _ = tapButton("Continue")
-        settle()
-        check("no tracking prompt on the trial page", !trackingAlert.waitForExistence(timeout: 3))
-        capture("att_trial_page")
-        guard tapButton("Get Started") else { note("att: no Get Started"); return }
-        settle()
-        if app.buttons["Skip the tour"].waitForExistence(timeout: 4) {
-            _ = tapButton("Skip the tour")
-        } else if app.buttons["Skip it, take me to the app"].exists {
-            _ = tapButton("Skip it, take me to the app")
-        } else {
-            note("att: no tour skip")
-            attachTree("att_tour")
-        }
-        settle()
-        let onHome = app.staticTexts["THE ROOMS"].waitForExistence(timeout: 6)
-        check("reached Home after onboarding", onHome)
-        check("no tracking prompt on Home before a finished practice", !trackingAlert.waitForExistence(timeout: 6))
-        capture("att_home_before")
-
-        // Finish one drill: Tile Check in the Tile Room.
-        guard openContaining("The Tile Room"), openContaining("Tile Check") else { attachTree("att_drill"); return }
-        check("no tracking prompt inside a drill", !trackingAlert.exists)
-        for questionIndex in 0..<30 {
-            let choices = choiceButtons()
-            guard !choices.isEmpty else { note("att: no choices on q\(questionIndex + 1)"); attachTree("att_q"); break }
-            choices[0].coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
-            settle(1.0)
-            if app.buttons["Finish"].exists { tapElement(app.buttons["Finish"]); break }
-            guard app.buttons["Next Question"].exists else { note("att: no Next Question"); break }
-            tapElement(app.buttons["Next Question"])
-        }
-        settle()
-        capture("att_drill_complete")
-        check("no tracking prompt on the drill-complete screen", !trackingAlert.waitForExistence(timeout: 3))
-        _ = tapButton("Done")
-        settle()
-        // Back to Home if the room is still on top.
-        for _ in 0..<3 where !app.staticTexts["THE ROOMS"].exists {
-            let back = app.navigationBars.buttons.element(boundBy: 0)
-            guard back.exists, back.label != "Settings" else { break }
-            back.tap()
-            settle(1.0)
-        }
-        check("back on Home", app.staticTexts["THE ROOMS"].waitForExistence(timeout: 4))
-        let shown = trackingAlert.waitForExistence(timeout: 10)
-        check("tracking prompt shown on Home after the finished drill", shown)
-        capture("att_home_after")
-        if shown {
-            let text = trackingAlert.staticTexts.allElementsBoundByIndex.map(\.label).joined(separator: " | ")
-            notes.append("prompt text: \(text)")
-            let deny = trackingAlert.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Ask App")).firstMatch
-            if deny.exists { deny.tap() } else { trackingAlert.buttons.element(boundBy: 0).tap() }
-            settle()
-        }
-    }
-
-    private var trackingAlert: XCUIElement {
-        springboard.alerts.matching(NSPredicate(format: "label CONTAINS %@", "track")).firstMatch
     }
 
     /// Times the primitives the sweep leans on, for debugging a stall.

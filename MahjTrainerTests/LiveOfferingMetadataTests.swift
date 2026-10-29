@@ -32,7 +32,6 @@ final class LiveOfferingMetadataTests: XCTestCase {
         let control = try XCTUnwrap(offerings.all["default"])
         XCTAssertEqual(TrialCTA.from(metadata: control.metadata), .sevenDay)
         XCTAssertEqual(TrialCTA.sevenDay.title(.onboarding), "Start 7-day free trial")
-        XCTAssertTrue(RemoteConfig.isOn(.attPrompt, in: control.metadata))
         XCTAssertTrue(RemoteConfig.isOn(.ratingPrompt, in: control.metadata))
 
         // Treatment: cta_my, the only difference is the button.
@@ -40,8 +39,8 @@ final class LiveOfferingMetadataTests: XCTestCase {
         XCTAssertEqual(TrialCTA.from(metadata: treatment.metadata), .my)
         XCTAssertEqual(TrialCTA.my.title(.onboarding), "Start my free trial")
         XCTAssertEqual(
-            RemoteConfig.isOn(.attPrompt, in: treatment.metadata),
-            RemoteConfig.isOn(.attPrompt, in: control.metadata),
+            RemoteConfig.isOn(.ratingPrompt, in: treatment.metadata),
+            RemoteConfig.isOn(.ratingPrompt, in: control.metadata),
             "A switch must be the same on both arms or the experiment flips it"
         )
         XCTAssertEqual(

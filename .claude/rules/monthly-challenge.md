@@ -121,7 +121,7 @@ Reading Your Rack from the rotation.
   gated it on a practice after the tour (`hasPracticedSinceOnboarding`),
   and with the November event live only 8 players had ever posted a
   score: a player who installed from the event found no challenge on Home.
-  The game night card and the tracking prompt keep that gate. The card shows
+  The game night card keeps that gate. The card shows
   while today's round is unplayed; once played the challenge collapses to a
   plum points chip in the stats row (`ViewThatFits` stacks the chips at
   large text). Before the first month the link shows the start date with

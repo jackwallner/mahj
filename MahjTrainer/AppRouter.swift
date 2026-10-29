@@ -112,7 +112,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         LaunchTiming.mark("delegate")
         #endif
         UNUserNotificationCenter.current().delegate = self
-        MetaAds.start(application, launchOptions: launchOptions)
         return true
     }
 

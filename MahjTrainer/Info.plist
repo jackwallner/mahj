@@ -40,29 +40,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>FacebookAppID</key>
-	<string>$(META_APP_ID)</string>
-	<key>FacebookClientToken</key>
-	<string>$(META_CLIENT_TOKEN)</string>
-	<key>FacebookDisplayName</key>
-	<string>Mahj Trainer</string>
-	<key>FacebookAutoLogAppEventsEnabled</key>
-	<false/>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
-	<false/>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This lets Meta tell us which Facebook or Instagram ad brought you to Mahj Trainer, so we stop paying for ads that don't work. Your practice and progress are never shared.</string>
-	<key>SKAdNetworkItems</key>
-	<array>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>v9wttpbfk9.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>n38lu8286q.skadnetwork</string>
-		</dict>
-	</array>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

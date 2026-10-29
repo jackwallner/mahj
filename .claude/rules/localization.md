@@ -17,14 +17,13 @@ names stay as they are (Mahj Trainer, Mahj+, Mahj Minute, NMJL), and so do
 the American Mah Jongg table words players meet on the card and at the
 table (pung, kong, quint, Charleston, Crak/Bam/Dot, Soap).
 
-## Three catalogs, all in `MahjTrainer/Resources`
+## Two catalogs, both in `MahjTrainer/Resources`
 
 - `Localizable.xcstrings`: UI copy, notifications, alerts, the paywall and
   onboarding, and every sentence the generators build. Keys are the English
   text; plurals are plural variations on one key ("%lld drills done").
 - `Content.xcstrings`: the authored drill content in `Shared/Content`.
   Keyed by the English sentence and looked up at runtime, never extracted.
-- `InfoPlist.xcstrings`: `NSUserTrackingUsageDescription`.
 
 All entries are `extractionState: manual`, so Xcode never rewrites or drops
 them. XcodeGen derives the project's `knownRegions` from the languages in

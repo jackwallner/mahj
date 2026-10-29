@@ -35,8 +35,8 @@ paths:
   question against its viewport and, if the last choice would need a scroll,
   switches to compact metrics (`compactQuestion`: smaller prompt, 36 pt tiles,
   tighter rows), decided once per question before grading. The same rule
-  fits the iPhone SE. Home's Training row is the same two-across grid as
-  the phone's.
+  fits the iPhone SE. Home's Training row is a grid while split: the pane
+  stops short of the fold, so a carousel clipped its last tile in mid-air.
 - Phone idiom only (1.4.2): `UnfoldedSplit.make` takes the idiom, and an
   iPad keeps 1.4.1's two-column Home at every width. The first cut split
   any regular container of 720 pt or more, which turned every full-screen

@@ -10,7 +10,7 @@
 #   run = SIZE:ORIENT:SCOPE[:BUILD]
 #     SIZE   L | XXXL | AX3 | AX5
 #     ORIENT portrait | landscape
-#     SCOPE  full | compare | new | rest | ipad_landscape | att
+#     SCOPE  full | compare | new | rest | ipad_landscape
 #     BUILD  key into XCTESTRUN_<BUILD> / OUT_<BUILD> env vars (default: main)
 #
 # Env:
@@ -72,7 +72,6 @@ for run in "$@"; do
   ROOT="${!out_var:-$OUT_ROOT}"
   DIR_NAME="$SIZE"
   [[ "$ORIENT" == "landscape" ]] && DIR_NAME="$SIZE-landscape"
-  [[ "$SCOPE" == "att" ]] && DIR_NAME="att"
   OUT="$ROOT/$LABEL/$DIR_NAME"
   mkdir -p "$OUT"
 

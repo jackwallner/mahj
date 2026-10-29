@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# Meta prep + CTA wording test captures (MetaAndCTARenderTests): both CTA
-# arms on both purchase surfaces, and the ATT prompt timing. Reinstalls the
-# app first so the tracking answer starts unasked.
+# CTA wording test captures (MetaAndCTARenderTests): both CTA arms on both
+# purchase surfaces. Reinstalls the app first.
 #
 # Usage:
 #   scripts/capture-meta-cta.sh <simulator-udid> <output-dir>

@@ -1,15 +1,9 @@
 import XCTest
 
-/// Captures for the October 2026 Meta prep and the trial button wordings.
+/// Captures for the trial button wordings: every `TrialCTA` wording on both
+/// purchase surfaces (`-mahj.rc.trial_cta`).
 ///
-/// - Every `TrialCTA` wording on both purchase surfaces (`-mahj.rc.trial_cta`).
-/// - Apple's tracking prompt: absent through onboarding and on Home after
-///   practice alone, shown on Home after a trial or purchase
-///   (`-meta.askAfterPurchase` stands in for the purchase, which a simulator
-///   cannot make; `-mahj.previewMetaATT` turns Meta on in the simulator).
-///
-/// Run: scripts/capture-meta-cta.sh <udid> <out-dir>. Reinstall first: the
-/// ATT answer survives relaunches of the same install.
+/// Run: scripts/capture-meta-cta.sh <udid> <out-dir>.
 ///
 /// Findings go into a `checks` attachment instead of XCTFail, for the same
 /// reason as `PaywallRenderTests`.
@@ -75,43 +69,7 @@ final class MetaAndCTARenderTests: XCTestCase {
         app.terminate()
     }
 
-    func testTrackingPromptOnlyAfterATrial() {
-        launch(onboarded: false, extra: ["-mahj.previewMetaATT"])
-        check("no tracking prompt on the first onboarding page", !trackingAlert.waitForExistence(timeout: 3))
-        walkToTrialPage()
-        check("no tracking prompt on the trial page", !trackingAlert.waitForExistence(timeout: 3))
-        capture("att_none_during_onboarding")
-        app.terminate()
-
-        // Practice without a trial or purchase: Home stays quiet (Jack 2026-10-19).
-        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "4"])
-        check("no tracking prompt on Home after practice alone", !trackingAlert.waitForExistence(timeout: 6))
-        capture("att_none_after_practice")
-        app.terminate()
-
-        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "0", "-meta.askAfterPurchase", "YES"])
-        let shown = trackingAlert.waitForExistence(timeout: 8)
-        check("tracking prompt shown on Home right after a trial", shown)
-        guard shown else { return }
-        capture("att_prompt_home")
-        let text = trackingAlert.staticTexts.allElementsBoundByIndex.map(\.label).joined(separator: " | ")
-        checks.append("prompt text: \(text)")
-        check("prompt carries our usage copy", text.contains("Facebook or Instagram ad"))
-        trackingAlert.buttons["Allow"].tap()
-        settle()
-        check("prompt gone after answering", !trackingAlert.exists)
-        capture("att_after_allow")
-        app.terminate()
-
-        launch(onboarded: true, extra: ["-mahj.previewMetaATT", "-progress.totalSessions", "0", "-meta.askAfterPurchase", "YES"])
-        check("never asked twice", !trackingAlert.waitForExistence(timeout: 5))
-    }
-
     // MARK: - Helpers
-
-    private var trackingAlert: XCUIElement {
-        springboard.alerts.matching(NSPredicate(format: "label CONTAINS %@", "track")).firstMatch
-    }
 
     private func launch(onboarded: Bool, extra: [String]) {
         app.launchArguments = [

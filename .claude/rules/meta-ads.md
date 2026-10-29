@@ -10,6 +10,15 @@ paths:
 
 # Mahj: Meta ads prep and the trial button wording (2026-10-15)
 
+**Removed in 1.4.3 (2026-10-29, Jack: Meta ads are not viable for this
+app).** The Meta SDK, `MetaAds`, the ATT prompt and its `att_prompt`
+switch, `NSUserTrackingUsageDescription`, the Facebook Info.plist keys and
+Meta's SKAdNetwork ids are gone; RevenueCat keeps Apple Ads attribution
+(AdServices, no prompt). Still to do outside the repo: App Privacy labels
+in App Store Connect drop the tracking declarations in the 1.4.3
+submission, and the `meta-trial-relay` RevenueCat webhook can be switched
+off. Everything below is history.
+
 Full write-up: `project-docs/marketing/meta-ads.md`.
 
 - `MetaAds` is inert until `META_APP_ID` and `META_CLIENT_TOKEN` are set in
