@@ -95,7 +95,7 @@ The big Tier 1 accounts wait until a few small teachers have said yes. Follower 
 ### Cadence
 
 - About 5 DMs a day, wave 1 first. Look at their last few posts and write the one personal line before sending.
-- First DM has no link: Instagram tucks a link from a stranger into hidden requests. Send the code link once they reply.
+- The code link goes in the first DM, so it's one message. If replies are scarce, try asking first and sending the link after they answer.
 - Log the creator and date in `creator-codes.csv` when a link goes out. One follow-up after a week, then let it go.
 - A yes on sponsoring gets a flat fee per post (amount is Jack's call) and a campaign link (`ct=<handle>`) for our own tracking.
 
@@ -105,8 +105,6 @@ The big Tier 1 accounts wait until a few small teachers have said yes. Follower 
 >
 > [one line about a recent post of theirs]
 >
-> could I send you a free lifetime code? if you like it I'd love to sponsor a post, and if it's missing anything your students need I'd really like to know
-
-After they reply:
-
-> here you go! one tap and it's yours: [redeem link]
+> here's a free lifetime code if you want to try it, one tap and it's yours: [redeem link]
+>
+> if you like it I'd love to sponsor a post, and if it's missing anything your students need I'd really like to know
