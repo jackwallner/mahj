@@ -57,6 +57,17 @@ final class ProgressStoreTests: XCTestCase {
         XCTAssertTrue(upgraded.hasPracticedSinceOnboarding)
     }
 
+    /// After Reset Progress a relaunch is not a 1.3.2 upgrade: every
+    /// practice after the reset is the player's own.
+    func testResetThenRelaunchCountsOwnPractices() {
+        defaults.set(true, forKey: "progress.hasOnboarded")
+        store.resetAll()
+        store.recordSession(drillID: "a")
+        store.recordSession(drillID: "b")
+        let relaunched = ProgressStore(defaults: defaults)
+        XCTAssertEqual(relaunched.totalSessions - relaunched.sessionsAtOnboarding, 2)
+    }
+
     /// A 1.3.2 player who skipped the tour has nothing to take off.
     func testUpgraderWithNoPracticeKeepsZero() {
         defaults.set(true, forKey: "progress.hasOnboarded")

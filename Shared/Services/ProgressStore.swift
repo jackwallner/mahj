@@ -177,6 +177,8 @@ final class ProgressStore: ObservableObject {
         defaults.removeObject(forKey: Keys.missedItems)
         defaults.removeObject(forKey: Keys.reviewGateShown)
         defaults.removeObject(forKey: Keys.lastQuickSessionDay)
-        defaults.removeObject(forKey: Keys.sessionsAtOnboarding)
+        // Zero, not removed: with no key the next launch takes this player
+        // for a 1.3.2 upgrader and takes one of their practices off again.
+        sessionsAtOnboarding = 0
     }
 }
