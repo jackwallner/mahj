@@ -113,6 +113,17 @@ DMs go from TikTok @mahjtips as three short messages (intro, code link, feedback
 
 Follow up once around 2026-11-05 if no reply.
 
+Instagram DMs go from @mahjtips on instagram.com in Chrome (same three messages; the profile's Message button opens a chat panel, Return sends).
+
+| Date | Creator (Instagram) | Personal line |
+|---|---|---|
+| 2026-10-30 | @marchesamahjong (6.3K, Arabella) | Mom & Daughter Mahjong event |
+| 2026-10-30 | @rockymountainmahjong (5.1K, Avery Burns) | taught herself from a book, 2nd at the 2024 world championship two years later |
+| 2026-10-30 | @bluetigermahjclub (5.0K, Lisa Oleson) | Bams & Bubbly champagne tiles post |
+| 2026-10-30 | @queencitymahjong (4.6K) | "why one lesson instead of three" post |
+
+Skipped @abbyaroundthetable: her profile needs a sign-in to read, so there was no post to write the line from. Follow up on these four around 2026-11-06.
+
 ### The DM
 
 > hi [first name]! [line about their post], that's exactly the stuff I built my app around. it's called Mahj Trainer, made it on paternity leave between baby naps haha
