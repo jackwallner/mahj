@@ -58,3 +58,55 @@ Options, cheapest first:
 - Codes and redeem links live in `creator-codes.csv` beside this file. It is gitignored because the repo is public; never commit it. Fill in `creator` and `sent` when a link goes out, one code per creator.
 - Link format: `https://apps.apple.com/redeem?ctx=offercodes&id=6790052126&code=CODE`. Opens the App Store with the code filled in; the creator taps Redeem.
 - Separate from "Mahj+ Lifetime Gift 2026-10" (`be413994-...`, 500 codes, 2026-10-03), whose recipients aren't recorded. Keeping the creator batch apart means creator redemptions show up under their own offer name in ASC and RevenueCat.
+
+## Outreach plan: small teachers first
+
+The big Tier 1 accounts wait until a few small teachers have said yes. Follower counts below were read from each public Instagram profile on 2026-10-29.
+
+### Wave 1: teachers who post lessons online (reach past their own city)
+
+| Account | Followers | Where | Notes |
+|---|---|---|---|
+| [@themahjonghouse](https://www.instagram.com/themahjonghouse/) | 26K | Houston | Stacey White, beginner and refresh lessons |
+| [@mahjwithsusan](https://www.instagram.com/mahjwithsusan/) | 16K | | Susan Siegel, beginner and joker tips on the current card |
+| [@holymahj](https://www.instagram.com/holymahj/) | 15K | Charleston, SC | Anne and Caroline, lessons and Mahjong Mondays |
+| [@bamgoodtime](https://www.instagram.com/bamgoodtime/) | 14K | Fort Worth | Beginner lessons, open play, leagues |
+| [@palmbeachmahjong](https://www.instagram.com/palmbeachmahjong/) | 8.4K | Palm Beach | Step-by-step setup and deal tutorials |
+| [@marchesamahjong](https://www.instagram.com/marchesamahjong/) | 6.3K | Houston | Arabella Hibbert, lessons and parties |
+| [@rockymountainmahjong](https://www.instagram.com/rockymountainmahjong/) | 5.1K | Denver | Lessons, leagues, tournaments |
+| [@bluetigermahjclub](https://www.instagram.com/bluetigermahjclub/) | 5.0K | Chicago suburbs | Lisa Oleson, NMJL card lessons |
+| [@queencitymahjong](https://www.instagram.com/queencitymahjong/) | 4.6K | Charlotte | Weekly group lessons |
+| [@abbyaroundthetable](https://www.instagram.com/abbyaroundthetable/) | 4.1K | | Tile-identification tutorials, also on TikTok; check she teaches American |
+
+### Wave 2: local teachers (the app is homework for their students)
+
+| Account | Followers | Where |
+|---|---|---|
+| [@mahjongoc](https://www.instagram.com/mahjongoc/) | 4.5K | Orange County, CA (claims 3,200+ taught) |
+| [@southshoremahjong](https://www.instagram.com/southshoremahjong/) | 3.4K | Boston South Shore |
+| [@mahjongatdeenas](https://www.instagram.com/mahjongatdeenas/) | 3.2K | San Diego North County (Bespoke affiliate) |
+| [@mahjongsocialatl](https://www.instagram.com/mahjongsocialatl/) | 2.8K | Atlanta |
+| [@thecharlestoncoach](https://www.instagram.com/thecharlestoncoach/) | 2.2K | Gaithersburg, MD |
+| [@mrsmerrimanmahjong](https://www.instagram.com/mrsmerrimanmahjong/) | 1.9K | Charlotte |
+| [@themahjongsocialchatt](https://www.instagram.com/themahjongsocialchatt/) | 1.8K | Chattanooga |
+| [@atlanta_mahjong_mentors](https://www.instagram.com/atlanta_mahjong_mentors/) | 1.5K | Atlanta (101/102/103 course) |
+| [@mahjonginthesouth](https://www.instagram.com/mahjonginthesouth/) | 1.4K | Jacksonville |
+
+### Cadence
+
+- About 5 DMs a day, wave 1 first. Look at their last few posts and write the one personal line before sending.
+- First DM has no link: Instagram tucks a link from a stranger into hidden requests. Send the code link once they reply.
+- Log the creator and date in `creator-codes.csv` when a link goes out. One follow-up after a week, then let it go.
+- A yes on sponsoring gets a flat fee per post (amount is Jack's call) and a campaign link (`ct=<handle>`) for our own tracking.
+
+### The DM
+
+> Hi [first name]! I'm Jack, a solo developer. I made Mahj Trainer, an app where newer American mahj players practice between games.
+>
+> [One line about a recent post of theirs.]
+>
+> Could I send you a free lifetime code? If you like it I'd love to sponsor a post. If it's missing something your students need, I really want to hear it. It's just me building it, so feedback goes straight into the next update.
+
+After they reply:
+
+> Here you go, one tap and it's yours: [redeem link]
