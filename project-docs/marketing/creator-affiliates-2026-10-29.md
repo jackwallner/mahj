@@ -42,7 +42,7 @@ Apple has no App Store affiliate program, and Apple offer codes do not work for 
 Options, cheapest first:
 
 1. **App Store campaign links (`ct=lara`), no code change.** ASC App Analytics reports page views, downloads and proceeds per campaign. Counts only users who share analytics with developers, so it undercounts and can't see trial starts. Fine to start pay-per-download or a goodwill bounty; weak for a contract.
-2. **Insert Affiliate (RevenueCat partner).** Per-creator deep links, SDK tags the RevenueCat customer, commission on purchases and renewals, creator dashboard. Needs the SDK in a build. Paid tool (listings say about $20 to $200/mo); confirm on their site. WinWinKit is the code-based alternative.
+2. **Insert Affiliate (RevenueCat partner).** Per-creator deep links, SDK tags the RevenueCat customer, commission on purchases and renewals, creator dashboard. Needs the SDK in a build plus Associated Domains for its links. Pricing (insertaffiliate.com, Oct 2026): Free covers 2 affiliates and 100 transactions; Starter is £20/mo plus 10% of affiliate revenue for up to 5 affiliates; Growth is £70/mo plus 8% for up to 25. Creator commissions are paid on top (Stripe Connect payouts). The docs don't say how a link survives a fresh App Store install, so expect some referrals to go unattributed. WinWinKit is the code-based alternative.
 3. **Homegrown.** Per-creator link opens `mahj://ref/<creator>`, app stores it as a RevenueCat subscriber attribute, webhooks give trial, conversion and renewal per creator. No UI change, so the frozen trial flow is untouched. A typed "creator code" field on the paywall would touch the trial flow and needs Jack's go-ahead.
 
 ## Offer to creators
