@@ -1,43 +1,32 @@
-Learn American Mahjong with five-minute practice drills: read a rack, practice the Charleston, and make keep-or-throw calls. Every quiz explains why the right answer is right. Four beginner rooms are free, with no account.
+Mahj Trainer is an app to learn American Mah Jongg with the NMJL card through short drills: read a rack, practice the Charleston, and make keep-or-throw calls. Every quiz explains why the right answer is right.
 
-Practice alone, between games. Most new players learn American Mah Jongg at a weekly game, then have no way to practice until the next one. Mahj Trainer gives you quick reps anywhere, with no opponents to wait for and no internet needed.
-
-FREE FOR EVERYONE
-
-THE TILE ROOM
-Meet every tile family: craks, bams, dots, winds, dragons, flowers, and jokers. Then take a quiz on the rules new players mix up: which dragon goes with which suit, what jokers can and cannot do, what a soap really means.
-
-THE CARD ROOM
-Learn the card's sections (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs, and more). Then read racks: see 13 tiles and name the section they're chasing. Miss one and a note explains why your pick does not fit.
-
-THE CHARLESTON ROOM
-Charleston practice for the part that scares every new player. Learn the rules and strategy of the pass, then work through practice deals: pick 3 tiles to pass and compare your choice with the coach's, with the reasoning explained.
-
-THE TABLE ROOM
-Keep-or-throw judgment calls and table rules: when to hold a flower, when to swap for an exposed joker, what an opponent's exposure tells you, and which discards are safe.
+FOUR PRACTICE ROOMS (FREE)
+• Teaches every tile family: craks, bams, dots, winds, dragons, flowers, and jokers.
+• Quizzes the rules new players mix up, like which dragon goes with which suit and what jokers can do.
+• Teaches the sections of the card, such as 2468, Consecutive Run, 13579, and Winds and Dragons.
+• Shows a 13-tile rack and asks which card section it is chasing.
+• Practices the Charleston: pick 3 tiles to pass and compare your choice with the coach's.
+• Drills keep-or-throw calls, exposed joker swaps, and safe discards.
+• Explains the reasoning behind every answer, including why a wrong pick does not fit.
 
 ALSO FREE
-• Play a Hand, once a day: thirteen tiles off a real wall and twelve turns, with every discard graded and the arithmetic shown.
-• The daily Mahj Minute: five questions a day toward a monthly challenge.
-• How to Play: a six-page primer for brand-new players.
-• A searchable reference: a glossary and a page for every card section.
-• Streaks and per-room progress to keep your skills warm between games.
+• Deals one Play a Hand a day: 13 tiles off a real wall and 12 turns, with every discard graded.
+• Sends the Mahj Minute, five questions a day toward a monthly challenge.
+• Includes a six-page How to Play primer and a searchable glossary.
 
-MAHJ+ (optional upgrade)
-Everything above stays free. Mahj+ adds practice that never runs out:
-• Unlimited Play a Hand.
-• Endless Practice deals a freshly generated rack every time, so section reading never runs dry.
-• Fix My Mistakes brings back what you got wrong on a spaced schedule.
-• Timed Challenge gives you ninety seconds of mixed reads and a personal record to chase.
-• Extra practice sets in all four rooms, with fresh questions, racks, and deals.
-• The Master Tables: advanced Charleston strategy, a defense school, expert rack reading, and joker rules.
+WHO IT IS FOR
+• Helps beginners learn American mahjong before or between weekly games.
+• Lets you practice alone, with no opponents to wait for.
+• Gives experienced players advanced drills in the Master Tables (Mahj+).
+• Works offline on iPhone and iPad, with no account or sign-in.
 
-New drills are added all year.
+FREE / PRO
+• Keeps the four rooms, a daily Play a Hand, the Mahj Minute, and the primer free for everyone.
+• Adds, with Mahj+ (PRO), unlimited Play a Hand, Endless Practice with fresh racks, Fix My Mistakes on a spaced schedule, a 90-second Timed Challenge, extra practice sets, and the Master Tables for advanced Charleston, defense, and rack reading.
 
-BUILT FOR NEW PLAYERS
-Flashcards with the "why" on the back. Original practice hands that teach the card's sections, so your skills carry over to any year's card. Works offline on iPhone and iPad.
-
-Mahj Trainer is an independent training app. It is not affiliated with or endorsed by the National Mah Jongg League. For official hands and values, get the current NMJL card.
+Original practice hands teach the card's sections, so skills carry over to any year's card. Mahj Trainer is independent and not affiliated with or endorsed by the National Mah Jongg League.
 
 SUBSCRIPTIONS
-Mahj+ is available as an auto-renewing subscription (Monthly or Yearly, both with a 7-day free trial) or as a one-time Lifetime purchase. Prices are shown in the app before you buy and vary by region. Payment is charged to your Apple ID at confirmation. Subscriptions renew automatically unless canceled at least 24 hours before the end of the current period. Manage or cancel anytime in Settings → Apple ID → Subscriptions. Terms of Use (Apple's standard EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Privacy Policy: https://jackwallner.github.io/mahj/privacy-policy.
+Mahj+ is available as an auto-renewing subscription (Monthly or Yearly, both with a 7-day free trial) or as a one-time Lifetime purchase. Prices are shown in the app before you buy and vary by region. Payment is charged to your Apple ID at confirmation. Subscriptions renew automatically unless canceled at least 24 hours before the end of the current period. Manage or cancel anytime in Settings → Apple ID → Subscriptions.
+Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Privacy Policy: https://jackwallner.github.io/mahj/privacy-policy
