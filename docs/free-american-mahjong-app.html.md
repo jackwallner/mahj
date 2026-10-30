@@ -18,9 +18,9 @@ An optional upgrade, Mahj+, adds extra practice sets and advanced drills. It is 
 - **The Card Room:** 16 flashcards on the card's sections and 9 racks to read.
 - **The Charleston Room:** 10 rules and strategy flashcards and 9 practice deals.
 - **The Table Room:** 14 keep-or-throw calls and a 16-question table rules quiz.
-- **How to Play:** a six-page beginner primer, available any time from the home screen.
+- **How to Play:** a six-page beginner primer, available any time from Settings.
 - **Play a Hand:** one coached hand a day, with every discard graded.
-- **The daily Mahj Minute:** five questions a day toward a monthly challenge.
+- **The daily Mahj Minute (iPhone and iPad):** five questions a day toward a monthly challenge.
 - **The reference:** a searchable glossary and a page for every card section.
 
 Every answer shows its reason, and progress, streaks and stats stay on your device.
@@ -37,7 +37,7 @@ Monthly and yearly plans start with a one-week free trial, and the lifetime purc
 
 ## Will the app ask me to subscribe?
 
-It offers a free week of Mahj+ during setup, and a Get Started button skips straight to the free rooms. After a good result, a trial offer sometimes slides up: a few times in your first two days, then every few days, and every two weeks after that. Close it and keep practicing. A small Mahj+ card also sits under each result. The free rooms never lock and never expire.
+It offers a free week of Mahj+ during setup, and a Get Started button skips straight to the free rooms. On iPhone and iPad, a trial offer sometimes slides up after a good result: a few times in your first two days, then every few days, then weekly, and every two weeks after that. Close it and keep practicing. A small Mahj+ card also sits under each result. The free rooms never lock and never expire.
 
 ## What other free American mahjong apps are there?
 
@@ -45,7 +45,7 @@ Tile Wise says every lesson, quiz and drill is free, with an optional one-time p
 
 ## Start with the free rooms
 
-Four beginner rooms, one free hand a day and a daily five-question round. No account, no ads.
+Four beginner rooms and one free hand a day. No account, no ads.
 
 [Download on the App Store](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-free-american-mahjong-app&mt=8)
 
@@ -53,7 +53,7 @@ Four beginner rooms, one free hand a day and a daily five-question round. No acc
 
 ### Is Mahj Trainer really free?
 
-Yes. The download is free, and the four beginner rooms, the How to Play primer, the reference, one Play a Hand a day and the daily Mahj Minute are free for everyone with no time limit.
+Yes. The download is free, and the four beginner rooms, the How to Play primer, the reference, and one Play a Hand a day are free for everyone with no time limit.
 
 ### Do I need a subscription to learn American mahjong in Mahj Trainer?
 

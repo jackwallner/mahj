@@ -8,7 +8,7 @@ Web page: https://jackwallner.com/ios/mahj/mahjong-quiz-app.html
 
 By Jack Wallner · Last updated October 29, 2026
 
-**Yes. [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-mahjong-quiz-app&mt=8) is an American mahjong quiz app that shows the reason after every answer.** When you miss a rack, it also adds a "Why not" note on the choice you picked, naming the tiles that rule it out. The quizzes cover tiles, the card's sections, Charleston passes and table calls.
+**Yes. [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-mahjong-quiz-app&mt=8) is an American mahjong quiz app that shows the reason after every answer.** When you miss a rack, it also adds a "Why not" note on the section you picked, explaining why it does not fit. The quizzes cover tiles, the card's sections, Charleston passes and table calls.
 
 The four beginner rooms are free on iPhone, iPad and Android, with no account.
 
@@ -34,7 +34,7 @@ From the free Tile Check quiz:
 
 ## Which questions are free?
 
-The free rooms hold a 16-question tile quiz, 9 racks to read, 9 Charleston deals, 14 keep-or-throw calls and a 16-question table rules quiz, plus flashcards with the rule on the back. A daily round of five Mahj Minute questions is free as well. Mahj+ adds an extra set in each room, generated racks that never run out, and advanced drills on defense, jokers and expert rack reading.
+The free rooms hold a 16-question tile quiz, 9 racks to read, 9 Charleston deals, 14 keep-or-throw calls and a 16-question table rules quiz, plus flashcards with the rule on the back. On iPhone and iPad, a daily round of five Mahj Minute questions is free as well. Mahj+ adds an extra set in each room, generated racks that never run out, and advanced drills on defense, jokers and expert rack reading.
 
 ## Which other apps explain their answers?
 
@@ -54,7 +54,7 @@ Yes. Mahj Trainer has quizzes on tile rules, the card's sections, Charleston pas
 
 ### Does Mahj Trainer explain wrong answers?
 
-Yes. Every answer shows its reason, and a missed rack also gets a "Why not" note that names the tiles ruling out the section you picked.
+Yes. Every answer shows its reason, and a missed rack also gets a "Why not" note that explains why the section you picked does not fit.
 
 ### Is the mahjong quiz free?
 

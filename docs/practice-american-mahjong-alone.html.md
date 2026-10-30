@@ -18,13 +18,13 @@ Four free rooms, each a short drill on one skill:
 
 - **The Tile Room:** flashcards on every tile family, then a 16-question quiz on the rules new players mix up, such as which dragon goes with which suit and what jokers can do.
 - **The Card Room:** flashcards on the card's sections, then racks of 13 tiles where you name the section they are chasing.
-- **The Charleston Room:** real deals where you pick three tiles to pass and compare with the coach. More on the [Charleston practice page](https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html).
+- **The Charleston Room:** practice deals where you pick three tiles to pass and compare with the coach. More on the [Charleston practice page](https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html).
 - **The Table Room:** keep-or-throw calls and table rules: when to hold a flower, when to swap for an exposed joker, which discards are safe.
 
 Three more things are free for everyone:
 
 - **Play a Hand, once a day:** thirteen tiles off a real 152-tile wall. You commit to a section, then draw and discard for twelve turns while the coach grades every throw and shows the arithmetic. There are no bots, so every grade comes from your tiles alone.
-- **The daily Mahj Minute:** five questions a day that add up to a monthly challenge score.
+- **The daily Mahj Minute (iPhone and iPad):** five questions a day that add up to a monthly challenge score.
 - **A searchable reference:** a glossary and a page for every card section, one tap from the home screen.
 
 Streaks and per-room progress show which skill needs work, and a quick mixed session brings back the questions you missed first.
@@ -45,7 +45,7 @@ Mahj Trainer does not play full games. For whole hands against bots, Maylee and 
 
 ## Practice without a table
 
-Four free rooms, one free hand a day and a daily five-question round. No account, works offline.
+Four free rooms and one free hand a day. No account, works offline.
 
 [Download on the App Store](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-practice-american-mahjong-alone&mt=8)
 
@@ -57,7 +57,7 @@ Yes. A drill app such as Mahj Trainer lets you practice reading racks, Charlesto
 
 ### Is there a free app to practice American mahjong by yourself?
 
-Yes. Mahj Trainer is free to download, and its four beginner rooms, one Play a Hand a day and the daily Mahj Minute are free with no subscription.
+Yes. Mahj Trainer is free to download, and its four beginner rooms and one Play a Hand a day are free with no subscription.
 
 ### Does Mahj Trainer work offline?
 

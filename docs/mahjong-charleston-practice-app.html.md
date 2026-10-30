@@ -1,6 +1,6 @@
 # Is There an App to Practice the Mahjong Charleston?
 
-> Mahj Trainer is a free iPhone, iPad and Android app for practicing the American mahjong Charleston: real deals, pick three tiles, see the coach's reasoning.
+> Mahj Trainer is a free iPhone, iPad and Android app for practicing the American mahjong Charleston: practice deals, pick three tiles, see the coach's reasoning.
 
 Web page: https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html
 
@@ -29,7 +29,7 @@ This is the first deal in Pick Your Pass. Like every rack in the app, it is an o
 
 **The coach passes:** 1 Crak, 9 Bam, North.
 
-**Why:** the deal leans toward the 2468 section, with eight even tiles including three pairs, plus a flower and a joker worth keeping. The 1 Crak and 9 Bam are odd and the lone North fits nothing, so they go. The joker can never be passed, and the flower should stay early.
+**Why:** the deal leans toward the 2468 section, with eight even tiles including three pairs, plus a flower and a joker worth keeping. The 1 Crak and 9 Bam are odd and the lone North does nothing for that plan, so they go. The joker can never be passed, and the flower should stay early.
 
 ## What is free and what is in Mahj+?
 
@@ -41,7 +41,7 @@ Both Charleston drills above are free, along with the other three beginner rooms
 
 ## Which other apps let you practice the Charleston?
 
-Tile Wise has a Charleston drill that coaches each pass, Mahjee lists a Charleston trainer that asks you to pick three tiles, and Maylee shows a Charleston tutorial inside its games. Lesson apps such as MAHJ: Learn American Mahjong teach the Charleston as part of a course. Mahj Trainer is the one built around short, repeatable pass drills with the reasoning shown on every deal. The [full comparison](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html) covers what each app does well.
+Tile Wise lists the Charleston among its lessons and coaches which tiles to keep, pass or chase, Mahjee has a daily puzzle where you pick the best three tiles to pass, and Maylee shows a Charleston tutorial inside its games. Lesson apps such as MAHJ: Learn American Mahjong teach the Charleston as part of a course. Mahj Trainer is the one built around short, repeatable pass drills with the reasoning shown on every deal. The [full comparison](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html) covers what each app does well.
 
 ## Want the rules first?
 
