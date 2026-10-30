@@ -1002,6 +1002,7 @@ struct HomeView: View {
                     HStack(spacing: TrainingCarousel.spacing) {
                         trainingTiles
                     }
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, TrainingCarousel.leadingInset)
                     .padding(.vertical, 16)
                 }
@@ -1416,15 +1417,18 @@ private struct TrainingTileFrame: ViewModifier {
     let fixedHeight: Bool
 
     func body(content: Content) -> some View {
+        // 118pt at least, never at most: at XXXL a two-line title and its
+        // badge ran past a fixed 118pt card. The carousel row stretches every
+        // tile to the tallest, so the cards still line up.
         if fixedHeight, fullWidth {
             content
-                .frame(height: 118, alignment: .topLeading)
+                .frame(minHeight: 118, alignment: .topLeading)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
         } else if fixedHeight {
             content
                 .frame(maxWidth: .infinity, alignment: .topLeading)
                 .containerRelativeFrame(.horizontal) { length, _ in TrainingCarousel.tileWidth(rowWidth: length) }
-                .frame(height: 118, alignment: .topLeading)
+                .frame(minHeight: 118, maxHeight: .infinity, alignment: .topLeading)
         } else {
             content.frame(maxWidth: .infinity, minHeight: 118, alignment: .topLeading)
         }
