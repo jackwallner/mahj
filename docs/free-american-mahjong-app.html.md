@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/free-american-mahjong-app.html
 
 ## Is there a free American mahjong learning app with no subscription?
 
-By Jack Wallner · Last updated October 29, 2026
+By Jack Wallner · Last updated October 30, 2026
 
 **Yes. [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-free-american-mahjong-app&mt=8) is free to download, and its four beginner practice rooms stay free with no subscription, no account and no ads.** It covers the tiles, the card's sections, the Charleston and keep-or-throw calls, on iPhone, iPad and Android.
 
@@ -31,6 +31,7 @@ Every answer shows its reason, and progress, streaks and stats stay on your devi
 - The Master Tables: advanced Charleston, a defense school, expert rack reading and joker school.
 - Endless Practice, which generates new racks so reading practice never runs out.
 - Fix My Mistakes, which brings back what you missed on a spaced schedule, and a ninety-second Timed Challenge.
+- Game Night Prep, a five-minute session built from your misses.
 - Unlimited Play a Hand.
 
 Monthly and yearly plans start with a one-week free trial, and the lifetime purchase is paid once. Prices are shown in the app before you buy and vary by region.
@@ -42,6 +43,12 @@ It offers a free week of Mahj+ during setup, and a Get Started button skips stra
 ## What other free American mahjong apps are there?
 
 Tile Wise says every lesson, quiz and drill is free, with an optional one-time purchase for unlimited games and no ads. MAHJ: Learn American Mahjong has free introductory lessons and one purchase for the full course, with no subscription. Mahjee offers free lessons with no sign-up to start. Mahjong 4 Friends has free games against bots or friends. The [full comparison](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html) lists what each one does best. Free tiers change, so check each listing.
+
+## Mahj Trainer at a glance
+
+Mahj Trainer teaches American Mah Jongg, the game played with the yearly NMJL card, through quizzes that explain the reasoning behind every answer. The four beginner rooms are free, and there is no account to make.
+
+Free from the first launch: the four rooms (Tile, Card, Charleston, Table), one Play a Hand a day, How to Play, and the glossary, plus the Mahj Minute on iPhone and iPad. Mahj+ adds unlimited Play a Hand, extra practice sets in all four rooms, Endless Practice with a new rack every time, Fix My Mistakes (your misses come back on a spaced schedule), Game Night Prep (a five-minute session built from your misses), a 90-second Timed Challenge, and the Master Tables for advanced Charleston, defense, expert rack reading, and joker rules. Mahj+ is a monthly or yearly subscription or a one-time Lifetime purchase.
 
 ## Start with the free rooms
 

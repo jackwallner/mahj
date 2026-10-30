@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/best-american-mahjong-app.html
 
 ## Best American Mahjong App
 
-By Jack Wallner · Last updated October 29, 2026
+By Jack Wallner · Last updated October 30, 2026
 
 **Best for learning from scratch:** MAHJ: Learn American Mahjong, an 18-lesson course with a one-time purchase. **Best for seeing which card hand your tiles fit:** American Mahjong Practice. **Best for full games against bots with the official card:** Maylee. **Best for a guided plan and an Apple Watch drill:** Mahjong Trainer: Learn & Win. **Best for short drills with the reason on every answer:** Mahj Trainer, the app I make.
 
@@ -60,6 +60,12 @@ If you are brand new, start with MAHJ's lessons. If you have had a class and wan
 - **You want reminders, a streak and a wrist drill:** Mahjong Trainer: Learn & Win.
 - **You learned last Thursday and want quick reps on tiles, the Charleston and keep-or-throw decisions:** Mahj Trainer.
 - **You want both skill and games:** pairing a drill app with a bot-table app is a common combination, and nothing here stops you from using two.
+
+## Mahj Trainer at a glance
+
+Mahj Trainer teaches American Mah Jongg, the game played with the yearly NMJL card, through quizzes that explain the reasoning behind every answer. The four beginner rooms are free, and there is no account to make.
+
+Free from the first launch: the four rooms (Tile, Card, Charleston, Table), one Play a Hand a day, How to Play, and the glossary, plus the Mahj Minute on iPhone and iPad. Mahj+ adds unlimited Play a Hand, extra practice sets in all four rooms, Endless Practice with a new rack every time, Fix My Mistakes (your misses come back on a spaced schedule), Game Night Prep (a five-minute session built from your misses), a 90-second Timed Challenge, and the Master Tables for advanced Charleston, defense, expert rack reading, and joker rules. Mahj+ is a monthly or yearly subscription or a one-time Lifetime purchase.
 
 ## Try the free practice rooms
 

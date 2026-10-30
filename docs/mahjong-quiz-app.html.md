@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/mahjong-quiz-app.html
 
 ## Is there a mahjong quiz app that explains why an answer is right?
 
-By Jack Wallner · Last updated October 29, 2026
+By Jack Wallner · Last updated October 30, 2026
 
 **Yes. [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-mahjong-quiz-app&mt=8) is an American mahjong quiz app that shows the reason after every answer.** When you miss a rack, it also adds a "Why not" note on the section you picked, explaining why it does not fit. The quizzes cover tiles, the card's sections, Charleston passes and table calls.
 
@@ -39,6 +39,12 @@ The free rooms hold a 16-question tile quiz, 9 racks to read, 9 Charleston deals
 ## Which other apps explain their answers?
 
 Tile Wise ends each topic with a quiz that explains each answer and links back to the lesson. MAHJ: Learn American Mahjong pairs its lessons with drills and an AI coach. Both are American mahjong apps. Riichi, Chinese and Hong Kong mahjong use different rules, so quiz apps for those games will not match an NMJL card. The [American mahjong app comparison](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html) covers the rest.
+
+## Mahj Trainer at a glance
+
+Mahj Trainer teaches American Mah Jongg, the game played with the yearly NMJL card, through quizzes that explain the reasoning behind every answer. The four beginner rooms are free, and there is no account to make.
+
+Free from the first launch: the four rooms (Tile, Card, Charleston, Table), one Play a Hand a day, How to Play, and the glossary, plus the Mahj Minute on iPhone and iPad. Mahj+ adds unlimited Play a Hand, extra practice sets in all four rooms, Endless Practice with a new rack every time, Fix My Mistakes (your misses come back on a spaced schedule), Game Night Prep (a five-minute session built from your misses), a 90-second Timed Challenge, and the Master Tables for advanced Charleston, defense, expert rack reading, and joker rules. Mahj+ is a monthly or yearly subscription or a one-time Lifetime purchase.
 
 ## Get the why on every answer
 

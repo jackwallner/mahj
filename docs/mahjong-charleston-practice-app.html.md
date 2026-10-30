@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html
 
 ## Is there an app to practice the mahjong Charleston?
 
-By Jack Wallner · Last updated October 29, 2026
+By Jack Wallner · Last updated October 30, 2026
 
 **Yes. [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-mahjong-charleston-practice-app&mt=8) has a free Charleston Room for American mahjong.** It deals you 13 tiles, you choose the three to pass, and then it shows the coach's three tiles with the reasoning behind them. It runs on iPhone, iPad and Android, needs no account and works offline.
 
@@ -46,6 +46,12 @@ Tile Wise lists the Charleston among its lessons and coaches which tiles to keep
 ## Want the rules first?
 
 The free guide to [the Charleston in American Mah Jongg](https://jackwallner.com/ios/mahj/learn/charleston.html) walks through the order of passes, blind and courtesy passes, and a simple way to choose three tiles. Read it once, then practice the passes in the app.
+
+## Mahj Trainer at a glance
+
+Mahj Trainer teaches American Mah Jongg, the game played with the yearly NMJL card, through quizzes that explain the reasoning behind every answer. The four beginner rooms are free, and there is no account to make.
+
+Free from the first launch: the four rooms (Tile, Card, Charleston, Table), one Play a Hand a day, How to Play, and the glossary, plus the Mahj Minute on iPhone and iPad. Mahj+ adds unlimited Play a Hand, extra practice sets in all four rooms, Endless Practice with a new rack every time, Fix My Mistakes (your misses come back on a spaced schedule), Game Night Prep (a five-minute session built from your misses), a 90-second Timed Challenge, and the Master Tables for advanced Charleston, defense, expert rack reading, and joker rules. Mahj+ is a monthly or yearly subscription or a one-time Lifetime purchase.
 
 ## Practice the pass before Thursday
 

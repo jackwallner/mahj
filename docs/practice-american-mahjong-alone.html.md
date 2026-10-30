@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/practice-american-mahjong-alone.html
 
 ## How can I practice American mahjong by myself, without a group?
 
-By Jack Wallner · Last updated October 29, 2026
+By Jack Wallner · Last updated October 30, 2026
 
 **Use a practice app that drills one decision at a time, then deal yourself hands at home.** [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-practice-american-mahjong-alone&mt=8) is a free app for iPhone, iPad and Android built for practice between games: five-minute drills on reading a rack, choosing Charleston passes and keep-or-throw calls, with the reason shown after every answer.
 
@@ -42,6 +42,12 @@ The free guides to [reading the card](https://jackwallner.com/ios/mahj/learn/car
 ## What if you want full games against the computer?
 
 Mahj Trainer does not play full games. For whole hands against bots, Maylee and American Mahjong Practice are the closest fits, and Mahjong 4 Friends plays against bots or friends. For games with real people online, the National Mah Jongg League runs NMJL Online. Many players pair a bot-game app with a drill app. The [app comparison](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html) has the details.
+
+## Mahj Trainer at a glance
+
+Mahj Trainer teaches American Mah Jongg, the game played with the yearly NMJL card, through quizzes that explain the reasoning behind every answer. The four beginner rooms are free, and there is no account to make.
+
+Free from the first launch: the four rooms (Tile, Card, Charleston, Table), one Play a Hand a day, How to Play, and the glossary, plus the Mahj Minute on iPhone and iPad. Mahj+ adds unlimited Play a Hand, extra practice sets in all four rooms, Endless Practice with a new rack every time, Fix My Mistakes (your misses come back on a spaced schedule), Game Night Prep (a five-minute session built from your misses), a 90-second Timed Challenge, and the Master Tables for advanced Charleston, defense, expert rack reading, and joker rules. Mahj+ is a monthly or yearly subscription or a one-time Lifetime purchase.
 
 ## Practice without a table
 
