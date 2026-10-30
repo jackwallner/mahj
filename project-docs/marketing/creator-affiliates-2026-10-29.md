@@ -99,6 +99,20 @@ The big Tier 1 accounts wait until a few small teachers have said yes. Follower 
 - Log the creator and date in `creator-codes.csv` when a link goes out. One follow-up after a week, then let it go.
 - A yes on sponsoring gets a flat fee per post (amount is Jack's call) and a campaign link (`ct=<handle>`) for our own tracking.
 
+### Sent log
+
+DMs go from TikTok @mahjtips as three short messages (intro, code link, feedback ask). TikTok then allows 2 more messages until they reply, which leaves room for one follow-up.
+
+| Date | Creator (TikTok) | Personal line |
+|---|---|---|
+| 2026-10-29 | @mahjwithsusan (2.5K) | "the one tile I never discard in the Charleston" video |
+| 2026-10-29 | @palmbeachmahjong (3.7K, Oh My Mahjong instructor) | "one word every mahjong player should know" video |
+| 2026-10-29 | @holymahj (461; 15K on IG) | Nov 2 beginner class |
+| 2026-10-29 | @bamgoodtimemahjong (1.3K) | "happy first mahjong" post |
+| 2026-10-29 | @themahjonghouse (3.5K, founder Stacey White, teacher programs) | Mahjong Made Simple card video |
+
+Follow up once around 2026-11-05 if no reply.
+
 ### The DM
 
 > hi [first name]! [line about their post], that's exactly the stuff I built my app around. it's called Mahj Trainer, made it on paternity leave between baby naps haha
