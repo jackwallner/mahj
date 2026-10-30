@@ -261,6 +261,14 @@ final class HandPlayStoreTests: XCTestCase {
         XCTAssertTrue(store.canPlay(isMember: false))
     }
 
+    /// Reset Progress clears practice history, not today's free hand.
+    func testResetProgressKeepsTodaysFreeHandSpent() {
+        store.recordStart(isMember: false)
+        store.resetAll()
+        XCTAssertFalse(store.canPlay(isMember: false))
+        XCTAssertFalse(HandPlayStore(defaults: defaults).canPlay(isMember: false))
+    }
+
     func testSecondHandTheSameDayNeedsMembership() {
         let now = Date()
         store.recordStart(isMember: false, now: now)
@@ -291,13 +299,13 @@ final class HandPlayStoreTests: XCTestCase {
         XCTAssertEqual(store.bestStars, 3)
     }
 
-    func testResetClearsEverything() {
+    func testResetClearsTheHistory() {
         store.recordStart(isMember: false)
         store.recordVerdict(stars: 3)
         store.resetAll()
         XCTAssertEqual(store.handsPlayed, 0)
         XCTAssertEqual(store.bestStars, 0)
-        XCTAssertTrue(store.canPlay(isMember: false))
+        XCTAssertNil(store.inProgress)
     }
 
     // MARK: - Resuming a graded throw
