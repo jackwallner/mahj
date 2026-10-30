@@ -301,11 +301,14 @@ struct OnboardingView: View {
     // MARK: - Trial step (OT710: hero + bullets, zero plan cards)
 
     /// Frozen at 1.3.2. Below the accessibility sizes this is 1.3.2's page
-    /// exactly: same stack, same spacers, benefit lines on one line each.
-    /// Only at accessibility sizes, where 1.3.2 pushed the heading off the
-    /// screen and squeezed the CTA, does the page scroll and carry the free
-    /// exit and the legal links. The price and its terms stay pinned above
-    /// the CTA there (see `footer`).
+    /// exactly wherever every benefit row fits at its full height: same
+    /// stack, same spacers. Where they do not (an iPhone SE, where the 1.4.1
+    /// rows and every translation were cut off mid-sentence), the icon goes
+    /// first, which is decoration, and then the page scrolls; a row is never
+    /// cut. Only at accessibility sizes, where 1.3.2 pushed the heading off
+    /// the screen and squeezed the CTA, does the page always scroll and carry
+    /// the free exit and the legal links. The price and its terms stay pinned
+    /// above the CTA there (see `footer`).
     @ViewBuilder
     private var trialPage: some View {
         if dynamicTypeSize.isAccessibilitySize {
@@ -318,12 +321,41 @@ struct OnboardingView: View {
                 }
             }
         } else {
-            VStack(spacing: 22) {
-                Spacer()
-                trialHeader
-                trialBenefits
-                Spacer()
-                Spacer()
+            ViewThatFits(in: .vertical) {
+                ContentFit(margin: 22 + 8) {
+                    VStack(spacing: 22) {
+                        trialHeader
+                        trialBenefits
+                    }
+                    .hidden()
+                    .accessibilityHidden(true)
+                    VStack(spacing: 22) {
+                        Spacer()
+                        trialHeader
+                        trialBenefits
+                        Spacer()
+                        Spacer()
+                    }
+                }
+                // No icon, and no gaps around the spacers, which would count
+                // against the fit.
+                VStack(spacing: 0) {
+                    Spacer(minLength: 0)
+                    VStack(spacing: 22) {
+                        trialTitle
+                        trialBenefits
+                    }
+                    Spacer(minLength: 0)
+                    Spacer(minLength: 0)
+                }
+                ScrollView {
+                    VStack(spacing: 22) {
+                        trialHeader
+                        trialBenefits
+                    }
+                    .padding(.vertical, 24)
+                }
+                .scrollIndicatorsFlash(trigger: page)
             }
             .padding(.horizontal, 28)
         }
@@ -336,6 +368,10 @@ struct OnboardingView: View {
             .foregroundStyle(Theme.gold)
             .frame(width: 92, height: 92)
             .background(Theme.gold.opacity(0.14), in: Circle())
+        trialTitle
+    }
+
+    private var trialTitle: some View {
         Text(trialPageTitle)
             .font(Theme.display(30))
             .foregroundStyle(Theme.ink)
@@ -355,8 +391,10 @@ struct OnboardingView: View {
             Text(text)
                 .font(.subheadline)
                 .foregroundStyle(Theme.ink)
-                // Wraps only where the page scrolls; elsewhere one line, as in 1.3.2.
-                .fixedSize(horizontal: false, vertical: dynamicTypeSize.isAccessibilitySize)
+                .accessibilityIdentifier("trialBenefit")
+                // Always its full height: the page drops the icon or scrolls
+                // before a row is cut off.
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 

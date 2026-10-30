@@ -82,7 +82,9 @@ YES -mahj.suppressWhatsNew YES -mahj.hasReadPrimer YES -mahj.skillLevel some`
 plus `-mahj.shot paywall` for the paywall. Pass `--skip
 MahjTrainerTests/TrialEligibilityTests/testFreeWeekUntilTheAccountHasUsedIt`:
 it hangs on the iOS 27.0 iPhone 17 runtime too (2026-10-27), and keep a run
-to about ten screens or GitHub's job cap cuts the screenshots short. Look for
+to about ten screens or GitHub's job cap cuts the screenshots short. Shoot the trial page on an
+iPhone SE (3rd generation) too (`--device`), the smallest supported phone:
+the iPhone 17 hid the SE's cut-off benefit rows. Look for
 truncation, clipped buttons, leftover English, and a soft exit that repeats
 the trial button's verb (Spanish and Indonesian did). The simulator's
 storefront is US, so a non-US locale shows US prices; that is expected.

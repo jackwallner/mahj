@@ -27,9 +27,17 @@ size, never on device, so the designed layout still runs wherever it fits.
 The primer's page swipe is off inside its ScrollView fallbacks
 (`movingCard(swipes:)`): a drag gesture on the scroll content swallowed the
 scroll, so an SE could not reach the "Play a turn" tip. The trial page keeps
-the exact 1.3.2 layout below accessibility sizes (an earlier fit change had
-moved it at L and XXXL on the SE, which the freeze forbids) and only scrolls
-at AX sizes. The onboarding info and skill pages pick their designed 1.3.2
+the exact 1.3.2 layout below accessibility sizes wherever its benefit rows
+fit at full height (an earlier fit change had moved it at L and XXXL on the
+SE, which the freeze forbids) and always scrolls at AX sizes. Below AX it
+picks through `ContentFit` (2026-10-30, Jack's go-ahead via the overnight
+bug hunt): the designed page, then the page without the icon, then a
+ScrollView. On an SE at default size the 1.4.1 rows and every translation
+had been cut off mid-sentence (3 of 5 rows in English, all 5 in fr and vi);
+a row is now never cut. Default size on larger phones is pixel-identical.
+Guard: `MahjTrainerScreenshots/TrialPageFitTests` (six languages, both
+benefit arms) on `gh-sim test --scheme Screenshots --device "iPhone SE (3rd
+generation)"`. The onboarding info and skill pages pick their designed 1.3.2
 layout through `ContentFit`, which measures the content alone plus one gap:
 a plain `ViewThatFits` also demanded room for the spacers, and on a 13 mini
 (where 1.3.2 fit only by squeezing them out) it swapped in the compact page
