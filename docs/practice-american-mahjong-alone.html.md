@@ -78,6 +78,8 @@ It helps to know the basics. The app includes a six-page How to Play primer, and
 - [Is there an app to practice the mahjong Charleston?](https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html)
 - [A free American mahjong app with no subscription](https://jackwallner.com/ios/mahj/free-american-mahjong-app.html)
 - [A mahjong quiz app that explains every answer](https://jackwallner.com/ios/mahj/mahjong-quiz-app.html)
+- [American mahjong practice app for Android](https://jackwallner.com/ios/mahj/american-mahjong-practice-app-android.html)
+- [Mahjong practice app for iPad](https://jackwallner.com/ios/mahj/mahjong-practice-app-ipad.html)
 - [How to play American Mah Jongg](https://jackwallner.com/ios/mahj/learn/how-to-play-american-mahjong.html)
 
 Mahj Trainer is an independent app and is not affiliated with or endorsed by the National Mah Jongg League. For official hands and values, use the current NMJL card. Details were checked in October 2026 and may change.

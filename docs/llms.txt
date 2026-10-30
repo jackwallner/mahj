@@ -8,6 +8,7 @@
 
 ## Guides
 
+- [American Mahjong Practice App for Android: Mahj Trainer](https://jackwallner.com/ios/mahj/american-mahjong-practice-app-android.html.md): American mahjong practice app for Android: Mahj Trainer is on Google Play with five-minute drills on racks, the Charleston and discards. No account needed.
 - [Best American Mahjong App (2026): 5 Apps Compared](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html.md): The best American Mahjong apps for iPhone and iPad compared in October 2026: courses, bot games, card hints and drills, with strengths and trade-offs for each.
 - [Mahj Trainer for ChatGPT](https://jackwallner.com/ios/mahj/chatgpt/index.html.md): Mahj Trainer teaches American mah jongg inside ChatGPT: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.
 - [Mahj Trainer for Claude](https://jackwallner.com/ios/mahj/claude/index.html.md): Mahj Trainer teaches American mah jongg inside Claude: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.
@@ -20,6 +21,7 @@
 - [Joker Rules in American Mah Jongg: Where They Can and Cannot Go](https://jackwallner.com/ios/mahj/learn/jokers.html.md): Every joker rule in American Mah Jongg: groups of three or more only, never in pairs or singles, never passed in the Charleston, and how joker swaps work.
 - [American Mah Jongg Scoring and Table Rules: Who Pays What](https://jackwallner.com/ios/mahj/learn/scoring-and-table-rules.html.md): How payment works when someone wins at American Mah Jongg, when a call is too late, what happens after a wrong mah jongg, dead hands, and wall games.
 - [Is There an App to Practice the Mahjong Charleston?](https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html.md): Mahj Trainer is a free iPhone, iPad and Android app to practice the American mahjong Charleston: deal, pick three tiles, see the coach's reasoning.
+- [Mahjong Practice App for iPad: Mahj Trainer (Free)](https://jackwallner.com/ios/mahj/mahjong-practice-app-ipad.html.md): Mahjong practice app for iPad: Mahj Trainer is a free American mahjong app with five-minute drills, an iPad layout, no opponents and no account. Works offline.
 - [Mahjong Quiz App That Explains Every Answer](https://jackwallner.com/ios/mahj/mahjong-quiz-app.html.md): Mahj Trainer is an American mahjong quiz app that explains why each answer is right and why a missed pick does not fit. Free beginner rooms, iPhone and iPad.
 - [How to Practice American Mahjong Alone, Without a Group](https://jackwallner.com/ios/mahj/practice-american-mahjong-alone.html.md): Practice American mahjong alone with Mahj Trainer, a free app of five-minute drills on racks, Charleston passes and discards. No opponents or account needed.
 
