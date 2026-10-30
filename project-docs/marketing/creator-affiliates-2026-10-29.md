@@ -67,11 +67,11 @@ The big Tier 1 accounts wait until a few small teachers have said yes. Follower 
 
 | Account | Followers | Where | Notes |
 |---|---|---|---|
-| [@themahjonghouse](https://www.instagram.com/themahjonghouse/) | 26K | Houston | Stacey White, beginner and refresh lessons |
+| [@themahjonghouse](https://www.instagram.com/themahjonghouse/) | 26K | Houston + franchises | Luxury set brand with lesson locations; "Mahjong Made Simple" teaching series |
 | [@mahjwithsusan](https://www.instagram.com/mahjwithsusan/) | 16K | | Susan Siegel, beginner and joker tips on the current card |
-| [@holymahj](https://www.instagram.com/holymahj/) | 15K | Charleston, SC | Anne and Caroline, lessons and Mahjong Mondays |
-| [@bamgoodtime](https://www.instagram.com/bamgoodtime/) | 14K | Fort Worth | Beginner lessons, open play, leagues |
-| [@palmbeachmahjong](https://www.instagram.com/palmbeachmahjong/) | 8.4K | Palm Beach | Step-by-step setup and deal tutorials |
+| [@holymahj](https://www.instagram.com/holymahj/) | 15K | Charleston + Chicago | Anne and Caroline, pop-ups, leagues, beginner classes, Mahj Point retreat |
+| [@bamgoodtime](https://www.instagram.com/bamgoodtime/) | 14K | Columbus, GA | Custom tiles, ELO ranked leagues, events |
+| [@palmbeachmahjong](https://www.instagram.com/palmbeachmahjong/) | 8.4K | Palm Beach | Founder Giuliana; lessons, open play, events; a 1M-view first-lesson reel |
 | [@marchesamahjong](https://www.instagram.com/marchesamahjong/) | 6.3K | Houston | Arabella Hibbert, lessons and parties |
 | [@rockymountainmahjong](https://www.instagram.com/rockymountainmahjong/) | 5.1K | Denver | Lessons, leagues, tournaments |
 | [@bluetigermahjclub](https://www.instagram.com/bluetigermahjclub/) | 5.0K | Chicago suburbs | Lisa Oleson, NMJL card lessons |
