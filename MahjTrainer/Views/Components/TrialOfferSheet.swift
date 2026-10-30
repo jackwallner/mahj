@@ -70,10 +70,15 @@ struct TrialOfferSheet: View {
                 ScrollView { content }
                     .presentationDetents([.large])
             } else {
-                content
-                    .fixedSize(horizontal: false, vertical: true)
-                    .onGeometryChangeCompat { height = $0 }
-                    .presentationDetents([.height(height)])
+                // The sheet as designed while it fits. Taller than the screen
+                // (an SE at XXXL), the detent stops at full height and the
+                // legal row fell off the bottom; there the content scrolls.
+                ViewThatFits(in: .vertical) {
+                    measuredContent
+                    ScrollView { measuredContent }
+                        .scrollBounceBehavior(.basedOnSize)
+                }
+                .presentationDetents([.height(height)])
             }
         }
         .presentationDragIndicator(.visible)
@@ -106,6 +111,12 @@ struct TrialOfferSheet: View {
             UserDefaults.standard.set(shown.rawValue, forKey: OfferPitch.armKey)
             subscriptions.trackPaywallImpression(id: context.source(auto: auto))
         }
+    }
+
+    private var measuredContent: some View {
+        content
+            .fixedSize(horizontal: false, vertical: true)
+            .onGeometryChangeCompat { height = $0 }
     }
 
     private var content: some View {
@@ -226,10 +237,16 @@ struct TrialOfferSheet: View {
         let layout = dynamicTypeSize.isAccessibilitySize
             ? AnyLayout(VStackLayout(spacing: 8))
             : AnyLayout(HStackLayout(spacing: 14))
+        // 44pt targets, as on the paywall; the drawn text does not move.
+        // Stacked at accessibility sizes, where the text alone is tall enough.
+        let hit = dynamicTypeSize.isAccessibilitySize ? EdgeInsets() : EdgeInsets(top: 10, leading: 6, bottom: 21, trailing: 6)
         return layout {
-            Link("Terms", destination: PaywallLinks.terms)
-            Link("Privacy", destination: PaywallLinks.privacy)
-            Button("Restore", action: restore)
+            Link(destination: PaywallLinks.terms) { Text("Terms").hitPadding(hit) }
+                .padding(-hit)
+            Link(destination: PaywallLinks.privacy) { Text("Privacy").hitPadding(hit) }
+                .padding(-hit)
+            Button(action: restore) { Text("Restore").hitPadding(hit) }
+                .padding(-hit)
                 .disabled(purchasing || restoring)
         }
         .font(.caption2)
