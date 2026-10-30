@@ -20,9 +20,10 @@ holds only what is specific to this app.
 - Version name follows iOS (`1.3.1`); `versionCode` starts at 1 and bumps on
   every upload.
 - Moving into the iOS project (2026-10-27): Play app `app8da2718cbb` in `proj28030dc2` has the Play products on entitlement `pro` and a non-current `android` offering. The code syncs existing Play purchases once (`SYNCED_TO_SHARED_PROJECT`) so old-project trials keep access. Shipped 2026-10-27: vc8 uses that app's `goog_` key and went to production review by API (the service account can now write production; the 2026-10-08 Console-only note below is stale). The old Android-only project stays until the update rolls out. Trial copy follows Play's offer (`offersFreeTrial`) and also drops the free week for anyone with a past subscription (`TrialPolicy`).
-- RevenueCat project `projba4fbe38` "Mahj Trainer Android" (separate from
-  iOS `proj28030dc2`), Play app `appeb48abdaf2`, whose `goog_` key the release
-  ships. The older Play app `app8da2718cbb` in the iOS project is unused.
+- Old RevenueCat project `projba4fbe38` "Mahj Trainer Android" (separate from
+  iOS `proj28030dc2`), Play app `appeb48abdaf2`: builds before vc8 ship its
+  `goog_` key, so keep it until old installs are gone. Since vc8 the release
+  ships the key of `app8da2718cbb` in the iOS project; never delete that app.
   Entitlement `pro`, current offering `android`, packages
   `$rc_monthly`/`$rc_annual`/`$rc_lifetime`. Live in Play production since
   2026-10-10 with the three Mahj+ products active; the listing copy is in
