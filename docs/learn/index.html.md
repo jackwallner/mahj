@@ -8,7 +8,7 @@ Web page: https://jackwallner.com/ios/mahj/learn/
 
 ## Learn American Mah Jongg
 
-Last updated October 25, 2026
+Last updated October 30, 2026
 
 Free, plain-English guides for new players. Read them here, then practice them in the app.
 
