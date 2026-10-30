@@ -48,7 +48,7 @@ Cedar Theory's app is built around a plan: a long onboarding quiz, a lesson of t
 
 ## Mahj Trainer (my app)
 
-Mahj Trainer is a set of four free practice rooms (Tile, Card, Charleston, Table): flashcards with the reason on the back, rack reading where you name the card section 13 tiles are chasing, three-tile Charleston picks, and keep-or-throw calls. There are no bots and no timers in the free rooms. Its limits are real. The practice hands are original, not the NMJL card, so you still need the current card at the table. There is no full game: Play a Hand grades each discard of one practice hand, one a day free and unlimited with Mahj+, no Apple Watch app, English only, and a small number of ratings so far. Endless practice, Fix My Mistakes and the timed challenge need Mahj+.
+Mahj Trainer is a set of four free practice rooms (Tile, Card, Charleston, Table): flashcards with the reason on the back, rack reading where you name the card section 13 tiles are chasing, three-tile Charleston picks, and keep-or-throw calls. There are no bots and no timers in the free rooms. Its limits are real. The practice hands are original, not the NMJL card, so you still need the current card at the table. There is no full game: Play a Hand grades each discard of one practice hand, one a day free and unlimited with Mahj+, no Apple Watch app, and a small number of ratings so far. Endless practice, Fix My Mistakes and the timed challenge need Mahj+.
 
 ## Which should you pick?
 
