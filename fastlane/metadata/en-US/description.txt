@@ -1,4 +1,4 @@
-Mahj Trainer teaches American Mah Jongg, the game played with the yearly NMJL card, through quizzes that explain the reasoning behind every answer. The four beginner rooms are free, and there is no account to make.
+Mahj Trainer is a free app for learning American Mah Jongg with the yearly NMJL card, and it needs no account. Its quizzes explain the reasoning behind every answer, from reading a rack to choosing Charleston passes.
 
 THE TILE ROOM
 • Learn every tile family: craks, bams, dots, winds, dragons, flowers, and jokers.
