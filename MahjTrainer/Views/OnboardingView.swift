@@ -355,6 +355,7 @@ struct OnboardingView: View {
             Text(text)
                 .font(.subheadline)
                 .foregroundStyle(Theme.ink)
+                .accessibilityIdentifier("trialBenefit")
                 // Wraps only where the page scrolls; elsewhere one line, as in 1.3.2.
                 .fixedSize(horizontal: false, vertical: dynamicTypeSize.isAccessibilitySize)
         }
