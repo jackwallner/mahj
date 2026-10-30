@@ -516,7 +516,7 @@ hub += """
 """
 add("index",
     "Learn American Mah Jongg: Rules, the Card, the Charleston, Jokers and Scoring",
-    "Free guides to American Mah Jongg from the makers of Mahj Trainer: how to play, how to read the card's nine sections, the Charleston, joker rules, scoring and a full glossary.",
+    "Free American Mah Jongg guides from Mahj Trainer: how to play, reading the card's nine sections, the Charleston, joker rules, scoring and a full glossary.",
     "Learn American Mah Jongg",
     "Free, plain-English guides for new players. Read them here, then practice them in the app.",
     hub)

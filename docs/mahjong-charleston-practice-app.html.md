@@ -1,6 +1,6 @@
 # Is There an App to Practice the Mahjong Charleston?
 
-> Mahj Trainer is a free iPhone, iPad and Android app for practicing the American mahjong Charleston: practice deals, pick three tiles, see the coach's reasoning.
+> Mahj Trainer is a free iPhone, iPad and Android app to practice the American mahjong Charleston: deal, pick three tiles, see the coach's reasoning.
 
 Web page: https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html
 

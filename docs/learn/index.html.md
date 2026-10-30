@@ -1,6 +1,6 @@
 # Learn American Mah Jongg: Rules, Card, Jokers and Scoring
 
-> Free guides to American Mah Jongg from the makers of Mahj Trainer: how to play, how to read the card's nine sections, the Charleston, joker rules, scoring and a full glossary.
+> Free American Mah Jongg guides from Mahj Trainer: how to play, reading the card's nine sections, the Charleston, joker rules, scoring and a full glossary.
 
 Web page: https://jackwallner.com/ios/mahj/learn/
 
