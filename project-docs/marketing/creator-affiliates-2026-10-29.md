@@ -101,10 +101,10 @@ The big Tier 1 accounts wait until a few small teachers have said yes. Follower 
 
 ### The DM
 
-> hi [first name]! I'm Jack, I made an app called Mahj Trainer so newer players can practice between games. been building it on paternity leave between baby naps haha
+> hi [first name]! [line about their post], that's exactly the stuff I built my app around. it's called Mahj Trainer, made it on paternity leave between baby naps haha
 >
-> [one line about a recent post of theirs]
+> here's a free lifetime code: [redeem link]
 >
-> here's a free lifetime code if you want to try it, one tap and it's yours: [redeem link]
->
-> if you like it I'd love to sponsor a post, and if it's missing anything your students need I'd really like to know
+> I'd love to know what you think so I can improve it! and if you like it I'd love to sponsor a post
+
+The opening line has to come from something they actually posted (a Charleston tip, a joker question, a beginner class). It's what shows the DM was written for them.
