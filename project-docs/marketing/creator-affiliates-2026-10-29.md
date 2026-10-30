@@ -48,6 +48,13 @@ Options, cheapest first:
 ## Offer to creators
 
 - Pay on trial-to-paid conversion, not trial start (trial starts are free to fake). A share of first-year proceeds per paying subscriber, plus a small flat bounty per trial if a creator insists.
-- Free lifetime Mahj+ for the creator (RevenueCat promotional entitlement).
+- Free lifetime Mahj+ for the creator, sent as a one-time offer code link (below).
 - Pitch to teachers: free "homework" for their students between lessons; the app teaches how to read the card, never reprints it, so it does not compete with their classes.
 - FTC: creators must disclose (#ad or paid-partnership label).
+
+## Creator codes
+
+- ASC offer "Mahj+ Lifetime Creators 2026-10" (`dc18b396-b7ae-4266-994f-b52d8fc44dd4`) on `com.jackwallner.mahj.lifetime`: free in all 175 territories, any customer. Batch `e6778bcd-7829-4431-aa72-c5f5ac6cfa55`, 500 one-time codes (Apple's minimum batch), expire 2027-04-28.
+- Codes and redeem links live in `creator-codes.csv` beside this file. It is gitignored because the repo is public; never commit it. Fill in `creator` and `sent` when a link goes out, one code per creator.
+- Link format: `https://apps.apple.com/redeem?ctx=offercodes&id=6790052126&code=CODE`. Opens the App Store with the code filled in; the creator taps Redeem.
+- Separate from "Mahj+ Lifetime Gift 2026-10" (`be413994-...`, 500 codes, 2026-10-03), whose recipients aren't recorded. Keeping the creator batch apart means creator redemptions show up under their own offer name in ASC and RevenueCat.
