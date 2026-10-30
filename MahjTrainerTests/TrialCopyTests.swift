@@ -36,6 +36,14 @@ final class TrialCopyTests: XCTestCase {
         XCTAssertEqual(PaywallPlan.lifetime.detail(trialEligible: true), "One payment. No subscription, nothing renews.")
     }
 
+    /// The results card offers a free week only to an account that can have one.
+    func testPitchCardOffersNoFreeWeekToAnIneligibleAccount() {
+        XCTAssertEqual(MahjPlusPitchCard.defaultHeadline(trialEligible: true), "Try Mahj+ free for 7 days")
+        let ineligible = MahjPlusPitchCard.defaultHeadline(trialEligible: false)
+        XCTAssertFalse(ineligible.localizedCaseInsensitiveContains("free"))
+        XCTAssertFalse(ineligible.contains("7 days"))
+    }
+
     /// An Apple Account that already had its free week is charged on day
     /// one, so nothing on either surface may promise a trial (3.1.2).
     func testIneligibleAccountsArePromisedNoTrial() {

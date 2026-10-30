@@ -6,7 +6,7 @@ import SwiftUI
 /// Mahj+ again. A quiet card the player taps, never a sheet on its own; the
 /// screen owns the sheet so its rating ask can wait while the paywall is up.
 struct MahjPlusPitchCard: View {
-    let headline: String
+    let headline: String?
     let detail: String
     let action: () -> Void
 
@@ -15,13 +15,20 @@ struct MahjPlusPitchCard: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     init(
-        headline: String = String(localized: "Try \(Membership.name) free for 7 days"),
+        headline: String? = nil,
         detail: String = String(localized: "Play coached practice hands as often as you want, with fresh racks that never run out."),
         action: @escaping () -> Void
     ) {
         self.headline = headline
         self.detail = detail
         self.action = action
+    }
+
+    /// An account StoreKit says already had its free week is not offered one.
+    static func defaultHeadline(trialEligible: Bool) -> String {
+        trialEligible
+            ? String(localized: "Try \(Membership.name) free for 7 days")
+            : String(localized: "Get \(Membership.name)")
     }
 
     /// Members never see it, and neither does the onboarding tour, whose
@@ -76,7 +83,7 @@ struct MahjPlusPitchCard: View {
 
     private var text: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text(headline)
+            Text(headline ?? Self.defaultHeadline(trialEligible: subscriptions.offersTrial))
                 .font(.headline)
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.leading)
