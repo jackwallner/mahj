@@ -11,6 +11,7 @@
 - [Best American Mahjong App (2026): 5 Apps Compared](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html.md): The best American Mahjong apps for iPhone and iPad compared in October 2026: courses, bot games, card hints and drills, with strengths and trade-offs for each.
 - [Mahj Trainer for ChatGPT](https://jackwallner.com/ios/mahj/chatgpt/index.html.md): Mahj Trainer teaches American mah jongg inside ChatGPT: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.
 - [Mahj Trainer for Claude](https://jackwallner.com/ios/mahj/claude/index.html.md): Mahj Trainer teaches American mah jongg inside Claude: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.
+- [Free American Mahjong App With No Subscription](https://jackwallner.com/ios/mahj/free-american-mahjong-app.html.md): Mahj Trainer is a free American mahjong learning app: four beginner rooms with no subscription, account or ads. Here is what is free and what Mahj+ adds.
 - [How to Read the Mah Jongg Card: the 9 Sections Explained](https://jackwallner.com/ios/mahj/learn/card-sections.html.md): How to read the NMJL card: the nine sections that keep their shape every year, from 2468 and Like Numbers to Quints and Singles and Pairs.
 - [The Charleston in American Mah Jongg: Rules, Order and Strategy](https://jackwallner.com/ios/mahj/learn/charleston.html.md): How the Charleston works in American Mah Jongg: the three passes, the optional second Charleston, blind and courtesy passes, and which tiles to pass.
 - [American Mah Jongg Glossary: Soap, Pung, Kong and More](https://jackwallner.com/ios/mahj/learn/glossary.html.md): A plain-English glossary of American Mah Jongg terms: craks, bams, dots, soap, pung, kong, quint, exposure, Charleston, blind pass, joker swap and more.
@@ -18,6 +19,9 @@
 - [Learn American Mah Jongg: Rules, Card, Jokers and Scoring](https://jackwallner.com/ios/mahj/learn/index.html.md): Free guides to American Mah Jongg from the makers of Mahj Trainer: how to play, how to read the card's nine sections, the Charleston, joker rules, scoring and a full glossary.
 - [Joker Rules in American Mah Jongg: Where They Can and Cannot Go](https://jackwallner.com/ios/mahj/learn/jokers.html.md): Every joker rule in American Mah Jongg: groups of three or more only, never in pairs or singles, never passed in the Charleston, and how joker swaps work.
 - [American Mah Jongg Scoring and Table Rules: Who Pays What](https://jackwallner.com/ios/mahj/learn/scoring-and-table-rules.html.md): How payment works when someone wins at American Mah Jongg, when a call is too late, what happens after a wrong mah jongg, dead hands, and wall games.
+- [Is There an App to Practice the Mahjong Charleston?](https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html.md): Mahj Trainer is a free iPhone, iPad and Android app for practicing the American mahjong Charleston: real deals, pick three tiles, see the coach's reasoning.
+- [Mahjong Quiz App That Explains Every Answer](https://jackwallner.com/ios/mahj/mahjong-quiz-app.html.md): Mahj Trainer is an American mahjong quiz app that explains why each answer is right and why a missed pick does not fit. Free beginner rooms, iPhone and iPad.
+- [How to Practice American Mahjong Alone, Without a Group](https://jackwallner.com/ios/mahj/practice-american-mahjong-alone.html.md): Practice American mahjong alone with Mahj Trainer, a free app of five-minute drills on racks, Charleston passes and discards. No opponents or account needed.
 
 ## Optional
 

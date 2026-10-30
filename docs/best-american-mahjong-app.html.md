@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/best-american-mahjong-app.html
 
 ## Best American Mahjong App
 
-By Jack Wallner · Last updated October 28, 2026
+By Jack Wallner · Last updated October 29, 2026
 
 **Best for learning from scratch:** MAHJ: Learn American Mahjong, an 18-lesson course with a one-time purchase. **Best for seeing which card hand your tiles fit:** American Mahjong Practice. **Best for full games against bots with the official card:** Maylee. **Best for a guided plan and an Apple Watch drill:** Mahjong Trainer: Learn & Win. **Best for short drills with the reason on every answer:** Mahj Trainer, the app I make.
 
@@ -77,13 +77,17 @@ No. Most apps that appear for "mahjong" are solitaire games where you match pair
 
 Yes, at a real table. Every winning hand must be on the current year's card, which you buy from the National Mah Jongg League. Some apps include the current card, such as Maylee, and American Mahjong Practice sells the 2026 hands. Mahj Trainer uses original practice hands and teaches the card sections, so you still need the official card.
 
+### What is the best app to learn American mahjong?
+
+It depends on how you like to learn. For a lesson-by-lesson course from scratch, MAHJ: Learn American Mahjong. For short drills on reading a rack, Charleston passes and keep-or-throw calls, with the reason on every answer and no opponents, [Mahj Trainer](https://jackwallner.com/ios/mahj/practice-american-mahjong-alone.html), whose four beginner rooms are free. For full games against bots, Maylee or American Mahjong Practice.
+
 ### What is the best free app to learn American mahjong?
 
-MAHJ is the strongest free start for learning from scratch: lessons 1 to 3 and several tile drills were free when I tried it. Mahj Trainer adds four free practice rooms for drills after that. American Mahjong Practice has the 2018 card free, and Maylee gives 2 games per day. Check each listing, because free tiers change.
+MAHJ is the strongest free start for learning from scratch: lessons 1 to 3 and several tile drills were free when I tried it. Mahj Trainer adds [four free practice rooms](https://jackwallner.com/ios/mahj/free-american-mahjong-app.html) for drills after that. American Mahjong Practice has the 2018 card free, and Maylee gives 2 games per day. Check each listing, because free tiers change.
 
 ### Which app teaches the Charleston?
 
-Mahj Trainer has a Charleston room with three-tile pass drills. Maylee has a Charleston tutorial overlay in its game. MAHJ and Mahjong Trainer: Learn & Win both list the Charleston among their lessons.
+Mahj Trainer has a [Charleston room with three-tile pass drills](https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html). Maylee has a Charleston tutorial overlay in its game. MAHJ and Mahjong Trainer: Learn & Win both list the Charleston among their lessons.
 
 ### Can I practice American mahjong offline?
 

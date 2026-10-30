@@ -8,7 +8,7 @@ Web page: https://jackwallner.com/ios/mahj/learn/charleston.html
 
 ## The Charleston, explained
 
-Last updated October 28, 2026
+Last updated October 29, 2026
 
 The Charleston is a tile-passing ritual that happens before play begins in American Mah Jongg. It is the part of the game that scares every new player, and the part that practice fixes fastest.
 
