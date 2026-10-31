@@ -209,14 +209,16 @@ class HandPlayStore(private val defaults: KeyValueStore, private val clock: AppC
         defaults.putInt(Keys.BEST_STARS, stars)
     }
 
+    /**
+     * Today's free hand stays spent: Reset Progress clears practice history, and must not hand a
+     * free player a second hand the same day.
+     */
     fun resetAll() {
         handsPlayed = 0
         bestStars = 0
-        lastFreeHandDay = ""
         clearInProgress()
         defaults.remove(Keys.HANDS_PLAYED)
         defaults.remove(Keys.BEST_STARS)
-        defaults.remove(Keys.LAST_FREE_DAY)
     }
 
     private object Keys {

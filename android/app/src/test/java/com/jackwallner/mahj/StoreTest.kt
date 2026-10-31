@@ -174,6 +174,42 @@ class StoreTest {
         assertTrue(HandPlayStore(defaults, clock).canPlay(isMember = false))
     }
 
+    /** Reset Progress clears practice history, not today's free hand. */
+    @Test
+    fun resetProgressKeepsTodaysFreeHandSpent() {
+        val store = HandPlayStore(defaults, clock)
+        store.recordStart(isMember = false)
+        store.resetAll()
+        assertFalse(store.canPlay(isMember = false))
+        assertFalse(HandPlayStore(defaults, clock).canPlay(isMember = false))
+        advanceDays(1)
+        assertTrue("The next day is free again", HandPlayStore(defaults, clock).canPlay(isMember = false))
+    }
+
+    @Test
+    fun resetClearsTheHandPlayHistory() {
+        val store = HandPlayStore(defaults, clock)
+        store.recordStart(isMember = false)
+        store.recordVerdict(3)
+        store.resetAll()
+        assertEquals(0, store.handsPlayed)
+        assertEquals(0, store.bestStars)
+        assertNull(store.inProgress)
+    }
+
+    /** After Reset Progress a relaunch is not an upgrade: every practice after the reset is the player's own. */
+    @Test
+    fun resetThenRelaunchCountsOwnPractices() {
+        defaults.putBoolean("progress.hasOnboarded", true)
+        val store = ProgressStore(defaults, clock)
+        store.resetAll()
+        store.recordSession("a")
+        store.recordSession("b")
+        val relaunched = ProgressStore(defaults, clock)
+        assertEquals(2, relaunched.totalSessions - relaunched.sessionsAtOnboarding)
+        assertTrue(relaunched.hasPracticedSinceOnboarding)
+    }
+
     @Test
     fun mahjMinuteKeepsOnlyTheFirstAttempt() {
         val store = MahjMinuteStore(defaults, clock)
