@@ -286,31 +286,31 @@ private fun TrainingSection(isPro: Boolean, onLocked: (Route) -> Unit) {
                 handPlay.bestStars > 0 -> "Best ${handPlay.bestStars}/3"
                 else -> "${handPlay.handsPlayed} played"
             }
-            TrainingTile("Play a\nHand", "hand.draw.fill", colors.jade, handBadge, locked = !canPlay, tag = "tile-hand-play") {
+            TrainingTile("Play a Hand", "hand.draw.fill", colors.jade, handBadge, locked = !canPlay, tag = "tile-hand-play") {
                 if (canPlay) navigator.push(Route.HandPlay) else onLocked(Route.HandPlay)
             }
-            TrainingTile("Endless\nPractice", "infinity", colors.jade, null, locked = !isPro, tag = "tile-endless") {
+            TrainingTile("Endless Practice", "infinity", colors.jade, null, locked = !isPro, tag = "tile-endless") {
                 if (isPro) navigator.push(Route.EndlessPicker) else onLocked(Route.EndlessPicker)
             }
             val minute = graph.minutes.result(LocalDate.now())
             TrainingTile(
-                "Mahj\nMinute", "calendar.badge.clock", colors.coral,
+                "Mahj Minute", "calendar.badge.clock", colors.coral,
                 minute?.let { "${it.score}/${it.total} today" } ?: "Daily", locked = !isPro, tag = "tile-minute",
             ) { if (isPro) navigator.push(Route.MahjMinute) else onLocked(Route.MahjMinute) }
             TrainingTile(
-                "Game Night\nPrep", "person.2.fill", colors.plum,
+                "Game Night Prep", "person.2.fill", colors.plum,
                 if (graph.settings.gameNightReminderEnabled) graph.settings.gameNightDay.displayName else "Weekly",
                 locked = !isPro, tag = "tile-game-night",
             ) { if (isPro) navigator.push(Route.GameNightPrep) else onLocked(Route.GameNightPrep) }
             TrainingTile(
-                "Timed\nChallenge", "timer", colors.coral,
+                "Timed Challenge", "timer", colors.coral,
                 if (records.bestChallengeScore > 0) "Best ${records.bestChallengeScore}" else null, locked = !isPro, tag = "tile-timed",
             ) { if (isPro) navigator.push(Route.Practice(PracticeMode.Timed)) else onLocked(Route.Practice(PracticeMode.Timed)) }
             // Only offered when there is something the runner can actually ask.
             val reviewable = SessionBuilder.reviewableIDs(isPro)
             val due = records.dueCount(reviewable)
             if (due > 0) {
-                TrainingTile("Fix My\nMistakes", "arrow.trianglehead.counterclockwise", colors.plum, "$due due", locked = !isPro, tag = "tile-review") {
+                TrainingTile("Fix My Mistakes", "arrow.trianglehead.counterclockwise", colors.plum, "$due due", locked = !isPro, tag = "tile-review") {
                     if (!isPro) {
                         onLocked(Route.Practice(PracticeMode.Review,
                             SessionBuilder.reviewSession(records.reviewQueue(presentable = SessionBuilder.reviewableIDs(true)), true)))
@@ -324,6 +324,7 @@ private fun TrainingSection(isPro: Boolean, onLocked: (Route) -> Unit) {
     }
 }
 
+/** Icon square and lock on top, then the title and its badge, all from the top edge so every tile reads on the same lines. */
 @Composable
 private fun TrainingTile(title: String, icon: String, color: Color, badge: String?, locked: Boolean, tag: String, onClick: () -> Unit) {
     val colors = Mahj.colors
@@ -335,21 +336,25 @@ private fun TrainingTile(title: String, icon: String, color: Color, badge: Strin
             .pressable(label = if (locked) "Included with ${Membership.NAME}" else null, onClick = onClick)
             .themedCard(16.dp)
             .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Icon(symbol(icon), null, tint = color, modifier = Modifier.size(24.dp))
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
+            IconBadge(icon, color, size = 32.dp, iconSize = 18.dp, corner = 9.dp, alpha = 0.12f)
             Spacer(Modifier.weight(1f))
             if (locked) Icon(symbol("lock.fill"), null, tint = colors.gold, modifier = Modifier.size(12.dp))
         }
-        Spacer(Modifier.weight(1f))
-        Text(title, style = MahjType.subheadline.copy(fontWeight = FontWeight.Bold), color = colors.ink)
-        Text(
-            badge ?: if (locked) Membership.NAME else " ",
-            style = MahjType.caption2.copy(fontWeight = FontWeight.SemiBold),
-            color = if (badge != null) color else colors.gold,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(title, style = MahjType.subheadline.copy(fontWeight = FontWeight.Bold), color = colors.ink, maxLines = 2)
+            if (badge != null || locked) {
+                Text(
+                    badge ?: Membership.NAME,
+                    style = MahjType.caption2.copy(fontWeight = FontWeight.SemiBold),
+                    color = if (badge != null) color else colors.gold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
     }
 }
 
