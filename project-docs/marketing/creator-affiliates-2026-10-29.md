@@ -111,7 +111,20 @@ DMs go from TikTok @mahjtips as three short messages (intro, code link, feedback
 | 2026-10-29 | @bamgoodtimemahjong (1.3K) | "happy first mahjong" post |
 | 2026-10-29 | @themahjonghouse (3.5K, founder Stacey White, teacher programs) | Mahjong Made Simple card video |
 
-Follow up once around 2026-11-05 if no reply.
+| 2026-11-01 | @hoosier.mahjong.lady (852, mutual, traveling instructor in Indianapolis) | wall as one long dragon tail video |
+| 2026-11-01 | @mamamahjong (133, mutual) | five sets in five months post |
+| 2026-11-01 | @lets.learn.mahjong (86, daily lesson account) | hand-selection tip: missing tiles over card value |
+
+Follow up once around 2026-11-05 if no reply (2026-11-08 for the 11-01 batch).
+
+Accounts that don't follow @mahjtips back get only the first message until they accept the request; TikTok drops the rest. On 2026-11-01 these four got the intro only, so the code and feedback ask go out once they accept:
+
+| Date | Creator (TikTok) | Personal line |
+|---|---|---|
+| 2026-11-01 | @thehappymahjongteacher (9.7K, Taylor, Fort Worth) | "can you spot the error" line reading video |
+| 2026-11-01 | @mahjongwithandrew (8.7K, Lowcountry SC instructor) | pop quiz: what's wrong with the line 4 hand |
+| 2026-11-01 | @themahjongfairy.htx (2.1K, Landy, Houston) | American Mahjong 101 bonus lesson on calling a discard |
+| 2026-11-01 | @mahj.the.day (346, Morristown and Ocean City NJ) | bachelorette party, rookie to thriving |
 
 Instagram DMs go from @mahjtips on instagram.com in Chrome (same three messages; the profile's Message button opens a chat panel, Return sends).
 
