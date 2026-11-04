@@ -4,24 +4,47 @@
 
 Web page: https://jackwallner.com/ios/mahj/chatgpt/
 
-## Mahj Trainer for ChatGPT
+Mahj Trainer for ChatGPT
+
+## Ask ChatGPT what to pass.
 
 Learn and practice American mah jongg, the game played with the yearly
 National Mah Jongg League card, right in a ChatGPT conversation.
 
+Read a rack
+See what to ask
+
+## Read a rack right here.
+
+The plugin's own reader, running on this page.
+
+Sections are the families every yearly card is built from. Check the exact lines on your own card before you commit.
+
 ## What it does
 
-- Short lessons on the basics, the tiles, the sections of the card, the Charleston, and keep-or-throw judgment.
-- Practice quizzes that check and explain each answer, including Charleston passes you pick by tapping tiles.
-- A rack reader. Share your tiles and it says which sections you lean toward, which three tiles to pass and why, and what to build on.
-- A glossary of mah jongg terms, from pung and quint to joker swap and dead hand.
+### Lessons
+
+Short lessons on the basics, the tiles, the sections of the card, the Charleston, and keep-or-throw judgment.
+
+### Practice quizzes
+
+Every answer is checked and explained, including Charleston passes you pick by tapping tiles.
+
+### Rack reader
+
+Share your tiles and it says which sections you lean toward, which three tiles to pass and why, and what to build on.
+
+### Glossary
+
+Mah jongg terms, from pung and quint to joker swap and dead hand.
 
 ## Try asking
 
-- Teach me how American mah jongg works.
-- Quiz me on the Charleston.
-- Read my rack: 2C 2C 4C 4C 6B 6B 8B 8D F J 1C 9B N. What should I pass?
-- What is a joker swap?
+## Does it keep my tiles or questions?
+
+No. There is no account, and the server keeps no record of what you ask.
+
+[Privacy policy →](https://jackwallner.com/ios/mahj/privacy-policy.html#chatgpt)
 
 ## Questions
 
@@ -54,13 +77,6 @@ Yes. Say which pass it is, like "first pass left" or "the courtesy
 pass", and the advice changes to fit. On the blind-pass rounds it only
 suggests tiles that fit nothing and leaves the rest for a blind pass.
 
-### Does it keep my tiles or questions?
-
-No. There is no account, and the server keeps no record of what you
-ask. The
-[privacy policy](https://jackwallner.com/ios/mahj/privacy-policy.html#chatgpt)
-has the details.
-
 ### Something looks wrong
 
 Email
@@ -68,3 +84,7 @@ Email
 with what you asked and what it said.
 
 Not affiliated with or endorsed by the National Mah Jongg League.
+
+[Privacy](https://jackwallner.com/ios/mahj/privacy-policy.html#chatgpt)
+[Terms](https://jackwallner.com/ios/mahj/terms.html)
+[Support](mailto:jackwallner+m@gmail.com)
