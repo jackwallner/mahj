@@ -6,7 +6,7 @@ import XCTest
 /// at init, so a sentence edited in Swift without its catalog entry would
 /// silently show English to a German player; this catches it.
 final class LocalizationCoverageTests: XCTestCase {
-    static let languages = ["de", "es", "fr", "id", "vi"]
+    static let languages = ["ar", "de", "es", "fr", "id", "vi"]
 
     func testEveryContentStringIsTranslated() throws {
         let strings = Set(Self.contentStrings.filter { $0.rangeOfCharacter(from: .letters) != nil })
@@ -15,6 +15,14 @@ final class LocalizationCoverageTests: XCTestCase {
             let bundle = try Self.bundle(language)
             let missing = strings.filter { !Self.isTranslated($0, in: bundle) }.sorted()
             XCTAssertTrue(missing.isEmpty, "\(language) is missing \(missing.count): \(missing.prefix(5))")
+        }
+    }
+
+    func testNumberAndNameKeepTheirPlaces() throws {
+        for language in Self.languages {
+            let bundle = try Self.bundle(language)
+            let held = String(localized: "You hold \(3) of the \("9 Dot"). Passing one splits a pair, when another tile on this rack costs you nothing.", bundle: bundle, locale: Locale(identifier: language))
+            XCTAssertTrue(held.contains("9 Dot"), "\(language): \(held)")
         }
     }
 

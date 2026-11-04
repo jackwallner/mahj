@@ -8,8 +8,8 @@ paths:
 
 # Mahj: localization (2026-10-27)
 
-The app ships in English plus German, Spanish, French, Indonesian and
-Vietnamese (de, es, fr, id, vi), chosen from the regions with new customers.
+The app ships in English plus Arabic, German, Spanish, French, Indonesian and
+Vietnamese (ar, de, es, fr, id, vi), chosen from the regions with new customers.
 Non-English rich markets trialed at about 6% against 15 to 19% in
 US/UK/CA/AU at the same price, with the App Store pages already translated,
 so the gap was inside the app. Every user-facing string is translated; brand
