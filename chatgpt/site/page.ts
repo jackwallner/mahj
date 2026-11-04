@@ -177,16 +177,17 @@ function startConversation(): void {
     log.classList.remove("instant");
     log.innerHTML = "";
     typed.textContent = "";
-    await wait(300, id);
-    const speed = scene.ask.length > 40 ? 14 : 30;
-    for (let k = 1; k <= scene.ask.length; k++) {
+    await wait(160, id);
+    // About a second of typing, however long the prompt is.
+    const step = Math.ceil(scene.ask.length / 25);
+    for (let k = step; k < scene.ask.length + step; k += step) {
       typed.textContent = scene.ask.slice(0, k);
-      await wait(speed, id);
+      await wait(40, id);
     }
-    await wait(280, id);
+    await wait(200, id);
     typed.textContent = "";
     log.innerHTML = bubble(scene.ask) + `<div class="thinking"><i></i><i></i><i></i></div>`;
-    await wait(850, id);
+    await wait(560, id);
     log.querySelector(".thinking")!.remove();
     log.insertAdjacentHTML("beforeend", scene.card());
     const timed = [...log.querySelectorAll<HTMLElement>("[data-at]")].sort((a, b) => Number(a.dataset.at) - Number(b.dataset.at));
