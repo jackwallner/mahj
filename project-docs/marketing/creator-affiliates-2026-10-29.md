@@ -138,6 +138,10 @@ Since 2026-11-04, a creator who isn't a mutual gets one combined DM (intro, code
 
 Next up, about 5 a day: @get.your.mahhon (216, the only mutual not yet pitched, has only traded wave stickers with us), @southern.mahj.clu, @littlemissmahjong, @flamingo.mahj, @stefmahj, @hostmahj, @mahjongwithamy, @themahjclubs, @mahjong.haus.na. Their posts didn't load in the 11-04 scan, so read one before writing the line. @andersruffdesignco (2.7K) follows us but is a product brand.
 
+Warmer leads seen 11-04 in the phone app's inbox suggestions, showing "Follow back" (display names, handles and fit not checked yet): MahjMeCrazyLA, Bougie Bams Mahjong, 3BeeMahj, Menace Mahjong Society, pamperedtileco. Check each before pitching; any that sell a competing app or course get skipped.
+
+Replies as of 11-04 1:04 PM PT: none to the 11-04 batch (@sooner_mahj has seen it, the app shows the other four as sent). Landy (The Mahjong Fairy HTX) replied on 11-01 that they'd check it out and report back. Mama mahjong's thread has one unread item the web can't display, not yet read.
+
 Instagram DMs go from @mahjtips on instagram.com in Chrome (same three messages; the profile's Message button opens a chat panel, Return sends).
 
 | Date | Creator (Instagram) | Personal line |
