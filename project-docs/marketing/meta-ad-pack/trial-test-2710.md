@@ -118,3 +118,14 @@ StartTrial cannot work at this volume while every trial declines ATT. Day-7
 ASC campaign downloads still to check, but they cannot change the answer.
 
 Paused 2026-10-29 in Ads Manager (Jack). Campaign `PAUSED` per the API.
+
+## Correction 2026-11-04: this test read nothing
+
+The Marketing API shows the ad set targeted `user_os: iOS_ver_2.0_to_14.4`.
+Mahj's minimum is iOS 17, so no device it targeted could install the app.
+By device: iPad 14,367, iPhone 3,045, iPod 80 of 17,492 impressions. By
+placement: Audience Network 16,952, Facebook 514, Instagram 26. That explains
+the reach of 1,742 at frequency 10: a small pool of old devices. The "no lift"
+above says nothing about Meta. The ATT finding still holds: 40 of 56 relay
+trials declined and 1 reached Meta, so optimizing on StartTrial cannot work
+here. A rerun would optimize on installs through SKAdNetwork.

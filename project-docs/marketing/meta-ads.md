@@ -4,6 +4,10 @@ Status 2026-10-29: **switched off.** Meta SDK and ATT removed in 1.4.3; RevenueC
 Meta Ads integration and the relay webhook deleted, the relay cron unscheduled and its
 Meta secrets unset. The 2026-10-16 setup below is the record for turning it back on.
 
+2026-11-04: the Oct 27 trial test could not have worked: it targeted iOS 14.4 and
+older ([correction](meta-ad-pack/trial-test-2710.md)). The switch-off stands, resting
+on the click test and the economics.
+
 Status 2026-10-16: **turned on.** Meta app `987930193620309` (Live, E3 Fitness LLC,
 iOS bundle + store ID, ad account `1842133493904848` authorized, App Page Mahj
 Trainer, automatic in-app event logging off). Dataset `1445876447511793`; its
