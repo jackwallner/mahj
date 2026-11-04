@@ -126,6 +126,18 @@ Accounts that don't follow @mahjtips back get only the first message until they 
 | 2026-11-01 | @mahjongwithandrew (8.7K, Lowcountry SC instructor) | pop quiz: what's wrong with the line 4 hand |
 | 2026-11-01 | @mahj.the.day (346, Morristown and Ocean City NJ) | bachelorette party, rookie to thriving (accepted; code and feedback ask sent 2026-11-04) |
 
+Since 2026-11-04, a creator who isn't a mutual gets one combined DM (intro, code link and feedback ask together), because only one message goes through until they accept.
+
+| Date | Creator (TikTok) | Personal line |
+|---|---|---|
+| 2026-11-04 | @sooner_mahj (568, mother and daughter teachers, OKC; follows us) | wrapped up their fall league |
+| 2026-11-04 | @blooms.bams (1.9K, instructor, Rockingham NC) | "I didn't think I needed another book about mahjong" post |
+| 2026-11-04 | @mahjongonmain (152, classes in Union County NC) | sat down to answer league questions |
+| 2026-11-04 | @beehive.bam (130, new players; follows us) | impromptu Halloween game post |
+| 2026-11-04 | @mahjgurl (602, Liz, certified instructor, Chicagoland) | building walls since '88 (from her bio) |
+
+Next up, about 5 a day: @get.your.mahhon (216, the only mutual not yet pitched, has only traded wave stickers with us), @southern.mahj.clu, @littlemissmahjong, @flamingo.mahj, @stefmahj, @hostmahj, @mahjongwithamy, @themahjclubs, @mahjong.haus.na. Their posts didn't load in the 11-04 scan, so read one before writing the line. @andersruffdesignco (2.7K) follows us but is a product brand.
+
 Instagram DMs go from @mahjtips on instagram.com in Chrome (same three messages; the profile's Message button opens a chat panel, Return sends).
 
 | Date | Creator (Instagram) | Personal line |
