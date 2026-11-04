@@ -29,7 +29,7 @@ The primer's page swipe is off inside its ScrollView fallbacks
 scroll, so an SE could not reach the "Play a turn" tip. The trial page keeps
 the exact 1.3.2 layout below accessibility sizes wherever its benefit rows
 fit at full height (an earlier fit change had moved it at L and XXXL on the
-SE, which the freeze forbids) and always scrolls at AX sizes. Below AX it
+SE, since undone) and always scrolls at AX sizes. Below AX it
 picks through `ContentFit` (2026-10-30, Jack's go-ahead via the overnight
 bug hunt): the designed page, then the page without the icon, then a
 ScrollView. On an SE at default size the 1.4.1 rows and every translation

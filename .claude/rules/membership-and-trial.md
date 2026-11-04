@@ -54,9 +54,12 @@ changed. Cribbage, Skat and Sheepshead all passed with this pattern, and it
 did not track with lower trial rates across the card apps (Aug 13 to Sep 26:
 Mahj 31% small line, Bridge 9% small line, Cribbage 24% big price).
 
-**The trial flow is frozen at 1.3.2 (2026-10-16).** Jack's ruling after the
-1.4 audit: the onboarding trial page and the paywall convert well, so their
-copy, layout and order stay exactly as shipped in 1.3.2. "Try Mahj+ free",
+**The trial flow keeps its 1.3.2 shape (2026-10-16, meaning set 2026-11-04).**
+Jack's guard after the 1.4 audit: the onboarding trial page and the paywall
+convert well, so how we get trials and onboard stays as shipped in 1.3.2. It
+stops changes made on a whim. A small detail may change if the general flow is
+exactly the same; a change to the flow itself needs his go-ahead. As shipped:
+"Try Mahj+ free",
 "Start 7-day free trial" / "Start 7-Day Free Trial", "7 days free, then
 $X. Auto-renews until canceled." for every account, and nothing between the
 purchase and the tour. 1.4.0 (build 45, pulled before release) had added
