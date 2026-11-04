@@ -101,7 +101,7 @@ The big Tier 1 accounts wait until a few small teachers have said yes. Follower 
 
 ### Sent log
 
-DMs go from TikTok @mahjtips as three short messages (intro, code link, feedback ask). TikTok then allows 2 more messages until they reply, which leaves room for one follow-up.
+DMs go from TikTok @mahjtips as three short messages (intro, code link, feedback ask). After those three, TikTok rejects anything more until they accept the request ("You can only send up to 1 message before this user accepts your message request"), so an unanswered TikTok thread has no room for a follow-up.
 
 | Date | Creator (TikTok) | Personal line |
 |---|---|---|
@@ -116,7 +116,7 @@ DMs go from TikTok @mahjtips as three short messages (intro, code link, feedback
 | 2026-11-01 | @lets.learn.mahjong (86, daily lesson account) | hand-selection tip: missing tiles over card value |
 | 2026-11-01 | @themahjongfairy.htx (2.1K, Landy, Houston) | American Mahjong 101 bonus lesson on calling a discard (accepted the request and said thanks, code sent the same day) |
 
-Follow up once around 2026-11-05 if no reply (2026-11-08 for the 11-01 batch).
+Follow-ups to all five 10-29 creators were tried once on 2026-11-04 and TikTok rejected every one, so none was delivered: none of the five has accepted or replied. Don't retry them. The 11-08 follow-up for the 11-01 batch only works in threads they've accepted.
 
 Accounts that don't follow @mahjtips back get only the first message until they accept the request; TikTok drops the rest. On 2026-11-01 these got the intro only, so the code and feedback ask go out once they accept:
 
