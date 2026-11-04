@@ -29,6 +29,6 @@ Studio's post data gives the reason: "Videos with commercial content can only be
 - Three new shorts built on the winning pattern: V20 a whole game in 30 seconds, V21 what to keep in the Charleston, V22 joker rules. Sources in `~/ios/growth/tiktok-2026-10-29/`.
 - TikTok: V20 Nov 5 6:45 AM, V21 Nov 6 6:45 AM, V22 Nov 6 5:45 PM, beside the weak posts they replace. Instagram: all three on Nov 10.
 
-## Delete from the TikTok app
+## Deleted in the TikTok app (2026-11-04)
 
-Weak or risky by the numbers above, in order: payouts (Nov 5 6:30 AM), every tile (Nov 6 6:30 AM), host your first night (Nov 6 5:30 PM). The 5-minute routine (Nov 5 11:30 AM) and four rules (Nov 6 11:30 AM) are untested formats and stay.
+Weak or risky by the numbers above: payouts (Nov 5 6:30 AM), every tile (Nov 6 6:30 AM), host your first night (Nov 6 5:30 PM). All three can be restored for 30 days from Manage posts in Settings. The 5-minute routine (Nov 5 11:30 AM) and four rules (Nov 6 11:30 AM) are untested formats and stay.
