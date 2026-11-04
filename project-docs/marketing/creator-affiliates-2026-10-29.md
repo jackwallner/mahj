@@ -124,7 +124,7 @@ Accounts that don't follow @mahjtips back get only the first message until they 
 |---|---|---|
 | 2026-11-01 | @thehappymahjongteacher (9.7K, Taylor, Fort Worth) | "can you spot the error" line reading video |
 | 2026-11-01 | @mahjongwithandrew (8.7K, Lowcountry SC instructor) | pop quiz: what's wrong with the line 4 hand |
-| 2026-11-01 | @mahj.the.day (346, Morristown and Ocean City NJ) | bachelorette party, rookie to thriving |
+| 2026-11-01 | @mahj.the.day (346, Morristown and Ocean City NJ) | bachelorette party, rookie to thriving (accepted; code and feedback ask sent 2026-11-04) |
 
 Instagram DMs go from @mahjtips on instagram.com in Chrome (same three messages; the profile's Message button opens a chat panel, Return sends).
 
