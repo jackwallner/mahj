@@ -1,4 +1,3 @@
-import StoreKit
 import SwiftUI
 import UIKit
 
@@ -14,7 +13,6 @@ struct SettingsView: View {
     @State private var restoreMessage: String?
     @State private var restoring = false
     @State private var showFeedback = false
-    @State private var showManageSubscriptions = false
 
     var body: some View {
         NavigationStack {
@@ -40,7 +38,6 @@ struct SettingsView: View {
                         .foregroundStyle(Theme.ink)
                 }
             }
-            .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
             .sheet(isPresented: $showPaywall) { PaywallView(source: "mahj_settings_sheet") }
             .sheet(isPresented: $showWhatsNew) {
                 if let release = WhatsNew.currentRelease {
@@ -187,7 +184,7 @@ struct SettingsView: View {
                     .foregroundStyle(Theme.jade)
                 // Lifetime has no expiration and nothing to manage.
                 if subscriptions.expirationDate != nil {
-                    Button("Manage Subscription") { showManageSubscriptions = true }
+                    Link("Manage Subscription", destination: PaywallLinks.manageSubscriptions)
                 }
             } else {
                 Button {
