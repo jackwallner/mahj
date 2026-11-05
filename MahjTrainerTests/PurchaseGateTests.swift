@@ -1,3 +1,4 @@
+import Combine
 import XCTest
 @testable import MahjTrainer
 
@@ -199,5 +200,23 @@ final class PendingRouteIDTests: XCTestCase {
         router.route(to: .monthlyChallenge)
         XCTAssertEqual(router.pendingRouteID, first + 1)
         XCTAssertFalse(router.pendingWaitIsOver)
+    }
+
+    /// Home calls this on every appearance. A publish with nothing pending
+    /// re-rendered Home forever on iOS 18 and froze the first answer (1.4.1).
+    func testConsumingNothingPublishesNothing() {
+        let router = AppRouter()
+        var published = 0
+        let watch = router.objectWillChange.sink { published += 1 }
+        XCTAssertNil(router.consumePendingDestination())
+        watch.cancel()
+        XCTAssertEqual(published, 0)
+    }
+
+    func testConsumingARouteHandsItOverOnce() {
+        let router = AppRouter()
+        router.route(to: .monthlyChallenge)
+        XCTAssertEqual(router.consumePendingDestination(), .monthlyChallenge)
+        XCTAssertNil(router.consumePendingDestination())
     }
 }

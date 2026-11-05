@@ -98,8 +98,11 @@ final class AppRouter: ObservableObject {
     }
 
     func consumePendingDestination() -> AppDestination? {
-        defer { pendingDestination = nil }
-        return pendingDestination
+        // Writing nil over nil still fires objectWillChange, and on iOS 18 that
+        // re-rendered Home forever under a screen pushed over it.
+        guard let destination = pendingDestination else { return nil }
+        pendingDestination = nil
+        return destination
     }
 }
 

@@ -83,3 +83,20 @@ on different lines across the row. The tour's own
 "A five-minute mix" line is frozen with the trial flow and stays. Home
 reads `DayClock`, so a resume on a new day redraws Get Started and the
 challenge card for today.
+
+## iOS 18 freeze: no publish without a change
+
+A `@Published` write fires `objectWillChange` even when the value is the same.
+Home's `onAppear` and `onChange` handlers cleared `AppRouter.pendingDestination`
+with nothing pending, and on iOS 18 that re-rendered `HomeView.body` forever
+under the pushed screen: the first answer or settings toggle locked the app at
+100% CPU, permanently, member or free (1.3.2 and 1.4.1 reproduced; iOS 17.5 and 26.2 are fine). 1.4.2
+cleared it by accident (`e2a0d39` returned early with no route), and the router
+now refuses the empty write too. Anything Home observes and calls from those
+handlers must return early when nothing changes.
+
+`MemberAnswerFreezeUITests` only fails on iOS 18. gh-sim's standard runner can't
+install iOS 18.6, and the current SDK code needs `reservedRegions` stubbed to
+build on Xcode 26.3, so nothing runs this regression on iOS 18 by default.
+`PendingRouteIDTests.testConsumingNothingPublishesNothing` guards the router on
+any runtime.
