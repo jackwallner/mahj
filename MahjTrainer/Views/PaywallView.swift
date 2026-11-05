@@ -34,7 +34,6 @@ enum PaywallLinks {
     /// one place to swap it; App Review requires a functional Terms link here.
     static let terms = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!
     static let privacy = URL(string: "https://jackwallner.github.io/mahj/privacy-policy")!
-    static let manageSubscriptions = URL(string: "https://apps.apple.com/account/subscriptions")!
 }
 
 /// Shared paywall content used by the locked-drill sheet and Settings.
