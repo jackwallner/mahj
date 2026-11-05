@@ -1,0 +1,274 @@
+{
+  "ar-SA": {
+    "01": {
+      "text": "مرروا بخطة واضحة",
+      "back": "Pass with a clear plan"
+    },
+    "02": {
+      "text": "افهموا حاملكم",
+      "back": "Understand your rack"
+    },
+    "03": {
+      "text": "اعرفوا ما تحتفظون به",
+      "back": "Know what to keep"
+    },
+    "04": {
+      "text": "إرشاد مع كل استبعاد",
+      "back": "Guidance with every discard"
+    },
+    "05": {
+      "text": "اختاروا الغرفة المناسبة",
+      "back": "Choose the right room"
+    },
+    "06": {
+      "text": "تعلموا كل أنواع القطع",
+      "back": "Learn all tile types"
+    },
+    "07": {
+      "text": "ميزوا القطعة المطلوبة",
+      "back": "Recognize the tile you need"
+    },
+    "08": {
+      "text": "اكتشفوا نمط حاملكم",
+      "back": "Discover the pattern in your rack"
+    }
+  },
+  "de-DE": {
+    "01": {
+      "text": "Gib mit Plan weiter",
+      "back": "Pass with a plan"
+    },
+    "02": {
+      "text": "Versteh dein Rack",
+      "back": "Understand your rack"
+    },
+    "03": {
+      "text": "Behalte die besten Steine",
+      "back": "Keep the best tiles"
+    },
+    "04": {
+      "text": "Tipps zu jedem Abwurf",
+      "back": "Tips for every discard"
+    },
+    "05": {
+      "text": "Wähle deinen Raum",
+      "back": "Choose your room"
+    },
+    "06": {
+      "text": "Lerne alle Steinarten",
+      "back": "Learn all tile types"
+    },
+    "07": {
+      "text": "Finde den passenden Stein",
+      "back": "Find the matching tile"
+    },
+    "08": {
+      "text": "Finde das Muster im Rack",
+      "back": "Find the pattern in your rack"
+    }
+  },
+  "es-ES": {
+    "01": {
+      "text": "Pasa con un plan",
+      "back": "Pass with a plan"
+    },
+    "02": {
+      "text": "Lee tu atril",
+      "back": "Read your rack"
+    },
+    "03": {
+      "text": "Aprende qué fichas guardar",
+      "back": "Learn which tiles to keep"
+    },
+    "04": {
+      "text": "Te guía en cada descarte",
+      "back": "It guides you through every discard"
+    },
+    "05": {
+      "text": "Elige tu sala de práctica",
+      "back": "Choose your practice room"
+    },
+    "06": {
+      "text": "Conoce cada tipo de ficha",
+      "back": "Get to know every tile type"
+    },
+    "07": {
+      "text": "Reconoce la ficha clave",
+      "back": "Recognize the key tile"
+    },
+    "08": {
+      "text": "Ve el patrón de tu atril",
+      "back": "See the pattern in your rack"
+    }
+  },
+  "es-MX": {
+    "01": {
+      "text": "Pasa con un plan",
+      "back": "Pass with a plan"
+    },
+    "02": {
+      "text": "Lee tu atril",
+      "back": "Read your rack"
+    },
+    "03": {
+      "text": "Aprende qué fichas guardar",
+      "back": "Learn which tiles to keep"
+    },
+    "04": {
+      "text": "Te guía en cada descarte",
+      "back": "It guides you through every discard"
+    },
+    "05": {
+      "text": "Elige tu sala de práctica",
+      "back": "Choose your practice room"
+    },
+    "06": {
+      "text": "Conoce cada tipo de ficha",
+      "back": "Get to know every tile type"
+    },
+    "07": {
+      "text": "Reconoce la ficha clave",
+      "back": "Recognize the key tile"
+    },
+    "08": {
+      "text": "Ve el patrón de tu atril",
+      "back": "See the pattern in your rack"
+    }
+  },
+  "fr-FR": {
+    "01": {
+      "text": "Passez les bonnes tuiles",
+      "back": "Pass the right tiles"
+    },
+    "02": {
+      "text": "Décryptez votre chevalet",
+      "back": "Decipher your rack"
+    },
+    "03": {
+      "text": "Sachez quoi garder",
+      "back": "Know what to keep"
+    },
+    "04": {
+      "text": "Un coach à chaque défausse",
+      "back": "A coach for every discard"
+    },
+    "05": {
+      "text": "Choisissez votre salle",
+      "back": "Choose your room"
+    },
+    "06": {
+      "text": "Les familles de tuiles",
+      "back": "Tile families"
+    },
+    "07": {
+      "text": "Repérez la bonne tuile",
+      "back": "Spot the right tile"
+    },
+    "08": {
+      "text": "Trouvez votre combinaison",
+      "back": "Find your hand pattern"
+    }
+  },
+  "fr-CA": {
+    "01": {
+      "text": "Passez les bonnes tuiles",
+      "back": "Pass the right tiles"
+    },
+    "02": {
+      "text": "Décryptez votre chevalet",
+      "back": "Decipher your rack"
+    },
+    "03": {
+      "text": "Sachez quoi garder",
+      "back": "Know what to keep"
+    },
+    "04": {
+      "text": "Un coach à chaque défausse",
+      "back": "A coach for every discard"
+    },
+    "05": {
+      "text": "Choisissez votre salle",
+      "back": "Choose your room"
+    },
+    "06": {
+      "text": "Les familles de tuiles",
+      "back": "Tile families"
+    },
+    "07": {
+      "text": "Repérez la bonne tuile",
+      "back": "Spot the right tile"
+    },
+    "08": {
+      "text": "Trouvez votre combinaison",
+      "back": "Find your hand pattern"
+    }
+  },
+  "id": {
+    "01": {
+      "text": "Oper ubin dengan rencana",
+      "back": "Pass tiles with a plan"
+    },
+    "02": {
+      "text": "Baca rak sebelum memilih",
+      "back": "Read your rack before choosing"
+    },
+    "03": {
+      "text": "Pilih ubin untuk disimpan",
+      "back": "Choose tiles to keep"
+    },
+    "04": {
+      "text": "Panduan tiap buangan",
+      "back": "Guidance for every discard"
+    },
+    "05": {
+      "text": "Pilih ruang latihanmu",
+      "back": "Choose your practice room"
+    },
+    "06": {
+      "text": "Kenali semua jenis ubin",
+      "back": "Get to know all tile types"
+    },
+    "07": {
+      "text": "Kenali ubin yang dicari",
+      "back": "Recognize the tile you are looking for"
+    },
+    "08": {
+      "text": "Temukan pola rakmu",
+      "back": "Find the pattern in your rack"
+    }
+  },
+  "vi": {
+    "01": {
+      "text": "Chuyền quân có kế hoạch",
+      "back": "Pass tiles with a plan"
+    },
+    "02": {
+      "text": "Đọc tay bài rồi hãy chọn",
+      "back": "Read your rack before choosing"
+    },
+    "03": {
+      "text": "Biết nên giữ quân nào",
+      "back": "Know which tiles to keep"
+    },
+    "04": {
+      "text": "Gợi ý mỗi lần bỏ quân",
+      "back": "Advice every time you discard a tile"
+    },
+    "05": {
+      "text": "Chọn phòng phù hợp",
+      "back": "Choose the right room"
+    },
+    "06": {
+      "text": "Học các nhóm quân bài",
+      "back": "Learn the tile families"
+    },
+    "07": {
+      "text": "Nhận ra quân bài bạn cần",
+      "back": "Recognize the tile you need"
+    },
+    "08": {
+      "text": "Tìm mẫu hợp với tay bài",
+      "back": "Find a pattern that fits your rack"
+    }
+  }
+}

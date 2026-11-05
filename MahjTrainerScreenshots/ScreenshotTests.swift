@@ -19,6 +19,32 @@ import XCTest
 final class ScreenshotTests: XCTestCase {
     private var app: XCUIApplication!
     private var problems: [String] = []
+    /// English key to the app's translations of it, empty for English.
+    private var strings: [String: [String]] = [:]
+
+    private func localized(_ key: String) -> [String] {
+        strings[key] ?? [key]
+    }
+
+    /// Each translation, plus the forms a wrapped title can take in an
+    /// accessibility label: a card that wraps its title carries a newline
+    /// where the line broke.
+    private func labelForms(_ key: String) -> [String] {
+        var forms: [String] = []
+        for text in localized(key) {
+            forms.append(text)
+            let parts = text.components(separatedBy: " ")
+            guard parts.count > 1 else { continue }
+            for split in 1..<parts.count {
+                forms.append(parts[..<split].joined(separator: " ") + "\n" + parts[split...].joined(separator: " "))
+            }
+        }
+        return forms
+    }
+
+    private func button(_ key: String) -> XCUIElement {
+        app.buttons.matching(NSPredicate(format: "label IN %@", localized(key))).firstMatch
+    }
 
     override func setUp() {
         continueAfterFailure = true
@@ -42,9 +68,30 @@ final class ScreenshotTests: XCTestCase {
         // and covers Home. Marking the CURRENT version as already seen is what
         // suppresses it — any other value still counts as an upgrade — so the
         // capture script passes the real marketing version in.
-        if let version = ProcessInfo.processInfo.environment["SCREENSHOT_APP_VERSION"] {
+        let environment = ProcessInfo.processInfo.environment
+        if let version = environment["SCREENSHOT_APP_VERSION"] {
             app.launchArguments += ["-whatsnew.lastSeenVersion", version]
         }
+        // Per-language capture (scripts/capture-localized-screenshots.sh). The
+        // app runs in that language and region; the test finds its controls by
+        // looking the English keys up in a JSON of the app's own translations
+        // (scripts/dump_screenshot_strings.py), so navigation never depends on
+        // English text. Unset, every lookup returns the English key itself.
+        if let language = environment["SCREENSHOT_LANGUAGE"], !language.isEmpty {
+            app.launchArguments += ["-AppleLanguages", "(\(language))"]
+            if let locale = environment["SCREENSHOT_LOCALE"], !locale.isEmpty {
+                app.launchArguments += ["-AppleLocale", locale]
+            }
+        }
+        if let path = environment["SCREENSHOT_STRINGS"],
+           let data = FileManager.default.contents(atPath: path),
+           let table = try? JSONDecoder().decode([String: [String]].self, from: data) {
+            strings = table
+        }
+        let config = XCTAttachment(string: "arguments: \(app.launchArguments)\nstrings: \(strings.count)\nenvironment: \(environment.keys.filter { $0.contains("SCREENSHOT") })")
+        config.name = "launch_config"
+        config.lifetime = .keepAlways
+        add(config)
         app.launch()
     }
 
@@ -58,6 +105,7 @@ final class ScreenshotTests: XCTestCase {
         if open("Get Started") {
             capture("01_quick_session")
             if answerVisibleChoice() {
+                revealQuestion()
                 capture("01_quick_session_answered")
             }
         }
@@ -73,6 +121,7 @@ final class ScreenshotTests: XCTestCase {
         if open("The Card Room"), open("Read the Rack") {
             capture("03_hand_match")
             if answerVisibleChoice() {
+                revealQuestion()
                 capture("03_hand_match_answered")
             }
         }
@@ -114,10 +163,9 @@ final class ScreenshotTests: XCTestCase {
     /// frame worth having is the one where the coach has just marked a discard
     /// and said why, because that is the thing no other drill in the app does.
     private func capturePlayAHand() {
-        // "Play a" and not "Play a Hand": the Home tile wraps the title, so the
-        // accessibility label carries a real newline between the two words and
-        // the full string matches nothing.
-        guard open("Play a") else { return }
+        // The Home tile wraps the title, so the accessibility label carries a
+        // real newline where the line broke; `open` tries those forms too.
+        guard open("Play a Hand") else { return }
         guard open("2468 (Evens)"), open("Play it out") else {
             problems.append("could not start the hand for the Play a Hand shot")
             attachTree("play_a_hand")
@@ -150,11 +198,11 @@ final class ScreenshotTests: XCTestCase {
     /// same feature, but an expanded section draws a real example rack, and
     /// tiles are the only illustration this app has.
     private func captureReference() {
-        guard tap(app.buttons["Reference and glossary"]) else {
+        guard tap(button("Reference and glossary")) else {
             problems.append("no reference button on Home")
             return
         }
-        if tap(app.buttons["Sections"]), open("2468 (Evens)") {
+        if tap(button("Sections")), open("2468 (Evens)") {
             capture("07_reference")
         } else {
             problems.append("could not open a reference section")
@@ -165,7 +213,7 @@ final class ScreenshotTests: XCTestCase {
     @discardableResult
     private func answerVisibleChoice(count: Int = 1) -> Bool {
         let height = max(app.windows.firstMatch.frame.height, 1)
-        let excluded = ["Settings", "Back", "Next", "Next Rack", "Finish", "Close"]
+        let excluded = ["Settings", "Back", "Next", "Next Rack", "Finish", "Close"].flatMap(localized)
         var selected = 0
         for _ in 0..<count {
             let choice = app.buttons.allElementsBoundByIndex.first { element in
@@ -186,7 +234,7 @@ final class ScreenshotTests: XCTestCase {
             return selected > 0
         }
         if count == 3 {
-            let submit = app.buttons["Pass These 3"].firstMatch
+            let submit = button("Pass These 3")
             guard submit.waitForExistence(timeout: 3) else {
                 problems.append("could not submit Charleston pass")
                 return false
@@ -195,6 +243,21 @@ final class ScreenshotTests: XCTestCase {
             settle()
         }
         return selected == count
+    }
+
+    /// Answering scrolls the feedback into view, and longer translations push
+    /// the question and its tiles almost out of the frame. A slow drag has no
+    /// momentum, so it brings back a fixed distance and leaves the answer on
+    /// screen.
+    private func revealQuestion() {
+        let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45))
+        start.press(
+            forDuration: 0.05,
+            thenDragTo: start.withOffset(CGVector(dx: 0, dy: 150)),
+            withVelocity: .slow,
+            thenHoldForDuration: 0.2
+        )
+        settle()
     }
 
     @discardableResult
@@ -215,7 +278,7 @@ final class ScreenshotTests: XCTestCase {
         // Belt and braces for a version the script could not resolve. Dismissing
         // does not mark the release seen, so the sheet returns every time Home
         // reappears; the launch argument above is the real fix.
-        let done = app.buttons["Done"].firstMatch
+        let done = button("Done")
         guard done.waitForExistence(timeout: 3) else { return }
         done.tap()
         settle()
@@ -226,13 +289,28 @@ final class ScreenshotTests: XCTestCase {
     /// accessibility label is the whole card, not just the title.
     @discardableResult
     private func open(_ label: String) -> Bool {
-        let predicate = NSPredicate(format: "label CONTAINS %@", label)
+        let forms = labelForms(label)
+        // A drill row and its "Extra Reps" sibling share a title ("Keep or Throw"
+        // and "Keep or Throw: Extra Reps"), and on iPad the sibling can come
+        // first, so a label that starts with the title and goes straight on to a
+        // colon is passed over before the looser CONTAINS match is tried.
+        let exact = NSCompoundPredicate(orPredicateWithSubpredicates: forms.map { form in
+            var parts: [NSPredicate] = [NSPredicate(format: "label BEGINSWITH %@", form)]
+            // French sets a (no-break) space before the colon.
+            for colon in [":", " :", "\u{00A0}:", "\u{202F}:"] {
+                parts.append(NSCompoundPredicate(notPredicateWithSubpredicate: NSPredicate(format: "label BEGINSWITH %@", form + colon)))
+            }
+            return NSCompoundPredicate(andPredicateWithSubpredicates: parts)
+        })
+        let loose = NSCompoundPredicate(orPredicateWithSubpredicates: forms.map {
+            NSPredicate(format: "label CONTAINS %@", $0)
+        })
         // Two passes: as found, then again after one scroll. Home grew a
         // training row and a fourth room card, so the card being reached for is
         // no longer guaranteed to be above the fold on a 6.1-inch phone, and a
         // coordinate tap at an off-screen frame silently does nothing.
         for attempt in 0..<2 {
-            for query in [app.buttons, app.staticTexts] {
+            for (query, predicate) in [(app.buttons, exact), (app.staticTexts, exact), (app.buttons, loose), (app.staticTexts, loose)] {
                 let match = query.matching(predicate).firstMatch
                 guard match.waitForExistence(timeout: attempt == 0 ? 6 : 2) else { continue }
                 guard match.isHittable || attempt == 1 else { continue }
@@ -262,7 +340,7 @@ final class ScreenshotTests: XCTestCase {
     private func home() {
         for _ in 0..<4 {
             if atHome { return }
-            let done = app.buttons["Done"].firstMatch
+            let done = button("Done")
             if done.exists {
                 done.tap()
                 settle(0.6)
@@ -276,7 +354,7 @@ final class ScreenshotTests: XCTestCase {
     }
 
     private var atHome: Bool {
-        app.staticTexts.matching(NSPredicate(format: "label == %@", "THE ROOMS")).firstMatch.exists
+        app.staticTexts.matching(NSPredicate(format: "label IN %@", localized("THE ROOMS"))).firstMatch.exists
     }
 
     /// Let the push transition and any entrance animation finish before the

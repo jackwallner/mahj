@@ -37,6 +37,28 @@ Settings while the elements underneath still answer queries; and the test never
 calls `XCTFail`, because a failing UI test spends ten minutes collecting
 simulator diagnostics before it tells you anything.
 
+## Localized sets (2026-11-04)
+
+Store locales ar-SA, de-DE, es-ES, es-MX, fr-FR, fr-CA, id and vi show the
+app itself in that language, not the English app under a translated header.
+`scripts/capture-localized-screenshots.sh phone <udid>` and `... ipad` run
+`ScreenshotTests` per locale into `build/l10n-raw/<locale>/{phone,ipad}`
+(`-AppleLanguages`, `-AppleLocale`, a fresh install each run, never GitHub
+overflow). The test finds controls by looking the English keys up in
+`scripts/dump_screenshot_strings.py`'s JSON of the catalogs, so navigation
+survives translation. Answered frames drag back a fixed distance
+(`revealQuestion`), because feedback auto-scrolls longer translations' rack and
+question out of the frame. A drill row and its "Extra Reps" sibling share a title;
+`open` prefers the label that does not continue with a colon. Then
+`python3 scripts/localize_appstore_screenshots.py --recapture` composes
+`fastlane/screenshots/<locale>/` (16 frames) from those raws and
+`scripts/screenshot_headers.json`. Headers are redrawn over the finished
+frame: Arabic through CoreText (`scripts/arabic_header.swift`, Al Nile Bold,
+right to left), Latin through the shared serif at optical size 200, because
+New York's default 256 drops the crossbar of "H". Duo is not localized.
+TEST_RUNNER_ build settings did not reach the test process on Xcode 27, so
+the script exports them as environment variables.
+
 ## Release gate journeys
 
 `ReleaseJourneysUITests` runs per persona in `qa-gate run` (newcomer, AX3,

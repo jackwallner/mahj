@@ -11,13 +11,19 @@ set -euo pipefail
 
 NAME="mahj-screenshot-ipad-$$"
 TYPE="com.apple.CoreSimulator.SimDeviceType.iPad-Pro-13-inch-M4-8GB"
-RUNTIME="$(xcrun simctl list runtimes -j | python3 -c "
+# Newest runtime that accepts the device: iOS 27.1 is the iPhone Duo runtime and
+# refuses iPad types ("Incompatible device"), so fall back to the next one.
+RUNTIMES="$(xcrun simctl list runtimes -j | python3 -c "
 import json,sys
 rts=[r for r in json.load(sys.stdin)['runtimes'] if r['isAvailable'] and r['platform']=='iOS']
-print(sorted(rts, key=lambda r: [int(x) for x in r['version'].split('.')])[-1]['identifier'])
+for r in sorted(rts, key=lambda r: [int(x) for x in r['version'].split('.')], reverse=True): print(r['identifier'])
 ")"
-
-UDID="$(xcrun simctl create "$NAME" "$TYPE" "$RUNTIME")"
+UDID=""
+for RUNTIME in $RUNTIMES; do
+  if UDID="$(xcrun simctl create "$NAME" "$TYPE" "$RUNTIME" 2>/dev/null)"; then break; fi
+  UDID=""
+done
+[ -n "$UDID" ] || { echo "no runtime accepts $TYPE" >&2; exit 1; }
 cleanup() { xcrun simctl delete "$UDID" >/dev/null 2>&1 || true; }
 trap cleanup EXIT
 
