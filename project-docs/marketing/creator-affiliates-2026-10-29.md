@@ -140,7 +140,9 @@ Next up, about 5 a day: @get.your.mahhon (216, the only mutual not yet pitched, 
 
 Warmer leads seen 11-04 in the phone app's inbox suggestions, showing "Follow back" (display names, handles and fit not checked yet): MahjMeCrazyLA, Bougie Bams Mahjong, 3BeeMahj, Menace Mahjong Society, pamperedtileco. Check each before pitching; any that sell a competing app or course get skipped.
 
-Replies as of 11-04 1:04 PM PT: none to the 11-04 batch (@sooner_mahj has seen it, the app shows the other four as sent). Landy (The Mahjong Fairy HTX) replied on 11-01 that they'd check it out and report back. Mama mahjong's thread has one unread item the web can't display, not yet read.
+Replies as of 11-04 5:51 PM PT: none to the 11-04 batch (@sooner_mahj has seen it, the app shows the other four as sent). Landy (The Mahjong Fairy HTX) replied on 11-01 that they'd check it out and report back. Mama mahjong has not replied; the item the web couldn't display is a wave sticker on our side of the thread. No Instagram replies or requests.
+
+Followed 11-04 in the phone app, verified by Following going from 21 to 29: @sooner_mahj, @beehive.bam, @andersruffdesignco, MahjMeCrazyLA, 3BeeMahj, Bougie Bams Mahjong (now mutual, so messages aren't capped), @pearl.loves.mahjo and @mahj.in.color (new mahj accounts, not yet pitched).
 
 Instagram DMs go from @mahjtips on instagram.com in Chrome (same three messages; the profile's Message button opens a chat panel, Return sends).
 
