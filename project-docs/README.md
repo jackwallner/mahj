@@ -8,6 +8,7 @@ Developer notes and historical audits for this repository. The published site re
 
 ## Audits
 
+- [state-machines-2026-11-06.md](audits/state-machines-2026-11-06.md): State machine audit: 14 machines with invariants and transition tables, 6 bugs (3 proved by test, 3 code path; repro suite alongside)
 - [release-experience-2026-10-16.md](audits/release-experience-2026-10-16.md): 1.4.0 and 1.4.1 changes from the new and existing player's perspective, with verified defects and product tradeoffs
 - [solaudit1012.md](audits/solaudit1012.md): Independent build 42 audit across content, challenge persistence, accessibility, iPad, membership and Android
 - [aso827.md](audits/aso827.md): Mahj Trainer ASO Audit
