@@ -153,7 +153,7 @@ Followed 11-04 in the phone app, verified by Following going from 21 to 29: @soo
 
 Replies as of 11-06 8:30 AM PT:
 
-- @lets.learn.mahjong (90 followers) said thanks and asked what working together would look like. They also built their own app, name unknown, so check it doesn't compete. Answered: try it first, then one post labeled as an ad for a flat fee; asked their rate and the app's name. No amount offered. The fee is Jack's call.
+- @lets.learn.mahjong (90 followers) said thanks and asked what working together would look like. Answered: try it first, then one post labeled as an ad for a flat fee; asked their rate. They declined at 8:22 AM because they're building their own mahjong course and aren't taking partnerships in this space, but want to stay in touch. Thanked them; no fee was offered. Don't pitch them again.
 - @mahjgurl (Liz) accepted, thanked us and will send feedback. Thanked them back and followed.
 - MahjMeCrazyLA, Bougie Bams Mahjong, 3BeeMahj and Mahj In Color show only a wave sticker, nothing to answer. None of the other 11-04 or 11-01 threads has replied.
 
@@ -189,6 +189,8 @@ YouTube on 11-06: no DMs exist there, and our channel has no comments to answer.
 ## What a sponsored post is worth
 
 A trial is worth about $4.60 on first-month cash (51% trial to paid at about $9 first-30-day proceeds, 2026-10 numbers) and about $9 if payers stay a second month. Apple Ads paid about $9.35 per trial (Oct 13 to 19, small sample). Assuming 1% of viewers install (a guess, not measured) and 26% of installs start a trial, 1,000 views is worth about $12 to $23. Rule of thumb: up to $15 per 1,000 average views, with a $10 floor. Use a `ct=<handle>` link so the assumption gets measured. @lets.learn.mahjong averages about 240 views, worth $3 to $6, so anything above the floor is buying the relationship and reusable content.
+
+Jack, 2026-11-06: state an offer as price per view, since a small flat number can read as cheap when it's actually above value. For a 240-view account: "I budget about $15 per 1,000 views, so your average of about 240 would come to about $4. I'd rather make it a flat $10." Ask for reuse rights in the same message.
 
 ### The DM
 
