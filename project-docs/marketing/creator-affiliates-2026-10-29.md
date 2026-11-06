@@ -168,7 +168,27 @@ Instagram DMs go from @mahjtips on instagram.com in Chrome (same three messages;
 | 2026-10-30 | @bluetigermahjclub (5.0K, Lisa Oleson) | Bams & Bubbly champagne tiles post |
 | 2026-10-30 | @queencitymahjong (4.6K) | "why one lesson instead of three" post |
 
-Skipped @abbyaroundthetable: her profile needs a sign-in to read, so there was no post to write the line from. Follow up on these four around 2026-11-06.
+Skipped @abbyaroundthetable: her profile needs a sign-in to read, so there was no post to write the line from. All four got their one follow-up on 2026-11-06 (still no replies), so let them go after this.
+
+New on Instagram, one combined DM each (followed all five, verified after reload):
+
+| Date | Creator (Instagram) | Personal line |
+|---|---|---|
+| 2026-11-06 | @mahjongoc (4.8K, Jodie, Orange County) | "come with friends and leave your family" |
+| 2026-11-06 | @southshoremahjong (3.4K, Gretchen, Boston South Shore) | Fall League filling up |
+| 2026-11-06 | @mahjongsocialatl (2.8K, Atlanta) | "less class holiday party sign up geniuses" |
+| 2026-11-06 | @thecharlestoncoach (2.2K, Gaithersburg, MD) | mahjong at the pumpkin patch |
+| 2026-11-06 | @mrsmerrimanmahjong (1.9K, Allison, Charlotte) | teaches assisted play (from their bio) |
+
+Skipped @atlanta_mahjong_mentors: their latest post says they're slowing down. Next on Instagram: @mahjonginthesouth, @themahjongsocialchatt, @mahjongatdeenas. Instagram has no replies or requests as of 11-06.
+
+Instagram engagement on 11-06: comments and post likes on @mahjongoc, @mahjongsocialatl and @thecharlestoncoach, plus a like on @southshoremahjong. All verified after reload.
+
+YouTube on 11-06: no DMs exist there, and our channel has no comments to answer. Commented, liked and subscribed on Ladies That Mahj (32.5K), Jodella's Mahjong Channel (25) and Roundwell Mahjong (271), and liked West Georgia Mahjong. All verified after reload. Skipped channels that look mass-produced.
+
+## What a sponsored post is worth
+
+A trial is worth about $4.60 on first-month cash (51% trial to paid at about $9 first-30-day proceeds, 2026-10 numbers) and about $9 if payers stay a second month. Apple Ads paid about $9.35 per trial (Oct 13 to 19, small sample). Assuming 1% of viewers install (a guess, not measured) and 26% of installs start a trial, 1,000 views is worth about $12 to $23. Rule of thumb: up to $15 per 1,000 average views, with a $10 floor. Use a `ct=<handle>` link so the assumption gets measured. @lets.learn.mahjong averages about 240 views, worth $3 to $6, so anything above the floor is buying the relationship and reusable content.
 
 ### The DM
 
