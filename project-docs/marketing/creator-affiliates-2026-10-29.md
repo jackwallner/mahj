@@ -135,14 +135,29 @@ Since 2026-11-04, a creator who isn't a mutual gets one combined DM (intro, code
 | 2026-11-04 | @mahjongonmain (152, classes in Union County NC) | sat down to answer league questions |
 | 2026-11-04 | @beehive.bam (130, new players; follows us) | impromptu Halloween game post |
 | 2026-11-04 | @mahjgurl (602, Liz, certified instructor, Chicagoland) | building walls since '88 (from her bio) |
+| 2026-11-06 | @littlemissmahjong (825, Montreal, teaches American and Hong Kong) | how what helps you learn can eventually hold you back |
+| 2026-11-06 | @themahjclubs (440, Scottsdale club and lessons) | "Joker this, Charleston that" |
+| 2026-11-06 | @mahjongwithamy (28, Sonoma and Marin instructor) | Moira Mahjong tile unboxing |
+| 2026-11-06 | @mahj.in.color (55, mutual, lifestyle page for women of color) | when you can and cannot use a joker |
+| 2026-11-06 | @pearl.loves.mahjo (53, mutual, Franklin TN) | hosting a first table in the Franklin Mahjong Open |
 
-Next up, about 5 a day: @get.your.mahhon (216, the only mutual not yet pitched, has only traded wave stickers with us), @southern.mahj.clu, @littlemissmahjong, @flamingo.mahj, @stefmahj, @hostmahj, @mahjongwithamy, @themahjclubs, @mahjong.haus.na. Their posts didn't load in the 11-04 scan, so read one before writing the line. @andersruffdesignco (2.7K) follows us but is a product brand.
+TikTok web DMs from the social Chrome work (profile > Message, Return sends): all five showed as sent in the phone inbox.
+
+Next up, about 5 a day: @get.your.mahhon (224, mutual, has only traded wave stickers with us, no bio or caption to write a line from), @southern.mahj.clu (commented 11-06, pitch next), @stefmahj (660, Fripp Island, "tips"), @hostmahj (909, table inspo), @flamingo.mahj (635, lessons, but recent posts are all mats), @mahjong.haus.na. @andersruffdesignco (2.7K) follows us but is a product brand.
 
 Warmer leads seen 11-04 in the phone app's inbox suggestions, showing "Follow back" (display names, handles and fit not checked yet): MahjMeCrazyLA, Bougie Bams Mahjong, 3BeeMahj, Menace Mahjong Society, pamperedtileco. Check each before pitching; any that sell a competing app or course get skipped.
 
 Replies as of 11-04 5:51 PM PT: none to the 11-04 batch (@sooner_mahj has seen it, the app shows the other four as sent). Landy (The Mahjong Fairy HTX) replied on 11-01 that they'd check it out and report back. Mama mahjong has not replied; the item the web couldn't display is a wave sticker on our side of the thread. No Instagram replies or requests.
 
 Followed 11-04 in the phone app, verified by Following going from 21 to 29: @sooner_mahj, @beehive.bam, @andersruffdesignco, MahjMeCrazyLA, 3BeeMahj, Bougie Bams Mahjong (all six followed us first), @pearl.loves.mahjo and @mahj.in.color (new mahj accounts, not yet pitched).
+
+Replies as of 11-06 8:30 AM PT:
+
+- @lets.learn.mahjong (90 followers) said thanks and asked what working together would look like. They also built their own app, name unknown, so check it doesn't compete. Answered: try it first, then one post labeled as an ad for a flat fee; asked their rate and the app's name. No amount offered. The fee is Jack's call.
+- @mahjgurl (Liz) accepted, thanked us and will send feedback. Thanked them back and followed.
+- MahjMeCrazyLA, Bougie Bams Mahjong, 3BeeMahj and Mahj In Color show only a wave sticker, nothing to answer. None of the other 11-04 or 11-01 threads has replied.
+
+Engagement on 11-06: comments on Gilded Bam, The Mahjong Fairy HTX, @southern.mahj.clu, Mahj In Color and little miss mahjong, plus a reply to @lesmclean143 on our own post. Web comments survive a reload. Likes in the phone app stick (Gilded Bam, Southern Sparrow, janelledewolf). One web like showed no change in count and a second couldn't be read, so treat web likes as unproven. Followed @mahjgurl and Menace Mahjong Society in the app.
 
 Instagram DMs go from @mahjtips on instagram.com in Chrome (same three messages; the profile's Message button opens a chat panel, Return sends).
 
