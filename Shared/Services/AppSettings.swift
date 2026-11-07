@@ -127,6 +127,10 @@ final class AppSettings: ObservableObject {
     }
 
     private let defaults: UserDefaults
+    /// A system permission alert is open for a toggle the player just turned
+    /// on. Until it is answered the status reads "not determined" and the
+    /// request is not laid yet, which is not a mismatch to correct.
+    private var permissionRequestsInFlight = 0
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -224,11 +228,57 @@ final class AppSettings: ObservableObject {
         }
     }
 
+    // MARK: - Matching what iOS will deliver
+
+    /// A reminder that reads ON must be one iOS will deliver. Notifications
+    /// switched off in iOS Settings, or never allowed on this phone (a
+    /// restore brings the settings across but not the permission or the
+    /// scheduled requests), read OFF; an allowed reminder whose request is
+    /// gone is laid again. Runs at launch and on every return to the app.
+    func reconcileReminders() async {
+        guard reminderEnabled || gameNightReminderEnabled else { return }
+        let center = UNUserNotificationCenter.current()
+        let status = await center.notificationSettings().authorizationStatus
+        let pending = await Self.pendingRequestIDs()
+        reconcileReminders(status: status, pendingIDs: pending)
+    }
+
+    /// Only the identifiers cross back to the main actor.
+    nonisolated static func pendingRequestIDs() async -> Set<String> {
+        await withCheckedContinuation { continuation in
+            UNUserNotificationCenter.current().getPendingNotificationRequests { requests in
+                continuation.resume(returning: Set(requests.map(\.identifier)))
+            }
+        }
+    }
+
+    /// Writes only what changes: Home re-renders on every publish.
+    func reconcileReminders(status: UNAuthorizationStatus, pendingIDs: Set<String>) {
+        guard permissionRequestsInFlight == 0 else { return }
+        let allowed = status == .authorized || status == .provisional || status == .ephemeral
+        if reminderEnabled {
+            if !allowed {
+                reminderEnabled = false
+            } else if !pendingIDs.contains(Self.reminderID) {
+                scheduleReminder()
+            }
+        }
+        if gameNightReminderEnabled {
+            if !allowed {
+                gameNightReminderEnabled = false
+            } else if !pendingIDs.contains(Self.gameNightReminderID) {
+                scheduleGameNightReminder()
+            }
+        }
+    }
+
     // MARK: - Daily reminder
 
     private func requestPermissionAndSchedule() {
+        permissionRequestsInFlight += 1
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
             Task { @MainActor in
+                self.permissionRequestsInFlight -= 1
                 if granted {
                     self.scheduleReminder()
                 } else {
@@ -262,8 +312,10 @@ final class AppSettings: ObservableObject {
     // MARK: - Game night reminder
 
     private func requestPermissionAndScheduleGameNight() {
+        permissionRequestsInFlight += 1
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
             Task { @MainActor in
+                self.permissionRequestsInFlight -= 1
                 if granted {
                     self.scheduleGameNightReminder()
                 } else {
