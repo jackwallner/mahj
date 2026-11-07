@@ -313,10 +313,8 @@ struct HomeView: View {
             .onChange(of: records.records) { _, _ in recordMastery() }
             .onChange(of: dayClock.dayKey) { _, _ in closeEarlierChallengeRounds() }
             .onChange(of: router.pendingRouteID) { _, _ in consumePendingDestination() }
-            .onChange(of: subscriptions.membershipResolved) { _, _ in
-                consumePendingDestination()
-                endMemberReminders()
-            }
+            .onChange(of: subscriptions.membershipResolved) { _, _ in consumePendingDestination() }
+            .onChange(of: subscriptions.lapseConfirmed) { _, _ in endMemberReminders() }
             .onChange(of: subscriptions.isPro) { _, isMember in
                 if isMember {
                     if showPaywall {
@@ -392,10 +390,9 @@ struct HomeView: View {
 
     /// The game night reminder is a member surface. A membership that ended
     /// while the app was closed never changes `isPro` (false at every launch),
-    /// so this also runs once the record is known.
+    /// so this follows the network's answer instead.
     private func endMemberReminders() {
-        settings.endMemberReminders(membershipResolved: subscriptions.membershipResolved,
-                                    isMember: subscriptions.isPro)
+        settings.endMemberReminders(lapseConfirmed: subscriptions.lapseConfirmed)
     }
 
     /// Today's mastery, written to the ledger so the week-over-week gain has

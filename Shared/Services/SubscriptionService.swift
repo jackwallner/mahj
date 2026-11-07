@@ -208,11 +208,15 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     @Published private(set) var isPro = false
     /// False until a customer record has actually been read, from
-    /// RevenueCat's on-device cache or the network (a cache too old to tell a
-    /// lapse from a renewal does not count). `isPro` is false before
+    /// RevenueCat's on-device cache or the network. `isPro` is false before
     /// that for members too, so nothing may treat "not a member" as a lapse,
     /// or sell a member a trial, until this is true.
     @Published private(set) var membershipResolved = false
+    /// The newest customer record holds no Mahj+ and RevenueCat answered it
+    /// moments ago. A cached record cannot say this: past RevenueCat's
+    /// three-day grace it reads a renewed member as lapsed. Only this may end
+    /// what a membership set up.
+    @Published private(set) var lapseConfirmed = false
     /// The active entitlement is the free week (RevenueCat `periodType`), not a
     /// paid or lifetime membership.
     @Published private(set) var isTrialing = false
@@ -653,11 +657,6 @@ final class SubscriptionService: NSObject, ObservableObject {
     private func apply(_ info: CustomerInfo) {
         let entitlement = info.entitlements["pro"]
         let entitled = entitlement?.isActive == true
-        guard Self.recordSettlesMembership(
-            isActive: entitled,
-            expirationDate: entitlement?.expirationDate,
-            requestDate: info.requestDate
-        ) else { return }
         #if DEBUG
         let override = UserDefaults.standard.bool(forKey: localOverrideKey)
         #else
@@ -665,6 +664,8 @@ final class SubscriptionService: NSObject, ObservableObject {
         #endif
         isPro = entitled || override
         membershipResolved = true
+        let confirmed = Self.confirmsLapse(isMember: isPro, answeredAt: info.requestDate)
+        if lapseConfirmed != confirmed { lapseConfirmed = confirmed }
         isTrialing = entitled && entitlement?.periodType == .trial
         expirationDate = entitled ? entitlement?.expirationDate : nil
         // The trial-end reminder promises "keep it and nothing changes". Once
@@ -683,14 +684,10 @@ final class SubscriptionService: NSObject, ObservableObject {
         ), answeredAt: info.requestDate)
     }
 
-    /// RevenueCat judges a record against its own request date for three
-    /// days, then against now. Past that, a cached record whose entitlement
-    /// was still running when it was fetched reads as lapsed, whether the
-    /// player left or renewed while the app was closed. It cannot tell which,
-    /// so it settles nothing: the next record from the network does.
-    nonisolated static func recordSettlesMembership(isActive: Bool, expirationDate: Date?, requestDate: Date) -> Bool {
-        guard !isActive, let expirationDate else { return true }
-        return expirationDate < requestDate
+    /// A non-member record answered within `freshBaselineAge`, so it came
+    /// from the network, not from an old cache.
+    nonisolated static func confirmsLapse(isMember: Bool, answeredAt: Date, now: Date = Date()) -> Bool {
+        !isMember && now.timeIntervalSince(answeredAt) <= freshBaselineAge
     }
 
     /// Compares this customer record with the last one seen and remembers a

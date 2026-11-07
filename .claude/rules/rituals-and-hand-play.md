@@ -50,12 +50,11 @@ columns, drill grids, readable content widths, and portrait and landscape
 orientations.
 
 **Reminder state (state machine audit, 2026-11-06):** Home ends the game
-night reminder whenever the customer record says non-member
-(`AppSettings.endMemberReminders`), not only on a live `isPro` change: a
-lapse while the app was closed never moves `isPro`. A cached record past
-RevenueCat's three-day grace whose period was running when fetched settles
-nothing (`SubscriptionService.recordSettlesMembership`), because it cannot
-tell a lapse from a renewal. At launch and on every return,
+night reminder on `SubscriptionService.lapseConfirmed` (a non-member record
+RevenueCat answered within five minutes, so from the network), not on a live
+`isPro` change: a lapse while the app was closed never moves `isPro`. Never
+end it on a cached record: past RevenueCat's three-day grace a cached record
+reads a member who renewed while away as lapsed. At launch and on every return,
 `AppSettings.reconcileReminders` turns a reminder OFF when iOS will not
 deliver it (denied, or never allowed on a restored phone) and lays a missing
 request again when it will.

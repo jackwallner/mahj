@@ -346,10 +346,10 @@ final class AppSettings: ObservableObject {
         center.add(UNNotificationRequest(identifier: Self.gameNightReminderID, content: content, trigger: trigger))
     }
 
-    /// A known non-member has no game night reminder: it opens a paywall,
+    /// A confirmed non-member has no game night reminder: it opens a paywall,
     /// and the only switch for it sits behind one. Writes only on a change.
-    func endMemberReminders(membershipResolved: Bool, isMember: Bool) {
-        guard membershipResolved, !isMember, gameNightReminderEnabled else { return }
+    func endMemberReminders(lapseConfirmed: Bool) {
+        guard lapseConfirmed, gameNightReminderEnabled else { return }
         gameNightReminderEnabled = false
     }
 

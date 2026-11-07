@@ -22,49 +22,37 @@ final class MemberReminderTests: XCTestCase {
     }
 
     /// Cold launch after a lapse: `isPro` was false from the start, so only
-    /// the resolved record can end the reminder.
-    func testAKnownNonMemberLosesTheGameNightReminder() {
+    /// the network's answer can end the reminder.
+    func testAConfirmedLapseEndsTheGameNightReminder() {
         let settings = settingsWithGameNightOn()
-        settings.endMemberReminders(membershipResolved: true, isMember: false)
+        settings.endMemberReminders(lapseConfirmed: true)
         XCTAssertFalse(settings.gameNightReminderEnabled)
         XCTAssertFalse(UserDefaults(suiteName: suite)!.bool(forKey: "settings.gameNightReminderEnabled"))
     }
 
-    func testAnUnknownMembershipKeepsTheReminder() {
+    func testAnUnconfirmedLapseKeepsTheReminder() {
         let settings = settingsWithGameNightOn()
-        settings.endMemberReminders(membershipResolved: false, isMember: false)
-        XCTAssertTrue(settings.gameNightReminderEnabled, "before the record loads, every member reads as free")
-    }
-
-    func testAMemberKeepsTheReminder() {
-        let settings = settingsWithGameNightOn()
-        settings.endMemberReminders(membershipResolved: true, isMember: true)
+        settings.endMemberReminders(lapseConfirmed: false)
         XCTAssertTrue(settings.gameNightReminderEnabled)
     }
 
-    // MARK: - A cached record past RevenueCat's three-day grace
+    // MARK: - Which records confirm a lapse
 
-    /// Fetched while the period was running, read four days later: the player
-    /// may have renewed or left, so the record must not settle membership (it
-    /// would end a renewed member's reminder and send their notification tap
-    /// to the paywall).
-    func testAStaleRecordOfARunningPeriodSettlesNothing() {
-        let fetched = Date().addingTimeInterval(-5 * day)
-        XCTAssertFalse(SubscriptionService.recordSettlesMembership(
-            isActive: false, expirationDate: fetched.addingTimeInterval(day), requestDate: fetched))
-    }
-
-    func testARecordThatSawTheLapseSettlesIt() {
-        let fetched = Date().addingTimeInterval(-5 * day)
-        XCTAssertTrue(SubscriptionService.recordSettlesMembership(
-            isActive: false, expirationDate: fetched.addingTimeInterval(-day), requestDate: fetched))
-    }
-
-    func testActiveAndNeverSubscribedRecordsSettleIt() {
+    func testAFreshNonMemberRecordConfirmsTheLapse() {
         let now = Date()
-        XCTAssertTrue(SubscriptionService.recordSettlesMembership(
-            isActive: true, expirationDate: now.addingTimeInterval(day), requestDate: now))
-        XCTAssertTrue(SubscriptionService.recordSettlesMembership(
-            isActive: false, expirationDate: nil, requestDate: now))
+        XCTAssertTrue(SubscriptionService.confirmsLapse(isMember: false, answeredAt: now.addingTimeInterval(-10), now: now))
+    }
+
+    /// RevenueCat judges a cached record against now once it is more than
+    /// three days old, so a member who renewed while away reads as lapsed.
+    /// That must not end their reminder.
+    func testAnOldCachedNonMemberRecordConfirmsNothing() {
+        let now = Date()
+        XCTAssertFalse(SubscriptionService.confirmsLapse(isMember: false, answeredAt: now.addingTimeInterval(-4 * day), now: now))
+    }
+
+    func testAMemberRecordConfirmsNothing() {
+        let now = Date()
+        XCTAssertFalse(SubscriptionService.confirmsLapse(isMember: true, answeredAt: now, now: now))
     }
 }
