@@ -29,6 +29,7 @@ Developer notes and historical audits for this repository. The published site re
 - [marketing/creator-affiliates-2026-10-29.md](marketing/creator-affiliates-2026-10-29.md): American mahj creator shortlist (teachers first) and pay-per-result options: campaign links, Insert Affiliate, homegrown RevenueCat attribute
 - [marketing/social-readout-2026-11-02.md](marketing/social-readout-2026-11-02.md): @mahjtips per-post readout across TikTok, Instagram and YouTube (Charleston shorts win, IG carousels get no reach) and the queue changes it drove
 - [marketing/social-readout-2026-11-04.md](marketing/social-readout-2026-11-04.md): @mahjtips TikTok followers, watch time and completion per post (two broad Charleston shorts earned most followers), new shorts V20 to V22, and three weak scheduled posts deleted
+- [marketing/social-readout-2026-11-06.md](marketing/social-readout-2026-11-06.md): @mahjtips style test V29 to V53, slate to Dec 31 at 3 a day on three platforms, platform limits, council scores
 - [marketing/localized-screenshots-2026-10-19.md](marketing/localized-screenshots-2026-10-19.md): storefront ranking, localized captions with back-translations, and visual checks for three screenshot sets
 
 ## ASO
