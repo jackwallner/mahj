@@ -37,12 +37,14 @@ Read on TikTok only, per post at 72 hours, interim Nov 19 and final Nov 24. Scal
 
 V107, the course finale, airs Dec 31 at 5:30 PM on all three. The slots between the end of the slate and the finale stay empty until the Nov 24 read, then the winning style fills them: 69 on TikTok, 72 on Instagram, 75 on YouTube.
 
-The iMac's `mahj-social.timer` runs at 8:05 PM daily and loads what's due. It stops a platform at its first failure and holds it, and the #ops digest reports the stop.
+The iMac's `mahj-social.timer` runs at 8:05 PM daily and loads what's due. An unclear failure stops that platform and holds it. A clear refusal from the platform stops it for the day and the post retries on the next run. The #ops digest reports both.
+
+The job has loaded one post for real so far: V54 on Instagram, Nov 6 at 11:40 PM, checked on the calendar. YouTube first runs through it Nov 7 at 8:05 PM, and TikTok when its first slate post comes inside 10 days, Nov 12.
 
 ## Platform limits learned
 
 - TikTok Studio takes dates up to 30 days out (the old note said 10).
-- Instagram's web scheduler stops about 30 days out too, not far ahead as first noted.
+- Instagram's web scheduler stops about 30 days out too, not far ahead as first noted. It also answered "Post couldn't be scheduled" for V55 and V56 after about 27 posts in one night, with 45 pending. Third-party guides cite about 25 a day, and Meta's own limit isn't confirmed. The job loads 12 a day, under that.
 - YouTube stops around 10 uploads in 24 hours and has no date limit we've hit.
 - A short with the Your brand disclosure can only be edited or deleted in the TikTok phone app. So TikTok stays on a 10-day horizon: a style killed at a read can stop without phone work.
 
