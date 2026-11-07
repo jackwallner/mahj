@@ -96,6 +96,7 @@ struct HandMatchDrillView: View {
                 sourceRect: answerRect
             )
         }
+        .analyticsScreen("Hand Match", ["drill_id": drill.id])
         .navigationTitle(drill.title)
         .navigationBarTitleDisplayMode(.inline)
     }

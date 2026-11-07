@@ -222,6 +222,7 @@ struct PracticeRunView: View {
                 sourceRect: answerRect
             )
         }
+        .analyticsScreen("Practice Run", ["mode": String(describing: mode)])
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

@@ -85,6 +85,7 @@ struct CharlestonDrillView: View {
         .frame(maxWidth: .infinity)
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.35)) }
+        .analyticsScreen("Charleston", ["drill_id": drill.id])
         .navigationTitle(drill.title)
         .navigationBarTitleDisplayMode(.inline)
     }

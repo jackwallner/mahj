@@ -39,6 +39,7 @@ struct DrillCompleteView: View {
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.3), particleCount: 44) }
         .navigationBarBackButtonHidden(true)
+        .analyticsScreen("Drill Result", ["drill_id": drill.id])
         .onAppear {
             celebrate = true
             confettiTrigger += 1
@@ -47,6 +48,9 @@ struct DrillCompleteView: View {
             Haptics.success()
             SoundPlayer.play(.complete)
             progress.recordSession(drillID: drill.id)
+            var result: [String: Any] = ["drill_id": drill.id, "total": total]
+            if let score { result["score"] = score }
+            Analytics.capture("drill_result", result)
             // The ask is for a good moment: half right or better (a deck has
             // no score and always counts).
             if score.map({ Double($0) / Double(max(total, 1)) >= 0.5 }) ?? true {

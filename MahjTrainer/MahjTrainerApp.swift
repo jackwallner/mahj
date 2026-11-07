@@ -24,6 +24,7 @@ struct MahjTrainerApp: App {
                 .environmentObject(router)
                 .preferredColorScheme(settings.appearance.colorScheme)
                 .onOpenURL { url in
+                    Analytics.capture("deep_link_opened", ["host": url.host ?? "none"])
                     if let destination = AppDestination(url: url) { router.route(to: destination) }
                 }
                 .onChange(of: scenePhase) { _, phase in

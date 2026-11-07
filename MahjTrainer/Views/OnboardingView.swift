@@ -91,6 +91,7 @@ struct OnboardingView: View {
             footer
         }
         .background(Theme.background)
+        .analyticsScreen("Onboarding")
         .onChange(of: page) { _, newPage in
             // The TabView pages by swipe too, and only the Continue button is
             // gated on a skill choice: a swipe must not skip the question.
@@ -98,6 +99,7 @@ struct OnboardingView: View {
                 page = skillPage
                 return
             }
+            Analytics.capture("onboarding_page", ["page": newPage])
             guard newPage == lastPage else { return }
             subscriptions.trackPaywallImpression(id: "mahj_onboarding_trial", oncePerSession: true)
         }
@@ -263,6 +265,8 @@ struct OnboardingView: View {
         let selected = skillLevel == option.id
         return Button {
             skillLevel = option.id
+            Analytics.register(["skill_level": option.id])
+            Analytics.capture("skill_level_chosen", ["level": option.id])
             Haptics.impact(.light, intensity: 0.6)
         } label: {
             HStack(spacing: 12) {
@@ -664,6 +668,7 @@ struct OnboardingView: View {
     /// they see a tile; everyone else goes straight to the tour.
     private func startTour() {
         stage = skillLevel == "new" ? .howToPlay : .tour
+        Analytics.capture("onboarding_trial_page_left", ["is_member": subscriptions.isPro])
     }
 
     /// A successful purchase in the products-failed fallback must rejoin the
@@ -682,6 +687,7 @@ struct OnboardingView: View {
         // The tour's closing practice does not count toward Home's extras.
         progress.sessionsAtOnboarding = progress.totalSessions
         progress.hasOnboarded = true
+        Analytics.capture("onboarding_finished")
     }
 }
 

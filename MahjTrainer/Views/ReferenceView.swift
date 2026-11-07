@@ -48,6 +48,7 @@ struct ReferenceView: View {
         .background(Theme.background)
         .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always),
                     prompt: tab == .glossary ? String(localized: "Search terms") : String(localized: "Search sections"))
+        .analyticsScreen("Reference")
         .navigationTitle("Reference")
         .navigationBarTitleDisplayMode(.inline)
     }

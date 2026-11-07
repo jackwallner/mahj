@@ -58,6 +58,7 @@ struct HandPlayView: View {
             }
         }
         .background(Theme.background)
+        .analyticsScreen("Play a Hand")
         .navigationTitle("Play a Hand")
         .navigationBarTitleDisplayMode(.inline)
         .trialOffer(.handSpent, isPresented: $showPaywall, autoMoment: freeHandSpent)

@@ -42,6 +42,7 @@ struct StatsView: View {
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
+        .analyticsScreen("Stats")
         .navigationTitle("Your Progress")
         .navigationBarTitleDisplayMode(.inline)
     }

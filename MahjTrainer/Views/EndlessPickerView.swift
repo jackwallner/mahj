@@ -25,6 +25,7 @@ struct EndlessPickerView: View {
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
+        .analyticsScreen("Endless Picker")
         .navigationTitle("Endless Practice")
         .navigationBarTitleDisplayMode(.inline)
     }

@@ -142,6 +142,7 @@ struct WhatsNewSheet: View {
         .padding(.top, 8)
         .padding(.bottom, 10)
         .background(Theme.background)
+        .analyticsScreen("What's New")
     }
 
     private func close() {

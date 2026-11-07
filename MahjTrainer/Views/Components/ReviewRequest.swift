@@ -40,6 +40,7 @@ private struct ReviewRequestModifier: ViewModifier {
             guard onScreen, isClear(), SubscriptionService.shared.isOn(.ratingPrompt),
                   ReviewPromptTracker.shouldRequestReview() else { return }
             ReviewPromptTracker.markShown()
+            Analytics.capture("rating_asked")
             requestReview()
         }
     }

@@ -75,6 +75,7 @@ struct QuizDrillView: View {
                 sourceRect: answerRect
             )
         }
+        .analyticsScreen("Quiz", ["drill_id": drill.id])
         .navigationTitle(drill.title)
         .navigationBarTitleDisplayMode(.inline)
     }

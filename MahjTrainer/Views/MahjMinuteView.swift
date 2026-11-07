@@ -47,6 +47,7 @@ struct MahjMinuteHistoryView: View {
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
+        .analyticsScreen("Mahj Minute History")
         .navigationTitle("Earlier Mahj Minutes")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -67,6 +68,7 @@ struct MahjMinuteResultView: View {
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
+        .analyticsScreen("Mahj Minute Result")
         .navigationTitle("Mahj Minute")
         .navigationBarTitleDisplayMode(.inline)
     }

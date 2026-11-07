@@ -391,6 +391,7 @@ final class SubscriptionService: NSObject, ObservableObject {
             )
             Purchases.shared.delegate = self
             isConfigured = true
+            linkAnalytics()
             return
         }
         #endif
@@ -419,6 +420,15 @@ final class SubscriptionService: NSObject, ObservableObject {
         // trials and revenue instead of installs alone.
         Purchases.shared.attribution.enableAdServicesAttributionTokenCollection()
         isConfigured = true
+        linkAnalytics()
+    }
+
+    /// One id on both sides, so RevenueCat's trial and renewal events land on
+    /// the same PostHog person as what that player did in the app.
+    private func linkAnalytics() {
+        let userID = Purchases.shared.appUserID
+        Analytics.identify(userID)
+        Purchases.shared.attribution.setPostHogUserID(userID)
     }
 
     /// Feeds RevenueCat's `paywall_encounter_v3`. A custom paywall emits no
@@ -430,6 +440,7 @@ final class SubscriptionService: NSObject, ObservableObject {
             guard !paywallImpressionsThisSession.contains(id) else { return }
             paywallImpressionsThisSession.insert(id)
         }
+        Analytics.capture("paywall_shown", ["surface": ConversionDiagnostics.surface(fromImpressionID: id)])
         ConversionDiagnostics.recordPitchView(impressionID: id)
         syncConversionAttributes()
         Purchases.shared.trackCustomPaywallImpression(
@@ -463,6 +474,8 @@ final class SubscriptionService: NSObject, ObservableObject {
         // means a probe run has to background the app before reading anything
         // back.
         Purchases.shared.attribution.setAttributes(attributes)
+        Analytics.setPersonProperties(attributes)
+        Analytics.register(remoteVariantAttributes)
     }
 
     /// `fetchCurrent` when the answer has to be new (right after a purchase):
@@ -614,11 +627,29 @@ final class SubscriptionService: NSObject, ObservableObject {
         // The screen may have gone away during the preflight (Close, a swipe
         // down): nothing may reach Apple's sheet for a screen nobody sees.
         try Task.checkCancellation()
-        let result = try await Purchases.shared.purchase(package: package)
+        var purchaseProperties: [String: Any] = [
+            "plan": package.storeProduct.productIdentifier,
+            "offering": package.presentedOfferingContext.offeringIdentifier,
+            "surface": ConversionDiagnostics.lastSurface ?? "unknown"
+        ]
+        Analytics.capture("purchase_started", purchaseProperties)
+        let result: PurchaseResultData
+        do {
+            result = try await Purchases.shared.purchase(package: package)
+        } catch {
+            purchaseProperties["outcome"] = "error"
+            purchaseProperties["error"] = (error as NSError).code
+            Analytics.capture("purchase_finished", purchaseProperties)
+            throw error
+        }
         // RevenueCat reports a user backing out of Apple's sheet as a normal
         // result, not an error. Treating it as a failure is what used to shove
         // a second paywall in front of someone who just said "not now".
-        if result.userCancelled { return .cancelled }
+        if result.userCancelled {
+            purchaseProperties["outcome"] = "cancelled"
+            Analytics.capture("purchase_finished", purchaseProperties)
+            return .cancelled
+        }
         apply(result.customerInfo)
         // What Apple actually sold, not what the product offers: a returning
         // subscriber buying a plan with a trial is charged on day one.
@@ -629,6 +660,9 @@ final class SubscriptionService: NSObject, ObservableObject {
             offeringID: package.presentedOfferingContext.offeringIdentifier
         )
         syncConversionAttributes()
+        purchaseProperties["outcome"] = "purchased"
+        purchaseProperties["started_trial"] = startedTrial
+        Analytics.capture("purchase_finished", purchaseProperties)
         return .purchased
     }
 
@@ -650,8 +684,10 @@ final class SubscriptionService: NSObject, ObservableObject {
 
     func restore() async throws {
         guard isConfigured else { return }
+        Analytics.capture("restore_started")
         let info = try await Purchases.shared.restorePurchases()
         apply(info)
+        Analytics.capture("restore_finished", ["is_member": isPro])
     }
 
     private func apply(_ info: CustomerInfo) {
@@ -663,6 +699,7 @@ final class SubscriptionService: NSObject, ObservableObject {
         let override = false
         #endif
         isPro = entitled || override
+        Analytics.register(["is_member": isPro, "period_type": entitlement.map { String(describing: $0.periodType) } ?? "none"])
         membershipResolved = true
         let confirmed = Self.confirmsLapse(isMember: isPro, answeredAt: info.requestDate)
         if lapseConfirmed != confirmed { lapseConfirmed = confirmed }

@@ -30,6 +30,7 @@ struct SettingsView: View {
             .scrollContentBackground(.hidden)
             .background(Theme.background)
             .tint(Theme.jade)
+            .analyticsScreen("Settings")
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -266,6 +267,7 @@ struct SettingsView: View {
             // Members never see the paywall's links again, so the policy
             // lives here for everyone.
             Link("Privacy Policy", destination: PaywallLinks.privacy)
+            Toggle("Share Usage Data", isOn: $settings.shareUsageData)
             Text("Mahj Trainer teaches American Mah Jongg skills with original practice hands. It is not affiliated with or endorsed by the National Mah Jongg League. For official hands and values, pick up the current NMJL card.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)

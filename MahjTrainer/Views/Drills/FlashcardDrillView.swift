@@ -110,6 +110,7 @@ struct FlashcardDrillView: View {
         .frame(maxWidth: .infinity)
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.42)) }
+        .analyticsScreen("Flashcards", ["drill_id": drill.id])
         .navigationTitle(drill.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

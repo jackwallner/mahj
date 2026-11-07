@@ -114,6 +114,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         #if DEBUG
         LaunchTiming.mark("delegate")
         #endif
+        Analytics.start()
         UNUserNotificationCenter.current().delegate = self
         return true
     }
@@ -123,7 +124,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
-        switch response.notification.request.content.userInfo[AppNotification.routeKey] as? String {
+        let route = response.notification.request.content.userInfo[AppNotification.routeKey] as? String
+        Analytics.capture("notification_opened", ["route": route ?? "none"])
+        switch route {
         case AppNotification.gameNightPrepValue:
             Task { @MainActor in AppRouter.shared.route(to: .gameNightPrepSession) }
         case AppNotification.monthlyChallengeValue:

@@ -32,6 +32,7 @@ struct GameNightPrepView: View {
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
+        .analyticsScreen("Game Night Prep")
         .navigationTitle("Game Night Prep")
         .navigationBarTitleDisplayMode(.inline)
         .alert("Notifications are off", isPresented: $settings.reminderPermissionDenied) {

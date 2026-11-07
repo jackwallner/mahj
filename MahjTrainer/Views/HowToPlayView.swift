@@ -64,6 +64,7 @@ struct HowToPlayView: View {
         .frame(maxWidth: .infinity)
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.35)) }
+        .analyticsScreen("How to Play")
         .navigationTitle("How to Play")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { fireShine() }

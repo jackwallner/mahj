@@ -97,6 +97,7 @@ struct TrialOfferSheet: View {
             if isPro { dismiss() }
         }
         .onDisappear { purchaseTask?.cancel() }
+        .analyticsScreen("Trial Offer", ["surface": context.source(auto: auto)])
         .task {
             let shown = pitch ?? subscriptions.offerPitch
             pitch = shown
@@ -165,7 +166,10 @@ struct TrialOfferSheet: View {
                     .primaryCTA()
                 }
                 .disabled(purchasing || restoring)
-                Button("Not now") { dismiss() }
+                Button("Not now") {
+                    Analytics.capture("trial_offer_declined", ["surface": context.source(auto: auto)])
+                    dismiss()
+                }
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(Theme.inkSecondary)
                     .frame(minHeight: 44)
@@ -345,6 +349,13 @@ private struct TrialOfferModifier: ViewModifier {
     }
 
     private func schedule() {
+        Analytics.capture("trial_offer_checked", [
+            "eligible": eligible,
+            "is_member": subscriptions.isPro,
+            "onboarded": progress.hasOnboarded,
+            "switch_on": subscriptions.isOn(.trialOffer),
+            "practices_since_onboarding": progress.totalSessions - progress.sessionsAtOnboarding
+        ])
         guard eligible else { return }
         Task { @MainActor in
             // Let the result land before anything rises over it.

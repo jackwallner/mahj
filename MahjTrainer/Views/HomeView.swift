@@ -116,6 +116,7 @@ struct HomeView: View {
             }
         }
         .background(Theme.background.ignoresSafeArea())
+        .analyticsScreen("Home")
         .onGeometryChange(for: PaneGeometry.self) { proxy in
             PaneGeometry(width: proxy.size.width, fold: proxy.verticalFold())
         } action: { paneGeometry = $0 }

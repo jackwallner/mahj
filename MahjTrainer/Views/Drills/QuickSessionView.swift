@@ -239,6 +239,7 @@ struct QuickSessionView: View {
                     .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
+        .analyticsScreen("Quick Session", ["drill_id": purpose.drill.id])
         .navigationTitle(purpose.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {

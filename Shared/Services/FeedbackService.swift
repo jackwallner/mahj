@@ -107,6 +107,8 @@ final class FeedbackService: ObservableObject {
     ) async -> Outcome {
         let trimmed = message.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return .failed }
+        // Never the message itself.
+        Analytics.capture("feedback_sent", ["kind": kind.rawValue])
         let submission = Self.makeSubmission(
             kind: kind,
             message: String(trimmed.prefix(4000)),

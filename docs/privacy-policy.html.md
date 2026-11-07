@@ -47,6 +47,20 @@ including other players, can read the scores. Scores are used only for
 that percentage. Because nothing ties a score to you, it cannot be found
 to remove later.
 
+## Usage analytics
+
+Mahj Trainer sends PostHog, our analytics provider, how the app is used:
+screens opened, settings and plans chosen, repeated taps, practice answers
+and results, onboarding and purchase steps, app opens, crash reports, and device details such as
+model, system version and language. PostHog uses your IP address to
+estimate your city and country, then discards the address. All of this is
+tied to the random ID RevenueCat holds for your purchases, and RevenueCat
+sends PostHog your trial and subscription events under that ID. We use it
+only to understand how the app is used and improve it. It is not used for
+ads or to track you across other apps, and what you type in feedback is
+left out. PostHog keeps it for up to a year. You can turn it off in
+Settings › Share Usage Data.
+
 ## Ad attribution
 
 If you install Mahj Trainer from an Apple Ads search ad, Apple's

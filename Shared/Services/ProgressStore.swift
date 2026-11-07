@@ -78,6 +78,14 @@ final class ProgressStore: ObservableObject {
         bumpStreak(now: now)
         defaults.set(completions, forKey: Keys.completions)
         defaults.set(totalSessions, forKey: Keys.totalSessions)
+        Analytics.capture("practice_finished", [
+            "drill_id": drillID,
+            "room_id": DrillLibrary.roomID(forDrillID: drillID),
+            "times_finished": completions[drillID, default: 0],
+            "total_sessions": totalSessions,
+            "streak": streakCount,
+            "practices_since_onboarding": totalSessions - sessionsAtOnboarding
+        ])
     }
 
     /// The streak as it stands right now. `streakCount` only changes when a

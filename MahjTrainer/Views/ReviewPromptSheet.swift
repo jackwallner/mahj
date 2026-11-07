@@ -59,6 +59,7 @@ struct ReviewPromptSheet: View {
             .scrollDismissesKeyboard(.interactively)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(Theme.background)
+            .analyticsScreen("Feedback")
             .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -100,6 +101,7 @@ struct ReviewPromptSheet: View {
                     chipRows(chips)
                 }
                 TextEditor(text: $feedbackText)
+                    .accessibilityIdentifier("ph-no-capture")
                     .font(.body)
                     .scrollContentBackground(.hidden)
                     .frame(minHeight: chips.isEmpty ? 140 : 96)

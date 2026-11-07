@@ -37,6 +37,7 @@ struct MonthlyChallengeView: View {
         .background(Theme.background)
         .navigationTitle("\(round?.month.monthName ?? MonthlyChallengeContent.firstChallenge().monthName) Challenge")
         .navigationBarTitleDisplayMode(.inline)
+        .analyticsScreen("Monthly Challenge")
         .onAppear(perform: refreshRound)
         .onChange(of: dayClock.dayKey) { _, _ in refreshRound() }
         .task(id: round?.monthKey) {

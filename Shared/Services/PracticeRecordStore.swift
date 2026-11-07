@@ -164,6 +164,14 @@ final class PracticeRecordStore: ObservableObject {
         }
         records[key] = record
         persist()
+        Analytics.capture("answer", [
+            "item_id": key,
+            "room_id": roomID,
+            "correct": correct,
+            "generated": isGenerated,
+            "attempts": record.attempts,
+            "item_streak": record.streak
+        ])
     }
 
     /// SM-2, trimmed to what a drill app needs: a miss resets the interval and

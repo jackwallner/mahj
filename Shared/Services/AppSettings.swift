@@ -44,6 +44,7 @@ final class AppSettings: ObservableObject {
 
     private enum Keys {
         static let appearance = "settings.appearance"
+        static let shareUsageData = "settings.shareUsageData"
         static let haptics = "settings.haptics"
         static let sound = "settings.sound"
         static let reminderEnabled = "settings.reminderEnabled"
@@ -63,20 +64,30 @@ final class AppSettings: ObservableObject {
     private static let trialEndReminderID = "mahj.trialEndReminder"
 
     @Published var appearance: Appearance {
-        didSet { defaults.set(appearance.rawValue, forKey: Keys.appearance) }
+        didSet {
+            defaults.set(appearance.rawValue, forKey: Keys.appearance)
+            Analytics.capture("setting_changed", ["setting": "appearance", "value": appearance.rawValue])
+        }
     }
 
     @Published var hapticsEnabled: Bool {
-        didSet { defaults.set(hapticsEnabled, forKey: Keys.haptics) }
+        didSet {
+            defaults.set(hapticsEnabled, forKey: Keys.haptics)
+            Analytics.capture("setting_changed", ["setting": "haptics", "value": hapticsEnabled])
+        }
     }
 
     @Published var soundEnabled: Bool {
-        didSet { defaults.set(soundEnabled, forKey: Keys.sound) }
+        didSet {
+            defaults.set(soundEnabled, forKey: Keys.sound)
+            Analytics.capture("setting_changed", ["setting": "sound", "value": soundEnabled])
+        }
     }
 
     @Published var reminderEnabled: Bool {
         didSet {
             defaults.set(reminderEnabled, forKey: Keys.reminderEnabled)
+            Analytics.capture("setting_changed", ["setting": "daily_reminder", "value": reminderEnabled])
             if reminderEnabled {
                 requestPermissionAndSchedule()
             } else {
@@ -90,6 +101,13 @@ final class AppSettings: ObservableObject {
     /// looks like the app is broken.
     @Published var reminderPermissionDenied = false
 
+    @Published var shareUsageData: Bool {
+        didSet {
+            defaults.set(shareUsageData, forKey: Keys.shareUsageData)
+            Analytics.setSharing(shareUsageData)
+        }
+    }
+
     @Published var reminderTime: Date {
         didSet {
             let parts = Calendar.current.dateComponents([.hour, .minute], from: reminderTime)
@@ -102,6 +120,7 @@ final class AppSettings: ObservableObject {
     @Published var gameNightReminderEnabled: Bool {
         didSet {
             defaults.set(gameNightReminderEnabled, forKey: Keys.gameNightReminderEnabled)
+            Analytics.capture("setting_changed", ["setting": "game_night_reminder", "value": gameNightReminderEnabled])
             if gameNightReminderEnabled {
                 requestPermissionAndScheduleGameNight()
             } else {
@@ -137,6 +156,7 @@ final class AppSettings: ObservableObject {
         appearance = Appearance(rawValue: defaults.string(forKey: Keys.appearance) ?? "") ?? .light
         hapticsEnabled = defaults.object(forKey: Keys.haptics) as? Bool ?? true
         soundEnabled = defaults.object(forKey: Keys.sound) as? Bool ?? true
+        shareUsageData = defaults.object(forKey: Keys.shareUsageData) as? Bool ?? true
         reminderEnabled = defaults.bool(forKey: Keys.reminderEnabled)
         let hour = defaults.object(forKey: Keys.reminderHour) as? Int ?? 9
         let minute = defaults.object(forKey: Keys.reminderMinute) as? Int ?? 0

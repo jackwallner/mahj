@@ -26,4 +26,4 @@ CHALLENGE STANDING: after a round, the app sends the month score (points, days p
 
 PRICE DISPLAY (3.1.2(c)): the onboarding trial screen shows the billed amount (e.g. "$9.99/month") as the largest pricing element, directly above the purchase button, with the trial wording and auto-renew disclosure beneath it.
 
-PRIVACY (1.4.3): this version removes the Meta SDK and the App Tracking Transparency prompt, so the app no longer tracks. The App Privacy label still marks Product Interaction as used for tracking only because App Store Connect refuses (409) to clear the last tracking entry while the live 1.4.2 binary contains NSUserTrackingUsageDescription. We will remove it the day 1.4.3 is released.
+PRIVACY (1.4.4): the Meta SDK and the App Tracking Transparency prompt are gone since 1.4.3, so the app does not track and shows no ATT prompt. This version adds PostHog for first-party usage analytics (no advertising identifier, nothing shared with data brokers or ad networks, no session recording). It is disclosed on the App Privacy label as analytics, not tracking, in the privacy policy, and can be turned off in Settings > Share Usage Data.

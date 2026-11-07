@@ -43,6 +43,7 @@ struct RoomView: View {
             .frame(maxWidth: .infinity)
         }
         .background(Theme.background)
+        .analyticsScreen("Room", ["room_id": room.id])
         .navigationTitle(room.name)
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showPaywall, onDismiss: {

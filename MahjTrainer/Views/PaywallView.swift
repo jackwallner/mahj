@@ -116,6 +116,7 @@ struct PaywallContent: View {
         let isSelected = selectedPlan == plan
         return Button {
             selectedPlan = plan
+            Analytics.capture("paywall_plan_selected", ["plan": String(describing: plan)])
             Haptics.impact(.light, intensity: 0.6)
         } label: {
             HStack {
@@ -353,6 +354,7 @@ struct PaywallView: View {
                 }
             }
             .background(Theme.background)
+            .analyticsScreen("Paywall", ["source": source])
             .safeAreaInset(edge: .bottom) {
                 Group {
                     if dynamicTypeSize.isAccessibilitySize {
@@ -369,7 +371,10 @@ struct PaywallView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Close") { dismiss() }
+                    Button("Close") {
+                        Analytics.capture("paywall_closed", ["source": source, "plan": String(describing: selectedPlan)])
+                        dismiss()
+                    }
                         .foregroundStyle(Theme.ink)
                 }
             }

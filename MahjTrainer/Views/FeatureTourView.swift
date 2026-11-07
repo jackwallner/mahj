@@ -69,6 +69,7 @@ struct FeatureTourView: View {
         .fullScreenCover(isPresented: $showQuickSession, onDismiss: onDone) {
             quickSession
         }
+        .analyticsScreen("Feature Tour")
         .onAppear { fireShine() }
     }
 
