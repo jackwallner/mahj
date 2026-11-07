@@ -239,7 +239,7 @@ final class SubscriptionService: NSObject, ObservableObject {
     #endif
     private let snapshotKey = "membership.lastSnapshot"
     /// How old a customer record may be and still serve as the first baseline.
-    static let freshBaselineAge: TimeInterval = 300
+    nonisolated static let freshBaselineAge: TimeInterval = 300
     private let churnAskSpentKey = "membership.churnAskSpent"
     private let pendingChurnKey = "membership.pendingChurnMoment"
     private let reinstallSyncKey = "membership.reinstallSyncDone"
