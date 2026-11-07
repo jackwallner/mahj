@@ -8,6 +8,7 @@ Developer notes and historical audits for this repository. The published site re
 
 ## Audits
 
+- [state-machines-2026-11-06-fixes.md](audits/state-machines-2026-11-06-fixes.md): Fixes for the state machine audit: 3 fixed (game night reminder after a lapse, weekly gain on rejoining, reminder toggles vs iOS permission), 2 held for Jack
 - [state-machines-2026-11-06-review.md](audits/state-machines-2026-11-06-review.md): Independent review of the state machine audit: 1 confirmed, 2 minor, 3 not a bug (50% false positives), with method changes
 - [state-machines-2026-11-06.md](audits/state-machines-2026-11-06.md): State machine audit: 14 machines with invariants and transition tables, 6 bugs (3 proved by test, 3 code path; repro suite alongside)
 - [release-experience-2026-10-16.md](audits/release-experience-2026-10-16.md): 1.4.0 and 1.4.1 changes from the new and existing player's perspective, with verified defects and product tradeoffs
