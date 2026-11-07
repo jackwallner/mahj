@@ -29,9 +29,12 @@ integration deleted (it had no off toggle; its settings are in
 deleted, the `meta-trial-relay` pg_cron job unscheduled, and the relay's
 `META_DATASET_ID` / `META_CAPI_TOKEN` secrets unset (values stay in
 `~/.mahj_credentials`). The relay function and `meta_trial_relay` table
-remain (56 rows: 40 `no_consent`, 15 `cancelled`, 1 `sent`). On 1.4.3's
-release day, also reword the Meta section of `docs/privacy-policy.html`
-("versions before 1.4.3"). Turning it back on needs a build with the SDK
+remain (56 rows: 40 `no_consent`, 15 `cancelled`, 1 `sent`). 1.4.3 was
+rejected under 5.1.2(i) on 2026-11-07 for exactly that leftover tracking
+label, despite the review note; the fix is the label (or a Resolution Center
+reply if it still answers 409), not an ATT prompt with nothing to track. The
+privacy policy was reworded the same day ("version 1.4.2 and earlier"); it can
+drop the older-version text once 1.4.2 is gone. Turning it back on needs a build with the SDK
 and ATT again, then the steps in the marketing doc.
 Everything below is history.
 
