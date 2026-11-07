@@ -60,3 +60,9 @@ probe reports new weekly learning when previously known paid questions become
 accessible again, without additional answers. Membership-filtered ring totals
 are correct for room coverage, but their delta is not always a learning delta.
 Both build 45 and 46 share this implementation. Proof is in the same audit.
+Fixed 2026-11-06 (state machine audit SM-03): `MasteryLedger.record(from:)`
+counts every known question, open to the player or not, so joining or
+leaving Mahj+ moves nothing. Days an older build wrote stay on disk; they
+remain the baseline only when they count the same either way (no Mahj+
+question known at the upgrade), else the baseline starts at the upgrade day
+(`mastery.ledger.allAccessSince`).

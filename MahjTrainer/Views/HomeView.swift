@@ -313,8 +313,6 @@ struct HomeView: View {
             .onChange(of: records.records) { _, _ in recordMastery() }
             .onChange(of: dayClock.dayKey) { _, _ in closeEarlierChallengeRounds() }
             .onChange(of: router.pendingRouteID) { _, _ in consumePendingDestination() }
-            .onChange(of: subscriptions.membershipResolved) { _, _ in recordMastery() }
-            .onChange(of: subscriptions.isPro) { _, _ in recordMastery() }
             .onChange(of: subscriptions.membershipResolved) { _, _ in
                 consumePendingDestination()
                 endMemberReminders()
@@ -403,10 +401,7 @@ struct HomeView: View {
     /// Today's mastery, written to the ledger so the week-over-week gain has
     /// something to measure from. Cheap, and idempotent within a day.
     private func recordMastery() {
-        // Before RevenueCat answers, a member reads as free and the day's
-        // entry would drop every Mahj+ item, faking a gain the next day.
-        guard subscriptions.membershipResolved else { return }
-        ledger.record(records.masteryByRoom(isMember: subscriptions.isPro))
+        ledger.record(from: records)
     }
 
     /// The one question asked when a membership turns toward the exit. Waits

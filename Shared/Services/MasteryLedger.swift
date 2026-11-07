@@ -16,7 +16,13 @@ final class MasteryLedger: ObservableObject {
 
     private let defaults: UserDefaults
     private static let key = "mastery.ledger"
+    private static let floorKey = "mastery.ledger.allAccessSince"
     private static let retentionDays = 60
+    /// The first day a baseline may come from. Days written before
+    /// `record(from:)` counted only the questions open to the player that
+    /// day, so they are skipped when that differs from counting all of them.
+    /// Empty: every day counts. Nil until the first record under that rule.
+    private var baselineFloor: String?
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -26,6 +32,22 @@ final class MasteryLedger: ObservableObject {
         } else {
             days = [:]
         }
+        baselineFloor = defaults.string(forKey: Self.floorKey)
+    }
+
+    /// Today's entry counts every question the player knows, open to them or
+    /// not. Joining or leaving Mahj+ opens and closes questions without
+    /// anything being learned, and the gain promises learning.
+    func record(from store: PracticeRecordStore, now: Date = Date()) {
+        let all = store.masteryByRoom(isMember: true, now: now)
+        if baselineFloor == nil {
+            let open = store.masteryByRoom(isMember: false, now: now)
+            let comparable = days.isEmpty || known(all) == known(open)
+            let floor = comparable ? "" : Self.dayKey(now)
+            baselineFloor = floor
+            defaults.set(floor, forKey: Self.floorKey)
+        }
+        record(all, now: now)
     }
 
     /// Writes today's totals. Idempotent within a day: the latest call wins,
@@ -65,7 +87,9 @@ final class MasteryLedger: ObservableObject {
 
     func resetAll() {
         days = [:]
+        baselineFloor = nil
         defaults.removeObject(forKey: Self.key)
+        defaults.removeObject(forKey: Self.floorKey)
     }
 
     // MARK: - Internals
@@ -75,7 +99,7 @@ final class MasteryLedger: ObservableObject {
     /// was installed in July.
     private func baselineDay(window: Int, now: Date) -> (key: String, value: [String: Int])? {
         let todayKey = Self.dayKey(now)
-        let earliest = Self.dayKey(now.addingTimeInterval(-TimeInterval(window) * 86_400))
+        let earliest = max(Self.dayKey(now.addingTimeInterval(-TimeInterval(window) * 86_400)), baselineFloor ?? "")
         return days
             .filter { $0.key >= earliest && $0.key < todayKey }
             .min { $0.key < $1.key }
@@ -88,6 +112,10 @@ final class MasteryLedger: ObservableObject {
 
     private func total(_ byRoom: [String: Int]) -> Int {
         byRoom.values.reduce(0, +)
+    }
+
+    private func known(_ mastery: [RoomMastery]) -> Int {
+        mastery.reduce(0) { $0 + $1.known }
     }
 
     private func prune(now: Date) {
