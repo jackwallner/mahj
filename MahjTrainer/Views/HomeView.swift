@@ -247,6 +247,7 @@ struct HomeView: View {
                     consumePendingDestination()
                     recordMastery()
                     closeEarlierChallengeRounds()
+                    endMemberReminders()
                     homeIsBareAgain()
                 }
                 .onDisappear { homeOnScreen = false }
@@ -314,7 +315,10 @@ struct HomeView: View {
             .onChange(of: router.pendingRouteID) { _, _ in consumePendingDestination() }
             .onChange(of: subscriptions.membershipResolved) { _, _ in recordMastery() }
             .onChange(of: subscriptions.isPro) { _, _ in recordMastery() }
-            .onChange(of: subscriptions.membershipResolved) { _, _ in consumePendingDestination() }
+            .onChange(of: subscriptions.membershipResolved) { _, _ in
+                consumePendingDestination()
+                endMemberReminders()
+            }
             .onChange(of: subscriptions.isPro) { _, isMember in
                 if isMember {
                     if showPaywall {
@@ -322,8 +326,8 @@ struct HomeView: View {
                     } else {
                         consumePendingDestination()
                     }
-                } else if settings.gameNightReminderEnabled {
-                    settings.gameNightReminderEnabled = false
+                } else {
+                    endMemberReminders()
                 }
             }
             .onChange(of: showPaywall) { _, isShowing in
@@ -386,6 +390,14 @@ struct HomeView: View {
     private var showsGameNightCard: Bool {
         subscriptions.isPro && progress.hasPracticedSinceOnboarding
             && !settings.gameNightReminderEnabled && !gameNightCardDismissed
+    }
+
+    /// The game night reminder is a member surface. A membership that ended
+    /// while the app was closed never changes `isPro` (false at every launch),
+    /// so this also runs once the record is known.
+    private func endMemberReminders() {
+        settings.endMemberReminders(membershipResolved: subscriptions.membershipResolved,
+                                    isMember: subscriptions.isPro)
     }
 
     /// Today's mastery, written to the ledger so the week-over-week gain has
