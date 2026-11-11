@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "mahj-trainer",
+  "version": "1.0.0",
+  "description": "Learn and practice American mah jongg: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.",
+  "author": { "name": "Jack Wallner", "url": "https://jackwallner.com/ios/mahj/" },
+  "homepage": "https://jackwallner.com/ios/mahj/",
+  "repository": "https://github.com/jackwallner/mahj",
+  "keywords": ["mah jongg", "mahjong", "american mahjong", "nmjl", "charleston", "tile game"]
+}
