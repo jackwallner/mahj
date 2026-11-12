@@ -34,4 +34,11 @@ Every rule was checked against the app's own content (`Shared/Content/ReferenceC
 
 ## Verification
 
-FILLED_IN_AFTER_DEPLOY
+2026-11-12, after the mirror deployed (commits 58b9f58 and 938c6c9):
+
+- All nine URLs return 200 on jackwallner.com, serve the latest copy, and carry no meta refresh on the mirror.
+- All nine are in https://jackwallner.com/sitemap.xml, and their `.html.md` twins return 200.
+- `python3 ~/portfolio/scripts/indexnow.py`: IndexNow 200, 303 URLs submitted.
+- An independent Sonnet fact-check pass flagged 12 items; the fixes went in before the second commit (wrong-claim penalty, soap count, exposure fix window closing on a joker swap, call window closing on a joker swap, sextet and all-joker wording, answer-first lines).
+
+Next read: add the nine URLs to the weekly watch list; first Search Console read about two weeks after indexing.
