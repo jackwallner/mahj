@@ -1,6 +1,6 @@
 # Mahj Trainer: American Mahjong Practice App for iPhone
 
-> Mahj Trainer is a free American Mah Jongg practice app for iPhone and iPad. Five-minute drills on tiles, the card, the Charleston and keep-or-throw calls.
+> Mahj Trainer is a free American Mah Jongg practice app for iPhone, iPad and Android. Five-minute drills on tiles, the card, the Charleston and keep-or-throw calls.
 
 Web page: https://jackwallner.com/ios/mahj/
 
@@ -8,7 +8,7 @@ Web page: https://jackwallner.com/ios/mahj/
 
 Mahj Trainer is an American Mahjong practice app for iPhone, iPad and Android: tiles, the card, the Charleston, and keep-or-throw judgment in five-minute drills. No opponents and no account.
 
-iPhone, iPad and Android · Four free practice rooms · Works offline
+Four free practice rooms · No account · iPhone, iPad and Android · Works offline
 
 [Download on the App Store](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-home&mt=8)
 
@@ -124,9 +124,17 @@ Table rules, one question each: [**calling a discard**](https://jackwallner.com/
 
 ## Questions
 
+## Is there a mahjong app that quizzes you on which hand to play?
+
+Yes. Mahj Trainer shows you 13 tiles and asks which section of the card they fit, then explains the answer. In Play a Hand you commit to a section, then draw and discard for twelve turns while a coach grades every throw.
+
+## Can I practice American mahjong by myself?
+
+Yes. Mahj Trainer is built for solo practice, with no opponents, no bots and no timers, and every drill works offline. Five-minute sessions cover the tiles, the card, the Charleston and keep-or-throw calls, and the four practice rooms are free.
+
 ## Is there an app to practice American Mah Jongg?
 
-Yes. Mahj Trainer is a free iPhone and iPad app that drills the tiles, the card sections, the Charleston and keep-or-throw decisions in five-minute sessions. It also includes Play a Hand, where a coach grades each discard.
+Yes. Mahj Trainer is a free iPhone, iPad and Android app that drills the tiles, the card sections, the Charleston and keep-or-throw decisions in five-minute sessions. It also includes Play a Hand, where a coach grades each discard.
 
 ## Is Mahj Trainer free?
 
@@ -140,9 +148,9 @@ No. There is no sign-up, and every drill works offline. Your progress stays on y
 
 Start with the tiles, then learn the sections of the card, then practice the Charleston and the keep-or-throw calls. Mahj Trainer is built in that order, and the site has free beginner guides to the rules, the card, jokers and scoring.
 
-## Can I practice the Charleston on my phone?
+## Is there an app to practice the Charleston passes?
 
-Yes. The Charleston Room gives you real deals, asks you to choose three tiles to pass, and then shows the coach's pick and the reasoning behind it.
+Yes. Mahj Trainer's Charleston Room gives you real deals, asks you to choose three tiles to pass, and then shows the coach's pick and the reasoning behind it.
 
 ## Does Mahj Trainer include the official NMJL card?
 

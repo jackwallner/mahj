@@ -1,10 +1,10 @@
 # Mahj Trainer: Mahjong Practice
 
-> Mahj Trainer is a free American Mah Jongg practice app for iPhone and iPad. Five-minute drills on tiles, the card, the Charleston and keep-or-throw calls.
+> Mahj Trainer is a free American Mah Jongg practice app for iPhone, iPad and Android. Five-minute drills on tiles, the card, the Charleston and keep-or-throw calls.
 
 ## App
 
-- [Mahj Trainer: American Mahjong Practice App for iPhone](https://jackwallner.com/ios/mahj/index.html.md): Mahj Trainer is a free American Mah Jongg practice app for iPhone and iPad. Five-minute drills on tiles, the card, the Charleston and keep-or-throw calls.
+- [Mahj Trainer: American Mahjong Practice App for iPhone](https://jackwallner.com/ios/mahj/index.html.md): Mahj Trainer is a free American Mah Jongg practice app for iPhone, iPad and Android. Five-minute drills on tiles, the card, the Charleston and keep-or-throw calls.
 
 ## Guides
 
