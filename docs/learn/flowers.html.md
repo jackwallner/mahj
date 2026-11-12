@@ -18,6 +18,8 @@ Yes. Ignore the art, the numbers and any season names. For play, any flower matc
 
 ## How are flowers used?
 
+Flowers are used wherever the card prints an F, in pairs, pungs, kongs and quints. They follow the same rules as any other tile, with jokers allowed only in groups of three or more.
+
 - **On the card,** an F means a flower. Many hands use a pair, a pung or a kong of them.
 - **Jokers** can fill a flower group of three or more. A flower pair or a single flower must be real.
 - **Calling.** You can call a discarded flower to finish a flower pung, kong or quint, or to win.

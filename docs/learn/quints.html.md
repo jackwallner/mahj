@@ -14,6 +14,8 @@ A quint is a group of five identical tiles, like five 4 Bams. A set holds only f
 
 ## How big is each group?
 
+A pair is two tiles, a pung three, a kong four, a quint five and a sextet six, all identical. Jokers fill any group of three or more, never a pair.
+
 - **Pair:** 2 identical tiles. Never a joker.
 - **Pung:** 3.
 - **Kong:** 4.

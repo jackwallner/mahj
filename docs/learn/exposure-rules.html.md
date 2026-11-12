@@ -18,6 +18,8 @@ Only when you call a discard to finish a pung, kong, quint or larger group, or w
 
 ## What can an exposure hold?
 
+An exposure holds three or more identical tiles, built around the real tile you called, with jokers allowed for the rest. Pairs, singles and mixed groups wait until mah jongg.
+
 - **Identical tiles.** The called tile plus matching tiles from your rack. Jokers may stand in for any of them.
 - **At least one real tile.** The called discard is the real tile, so an exposure can never be all jokers.
 - **No pairs, singles or mixed groups.** A pair, a single, a run of different numbers, a set of all four winds or a year like 2026 can only go face up when you declare mah jongg.

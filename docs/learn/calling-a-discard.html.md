@@ -14,12 +14,12 @@ You can call the most recent discard until the next player racks the tile they d
 
 ## How do you call a discard?
 
+Say "call" before the next player racks a tile, take the discard, expose the finished group, then discard. Calling replaces your draw from the wall.
+
 1. Say "call," or the tile's name, as soon as you want it.
 2. Take the tile.
 3. Lay the finished group face up on top of your rack with the matching tiles.
 4. Discard. Play continues to your right, skipping anyone between the discarder and you.
-
-Calling replaces your draw from the wall.
 
 ## What can you call a discard for?
 
