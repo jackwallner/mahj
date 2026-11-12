@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/mahjong-quiz-app.html
 
 ## Is there a mahjong quiz app that explains why an answer is right?
 
-By Jack Wallner · Last updated October 30, 2026
+By Jack Wallner · Last updated November 12, 2026
 
 **Yes. [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-mahjong-quiz-app&mt=8) is an American mahjong quiz app that shows the reason after every answer.** When you miss a rack, it also adds a "Why not" note on the section you picked, explaining why it does not fit. The quizzes cover tiles, the card's sections, Charleston passes and table calls.
 
@@ -31,6 +31,20 @@ From the free Tile Check quiz:
 **Which dragon goes with a crak hand?** Red Dragon, Green Dragon, Soap, or any dragon.
 
 **Answer:** Red Dragon. Red goes with Craks (C for Crak, R for Red). Green belongs to Bams, and Soap to Dots.
+
+## Can you try a few questions here?
+
+Yes. These five are the kind of rule questions new players miss most, each with the short reason the app gives. Cover the right two columns and test yourself.
+
+| Question | Answer | Why |
+| --- | --- | --- |
+| How many jokers are in an American mahjong set? | 8 | A standard set has 152 tiles: 108 suit tiles, 16 winds, 12 dragons, 8 flowers and 8 jokers. |
+| Can you pass a joker in the Charleston? | No | Jokers can never be passed, in any round of the Charleston. |
+| Can a joker complete a pair? | No | Jokers only stand in for tiles in groups of three or more (pungs, kongs, quints), never in a single or a pair. |
+| Which way does the first pass of the Charleston go? | Right | The first Charleston is right, across, left. The optional second Charleston reverses it: left, across, right. |
+| What can the White Dragon (Soap) stand for besides a dragon? | Zero | On the card, Soap is used as the 0 in year hands such as 2026. |
+
+For the full rules behind these answers, see the [joker rules](https://jackwallner.com/ios/mahj/learn/jokers.html), the [card sections](https://jackwallner.com/ios/mahj/learn/card-sections.html) and the [mahjong glossary](https://jackwallner.com/ios/mahj/learn/glossary.html).
 
 ## Which questions are free?
 
