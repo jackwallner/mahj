@@ -1,18 +1,18 @@
 # Best American Mahjong App (2026): 5 Apps Compared
 
-> The best American Mahjong apps for iPhone and iPad compared in October 2026: courses, bot games, card hints and drills, with strengths and trade-offs for each.
+> The best American Mahjong apps for iPhone and iPad compared in November 2026: courses, bot games, card hints and drills, with strengths and trade-offs for each.
 
 Web page: https://jackwallner.com/ios/mahj/best-american-mahjong-app.html
 
 ## Best American Mahjong App
 
-By Jack Wallner · Last updated October 30, 2026
+By Jack Wallner · Last updated November 11, 2026
 
 **Best for learning from scratch:** MAHJ: Learn American Mahjong, an 18-lesson course with a one-time purchase. **Best for seeing which card hand your tiles fit:** American Mahjong Practice. **Best for full games against bots with the official card:** Maylee. **Best for a guided plan and an Apple Watch drill:** Mahjong Trainer: Learn & Win. **Best for short drills with the reason on every answer:** Mahj Trainer, the app I make.
 
 American Mah Jongg is a four-player tile game that is played against a yearly card from the National Mah Jongg League (NMJL), with the Charleston and jokers. Search "mahjong" in the App Store and most results are tile-matching solitaire, so this page compares only apps for American Mah Jongg.
 
-**How we compared (October 2026):** I ran the four other apps on a Mac and read the App Store listings of all five. For each I checked ratings, update dates, supported devices and purchase types from Apple's lookup data, then went through the first screens, the paywall and the main practice loop. I only reached the trial offer in Mahjong Trainer: Learn & Win, so what I say about its lessons comes from its listing. Prices are left out on purpose, because they vary by region and change.
+**How we compared (November 2026):** I ran the four other apps on a Mac and read the App Store listings of all five. For each I checked ratings, update dates, supported devices and purchase types from Apple's lookup data, then went through the first screens, the paywall and the main practice loop. I only reached the trial offer in Mahjong Trainer: Learn & Win, so what I say about its lessons comes from its listing. Prices are left out on purpose, because they vary by region and change.
 
 **Disclosure:** Jack Wallner makes Mahj Trainer, one of the apps below. I tried to start every description with what the app does well.
 
@@ -20,15 +20,15 @@ American Mah Jongg is a four-player tile game that is played against a yearly ca
 
 MAHJ teaches lessons, American Mahjong Practice and Maylee play full hands, Mahjong Trainer: Learn & Win runs a guided plan, and Mahj Trainer drills single decisions.
 
-Ratings and counts are the US App Store figures as of October 2026. Last updated is the date of the current version.
+Ratings and counts are the US App Store figures as of November 2026. Last updated is the date of the current version.
 
 | App | Best for | Price model | Apple Watch | iPad | Account | Rating (count) | Last updated |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| **American Mahjong Practice** | Seeing which card hand fits your tiles | Free (2018 card) + subscription or one-time purchase per card year | No | Yes | None seen | 4.87 (22,837) | 2026-09-16 |
-| **MAHJ: Learn American Mahjong** | Beginners who want a course | Free + one-time purchase | No | Yes | None (stated in listing) | 4.93 (1,259) | 2026-09-26 |
-| **Maylee: American Mahjong** | Full games vs bots with the official card | Free (2 games a day) + subscription | No | Yes | None seen | 4.89 (1,100) | 2026-07-28 |
-| **Mahjong Trainer: Learn & Win** | A guided plan with reminders and Apple Watch | Free + subscription | Yes | Yes | None seen before the trial offer | 4.55 (146) | 2026-10-03 |
-| **Mahj Trainer** | Short drills with the why on every answer | Free + subscription or lifetime purchase | No | Yes | None | 4.62 (21) | 2026-10-07 |
+| **American Mahjong Practice** | Seeing which card hand fits your tiles | Free (2018 card) + subscription or one-time purchase per card year | No | Yes | None seen | 4.87 (23,010) | 2026-11-09 |
+| **MAHJ: Learn American Mahjong** | Beginners who want a course | Free + one-time purchase | No | Yes | None (stated in listing) | 4.91 (1,487) | 2026-09-26 |
+| **Maylee: American Mahjong** | Full games vs bots with the official card | Free (2 games a day) + subscription | No | Yes | None seen | 4.88 (1,253) | 2026-07-28 |
+| **Mahjong Trainer: Learn & Win** | A guided plan with reminders and Apple Watch | Free + subscription | Yes | Yes | None seen before the trial offer | 4.50 (327) | 2026-11-04 |
+| **Mahj Trainer** | Short drills with the why on every answer | Free + subscription or lifetime purchase | No | Yes | None | 4.69 (39) | 2026-10-29 |
 
 ## American Mahjong Practice
 
@@ -36,7 +36,7 @@ This is the most-rated American mahjong app in the group. You play hands to comp
 
 ## MAHJ: Learn American Mahjong
 
-MAHJ teaches the game as 18 step-by-step lessons, backed by tile drills, a printable cheat sheet, a glossary, bot games and an AI tutor called Ask the Coach (which needs internet, per the listing). Lessons 1 to 3 and several tile drills were free when I tried it, and one purchase opens the rest with no subscription. It has the highest average rating in this group as of October 2026. The trade-off: the Read the Card and Spot the Hand drills sat in the paid part in my test, and the home screen packs in five sections at once.
+MAHJ teaches the game as 18 step-by-step lessons, backed by tile drills, a printable cheat sheet, a glossary, bot games and an AI tutor called Ask the Coach (which needs internet, per the listing). Lessons 1 to 3 and several tile drills were free when I tried it, and one purchase opens the rest with no subscription. It has the highest average rating in this group as of November 2026. The trade-off: the Read the Card and Spot the Hand drills sat in the paid part in my test, and the home screen packs in five sections at once.
 
 ## Maylee: American Mahjong
 
@@ -112,4 +112,4 @@ NMJL Online, for games with real players. The National Mah Jongg League runs it 
 - [Mahj Trainer: Mahjong Practice](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-best-american-mahjong-app&mt=8) ([Google Play](https://play.google.com/store/apps/details?id=com.jackwallner.mahj), [App Store](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-best-american-mahjong-app&mt=8))
 - [National Mah Jongg League](https://www.nationalmahjonggleague.org/)
 
-Mahj Trainer is an independent app and is not affiliated with the National Mah Jongg League or with any app compared here. App details were checked in October 2026 and may change.
+Mahj Trainer is an independent app and is not affiliated with the National Mah Jongg League or with any app compared here. App details were checked in November 2026 and may change.
