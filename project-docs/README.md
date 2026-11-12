@@ -34,6 +34,10 @@ Developer notes and historical audits for this repository. The published site re
 - [marketing/social-readout-2026-11-06.md](marketing/social-readout-2026-11-06.md): @mahjtips style test V29 to V53, slate to Dec 31 at 3 a day on three platforms, platform limits, council scores
 - [marketing/localized-screenshots-2026-10-19.md](marketing/localized-screenshots-2026-10-19.md): storefront ranking, localized captions with back-translations, and visual checks for three screenshot sets
 
+## SEO
+
+- [seo/learn-guides-2026-11-12.md](seo/learn-guides-2026-11-12.md): nine single-question rules guides under docs/learn (dead hand, wrong mah jongg, exposures, calling, soap, quints, joker exchange, flowers, the wall), the query evidence behind them, rule sources, and live checks
+
 ## ASO
 
 - [aso/README.md](aso/README.md): App Store search and conversion metadata audits

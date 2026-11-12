@@ -8,7 +8,7 @@ Web page: https://jackwallner.com/ios/mahj/learn/scoring-and-table-rules.html
 
 ## Scoring and table rules
 
-Last updated October 21, 2026
+Last updated November 12, 2026
 
 American Mah Jongg scoring is a payment system in which the other three players pay the value printed beside the winning hand on the card. The rules that come up in the last five minutes of a hand, when the table gets quiet and everyone is counting.
 

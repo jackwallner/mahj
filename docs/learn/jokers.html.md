@@ -8,7 +8,7 @@ Web page: https://jackwallner.com/ios/mahj/learn/jokers.html
 
 ## Jokers in American Mah Jongg
 
-Last updated October 21, 2026
+Last updated November 12, 2026
 
 A joker is a wild tile that stands in for any tile inside a group of three or more, and a set has eight of them, with strict rules. Most beginner mistakes at the table are joker mistakes, and every one of them is avoidable.
 

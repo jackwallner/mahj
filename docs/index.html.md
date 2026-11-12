@@ -120,6 +120,8 @@ Free guides, written for new players.
 
 [**Joker rules**](https://jackwallner.com/ios/mahj/learn/jokers.html), [**scoring and table rules**](https://jackwallner.com/ios/mahj/learn/scoring-and-table-rules.html), and a [**glossary**](https://jackwallner.com/ios/mahj/learn/glossary.html) of every term.
 
+Table rules, one question each: [**calling a discard**](https://jackwallner.com/ios/mahj/learn/calling-a-discard.html), [**exposures**](https://jackwallner.com/ios/mahj/learn/exposure-rules.html), [**joker exchanges**](https://jackwallner.com/ios/mahj/learn/joker-exchange.html), [**dead hands**](https://jackwallner.com/ios/mahj/learn/dead-hand.html), [**a wrong mah jongg**](https://jackwallner.com/ios/mahj/learn/mahjong-in-error.html), [**quints**](https://jackwallner.com/ios/mahj/learn/quints.html), [**flowers**](https://jackwallner.com/ios/mahj/learn/flowers.html), [**the soap**](https://jackwallner.com/ios/mahj/learn/soap-in-mahjong.html) and [**building the wall**](https://jackwallner.com/ios/mahj/learn/building-the-wall.html).
+
 ## Questions
 
 ## Is there an app to practice American Mah Jongg?
