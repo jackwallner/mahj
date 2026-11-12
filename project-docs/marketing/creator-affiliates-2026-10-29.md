@@ -145,6 +145,17 @@ TikTok web DMs from the social Chrome work (profile > Message, Return sends): al
 
 Next up, about 5 a day: @get.your.mahhon (224, mutual, has only traded wave stickers with us, no bio or caption to write a line from), @southern.mahj.clu (commented 11-06, pitch next), @stefmahj (660, Fripp Island, "tips"), @hostmahj (909, table inspo), @flamingo.mahj (635, lessons, but recent posts are all mats), @mahjong.haus.na. @andersruffdesignco (2.7K) follows us but is a product brand.
 
+| Date | Creator (TikTok) | Personal line |
+|---|---|---|
+| 2026-11-12 | @thesocialparlor (1.2K, mutual, lesson and open play venue, Bryant AR; followed us 11-11) | tour of The Social Parlor |
+| 2026-11-12 | @southern.mahj.clu (1.9K, Southern Mahj Club, teaches American) | beginner series building a hand from every section |
+| 2026-11-12 | @stefmahj (697, Stephanie) | Fripp vacation post teaching Wade to play |
+| 2026-11-12 | @hostmahj (979) | dreaming about telling new friends the best starter supplies |
+
+All four were one combined DM (intro, code link, feedback ask) and show as sent in the web inbox. TikTok's web Message button sometimes needs a second click before the thread opens. Comments the same day on Southern Mahj Club (369 series), The Social Parlor (Lotus Cove mat), Host Mahj (starter supplies) and Stephanie (mat giveaway), each confirmed on the page.
+
+TikTok as of 11-12 8:45 AM PT: no new replies in any pitched thread, no unanswered viewer comments. About 12 new followers in two days, including @mahjongmouse (tile and mat brand, not a pitch). Still next: @flamingo.mahj, @mahjong.haus.na; @get.your.mahhon has nothing to write a line from.
+
 Warmer leads seen 11-04 in the phone app's inbox suggestions, showing "Follow back" (display names, handles and fit not checked yet): MahjMeCrazyLA, Bougie Bams Mahjong, 3BeeMahj, Menace Mahjong Society, pamperedtileco. Check each before pitching; any that sell a competing app or course get skipped.
 
 Replies as of 11-04 5:51 PM PT: none to the 11-04 batch (@sooner_mahj has seen it, the app shows the other four as sent). Landy (The Mahjong Fairy HTX) replied on 11-01 that they'd check it out and report back. Mama mahjong has not replied; the item the web couldn't display is a wave sticker on our side of the thread. No Instagram replies or requests.
@@ -181,6 +192,14 @@ New on Instagram, one combined DM each (followed all five, verified after reload
 | 2026-11-06 | @mrsmerrimanmahjong (1.9K, Allison, Charlotte) | teaches assisted play (from their bio) |
 
 Skipped @atlanta_mahjong_mentors: their latest post says they're slowing down. Next on Instagram: @mahjonginthesouth, @themahjongsocialchatt, @mahjongatdeenas. Instagram has no replies or requests as of 11-06.
+
+| Date | Creator (Instagram) | Personal line |
+|---|---|---|
+| 2026-11-12 | @mahjonginthesouth (1.4K, Sandi, Jacksonville) | "I want everyone to play mahjong" (from their bio) |
+| 2026-11-12 | @themahjongsocialchatt (1.8K, Chattanooga) | Mahj Mash at Bleu Fox Cheese |
+| 2026-11-12 | @mahjongatdeenas (3.3K, San Diego North County) | Tuesday open play at Weir Beer |
+
+All three followed, liked and commented, verified after reload. @rockymountainmahjong (Avery) replied on 11-07 that they're stepping away from mahjong for their health; thanked them on 11-12 and said the code is theirs whenever they return. Don't pitch them again. No Instagram requests or comments to answer. YouTube has no unanswered comments.
 
 Instagram engagement on 11-06: comments and post likes on @mahjongoc, @mahjongsocialatl and @thecharlestoncoach, plus a like on @southshoremahjong. All verified after reload.
 
