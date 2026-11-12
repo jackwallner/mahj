@@ -152,7 +152,7 @@ Next up, about 5 a day: @get.your.mahhon (224, mutual, has only traded wave stic
 | 2026-11-12 | @stefmahj (697, Stephanie) | Fripp vacation post teaching Wade to play |
 | 2026-11-12 | @hostmahj (979) | dreaming about telling new friends the best starter supplies |
 
-All four were one combined DM (intro, code link, feedback ask) and show as sent in the web inbox. TikTok's web Message button sometimes needs a second click before the thread opens. Comments the same day on Southern Mahj Club (369 series), The Social Parlor (Lotus Cove mat), Host Mahj (starter supplies) and Stephanie (mat giveaway), each confirmed on the page.
+All four were one combined DM (intro, code link, feedback ask) and show as sent in the web inbox. TikTok's web Message button sometimes needs a second click before the thread opens. Comments the same day on Southern Mahj Club (369 series), The Social Parlor (Lotus Cove mat), Host Mahj (starter supplies) and Stephanie (mat giveaway), each confirmed on the page. All four followed and one video each liked from the iPhone app the same day (web likes and follows don't stick), each confirmed on screen.
 
 TikTok as of 11-12 8:45 AM PT: no new replies in any pitched thread, no unanswered viewer comments. About 12 new followers in two days, including @mahjongmouse (tile and mat brand, not a pitch). Still next: @flamingo.mahj, @mahjong.haus.na; @get.your.mahhon has nothing to write a line from.
 
