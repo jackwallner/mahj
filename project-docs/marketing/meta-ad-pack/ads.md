@@ -130,6 +130,35 @@ Numbers?" coaching card.
 - **Description:** Practice, not another game
 - **CTA:** Install Now
 
+## 6. C9 The whole Charleston (video, added 2026-11-13)
+
+Built after the first five, from what TikTok showed. On 2026-11-13 the
+"whole Charleston" animated short was the account's best post by a wide
+margin (4,334 views, 43 shares, 77 saves; the next post had 1,991 views and
+every other post under 1,000). It teaches the answer from frame 0, where C1
+only names a fear. C9 is that short cut to ten seconds, then the app.
+
+- **Files** (`C9 whole-charleston-video/`): `C9-whole-charleston-video-9x16.mp4`
+  (1080x1920, 20 s, 30 fps, H.264 + AAC voice and score),
+  `C9-whole-charleston-video-4x5.mp4` (1080x1350, rows 80 to 1430 of the same
+  frames), and `-cover-9x16.png` / `-cover-4x5.png` as thumbnails.
+- **Cut:** 0 to 2.7 s hook, tiles already flying ("The Charleston, in 10
+  seconds."); to 11.4 s the three passes, right, across, left, each on the
+  word that names it; to 17.2 s the app's Pick Your Pass drill (three picks at
+  about 1.9x, coral tap rings) then the "Perfect pass" coach card; to 20 s the
+  end card. Captions are burned in, so it reads with the sound off. The three
+  tiles the animation passes first are the three the coach passes in the app.
+- **Safe area:** everything to read sits in y 250 to 1250 of the 9:16.
+- **Primary text:** The Charleston in 10 seconds: three right, three across, three left. Then practice choosing your 3 with a coach that explains every pass.
+- **Alternate 1:** Right, across, left. The order is the easy part. Practice picking your 3 tiles on real deals, then see the coach's pass and the reason.
+- **Alternate 2:** New to the Charleston? Watch it once, then practice the pass at home before game night.
+- **Headline:** Practice the Charleston at home
+- **Description:** American Mah Jongg drills
+- **CTA:** Install Now
+- **Rebuild:** `python3 c9_whole_charleston.py` (about 6 minutes; `--still
+  t1,t2` for stills, `--out DIR` to render elsewhere). It reuses the shorts
+  engine in `~/ios/growth/animated-shorts-2026-10-27` and the drill recording.
+
 ## Ads Manager upload checklist
 
 Prerequisites (see `../meta-ads.md`, "Turning it on"): the Meta app for
