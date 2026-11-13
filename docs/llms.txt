@@ -9,7 +9,7 @@
 ## Guides
 
 - [American Mahjong Practice App for Android: Mahj Trainer](https://jackwallner.com/ios/mahj/american-mahjong-practice-app-android.html.md): American mahjong practice app for Android: Mahj Trainer is on Google Play with five-minute drills on racks, the Charleston and discards. No account needed.
-- [Best American Mahjong App (2026): 5 Apps Compared](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html.md): The best American Mahjong apps for iPhone and iPad compared in November 2026: courses, bot games, card hints and drills, with strengths and trade-offs for each.
+- [American Mahjong Apps Compared: 2026 Card, Bots, Friends](https://jackwallner.com/ios/mahj/best-american-mahjong-app.html.md): Twelve American Mah Jongg apps for iPhone and iPad compared on the 2026 NMJL card, bots, online play with friends, lessons and price model, as of November 2026.
 - [Mahj Trainer for ChatGPT](https://jackwallner.com/ios/mahj/chatgpt/index.html.md): Mahj Trainer teaches American mah jongg inside ChatGPT: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.
 - [Mahj Trainer for Claude](https://jackwallner.com/ios/mahj/claude/index.html.md): Mahj Trainer teaches American mah jongg inside Claude: short lessons, practice quizzes, a rack reader for the card's sections, and a glossary.
 - [Free American Mahjong App With No Subscription](https://jackwallner.com/ios/mahj/free-american-mahjong-app.html.md): Mahj Trainer is a free American mahjong learning app: four beginner rooms with no subscription, account or ads. Here is what is free and what Mahj+ adds.
