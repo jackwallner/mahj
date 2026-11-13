@@ -29,7 +29,7 @@ Flowers are used wherever the card prints an F, in pairs, pungs, kongs and quint
 
 ## Why does my set have 16 flowers?
 
-Because some sets ship spare flowers beyond the eight the League game uses, and older sets come from years when the counts were different. The League game has used eight flowers and eight jokers since the early 1970s. Play with eight and put the rest away, or keep them as spares.
+Because some sets ship spare flowers beyond the eight the League game uses, and older sets come from years when the counts were different. Tom Sloper's [mah-jongg FAQ](https://sloperama.com/mjfaq/mjfaq19.html#s) traces the count settling at eight flowers and eight jokers on the 1971-72 card. Play with eight and put the rest away, or keep them as spares.
 
 ## Where tables play it differently
 
@@ -46,7 +46,7 @@ That is a legal kong. If the same hand also needs a separate pair of flowers, th
 
 FFLFFL
 
-Count the flowers you can see. The pair needs two real ones, so once seven flowers are showing elsewhere, that pair is gone.
+Count the flowers you can see. With only the one joker, this hand needs five real flowers: three for the kong and two for the pair. You hold three, so five are left elsewhere. Once four of those five are showing on other racks or in the discards, the pair is gone, unless you pick up another joker for the kong and free a flower for the pair.
 
 ## Common questions
 

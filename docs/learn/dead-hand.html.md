@@ -39,7 +39,7 @@ A dead player sits out the rest of the hand and keeps their tiles where they are
 
 ## Can you take jokers from a dead hand?
 
-Yes, from its correct exposures. A joker in a group that was legal before the hand died stays available to any player who holds the real tile, on their own turn. The exposure that caused the death is different: it goes back to the owner's rack, joker included, so nobody can take that joker.
+Yes, from its correct exposures. A joker in a group that was legal before the hand died stays available to any player who holds the real tile, on their own turn. The exposure that caused the death is different: once the hand is called dead, that group goes back to the owner's rack, joker included, and nobody can take that joker. Until someone calls the hand dead, its jokers can still be swapped, and the League has said a swap made before the call stands, with no penalty to the player who made it.
 
 ## Where tables play it differently
 

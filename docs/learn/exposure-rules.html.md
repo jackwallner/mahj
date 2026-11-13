@@ -31,7 +31,7 @@ Not after you discard. Until you throw your discard or swap a joker, you may add
 
 ## What is an invalid exposure?
 
-An exposure is invalid when it fits no hand on the card next to your other exposures, or when it holds tiles that do not belong together. If another player can show it, your hand is dead, and the invalid group goes back to your rack, jokers included.
+An exposure is invalid when it fits no hand on the card next to your other exposures, or when it holds tiles that do not belong together. If another player can show it, your hand is dead, and the invalid group goes back to your rack, jokers included. Until someone calls it, any player may still swap a joker out of it, and the League has said a swap made before the call stands, with no penalty.
 
 ## Where tables play it differently
 

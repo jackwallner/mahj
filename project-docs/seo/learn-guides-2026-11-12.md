@@ -42,3 +42,8 @@ Every rule was checked against the app's own content (`Shared/Content/ReferenceC
 - An independent Sonnet fact-check pass flagged 12 items; the fixes went in before the second commit (wrong-claim penalty, soap count, exposure fix window closing on a joker swap, call window closing on a joker swap, sextet and all-joker wording, answer-first lines).
 
 Next read: add the nine URLs to the weekly watch list; first Search Console read about two weeks after indexing.
+
+## Corrections, 2026-11-12 (outreach read-through)
+
+- flowers.html: the worked example's count was wrong (the rack already held three of the eight flowers). It now says that with one joker the hand needs five real flowers, so the pair is gone once four of the other five are showing. The history line now cites Tom Sloper's mah-jongg FAQ ([mjfaq19, "Two historical questions about jokers"](https://sloperama.com/mjfaq/mjfaq19.html#s)): the count settled at eight flowers and eight jokers on the 1971-72 card.
+- dead-hand.html, joker-exchange.html, exposure-rules.html: added the League correction Sloper reports ([column 798](https://sloperama.com/mahjongg/column2/column798.html), item 30, January 29, 2024): jokers in a wrong exposure stay swappable until the hand is called dead, and a swap made before the call stands with no penalty.

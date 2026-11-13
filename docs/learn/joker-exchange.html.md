@@ -29,7 +29,7 @@ Anyone's. An opponent's exposures, your own, and the legal exposures of a player
 - Use a discard. You cannot call a thrown tile to swap it for a joker.
 - Swap out of turn, or after you discard.
 - Take a joker from tiles still hidden on someone's rack. Only exposed jokers can be swapped.
-- Take the joker from the exposure that made a hand dead. That group goes back to its owner's rack.
+- Take the joker from the exposure that made a hand dead, once the hand has been called dead. That group goes back to its owner's rack. Until the call, its jokers can still be swapped, and a swap made before the call stands.
 
 ## Where tables play it differently
 
@@ -61,7 +61,7 @@ Yes. If the joker you take completes your hand, you can declare mah jongg instea
 
 ### Can you take a joker from a dead hand?
 
-Yes, from its legal exposures, on your turn, with the real tile. The exposure that caused the dead hand goes back to the rack, so its joker is off limits.
+Yes, from its legal exposures, on your turn, with the real tile. Once the hand is called dead, the exposure that caused it goes back to the rack and its joker is off limits. Before that call, it can still be swapped, and the swap stands.
 
 ### Can you pick up a discard to exchange for a joker?
 
