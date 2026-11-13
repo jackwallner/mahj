@@ -162,11 +162,14 @@ conversion; read trials started per viewer. Created through `rc api POST
 /projects/<id>/experiments` and `.../actions/start` (targeting is immutable
 once started; RevenueCat stores it as `pinned_audience`).
 
-Decision rule (Jack, 2026-10-16): no 95% bar. The control is proven and a
-winner flips back remotely, so after about 3 weeks live take the arm
-RevenueCat shows at 75% chance to win or better on initial conversion; if
-neither gets there by about 5 weeks, stop and keep 7-day. Promote "my" by
-setting `cta_my` as the default offering.
+Decision rule (Jack, 2026-11-12, replaces the 10-16 initial-conversion rule):
+revenue per customer over a closed group, customers first seen 2026-10-16 to
+2026-11-13. The Experiment keeps running; later customers are not counted.
+Read when the group's trials have settled (about 2026-11-20), confirm after
+the first renewal (about 2026-12-20). RevenueCat's Experiment page counts
+everyone enrolled, so read with `~/ios/growth/test-readout.py mahj
+--experiment expfa8555d5ee --since 2026-10-16 --until 2026-11-14`. Promote
+"my" by setting `cta_my` as the default offering.
 
 
 **Plain-words pitch (1.4.1, 2026-10-19):** with the Mahj Minute free for everyone, the Mahj+ pitch leads with practice hands. Jack first asked for "unlimited hands", then cut the mode name: a new player does not know what "Play a Hand" is. Every surface now says "coached practice hands, as many as you want" (trial page benefits, paywall's first benefit, pitch card, Home's Get Mahj+ row, room upsell). `TrialOfferPacerTests` fails any benefit line that names "Play a Hand". Only wording changed on the trial page; its layout, CTA and plan are untouched.
