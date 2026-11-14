@@ -187,6 +187,21 @@ plays (a Mah Jongg interest, retargeting, the TikTok and Instagram pages).
 - **Rebuild:** `python3 c10_join_the_table.py` (imports the C9 script for the
   app panel, end card and safe-area text).
 
+## 8. C11 Learn mahjong, join the table (static, added 2026-11-14)
+
+C10's message and painted look as a static, laid out like C1. Made because
+in the 1311 install test C10 got watched (75 video views) but rarely tapped
+(5 link clicks, $0.92 each), while C1 got 15 link clicks at $0.25.
+
+- **Files** (`C11 join-the-table-static/`): `C11-join-the-table-static-story-9x16.png`
+  (1080x1920), `-feed-4x5.png` (1080x1350), `-copy.txt`.
+- **Layout:** icon, Mahj Trainer and "Free to start on the App Store" on top,
+  then "Learn mahjong. / Join the table." in C10's hook type, then the table
+  set for four with the Pick Your Pass coach card open on the phone. The 9:16
+  leaves the bottom wood empty for the Stories and Reels CTA.
+- **Copy:** same as C10 (imported from `c10_join_the_table.py`).
+- **Rebuild:** `python3 c11_join_the_table_static.py`.
+
 ## Ads Manager upload checklist
 
 Prerequisites (see `../meta-ads.md`, "Turning it on"): the Meta app for
