@@ -23166,6 +23166,47 @@
         }
       }
     },
+    "Late in the hand, you need a pung of 5 Bams.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "في أواخر اليد، تحتاجون إلى pung من ⁦5 Bam⁩."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spät in der Hand brauchst du einen Pung aus drei 5-Bam-Steinen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Al final de la mano, necesitas un pung de 5 Bam."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En fin de main, il vous faut un pung de 5 Bam."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menjelang akhir permainan, kamu butuh pung 5 Bam."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gần cuối ván, bạn cần một pung 5 Bam."
+          }
+        }
+      }
+    },
     "Learn to read the card and your rack": {
       "extractionState": "manual",
       "localizations": {
@@ -28865,43 +28906,43 @@
         }
       }
     },
-    "Only four of any tile exist. Yours plus the three gone makes four, so no 5 Bam is left to draw. The only way to finish the pung now is to draw two jokers, and you hold none. Count the dead tiles before you count on a group, and switch to a hand your rack can still reach.": {
+    "Only four of any tile exist. Yours plus the three gone makes four, so no 5 Bam is left to draw. The only way to finish the pung is to draw two jokers, and you hold none with only a few draws left. Count the dead tiles before you count on a group, and switch to a hand your rack can still reach.": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "توجد 4 نسخ فقط من كل قطعة. قطعتكم مع القطع الثلاث التي خرجت من اللعب تكمل الأربع، لذا لم تتبقَّ أي ⁦5 Bam⁩ للسحب. الطريقة الوحيدة لإكمال pung الآن هي سحب قطعتي جوكر، وليس لديكم أي جوكر. احسبوا القطع الميتة قبل الاعتماد على مجموعة، وانتقلوا إلى يد لا يزال حاملكم قادرًا على تكوينها."
+            "value": "توجد 4 نسخ فقط من كل قطعة. قطعتكم مع القطع الثلاث التي خرجت من اللعب تكمل الأربع، لذا لم تتبقَّ أي ⁦5 Bam⁩ للسحب. الطريقة الوحيدة لإكمال pung هي سحب قطعتي جوكر، وليس لديكم أي جوكر ولم يتبقَّ إلا القليل من السحبات. احسبوا القطع الميتة قبل الاعتماد على مجموعة، وانتقلوا إلى يد لا يزال حاملكم قادرًا على تكوينها."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Von jedem Stein gibt es nur vier. Du hältst eine 5 Bam, drei weitere sind bereits sichtbar. Damit sind alle vier bekannt, also gibt es keine 5 Bam mehr in der Mauer. Fertig wird dein Pung jetzt nur noch mit zwei gezogenen Jokern, und du hast keinen. Zähl die toten Steine, bevor du auf eine Gruppe setzt, und wechsle zu einer Hand, die dein Rack noch erreichen kann."
+            "value": "Von jedem Stein gibt es nur vier. Du hältst eine 5 Bam, drei weitere sind bereits sichtbar. Damit sind alle vier bekannt, also gibt es keine 5 Bam mehr in der Mauer. Fertig wird dein Pung nur noch mit zwei gezogenen Jokern, und du hast keinen bei nur noch wenigen Zügen. Zähl die toten Steine, bevor du auf eine Gruppe setzt, und wechsle zu einer Hand, die dein Rack noch erreichen kann."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Solo existen cuatro de cada ficha. La tuya más las tres que salieron suman cuatro, así que no queda ningún 5 Bam por robar. La única forma de completar el pung ahora es robar dos comodines, y no tienes ninguno. Cuenta las fichas muertas antes de contar con un grupo y cambia a una mano que tu atril todavía pueda lograr."
+            "value": "Solo existen cuatro de cada ficha. La tuya más las tres que salieron suman cuatro, así que no queda ningún 5 Bam por robar. La única forma de completar el pung es robar dos comodines, y no tienes ninguno con pocos robos por delante. Cuenta las fichas muertas antes de contar con un grupo y cambia a una mano que tu atril todavía pueda lograr."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Il n'existe que quatre exemplaires de chaque tuile. Le vôtre et les trois autres déjà sortis font quatre : il ne reste aucun 5 Bam à piocher. La seule façon de finir le pung est maintenant de piocher deux jokers, et vous n'en avez aucun. Comptez les tuiles mortes avant de compter sur un groupe, et passez à une main que votre chevalet peut encore atteindre."
+            "value": "Il n'existe que quatre exemplaires de chaque tuile. Le vôtre et les trois autres déjà sortis font quatre : il ne reste aucun 5 Bam à piocher. La seule façon de finir le pung est de piocher deux jokers, et vous n'en avez aucun alors qu'il reste peu de pioches. Comptez les tuiles mortes avant de compter sur un groupe, et passez à une main que votre chevalet peut encore atteindre."
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setiap ubin hanya ada empat. Milikmu ditambah tiga yang sudah keluar jadi empat, jadi tidak ada 5 Bam tersisa untuk diambil. Satu-satunya cara menyelesaikan pung sekarang adalah mengambil dua joker, dan kamu tidak punya satu pun. Hitung ubin mati sebelum mengandalkan sebuah kelompok, lalu pindah ke tangan yang masih bisa dicapai rakmu."
+            "value": "Setiap ubin hanya ada empat. Milikmu ditambah tiga yang sudah keluar jadi empat, jadi tidak ada 5 Bam tersisa untuk diambil. Satu-satunya cara menyelesaikan pung adalah mengambil dua joker, dan kamu tidak punya satu pun padahal sisa giliran tinggal sedikit. Hitung ubin mati sebelum mengandalkan sebuah kelompok, lalu pindah ke tangan yang masih bisa dicapai rakmu."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mỗi loại quân chỉ có bốn quân. Quân bạn đang giữ cộng với ba quân đã ra là đủ bốn, nên không còn quân 5 Bam nào để bốc. Cách duy nhất để hoàn thành pung lúc này là bốc được hai joker, mà bạn không có joker nào. Hãy kiểm tra những loại quân đã hết trước khi trông cậy vào một nhóm, rồi chuyển sang một bộ bài mà giá của bạn vẫn có thể đạt được."
+            "value": "Mỗi loại quân chỉ có bốn quân. Quân bạn đang giữ cộng với ba quân đã ra là đủ bốn, nên không còn quân 5 Bam nào để bốc. Cách duy nhất để hoàn thành pung là bốc được hai joker, mà bạn không có joker nào và chỉ còn vài lượt bốc. Hãy kiểm tra những loại quân đã hết trước khi trông cậy vào một nhóm, rồi chuyển sang một bộ bài mà giá của bạn vẫn có thể đạt được."
           }
         }
       }
@@ -47438,43 +47479,43 @@
         }
       }
     },
-    "You hold one and no jokers. Two are in the discards, one is exposed on a rack. Keep chasing?": {
+    "You hold one and no jokers. Two are in the discards, and one sits in an opponent's exposed pung beside two jokers. Keep chasing?": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "لديكم قطعة واحدة ولا جوكر. توجد قطعتان بين القطع المرمية وواحدة مكشوفة على حامل القطع. هل تواصلون المحاولة؟"
+            "value": "لديكم قطعة واحدة ولا جوكر. توجد قطعتان بين القطع المرمية، وواحدة في pung مكشوف لدى خصم بجانب قطعتي جوكر. هل تواصلون المحاولة؟"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du hältst einen davon und keinen Joker. Zwei liegen in der Ablage, einer ist offen auf einem Rack ausgelegt. Weiter darauf setzen?"
+            "value": "Du hältst einen davon und keinen Joker. Zwei liegen in der Ablage, einer liegt im offenen Pung eines Gegners neben zwei Jokern. Weiter darauf setzen?"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tienes uno y ningún comodín. Dos están en los descartes y uno está expuesto en un atril. ¿Sigues buscándolo?"
+            "value": "Tienes uno y ningún comodín. Dos están en los descartes y uno está en el pung expuesto de un rival, junto a dos comodines. ¿Sigues buscándolo?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous en avez un et aucun joker. Deux sont dans les défausses, un est exposé sur un chevalet. Continuer ?"
+            "value": "Vous en avez un et aucun joker. Deux sont dans les défausses, un est dans le pung exposé d'un adversaire, à côté de deux jokers. Continuer ?"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kamu punya satu dan tidak punya joker. Dua ada di buangan, satu diekspos di rak. Terus mengejar?"
+            "value": "Kamu punya satu dan tidak punya joker. Dua ada di buangan, satu ada di pung lawan yang diekspos bersama dua joker. Terus mengejar?"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bạn có một quân và không có joker nào. Hai quân đã nằm trong đống bỏ, một quân đã lộ trên giá của người khác. Có nên tiếp tục chờ quân đó không?"
+            "value": "Bạn có một quân và không có joker nào. Hai quân đã nằm trong đống bỏ, một quân nằm trong pung đã lộ của đối thủ cùng hai joker. Có nên tiếp tục chờ quân đó không?"
           }
         }
       }
@@ -47721,47 +47762,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bạn phải chuyền ba quân. Chọn quân nào?"
-          }
-        }
-      }
-    },
-    "You need a pung of 5 Bams.": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تحتاجون إلى pung من ⁦5 Bam⁩."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Du brauchst einen Pung aus drei 5-Bam-Steinen."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Necesitas un pung de 5 Bam."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Il vous faut un pung de 5 Bam."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kamu butuh pung 5 Bam."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bạn cần một pung 5 Bam."
           }
         }
       }

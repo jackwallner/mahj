@@ -236,11 +236,11 @@ enum PlusContent {
         ),
         Flashcard(
             id: "plus-kd-count-tiles",
-            frontTitle: "You need a pung of 5 Bams.",
+            frontTitle: "Late in the hand, you need a pung of 5 Bams.",
             frontTiles: [.b(5)],
-            frontSubtitle: "You hold one and no jokers. Two are in the discards, one is exposed on a rack. Keep chasing?",
+            frontSubtitle: "You hold one and no jokers. Two are in the discards, and one sits in an opponent's exposed pung beside two jokers. Keep chasing?",
             backTitle: "Switch Hands",
-            backBody: "Only four of any tile exist. Yours plus the three gone makes four, so no 5 Bam is left to draw. The only way to finish the pung now is to draw two jokers, and you hold none. Count the dead tiles before you count on a group, and switch to a hand your rack can still reach.",
+            backBody: "Only four of any tile exist. Yours plus the three gone makes four, so no 5 Bam is left to draw. The only way to finish the pung is to draw two jokers, and you hold none with only a few draws left. Count the dead tiles before you count on a group, and switch to a hand your rack can still reach.",
             choice: CardChoice("Keep chasing the pung", "Switch to a hand that does not need 5 Bams", answerIndex: 1)
         ),
         Flashcard(

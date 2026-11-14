@@ -121,6 +121,9 @@ final class ContentValidityTests: XCTestCase {
             XCTAssertFalse(card.backBody.contains("already over"), "\(card.id) calls a hand over that jokers can still finish")
             if card.backBody.contains("left to draw") {
                 XCTAssertTrue(front.contains("joker"), "\(card.id) rules a group dead without saying what jokers you hold")
+                // A lone tile is never exposed: it sits in a group, and the
+                // reader counts that group's tiles too.
+                XCTAssertFalse(front.contains("one is exposed"), "\(card.id) exposes a lone tile, so the copies do not add up")
             }
         }
     }
