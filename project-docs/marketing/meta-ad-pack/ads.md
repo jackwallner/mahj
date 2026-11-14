@@ -187,20 +187,26 @@ plays (a Mah Jongg interest, retargeting, the TikTok and Instagram pages).
 - **Rebuild:** `python3 c10_join_the_table.py` (imports the C9 script for the
   app panel, end card and safe-area text).
 
-## 8. C11 Learn mahjong, join the table (static, added 2026-11-14)
+## 8. C11 Practice your mahj, bring it to the table (static, added 2026-11-14)
 
-C10's message and painted look as a static, laid out like C1. Made because
-in the 1311 install test C10 got watched (75 video views) but rarely tapped
-(5 link clicks, $0.92 each), while C1 got 15 link clicks at $0.25.
+A static aimed at people who already play, laid out like C1 on C10's painted
+table. Made because in the 1311 install test C10 got watched (75 video views)
+but rarely tapped (5 link clicks, $0.92 each), while C1 got 15 link clicks at
+$0.25.
 
 - **Files** (`C11 join-the-table-static/`): `C11-join-the-table-static-story-9x16.png`
   (1080x1920), `-feed-4x5.png` (1080x1350), `-copy.txt`.
-- **Layout:** icon and Mahj Trainer on top, then "Learn mahjong. / Join the
-  table." in C10's hook type, then the cloth with four cups and a large phone
-  on the unanswered Pick Your Pass screen. First cut had the subline, tile walls
-  and the coach card; Jack found it busy (11-14), so all three went. The 9:16
-  leaves the bottom wood empty for the Stories and Reels CTA.
-- **Copy:** same as C10 (imported from `c10_join_the_table.py`).
+- **Layout:** icon and Mahj Trainer on top, then "Practice your mahj. / Bring it
+  to the table." in C10's hook type, then a big phone on the Charleston drill
+  running off the bottom edge, over the cloth and cups. The phone goes on after
+  the paint pass so the screen stays sharp, and the capture's empty space is cut
+  out so the prompt and tiles sit high and large.
+- **History (11-14):** the first cut ("Learn mahjong. / Join the table.", tile
+  walls, coach card, a small painted phone) read as busy and the app was hard to
+  read. Jack also wanted it pitched at practice for existing players, not
+  learning from scratch.
+- **Copy:** its own practice copy in the script (`COPY`), headline "Practice
+  mahj at home".
 - **Rebuild:** `python3 c11_join_the_table_static.py`.
 
 ## Ads Manager upload checklist
