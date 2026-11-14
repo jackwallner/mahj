@@ -28,6 +28,24 @@ Network. Always turn that toggle on for an iOS app campaign.
   campaign needs them.
 - Status at publish: ad Processing (review).
 
+## Creative swap 2026-11-13 ~6:25 PM PT
+
+Jack approved swapping the C10 video in for the C1 static ("yes", in chat).
+Same campaign, ad set, budget and end date. Done in Ads Manager through Chrome.
+
+| Ad | ID | State |
+|---|---|---|
+| "C1 charleston-pass 1311" | `120252014610470737` | Turned off. At the swap: $3.62 spent, 166 impressions, 141 reach, 3 installs (about $1.20 each, Meta's count) |
+| "C10 join-the-table video 1311" | `120252019897300737` | On, Processing (review). Single video: C10 9:16 plus the 4:5, C10 primary text, headline "Learn mahj at home", description "American Mah Jongg practice", Install now |
+
+- C10 settings: text improvements, video touch-ups, AI images, video
+  slideshow, carousel and video effects off. Left on: relevant comments,
+  enhance CTA, multi-advertiser ads, app store details.
+- About $16.38 of the $20 is left for C10.
+- The readout now splits by ad: C1 covers Nov 13 9:10 AM to 6:25 PM PT, C10
+  the rest. ASC and RevenueCat can't split by ad, so judge each ad on Meta's
+  installs and the whole test on ASC downloads.
+
 ## Readout (Nov 17, then Nov 20 for ASC and SKAN lag)
 
 1. Meta: spend, impressions by device and placement (confirm iPhone, no
