@@ -5,8 +5,7 @@
 
 C10 (video) gets watched but rarely tapped; C1 (static) gets tapped. This keeps
 C10's cold-audience message and painted table, and lays it out like C1: the
-app's name and "free to start" on top, the hook, then the table set for four
-with the app open on it. Outputs a 9:16 and a 4:5 plus the copy file.
+app's name on top, the hook, then the cloth with four cups and the app open. Outputs a 9:16 and a 4:5 plus the copy file.
 """
 
 from __future__ import annotations
@@ -23,14 +22,22 @@ from c9_whole_charleston import B, R
 ID = "C11-join-the-table-static"
 FOLDER = "C11 join-the-table-static"
 HOOK = ("Learn mahjong.", "Join the table.")
-PHONE_W = 250
+PHONE_W = 330
+SCREEN = "05_charleston.png"
+CUPS = [(176, 1150), (904, 414), (904, 1150), (176, 414)]
 
 
 def painted(dy: int) -> Image.Image:
-    """The table for four with the app open, moved dy down (a whole number of planks), painted."""
+    """Cloth, four cups and the app open, moved dy down (a whole number of planks), painted.
+
+    No tile walls: with them, the cups and a text-heavy screen the frame read as busy.
+    """
     assert dy % 150 == 0, "keep the plank seams lined up"
-    im = R.table_scene(0.4, None, 4, 0)
-    R.paste_center(im, R.phone_sprite("05_charleston_answered.png", PHONE_W), 540, 790, -8)
+    im = R.table_bg().copy()
+    for i, (cx, cy) in enumerate(CUPS):
+        R.paste_center(im, R.cup(), cx, cy)
+        R.steam(im, cx, cy - 10, 0.4, i)
+    R.paste_center(im, R.phone_sprite(SCREEN, PHONE_W), 540, 790, -8)
     low = Image.new("RGBA", im.size)
     low.paste(im.crop((0, 0, R.W, R.H - dy)), (0, dy))
     for y in range(0, dy, 150):
@@ -71,19 +78,14 @@ def hook(size: int) -> Image.Image:
 
 
 def brand(icon: int) -> Image.Image:
-    """Icon, name and "Free to start on the App Store", centred as one row."""
+    """Icon and name, centred as one row."""
     ic = R.icon(icon)
-    name, sub = B.font(max(56, round(icon * 0.5)), "Bold", True), B.font(44, "Semibold")
-    d = ImageDraw.Draw(ic)
-    text_w = round(max(d.textlength("Mahj Trainer", font=name), d.textlength("Free to start on the App Store", font=sub)))
+    name = B.font(max(56, round(icon * 0.55)), "Bold", True)
+    text_w = round(ImageDraw.Draw(ic).textlength("Mahj Trainer", font=name))
     layer = Image.new("RGBA", (ic.width + text_w + 20, ic.height), (0, 0, 0, 0))
     layer.alpha_composite(ic)
-    t = ImageDraw.Draw(layer)
-    x, mid = ic.width - 14, ic.height // 2
-    stroke = max(3, icon // 30)
-    t.text((x, mid - 4), "Mahj Trainer", font=name, fill=R.CREAM, anchor="ls", stroke_width=stroke, stroke_fill=R.INK)
-    t.text((x, mid + 10), "Free to start on the App Store", font=sub, fill=R.CREAM, anchor="lt",
-           stroke_width=stroke, stroke_fill=R.INK)
+    ImageDraw.Draw(layer).text((ic.width - 6, ic.height // 2), "Mahj Trainer", font=name, fill=R.CREAM,
+                               anchor="lm", stroke_width=max(3, icon // 30), stroke_fill=R.INK)
     out = Image.new("RGBA", (R.W, layer.height), (0, 0, 0, 0))
     out.alpha_composite(shadowed(layer, 8, 0.5), ((R.W - layer.width) // 2, 0))
     return out
