@@ -46,6 +46,25 @@ Same campaign, ad set, budget and end date. Done in Ads Manager through Chrome.
   the rest. ASC and RevenueCat can't split by ad, so judge each ad on Meta's
   installs and the whole test on ASC downloads.
 
+## Creative swap 2026-11-14 ~10:40 AM PT
+
+Jack approved swapping C11 in for C10 ("yes", in chat). Same campaign, ad
+set, budget and end date. Done in Ads Manager through Chrome by duplicating
+the C1 ad (same static install setup) and replacing its media and text.
+
+| Ad | ID | State |
+|---|---|---|
+| "C10 join-the-table video 1311" | `120252019897300737` | Turned off. At the swap: $4.93 spent, 193 impressions, 6 clicks, 1 install (Meta's count) |
+| "C11 practice-charleston static 1311" | `120252028880770737` | On, in review. C11 4:5 as primary media with the C11 9:16 in the Vertical slot, C11 primary text, headline "Practice mahj at home", Install now. No related media (C1's was removed), AI images and the five creative enhancements off. Meta defaults left on as on C1 (essential enhancements, carousel display) |
+
+- Campaign at the swap: $8.63 spent, 7 installs (C1 6, C10 1), so about
+  $11.37 is left for C11.
+- C1 stays off, so the remaining budget reads as a clean C11 run. C1 and C11
+  can be compared on Meta's installs per dollar; C1 had $3.70 for 6.
+- The upload dialog pre-ticks "publish this upload to current active ads as
+  related media" (C10 was ticked). Untick it, or the new images go onto the
+  live ad too.
+
 ## Readout (Nov 17, then Nov 20 for ASC and SKAN lag)
 
 1. Meta: spend, impressions by device and placement (confirm iPhone, no
