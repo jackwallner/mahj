@@ -5,9 +5,11 @@
 
 C10 (video) gets watched but rarely tapped; C1 (static) gets tapped. This keeps
 C10's painted table and lays it out like C1: the app's name on top, the hook,
-then a large phone on the Charleston drill. The phone is pasted after the paint
-pass so the screen stays sharp, and the screen is cut up so the prompt and
-tiles sit high and big: readable at a glance. Outputs a 9:16, a 4:5 and the copy.
+then a big phone showing the moment that sold C1, a Charleston pass picked and
+"Perfect pass! 3 of 3". The screen is redrawn, not a 1:1 capture: the real
+tiles from the app (B.rack) with the coach's three in gold, the prompt and the
+result card enlarged so it all reads in a one-second scroll. The phone goes on
+after the paint pass so it stays sharp. Outputs a 9:16, a 4:5 and the copy.
 """
 
 from __future__ import annotations
@@ -21,11 +23,10 @@ from c9_whole_charleston import B, R
 
 ID = "C11-join-the-table-static"
 FOLDER = "C11 join-the-table-static"
-HOOK = ("Practice your mahj.", "Bring it to the table.")
-SCREEN = "05_charleston.png"
-# Bands of the 1206x2622 capture: nav header, prompt + tiles + "Selected 0 of 3", the button.
-BANDS = [((0, 420), 40), ((990, 1740), 110), ((2280, 2500), 0)]
-CUPS = [(176, 1150), (904, 414), (904, 1150), (176, 414)]
+HOOK = ("Practice the Charleston.", "Before game night.")
+PROMPT = "Which 3 would you pass?"
+RESULT = "Perfect pass! 3 of 3"
+WHY = ("Odd tiles and the wind go.", "Keep your evens.")  # true for this 2468-leaning deal
 COPY = {
     "Primary text": "Already play mahj? Practice the Charleston, read your rack faster and know what to "
                     "throw, five minutes at a time.",
@@ -43,12 +44,10 @@ COPY = {
 
 
 def table(dy: int) -> Image.Image:
-    """Cloth and four cups, moved dy down (a whole number of planks), painted."""
+    """The painted table, moved dy down (a whole number of planks). The phone covers the middle,
+    so no cups: their steam showed as smudges above the phone."""
     assert dy % 150 == 0, "keep the plank seams lined up"
     im = R.table_bg().copy()
-    for i, (cx, cy) in enumerate(CUPS):
-        R.paste_center(im, R.cup(), cx, cy)
-        R.steam(im, cx, cy - 10, 0.4, i)
     low = Image.new("RGBA", im.size)
     low.paste(im.crop((0, 0, R.W, R.H - dy)), (0, dy))
     for y in range(0, dy, 150):
@@ -56,23 +55,76 @@ def table(dy: int) -> Image.Image:
     return R.paint(low, 0).convert("RGBA")
 
 
-def screen(width: int) -> Image.Image:
-    """The Charleston drill with its empty space taken out, scaled to width, corners rounded."""
-    src = Image.open(R.K.CAPS / SCREEN).convert("RGBA")
-    out = Image.new("RGBA", src.size, src.getpixel((20, 600)))
-    y = 0
-    for (a, b), gap in BANDS:
-        out.paste(src.crop((0, a, src.width, b)), (0, y))
-        y += b - a + gap
-    out = out.resize((width, round(width * src.height / src.width)), Image.LANCZOS)
-    out.putalpha(R.rounded_mask(out.size, int(width * 0.11)))
-    return out
+def coach_card(width: int) -> Image.Image:
+    """The app's result card, enlarged: gold star, "Perfect pass! 3 of 3", and the coach's why."""
+    f, fw = B.font(62, "Semibold"), B.font(52, "Medium")
+    h = 286
+    im = Image.new("RGBA", (width, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle((0, 0, width - 1, h - 1), 34, fill=B.CARD + (255,))
+    star = B.stars(1, 60)
+    tw = d.textlength(RESULT, font=f)
+    x = round((width - star.width - 22 - tw) / 2)
+    im.alpha_composite(star, (x, 44))
+    d.text((x + star.width + 22, 76), RESULT, font=f, fill=B.INK, anchor="lm")
+    for k, line in enumerate(WHY):
+        d.text((width / 2, 158 + k * 64), line, font=fw, fill=B.INK, anchor="mm")
+    return im
 
 
-def phone(width: int) -> Image.Image:
+def rack(width: int) -> Image.Image:
+    """The real deal, 7 over 6, the coach's 3 raised with a thick gold ring, the rest faded."""
+    faces = B.deal_tiles()
+    gap = 16
+    tw = (width - 6 * gap) // 7
+    th = round(tw * faces[0].height / faces[0].width)
+    lift, ring = round(th * 0.16), 10
+    row_gap = lift + 2 * ring + 12  # a raised tile in row 2 must clear row 1
+    h = lift + 2 * th + row_gap + 2 * ring
+    im = Image.new("RGBA", (width, h), (0, 0, 0, 0))
+    for r, idxs in enumerate([range(0, 7), range(7, 13)]):
+        x0 = (width - (len(idxs) * tw + (len(idxs) - 1) * gap)) // 2
+        for k, i in enumerate(idxs):
+            x, y = x0 + k * (tw + gap), lift + ring + r * (th + row_gap)
+            t = faces[i].resize((tw, th), Image.LANCZOS)
+            if i in B.PASS:
+                y -= lift
+            else:
+                veil = Image.new("RGBA", t.size, B.CREAM + (0,))
+                veil.putalpha(t.getchannel("A").point(lambda v: v * 18 // 100))
+                t = t.copy()
+                t.alpha_composite(veil)
+            B.shadow(im, t, (x, y), blur=6, alpha=40, drop=4)
+            if i in B.PASS:
+                ImageDraw.Draw(im).rounded_rectangle((x - ring, y - ring, x + tw + ring - 1, y + th + ring - 1),
+                                                     24, outline=B.GOLD, width=ring)
+    return im
+
+
+def screen(width: int, height: int, card_bottom: int) -> Image.Image:
+    """The pass, picked and scored: prompt, the deal with the coach's 3 in gold, the result card
+    ending at card_bottom, the rack centred in between."""
+    im = Image.new("RGBA", (width, height), B.CREAM + (255,))
+    f = B.font(66, "Bold", True)
+    ImageDraw.Draw(im).text((width / 2, 50), PROMPT, font=f, fill=B.INK, anchor="mt")
+    card = coach_card(width - 60)
+    card_top = card_bottom - card.height
+    tiles = rack(width - 56)
+    top = 50 + 66
+    y = top + (card_top - top - tiles.height) // 2
+    im.alpha_composite(tiles, ((width - tiles.width) // 2, y))
+    B.shadow(im, card, (30, card_top), blur=14, alpha=50, drop=6)
+    im.putalpha(R.rounded_mask(im.size, int(width * 0.09)))
+    return im
+
+
+PAD = 34  # phone bezel
+
+
+def phone(width: int, height: int, card_bottom: int) -> Image.Image:
     """A dark-framed phone with a soft shadow around the screen."""
-    s = screen(width)
-    pad = max(10, width // 30)
+    pad = PAD
+    s = screen(width - 2 * pad, height, card_bottom)
     im = Image.new("RGBA", (s.width + 2 * pad + 60, s.height + 2 * pad + 60), (0, 0, 0, 0))
     sh = Image.new("RGBA", im.size, (0, 0, 0, 0))
     ImageDraw.Draw(sh).rounded_rectangle((34, 44, im.width - 26, im.height - 16), int(width * 0.14), fill=(20, 10, 10, 150))
@@ -120,38 +172,45 @@ def hook(size: int) -> Image.Image:
 
 
 def brand(icon: int) -> Image.Image:
-    """Icon and name, centred as one row."""
+    """Icon, name and "Free to start on the App Store", centred as one row."""
     ic = R.icon(icon)
-    name = B.font(max(56, round(icon * 0.55)), "Bold", True)
-    text_w = round(ImageDraw.Draw(ic).textlength("Mahj Trainer", font=name))
+    name, sub = B.font(max(56, round(icon * 0.5)), "Bold", True), B.font(44, "Semibold")
+    d = ImageDraw.Draw(ic)
+    text_w = round(max(d.textlength("Mahj Trainer", font=name), d.textlength("Free to start on the App Store", font=sub)))
     layer = Image.new("RGBA", (ic.width + text_w + 20, ic.height), (0, 0, 0, 0))
     layer.alpha_composite(ic)
-    ImageDraw.Draw(layer).text((ic.width - 6, ic.height // 2), "Mahj Trainer", font=name, fill=R.CREAM,
-                               anchor="lm", stroke_width=max(3, icon // 30), stroke_fill=R.INK)
+    t = ImageDraw.Draw(layer)
+    x, mid = ic.width - 14, ic.height // 2
+    stroke = max(3, icon // 30)
+    t.text((x, mid - 4), "Mahj Trainer", font=name, fill=R.CREAM, anchor="ls", stroke_width=stroke, stroke_fill=R.INK)
+    t.text((x, mid + 10), "Free to start on the App Store", font=sub, fill=R.CREAM, anchor="lt",
+           stroke_width=stroke, stroke_fill=R.INK)
     out = Image.new("RGBA", (R.W, layer.height), (0, 0, 0, 0))
     out.alpha_composite(shadowed(layer, 8, 0.5), ((R.W - layer.width) // 2, 0))
     return out
 
 
-def place_phone(im: Image.Image, width: int, top: int, angle: float = -3) -> None:
-    """Phone centred across, its frame starting at top; the bottom runs off the frame."""
-    sprite = phone(width).rotate(angle, Image.BICUBIC, expand=True)
+def place_phone(im: Image.Image, width: int, top: int, card_bottom: int, angle: float = -1) -> None:
+    """Phone centred across, its frame starting at top and running off the bottom; the result
+    card ends at card_bottom on the canvas."""
+    sprite = phone(width, im.height - top + 200, card_bottom - top - PAD)
+    sprite = sprite.rotate(angle, Image.BICUBIC, expand=True)
     im.alpha_composite(sprite, ((R.W - sprite.width) // 2, top - 30))
 
 
 def story() -> Image.Image:
     im = table(450)  # cloth 780 to 1680
-    im.alpha_composite(brand(120), (0, 250))
-    im.alpha_composite(hook(108), (0, 420))
-    place_phone(im, 700, 720)
+    im.alpha_composite(brand(104), (0, 255))
+    im.alpha_composite(hook(104), (0, 403))
+    place_phone(im, 1040, 645, 1530)
     return im.convert("RGB")
 
 
 def feed() -> Image.Image:
     im = shrink(table(150), 0.9).crop((0, 0, R.W, 1350))  # cloth 432 to 1242
-    im.alpha_composite(brand(104), (0, 30))
-    im.alpha_composite(hook(98), (0, 170))
-    place_phone(im, 640, 400)
+    im.alpha_composite(brand(104), (0, 22))
+    im.alpha_composite(hook(98), (0, 180))
+    place_phone(im, 1040, 395, 1305)
     return im.convert("RGB")
 
 

@@ -187,24 +187,40 @@ plays (a Mah Jongg interest, retargeting, the TikTok and Instagram pages).
 - **Rebuild:** `python3 c10_join_the_table.py` (imports the C9 script for the
   app panel, end card and safe-area text).
 
-## 8. C11 Practice your mahj, bring it to the table (static, added 2026-11-14)
+## 8. C11 Practice the Charleston, before game night (static, added 2026-11-14)
 
-A static aimed at people who already play, laid out like C1 on C10's painted
-table. Made because in the 1311 install test C10 got watched (75 video views)
-but rarely tapped (5 link clicks, $0.92 each), while C1 got 15 link clicks at
-$0.25.
+A static for people who already play, on C10's painted table, built around the
+moment that sold C1. Made because in the 1311 install test C10 got watched (75
+video views) but rarely tapped (5 link clicks, $0.92 each), while C1 got 15
+link clicks at $0.25.
 
 - **Files** (`C11 join-the-table-static/`): `C11-join-the-table-static-story-9x16.png`
   (1080x1920), `-feed-4x5.png` (1080x1350), `-copy.txt`.
-- **Layout:** icon and Mahj Trainer on top, then "Practice your mahj. / Bring it
-  to the table." in C10's hook type, then a big phone on the Charleston drill
-  running off the bottom edge, over the cloth and cups. The phone goes on after
-  the paint pass so the screen stays sharp, and the capture's empty space is cut
-  out so the prompt and tiles sit high and large.
+- **Layout:** icon, Mahj Trainer and "Free to start on the App Store" on top,
+  then "Practice the Charleston. / Before game night." in C10's hook type, then
+  a near full-width phone running off the bottom edge. The screen is redrawn, not
+  a 1:1 capture: "Which 3 would you pass?", the real deal tiles at about 116px
+  with the coach's 3 (5 Crak, 7 Bam, North) raised in thick gold rings and the
+  rest faded a little, and the result card "Perfect pass! 3 of 3" with the
+  coach's reason "Odd tiles and the wind go. / Keep your evens." The phone goes
+  on after the paint pass so it stays sharp. In the 9:16 the card ends at
+  y~1530, above the Stories UI.
+- **Council (2 providers, Anthropic and OpenAI), 5 rounds:**
+
+  | Delegate | R1 | R2 | R3 | R4 | R5 |
+  | --- | --- | --- | --- | --- | --- |
+  | Claude Opus | 6 | 7 | 7.5 | 8.5 | 9 |
+  | Claude Sonnet | 6 | 7 | 7.5 | 8.5 | 9 |
+  | GPT Sol | 6 | 8.5 | 8.5 | 9 | 9 |
+  | GPT Terra | 6 | 7 | 8 | 8.5 | 9 |
+
+  Declined on purpose: C1's hook (Jack wanted the practice angle, and it would
+  duplicate C1), relabelling the tile faces (WIND/FLOWER/JOKER are the real
+  tiles, not ad text), and extra pills or eyebrows.
 - **History (11-14):** the first cut ("Learn mahjong. / Join the table.", tile
-  walls, coach card, a small painted phone) read as busy and the app was hard to
-  read. Jack also wanted it pitched at practice for existing players, not
-  learning from scratch.
+  walls, coach paragraph, a small painted phone) read as busy and the app was
+  hard to read; Jack asked for a practice angle for existing players and said
+  the screen can be zoomed and exaggerated.
 - **Copy:** its own practice copy in the script (`COPY`), headline "Practice
   mahj at home".
 - **Rebuild:** `python3 c11_join_the_table_static.py`.
