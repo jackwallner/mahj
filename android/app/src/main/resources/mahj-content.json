@@ -3325,7 +3325,7 @@
                   "Switch to a hand that does not need 5 Bams"
                 ]
               },
-              "frontSubtitle" : "You hold one and no jokers. Two are in the discards, one is exposed on a rack. Keep chasing?",
+              "frontSubtitle" : "You hold one and no jokers. Two are in the discards, and one sits in an opponent's exposed pung beside two jokers. Keep chasing?",
               "frontTiles" : [
                 "5B"
               ],

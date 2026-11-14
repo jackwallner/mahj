@@ -47438,43 +47438,43 @@
         }
       }
     },
-    "You hold one and no jokers. Two are in the discards, one is exposed on a rack. Keep chasing?": {
+    "You hold one and no jokers. Two are in the discards, and one sits in an opponent's exposed pung beside two jokers. Keep chasing?": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "لديكم قطعة واحدة ولا جوكر. توجد قطعتان بين القطع المرمية وواحدة مكشوفة على حامل القطع. هل تواصلون المحاولة؟"
+            "value": "لديكم قطعة واحدة ولا جوكر. توجد قطعتان بين القطع المرمية، وواحدة في pung مكشوف لدى خصم بجانب قطعتي جوكر. هل تواصلون المحاولة؟"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du hältst einen davon und keinen Joker. Zwei liegen in der Ablage, einer ist offen auf einem Rack ausgelegt. Weiter darauf setzen?"
+            "value": "Du hältst einen davon und keinen Joker. Zwei liegen in der Ablage, einer liegt im offenen Pung eines Gegners neben zwei Jokern. Weiter darauf setzen?"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tienes uno y ningún comodín. Dos están en los descartes y uno está expuesto en un atril. ¿Sigues buscándolo?"
+            "value": "Tienes uno y ningún comodín. Dos están en los descartes y uno está en el pung expuesto de un rival, junto a dos comodines. ¿Sigues buscándolo?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous en avez un et aucun joker. Deux sont dans les défausses, un est exposé sur un chevalet. Continuer ?"
+            "value": "Vous en avez un et aucun joker. Deux sont dans les défausses, un est dans le pung exposé d'un adversaire, à côté de deux jokers. Continuer ?"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kamu punya satu dan tidak punya joker. Dua ada di buangan, satu diekspos di rak. Terus mengejar?"
+            "value": "Kamu punya satu dan tidak punya joker. Dua ada di buangan, satu ada di pung lawan yang diekspos bersama dua joker. Terus mengejar?"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bạn có một quân và không có joker nào. Hai quân đã nằm trong đống bỏ, một quân đã lộ trên giá của người khác. Có nên tiếp tục chờ quân đó không?"
+            "value": "Bạn có một quân và không có joker nào. Hai quân đã nằm trong đống bỏ, một quân nằm trong pung đã lộ của đối thủ cùng hai joker. Có nên tiếp tục chờ quân đó không?"
           }
         }
       }
