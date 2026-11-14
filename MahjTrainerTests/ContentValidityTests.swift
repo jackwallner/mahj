@@ -112,6 +112,19 @@ final class ContentValidityTests: XCTestCase {
         }
     }
 
+    /// A group whose last real copies are gone can still be finished with
+    /// jokers, so a call to give it up only holds when the question says
+    /// what jokers the player has (Nov 13 2026 Mahj Minute review).
+    func testDeadTileCallsSayWhatJokersYouHold() {
+        for card in allFlashcards where card.choice != nil {
+            let front = [card.frontTitle, card.frontSubtitle ?? ""].joined(separator: " ").lowercased()
+            XCTAssertFalse(card.backBody.contains("already over"), "\(card.id) calls a hand over that jokers can still finish")
+            if card.backBody.contains("left to draw") {
+                XCTAssertTrue(front.contains("joker"), "\(card.id) rules a group dead without saying what jokers you hold")
+            }
+        }
+    }
+
     // MARK: - Library integrity
 
     func testAllContentIDsAreUnique() {

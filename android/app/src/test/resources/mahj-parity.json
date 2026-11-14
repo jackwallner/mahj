@@ -2567,10 +2567,10 @@
         "Keep chasing the pung",
         "Switch to a hand that does not need 5 Bams"
       ],
-      "explanation" : "Only four of any tile exist. Yours plus the three gone makes four, so there are no 5 Bams left to draw and your pung would need two jokers. Count the dead tiles before you count on a group: the discard pile tells you which hands are already over.",
+      "explanation" : "Only four of any tile exist. Yours plus the three gone makes four, so no 5 Bam is left to draw. The only way to finish the pung now is to draw two jokers, and you hold none. Count the dead tiles before you count on a group, and switch to a hand your rack can still reach.",
       "id" : "plus-kd-count-tiles",
       "isReviewable" : true,
-      "prompt" : "You need a pung of 5 Bams.\nYou hold one. Two are in the discards, one is exposed on a rack. Keep chasing?",
+      "prompt" : "You need a pung of 5 Bams.\nYou hold one and no jokers. Two are in the discards, one is exposed on a rack. Keep chasing?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [

@@ -28865,43 +28865,43 @@
         }
       }
     },
-    "Only four of any tile exist. Yours plus the three gone makes four, so there are no 5 Bams left to draw and your pung would need two jokers. Count the dead tiles before you count on a group: the discard pile tells you which hands are already over.": {
+    "Only four of any tile exist. Yours plus the three gone makes four, so no 5 Bam is left to draw. The only way to finish the pung now is to draw two jokers, and you hold none. Count the dead tiles before you count on a group, and switch to a hand your rack can still reach.": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "توجد 4 نسخ فقط من كل قطعة. قطعتكم مع القطع الثلاث التي خرجت من اللعب تكمل الأربع، لذا لم تتبقَّ أي ⁦5 Bam⁩ للسحب، وسيحتاج pung لديكم إلى قطعتي جوكر. احسبوا القطع الميتة قبل الاعتماد على مجموعة، فالقطع المرمية تكشف الأيدي التي لم يعد تكوينها ممكنًا."
+            "value": "توجد 4 نسخ فقط من كل قطعة. قطعتكم مع القطع الثلاث التي خرجت من اللعب تكمل الأربع، لذا لم تتبقَّ أي ⁦5 Bam⁩ للسحب. الطريقة الوحيدة لإكمال pung الآن هي سحب قطعتي جوكر، وليس لديكم أي جوكر. احسبوا القطع الميتة قبل الاعتماد على مجموعة، وانتقلوا إلى يد لا يزال حاملكم قادرًا على تكوينها."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Von jedem Stein gibt es nur vier. Du hältst eine 5 Bam, drei weitere sind bereits sichtbar. Damit sind alle vier bekannt, also gibt es keine 5 Bam mehr in der Mauer und dein Pung bräuchte zwei Joker. Zähl die toten Steine, bevor du auf eine Gruppe setzt: Der Abwurfstapel zeigt, welche Hände nicht mehr möglich sind."
+            "value": "Von jedem Stein gibt es nur vier. Du hältst eine 5 Bam, drei weitere sind bereits sichtbar. Damit sind alle vier bekannt, also gibt es keine 5 Bam mehr in der Mauer. Fertig wird dein Pung jetzt nur noch mit zwei gezogenen Jokern, und du hast keinen. Zähl die toten Steine, bevor du auf eine Gruppe setzt, und wechsle zu einer Hand, die dein Rack noch erreichen kann."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Solo existen cuatro de cada ficha. La tuya más las tres que salieron suman cuatro, así que no quedan 5 Bam por robar y tu pung necesitaría dos comodines. Cuenta las fichas muertas antes de contar con un grupo: el montón de descartes te dice qué manos ya terminaron."
+            "value": "Solo existen cuatro de cada ficha. La tuya más las tres que salieron suman cuatro, así que no queda ningún 5 Bam por robar. La única forma de completar el pung ahora es robar dos comodines, y no tienes ninguno. Cuenta las fichas muertas antes de contar con un grupo y cambia a una mano que tu atril todavía pueda lograr."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Il n'existe que quatre exemplaires de chaque tuile. Le vôtre et les trois autres déjà sortis font quatre : il ne reste aucun 5 Bam à piocher et votre pung aurait besoin de deux jokers. Comptez les tuiles mortes avant de compter sur un groupe : la pile des défausses révèle quelles mains sont déjà impossibles."
+            "value": "Il n'existe que quatre exemplaires de chaque tuile. Le vôtre et les trois autres déjà sortis font quatre : il ne reste aucun 5 Bam à piocher. La seule façon de finir le pung est maintenant de piocher deux jokers, et vous n'en avez aucun. Comptez les tuiles mortes avant de compter sur un groupe, et passez à une main que votre chevalet peut encore atteindre."
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Setiap ubin hanya ada empat. Milikmu ditambah tiga yang sudah keluar jadi empat, jadi tidak ada 5 Bam tersisa untuk diambil dan pungmu butuh dua joker. Hitung ubin mati sebelum mengandalkan sebuah kelompok: tumpukan buangan memberi tahu tangan mana yang sudah tamat."
+            "value": "Setiap ubin hanya ada empat. Milikmu ditambah tiga yang sudah keluar jadi empat, jadi tidak ada 5 Bam tersisa untuk diambil. Satu-satunya cara menyelesaikan pung sekarang adalah mengambil dua joker, dan kamu tidak punya satu pun. Hitung ubin mati sebelum mengandalkan sebuah kelompok, lalu pindah ke tangan yang masih bisa dicapai rakmu."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mỗi loại quân chỉ có bốn quân. Quân bạn đang giữ cộng với ba quân đã ra là đủ bốn, nên không còn quân 5 Bam nào để bốc và pung của bạn sẽ cần hai joker. Hãy kiểm tra những loại quân đã hết trước khi trông cậy vào một nhóm; đống bỏ cho biết bộ bài nào không còn khả thi."
+            "value": "Mỗi loại quân chỉ có bốn quân. Quân bạn đang giữ cộng với ba quân đã ra là đủ bốn, nên không còn quân 5 Bam nào để bốc. Cách duy nhất để hoàn thành pung lúc này là bốc được hai joker, mà bạn không có joker nào. Hãy kiểm tra những loại quân đã hết trước khi trông cậy vào một nhóm, rồi chuyển sang một bộ bài mà giá của bạn vẫn có thể đạt được."
           }
         }
       }
@@ -47438,43 +47438,43 @@
         }
       }
     },
-    "You hold one. Two are in the discards, one is exposed on a rack. Keep chasing?": {
+    "You hold one and no jokers. Two are in the discards, one is exposed on a rack. Keep chasing?": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "لديكم قطعة واحدة. توجد قطعتان بين القطع المرمية وواحدة مكشوفة على حامل القطع. هل تواصلون المحاولة؟"
+            "value": "لديكم قطعة واحدة ولا جوكر. توجد قطعتان بين القطع المرمية وواحدة مكشوفة على حامل القطع. هل تواصلون المحاولة؟"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du hältst einen davon. Zwei liegen in der Ablage, einer ist offen auf einem Rack ausgelegt. Weiter darauf setzen?"
+            "value": "Du hältst einen davon und keinen Joker. Zwei liegen in der Ablage, einer ist offen auf einem Rack ausgelegt. Weiter darauf setzen?"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tienes uno. Dos están en los descartes y uno está expuesto en un atril. ¿Sigues buscándolo?"
+            "value": "Tienes uno y ningún comodín. Dos están en los descartes y uno está expuesto en un atril. ¿Sigues buscándolo?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous en avez un. Deux sont dans les défausses, un est exposé sur un chevalet. Continuer ?"
+            "value": "Vous en avez un et aucun joker. Deux sont dans les défausses, un est exposé sur un chevalet. Continuer ?"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kamu punya satu. Dua ada di buangan, satu diekspos di rak. Terus mengejar?"
+            "value": "Kamu punya satu dan tidak punya joker. Dua ada di buangan, satu diekspos di rak. Terus mengejar?"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bạn có một quân. Hai quân đã nằm trong đống bỏ, một quân đã lộ trên giá của người khác. Có nên tiếp tục chờ quân đó không?"
+            "value": "Bạn có một quân và không có joker nào. Hai quân đã nằm trong đống bỏ, một quân đã lộ trên giá của người khác. Có nên tiếp tục chờ quân đó không?"
           }
         }
       }
