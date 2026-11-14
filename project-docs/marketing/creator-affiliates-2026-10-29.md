@@ -205,6 +205,31 @@ Instagram engagement on 11-06: comments and post likes on @mahjongoc, @mahjongso
 
 YouTube on 11-06: no DMs exist there, and our channel has no comments to answer. Commented, liked and subscribed on Ladies That Mahj (32.5K), Jodella's Mahjong Channel (25) and Roundwell Mahjong (271), and liked West Georgia Mahjong. All verified after reload. Skipped channels that look mass-produced.
 
+### 2026-11-13: replies, teacher gifts, creator gift-first pitches
+
+Jack's rule from today: name no price to anyone until they answer, and commit no spend beyond Stephanie's $25. Drafts, per-send log and codes: `~/ios/growth/article-outreach-2026-11/wave-3-mahj/` (`send-log.tsv`, sets A to D).
+
+TikTok replies from @mahjtips, 6:01 to 6:02 PM PT:
+
+| Creator | Sent |
+|---|---|
+| @stefmahj (Stephanie, said yes to a post on 11-12) | Flat $25 for one video, made her way, labeled as an ad, paid once it's up; asked to repost it. The only paid offer out. |
+| @mahj.in.color | Thanks, and an ask to flag anything confusing |
+| @themahjongfairy.htx (Landy) | No-rush ask for what she'd change for her 101 students |
+
+Creator pitches (set D): a lifetime code as a gift, then "if you ever do sponsored posts, I'd love to hear your rate." No price named.
+
+| Date | Creator | Channel | Personal line |
+|---|---|---|---|
+| 2026-11-13 | @ladiesthatmahj (3.6K) | TikTok DM | practicing with 13 random tiles |
+| 2026-11-13 | @larasmahjongedit (Lara, 22.8K) | email | round 1 of the Charleston for East |
+| 2026-11-13 | @abbyaroundthetable (Abby, 15.3K) | email | Mahjong 101 series |
+| 2026-11-13 | @thehappymahjongteacher (Taylor, 9.7K) | email (TikTok intro of 11-01 never accepted) | "can you spot the error" video |
+
+Held: @mahjongwithandrew, until he accepts the 11-01 request. When a creator quotes a rate, Jack decides one by one; never counter with the per-view formula.
+
+Also sent on 11-13: a lifetime code to 19 teachers and clubs by email (set A), a link-for-posts swap to 9 small shops (set B, 6 emails and 3 site forms), and a free first month for customers to 5 larger shops (set C, 1 email and 4 site forms).
+
 ## What a sponsored post is worth
 
 A trial is worth about $4.60 on first-month cash (51% trial to paid at about $9 first-30-day proceeds, 2026-10 numbers) and about $9 if payers stay a second month. Apple Ads paid about $9.35 per trial (Oct 13 to 19, small sample). Assuming 1% of viewers install (a guess, not measured) and 26% of installs start a trial, 1,000 views is worth about $12 to $23. Rule of thumb: up to $15 per 1,000 average views, with a $10 floor. Use a `ct=<handle>` link so the assumption gets measured. @lets.learn.mahjong averages about 240 views, worth $3 to $6, so anything above the floor is buying the relationship and reusable content.
