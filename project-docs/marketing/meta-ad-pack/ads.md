@@ -159,6 +159,34 @@ only names a fear. C9 is that short cut to ten seconds, then the app.
   t1,t2` for stills, `--out DIR` to render elsewhere). It reuses the shorts
   engine in `~/ios/growth/animated-shorts-2026-10-27` and the drill recording.
 
+## 7. C10 Learn mahjong, join the table (video, added 2026-11-13)
+
+For the broad install test, where most viewers have never played. C9 opens
+on "the Charleston", a word only players know; C10 opens on why someone
+wants in. Use C10 on a broad audience and C9 where the audience already
+plays (a Mah Jongg interest, retargeting, the TikTok and Instagram pages).
+
+- **Files** (`C10 join-the-table-video/`): `C10-join-the-table-video-9x16.mp4`
+  (1080x1920, 20.7 s), `-4x5.mp4` (1080x1350), `-cover-9x16.png`,
+  `-cover-4x5.png`, `-copy.txt`.
+- **Cut:** 0 to 2.8 s tiles burst from a case ("Learn mahjong. Join the
+  table."); to 6.2 s a lit window with four friends ("Friends everywhere are
+  meeting for mahjong night."); to 9.9 s the three passes ("You trade tiles,
+  build a hand, and call mahjong."); to 15.3 s the Pick Your Pass drill and
+  coach card ("Learn it at home, five minutes at a time. A coach explains
+  every move."); to 17.9 s the table set for four with the app on it ("Then
+  pull up a chair."); then the end card.
+- **Claim limit:** the app has no multiplayer, so the ad sells being ready
+  for game night with friends. It never says the app finds you a table.
+- **Primary text:** Want in on mahj night? Learn American Mah Jongg at home, five minutes at a time, with a coach that explains every move.
+- **Alternate 1:** Your friends play mahj. Learn at home first, then pull up a chair.
+- **Alternate 2:** New to American Mah Jongg? Short daily practice, and the reason behind every answer.
+- **Headline:** Learn mahj at home
+- **Description:** American Mah Jongg practice
+- **CTA:** Install Now
+- **Rebuild:** `python3 c10_join_the_table.py` (imports the C9 script for the
+  app panel, end card and safe-area text).
+
 ## Ads Manager upload checklist
 
 Prerequisites (see `../meta-ads.md`, "Turning it on"): the Meta app for

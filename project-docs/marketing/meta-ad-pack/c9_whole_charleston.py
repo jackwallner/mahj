@@ -61,6 +61,7 @@ COPY = {
 
 R.SPEED, R.TAIL, R.END_CARD = 1.06, 0.35, 2.8
 HOOK_Y, CAPTION_Y = 250, 365  # the engine draws these at 200 and 1370, outside Meta's safe area
+CAPTION_AT: dict[str, int] = {}  # first word of a caption -> its own centre y
 FEED_TOP = 80  # the 4:5 is rows 80 to 1430 of the 9:16
 HOLD = 0.7  # extra time on the coach card before the end card
 
@@ -78,7 +79,7 @@ def hook_overlay(hook: tuple[str, ...], alpha: float) -> Image.Image:
 def caption(base: Image.Image, group, t: float, alpha: float) -> None:
     layer = Image.new("RGBA", base.size, (0, 0, 0, 0))
     _caption(layer, group, t, alpha)
-    base.alpha_composite(layer, (0, 0), (0, 1370 - CAPTION_Y, R.W, R.H))
+    base.alpha_composite(layer, (0, 0), (0, 1370 - CAPTION_AT.get(group[0][2], CAPTION_Y), R.W, R.H))
 
 
 def timeline(short, vo):
@@ -125,6 +126,7 @@ PICK_SRC, PICK_TOP = 55.55, 820  # recording second and raw row where the pick v
 TAPS = ((56.42, 678, 1515), (57.92, 752, 1302), (59.17, 227, 1515))  # second, raw x, raw y
 CARD_SRC, CARD_TOP = 63.9, 1120
 APP: dict = {}
+APP_LINE = 4  # the narration line spoken over the app
 
 
 def extract(folder: pathlib.Path, stem: str, start: float, dur: float, top: int, speed: float) -> int:
@@ -138,7 +140,7 @@ def extract(folder: pathlib.Path, stem: str, start: float, dur: float, top: int,
 
 def prepare(vo) -> None:
     C.prepare(vo)
-    cut = C.cue(4, "coach", 2.8) + R.LEAD - 0.25  # the coach card arrives as the voice says "coach"
+    cut = C.cue(APP_LINE, "coach", 2.8) + R.LEAD - 0.25  # the coach card arrives as the voice says "coach"
     speed = min(2.6, max(1.4, (TAPS[-1][0] - PICK_SRC + 0.3) / (cut - 0.15)))
     folder = pathlib.Path(tempfile.mkdtemp(prefix="c9-app-"))
     APP.update(cut=cut, speed=speed, dir=folder,
@@ -275,44 +277,45 @@ def mux(video: pathlib.Path, audio: pathlib.Path, out: pathlib.Path) -> None:
                     "-shortest", "-movflags", "+faststart", str(out)], check=True)
 
 
-def main() -> None:
+def build(short: R.Short, folder: str, copy: dict) -> None:
     args = sys.argv[1:]
-    out = pathlib.Path(args[args.index("--out") + 1]) if "--out" in args else B.ICLOUD / FOLDER
+    ident = short.name
+    out = pathlib.Path(args[args.index("--out") + 1]) if "--out" in args else B.ICLOUD / folder
     out.mkdir(parents=True, exist_ok=True)
     work = pathlib.Path(tempfile.mkdtemp(prefix="c9-"))
-    vo = R.narrate(LINES, work)
-    prepare(vo)
-    scenes = R.timeline(SHORT, vo)
+    vo = R.narrate(short.lines, work)
+    short.prepare(vo)
+    scenes = R.timeline(short, vo)
     total = scenes[-1]["end"]
     nframes = int(round(total * R.FPS))
     print("scenes:", ", ".join(f"{sc['start']:.2f}" for sc in scenes), f"end {total:.2f}",
           f"| app cut +{APP['cut']:.2f}, pick speed {APP['speed']:.2f}x", flush=True)
     if "--still" in args:
         for ts in args[args.index("--still") + 1].split(","):
-            im = R.frame(SHORT, scenes, int(float(ts) * R.FPS))
+            im = R.frame(short, scenes, int(float(ts) * R.FPS))
             im.save(out / f"still_{float(ts):05.2f}.jpg", quality=92)
             feed(im).save(out / f"still_{float(ts):05.2f}_4x5.jpg", quality=92)
         return
     audio = work / "mix.wav"
-    R.soundtrack(SHORT, scenes, total, audio)
+    R.soundtrack(short, scenes, total, audio)
     story, square = encoder(R.H, work / "9x16.mp4"), encoder(1350, work / "4x5.mp4")
     for n in range(nframes):
-        im = R.frame(SHORT, scenes, n)
+        im = R.frame(short, scenes, n)
         story.stdin.write(im.tobytes())
         square.stdin.write(feed(im).tobytes())
         if n == int(0.9 * R.FPS):
-            im.save(out / f"{ID}-cover-9x16.png")
-            feed(im).save(out / f"{ID}-cover-4x5.png")
+            im.save(out / f"{ident}-cover-9x16.png")
+            feed(im).save(out / f"{ident}-cover-4x5.png")
         if n % 60 == 0:
             print(f"frame {n}/{nframes}", flush=True)
     for proc in (story, square):
         proc.stdin.close()
         assert proc.wait() == 0, "ffmpeg failed"
-    mux(work / "9x16.mp4", audio, out / f"{ID}-9x16.mp4")
-    mux(work / "4x5.mp4", audio, out / f"{ID}-4x5.mp4")
-    (out / f"{ID}-copy.txt").write_text("\n\n".join(f"{k}:\n{v}" for k, v in COPY.items()) + "\n")
+    mux(work / "9x16.mp4", audio, out / f"{ident}-9x16.mp4")
+    mux(work / "4x5.mp4", audio, out / f"{ident}-4x5.mp4")
+    (out / f"{ident}-copy.txt").write_text("\n\n".join(f"{k}:\n{v}" for k, v in copy.items()) + "\n")
     print(f"wrote {out} ({total:.2f}s, {nframes} frames)")
 
 
 if __name__ == "__main__":
-    main()
+    build(SHORT, FOLDER, COPY)
