@@ -27,6 +27,9 @@ HOOK = ("Practice the Charleston.", "Before game night.")
 PROMPT = "Which 3 would you pass?"
 RESULT = "Perfect pass! 3 of 3"
 WHY = ("Odd tiles and the wind go.", "Keep your evens.")  # true for this 2468-leaning deal
+PICKS = B.PASS  # tiles raised in gold; the rest fade (none picked: nothing fades)
+MARK = "star"  # result card icon: "star" or "check"
+TILES = B.deal_tiles
 COPY = {
     "Primary text": "Already play mahj? Practice the Charleston, read your rack faster and know what to "
                     "throw, five minutes at a time.",
@@ -62,7 +65,7 @@ def coach_card(width: int) -> Image.Image:
     im = Image.new("RGBA", (width, h), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     d.rounded_rectangle((0, 0, width - 1, h - 1), 34, fill=B.CARD + (255,))
-    star = B.stars(1, 60)
+    star = B.stars(1, 60) if MARK == "star" else check(60)
     tw = d.textlength(RESULT, font=f)
     x = round((width - star.width - 22 - tw) / 2)
     im.alpha_composite(star, (x, 44))
@@ -72,9 +75,19 @@ def coach_card(width: int) -> Image.Image:
     return im
 
 
+def check(size: int) -> Image.Image:
+    """The app's green answer check."""
+    im = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.ellipse((0, 0, size - 1, size - 1), fill=B.JADE)
+    d.line((size * 0.27, size * 0.52, size * 0.44, size * 0.68, size * 0.74, size * 0.34), fill=(255, 255, 255),
+           width=round(size * 0.11), joint="curve")
+    return im
+
+
 def rack(width: int) -> Image.Image:
     """The real deal, 7 over 6, the coach's 3 raised with a thick gold ring, the rest faded."""
-    faces = B.deal_tiles()
+    faces = TILES()
     gap = 16
     tw = (width - 6 * gap) // 7
     th = round(tw * faces[0].height / faces[0].width)
@@ -87,15 +100,15 @@ def rack(width: int) -> Image.Image:
         for k, i in enumerate(idxs):
             x, y = x0 + k * (tw + gap), lift + ring + r * (th + row_gap)
             t = faces[i].resize((tw, th), Image.LANCZOS)
-            if i in B.PASS:
+            if i in PICKS:
                 y -= lift
-            else:
+            elif PICKS:
                 veil = Image.new("RGBA", t.size, B.CREAM + (0,))
                 veil.putalpha(t.getchannel("A").point(lambda v: v * 18 // 100))
                 t = t.copy()
                 t.alpha_composite(veil)
             B.shadow(im, t, (x, y), blur=6, alpha=40, drop=4)
-            if i in B.PASS:
+            if i in PICKS:
                 ImageDraw.Draw(im).rounded_rectangle((x - ring, y - ring, x + tw + ring - 1, y + th + ring - 1),
                                                      24, outline=B.GOLD, width=ring)
     return im
