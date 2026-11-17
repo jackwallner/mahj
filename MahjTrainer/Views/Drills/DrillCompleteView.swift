@@ -36,6 +36,9 @@ struct DrillCompleteView: View {
             }
         }
         .padding()
+        // Done matches the session's Next on iPad instead of spanning the screen.
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
         .background(Theme.background)
         .overlay { ConfettiBurst(trigger: confettiTrigger, origin: .init(x: 0.5, y: 0.3), particleCount: 44) }
         .navigationBarBackButtonHidden(true)
