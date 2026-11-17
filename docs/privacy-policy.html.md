@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/privacy-policy.html
 
 ## Mahj Trainer Privacy Policy
 
-Last updated: November 7, 2026
+Last updated: November 16, 2026
 
 Mahj Trainer works without an account. Practice progress, streaks, review
 history, onboarding choices, and preferences are stored locally on your
@@ -58,8 +58,9 @@ tied to the random ID RevenueCat holds for your purchases, and RevenueCat
 sends PostHog your trial and subscription events under that ID. We use it
 only to understand how the app is used and improve it. It is not used for
 ads or to track you across other apps, and what you type in feedback is
-left out. PostHog keeps it for up to a year. You can turn it off in
-Settings › Share Usage Data.
+left out. PostHog keeps it for up to a year. Settings › Share Usage
+Data stops the app sending any of it. RevenueCat's trial and subscription
+events come from its servers, not the app, so they still reach PostHog.
 
 ## Ad attribution
 
