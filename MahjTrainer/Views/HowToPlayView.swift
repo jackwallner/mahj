@@ -15,6 +15,7 @@ struct HowToPlayView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
     @AppStorage("mahj.recommendedRoomHint") private var recommendedRoomHint = ""
     /// Read to the end once: Home stops showing the primer card, and the
@@ -92,16 +93,18 @@ struct HowToPlayView: View {
             .gesture(pageSwipe, including: swipes ? .all : .subviews)
     }
 
-    /// Swipe left for the next page, right for the previous one. The card
-    /// tracks the finger and rubber-bands at both ends of the primer.
+    /// Swipe toward the leading edge for the next page (left, or right in
+    /// Arabic), the other way for the previous one. The card tracks the
+    /// finger and rubber-bands at both ends of the primer.
     private var pageSwipe: some Gesture {
         DragGesture(minimumDistance: 12)
             .onChanged { value in
-                let atEdge = (value.translation.width > 0 && isFirst) || (value.translation.width < 0 && isLast)
-                drag = atEdge ? value.translation.width * 0.25 : value.translation.width
+                let travel = leadingward(value.translation.width)
+                let atEdge = (travel > 0 && isFirst) || (travel < 0 && isLast)
+                drag = atEdge ? travel * 0.25 : travel
             }
             .onEnded { value in
-                let travel = value.translation.width
+                let travel = leadingward(value.translation.width)
                 let flung = abs(travel) > 60 || abs(value.predictedEndTranslation.width) > 160
                 withAnimation(reduceMotion ? nil : .spring(response: 0.3, dampingFraction: 0.8)) { drag = 0 }
                 guard flung else { return }
@@ -111,6 +114,14 @@ struct HowToPlayView: View {
                     goBack()
                 }
             }
+    }
+
+    /// The finger's travel in layout terms: negative toward the leading
+    /// edge. Right to left SwiftUI mirrors the card's offset and its page
+    /// transitions, but not the finger, so Arabic flips it back here and the
+    /// card follows the hand, with the next page arriving from the left.
+    private func leadingward(_ width: CGFloat) -> CGFloat {
+        layoutDirection == .rightToLeft ? -width : width
     }
 
     private var progressDots: some View {

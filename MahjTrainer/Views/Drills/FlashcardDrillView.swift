@@ -27,6 +27,7 @@ struct FlashcardDrillView: View {
     @EnvironmentObject private var progress: ProgressStore
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.layoutDirection) private var layoutDirection
 
     @State private var queue: [Flashcard] = []
     @State private var isFlipped = false
@@ -165,7 +166,7 @@ struct FlashcardDrillView: View {
                 )
                 .scaleEffect(scale(forSlot: slot))
                 .offset(y: yOffset(forSlot: slot))
-                .offset(slot == 0 ? effectiveDrag : .zero)
+                .offset(slot == 0 ? onScreen(effectiveDrag) : .zero)
                 .rotationEffect(slot == 0 ? topRotation : .zero, anchor: .bottom)
                 .overlay { if slot == 0 { verdictStamps } }
                 .opacity(slot == 0 ? flingOpacity : 1)
@@ -203,6 +204,13 @@ struct FlashcardDrillView: View {
         return CGSize(width: drag.width * 0.16, height: drag.height * 0.10)
     }
 
+    /// The finger's translation is physical, but right to left (Arabic)
+    /// SwiftUI mirrors offsets and rotations, so the card flew away from the
+    /// finger. Flipped back here, the card follows the hand in every language.
+    private func onScreen(_ size: CGSize) -> CGSize {
+        layoutDirection == .rightToLeft ? CGSize(width: -size.width, height: size.height) : size
+    }
+
     /// Once a choice card is answered, the pick is the grade. The card holds
     /// on that result until the player taps Next.
     private var choiceAnswered: Bool {
@@ -231,6 +239,9 @@ struct FlashcardDrillView: View {
             }
         }
         .padding(22)
+        // KNEW IT sits on the left and AGAIN on the right in every language,
+        // like the swipe directions they name.
+        .environment(\.layoutDirection, .leftToRight)
         .allowsHitTesting(false)
     }
 
@@ -274,7 +285,7 @@ struct FlashcardDrillView: View {
     }
 
     private var topRotation: Angle {
-        .degrees(Double(max(-12, min(12, effectiveDrag.width / 14))))
+        .degrees(Double(max(-12, min(12, onScreen(effectiveDrag).width / 14))))
     }
 
     // MARK: - Choice self-test

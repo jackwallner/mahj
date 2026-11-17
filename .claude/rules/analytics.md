@@ -61,6 +61,7 @@ Data, User ID, Device ID, Coarse Location, Crash Data, Other Diagnostic Data:
 analytics, linked, not tracking; published 2026-11-07) and the "Usage analytics"
 section of the policy (three files under `docs/`) updated in the same release.
 Device ID is declared because the SDK sends its own per-install `$device_id`.
-Product Interaction still carries "used for tracking": App Store Connect refuses
-to clear it while the live 1.4.2 binary has `NSUserTrackingUsageDescription`.
-Clear it (Edit on that row, tracking No, Publish) once 1.4.4 is live.
+Product Interaction's "used for tracking" was cleared on 2026-11-16, once 1.4.4
+(no `NSUserTrackingUsageDescription`) was live; the label has no tracking left.
+Share Usage Data only stops the app's own events: RevenueCat's `rc_*` events
+come from its servers and still reach PostHog, and the policy says so.

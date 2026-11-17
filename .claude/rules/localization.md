@@ -98,3 +98,17 @@ app's Language option on a device with one preferred language unless
 `UIPrefersShowingLanguageSettings` is YES in `Info.plist` (WWDC24 10185), so
 keep that key. The simulator's Settings opens at its root for this link;
 check the landing on a real iPhone.
+
+## Right to left (Arabic, 2026-11-16)
+
+SwiftUI mirrors layout, `offset`, `rotationEffect`, edge transitions and
+directional SF Symbols (`chevron.right` already draws as "<"), but a
+`DragGesture` translation stays physical. A view that moves with the finger
+must flip the translation itself, or Arabic players see the card fly away
+from the hand: `FlashcardDrillView.onScreen` (card follows the finger, grade
+still by physical direction, matching "Knew it? Swipe right") and
+`HowToPlayView.leadingward` (next page is a swipe right, arriving from the
+left). The deck's KNEW IT / AGAIN stamps are pinned left to right. Check any
+new drag in Arabic with a screen recording (`simctl io recordVideo`), since a
+screenshot only shows the end state. Tile racks mirror on purpose and read
+right to left.
