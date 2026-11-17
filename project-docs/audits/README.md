@@ -1,5 +1,6 @@
 # Audits
 
+- [presubmit-review-2026-11-07.md](presubmit-review-2026-11-07.md): Pre-submit deep review of 1.4.4 build 84 against live 1.4.2: no P0 or P1 found, five P2 risks (RevenueCat to PostHog link ignores the opt-out, no privacy manifest, reminder reconcile race, Arabic RTL racks unchecked, silent decode fallback).
 - [chatgpt-plugin-review-2026-10-22.md](chatgpt-plugin-review-2026-10-22.md): Simulated OpenAI plugin submission review, 21 review items (demo finding withdrawn after recheck), live/local verification and independent Luna policy research.
 - [release-1.4.1-vs-1.3.2-review-2026-10-19.md](release-1.4.1-vs-1.3.2-review-2026-10-19.md): Luna end-to-end review of 1.4.1 (build 62) against 1.3.2; brief in [brief-1.4.1-vs-1.3.2-review.md](brief-1.4.1-vs-1.3.2-review.md). Fixes in build 63: trial-sheet eligibility, recovery guard, upgrader baseline, review notes, accessibility nits.
 - [1.4.1-differences-2026-10-16.md](1.4.1-differences-2026-10-16.md): Every difference between 1.3.2 and 1.4.1, round-two Sonnet audit with verified findings, manual submission steps and the build 52 fixes.
