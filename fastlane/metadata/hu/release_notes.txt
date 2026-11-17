@@ -1,3 +1,5 @@
-A havi kihívás mostantól már az első látogatástól megjelenik a kezdőképernyőn.
+Javítottunk egy Mahj+ kérdést egy halott 5 Bamról. Mostantól megmondja, melyik jokereid vannak.
 
-Az edzés csempéi letisztultabbak és könnyebben olvashatók.
+Arabul a kártyák és a Hogyan kell játszani oldalak mostantól követik az ujjadat.
+
+iPaden a gyakorlás utáni Kész gomb mostantól akkora, mint a képernyő többi eleme.

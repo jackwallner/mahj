@@ -1,3 +1,5 @@
-Mjesečni izazov sada se prikazuje na početnom zaslonu već od prvog posjeta.
+Ispravljeno je pitanje u Mahj+ o mrtvoj 5 Bam. Sada kaže koje jokere imate.
 
-Pločice treninga preglednije su i lakše se čitaju.
+Na arapskom kartice i stranice Kako igrati sada prate vaš prst.
+
+Na iPadu je gumb Gotovo nakon vježbe sada iste veličine kao ostatak zaslona.

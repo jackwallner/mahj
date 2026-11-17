@@ -1,3 +1,5 @@
-O desafio mensal aparece agora no Início logo desde a primeira visita.
+Corrigida uma pergunta do Mahj+ sobre um 5 Bam morto. Agora indica que jokers tem.
 
-Os mosaicos de treino estão mais limpos e fáceis de ler.
+Em árabe, os cartões e as páginas de Como jogar seguem agora o seu dedo.
+
+No iPad, o botão Concluir depois de um treino tem agora o mesmo tamanho do resto do ecrã.

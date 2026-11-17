@@ -1,3 +1,5 @@
-Miesięczne wyzwanie pojawia się teraz na ekranie głównym już od pierwszej wizyty.
+Poprawiono pytanie w Mahj+ o martwej 5 Bam. Teraz mówi, jakie jokery masz.
 
-Kafelki treningu są czytelniejsze i łatwiejsze do odczytania.
+W języku arabskim karty i strony Jak grać podążają teraz za palcem.
+
+Na iPadzie przycisk Gotowe po ćwiczeniu ma teraz taki sam rozmiar jak reszta ekranu.

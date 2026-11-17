@@ -1,3 +1,5 @@
-Aylık meydan okuma artık ilk ziyaretinden itibaren ana ekranda görünüyor.
+Ölü bir 5 Bam hakkındaki Mahj+ sorusu düzeltildi. Artık hangi jokerlere sahip olduğunuzu söylüyor.
 
-Antrenman kutucukları daha sade ve daha kolay okunuyor.
+Arapçada kartlar ve Nasıl Oynanır sayfaları artık parmağınızı takip ediyor.
+
+iPad'de alıştırmadan sonraki Bitti düğmesi artık ekranın geri kalanıyla aynı boyutta.

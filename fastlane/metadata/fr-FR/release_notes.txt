@@ -1,3 +1,5 @@
-Le Défi du mois s'affiche désormais sur l'accueil dès votre première visite.
+Correction d'une question Mahj+ sur un 5 Bam mort. Elle indique désormais quels jokers vous avez.
 
-Les tuiles d'entraînement sont plus claires et plus faciles à lire.
+En arabe, les cartes et les pages Comment jouer suivent désormais votre doigt.
+
+Sur iPad, le bouton OK après un entraînement a désormais la taille du reste de l'écran.

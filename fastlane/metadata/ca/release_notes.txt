@@ -1,3 +1,5 @@
-El repte mensual ara apareix a l'inici des de la primera visita.
+S'ha corregit una pregunta de Mahj+ sobre un 5 Bam mort. Ara indica quins comodins tens.
 
-Les fitxes d'entrenament són més clares i fàcils de llegir.
+En àrab, les cartes i les pàgines de Com es juga ara segueixen el dit.
+
+A l'iPad, el botó Fet després d'una pràctica té la mida de la resta de la pantalla.

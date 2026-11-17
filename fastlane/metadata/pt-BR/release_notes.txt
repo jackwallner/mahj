@@ -1,3 +1,5 @@
-O desafio mensal agora aparece no Início desde a sua primeira visita.
+Corrigida uma pergunta do Mahj+ sobre um 5 Bam morto. Agora ela diz quais coringas você tem.
 
-Os blocos de treino estão mais limpos e fáceis de ler.
+Em árabe, os cartões e as páginas de Como jogar agora seguem o seu dedo.
+
+No iPad, o botão Concluído depois de um treino tem o mesmo tamanho do resto da tela.

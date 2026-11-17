@@ -1,3 +1,5 @@
-Kuukauden haaste näkyy nyt aloitusnäkymässä heti ensimmäisestä käynnistä.
+Korjattu Mahj+-kysymys kuolleesta 5 Bamista. Nyt se kertoo, mitkä jokerit sinulla on.
 
-Harjoitusruudut ovat selkeämpiä ja helpompia lukea.
+Arabiaksi kortit ja Näin pelataan -sivut seuraavat nyt sormeasi.
+
+iPadilla harjoituksen jälkeinen Valmis-painike on nyt yhtä suuri kuin muu näyttö.

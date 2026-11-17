@@ -1,3 +1,5 @@
-The Monthly Challenge now shows on Home from your first visit.
+Fixed a Mahj+ question about a dead 5 Bam. It now says which jokers you hold.
 
-The Training tiles are cleaner and easier to read.
+In Arabic, cards and How to Play pages now follow your finger.
+
+On iPad, the Done button after a practice is sized like the rest of the screen.

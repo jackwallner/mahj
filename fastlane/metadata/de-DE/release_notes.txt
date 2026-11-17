@@ -1,3 +1,5 @@
-Die Monats-Challenge erscheint jetzt schon beim ersten Besuch auf dem Startbildschirm.
+Eine Mahj+-Frage zu einer toten 5 Bam wurde korrigiert. Sie nennt jetzt, welche Joker du hältst.
 
-Die Training-Kacheln sind aufgeräumter und leichter zu lesen.
+Auf Arabisch folgen Karten und die Seiten der Spielanleitung jetzt deinem Finger.
+
+Auf dem iPad hat die Fertig-Taste nach einer Übung jetzt die gleiche Größe wie der Rest des Bildschirms.

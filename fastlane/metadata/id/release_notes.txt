@@ -1,3 +1,5 @@
-Tantangan Bulanan kini tampil di Beranda sejak kunjungan pertamamu.
+Memperbaiki pertanyaan Mahj+ tentang 5 Bam mati. Sekarang pertanyaan itu menyebutkan joker mana yang Anda pegang.
 
-Kotak Latihan kini lebih rapi dan mudah dibaca.
+Dalam bahasa Arab, kartu dan halaman Cara Bermain kini mengikuti jari Anda.
+
+Di iPad, tombol Selesai setelah latihan kini berukuran sama dengan bagian layar lainnya.

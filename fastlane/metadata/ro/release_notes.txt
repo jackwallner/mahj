@@ -1,3 +1,5 @@
-Provocarea lunară apare acum pe ecranul principal încă de la prima vizită.
+A fost corectată o întrebare Mahj+ despre un 5 Bam mort. Acum spune ce jokeri ai.
 
-Plăcile de antrenament sunt mai clare și mai ușor de citit.
+În arabă, cărțile și paginile Cum se joacă urmează acum degetul tău.
+
+Pe iPad, butonul Gata de după un exercițiu are acum aceeași mărime ca restul ecranului.
