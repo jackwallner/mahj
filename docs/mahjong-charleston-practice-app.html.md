@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html
 
 ## Is there an app to practice the mahjong Charleston?
 
-By Jack Wallner · Last updated October 30, 2026
+By Jack Wallner · Last updated November 18, 2026
 
 **Yes. [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-mahjong-charleston-practice-app&mt=8) has a free Charleston Room for American mahjong.** It deals you 13 tiles, you choose the three to pass, and then it shows the coach's three tiles with the reasoning behind them. It runs on iPhone, iPad and Android, needs no account and works offline.
 
@@ -79,6 +79,7 @@ No. Every deal is an original practice deal that teaches the card's sections, wh
 
 ## Related
 
+- [Practice American mahjong online, free: Charleston drill and rack reader](https://jackwallner.com/ios/mahj/american-mahjong-practice-online.html)
 - [The Charleston: rules, order and strategy](https://jackwallner.com/ios/mahj/learn/charleston.html)
 - [How to practice American mahjong by yourself](https://jackwallner.com/ios/mahj/practice-american-mahjong-alone.html)
 - [A mahjong quiz app that explains every answer](https://jackwallner.com/ios/mahj/mahjong-quiz-app.html)

@@ -6,7 +6,7 @@ Web page: https://jackwallner.com/ios/mahj/practice-american-mahjong-alone.html
 
 ## How can I practice American mahjong by myself, without a group?
 
-By Jack Wallner · Last updated October 30, 2026
+By Jack Wallner · Last updated November 18, 2026
 
 **Use a practice app that drills one decision at a time, then deal yourself hands at home.** [Mahj Trainer](https://apps.apple.com/us/app/mahj-trainer-mahjong-practice/id6790052126?pt=128748779&ct=jw-mahj-practice-american-mahjong-alone&mt=8) is a free app for iPhone, iPad and Android built for practice between games: five-minute drills on reading a rack, choosing Charleston passes and keep-or-throw calls, with the reason shown after every answer.
 
@@ -75,6 +75,7 @@ It helps to know the basics. The app includes a six-page How to Play primer, and
 
 ## Related
 
+- [Practice American mahjong online, free: Charleston drill and rack reader](https://jackwallner.com/ios/mahj/american-mahjong-practice-online.html)
 - [Is there an app to practice the mahjong Charleston?](https://jackwallner.com/ios/mahj/mahjong-charleston-practice-app.html)
 - [A free American mahjong app with no subscription](https://jackwallner.com/ios/mahj/free-american-mahjong-app.html)
 - [A mahjong quiz app that explains every answer](https://jackwallner.com/ios/mahj/mahjong-quiz-app.html)

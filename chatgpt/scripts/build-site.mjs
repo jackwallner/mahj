@@ -1,6 +1,7 @@
-// Bundles site/page.ts and the real rack reader into docs/chatgpt/page.js, the
-// script of the plugin's web page. The reader only needs the section names, so
-// the rest of content.json stays out of the bundle.
+// Bundles the site pages' scripts with the real rack reader: site/page.ts into
+// docs/chatgpt/page.js (the plugin's web page) and site/practice.ts into
+// docs/practice.js (the free practice page). The reader only needs the section
+// names, so the rest of content.json stays out of both bundles.
 import { readFile } from "node:fs/promises";
 
 import { build } from "esbuild";
@@ -15,14 +16,21 @@ const sectionsOnly = {
   },
 };
 
-await build({
-  entryPoints: ["site/page.ts"],
-  outfile: "../docs/chatgpt/page.js",
-  bundle: true,
-  minify: true,
-  format: "iife",
-  target: "es2020",
-  charset: "utf8",
-  plugins: [sectionsOnly],
-  logLevel: "info",
-});
+const PAGES = [
+  ["site/page.ts", "../docs/chatgpt/page.js"],
+  ["site/practice.ts", "../docs/practice.js"],
+];
+
+for (const [entry, outfile] of PAGES) {
+  await build({
+    entryPoints: [entry],
+    outfile,
+    bundle: true,
+    minify: true,
+    format: "iife",
+    target: "es2020",
+    charset: "utf8",
+    plugins: [sectionsOnly],
+    logLevel: "info",
+  });
+}
