@@ -10,8 +10,6 @@ Deal a rack, pass three tiles, and see what a coach would pass and why. Free, wi
 
 ## Charleston drill
 
-###
-
 ## Rack reader
 
 ## More practice in Mahj Trainer
