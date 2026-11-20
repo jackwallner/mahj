@@ -1,5 +1,6 @@
 # Audits
 
+- [2026-11-20-bug-ux.html](2026-11-20-bug-ux.html): Bug and UX catalog, 2026-11-20: 12 bugs (12 low; 9 confirmed), 13 UX items, October audit items rechecked. Catalog only, nothing fixed.
 - [experience-2026-11-20/index.html](experience-2026-11-20/index.html): Recorded iOS experience audit of 1.4.5 build 88 (Codex, finished by Fable): 25 clips, motion and layout findings with validation verdicts. Top fixes: the Again stamp left on the next card, confetti that never falls, the static Progress recommendation, dark-mode grade marks at 2.3:1.
 - [presubmit-review-2026-11-07.md](presubmit-review-2026-11-07.md): Pre-submit deep review of 1.4.4 build 84 against live 1.4.2: no P0 or P1 found, five P2 risks (RevenueCat to PostHog link ignores the opt-out, no privacy manifest, reminder reconcile race, Arabic RTL racks unchecked, silent decode fallback).
 - [chatgpt-plugin-review-2026-10-22.md](chatgpt-plugin-review-2026-10-22.md): Simulated OpenAI plugin submission review, 21 review items (demo finding withdrawn after recheck), live/local verification and independent Luna policy research.
