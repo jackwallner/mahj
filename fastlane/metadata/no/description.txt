@@ -1,45 +1,36 @@
-Øv på amerikansk Mah Jongg i femminutters økter: brikker, Charleston-strategi, brettlesing og hold-eller-kast-vurderinger, laget for nye spillere.
+Mahj Trainer er en gratis app for å lære amerikansk mahjong med det årlige NMJL-kortet, uten konto. Quizene forklarer resonnementet bak hvert svar, fra å lese et rack til å velge hvilke brikker du gir videre i Charleston.
 
-Lærte du mah jongg på torsdag? Behold det. Mahj Trainer har ingen motstandere, ingen tidtaking og ingen press: bare raske, interaktive øvelser som bygger ferdighetene du trenger før du setter deg ved et ekte bord. Tenk på det som å øve på serven din uten å spille en kamp.
+Øv i økter på fem minutter, uten motstandere å vente på, før du setter deg ved et ekte bord. Tekstene i appen er på engelsk.
 
-HVORFOR DET FUNGERER
-De fleste nye spillere lærer på et ukentlig spill, og har ingen måte å øve på før neste gang. Lærdommen forsvinner. Mahj Trainer gir deg raske økter du kan kjøre hvor som helst, selv mens du står i kø.
+BRIKKEROMMET (TILE ROOM)
+• Lær alle brikkefamiliene: craks, bams, dots, vinder, drager, blomster og jokere.
+• Test deg selv på reglene som nye spillere blander sammen, for eksempel hvilken drage som hører til hvilken farge, og hva en joker kan brukes til.
 
-FIRE GRATIS ØVINGSROM
+KORTROMMET (CARD ROOM)
+• Lær kortets seksjoner, for eksempel 2468, Consecutive Run, 13579 og Winds and Dragons.
+• Les et rack med 13 brikker og navngi seksjonen det går mot. Et feil svar får et notat om hvorfor det ikke passer.
 
-BRIKKEROMMET
-Møt hver brikkefamilie: crak, bam, dot, vind, drage, blomst og joker. Test deg selv på reglene alle bommer på: hvilken drage hører til hvilken farge, hva jokere kan og ikke kan gjøre, og hva en "soap" egentlig betyr.
+CHARLESTON-ROMMET (CHARLESTON ROOM)
+• Lær reglene og strategien for å gi brikker videre.
+• Velg 3 brikker å gi videre fra en øvingsutdeling, sammenlign valget ditt med coachens og les begrunnelsen.
 
-KORTROMMET
-Lær kortets seksjoner (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs, og flere) og hvordan du gjenkjenner dem. Øv deg så på å lese brett: se 13 brikker og finn seksjonen de jakter på.
+BORDROMMET (TABLE ROOM)
+• Tren på valget mellom å beholde og å kaste: når du skal beholde en blomst, når du skal bytte mot en eksponert joker, hva en motstanders eksponering forteller deg og hvilke kast som er trygge.
 
-CHARLESTON-ROMMET
-Delen som skremmer alle nye spillere, minus panikken. Lær reglene og strategien bak passingen, og jobb deg gjennom ekte deler: velg 3 brikker å passe og sammenlign valget ditt med treneren, med forklaringen inkludert.
+PLAY A HAND
+• Spill 13 brikker fra en ekte mur i 12 runder. Hvert kast får karakter, og regnestykket vises.
 
-BORDROMMET
-Hold-eller-kast-vurderinger: når du skal holde på en blomst, når du skal bytte for en eksponert joker, hva en motstanders eksponering forteller deg, og hvilke kast som er trygge.
+OGSÅ I APPEN
+• Mahj Minute: fem spørsmål om dagen på vei mot en månedlig utfordring.
+• How to Play, en introduksjon på seks sider for helt nye spillere, pluss en ordliste der du kan slå opp begreper.
+• Fungerer offline på iPhone og iPad, uten motstandere å vente på.
 
-MAHJ+ (valgfri oppgradering)
-Alt over forblir gratis for alltid. Mahj+ legger til trening som aldri tar slutt:
+GRATIS OG MAHJ+
+Gratis fra første start: de fire rommene (Tile, Card, Charleston og Table), én Play a Hand om dagen, Mahj Minute, How to Play og ordlisten. Mahj+ legger til ubegrenset Play a Hand, ekstra øvingssett i alle fire rom, Endless Practice med et nytt rack hver gang, Fix My Mistakes (feilene dine kommer tilbake med mellomrom), Game Night Prep (fem minutter bygget på feilene dine), en Timed Challenge på 90 sekunder og Master Tables med avansert Charleston, forsvar, ekspertlesing av rack og jokerregler. Mahj+ er et abonnement med automatisk fornyelse, månedlig eller årlig, begge med 7 dagers gratis prøveperiode, eller et engangskjøp av Lifetime.
 
-PLAY A HAND deler ut tretten brikker fra en ekte mur, vurderer hvert kast og viser regnestykket bak det. Ingen motstandere og ingen bots. Én gratis hånd om dagen for alle.
+Øvingshendene er originale og lærer kortets seksjoner, så det du lærer, gjelder kortet for et hvilket som helst år. Mahj Trainer er uavhengig og verken tilknyttet eller godkjent av National Mah Jongg League. For de offisielle hendene, skaff deg det gjeldende NMJL-kortet.
 
-ENDLESS PRACTICE deler ut et nygenerert rack hver gang, så kategorilesingen aldri gjentas og aldri tar slutt.
-
-FIX MY MISTAKES husker hva du svarte feil, og henter det tilbake etter en spredt plan, slik at svake punkter faktisk lukkes.
-
-TIMED CHALLENGE gir deg nitti sekunder med blandede spørsmål og en personlig rekord å jage.
-
-EKSTRA ØVINGSSETT i hvert av de fire rommene, med nye spørsmål, rack og gir i de samme øvelsene du allerede bruker.
-
-THE MASTER TABLES, der avansert Charleston-strategi, en forsvarsskole og eksperttrening i rack-lesing venter på spillere som går videre fra det grunnleggende.
-
-Nye øvelser kommer til hele året.
-
-LAGET FOR NYE SPILLERE
-Flashkort med "hvorfor" på baksiden. Streaker som holder deg i gang mellom spillekvelder. Originale øvingshender som lærer bort kategorisystemet, slik at ferdighetene dine overføres til hvilket som helst års kort.
-
-Mahj Trainer er en uavhengig treningsapp. Den er ikke tilknyttet eller godkjent av National Mah Jongg League. For offisielle hender og verdier, skaff deg det gjeldende NMJL-kortet.
-
-ABONNEMENT
-Mahj+ er tilgjengelig som abonnement med automatisk fornyelse (månedlig eller årlig, begge med 7 dagers gratis prøveperiode) eller som et engangskjøp av Lifetime. Prisene vises i appen før du kjøper, og varierer fra region til region. Betalingen belastes Apple-ID-en din ved bekreftelse. Abonnementer fornyes automatisk med mindre de sies opp minst 24 timer før inneværende periode er over. Administrer eller si opp når som helst under Innstillinger → Apple-ID → Abonnementer. Bruksvilkår (Apples standard-EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Personvernerklæring: https://jackwallner.github.io/mahj/privacy-policy.
+ABONNEMENTER
+Prisene vises i appen før du kjøper og varierer fra region til region. Betalingen belastes Apple-ID-en din ved bekreftelse. Abonnementer fornyes automatisk med mindre de sies opp minst 24 timer før utløpet av gjeldende periode. Administrer eller si opp når som helst i Innstillinger → Apple-ID → Abonnementer.
+Bruksvilkår (Apples standard-EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Personvernerklæring: https://jackwallner.github.io/mahj/privacy-policy

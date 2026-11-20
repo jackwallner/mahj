@@ -1,45 +1,36 @@
-Trénujte americký Mah Jongg v päťminútových cvičeniach: kamene, stratégiu Charlestonu, čítanie stojanu a rozhodovanie držať-alebo-zahodiť, vytvorené pre nových hráčov.
+Mahj Trainer je aplikácia zadarmo na učenie amerického mahjongu podľa každoročnej karty NMJL, bez účtu. Kvízy pri každej odpovedi vysvetľujú, prečo je správna, od čítania racku po výber kameňov na odovzdanie v Charlestone.
 
-Naučili ste sa mah jongg vo štvrtok? Udržte si to. Mahj Trainer nemá súperov, časomieru ani tlak: len rýchle interaktívne cvičenia, ktoré budujú zručnosti potrebné pred sadnutím si k skutočnému stolu. Berte to ako trénovanie podania bez odohratia zápasu.
+Cvičte v päťminútových sedeniach, bez súperov, na ktorých by ste museli čakať, kým si sadnete k skutočnému stolu. Texty v aplikácii sú v angličtine.
 
-PREČO TO FUNGUJE
-Väčšina nových hráčov sa učí na týždennej hre a potom nemá ako cvičiť až do nabudúce. Naučené rýchlo vyprchá. Mahj Trainer vám dáva rýchle cvičenia, ktoré zvládnete kdekoľvek, aj v rade.
+MIESTNOSŤ KAMEŇOV (TILE ROOM)
+• Spoznajte všetky rodiny kameňov: craks, bams, dots, vetry, draky, kvety a žolíky.
+• Vyskúšajte sa z pravidiel, ktoré začiatočníci zamieňajú, napríklad ktorý drak patrí ku ktorej farbe a čo smie žolík.
 
-ŠTYRI BEZPLATNÉ TRÉNINGOVÉ MIESTNOSTI
+MIESTNOSŤ KARTY (CARD ROOM)
+• Spoznajte oddiely karty, napríklad 2468, Consecutive Run, 13579 a Winds and Dragons.
+• Prečítajte rack s 13 kameňmi a pomenujte oddiel, o ktorý sa usiluje. Nesprávna odpoveď dostane poznámku, prečo sa nehodí.
 
-MIESTNOSŤ KAMEŇOV
-Spoznajte každú rodinu kameňov: crak, bam, dot, vietor, drak, kvet a žolík. Otestujte sa v pravidlách, v ktorých sa každý pomýli: ktorý drak patrí ku ktorej farbe, čo žolík smie a nesmie, a čo skutočne znamená "soap".
+MIESTNOSŤ CHARLESTON (CHARLESTON ROOM)
+• Naučte sa pravidlá a stratégiu odovzdávania kameňov.
+• Vyberte 3 kamene na odovzdanie z cvičného rozdania, porovnajte svoju voľbu s voľbou trénera a prečítajte si zdôvodnenie.
 
-MIESTNOSŤ KARTY
-Naučte sa sekcie karty (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs a ďalšie) a ako ich rozpoznať. Potom si precvičte čítanie stojanu: uvidíte 13 kameňov a pomenujete sekciu, ktorú sledujú.
+MIESTNOSŤ STOLA (TABLE ROOM)
+• Trénujte rozhodovanie, čo si nechať a čo odhodiť: kedy si nechať kvet, kedy vymeniť za vyložený žolík, čo vám o súperovi hovorí jeho vyložená kombinácia a ktoré odhody sú bezpečné.
 
-MIESTNOSŤ CHARLESTONU
-Časť, ktorá desí každého nového hráča, bez tej paniky. Naučte sa pravidlá a stratégiu podávania, potom si prejdite skutočné rozdania: vyberte 3 kamene na podanie a porovnajte svoju voľbu s koučom, vrátane vysvetlenia.
+PLAY A HAND
+• Zahrajte 13 kameňov zo skutočného múru na 12 ťahov. Každý odhod dostane hodnotenie aj s výpočtom.
 
-MIESTNOSŤ STOLA
-Rozhodovanie držať-alebo-zahodiť: kedy si nechať kvet, kedy ho vymeniť za odhaleného žolíka, čo vám prezradí súperovo odhalenie a ktoré odhody sú bezpečné.
+ĎALŠÍ OBSAH
+• Mahj Minute: päť otázok denne k mesačnej výzve.
+• How to Play, šesťstranový úvod pre úplných začiatočníkov, plus slovníček, v ktorom si pojmy vyhľadáte.
+• Funguje offline na iPhone aj iPade, bez súperov, na ktorých by ste museli čakať.
 
-MAHJ+ (voliteľný upgrade)
-Všetko vyššie zostáva navždy zadarmo. Mahj+ pridáva cvičenie, ktoré sa nikdy neminie:
+ZADARMO A MAHJ+
+Zadarmo od prvého spustenia: štyri miestnosti (Tile, Card, Charleston a Table), jedna Play a Hand denne, Mahj Minute, How to Play a slovníček. Mahj+ pridáva neobmedzené Play a Hand, ďalšie cvičné sady vo všetkých štyroch miestnostiach, Endless Practice s novým rackom zakaždým, Fix My Mistakes (vaše chyby sa vracajú v rozložených intervaloch), Game Night Prep (päť minút zostavených z vašich chýb), 90-sekundovú Timed Challenge a Master Tables s pokročilým Charlestonom, obranou, expertným čítaním racku a pravidlami pre žolíky. Mahj+ je predplatné s automatickým obnovovaním, mesačné alebo ročné, obe so 7-dňovou skúšobnou dobou zadarmo, alebo jednorazový nákup Lifetime.
 
-PLAY A HAND rozdá trinásť kameňov zo skutočného múru, hodnotí každý odhoz a ukazuje výpočet, ktorý za ním stojí. Žiadni súperi a žiadni boti. Jedna ruka denne zadarmo pre každého.
-
-ENDLESS PRACTICE zakaždým rozdá čerstvo vygenerovaný rack, takže sa čítanie kategórií nikdy neopakuje ani neminie.
-
-FIX MY MISTAKES si pamätá, čo si mal zle, a vracia to podľa rozloženého rozvrhu, aby sa slabé miesta naozaj uzavreli.
-
-TIMED CHALLENGE ti dá deväťdesiat sekúnd zmiešaných otázok a osobný rekord, ktorý môžeš prekonávať.
-
-EXTRA SADY CVIČENÍ v každej zo štyroch miestností, s novými otázkami, rackmi a rozdaniami v tých istých cvičeniach, ktoré už používaš.
-
-THE MASTER TABLES, kde na hráčov za hranicou základov čaká pokročilá stratégia Charlestonu, škola obrany a expertné cvičenia čítania racku.
-
-Nové cvičenia pribúdajú po celý rok.
-
-VYTVORENÉ PRE NOVÝCH HRÁČOV
-Kartičky s "prečo" na zadnej strane. Série, ktoré vás udržia v tréningu medzi hrami. Pôvodné tréningové rozdania učiace systém kategórií, takže vaše zručnosti fungujú na karte z akéhokoľvek roku.
-
-Mahj Trainer je nezávislá tréningová aplikácia. Nie je prepojená s National Mah Jongg League ani ňou schválená. Pre oficiálne rozdania a hodnoty si zaobstarajte aktuálnu kartu NMJL.
+Cvičné ruky sú pôvodné a učia oddiely karty, takže sa naučené hodí ku karte z ktoréhokoľvek roka. Mahj Trainer je nezávislá aplikácia, nie je prepojená s organizáciou National Mah Jongg League ani ňou schválená. Oficiálne ruky nájdete na aktuálnej karte NMJL.
 
 PREDPLATNÉ
-Mahj+ je k dispozícii ako automaticky obnovované predplatné (mesačné alebo ročné, obe so 7-dňovou bezplatnou skúšobnou verziou) alebo ako jednorazový nákup Lifetime. Ceny sa zobrazujú v aplikácii pred nákupom a líšia sa podľa regiónu. Platba sa strhne z vášho Apple ID pri potvrdení. Predplatné sa automaticky obnovuje, pokiaľ ho nezrušíte aspoň 24 hodín pred koncom aktuálneho obdobia. Spravovať alebo zrušiť ho môžete kedykoľvek v Nastavenia → Apple ID → Predplatné. Podmienky používania (štandardná EULA spoločnosti Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Zásady ochrany súkromia: https://jackwallner.github.io/mahj/privacy-policy.
+Ceny sa pred nákupom zobrazia v aplikácii a líšia sa podľa regiónu. Platba sa stiahne z vášho Apple ID pri potvrdení. Predplatné sa obnovuje automaticky, ak ho nezrušíte aspoň 24 hodín pred koncom aktuálneho obdobia. Spravujte alebo zrušte kedykoľvek v Nastaveniach → Apple ID → Predplatné.
+Podmienky používania (štandardná EULA spoločnosti Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Zásady ochrany osobných údajov: https://jackwallner.github.io/mahj/privacy-policy

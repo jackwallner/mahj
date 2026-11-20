@@ -1,1 +1,1 @@
-dot,bam,crak,tuuli,lohikäärme,kukka,jokeri,räkki,käsi,quiz,aloittelija,vinkki,strategia,pung,lauta
+aloittelija,amerikkalainen,ilmainen,offline,laatta,kurssi,opas,vinkki,strategia,käsi,peli,valmentaja

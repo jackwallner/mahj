@@ -1,1 +1,1 @@
-Uutta: Play a Hand jakaa kolmetoista laattaa ja arvioi jokaisen heiton laskelmineen. Yksi ilmainen käsi päivässä ja uusi sanasto, ilmainen kaikille.
+Viiden minuutin harjoituksia amerikkalaiseen mahjongiin: lue rack, valitse annettavat laatat, päätä pidätkö vai heitätkö. Jokainen vastaus näyttää syyn. Ei tiliä.

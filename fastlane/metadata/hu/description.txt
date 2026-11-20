@@ -1,45 +1,36 @@
-Gyakorold az amerikai Mah Jonggot ötperces gyakorlatokban: kövek, Charleston-stratégia, állványolvasás és tartsd-vagy-dobd döntések, kezdő játékosoknak tervezve.
+A Mahj Trainer ingyenes alkalmazás az amerikai mahjong megtanulásához az NMJL éves kártyájával, fiók nélkül. A kvízek minden válasznál elmagyarázzák az indoklást, a rack olvasásától a Charlestonban továbbadott kövek kiválasztásáig.
 
-Csütörtökön tanultad a mah jonggot? Őrizd meg. A Mahj Trainerben nincsenek ellenfelek, időmérők vagy nyomás: csak gyors, interaktív ismétlések, amelyek felépítik a valódi asztalhoz üléshez szükséges tudást. Gondolj rá úgy, mint a szerva gyakorlására meccs nélkül.
+Gyakorolj ötperces menetekben, ellenfelekre várakozás nélkül, mielőtt leülsz egy igazi asztalhoz. Az alkalmazás szövegei angolul vannak.
 
-MIÉRT MŰKÖDIK
-A legtöbb új játékos a heti játéknál tanul, utána nincs módja gyakorolni a következőig. A tudás elhalványul. A Mahj Trainer gyors ismétléseket ad, amelyeket bárhol elvégezhetsz, akár sorban állva is.
+A KÖVEK TERME (TILE ROOM)
+• Ismerd meg az összes kőcsaládot: craks, bams, dots, szelek, sárkányok, virágok és jokerek.
+• Teszteld magad azokon a szabályokon, amelyeket az újoncok összekevernek, például melyik sárkány melyik színhez tartozik, és mit tehet egy joker.
 
-NÉGY INGYENES GYAKORLÓSZOBA
+A KÁRTYA TERME (CARD ROOM)
+• Ismerd meg a kártya szakaszait, például 2468, Consecutive Run, 13579 és Winds and Dragons.
+• Olvass el egy 13 kőből álló rack-et, és nevezd meg a szakaszt, amely felé tart. A rossz válaszhoz jegyzet tartozik arról, miért nem illik.
 
-KŐSZOBA
-Ismerd meg minden kőcsaládot: crak, bam, dot, szél, sárkány, virág és joker. Teszteld magad a szabályokban, amelyeket mindenki elront: melyik sárkány melyik színhez tartozik, mit tehet és mit nem a joker, és mit jelent valójában a "soap".
+A CHARLESTON TERME (CHARLESTON ROOM)
+• Tanuld meg a kövek továbbadásának szabályait és stratégiáját.
+• Válassz 3 követ továbbadásra egy gyakorló osztásból, hasonlítsd össze a választásodat az edzőével, és olvasd el az indoklást.
 
-KÁRTYASZOBA
-Tanuld meg a kártya szakaszait (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs és további) és felismerésük módját. Aztán gyakorold az állványolvasást: láss 13 követ, és nevezd meg a szakaszt, amelyet hajszolnak.
+AZ ASZTAL TERME (TABLE ROOM)
+• Gyakorold a megtartom vagy eldobom döntést: mikor tartsd meg a virágot, mikor cseréld ki kitett jokerre, mit árul el az ellenfél kitett sorozata, és mely dobások biztonságosak.
 
-CHARLESTON-SZOBA
-A rész, amely minden új játékost megrémít, pánik nélkül. Tanuld meg az adogatás szabályait és stratégiáját, aztán dolgozz végig valódi osztásokon: válassz 3 követ adásra, és hasonlítsd össze a választásod az edzőével, magyarázattal együtt.
+PLAY A HAND
+• Játssz 13 követ egy igazi falból 12 körön át. Minden dobást értékel az alkalmazás, a számítással együtt.
 
-ASZTALSZOBA
-Tartsd-vagy-dobd döntések: mikor tartsd meg a virágot, mikor cseréld le egy felfedett jokerre, mit árul el egy ellenfél felfedése, és melyik dobás biztonságos.
+MÉG AZ ALKALMAZÁSBAN
+• Mahj Minute: napi öt kérdés egy havi kihívás felé.
+• How to Play, hatoldalas bevezető vadonatúj játékosoknak, valamint szójegyzék, ahol utánanézhetsz a kifejezéseknek.
+• Offline is működik iPhone-on és iPaden, ellenfelekre várakozás nélkül.
 
-MAHJ+ (opcionális fejlesztés)
-A fentiek mind örökre ingyenesek maradnak. A Mahj+ olyan gyakorlást ad hozzá, ami sosem fogy el:
+INGYENES ÉS MAHJ+
+Az első indítástól ingyenes: a négy terem (Tile, Card, Charleston és Table), napi egy Play a Hand, a Mahj Minute, a How to Play és a szójegyzék. A Mahj+ korlátlan Play a Hand-et, extra gyakorlókészleteket mind a négy teremben, Endless Practice-t minden alkalommal új rack-kel, Fix My Mistakes-t (a hibáid időben elosztva térnek vissza), Game Night Prep-et (öt perc a hibáidból összeállítva), 90 másodperces Timed Challenge-et, valamint Master Tables-t biztosít haladó Charlestonnal, védekezéssel, szakértői rackolvasással és jokerszabályokkal. A Mahj+ automatikusan megújuló havi vagy éves előfizetés, mindkettő 7 napos ingyenes próbával, vagy egyszeri Lifetime vásárlás.
 
-A PLAY A HAND tizenhárom követ oszt egy valódi falból, értékeli minden dobásodat, és megmutatja a mögötte álló számítást. Nincsenek ellenfelek és nincsenek botok. Napi egy ingyenes kéz mindenkinek.
-
-ENDLESS PRACTICE: minden alkalommal frissen generált rackot oszt, így a kategóriaolvasás sosem ismétlődik és sosem fogy el.
-
-FIX MY MISTAKES: megjegyzi, mit rontottál el, és időben elosztott ütemezéssel visszahozza, hogy a gyenge pontok tényleg bezáruljanak.
-
-TIMED CHALLENGE: kilencven másodpercnyi vegyes kérdést ad, és egy megdöntendő egyéni csúcsot.
-
-EXTRA GYAKORLÓSOROZATOK mind a négy szobában, új kérdésekkel, rackekkel és osztásokkal ugyanazokban a gyakorlatokban, amelyeket már használsz.
-
-THE MASTER TABLES, ahol haladó Charleston-stratégia, egy védekezésiskola és szakértői rackolvasó gyakorlatok várják azokat, akik túlléptek az alapokon.
-
-Egész évben érkeznek új gyakorlatok.
-
-KEZDŐ JÁTÉKOSOKNAK TERVEZVE
-Kártyák a "miért"-tel a hátoldalon. Sorozatok, amelyek gyakorláson tartanak a játékok között. Eredeti gyakorlóosztások, amelyek a kategóriarendszert tanítják, így a tudásod bármelyik évi kártyán működik.
-
-A Mahj Trainer egy független gyakorlóalkalmazás. Nem áll kapcsolatban a National Mah Jongg League-gel, és nem az ő jóváhagyásával készült. A hivatalos osztásokért és értékekért szerezd be az aktuális NMJL kártyát.
+A gyakorlókezek eredetiek, és a kártya szakaszait tanítják, így amit megtanulsz, bármelyik év kártyájánál használható. A Mahj Trainer független, nincs kapcsolatban a National Mah Jongg League-gel, és a szervezet nem hagyta jóvá. A hivatalos kezekhez szerezd be az aktuális NMJL-kártyát.
 
 ELŐFIZETÉSEK
-A Mahj+ automatikusan megújuló előfizetésként (havi vagy éves, mindkettő 7 napos ingyenes próbaidőszakkal) vagy egyszeri Lifetime vásárlásként érhető el. Az árak vásárlás előtt az appban láthatók, és régiónként eltérnek. A díjat megerősítéskor terheljük az Apple ID-dra. Az előfizetés automatikusan megújul, ha nem mondod le legalább 24 órával az aktuális időszak vége előtt. Bármikor kezelheted vagy lemondhatod a Beállítások → Apple ID → Előfizetések menüben. Felhasználási feltételek (az Apple általános EULA-ja): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Adatvédelmi irányelvek: https://jackwallner.github.io/mahj/privacy-policy.
+Az árak vásárlás előtt megjelennek az alkalmazásban, és régiónként eltérhetnek. A fizetés megerősítéskor az Apple ID-dhoz kapcsolt fiókot terheli. Az előfizetések automatikusan megújulnak, hacsak legalább 24 órával az aktuális időszak vége előtt le nem mondod őket. Kezelés vagy lemondás bármikor: Beállítások → Apple ID → Előfizetések.
+Felhasználási feltételek (az Apple szabványos EULA-ja): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Adatvédelmi irányelvek: https://jackwallner.github.io/mahj/privacy-policy
