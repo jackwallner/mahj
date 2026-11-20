@@ -1,44 +1,38 @@
-Berlatih Mahjong Amerika melalui sesi 5 minit: jubin, strategi Charleston, membaca rak, dan keputusan simpan atau buang, direka khas untuk pemain baharu.
+Mahj Trainer ialah aplikasi percuma untuk belajar Mahjong Amerika (American Mah Jongg) dengan kad NMJL tahunan, tanpa akaun. Setiap latihan menerangkan sebab di sebalik jawapannya, daripada membaca rak sehingga memilih jubin untuk dihantar dalam Charleston.
 
-Baru belajar mahjong pada sesi Khamis tetapi tiada tempat untuk berlatih sehingga sesi seterusnya? Mahj Trainer tiada lawan, tiada pemasa, dan tiada tekanan, hanya latihan interaktif ringkas yang membina kemahiran yang anda perlukan sebelum duduk di meja sebenar. Anggap sahaja seperti berlatih hantaran sebelum bertanding.
+Ini Mahjong gaya Amerika, berbeza daripada Mahjong Hong Kong atau Malaysia. Permainannya menggunakan joker dan jubin bunga, dengan kad kombinasi yang bertukar setiap tahun. Paparan dan soalan dalam aplikasi ialah dalam bahasa Inggeris. Bahasa Melayu hanya ada pada penerangan di halaman ini.
 
-KENAPA IA BERKESAN
-Kebanyakan pemain baharu belajar mahjong pada sesi mingguan, kemudian tiada cara untuk berlatih sehingga sesi berikutnya. Apa yang dipelajari pun cepat dilupakan. Mahj Trainer memberi anda latihan ringkas yang boleh dilakukan di mana-mana, walaupun semasa beratur.
+Berlatih dalam sesi lima minit, tanpa lawan untuk ditunggu, sebelum anda duduk di meja sebenar.
 
-EMPAT BILIK LATIHAN PERCUMA
+BILIK JUBIN (The Tile Room)
+• Kenali setiap keluarga jubin: craks, bams, dots, angin, naga, bunga dan joker.
+• Uji diri dengan peraturan yang sering mengelirukan pemula, contohnya naga mana yang berpasangan dengan jenis jubin mana dan apa yang boleh dilakukan oleh joker.
 
-BILIK JUBIN
-Kenali setiap kumpulan jubin: craks, bams, dots, angin, naga, bunga, dan joker. Kemudian uji diri anda dengan peraturan yang selalu disalahfahami: naga mana berpadanan dengan set jubin yang mana, apa yang joker boleh dan tidak boleh lakukan, dan maksud sebenar soap.
+BILIK KAD (The Card Room)
+• Pelajari bahagian-bahagian kad, seperti 2468, Consecutive Run, 13579 dan Winds and Dragons.
+• Baca rak yang mengandungi 13 jubin dan namakan bahagian kad yang sedang dikejar. Jika jawapan salah, ada nota yang menerangkan mengapa ia tidak sesuai.
 
-BILIK KAD
-Pelajari bahagian-bahagian pada kad (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs, dan lain-lain) serta cara mengenalinya. Kemudian berlatih membaca rak: lihat 13 jubin dan teka bahagian mana yang sedang dikejar.
+BILIK CHARLESTON (The Charleston Room)
+• Pelajari peraturan dan strategi menghantar jubin.
+• Pilih 3 jubin untuk dihantar daripada agihan latihan, kemudian bandingkan dengan pilihan jurulatih dan baca sebabnya.
 
-BILIK CHARLESTON
-Bahagian yang paling ditakuti pemain baharu, kali ini tanpa panik. Pelajari peraturan dan strategi pertukaran jubin ini, kemudian berlatih dengan set sebenar: pilih 3 jubin untuk dihantar dan bandingkan pilihan anda dengan pilihan jurulatih, lengkap dengan sebab-sebabnya.
+BILIK MEJA (The Table Room)
+• Latih keputusan simpan atau buang: bila perlu menyimpan bunga, bila perlu menukar dengan joker yang terdedah, apa yang boleh dibaca daripada jubin terdedah lawan, dan jubin mana yang selamat dibuang.
 
-BILIK MEJA
-Asah keputusan simpan atau buang: bila hendak simpan bunga, bila hendak tukar joker yang terdedah, apa yang boleh dibaca daripada jubin lawan yang terdedah, dan jubin mana yang selamat dibuang.
+Play a Hand
+• Main 13 jubin daripada dinding sebenar selama 12 giliran. Setiap jubin yang dibuang dinilai, lengkap dengan pengiraannya.
 
-MAHJ+ (naik taraf pilihan)
-Semua di atas kekal percuma selamanya. Mahj+ menambah latihan yang tidak pernah habis:
+TURUT DISEDIAKAN
+• Mahj Minute: lima soalan sehari ke arah cabaran bulanan.
+• How to Play, panduan enam halaman untuk pemula sepenuhnya, serta glosari yang boleh dicari.
+• Latihan boleh digunakan tanpa internet pada iPhone dan iPad, tanpa lawan untuk ditunggu.
 
-PLAY A HAND mengagihkan tiga belas jubin daripada tembok sebenar, menilai setiap buangan dan menunjukkan pengiraan di sebaliknya. Tiada lawan dan tiada bot. Satu tangan percuma sehari untuk semua.
+PERCUMA DAN MAHJ+
+Percuma sejak pelancaran pertama: empat bilik (Tile, Card, Charleston, Table), satu Play a Hand sehari, Mahj Minute, How to Play dan glosari. Mahj+ menambah Play a Hand tanpa had, set latihan tambahan dalam keempat-empat bilik, Endless Practice dengan rak baharu setiap kali, Fix My Mistakes (soalan yang anda jawab salah kembali mengikut jadual berjarak), Game Night Prep (sesi lima minit daripada kesilapan anda), Timed Challenge 90 saat, serta Master Tables untuk Charleston peringkat lanjutan, pertahanan, bacaan rak peringkat pakar dan peraturan joker. Mahj+ ialah langganan bulanan atau tahunan yang diperbaharui secara automatik, masing-masing dengan percubaan percuma 7 hari, atau pembelian sekali sahaja Lifetime.
 
-ENDLESS PRACTICE mengagihkan rack yang dijana baharu setiap kali, jadi pembacaan kategori tidak pernah berulang dan tidak pernah habis.
-
-FIX MY MISTAKES mengingati apa yang anda jawab salah dan membawanya kembali mengikut jadual berjarak, supaya titik lemah benar-benar tertutup.
-
-TIMED CHALLENGE memberi anda sembilan puluh saat soalan campuran dan rekod peribadi untuk dikejar.
-
-SET LATIHAN TAMBAHAN di setiap satu daripada empat bilik, dengan soalan, rack dan agihan baharu dalam latihan yang sudah anda gunakan.
-
-THE MASTER TABLES, tempat strategi Charleston lanjutan, sekolah pertahanan dan latihan membaca rack tahap pakar menanti pemain yang melangkaui asas.
-
-DIREKA UNTUK PEMAIN BAHARU
-Kad kilat dengan penjelasan "sebab" di belakang. Streak yang mengekalkan semangat berlatih anda. Set latihan asli yang mengajar sistem kategori, jadi kemahiran yang diperoleh boleh digunakan pada kad tahun mana-mana.
-
-Mahj Trainer ialah aplikasi latihan bebas. Aplikasi ini tidak bergabung dengan atau disokong oleh National Mah Jongg League. Untuk set dan nilai rasmi, sila rujuk kad NMJL terkini.
+Tangan latihan dalam aplikasi ini adalah asli dan mengajar bahagian-bahagian kad, jadi apa yang dipelajari boleh digunakan untuk kad tahun mana pun. Mahj Trainer bebas dan tidak bergabung dengan atau disokong oleh National Mah Jongg League. Untuk tangan rasmi, gunakan kad NMJL semasa.
 
 TENTANG LANGGANAN
-Mahj+ ditawarkan sebagai langganan yang diperbaharui secara automatik (Bulanan atau Tahunan, kedua-duanya dengan percubaan percuma 7 hari) atau sebagai pembelian Lifetime sekali sahaja. Harga dipaparkan dalam app sebelum anda membeli dan berbeza mengikut wilayah. Bayaran dicaj ke Apple ID anda semasa pengesahan. Langganan diperbaharui secara automatik melainkan dibatalkan sekurang-kurangnya 24 jam sebelum tempoh semasa berakhir. Urus atau batalkan bila-bila masa di Tetapan → Apple ID → Langganan. Syarat Penggunaan (EULA standard Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Dasar Privasi: https://jackwallner.github.io/mahj/privacy-policy.
+Harga dipaparkan dalam aplikasi sebelum anda membeli dan berbeza mengikut wilayah. Bayaran dikenakan pada Apple ID anda semasa pengesahan. Langganan diperbaharui secara automatik melainkan dibatalkan sekurang-kurangnya 24 jam sebelum tamat tempoh semasa. Urus atau batalkan pada bila-bila masa di Tetapan → Apple ID → Langganan.
+Terma Penggunaan: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Dasar Privasi: https://jackwallner.github.io/mahj/privacy-policy
