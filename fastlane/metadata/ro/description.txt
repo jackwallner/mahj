@@ -1,36 +1,36 @@
-Mahj Trainer este o aplicație gratuită pentru a învăța mahjong american cu cardul anual NMJL, fără cont. Chestionarele explică raționamentul din spatele fiecărui răspuns, de la citirea unui rack până la alegerea pieselor de pasat la Charleston.
+Mahj Trainer este o aplicație gratuită pentru învățarea mahjongului american cu cardul anual NMJL. Nu are nevoie de cont. Chestionarele explică raționamentul din spatele fiecărui răspuns, de la citirea unui rack (suportul de piese) până la alegerea pieselor pe care le dai mai departe la Charleston.
 
-Exersează în sesiuni de cinci minute, fără adversari de așteptat, înainte să te așezi la o masă adevărată. Textele din aplicație sunt în engleză.
+Exersează în sesiuni de cinci minute, fără să aștepți după adversari, înainte să te așezi la o masă adevărată. Textele din aplicație sunt în engleză.
 
 SALA PIESELOR (TILE ROOM)
 • Învață toate familiile de piese: craks, bams, dots, vânturi, dragoni, flori și jokeri.
-• Testează-te la regulile pe care începătorii le confundă, de exemplu ce dragon se potrivește cu ce culoare și ce pot face jokerii.
+• Verifică-ți cunoștințele despre regulile pe care începătorii le încurcă, de exemplu ce dragon se potrivește cu ce culoare și ce pot face jokerii.
 
 SALA CARDULUI (CARD ROOM)
 • Învață secțiunile cardului, precum 2468, Consecutive Run, 13579 și Winds and Dragons.
-• Citește un rack de 13 piese și numește secțiunea spre care tinde. O alegere greșită vine cu o notă despre motivul pentru care nu se potrivește.
+• Citește un rack de 13 piese și numește secțiunea spre care se îndreaptă. O alegere greșită vine cu o notă despre motivul pentru care nu se potrivește.
 
 SALA CHARLESTON (CHARLESTON ROOM)
-• Învață regulile și strategia pasării.
-• Alege 3 piese de pasat dintr-o împărțire de exercițiu, apoi compară alegerea ta cu cea a antrenorului și citește explicația.
+• Învață regulile și strategia transmiterii pieselor.
+• Alege 3 piese de dat mai departe dintr-o împărțire de exercițiu, apoi compară alegerea ta cu cea a antrenorului și citește explicația.
 
 SALA MESEI (TABLE ROOM)
-• Ia decizii de tip păstrez sau arunc: când ții o floare, când schimbi cu un joker expus, ce îți spune expunerea unui adversar și care aruncări sunt sigure.
+• Decide ce păstrezi și ce arunci: când păstrezi o floare, când o schimbi cu un joker expus, ce îți spune expunerea unui adversar și care aruncări sunt sigure.
 
 PLAY A HAND
-• Joacă 13 piese de pe un zid real timp de 12 ture. Fiecare aruncare este notată, iar calculul este arătat.
+• Joacă 13 piese trase dintr-un zid real, timp de 12 ture. Fiecare aruncare este notată, cu calculul la vedere.
 
 INCLUS ÎN APLICAȚIE
-• Mahj Minute: cinci întrebări pe zi pentru o provocare lunară.
+• Mahj Minute: cinci întrebări pe zi în drum spre o provocare lunară.
 • How to Play, un ghid de șase pagini pentru cei complet noi, plus un glosar în care poți căuta.
-• Exercițiile funcționează offline pe iPhone și iPad, fără adversari de așteptat.
+• Exercițiile funcționează offline pe iPhone și iPad, fără să aștepți după adversari.
 
 GRATUIT ȘI MAHJ+
-Gratuit de la prima pornire: cele patru săli (Tile, Card, Charleston și Table), un Play a Hand pe zi, Mahj Minute, How to Play și glosarul. Mahj+ adaugă Play a Hand nelimitat, seturi de exercițiu suplimentare în toate cele patru săli, Endless Practice cu un rack nou de fiecare dată, Fix My Mistakes (greșelile tale revin la intervale tot mai mari), Game Night Prep (cinci minute construite pe greșelile tale), un Timed Challenge de 90 de secunde și Master Tables pentru Charleston avansat, apărare, citire de expert a rack-ului și reguli pentru jokeri. Mahj+ este un abonament lunar sau anual cu reînnoire automată, ambele cu 7 zile de probă gratuită, sau o achiziție unică Lifetime.
+Gratuit de la prima pornire: cele patru săli (Tile, Card, Charleston și Table), un Play a Hand pe zi, Mahj Minute, How to Play și glosarul. Mahj+ adaugă Play a Hand nelimitat, seturi de exercițiu suplimentare în toate cele patru săli, Endless Practice cu un rack nou de fiecare dată, Fix My Mistakes (greșelile tale revin la intervale tot mai mari), Game Night Prep (cinci minute construite din greșelile tale), un Timed Challenge de 90 de secunde și Master Tables pentru Charleston avansat, apărare, citirea rack-ului la nivel de expert și reguli pentru jokeri. Mahj+ este un abonament lunar sau anual cu reînnoire automată, ambele cu 7 zile de probă gratuită, sau o achiziție unică Lifetime.
 
-Mâinile de exercițiu sunt originale și predau secțiunile cardului, așa că ce înveți rămâne valabil pe cardul oricărui an. Mahj Trainer este o aplicație independentă, neafiliată cu National Mah Jongg League și neaprobată de aceasta. Pentru mâinile oficiale, ia cardul NMJL curent.
+Mâinile de exercițiu sunt originale și te învață secțiunile cardului, așa că ce înveți rămâne valabil pe cardul oricărui an. Mahj Trainer este o aplicație independentă: nu este afiliată cu National Mah Jongg League și nu este aprobată de aceasta. Pentru mâinile oficiale, folosește cardul NMJL curent.
 
 ABONAMENTE
-Prețurile sunt afișate în aplicație înainte de achiziție și diferă în funcție de regiune. Plata este debitată din contul tău Apple ID la confirmare. Abonamentele se reînnoiesc automat, dacă nu sunt anulate cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Gestionează sau anulează oricând din Setări → Apple ID → Abonamente.
+Prețurile sunt afișate în aplicație înainte de achiziție și diferă în funcție de regiune. Plata se debitează din contul tău Apple la confirmare. Abonamentele se reînnoiesc automat, dacă nu sunt anulate cu cel puțin 24 de ore înainte de sfârșitul perioadei curente. Gestionează sau anulează oricând din Setări → ID Apple → Abonamente.
 Termeni de utilizare (EULA standard Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Politica de confidențialitate: https://jackwallner.github.io/mahj/privacy-policy

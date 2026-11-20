@@ -1,36 +1,36 @@
-Mahj Trainer je besplatna aplikacija za učenje američkog mahjonga uz godišnju NMJL kartu, bez računa. Kvizovi objašnjavaju razmišljanje iza svakog odgovora, od čitanja stalka do biranja pločica za predaju u Charlestonu.
+Mahj Trainer je besplatna aplikacija za učenje američkog mahjonga uz godišnju NMJL kartu. Ne traži korisnički račun. Kvizovi objašnjavaju razloge iza svakog odgovora, od čitanja stalka do biranja pločica za predavanje u Charlestonu.
 
-Vježbaj u sesijama od pet minuta, bez protivnika na koje treba čekati, prije nego što sjedneš za pravi stol. Tekst u aplikaciji je na engleskom.
+Vježbaj po pet minuta, bez čekanja na protivnike, prije nego što sjedneš za pravi stol. Tekst u aplikaciji je na engleskom.
 
 SOBA PLOČICA (TILE ROOM)
 • Nauči sve obitelji pločica: craks, bams, dots, vjetrove, zmajeve, cvjetove i džokere.
-• Provjeri se na pravilima koja novi igrači miješaju, na primjer koji zmaj ide uz koju boju i što džokeri smiju.
+• Provjeri znanje o pravilima koja novi igrači brkaju, na primjer koji zmaj ide uz koju boju i što džokeri smiju.
 
 SOBA KARTE (CARD ROOM)
 • Nauči odjeljke karte, kao što su 2468, Consecutive Run, 13579 i Winds and Dragons.
 • Pročitaj stalak od 13 pločica i imenuj odjeljak kojem teži. Uz pogrešan odabir dobivaš bilješku zašto ne odgovara.
 
 SOBA CHARLESTON (CHARLESTON ROOM)
-• Nauči pravila i strategiju predaje pločica.
-• Odaberi 3 pločice za predaju iz vježbovne podjele, zatim usporedi svoj izbor s izborom trenera i pročitaj obrazloženje.
+• Nauči pravila i strategiju predavanja pločica.
+• Odaberi 3 pločice za predavanje iz podjele za vježbu, zatim usporedi svoj izbor s izborom trenera i pročitaj obrazloženje.
 
 SOBA STOLA (TABLE ROOM)
-• Donosi odluke: zadržati ili odbaciti. Kada zadržati cvijet, kada zamijeniti za izloženog džokera, što ti govori izloženi niz protivnika i koja su odbacivanja sigurna.
+• Odluči što zadržati, a što odbaciti: kada zadržati cvijet, kada ga zamijeniti za izloženog džokera, što ti govori protivnikov izloženi niz i koja su odbacivanja sigurna.
 
 PLAY A HAND
-• Odigraj 13 pločica s pravog zida kroz 12 poteza. Svako odbacivanje dobiva ocjenu, a računica je prikazana.
+• Odigraj 13 pločica s pravog zida tijekom 12 poteza. Svako odbacivanje se ocjenjuje, a računica je prikazana.
 
 UKLJUČENO
-• Mahj Minute: pet pitanja dnevno za mjesečni izazov.
-• How to Play, vodič od šest stranica za potpune početnike, uz pojmovnik koji se može pretraživati.
-• Vježbe rade offline na iPhoneu i iPadu, bez protivnika na koje treba čekati.
+• Mahj Minute: pet pitanja dnevno na putu do mjesečnog izazova.
+• How to Play, vodič od šest stranica za potpune početnike, uz pojmovnik s pretraživanjem.
+• Vježbe rade offline na iPhoneu i iPadu, bez čekanja na protivnike.
 
 BESPLATNO I MAHJ+
-Besplatno od prvog pokretanja: četiri sobe (Tile, Card, Charleston i Table), jedan Play a Hand dnevno, Mahj Minute, How to Play i pojmovnik. Mahj+ dodaje neograničen Play a Hand, dodatne vježbovne setove u sve četiri sobe, Endless Practice s novim stalkom svaki put, Fix My Mistakes (tvoje pogreške vraćaju se u sve duljim razmacima), Game Night Prep (pet minuta sastavljenih od tvojih pogrešaka), Timed Challenge od 90 sekundi i Master Tables za napredni Charleston, obranu, stručno čitanje stalka i pravila za džokere. Mahj+ je mjesečna ili godišnja pretplata s automatskom obnovom, obje sa 7 dana besplatnog probnog razdoblja, ili jednokratna kupnja Lifetime.
+Besplatno od prvog pokretanja: četiri sobe (Tile, Card, Charleston i Table), jedan Play a Hand dnevno, Mahj Minute, How to Play i pojmovnik. Mahj+ dodaje neograničen Play a Hand, dodatne setove za vježbu u sve četiri sobe, Endless Practice s novim stalkom svaki put, Fix My Mistakes (tvoje pogreške vraćaju se u sve duljim razmacima), Game Night Prep (pet minuta sastavljenih od tvojih pogrešaka), Timed Challenge od 90 sekundi i Master Tables za napredni Charleston, obranu, stručno čitanje stalka i pravila za džokere. Mahj+ je mjesečna ili godišnja pretplata s automatskom obnovom, obje sa 7 dana besplatnog probnog razdoblja, ili jednokratna kupnja Lifetime.
 
-Vježbovne ruke su izvorne i uče odjeljke karte, pa ono što naučiš vrijedi za kartu bilo koje godine. Mahj Trainer je neovisna aplikacija, nije povezana s National Mah Jongg League niti ju je ta organizacija odobrila. Za službene ruke nabavi aktualnu NMJL kartu.
+Ruke za vježbu su originalne i uče odjeljke karte, pa ono što naučiš vrijedi za kartu bilo koje godine. Mahj Trainer je neovisna aplikacija, nije povezana s National Mah Jongg League i nije je odobrila. Za službene ruke nabavi aktualnu NMJL kartu.
 
 PRETPLATE
-Cijene se prikazuju u aplikaciji prije kupnje i razlikuju se po regiji. Plaćanje se naplaćuje s tvog Apple ID-ja pri potvrdi. Pretplate se obnavljaju automatski ako se ne otkažu najmanje 24 sata prije kraja trenutnog razdoblja. Upravljaj pretplatom ili je otkaži bilo kada u Postavke → Apple ID → Pretplate.
+Cijene se prikazuju u aplikaciji prije kupnje i razlikuju se po regiji. Plaćanje se naplaćuje putem tvog Apple ID-ja pri potvrdi. Pretplate se obnavljaju automatski ako se ne otkažu najmanje 24 sata prije kraja trenutnog razdoblja. Upravljaj pretplatom ili je otkaži bilo kada u Postavkama → Apple ID → Pretplate.
 Uvjeti korištenja (Appleov standardni EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Pravila privatnosti: https://jackwallner.github.io/mahj/privacy-policy

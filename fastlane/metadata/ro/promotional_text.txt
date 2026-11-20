@@ -1,1 +1,1 @@
-Exerciții de mahjong american de cinci minute: citește un rack, alege piesele pentru Charleston, decide ce păstrezi. Fiecare răspuns arată de ce. Fără cont.
+Exerciții de cinci minute de mahjong american: citește un rack, alege piesele pentru Charleston, decide ce păstrezi. Fiecare răspuns explică de ce. Fără cont.
