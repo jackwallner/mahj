@@ -1,4 +1,4 @@
-Mahj Trainer es una app gratuita para aprender mahjong americano con la tarjeta anual de la NMJL, y no pide cuenta. Sus ejercicios explican el porqué de cada respuesta, desde leer un atril hasta elegir los pases del Charleston.
+Mahj Trainer es una app gratuita para aprender mahjong americano con la tarjeta anual de la NMJL, sin necesidad de cuenta. Sus ejercicios explican el porqué de cada respuesta, desde leer un atril hasta elegir los pases del Charleston.
 
 Practica en sesiones de cinco minutos, sin rivales ni esperas, antes de sentarte a una mesa de verdad.
 
@@ -26,11 +26,11 @@ TAMBIÉN INCLUYE
 • Funciona sin conexión en iPhone y iPad.
 
 GRATIS Y MAHJ+
-Gratis desde el primer día: las cuatro salas (Fichas, Tarjeta, Charleston y Mesa), una mano al día en Jugar una mano, el Mahj Minute, Cómo se juega y el glosario. Mahj+ agrega manos ilimitadas, series de práctica extra en las cuatro salas, Práctica sin fin con un atril nuevo cada vez, Corregir errores (lo que fallas vuelve en un calendario espaciado), la preparación de la noche de juego (cinco minutos armados con tus fallos), un reto contrarreloj de 90 segundos y las Master Tables, con Charleston avanzado, defensa, lectura experta de atriles y reglas de comodines. Mahj+ es una suscripción mensual o anual con renovación automática, ambas con 7 días de prueba gratis, o una compra única Lifetime.
+Gratis desde el primer día: las cuatro salas (Fichas, Tarjeta, Charleston y Mesa), una mano al día en Jugar una mano, el Mahj Minute, Cómo se juega y el glosario. Mahj+ agrega manos ilimitadas en Jugar una mano, series de práctica extra en las cuatro salas, Práctica sin fin con un atril nuevo cada vez, Corregir errores (lo que fallas vuelve en un calendario espaciado), Preparar la noche de juego (cinco minutos armados con tus fallos), un reto contrarreloj de 90 segundos y las Master Tables, con Charleston avanzado, defensa, lectura experta de atriles y reglas de comodines. Mahj+ es una suscripción mensual o anual con renovación automática, ambas con 7 días de prueba gratis, o una compra única Lifetime.
 
 Las manos de práctica son originales y enseñan las secciones de la tarjeta, así que lo que aprendes sirve con la tarjeta de cualquier año. Mahj Trainer es una app independiente y no está afiliada ni respaldada por la National Mah Jongg League. Para las manos oficiales, consigue la tarjeta NMJL vigente.
 
 SUSCRIPCIONES
-Los precios se muestran en la app antes de comprar y varían según la región. El pago se carga a tu Apple ID al confirmar. Las suscripciones se renuevan automáticamente a menos que se cancelen al menos 24 horas antes de que termine el periodo actual. Administra o cancela cuando quieras en Configuración → Apple ID → Suscripciones.
+Los precios se muestran en la app antes de comprar y varían según la región. El pago se carga a tu ID de Apple al confirmar. Las suscripciones se renuevan automáticamente a menos que se cancelen al menos 24 horas antes de que termine el periodo actual. Administra o cancela cuando quieras en Configuración → ID de Apple → Suscripciones.
 Términos de uso (CLUF estándar de Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Política de privacidad: https://jackwallner.github.io/mahj/privacy-policy

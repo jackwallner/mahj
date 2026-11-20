@@ -1,6 +1,6 @@
 Mahj Trainer est une application gratuite pour apprendre le mahjong américain avec la carte annuelle de la NMJL, sans compte à créer. Chaque exercice explique le raisonnement derrière la réponse, de la lecture d'un chevalet au choix des passes du Charleston.
 
-Pratique en séances de cinq minutes, sans adversaire à attendre, avant de t'asseoir à une vraie table.
+Entraîne-toi en séances de cinq minutes, sans adversaire à attendre, avant de t'asseoir à une vraie table.
 
 LA SALLE DES TUILES
 • Découvre chaque famille de tuiles : craks, bams, dots, vents, dragons, fleurs et jokers.
@@ -15,10 +15,10 @@ LA SALLE DU CHARLESTON
 • Choisis 3 tuiles à passer dans une donne d'entraînement, compare avec le choix de l'entraîneur et lis ses raisons.
 
 LA SALLE DE LA TABLE
-• Entraîne-toi aux décisions garder ou rejeter : quand garder une fleur, quand l'échanger contre un joker exposé, ce que révèle l'exposition d'un adversaire et quels rejets sont sûrs.
+• Travaille les décisions garder ou défausser : quand garder une fleur, quand l'échanger contre un joker exposé, ce que révèle l'exposition d'un adversaire et quelles défausses sont sûres.
 
 JOUER UNE MAIN
-• Joue 13 tuiles tirées d'un vrai mur pendant 12 tours. Chaque rejet est noté, calcul à l'appui.
+• Joue 13 tuiles tirées d'un vrai mur pendant 12 tours. Chaque défausse est notée, calcul à l'appui.
 
 AUSSI INCLUS
 • Le Mahj Minute : cinq questions par jour pour un défi mensuel.
@@ -26,7 +26,7 @@ AUSSI INCLUS
 • Fonctionne hors ligne sur iPhone et iPad.
 
 GRATUIT ET MAHJ+
-Gratuit dès le premier lancement : les quatre salles (Tuiles, Carte, Charleston et Table), une main par jour dans Jouer une main, le Mahj Minute, Comment jouer et le glossaire. Mahj+ ajoute des mains illimitées, des séries d'entraînement supplémentaires dans les quatre salles, l'Entraînement infini avec un nouveau chevalet à chaque fois, Corriger mes erreurs (tes erreurs reviennent à intervalles espacés), la préparation de soirée de jeu (cinq minutes bâties sur tes erreurs), un défi chrono de 90 secondes et les Master Tables : Charleston avancé, défense, lecture experte du chevalet et règles des jokers. Mahj+ est un abonnement mensuel ou annuel à renouvellement automatique, les deux avec 7 jours d'essai gratuit, ou un achat unique Lifetime.
+Gratuit dès le premier lancement : les quatre salles (Tuiles, Carte, Charleston et Table), une main par jour dans Jouer une main, le Mahj Minute, Comment jouer et le glossaire. Mahj+ ajoute des mains illimitées, des séries d'entraînement supplémentaires dans les quatre salles, l'Entraînement infini avec un nouveau chevalet à chaque fois, Corriger mes erreurs (tes erreurs reviennent à intervalles espacés), Préparer la soirée (cinq minutes tirées de tes erreurs), un défi chrono de 90 secondes et les Master Tables : Charleston avancé, défense, lecture experte du chevalet et règles des jokers. Mahj+ est un abonnement mensuel ou annuel à renouvellement automatique, les deux avec 7 jours d'essai gratuit, ou un achat unique Lifetime.
 
 Les mains d'entraînement sont originales et enseignent les sections de la carte : ce que tu apprends vaut pour la carte de n'importe quelle année. Mahj Trainer est indépendante et n'est ni affiliée à la National Mah Jongg League ni approuvée par elle. Pour les mains officielles, procure-toi la carte NMJL en vigueur.
 

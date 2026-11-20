@@ -12,15 +12,15 @@ PHÒNG THẺ BÀI
 
 PHÒNG CHARLESTON
 • Học luật và chiến lược của lượt chuyền bài.
-• Chọn 3 quân để chuyền trong một ván luyện tập, so với lựa chọn của huấn luyện viên và đọc lý do.
+• Chọn 3 quân để chuyền trong một ván luyện tập, rồi so sánh với lựa chọn của huấn luyện viên và đọc lý do.
 
 PHÒNG BÀN CHƠI
 • Luyện quyết định giữ hay bỏ: khi nào giữ quân hoa, khi nào đổi lấy joker đã lộ, quân lộ của đối thủ cho bạn biết điều gì và nên đánh quân nào cho an toàn.
 
 CHƠI MỘT VÁN
-• Chơi 13 quân từ một bộ bài thật trong 12 lượt. Mỗi quân đánh ra đều được chấm điểm, kèm phép tính.
+• Chơi 13 quân từ bức tường bài thật trong 12 lượt. Mỗi quân đánh ra đều được chấm điểm, kèm phép tính.
 
-CÓ SẴN THÊM
+CÒN CÓ THÊM
 • Mahj Minute: năm câu hỏi mỗi ngày cho thử thách hằng tháng.
 • Cách chơi, hướng dẫn sáu trang cho người mới hoàn toàn, cùng bảng thuật ngữ để tra cứu.
 • Dùng được khi không có mạng trên iPhone và iPad.
@@ -28,7 +28,7 @@ CÓ SẴN THÊM
 MIỄN PHÍ VÀ MAHJ+
 Miễn phí ngay từ lần mở đầu tiên: bốn phòng (Quân bài, Thẻ bài, Charleston và Bàn chơi), mỗi ngày một ván Chơi một ván, Mahj Minute, Cách chơi và bảng thuật ngữ. Mahj+ thêm số ván không giới hạn, các bộ luyện tập bổ sung trong cả bốn phòng, Luyện tập vô tận với giá bài mới mỗi lần, Sửa lỗi sai (câu sai quay lại theo lịch giãn cách), Chuẩn bị buổi chơi (năm phút dựng từ các câu bạn sai), Thử thách tính giờ 90 giây và Master Tables với Charleston nâng cao, phòng thủ, đọc giá bài chuyên sâu và luật joker. Mahj+ là gói đăng ký tự động gia hạn theo tháng hoặc theo năm, cả hai đều có 7 ngày dùng thử miễn phí, hoặc mua một lần Lifetime.
 
-Các ván luyện tập là bản gốc và dạy các nhóm trên thẻ bài, nên điều bạn học áp dụng được cho thẻ bài của bất kỳ năm nào. Mahj Trainer là ứng dụng độc lập, không liên kết hay được chứng nhận bởi National Mah Jongg League. Để xem thế bài chính thức, hãy dùng thẻ bài NMJL hiện hành.
+Các thế bài luyện tập là nội dung gốc và dạy các nhóm trên thẻ bài, nên điều bạn học áp dụng được cho thẻ bài của bất kỳ năm nào. Mahj Trainer là ứng dụng độc lập, không liên kết với và không được National Mah Jongg League chứng nhận. Để xem thế bài chính thức, hãy dùng thẻ bài NMJL hiện hành.
 
 VỀ GÓI ĐĂNG KÝ
 Giá được hiển thị trong ứng dụng trước khi bạn mua và thay đổi theo khu vực. Khoản thanh toán được tính vào Apple ID của bạn khi xác nhận. Gói đăng ký tự động gia hạn trừ khi bị hủy ít nhất 24 giờ trước khi kỳ hiện tại kết thúc. Quản lý hoặc hủy bất cứ lúc nào trong Cài đặt → Apple ID → Gói đăng ký.

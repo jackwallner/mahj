@@ -1,17 +1,17 @@
-O Mahj Trainer é um app gratuito para aprender mahjong americano com a carta anual da NMJL, e não exige conta. Os exercícios explicam o raciocínio por trás de cada resposta, de ler um rack a escolher as passadas do Charleston.
+O Mahj Trainer é um app gratuito para aprender mahjong americano com o cartão anual da NMJL, sem precisar de conta. Os exercícios explicam o raciocínio por trás de cada resposta, de ler um rack a escolher os passes do Charleston.
 
-Pratique em sessões de cinco minutos, sem adversários para esperar, antes de sentar a uma mesa de verdade.
+Pratique em sessões de cinco minutos, sem precisar esperar por adversários, antes de se sentar a uma mesa de verdade.
 
 A SALA DAS PEÇAS
 • Conheça cada família de peças: craks, bams, dots, ventos, dragões, flores e coringas.
-• Teste-se nas regras que os iniciantes confundem, como qual dragão combina com cada naipe e o que um coringa pode fazer.
+• Teste-se sobre as regras que os iniciantes confundem, como qual dragão combina com cada naipe e o que um coringa pode fazer.
 
-A SALA DA CARTA
-• Aprenda as seções da carta, como 2468, Consecutive Run, 13579 e Winds and Dragons.
+A SALA DO CARTÃO
+• Aprenda as seções do cartão, como 2468, Consecutive Run, 13579 e Winds and Dragons.
 • Leia um rack de 13 peças e diga qual seção ele busca. Se errar, uma nota explica por que a escolha não se encaixa.
 
 A SALA DO CHARLESTON
-• Aprenda as regras e a estratégia da passagem.
+• Aprenda as regras e a estratégia dos passes.
 • Escolha 3 peças para passar numa distribuição de treino, compare com a escolha do treinador e leia as razões dele.
 
 A SALA DA MESA
@@ -26,9 +26,9 @@ TAMBÉM INCLUÍDO
 • Funciona offline no iPhone e no iPad.
 
 GRÁTIS E MAHJ+
-Grátis desde o primeiro uso: as quatro salas (Peças, Carta, Charleston e Mesa), uma mão por dia em Jogar uma Mão, o Mahj Minute, Como Jogar e o glossário. O Mahj+ adiciona mãos ilimitadas, séries extras de prática nas quatro salas, Prática Sem Fim com um rack novo a cada vez, Corrigir Meus Erros (o que você erra volta em intervalos espaçados), a preparação para a noite de jogo (cinco minutos montados com seus erros), um desafio cronometrado de 90 segundos e as Master Tables, com Charleston avançado, defesa, leitura especialista de racks e regras dos coringas. O Mahj+ é uma assinatura mensal ou anual com renovação automática, ambas com 7 dias de teste grátis, ou uma compra única Lifetime.
+Grátis desde o primeiro uso: as quatro salas (Peças, Cartão, Charleston e Mesa), uma mão por dia em Jogar uma Mão, o Mahj Minute, Como Jogar e o glossário. O Mahj+ adiciona mãos ilimitadas, séries extras de prática nas quatro salas, Prática Sem Fim com um rack novo a cada vez, Corrigir Meus Erros (o que você erra volta em intervalos espaçados), Preparar a Noite de Jogo (cinco minutos montados com seus erros), um desafio cronometrado de 90 segundos e as Master Tables, com Charleston avançado, defesa, leitura avançada de racks e regras dos coringas. O Mahj+ é uma assinatura mensal ou anual com renovação automática, ambas com 7 dias de teste grátis, ou uma compra única Lifetime.
 
-As mãos de prática são originais e ensinam as seções da carta, então o que você aprende vale para a carta de qualquer ano. O Mahj Trainer é independente e não é afiliado nem endossado pela National Mah Jongg League. Para as mãos oficiais, obtenha a carta NMJL vigente.
+As mãos de prática são originais e ensinam as seções do cartão, então o que você aprende vale para o cartão de qualquer ano. O Mahj Trainer é independente e não é afiliado nem endossado pela National Mah Jongg League. Para as mãos oficiais, obtenha o cartão NMJL vigente.
 
 O conteúdo do app está em inglês, com os termos do jogo como aparecem na mesa.
 
