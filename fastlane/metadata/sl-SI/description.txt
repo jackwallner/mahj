@@ -1,45 +1,36 @@
-Vadi ameriški Mah Jongg v petminutnih vajah: ploščice, strategijo Charlestona, branje stojala in odločitve obdrži-ali-vrzi, zasnovano za nove igralce.
+Mahj Trainer je brezplačna aplikacija za učenje ameriškega mahjonga z letno kartico NMJL, brez računa. Kvizi pojasnijo razmišljanje za vsakim odgovorom, od branja stojala do izbire ploščic za podajanje v Charlestonu.
 
-Si se mah jongga naučil v četrtek? Obdrži znanje. Mahj Trainer nima nasprotnikov, štoparic ali pritiska: le hitre, interaktivne ponovitve, ki gradijo znanje, potrebno pred usedanjem za pravo mizo. Predstavljaj si to kot vadbo servisa brez odigrane tekme.
+Vadi v petminutnih sejah, brez čakanja na nasprotnike, preden se usedeš za pravo mizo. Besedilo v aplikaciji je v angleščini.
 
-ZAKAJ DELUJE
-Večina novih igralcev se uči na tedenski igri, potem pa nima priložnosti za vajo do naslednje. Znanje zbledi. Mahj Trainer ti ponuja hitre ponovitve, ki jih lahko opraviš kjer koli, tudi v vrsti.
+SOBA S PLOŠČICAMI (TILE ROOM)
+• Spoznaj vse družine ploščic: craks, bams, dots, vetrove, zmaje, rože in džokerje.
+• Preizkusi se v pravilih, ki jih novi igralci mešajo, na primer kateri zmaj gre h kateri barvi in kaj zmorejo džokerji.
 
-ŠTIRJE BREZPLAČNI VADBENI PROSTORI
+SOBA S KARTICO (CARD ROOM)
+• Spoznaj razdelke kartice, kot so 2468, Consecutive Run, 13579 in Winds and Dragons.
+• Preberi stojalo s 13 ploščicami in poimenuj razdelek, proti kateremu gre. Ob napačni izbiri dobiš opombo, zakaj ne ustreza.
 
-PROSTOR PLOŠČIC
-Spoznaj vsako družino ploščic: crak, bam, dot, veter, zmaj, cvet in džoker. Preizkusi se v pravilih, pri katerih se vsi zmotijo: kateri zmaj sodi h kateri barvi, kaj džoker sme in ne sme, in kaj dejansko pomeni "soap".
+SOBA CHARLESTON (CHARLESTON ROOM)
+• Spoznaj pravila in strategijo podajanja.
+• Izberi 3 ploščice za podajanje iz vadbene razdelitve, nato primerjaj svojo izbiro z izbiro trenerja in preberi obrazložitev.
 
-PROSTOR KARTE
-Spoznaj razdelke karte (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs in druge) in kako jih prepoznati. Nato vadi branje stojala: poglej 13 ploščic in poimenuj razdelek, ki mu sledijo.
+SOBA Z MIZO (TABLE ROOM)
+• Odločaj se: obdržati ali zavreči. Kdaj obdržati rožo, kdaj zamenjati za izpostavljenega džokerja, kaj ti pove izpostavljena kombinacija nasprotnika in kateri meti so varni.
 
-PROSTOR CHARLESTONA
-Del, ki straši vsakega novega igralca, brez panike. Spoznaj pravila in strategijo podajanja, nato se prebij skozi prava deljenja: izberi 3 ploščice za podajo in primerjaj svojo izbiro s trenerjevo, z razlago vred.
+PLAY A HAND
+• Odigraj 13 ploščic s pravega zidu skozi 12 potez. Vsak met dobi oceno, izračun pa je prikazan.
 
-PROSTOR MIZE
-Odločitve obdrži-ali-vrzi: kdaj obdržati cvet, kdaj ga zamenjati za odkritega džokerja, kaj ti pove nasprotnikovo razkritje in kateri odmeti so varni.
+VKLJUČENO
+• Mahj Minute: pet vprašanj na dan za mesečni izziv.
+• How to Play, šeststranski uvod za povsem nove igralce, ter slovarček z iskanjem.
+• Vaje delujejo brez povezave na iPhonu in iPadu, brez čakanja na nasprotnike.
 
-MAHJ+ (izbirna nadgradnja)
-Vse zgoraj ostane za vedno brezplačno. Mahj+ dodaja vadbo, ki se nikoli ne izteče:
+BREZPLAČNO IN MAHJ+
+Brezplačno od prvega zagona: štiri sobe (Tile, Card, Charleston in Table), ena Play a Hand na dan, Mahj Minute, How to Play in slovarček. Mahj+ doda neomejen Play a Hand, dodatne vadbene sete v vseh štirih sobah, Endless Practice z novim stojalom vsakič, Fix My Mistakes (tvoje napake se vračajo v vse daljših presledkih), Game Night Prep (pet minut, sestavljenih iz tvojih napak), 90-sekundni Timed Challenge in Master Tables za napredni Charleston, obrambo, strokovno branje stojala in pravila za džokerje. Mahj+ je mesečna ali letna naročnina s samodejnim podaljševanjem, obe s 7-dnevnim brezplačnim preizkusom, ali enkratni nakup Lifetime.
 
-PLAY A HAND razdeli trinajst ploščic iz pravega zidu, oceni vsak met in pokaže računico za njim. Brez nasprotnikov in brez botov. Ena brezplačna roka na dan za vsakogar.
-
-ENDLESS PRACTICE vsakič razdeli na novo ustvarjen rack, zato se branje kategorij nikoli ne ponovi in nikoli ne izteče.
-
-FIX MY MISTAKES si zapomni, kaj si zgrešil, in to vrne po razmaknjenem urniku, da se šibke točke res zaprejo.
-
-TIMED CHALLENGE ti da devetdeset sekund mešanih vprašanj in osebni rekord, ki ga lahko podiraš.
-
-DODATNI KOMPLETI VAJ v vsaki od štirih sob, z novimi vprašanji, racki in delitvami v istih vajah, ki jih že uporabljaš.
-
-THE MASTER TABLES, kjer napredna strategija Charlestona, šola obrambe in strokovne vaje branja racka čakajo igralce, ki so presegli osnove.
-
-Nove vaje prihajajo vse leto.
-
-ZASNOVANO ZA NOVE IGRALCE
-Kartice z razlago "zakaj" na hrbtni strani. Nizi, ki te ohranjajo pri vadbi med igrami. Izvirna vadbena deljenja, ki učijo sistem kategorij, tako da se tvoje znanje prenese na karto katerega koli leta.
-
-Mahj Trainer je neodvisna vadbena aplikacija. Ni povezana z National Mah Jongg League niti od nje odobrena. Za uradna deljenja in vrednosti si priskrbi trenutno NMJL karto.
+Vadbene roke so izvirne in učijo razdelke kartice, zato znanje velja za kartico katerega koli leta. Mahj Trainer je neodvisna aplikacija, ni povezana z National Mah Jongg League in je ta ni potrdila. Za uradne roke si omisli aktualno kartico NMJL.
 
 NAROČNINE
-Mahj+ je na voljo kot samodejno obnavljajoča se naročnina (mesečna ali letna, obe s 7-dnevnim brezplačnim preizkusom) ali kot enkratni nakup Lifetime. Cene so prikazane v aplikaciji pred nakupom in se razlikujejo glede na regijo. Plačilo se ob potrditvi zaračuna na vaš Apple ID. Naročnine se samodejno obnovijo, razen če jih prekličete vsaj 24 ur pred koncem tekočega obdobja. Upravljajte ali prekličite jih kadar koli v Nastavitve → Apple ID → Naročnine. Pogoji uporabe (Applov standardni EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Pravilnik o zasebnosti: https://jackwallner.github.io/mahj/privacy-policy.
+Cene so prikazane v aplikaciji pred nakupom in se razlikujejo glede na regijo. Plačilo se obračuna na tvoj Apple ID ob potrditvi. Naročnine se samodejno podaljšajo, razen če jih prekličeš vsaj 24 ur pred koncem trenutnega obdobja. Naročnino upravljaj ali prekliči kadar koli v Nastavitve → Apple ID → Naročnine.
+Pogoji uporabe (Applova standardna licenčna pogodba): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Pravilnik o zasebnosti: https://jackwallner.github.io/mahj/privacy-policy

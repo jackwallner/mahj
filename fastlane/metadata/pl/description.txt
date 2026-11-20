@@ -1,45 +1,36 @@
-Ćwicz amerykańskiego mahjonga w pięciominutowych sesjach: kamienie, strategia Charlestona, czytanie stojaka i decyzje trzymać-czy-rzucić, stworzone dla nowych graczy.
+Mahj Trainer to bezpłatna aplikacja do nauki amerykańskiego mahjonga z coroczną kartą NMJL, bez konta. Quizy wyjaśniają tok rozumowania za każdą odpowiedzią, od czytania stojaka po wybór kamieni do przekazania w Charlestonie.
 
-Nauczyłeś się mahjonga w czwartek? Utrwal to. Mahj Trainer nie ma przeciwników, liczników czasu ani presji: to szybkie, interaktywne powtórki, które budują umiejętności potrzebne, zanim usiądziesz przy prawdziwym stole. Traktuj to jak trening serwisu bez rozgrywania meczu.
+Ćwicz w sesjach po pięć minut, bez przeciwników, na których trzeba czekać, zanim usiądziesz do prawdziwego stołu. Teksty w aplikacji są po angielsku.
 
-DLACZEGO TO DZIAŁA
-Większość nowych graczy uczy się podczas cotygodniowej gry, a potem nie ma jak ćwiczyć aż do następnej. Wiedza szybko blaknie. Mahj Trainer daje krótkie powtórki, które możesz zrobić wszędzie, nawet stojąc w kolejce.
+POKÓJ KAMIENI (TILE ROOM)
+• Poznaj wszystkie rodziny kamieni: craks, bams, dots, wiatry, smoki, kwiaty i dżokery.
+• Sprawdź się w zasadach, które mylą nowych graczy, na przykład który smok pasuje do którego koloru i co potrafią dżokery.
 
-CZTERY BEZPŁATNE POKOJE ĆWICZEŃ
+POKÓJ KARTY (CARD ROOM)
+• Poznaj sekcje karty, takie jak 2468, Consecutive Run, 13579 i Winds and Dragons.
+• Przeczytaj stojak z 13 kamieniami i wskaż sekcję, do której zmierza. Przy błędnym wyborze dostajesz notatkę, dlaczego nie pasuje.
 
-POKÓJ KAMIENI
-Poznaj każdą rodzinę kamieni: crak, bam, dot, wiatry, smoki, kwiaty i jokery. Sprawdź się w zasadach, w których każdy się myli: który smok pasuje do którego koloru, co joker może, a czego nie może zrobić, i co naprawdę oznacza "soap".
+POKÓJ CHARLESTONU (CHARLESTON ROOM)
+• Poznaj zasady i strategię przekazywania kamieni.
+• Wybierz 3 kamienie do przekazania z treningowego rozdania, potem porównaj swój wybór z wyborem trenera i przeczytaj uzasadnienie.
 
-POKÓJ KARTY
-Poznaj sekcje karty (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs i inne) oraz sposoby ich rozpoznawania. Potem ćwicz czytanie stojaka: zobacz 13 kamieni i nazwij sekcję, do której zmierzają.
+POKÓJ STOŁU (TABLE ROOM)
+• Podejmuj decyzje: zatrzymać czy odrzucić. Kiedy zostawić kwiat, kiedy wymienić na wyłożonego dżokera, co mówi wyłożony zestaw przeciwnika i które odrzuty są bezpieczne.
 
-POKÓJ CHARLESTONA
-Część, która przeraża każdego nowego gracza, tyle że bez paniki. Poznaj zasady i strategię przekazywania kamieni, a potem przejdź przez prawdziwe rozdania: wybierz 3 kamienie do oddania i porównaj swój wybór z wyborem trenera wraz z wyjaśnieniem.
+PLAY A HAND
+• Zagraj 13 kamieniami z prawdziwego muru przez 12 tur. Każdy odrzut dostaje ocenę, a rachunek jest pokazany.
 
-POKÓJ STOŁU
-Decyzje trzymać-czy-rzucić: kiedy zatrzymać kwiat, kiedy wymienić go na odsłoniętego jokera, co odsłonięcie przeciwnika ci mówi i które rzuty są bezpieczne.
+W ZESTAWIE
+• Mahj Minute: pięć pytań dziennie do comiesięcznego wyzwania.
+• How to Play, sześciostronicowy wstęp dla zupełnie nowych graczy, oraz słowniczek z wyszukiwarką.
+• Ćwiczenia działają offline na iPhonie i iPadzie, bez przeciwników, na których trzeba czekać.
 
-MAHJ+ (opcjonalne ulepszenie)
-Wszystko powyżej pozostaje darmowe na zawsze. Mahj+ dodaje ćwiczenia, które nigdy się nie kończą:
+ZA DARMO I MAHJ+
+Za darmo od pierwszego uruchomienia: cztery pokoje (Tile, Card, Charleston i Table), jedno Play a Hand dziennie, Mahj Minute, How to Play i słowniczek. Mahj+ dodaje nielimitowane Play a Hand, dodatkowe zestawy ćwiczeń we wszystkich czterech pokojach, Endless Practice z nowym stojakiem za każdym razem, Fix My Mistakes (twoje pomyłki wracają w rosnących odstępach), Game Night Prep (pięć minut zbudowanych na twoich błędach), 90-sekundowe Timed Challenge oraz Master Tables z zaawansowanym Charlestonem, obroną, ekspercką analizą stojaka i zasadami dla dżokerów. Mahj+ to subskrypcja miesięczna lub roczna z automatycznym odnawianiem, obie z 7-dniowym okresem próbnym, albo jednorazowy zakup Lifetime.
 
-PLAY A HAND rozdaje trzynaście kamieni z prawdziwego muru, ocenia każdy zrzut i pokazuje stojącą za nim arytmetykę. Bez przeciwników i bez botów. Jedno darmowe rozdanie dziennie dla każdego.
-
-ENDLESS PRACTICE za każdym razem rozdaje świeżo wygenerowany rack, więc czytanie kategorii nigdy się nie powtarza ani nie wyczerpuje.
-
-FIX MY MISTAKES zapamiętuje twoje błędy i przywraca je według rozłożonego w czasie harmonogramu, dzięki czemu słabe punkty naprawdę się domykają.
-
-TIMED CHALLENGE daje ci dziewięćdziesiąt sekund mieszanych pytań i rekord życiowy do pobicia.
-
-DODATKOWE ZESTAWY ĆWICZEŃ w każdym z czterech pokoi, z nowymi pytaniami, rackami i rozdaniami w tych samych ćwiczeniach, których już używasz.
-
-THE MASTER TABLES, gdzie zaawansowana strategia Charleston, szkoła obrony i eksperckie ćwiczenia czytania racka czekają na graczy wychodzących poza podstawy.
-
-Nowe ćwiczenia dochodzą przez cały rok.
-
-STWORZONE DLA NOWYCH GRACZY
-Fiszki z "dlaczego" na odwrocie. Serie ćwiczeń, które motywują między grami. Oryginalne układy treningowe uczące systemu kategorii, dzięki czemu Twoje umiejętności przenoszą się na kartę z dowolnego roku.
-
-Mahj Trainer to niezależna aplikacja treningowa. Nie jest powiązana ani zatwierdzona przez National Mah Jongg League. Po oficjalne układy i wartości sięgnij po aktualną kartę NMJL.
+Rozdania treningowe są oryginalne i uczą sekcji karty, więc to, czego się nauczysz, sprawdza się na karcie z każdego roku. Mahj Trainer to niezależna aplikacja, niepowiązana z National Mah Jongg League ani przez nią niezatwierdzona. Oficjalne rozdania znajdziesz na aktualnej karcie NMJL.
 
 SUBSKRYPCJE
-Mahj+ jest dostępny w automatycznie odnawianej subskrypcji (miesięcznej lub rocznej, obie z 7-dniowym bezpłatnym okresem próbnym) albo jako jednorazowy zakup Lifetime. Ceny są widoczne w aplikacji przed zakupem i różnią się w zależności od regionu. Płatność jest pobierana z Apple ID przy potwierdzeniu. Subskrypcje odnawiają się automatycznie, o ile nie zostaną anulowane co najmniej 24 godziny przed końcem bieżącego okresu. Zarządzaj nimi lub anuluj w dowolnej chwili w Ustawienia → Apple ID → Subskrypcje. Warunki korzystania (standardowa umowa EULA Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Polityka prywatności: https://jackwallner.github.io/mahj/privacy-policy.
+Ceny są pokazywane w aplikacji przed zakupem i różnią się w zależności od regionu. Płatność jest pobierana z twojego Apple ID po potwierdzeniu. Subskrypcje odnawiają się automatycznie, chyba że zostaną anulowane co najmniej 24 godziny przed końcem bieżącego okresu. Zarządzaj subskrypcją lub anuluj ją w dowolnym momencie w Ustawienia → Apple ID → Subskrypcje.
+Warunki użytkowania (standardowa umowa licencyjna Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Polityka prywatności: https://jackwallner.github.io/mahj/privacy-policy

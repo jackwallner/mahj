@@ -1,45 +1,36 @@
-Vježbaj američki Mah Jongg u petominutnim vježbama: pločice, Charleston strategiju, čitanje stalka i odluke zadrži-ili-baci, izrađeno za nove igrače.
+Mahj Trainer je besplatna aplikacija za učenje američkog mahjonga uz godišnju NMJL kartu, bez računa. Kvizovi objašnjavaju razmišljanje iza svakog odgovora, od čitanja stalka do biranja pločica za predaju u Charlestonu.
 
-Naučio si mah jongg u četvrtak? Zadrži to. Mahj Trainer nema protivnika, tajmera ni pritiska: samo brze, interaktivne ponavljanja koja grade vještine potrebne prije sjedanja za pravi stol. Zamisli to kao vježbanje udarca bez odigranog meča.
+Vježbaj u sesijama od pet minuta, bez protivnika na koje treba čekati, prije nego što sjedneš za pravi stol. Tekst u aplikaciji je na engleskom.
 
-ZAŠTO FUNKCIONIRA
-Većina novih igrača uči na tjednoj igri, a onda nema način vježbati do sljedeće. Naučeno blijedi. Mahj Trainer ti daje brza ponavljanja koja možeš raditi bilo gdje, čak i dok stojiš u redu.
+SOBA PLOČICA (TILE ROOM)
+• Nauči sve obitelji pločica: craks, bams, dots, vjetrove, zmajeve, cvjetove i džokere.
+• Provjeri se na pravilima koja novi igrači miješaju, na primjer koji zmaj ide uz koju boju i što džokeri smiju.
 
-ČETIRI BESPLATNE PROSTORIJE ZA VJEŽBU
+SOBA KARTE (CARD ROOM)
+• Nauči odjeljke karte, kao što su 2468, Consecutive Run, 13579 i Winds and Dragons.
+• Pročitaj stalak od 13 pločica i imenuj odjeljak kojem teži. Uz pogrešan odabir dobivaš bilješku zašto ne odgovara.
 
-PROSTORIJA PLOČICA
-Upoznaj svaku obitelj pločica: crak, bam, dot, vjetrove, zmajeve, cvjetove i džokere. Zatim testiraj sebe na pravilima koja svi krivo shvate: koji zmaj ide uz koju boju, što džoker smije i ne smije, i što zapravo znači "soap".
+SOBA CHARLESTON (CHARLESTON ROOM)
+• Nauči pravila i strategiju predaje pločica.
+• Odaberi 3 pločice za predaju iz vježbovne podjele, zatim usporedi svoj izbor s izborom trenera i pročitaj obrazloženje.
 
-PROSTORIJA KARTE
-Nauči odjeljke karte (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs i druge) i kako ih prepoznati. Zatim vježbaj čitanje stalka: vidi 13 pločica i imenuj odjeljak koji progone.
+SOBA STOLA (TABLE ROOM)
+• Donosi odluke: zadržati ili odbaciti. Kada zadržati cvijet, kada zamijeniti za izloženog džokera, što ti govori izloženi niz protivnika i koja su odbacivanja sigurna.
 
-PROSTORIJA CHARLESTONA
-Dio koji plaši svakog novog igrača, minus panika. Nauči pravila i strategiju dodavanja, zatim prođi kroz prava dijeljenja: odaberi 3 pločice za dodavanje i usporedi svoj izbor s trenerovim, uz objašnjenje.
+PLAY A HAND
+• Odigraj 13 pločica s pravog zida kroz 12 poteza. Svako odbacivanje dobiva ocjenu, a računica je prikazana.
 
-PROSTORIJA STOLA
-Odluke zadrži-ili-baci: kada zadržati cvijet, kada ga zamijeniti za otkrivenog džokera, što ti otkrivanje protivnika govori, i koja su bacanja sigurna.
+UKLJUČENO
+• Mahj Minute: pet pitanja dnevno za mjesečni izazov.
+• How to Play, vodič od šest stranica za potpune početnike, uz pojmovnik koji se može pretraživati.
+• Vježbe rade offline na iPhoneu i iPadu, bez protivnika na koje treba čekati.
 
-MAHJ+ (opcionalni upgrade)
-Sve navedeno ostaje besplatno zauvijek. Mahj+ dodaje vježbanje koje nikad ne ponestane:
+BESPLATNO I MAHJ+
+Besplatno od prvog pokretanja: četiri sobe (Tile, Card, Charleston i Table), jedan Play a Hand dnevno, Mahj Minute, How to Play i pojmovnik. Mahj+ dodaje neograničen Play a Hand, dodatne vježbovne setove u sve četiri sobe, Endless Practice s novim stalkom svaki put, Fix My Mistakes (tvoje pogreške vraćaju se u sve duljim razmacima), Game Night Prep (pet minuta sastavljenih od tvojih pogrešaka), Timed Challenge od 90 sekundi i Master Tables za napredni Charleston, obranu, stručno čitanje stalka i pravila za džokere. Mahj+ je mjesečna ili godišnja pretplata s automatskom obnovom, obje sa 7 dana besplatnog probnog razdoblja, ili jednokratna kupnja Lifetime.
 
-PLAY A HAND dijeli trinaest pločica iz pravog zida, ocjenjuje svako odbacivanje i pokazuje računicu iza njega. Bez protivnika i bez botova. Jedna besplatna ruka dnevno za svakoga.
-
-ENDLESS PRACTICE svaki put dijeli svježe generirani rack, pa se čitanje kategorija nikad ne ponavlja niti ponestane.
-
-FIX MY MISTAKES pamti što si pogriješio i vraća to prema razmaknutom rasporedu, kako bi se slabe točke doista zatvorile.
-
-TIMED CHALLENGE daje ti devedeset sekundi mješovitih pitanja i osobni rekord koji možeš obarati.
-
-DODATNI KOMPLETI VJEŽBI u svakoj od četiri sobe, s novim pitanjima, rackovima i djeljenjima u istim vježbama koje već koristiš.
-
-THE MASTER TABLES, gdje napredna Charleston strategija, škola obrane i stručne vježbe čitanja racka čekaju igrače koji su prešli osnove.
-
-Nove vježbe dodaju se tijekom cijele godine.
-
-IZRAĐENO ZA NOVE IGRAČE
-Kartice sa "zašto" na poleđini. Nizovi koji te drže u vježbanju između igara. Originalna vježbovna dijeljenja koja uče sustav kategorija, tako da se tvoje vještine prenose na kartu bilo koje godine.
-
-Mahj Trainer je nezavisna aplikacija za vježbu. Nije povezana s National Mah Jongg League niti od nje odobrena. Za službena dijeljenja i vrijednosti nabavi trenutnu NMJL kartu.
+Vježbovne ruke su izvorne i uče odjeljke karte, pa ono što naučiš vrijedi za kartu bilo koje godine. Mahj Trainer je neovisna aplikacija, nije povezana s National Mah Jongg League niti ju je ta organizacija odobrila. Za službene ruke nabavi aktualnu NMJL kartu.
 
 PRETPLATE
-Mahj+ dostupan je kao pretplata koja se automatski obnavlja (mjesečna ili godišnja, obje sa 7 dana besplatnog probnog razdoblja) ili kao jednokratna kupnja Lifetime. Cijene se prikazuju u aplikaciji prije kupnje i razlikuju se po regiji. Plaćanje se naplaćuje s vašeg Apple ID-a pri potvrdi. Pretplate se automatski obnavljaju osim ako ih ne otkažete najmanje 24 sata prije kraja tekućeg razdoblja. Upravljajte njima ili ih otkažite bilo kada u Postavke → Apple ID → Pretplate. Uvjeti korištenja (Appleov standardni EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Pravila privatnosti: https://jackwallner.github.io/mahj/privacy-policy.
+Cijene se prikazuju u aplikaciji prije kupnje i razlikuju se po regiji. Plaćanje se naplaćuje s tvog Apple ID-ja pri potvrdi. Pretplate se obnavljaju automatski ako se ne otkažu najmanje 24 sata prije kraja trenutnog razdoblja. Upravljaj pretplatom ili je otkaži bilo kada u Postavke → Apple ID → Pretplate.
+Uvjeti korištenja (Appleov standardni EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Pravila privatnosti: https://jackwallner.github.io/mahj/privacy-policy

@@ -1,46 +1,36 @@
-Amerikan Mahjong'u 5 dakikalık alıştırmalarla öğren: taşlar, Charleston stratejisi, raf okuma ve tut ya da at kararı, yeni başlayanlar için tasarlandı.
+Mahj Trainer, yıllık NMJL kartıyla Amerikan mahjongunu öğrenmek için hesap gerektirmeyen ücretsiz bir uygulamadır. Testleri, istakayı okumaktan Charleston'da hangi taşları vereceğini seçmeye kadar her cevabın arkasındaki mantığı açıklar.
 
-Perşembe oyununda mahjong öğrendin ama bir sonrakine kadar pratik yapacak yer yok mu? Mahj Trainer'da rakip yok, süre baskısı yok, stres yok, sadece gerçek masaya oturmadan önce ihtiyacın olan becerileri geliştiren kısa ve etkileşimli tekrarlar var. Maça çıkmadan önce servis alıştırması yapmak gibi düşün.
+Beş dakikalık oturumlarla, beklenecek rakip olmadan, gerçek bir masaya oturmadan önce çalış. Uygulamadaki metinler İngilizcedir.
 
-NEDEN İŞE YARIYOR
-Çoğu yeni oyuncu mahjong'u haftalık bir oyun gecesinde öğrenir, sonra bir sonrakine kadar pratik yapacak bir yol bulamaz. Öğrendikleri de zamanla unutulur. Mahj Trainer, kuyrukta beklerken bile her yerde yapabileceğin kısa tekrarlar sunar.
+TAŞ ODASI (TILE ROOM)
+• Tüm taş ailelerini öğren: craks, bams, dots, rüzgârlar, ejderhalar, çiçekler ve jokerler.
+• Yeni oyuncuların karıştırdığı kurallarla kendini sına, örneğin hangi ejderhanın hangi renkle gittiği ve jokerlerin neler yapabildiği.
 
-DÖRT ÜCRETSİZ ALIŞTIRMA ODASI
+KART ODASI (CARD ROOM)
+• Kartın bölümlerini öğren: 2468, Consecutive Run, 13579 ve Winds and Dragons gibi.
+• 13 taşlık bir istakayı (rack) oku ve hangi bölümü hedeflediğini söyle. Yanlış seçim, neden uymadığını anlatan bir notla gelir.
 
-TAŞ ODASI
-Her taş ailesini tanı: craks, bams, dots, rüzgarlar, ejderler, çiçekler ve jokerler. Ardından herkesin yanlış bildiği kuralları kendini test ederek öğren: hangi ejder hangi takımla eşleşir, joker neler yapabilir neler yapamaz, soap gerçekte ne anlama gelir.
+CHARLESTON ODASI (CHARLESTON ROOM)
+• Taş verme turunun kurallarını ve stratejisini öğren.
+• Alıştırma dağıtımından vereceğin 3 taşı seç, sonra seçimini koçun seçimiyle karşılaştır ve gerekçeyi oku.
 
-KART ODASI
-Kartın bölümlerini (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs ve daha fazlası) ve onları nasıl tanıyacağını öğren. Ardından raf okumayı pratik et: 13 taşa bak ve hangi bölümü kovaladığını bul.
+MASA ODASI (TABLE ROOM)
+• Tut ya da at kararları ver: çiçeği ne zaman tutmalı, açık bir jokerle ne zaman takas etmeli, rakibin açtığı taşlar ne anlatır ve hangi atışlar güvenli.
 
-CHARLESTON ODASI
-Yeni oyuncuları en çok korkutan kısım, artık paniksiz. Önce taş değiş tokuşunun kurallarını ve stratejisini öğren, sonra gerçek dağıtımlarla pratik yap: geçirilecek 3 taşı seç ve seçimini gerekçesiyle birlikte koçun seçimiyle karşılaştır.
+PLAY A HAND
+• Gerçek bir duvardan 13 taşla 12 tur oyna. Her atış, hesabı gösterilerek notlanır.
 
-MASA ODASI
-Tut ya da at kararları: bir çiçeği ne zaman elinde tutmalısın, açık bir jokerle ne zaman takas yapmalısın, rakibin açtığı taşlar sana ne anlatır ve hangi taşları atmak güvenlidir.
+UYGULAMADA AYRICA
+• Mahj Minute: aylık bir meydan okuma için günde beş soru.
+• How to Play, tamamen yeni oyuncular için altı sayfalık bir giriş, bir de aranabilir sözlük.
+• Alıştırmalar iPhone ve iPad'de çevrimdışı çalışır, beklenecek rakip yoktur.
 
-MAHJ+ (isteğe bağlı yükseltme)
-Yukarıdaki her şey sonsuza dek ücretsiz kalır. Mahj+ hiç bitmeyen alıştırma ekler:
+ÜCRETSİZ VE MAHJ+
+İlk açılıştan itibaren ücretsiz: dört oda (Tile, Card, Charleston ve Table), günde bir Play a Hand, Mahj Minute, How to Play ve sözlük. Mahj+ sınırsız Play a Hand, dört odanın hepsinde ek alıştırma setleri, her seferinde yeni istakalı Endless Practice, Fix My Mistakes (yanlışların aralıklı bir düzenle geri gelir), Game Night Prep (yanlışlarından kurulan beş dakika), 90 saniyelik Timed Challenge ve ileri Charleston, savunma, uzman istaka okuma ve joker kuralları için Master Tables ekler. Mahj+, ikisi de 7 günlük ücretsiz deneme içeren, otomatik yenilenen aylık ya da yıllık bir abonelik ya da tek seferlik Lifetime satın alımıdır.
 
-PLAY A HAND gerçek bir duvardan on üç taş dağıtır, her atışı değerlendirir ve arkasındaki hesabı gösterir. Rakip yok, bot yok. Herkese günde bir ücretsiz el.
+Alıştırma elleri özgündür ve kartın bölümlerini öğretir, bu yüzden öğrendiklerin her yılın kartında işe yarar. Mahj Trainer bağımsız bir uygulamadır, National Mah Jongg League ile bağlantısı yoktur ve onun tarafından onaylanmamıştır. Resmî eller için güncel NMJL kartını edin.
 
-ENDLESS PRACTICE her seferinde anında üretilen yeni bir rack dağıtır, böylece kategori okuma ne tekrarlanır ne de tükenir.
-
-FIX MY MISTAKES yanlış yaptıklarını hatırlar ve aralıklı bir programla geri getirir, böylece zayıf noktalar gerçekten kapanır.
-
-TIMED CHALLENGE sana doksan saniyelik karışık sorular ve kovalayacağın bir kişisel rekor verir.
-
-EK ALIŞTIRMA SETLERİ dört odanın her birinde; hâlihazırda kullandığın aynı alıştırmalarda yeni sorular, rackler ve dağıtımlar.
-
-THE MASTER TABLES, temelleri aşan oyuncuları ileri Charleston stratejisi, bir savunma okulu ve uzman rack okuma alıştırmalarıyla bekliyor.
-
-Yıl boyunca yeni alıştırmalar ekleniyor.
-
-YENİ OYUNCULAR İÇİN TASARLANDI
-Arka yüzünde "neden" açıklaması olan bilgi kartları. Antrenmanlar arasında pratik yapmanı sağlayan seri takibi. Kategori sistemini öğreten özgün alıştırma elleri, böylece kazandığın beceriler hangi yılın kartı olursa olsun işine yarar.
-
-Mahj Trainer bağımsız bir antrenman uygulamasıdır. National Mah Jongg League ile herhangi bir bağlantısı veya onayı yoktur. Resmi eller ve puanlar için güncel NMJL kartını kullan.
-
-ABONELİKLER HAKKINDA
-Mahj+, otomatik yenilenen abonelik (Aylık veya Yıllık, ikisinde de 7 günlük ücretsiz deneme) ya da tek seferlik Lifetime satın alma olarak sunulur. Fiyatlar satın almadan önce uygulamada gösterilir ve bölgeye göre değişir. Ödeme, onay sırasında Apple Kimliğinizden tahsil edilir. Geçerli dönemin bitiminden en az 24 saat önce iptal edilmediği sürece abonelikler otomatik olarak yenilenir. Ayarlar → Apple Kimliği → Abonelikler bölümünden istediğiniz zaman yönetin veya iptal edin. Kullanım Koşulları (Apple'ın standart EULA'sı): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Gizlilik Politikası: https://jackwallner.github.io/mahj/privacy-policy.
+ABONELİKLER
+Fiyatlar satın almadan önce uygulamada gösterilir ve bölgeye göre değişir. Ödeme, onay sırasında Apple Kimliğinden tahsil edilir. Abonelikler, mevcut dönemin bitiminden en az 24 saat önce iptal edilmedikçe otomatik olarak yenilenir. Aboneliğini istediğin zaman Ayarlar → Apple Kimliği → Abonelikler bölümünden yönetebilir veya iptal edebilirsin.
+Kullanım Koşulları (Apple standart EULA): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Gizlilik Politikası: https://jackwallner.github.io/mahj/privacy-policy
