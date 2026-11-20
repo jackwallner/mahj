@@ -2,6 +2,10 @@
 
 Developer notes and historical audits for this repository. The published site remains in the docs directory.
 
+## Research
+
+- [research/2026-11-20-competitor-reviews.md](research/2026-11-20-competitor-reviews.md): 3,462 competitor reviews (App Store, Google Play, comparison pages) tagged by theme and ranked against Mahj, with 9 opportunities; raw tagged TSV alongside
+
 ## Releases
 
 - [releases/1.4.2.md](releases/1.4.2.md): 1.4.2 build 71 submission record: contents, gate, tests
