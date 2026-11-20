@@ -1,45 +1,36 @@
-Allenati al Mah Jongg americano con sessioni da cinque minuti: tessere, strategia del Charleston, lettura del rack e scelte tieni-o-scarta, pensato per chi inizia.
+Mahj Trainer è un'app gratuita per imparare il mahjong americano con la carta annuale della NMJL, senza bisogno di un account. I suoi quiz spiegano il ragionamento dietro ogni risposta, dalla lettura di un rack alla scelta dei passaggi del Charleston.
 
-Hai imparato il mah jongg giovedì scorso? Non perderlo. Mahj Trainer non ha avversari, né cronometro, né pressione: solo ripetizioni rapide e interattive che costruiscono le competenze di cui hai bisogno prima di sederti a un tavolo vero. Pensalo come allenare il servizio senza giocare una partita.
+Allenati in sessioni da cinque minuti, senza avversari da aspettare, prima di sederti a un tavolo vero. I testi dell'app sono in inglese.
 
-PERCHÉ FUNZIONA
-La maggior parte dei nuovi giocatori impara durante una partita settimanale, poi non ha modo di allenarsi fino alla successiva. Le lezioni svaniscono. Mahj Trainer ti offre ripetizioni rapide da fare ovunque, anche in fila.
+LA SALA DELLE TESSERE (TILE ROOM)
+• Impara ogni famiglia di tessere: craks, bams, dots, venti, draghi, fiori e jolly.
+• Mettiti alla prova sulle regole che i principianti confondono, come quale drago va con quale seme e cosa possono fare i jolly.
 
-QUATTRO SALE DI ALLENAMENTO GRATUITE
+LA SALA DELLA CARTA (CARD ROOM)
+• Impara le sezioni della carta, come 2468, Consecutive Run, 13579 e Winds and Dragons.
+• Leggi un rack di 13 tessere e indica la sezione a cui punta. Se sbagli, una nota spiega perché non si adatta.
 
-LA SALA DELLE TESSERE
-Scopri ogni famiglia di tessere: caratteri, bambù, punti, venti, draghi, fiori e jolly. Poi mettiti alla prova sulle regole che tutti sbagliano: quale drago va con quale seme, cosa può e non può fare un jolly, cosa significa davvero un "soap".
+LA SALA DEL CHARLESTON (CHARLESTON ROOM)
+• Impara le regole e la strategia del passaggio.
+• Scegli 3 tessere da passare in una distribuzione di prova, poi confronta la tua scelta con quella del coach e leggi il ragionamento.
 
-LA SALA DELLA CARTA
-Impara le sezioni della carta (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs e altro) e come riconoscerle. Poi esercitati a leggere i rack: osserva 13 tessere e indica la sezione che stanno inseguendo.
+LA SALA DEL TAVOLO (TABLE ROOM)
+• Prendi decisioni tra tenere e scartare: quando tenere un fiore, quando scambiare con un jolly esposto, cosa ti dice l'esposizione di un avversario e quali scarti sono sicuri.
 
-LA SALA DEL CHARLESTON
-La parte che spaventa ogni nuovo giocatore, senza il panico. Impara le regole e la strategia dello scambio, poi lavora su smazzate reali: scegli 3 tessere da passare e confronta la tua scelta con quella del coach, con il ragionamento spiegato.
+PLAY A HAND
+• Gioca 13 tessere da un vero muro per 12 turni. Ogni scarto riceve un voto, con il calcolo in vista.
 
-LA SALA DEL TAVOLO
-Scelte tieni-o-scarta: quando tenere un fiore, quando scambiarlo con un jolly esposto, cosa rivela l'esposizione di un avversario e quali scarti sono sicuri.
+INCLUSO NELL'APP
+• Il Mahj Minute: cinque domande al giorno per una sfida mensile.
+• How to Play, una guida di sei pagine per chi parte da zero, più un glossario in cui cercare i termini.
+• Funziona offline su iPhone e iPad, senza avversari da aspettare.
 
-MAHJ+ (upgrade opzionale)
-Tutto quello che c'è sopra resta gratuito per sempre. Mahj+ aggiunge pratica che non finisce mai:
+GRATIS E MAHJ+
+Gratis fin dal primo avvio: le quattro sale (Tile, Card, Charleston e Table), una Play a Hand al giorno, il Mahj Minute, How to Play e il glossario. Mahj+ aggiunge Play a Hand illimitate, set di pratica extra in tutte e quattro le sale, Endless Practice con un rack nuovo ogni volta, Fix My Mistakes (i tuoi errori tornano a intervalli distanziati), Game Night Prep (cinque minuti costruiti sui tuoi errori), una Timed Challenge di 90 secondi e i Master Tables per Charleston avanzato, difesa, lettura esperta del rack e regole sui jolly. Mahj+ è un abbonamento mensile o annuale con rinnovo automatico, entrambi con 7 giorni di prova gratuita, oppure un acquisto singolo Lifetime.
 
-PLAY A HAND distribuisce tredici tessere da un muro vero, valuta ogni scarto e mostra il calcolo che c'è dietro. Nessun avversario e nessun bot. Una mano gratis al giorno per tutti.
-
-ENDLESS PRACTICE distribuisce un rack generato al momento ogni volta, così la lettura delle categorie non si ripete mai e non si esaurisce mai.
-
-FIX MY MISTAKES ricorda che cosa hai sbagliato e te lo ripropone secondo un calendario distribuito, così i punti deboli si chiudono davvero.
-
-TIMED CHALLENGE ti dà novanta secondi di domande miste e un record personale da battere.
-
-SET DI PRATICA EXTRA in ognuna delle quattro stanze, con nuove domande, rack e smazzate negli stessi esercizi che già usi.
-
-THE MASTER TABLES, dove strategia avanzata del Charleston, una scuola di difesa ed esercizi esperti di lettura del rack aspettano chi va oltre le basi.
-
-Nuovi esercizi vengono aggiunti tutto l'anno.
-
-PENSATO PER CHI INIZIA
-Flashcard con il "perché" sul retro. Serie di allenamenti per tenerti in esercizio tra una partita e l'altra. Mani di pratica originali che insegnano il sistema delle categorie, così le tue abilità funzionano con la carta di qualsiasi anno.
-
-Mahj Trainer è un'app di allenamento indipendente. Non è affiliata né sostenuta dalla National Mah Jongg League. Per mani e valori ufficiali, procurati la carta NMJL in vigore.
+Le mani di pratica sono originali e insegnano le sezioni della carta, quindi quello che impari vale per la carta di qualsiasi anno. Mahj Trainer è un'app indipendente e non è affiliata né approvata dalla National Mah Jongg League. Per le mani ufficiali, procurati la carta NMJL in corso.
 
 ABBONAMENTI
-Mahj+ è disponibile con abbonamento a rinnovo automatico (mensile o annuale, entrambi con 7 giorni di prova gratuita) o con acquisto singolo Lifetime. I prezzi sono mostrati nell'app prima dell'acquisto e variano in base alla regione. Il pagamento viene addebitato sul tuo ID Apple alla conferma. Gli abbonamenti si rinnovano automaticamente salvo disdetta almeno 24 ore prima della fine del periodo in corso. Puoi gestirli o disdirli quando vuoi in Impostazioni → ID Apple → Abbonamenti. Termini d'uso (EULA standard di Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Informativa sulla privacy: https://jackwallner.github.io/mahj/privacy-policy.
+I prezzi sono mostrati nell'app prima dell'acquisto e variano in base all'area geografica. Il pagamento viene addebitato sul tuo ID Apple alla conferma. Gli abbonamenti si rinnovano automaticamente, a meno che non vengano annullati almeno 24 ore prima della fine del periodo in corso. Gestisci o annulla quando vuoi in Impostazioni → ID Apple → Abbonamenti.
+Termini di utilizzo (EULA standard di Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Informativa sulla privacy: https://jackwallner.github.io/mahj/privacy-policy

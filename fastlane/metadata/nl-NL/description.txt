@@ -1,45 +1,36 @@
-Oefen Amerikaans Mah Jongg in oefeningen van vijf minuten: stenen, Charleston-strategie, rack lezen en houden-of-weggooien beslissingen, gemaakt voor nieuwe spelers.
+Mahj Trainer is een gratis app om Amerikaans mahjong te leren met de jaarlijkse NMJL-kaart, zonder account. De quizzen leggen bij elk antwoord uit waarom, van het lezen van een rack tot het kiezen van wat je doorgeeft bij de Charleston.
 
-Donderdag mah jongg geleerd? Blijf scherp. Mahj Trainer heeft geen tegenstanders, geen tijdslimiet en geen druk: alleen korte, interactieve oefeningen die de vaardigheden opbouwen die je nodig hebt voordat je aan een echte tafel gaat zitten. Zie het als je opslag oefenen zonder een wedstrijd te spelen.
+Oefen in sessies van vijf minuten, zonder tegenstanders om op te wachten, voordat je aan een echte tafel gaat zitten. De teksten in de app zijn in het Engels.
 
-WAAROM HET WERKT
-De meeste nieuwe spelers leren tijdens een wekelijks spel en kunnen daarna pas weer oefenen bij de volgende keer. Lessen vervagen. Mahj Trainer geeft je korte oefeningen die je overal kunt doen, zelfs in de rij.
+DE STENENKAMER (TILE ROOM)
+• Leer elke steenfamilie kennen: craks, bams, dots, winden, draken, bloemen en jokers.
+• Test jezelf op de regels die beginners door elkaar halen, zoals welke draak bij welke kleur hoort en wat jokers mogen.
 
-VIER GRATIS OEFENRUIMTES
+DE KAARTKAMER (CARD ROOM)
+• Leer de secties van de kaart kennen, zoals 2468, Consecutive Run, 13579 en Winds and Dragons.
+• Lees een rack van 13 stenen en benoem de sectie waar het naartoe werkt. Bij een foute keuze staat er een notitie bij waarom het niet past.
 
-DE STENENKAMER
-Maak kennis met elke stenenfamilie: tekens, bamboe, punten, winden, draken, bloemen en jokers. Test jezelf daarna op de regels die iedereen fout doet: welke draak bij welke kleur hoort, wat een joker wel en niet mag, wat een "soap" nou eigenlijk betekent.
+DE CHARLESTON-KAMER (CHARLESTON ROOM)
+• Leer de regels en de strategie van het doorgeven.
+• Kies bij een oefenhand 3 stenen om door te geven, vergelijk je keuze met die van de coach en lees de uitleg.
 
-DE KAARTKAMER
-Leer de secties van de kaart (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs en meer) en hoe je ze herkent. Oefen daarna met rack lezen: bekijk 13 stenen en benoem de sectie waar ze naartoe werken.
+DE TAFELKAMER (TABLE ROOM)
+• Neem beslissingen over houden of weggooien: wanneer je een bloem bewaart, wanneer je ruilt voor een open joker, wat de open stenen van een tegenstander verraden en welke afgegooide stenen veilig zijn.
 
-DE CHARLESTONKAMER
-Het onderdeel dat elke nieuwe speler bang maakt, zonder de paniek. Leer de regels en strategie van het doorgeven, werk daarna door echte deelrondes: kies 3 stenen om door te geven en vergelijk je keuze met die van de coach, met uitleg erbij.
+PLAY A HAND
+• Speel 13 stenen van een echte muur gedurende 12 beurten. Elke weggegooide steen krijgt een beoordeling, met de berekening erbij.
 
-DE SPELTAFEL
-Houden-of-weggooien beslissingen: wanneer je een bloem bewaart, wanneer je ruilt voor een blootgelegde joker, wat de blootlegging van een tegenstander verraadt, en welke worpen veilig zijn.
+OOK INBEGREPEN
+• De Mahj Minute: vijf vragen per dag voor een maandelijkse uitdaging.
+• How to Play, een inleiding van zes pagina's voor wie helemaal nieuw is, plus een woordenlijst om in te zoeken.
+• Werkt offline op iPhone en iPad, zonder tegenstanders om op te wachten.
 
-MAHJ+ (optionele upgrade)
-Alles hierboven blijft voor altijd gratis. Mahj+ voegt oefening toe die nooit opraakt:
+GRATIS EN MAHJ+
+Vanaf de eerste start gratis: de vier kamers (Tile, Card, Charleston en Table), één Play a Hand per dag, de Mahj Minute, How to Play en de woordenlijst. Mahj+ voegt onbeperkt Play a Hand toe, extra oefensets in alle vier de kamers, Endless Practice met telkens een nieuw rack, Fix My Mistakes (je fouten komen terug volgens een gespreid schema), Game Night Prep (vijf minuten op basis van je fouten), een Timed Challenge van 90 seconden en de Master Tables voor gevorderde Charleston, verdediging, expert rack-lezen en jokerregels. Mahj+ is een automatisch verlengend maand- of jaarabonnement, beide met 7 dagen gratis proberen, of een eenmalige Lifetime-aankoop.
 
-PLAY A HAND deelt dertien stenen uit een echte muur, beoordeelt elke worp en laat het rekenwerk erachter zien. Geen tegenstanders en geen bots. Eén gratis hand per dag voor iedereen.
-
-ENDLESS PRACTICE deelt elke keer een vers gegenereerd rack, zodat categorieën lezen nooit herhaalt en nooit opraakt.
-
-FIX MY MISTAKES onthoudt wat je fout had en brengt het volgens een gespreid schema terug, zodat zwakke plekken echt dichtgaan.
-
-TIMED CHALLENGE geeft je negentig seconden gemengde vragen en een persoonlijk record om te verbeteren.
-
-EXTRA OEFENSETS in elk van de vier kamers, met nieuwe vragen, racks en delen in dezelfde oefeningen die je al gebruikt.
-
-THE MASTER TABLES, waar gevorderde Charleston-strategie, een verdedigingsschool en rack-leesoefeningen voor experts wachten op spelers die verder gaan dan de basis.
-
-Het hele jaar door komen er nieuwe oefeningen bij.
-
-GEMAAKT VOOR NIEUWE SPELERS
-Flashcards met het "waarom" op de achterkant. Reeksen die je tussen potjes door aan het oefenen houden. Originele oefenhanden die het categoriesysteem aanleren, zodat je vaardigheden werken bij de kaart van elk jaar.
-
-Mahj Trainer is een onafhankelijke oefenapp. De app is niet gelieerd aan en wordt niet onderschreven door de National Mah Jongg League. Voor officiële hands en waarden, gebruik de actuele NMJL-kaart.
+De oefenhanden zijn origineel en leren de secties van de kaart, dus wat je leert werkt met de kaart van elk jaar. Mahj Trainer is een onafhankelijke app en is niet verbonden aan of goedgekeurd door de National Mah Jongg League. Voor de officiële handen heb je de actuele NMJL-kaart nodig.
 
 ABONNEMENTEN
-Mahj+ is beschikbaar als automatisch verlengend abonnement (maandelijks of jaarlijks, beide met 7 dagen gratis proefperiode) of als eenmalige Lifetime-aankoop. De prijzen staan vóór aankoop in de app en verschillen per regio. Het bedrag wordt bij bevestiging van je Apple ID afgeschreven. Abonnementen worden automatisch verlengd, tenzij je ze minstens 24 uur voor het einde van de lopende periode opzegt. Beheren of opzeggen kan altijd via Instellingen → Apple ID → Abonnementen. Gebruiksvoorwaarden (standaard-EULA van Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Privacybeleid: https://jackwallner.github.io/mahj/privacy-policy.
+De prijzen staan in de app voordat je koopt en verschillen per regio. De betaling wordt bij bevestiging in rekening gebracht via je Apple ID. Abonnementen worden automatisch verlengd, tenzij je ze minstens 24 uur voor het einde van de lopende periode opzegt. Beheer of zeg op wanneer je wilt via Instellingen → Apple ID → Abonnementen.
+Gebruiksvoorwaarden (standaard-EULA van Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Privacybeleid: https://jackwallner.github.io/mahj/privacy-policy

@@ -1,1 +1,1 @@
-tessera,punto,bambù,carattere,vento,drago,fiore,jolly,rack,mano,quiz,principiante,pung,kong,tavolo
+principianti,corso,esercizi,lezioni,tessere,jolly,strategia,allenamento,gratis,offline,guida,carta

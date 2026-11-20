@@ -1,1 +1,1 @@
-peça,ponto,bambu,caractere,vento,dragão,flor,joker,rack,mão,quiz,principiante,tutorial,pung,kong
+principiante,iniciante,treino,peças,jogo,grátis,lições,curso,estratégia,cartão,exercícios,guia,dicas

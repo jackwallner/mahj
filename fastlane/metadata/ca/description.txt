@@ -1,45 +1,36 @@
-Practica el Mah Jongg americà en sessions de cinc minuts: fitxes, estratègia del Charleston, lectura del rack i decisions de guardar o descartar, pensat per a jugadors nous.
+Mahj Trainer és una app gratuïta per aprendre mahjong americà amb la targeta anual de la NMJL, sense necessitat de compte. Els exercicis expliquen el perquè de cada resposta, des de llegir un rack fins a triar els passos del Charleston.
 
-Vas aprendre mah jongg dijous passat? No ho perdis. Mahj Trainer no té rivals, ni cronòmetre, ni pressió: només repeticions ràpides i interactives que construeixen les habilitats que necessites abans de seure a una taula de veritat. Pensa-hi com practicar el servei sense jugar un partit sencer.
+Practica en sessions de cinc minuts, sense rivals ni esperes, abans d'asseure't a una taula de debò. Els textos de l'app són en anglès.
 
-PER QUÈ FUNCIONA
-La majoria de jugadors nous aprenen en una partida setmanal i després no tenen manera de practicar fins a la següent. El que han après s'esvaeix. Mahj Trainer et dona repeticions ràpides que pots fer a qualsevol lloc, fins i tot fent cua.
+LA SALA DE LES FITXES (TILE ROOM)
+• Coneix cada família de fitxes: craks, bams, dots, vents, dracs, flors i comodins.
+• Posa't a prova amb les regles que els principiants confonen, com quin drac va amb cada pal i què pot fer un comodí.
 
-QUATRE SALES DE PRÀCTICA GRATUÏTES
+LA SALA DE LA TARGETA (CARD ROOM)
+• Aprèn les seccions de la targeta, com 2468, Consecutive Run, 13579 i Winds and Dragons.
+• Llegeix un rack de 13 fitxes i digues a quina secció apunta. Si t'equivoques, una nota t'explica per què no encaixa.
 
-LA SALA DE LES FITXES
-Coneix cada família de fitxes: caràcters, bambús, punts, vents, dracs, flors i comodins. Després posa't a prova amb les regles que tothom confon: quin drac va amb quin coll, què pot i no pot fer un comodí, què vol dir realment un "soap".
+LA SALA DEL CHARLESTON (CHARLESTON ROOM)
+• Aprèn les regles i l'estratègia del pas.
+• Tria 3 fitxes per passar en un repartiment de pràctica, compara la teva tria amb la de l'entrenador i llegeix-ne el raonament.
 
-LA SALA DE LA CARTA
-Aprèn les seccions de la carta (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs i més) i com identificar-les. Després practica la lectura de racks: mira 13 fitxes i digues quina secció persegueixen.
+LA SALA DE LA TAULA (TABLE ROOM)
+• Practica decisions de guardar o llençar: quan guardar una flor, quan canviar-la per un comodí exposat, què t'indica l'exposició d'un rival i quins descarts són segurs.
 
-LA SALA DEL CHARLESTON
-La part que espanta tots els jugadors nous, sense el pànic. Aprèn les regles i l'estratègia de l'intercanvi, després treballa amb repartiments reals: tria 3 fitxes per passar i compara la teva elecció amb la de l'entrenador, amb el raonament explicat.
+PLAY A HAND
+• Juga 13 fitxes d'un mur real durant 12 torns. Cada descart rep una puntuació, amb l'aritmètica a la vista.
 
-LA SALA DE JOC
-Decisions de guardar o descartar: quan guardar una flor, quan canviar-la per un comodí exposat, què revela l'exposició d'un rival i quins descarts són segurs.
+TAMBÉ INCLOU
+• El Mahj Minute: cinc preguntes al dia per a un repte mensual.
+• How to Play, una guia de sis pàgines per a qui comença de zero, i un glossari per consultar termes.
+• Funciona sense connexió a l'iPhone i a l'iPad, sense rivals a qui esperar.
 
-MAHJ+ (millora opcional)
-Tot l'anterior segueix sent gratuït per sempre. Mahj+ afegeix pràctica que no s'acaba mai:
+GRATUÏT I MAHJ+
+Gratuït des del primer dia: les quatre sales (Tile, Card, Charleston i Table), una Play a Hand al dia, el Mahj Minute, How to Play i el glossari. Mahj+ afegeix Play a Hand il·limitades, sèries de pràctica addicionals a les quatre sales, Endless Practice amb un rack nou cada cop, Fix My Mistakes (les teves errades tornen amb un calendari espaiat), Game Night Prep (cinc minuts creats a partir de les teves errades), un Timed Challenge de 90 segons i les Master Tables, amb Charleston avançat, defensa, lectura experta de racks i regles de comodins. Mahj+ és una subscripció mensual o anual amb renovació automàtica, totes dues amb 7 dies de prova gratuïta, o una compra única Lifetime.
 
-PLAY A HAND reparteix tretze fitxes d'un mur real, puntua cada descart i mostra l'aritmètica que hi ha al darrere. Sense rivals i sense bots. Una mà gratuïta al dia per a tothom.
-
-ENDLESS PRACTICE reparteix un rack generat al moment cada vegada, així la lectura de categories no es repeteix mai ni s'esgota.
-
-FIX MY MISTAKES recorda què has fallat i t'ho retorna segons un calendari espaiat, perquè els punts febles es tanquin de debò.
-
-TIMED CHALLENGE et dóna noranta segons de preguntes variades i un rècord personal per superar.
-
-SÈRIES DE PRÀCTICA ADDICIONALS a cadascuna de les quatre sales, amb noves preguntes, racks i repartiments als mateixos exercicis que ja utilitzes.
-
-THE MASTER TABLES, on l'estratègia avançada del Charleston, una escola de defensa i exercicis experts de lectura de rack esperen qui ja ha passat els fonaments.
-
-S'afegeixen exercicis nous durant tot l'any.
-
-PENSAT PER A JUGADORS NOUS
-Targetes amb el "per què" al dors. Ratxes que et mantenen practicant entre partides. Mans de pràctica originals que ensenyen el sistema de categories, perquè les teves habilitats funcionin amb la carta de qualsevol any.
-
-Mahj Trainer és una aplicació de pràctica independent. No està afiliada ni recolzada per la National Mah Jongg League. Per a mans i valors oficials, aconsegueix la carta NMJL vigent.
+Les mans de pràctica són originals i ensenyen les seccions de la targeta, així que el que aprens serveix per a la targeta de qualsevol any. Mahj Trainer és una app independent i no està afiliada ni avalada per la National Mah Jongg League. Per a les mans oficials, aconsegueix la targeta NMJL vigent.
 
 SUBSCRIPCIONS
-Mahj+ està disponible com a subscripció de renovació automàtica (mensual o anual, totes dues amb 7 dies de prova gratuïta) o com a compra única Lifetime. Els preus es mostren a l'app abans de comprar i varien segons la regió. El pagament es carrega al teu Apple ID en confirmar. Les subscripcions es renoven automàticament llevat que les cancel·lis com a mínim 24 hores abans que acabi el període actual. Gestiona-les o cancel·la-les quan vulguis a Configuració → Apple ID → Subscripcions. Condicions d'ús (CLUF estàndard d'Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Política de privadesa: https://jackwallner.github.io/mahj/privacy-policy.
+Els preus es mostren a l'app abans de comprar i varien segons la regió. El pagament es carrega al teu ID d'Apple en confirmar-lo. Les subscripcions es renoven automàticament tret que es cancel·lin almenys 24 hores abans que acabi el període en curs. Gestiona o cancel·la quan vulguis a Configuració → ID d'Apple → Subscripcions.
+Condicions d'ús (CLUF estàndard d'Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+Política de privadesa: https://jackwallner.github.io/mahj/privacy-policy

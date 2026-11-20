@@ -1,1 +1,1 @@
-punto,bambú,carácter,viento,dragón,flor,comodín,rack,mano,quiz,principiante,tutorial,pung,kong,mesa
+reglas,principiante,práctica,ejercicios,fichas,atril,comodín,tarjeta,estrategia,curso,gratis,juego
