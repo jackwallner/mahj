@@ -1,1 +1,1 @@
-guide,school,tips,study,course,training,test,skills,offline,game,glossary,flashcard,review,play,101
+guide,school,tips,study,course,training,test,skills,offline,game,glossary,flashcard,review,tutor

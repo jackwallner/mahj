@@ -1,6 +1,6 @@
 Mahj Trainer is een gratis app om Amerikaans mahjong te leren met de jaarlijkse NMJL-kaart, zonder account. De quizzen leggen bij elk antwoord uit waarom, van het lezen van een rack tot het kiezen van wat je doorgeeft bij de Charleston.
 
-Oefen in sessies van vijf minuten, zonder tegenstanders om op te wachten, voordat je aan een echte tafel gaat zitten. De teksten in de app zijn in het Engels.
+Oefen in sessies van vijf minuten, zonder dat je op tegenstanders hoeft te wachten, voordat je aan een echte tafel gaat zitten. De teksten in de app zijn in het Engels.
 
 DE STENENKAMER (TILE ROOM)
 • Leer elke steenfamilie kennen: craks, bams, dots, winden, draken, bloemen en jokers.
@@ -15,7 +15,7 @@ DE CHARLESTON-KAMER (CHARLESTON ROOM)
 • Kies bij een oefenhand 3 stenen om door te geven, vergelijk je keuze met die van de coach en lees de uitleg.
 
 DE TAFELKAMER (TABLE ROOM)
-• Neem beslissingen over houden of weggooien: wanneer je een bloem bewaart, wanneer je ruilt voor een open joker, wat de open stenen van een tegenstander verraden en welke afgegooide stenen veilig zijn.
+• Beslis wat je houdt en wat je weggooit: wanneer je een bloem bewaart, wanneer je ruilt voor een open joker, wat de open stenen van een tegenstander verraden en welke afgegooide stenen veilig zijn.
 
 PLAY A HAND
 • Speel 13 stenen van een echte muur gedurende 12 beurten. Elke weggegooide steen krijgt een beoordeling, met de berekening erbij.
@@ -23,12 +23,12 @@ PLAY A HAND
 OOK INBEGREPEN
 • De Mahj Minute: vijf vragen per dag voor een maandelijkse uitdaging.
 • How to Play, een inleiding van zes pagina's voor wie helemaal nieuw is, plus een woordenlijst om in te zoeken.
-• Werkt offline op iPhone en iPad, zonder tegenstanders om op te wachten.
+• Werkt offline op iPhone en iPad, zonder dat je op tegenstanders hoeft te wachten.
 
 GRATIS EN MAHJ+
-Vanaf de eerste start gratis: de vier kamers (Tile, Card, Charleston en Table), één Play a Hand per dag, de Mahj Minute, How to Play en de woordenlijst. Mahj+ voegt onbeperkt Play a Hand toe, extra oefensets in alle vier de kamers, Endless Practice met telkens een nieuw rack, Fix My Mistakes (je fouten komen terug volgens een gespreid schema), Game Night Prep (vijf minuten op basis van je fouten), een Timed Challenge van 90 seconden en de Master Tables voor gevorderde Charleston, verdediging, expert rack-lezen en jokerregels. Mahj+ is een automatisch verlengend maand- of jaarabonnement, beide met 7 dagen gratis proberen, of een eenmalige Lifetime-aankoop.
+Vanaf de eerste start gratis: de vier kamers (Tile, Card, Charleston en Table), één Play a Hand per dag, de Mahj Minute, How to Play en de woordenlijst. Mahj+ voegt onbeperkt Play a Hand toe, extra oefensets in alle vier de kamers, Endless Practice met telkens een nieuw rack, Fix My Mistakes (je fouten komen terug met steeds grotere tussenpozen), Game Night Prep (vijf minuten op basis van je fouten), een Timed Challenge van 90 seconden en de Master Tables voor gevorderde Charleston, verdediging, rack lezen op expertniveau en jokerregels. Mahj+ is een automatisch verlengend maand- of jaarabonnement, beide met 7 dagen gratis proefperiode, of een eenmalige Lifetime-aankoop.
 
-De oefenhanden zijn origineel en leren de secties van de kaart, dus wat je leert werkt met de kaart van elk jaar. Mahj Trainer is een onafhankelijke app en is niet verbonden aan of goedgekeurd door de National Mah Jongg League. Voor de officiële handen heb je de actuele NMJL-kaart nodig.
+De oefenhanden zijn origineel en leren de secties van de kaart, dus wat je leert geldt voor de kaart van elk jaar. Mahj Trainer is een onafhankelijke app en is niet verbonden aan of goedgekeurd door de National Mah Jongg League. Voor de officiële handen heb je de actuele NMJL-kaart nodig.
 
 ABONNEMENTEN
 De prijzen staan in de app voordat je koopt en verschillen per regio. De betaling wordt bij bevestiging in rekening gebracht via je Apple ID. Abonnementen worden automatisch verlengd, tenzij je ze minstens 24 uur voor het einde van de lopende periode opzegt. Beheer of zeg op wanneer je wilt via Instellingen → Apple ID → Abonnementen.

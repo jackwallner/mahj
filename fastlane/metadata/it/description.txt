@@ -1,6 +1,6 @@
 Mahj Trainer è un'app gratuita per imparare il mahjong americano con la carta annuale della NMJL, senza bisogno di un account. I suoi quiz spiegano il ragionamento dietro ogni risposta, dalla lettura di un rack alla scelta dei passaggi del Charleston.
 
-Allenati in sessioni da cinque minuti, senza avversari da aspettare, prima di sederti a un tavolo vero. I testi dell'app sono in inglese.
+Allenati in sessioni da cinque minuti, senza dover aspettare gli avversari, prima di sederti a un tavolo vero. I testi dell'app sono in inglese.
 
 LA SALA DELLE TESSERE (TILE ROOM)
 • Impara ogni famiglia di tessere: craks, bams, dots, venti, draghi, fiori e jolly.
@@ -15,20 +15,20 @@ LA SALA DEL CHARLESTON (CHARLESTON ROOM)
 • Scegli 3 tessere da passare in una distribuzione di prova, poi confronta la tua scelta con quella del coach e leggi il ragionamento.
 
 LA SALA DEL TAVOLO (TABLE ROOM)
-• Prendi decisioni tra tenere e scartare: quando tenere un fiore, quando scambiare con un jolly esposto, cosa ti dice l'esposizione di un avversario e quali scarti sono sicuri.
+• Decidi se tenere o scartare: quando tenere un fiore, quando scambiare con un jolly esposto, cosa ti dice l'esposizione di un avversario e quali scarti sono sicuri.
 
 PLAY A HAND
-• Gioca 13 tessere da un vero muro per 12 turni. Ogni scarto riceve un voto, con il calcolo in vista.
+• Gioca 13 tessere pescate da un vero muro per 12 turni. Ogni scarto riceve un voto, con il calcolo mostrato.
 
 INCLUSO NELL'APP
 • Il Mahj Minute: cinque domande al giorno per una sfida mensile.
 • How to Play, una guida di sei pagine per chi parte da zero, più un glossario in cui cercare i termini.
-• Funziona offline su iPhone e iPad, senza avversari da aspettare.
+• Funziona offline su iPhone e iPad, senza dover aspettare gli avversari.
 
 GRATIS E MAHJ+
-Gratis fin dal primo avvio: le quattro sale (Tile, Card, Charleston e Table), una Play a Hand al giorno, il Mahj Minute, How to Play e il glossario. Mahj+ aggiunge Play a Hand illimitate, set di pratica extra in tutte e quattro le sale, Endless Practice con un rack nuovo ogni volta, Fix My Mistakes (i tuoi errori tornano a intervalli distanziati), Game Night Prep (cinque minuti costruiti sui tuoi errori), una Timed Challenge di 90 secondi e i Master Tables per Charleston avanzato, difesa, lettura esperta del rack e regole sui jolly. Mahj+ è un abbonamento mensile o annuale con rinnovo automatico, entrambi con 7 giorni di prova gratuita, oppure un acquisto singolo Lifetime.
+Gratis fin dal primo avvio: le quattro sale (Tile, Card, Charleston e Table), una Play a Hand al giorno, il Mahj Minute, How to Play e il glossario. Mahj+ aggiunge Play a Hand illimitate, set di esercizi extra in tutte e quattro le sale, Endless Practice con un rack nuovo ogni volta, Fix My Mistakes (i tuoi errori tornano a intervalli distanziati), Game Night Prep (cinque minuti costruiti sui tuoi errori), una Timed Challenge di 90 secondi e i Master Tables per Charleston avanzato, difesa, lettura esperta del rack e regole sui jolly. Mahj+ è un abbonamento mensile o annuale con rinnovo automatico, entrambi con 7 giorni di prova gratuita, oppure un acquisto una tantum Lifetime.
 
-Le mani di pratica sono originali e insegnano le sezioni della carta, quindi quello che impari vale per la carta di qualsiasi anno. Mahj Trainer è un'app indipendente e non è affiliata né approvata dalla National Mah Jongg League. Per le mani ufficiali, procurati la carta NMJL in corso.
+Le mani di allenamento sono originali e insegnano le sezioni della carta, quindi ciò che impari vale per la carta di qualsiasi anno. Mahj Trainer è un'app indipendente e non è affiliata né approvata dalla National Mah Jongg League. Per le mani ufficiali, procurati la carta NMJL attuale.
 
 ABBONAMENTI
 I prezzi sono mostrati nell'app prima dell'acquisto e variano in base all'area geografica. Il pagamento viene addebitato sul tuo ID Apple alla conferma. Gli abbonamenti si rinnovano automaticamente, a meno che non vengano annullati almeno 24 ore prima della fine del periodo in corso. Gestisci o annulla quando vuoi in Impostazioni → ID Apple → Abbonamenti.
