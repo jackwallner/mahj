@@ -1,46 +1,36 @@
-Luyện mạt chược Mỹ với các bài tập chỉ 5 phút: quân bài, chiến thuật Charleston, cách đọc bài trên khay, và phán đoán giữ hay bỏ, được thiết kế riêng cho người mới chơi.
+Mahj Trainer là ứng dụng miễn phí giúp bạn học mạt chược Mỹ với thẻ bài NMJL hằng năm, không cần tài khoản. Mỗi bài tập đều giải thích lý do của đáp án, từ đọc giá bài đến chọn quân chuyền trong Charleston.
 
-Vừa học mạt chược ở buổi tối thứ Năm nhưng không có chỗ nào để luyện tập trước buổi sau? Mahj Trainer không có đối thủ, không đồng hồ đếm giờ, không áp lực, chỉ có những bài luyện tương tác nhanh gọn giúp bạn xây dựng kỹ năng cần thiết trước khi ngồi vào bàn thật. Cứ nghĩ như đang luyện cú giao bóng trước khi vào trận vậy.
-
-TẠI SAO HIỆU QUẢ
-Hầu hết người mới học mạt chược tại buổi chơi hằng tuần, rồi chẳng có cách nào luyện tập cho đến lần sau. Kiến thức vì thế cứ phai dần. Mahj Trainer cho bạn những bài luyện nhanh có thể làm ở bất cứ đâu, kể cả khi đang xếp hàng.
-
-BỐN PHÒNG LUYỆN MIỄN PHÍ
+Luyện từng buổi năm phút, không phải chờ đối thủ, trước khi ngồi vào bàn thật.
 
 PHÒNG QUÂN BÀI
-Làm quen với mọi họ bài: vạn, sách, văn, gió, rồng, hoa và joker. Sau đó tự kiểm tra những quy tắc ai cũng hay nhầm: rồng nào đi với chất bài nào, joker được và không được làm gì, "soap" thực sự có nghĩa là gì.
+• Làm quen từng nhóm quân: crak, bam, dot, gió, rồng, hoa và joker.
+• Tự kiểm tra những quy tắc người mới hay nhầm, như rồng nào đi với bộ nào và joker được làm gì.
 
 PHÒNG THẺ BÀI
-Học các nhóm trên thẻ bài (2468, Consecutive Run, 13579, Winds and Dragons, 369, Singles and Pairs và nhiều nhóm khác) cùng cách nhận diện chúng. Sau đó luyện đọc khay bài: nhìn 13 quân bài và đoán xem chúng đang nhắm tới nhóm nào.
+• Học các nhóm trên thẻ bài, như 2468, Consecutive Run, 13579 và Winds and Dragons.
+• Đọc giá bài 13 quân và gọi tên nhóm mà nó đang hướng tới. Nếu chọn sai, bạn sẽ có ghi chú giải thích vì sao không khớp.
 
 PHÒNG CHARLESTON
-Phần khiến người mới lo lắng nhất, giờ không còn phải hoảng. Học luật và chiến thuật của vòng trao đổi bài trước, rồi thực hành với các ván bài thật: chọn 3 quân để trao đi và so sánh lựa chọn của bạn với huấn luyện viên, kèm giải thích lý do.
+• Học luật và chiến lược của lượt chuyền bài.
+• Chọn 3 quân để chuyền trong một ván luyện tập, so với lựa chọn của huấn luyện viên và đọc lý do.
 
-PHÒNG TRÊN BÀN
-Rèn khả năng phán đoán giữ hay bỏ: khi nào nên giữ hoa, khi nào nên đổi lấy joker đang lộ, thông tin gì có thể đọc được từ những quân bài đối thủ đã lộ, và quân nào bỏ đi là an toàn.
+PHÒNG BÀN CHƠI
+• Luyện quyết định giữ hay bỏ: khi nào giữ quân hoa, khi nào đổi lấy joker đã lộ, quân lộ của đối thủ cho bạn biết điều gì và nên đánh quân nào cho an toàn.
 
-MAHJ+ (nâng cấp tùy chọn)
-Mọi thứ ở trên vẫn miễn phí mãi mãi. Mahj+ bổ sung phần luyện tập không bao giờ cạn:
+CHƠI MỘT VÁN
+• Chơi 13 quân từ một bộ bài thật trong 12 lượt. Mỗi quân đánh ra đều được chấm điểm, kèm phép tính.
 
-PLAY A HAND chia mười ba quân từ một bức tường thật, chấm từng quân bạn đánh ra và chỉ ra phép tính đằng sau. Không có đối thủ và không có bot. Mỗi người một ván miễn phí mỗi ngày.
+CÓ SẴN THÊM
+• Mahj Minute: năm câu hỏi mỗi ngày cho thử thách hằng tháng.
+• Cách chơi, hướng dẫn sáu trang cho người mới hoàn toàn, cùng bảng thuật ngữ để tra cứu.
+• Dùng được khi không có mạng trên iPhone và iPad.
 
-ENDLESS PRACTICE chia một rack được tạo mới mỗi lần, nên việc đọc nhóm bài không bao giờ lặp lại và không bao giờ hết.
+MIỄN PHÍ VÀ MAHJ+
+Miễn phí ngay từ lần mở đầu tiên: bốn phòng (Quân bài, Thẻ bài, Charleston và Bàn chơi), mỗi ngày một ván Chơi một ván, Mahj Minute, Cách chơi và bảng thuật ngữ. Mahj+ thêm số ván không giới hạn, các bộ luyện tập bổ sung trong cả bốn phòng, Luyện tập vô tận với giá bài mới mỗi lần, Sửa lỗi sai (câu sai quay lại theo lịch giãn cách), Chuẩn bị buổi chơi (năm phút dựng từ các câu bạn sai), Thử thách tính giờ 90 giây và Master Tables với Charleston nâng cao, phòng thủ, đọc giá bài chuyên sâu và luật joker. Mahj+ là gói đăng ký tự động gia hạn theo tháng hoặc theo năm, cả hai đều có 7 ngày dùng thử miễn phí, hoặc mua một lần Lifetime.
 
-FIX MY MISTAKES ghi nhớ những câu bạn làm sai và đưa lại theo lịch giãn cách, để điểm yếu thực sự được khắc phục.
-
-TIMED CHALLENGE cho bạn chín mươi giây với câu hỏi trộn lẫn và một kỷ lục cá nhân để phá.
-
-BỘ BÀI TẬP BỔ SUNG trong cả bốn phòng, với câu hỏi, rack và lượt chia mới trong chính những bài tập bạn đang dùng.
-
-THE MASTER TABLES, nơi chiến thuật Charleston nâng cao, trường phòng thủ và bài tập đọc rack trình độ chuyên gia chờ những người đã vượt qua căn bản.
-
-Bài tập mới được thêm quanh năm.
-
-THIẾT KẾ RIÊNG CHO NGƯỜI MỚI
-Flashcard có phần giải thích "tại sao" ở mặt sau. Chuỗi ngày luyện tập giúp bạn duy trì động lực. Các ván bài luyện tập nguyên bản dạy hệ thống phân loại, nên kỹ năng học được áp dụng được cho thẻ bài của bất kỳ năm nào.
-
-Mahj Trainer là ứng dụng luyện tập độc lập, không liên kết hay được chứng nhận bởi National Mah Jongg League. Để biết các thế bài và điểm số chính thức, hãy dùng thẻ bài NMJL hiện hành.
+Các ván luyện tập là bản gốc và dạy các nhóm trên thẻ bài, nên điều bạn học áp dụng được cho thẻ bài của bất kỳ năm nào. Mahj Trainer là ứng dụng độc lập, không liên kết hay được chứng nhận bởi National Mah Jongg League. Để xem thế bài chính thức, hãy dùng thẻ bài NMJL hiện hành.
 
 VỀ GÓI ĐĂNG KÝ
-Mahj+ có sẵn dưới dạng gói đăng ký tự động gia hạn (Hằng tháng hoặc Hằng năm, cả hai đều có 7 ngày dùng thử miễn phí) hoặc mua một lần Lifetime. Giá được hiển thị trong ứng dụng trước khi bạn mua và thay đổi theo khu vực. Khoản thanh toán được tính vào Apple ID của bạn khi xác nhận. Gói đăng ký tự động gia hạn trừ khi bị hủy ít nhất 24 giờ trước khi kỳ hiện tại kết thúc. Quản lý hoặc hủy bất cứ lúc nào trong Cài đặt → Apple ID → Gói đăng ký. Điều khoản sử dụng (EULA tiêu chuẩn của Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/. Chính sách quyền riêng tư: https://jackwallner.github.io/mahj/privacy-policy.
+Giá được hiển thị trong ứng dụng trước khi bạn mua và thay đổi theo khu vực. Khoản thanh toán được tính vào Apple ID của bạn khi xác nhận. Gói đăng ký tự động gia hạn trừ khi bị hủy ít nhất 24 giờ trước khi kỳ hiện tại kết thúc. Quản lý hoặc hủy bất cứ lúc nào trong Cài đặt → Apple ID → Gói đăng ký.
+Điều khoản sử dụng (EULA tiêu chuẩn của Apple): https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Chính sách quyền riêng tư: https://jackwallner.github.io/mahj/privacy-policy
