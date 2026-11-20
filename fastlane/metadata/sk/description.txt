@@ -1,34 +1,34 @@
-Mahj Trainer je aplikácia zadarmo na učenie amerického mahjongu podľa každoročnej karty NMJL, bez účtu. Kvízy pri každej odpovedi vysvetľujú, prečo je správna, od čítania racku po výber kameňov na odovzdanie v Charlestone.
+Mahj Trainer je aplikácia zadarmo na učenie amerického mahjongu podľa karty NMJL, ktorá vychádza každý rok, bez účtu. Kvízy pri každej odpovedi vysvetľujú, prečo je správna, od čítania racku po výber kameňov na odovzdanie v Charlestone.
 
-Cvičte v päťminútových sedeniach, bez súperov, na ktorých by ste museli čakať, kým si sadnete k skutočnému stolu. Texty v aplikácii sú v angličtine.
+Cvičte v päťminútových blokoch, kým si sadnete k skutočnému stolu, a na súperov nemusíte čakať. Texty v aplikácii sú v angličtine.
 
 MIESTNOSŤ KAMEŇOV (TILE ROOM)
-• Spoznajte všetky rodiny kameňov: craks, bams, dots, vetry, draky, kvety a žolíky.
+• Spoznajte všetky druhy kameňov: craks, bams, dots, vetry, draky, kvety a žolíky.
 • Vyskúšajte sa z pravidiel, ktoré začiatočníci zamieňajú, napríklad ktorý drak patrí ku ktorej farbe a čo smie žolík.
 
 MIESTNOSŤ KARTY (CARD ROOM)
 • Spoznajte oddiely karty, napríklad 2468, Consecutive Run, 13579 a Winds and Dragons.
-• Prečítajte rack s 13 kameňmi a pomenujte oddiel, o ktorý sa usiluje. Nesprávna odpoveď dostane poznámku, prečo sa nehodí.
+• Prečítajte rack s 13 kameňmi a pomenujte oddiel, o ktorý sa usiluje. K nesprávnej odpovedi dostanete vysvetlenie, prečo sa nehodí.
 
 MIESTNOSŤ CHARLESTON (CHARLESTON ROOM)
 • Naučte sa pravidlá a stratégiu odovzdávania kameňov.
 • Vyberte 3 kamene na odovzdanie z cvičného rozdania, porovnajte svoju voľbu s voľbou trénera a prečítajte si zdôvodnenie.
 
 MIESTNOSŤ STOLA (TABLE ROOM)
-• Trénujte rozhodovanie, čo si nechať a čo odhodiť: kedy si nechať kvet, kedy vymeniť za vyložený žolík, čo vám o súperovi hovorí jeho vyložená kombinácia a ktoré odhody sú bezpečné.
+• Trénujte rozhodovanie, čo si nechať a čo odhodiť: kedy si nechať kvet, kedy si vymeniť kameň za vyložený žolík, čo vám o súperovi hovorí jeho vyložená kombinácia a ktoré odhody sú bezpečné.
 
 PLAY A HAND
-• Zahrajte 13 kameňov zo skutočného múru na 12 ťahov. Každý odhod dostane hodnotenie aj s výpočtom.
+• Zahrajte ruku s 13 kameňmi zo skutočného múru na 12 ťahov. Každý odhod sa ohodnotí a ukáže sa aj výpočet.
 
 ĎALŠÍ OBSAH
 • Mahj Minute: päť otázok denne k mesačnej výzve.
-• How to Play, šesťstranový úvod pre úplných začiatočníkov, plus slovníček, v ktorom si pojmy vyhľadáte.
-• Funguje offline na iPhone aj iPade, bez súperov, na ktorých by ste museli čakať.
+• How to Play, úvod na šiestich stranách pre úplných začiatočníkov, plus slovníček, v ktorom si pojmy vyhľadáte.
+• Funguje offline na iPhone aj iPade a na súperov nemusíte čakať.
 
 ZADARMO A MAHJ+
-Zadarmo od prvého spustenia: štyri miestnosti (Tile, Card, Charleston a Table), jedna Play a Hand denne, Mahj Minute, How to Play a slovníček. Mahj+ pridáva neobmedzené Play a Hand, ďalšie cvičné sady vo všetkých štyroch miestnostiach, Endless Practice s novým rackom zakaždým, Fix My Mistakes (vaše chyby sa vracajú v rozložených intervaloch), Game Night Prep (päť minút zostavených z vašich chýb), 90-sekundovú Timed Challenge a Master Tables s pokročilým Charlestonom, obranou, expertným čítaním racku a pravidlami pre žolíky. Mahj+ je predplatné s automatickým obnovovaním, mesačné alebo ročné, obe so 7-dňovou skúšobnou dobou zadarmo, alebo jednorazový nákup Lifetime.
+Zadarmo od prvého spustenia: štyri miestnosti (Tile, Card, Charleston a Table), jedna Play a Hand denne, Mahj Minute, How to Play a slovníček. Mahj+ pridáva neobmedzené Play a Hand, ďalšie cvičné sady vo všetkých štyroch miestnostiach, Endless Practice s novým rackom zakaždým, Fix My Mistakes (vaše chyby sa vracajú v stále dlhších intervaloch), Game Night Prep (päť minút zostavených z vašich chýb), 90-sekundovú Timed Challenge a Master Tables s pokročilým Charlestonom, obranou, čítaním racku na expertnej úrovni a pravidlami pre žolíky. Mahj+ je predplatné s automatickým obnovovaním, mesačné alebo ročné, obe so 7-dňovou skúšobnou dobou zadarmo, alebo jednorazový nákup Lifetime.
 
-Cvičné ruky sú pôvodné a učia oddiely karty, takže sa naučené hodí ku karte z ktoréhokoľvek roka. Mahj Trainer je nezávislá aplikácia, nie je prepojená s organizáciou National Mah Jongg League ani ňou schválená. Oficiálne ruky nájdete na aktuálnej karte NMJL.
+Cvičné ruky sú pôvodné a učia vás oddiely karty, takže to, čo sa naučíte, platí pre kartu z ktoréhokoľvek roka. Mahj Trainer je nezávislá aplikácia, nie je prepojená s organizáciou National Mah Jongg League ani ňou schválená. Oficiálne ruky nájdete na aktuálnej karte NMJL.
 
 PREDPLATNÉ
 Ceny sa pred nákupom zobrazia v aplikácii a líšia sa podľa regiónu. Platba sa stiahne z vášho Apple ID pri potvrdení. Predplatné sa obnovuje automaticky, ak ho nezrušíte aspoň 24 hodín pred koncom aktuálneho obdobia. Spravujte alebo zrušte kedykoľvek v Nastaveniach → Apple ID → Predplatné.

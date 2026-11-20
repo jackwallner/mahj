@@ -1,6 +1,6 @@
 Mahj Trainer är en gratis app för att lära sig amerikansk mahjong med NMJL:s årliga kort, utan konto. Frågorna förklarar resonemanget bakom varje svar, från att läsa ett rack till att välja vilka brickor du skickar vidare i Charleston.
 
-Öva i omgångar på fem minuter, utan motståndare att vänta på, innan du sätter dig vid ett riktigt bord. Appens texter är på engelska.
+Öva i omgångar på fem minuter innan du sätter dig vid ett riktigt bord, utan att du behöver vänta på motståndare. Appens texter är på engelska.
 
 BRICKRUMMET (TILE ROOM)
 • Lär dig alla brickfamiljer: craks, bams, dots, vindar, drakar, blommor och jokrar.
@@ -8,27 +8,27 @@ BRICKRUMMET (TILE ROOM)
 
 KORTRUMMET (CARD ROOM)
 • Lär dig kortets avsnitt, till exempel 2468, Consecutive Run, 13579 och Winds and Dragons.
-• Läs ett rack med 13 brickor och namnge avsnittet det siktar mot. Ett felaktigt svar får en not om varför det inte passar.
+• Läs ett rack med 13 brickor och namnge avsnittet det siktar mot. Ett felaktigt svar får en förklaring till varför det inte passar.
 
 CHARLESTONRUMMET (CHARLESTON ROOM)
 • Lär dig reglerna och strategin för att skicka brickor vidare.
 • Välj 3 brickor att skicka vidare från en övningsgiv, jämför sedan ditt val med coachens och läs motiveringen.
 
 BORDSRUMMET (TABLE ROOM)
-• Träna på att välja mellan att behålla och att kasta: när du ska behålla en blomma, när du ska byta mot en exponerad joker, vad en motståndares exponering säger dig och vilka kast som är säkra.
+• Träna på att välja mellan att behålla och att kasta: när du ska behålla en blomma, när du ska byta till dig en framlagd joker, vad en motståndares framlagda brickor säger dig och vilka kast som är säkra.
 
 PLAY A HAND
-• Spela 13 brickor från en riktig mur i 12 drag. Varje kast får betyg, och uträkningen visas.
+• Spela en hand med 13 brickor från en riktig mur under 12 drag. Varje kast betygsätts, och uträkningen visas.
 
 OCKSÅ I APPEN
 • Mahj Minute: fem frågor om dagen på väg mot en månatlig utmaning.
 • How to Play, en introduktion på sex sidor för helt nya spelare, plus en ordlista där du kan slå upp termer.
-• Fungerar offline på iPhone och iPad, utan motståndare att vänta på.
+• Fungerar offline på iPhone och iPad, så du slipper vänta på motståndare.
 
 GRATIS OCH MAHJ+
-Gratis från första start: de fyra rummen (Tile, Card, Charleston och Table), en Play a Hand om dagen, Mahj Minute, How to Play och ordlistan. Mahj+ lägger till obegränsade Play a Hand, extra övningsuppsättningar i alla fyra rum, Endless Practice med ett nytt rack varje gång, Fix My Mistakes (dina misstag kommer tillbaka med mellanrum), Game Night Prep (fem minuter byggda på dina misstag), en Timed Challenge på 90 sekunder och Master Tables med avancerad Charleston, försvar, expertläsning av rack och jokerregler. Mahj+ är en prenumeration med automatisk förnyelse, månadsvis eller årsvis, båda med 7 dagars gratis provperiod, eller ett engångsköp av Lifetime.
+Gratis från första start: de fyra rummen (Tile, Card, Charleston och Table), en Play a Hand om dagen, Mahj Minute, How to Play och ordlistan. Mahj+ lägger till obegränsat med Play a Hand, extra övningsuppsättningar i alla fyra rum, Endless Practice med ett nytt rack varje gång, Fix My Mistakes (dina misstag kommer tillbaka med mellanrum), Game Night Prep (fem minuter sammansatta av dina misstag), en Timed Challenge på 90 sekunder och Master Tables med avancerad Charleston, försvar, rackläsning på expertnivå och jokerregler. Mahj+ är en prenumeration med automatisk förnyelse, månadsvis eller årsvis, båda med 7 dagars gratis provperiod, eller ett engångsköp av Lifetime.
 
-Övningshänderna är original och lär ut kortets avsnitt, så det du lär dig gäller kortet för vilket år som helst. Mahj Trainer är oberoende och varken ansluten till eller godkänd av National Mah Jongg League. För de officiella händerna, skaffa det aktuella NMJL-kortet.
+Övningshänderna är helt egna och lär ut kortets avsnitt, så det du lär dig gäller för varje års kort. Mahj Trainer är oberoende och varken ansluten till eller godkänd av National Mah Jongg League. De officiella händerna finns på det aktuella NMJL-kortet.
 
 PRENUMERATIONER
 Priserna visas i appen innan du köper och varierar mellan regioner. Betalningen debiteras ditt Apple-ID vid bekräftelse. Prenumerationer förnyas automatiskt om de inte sägs upp minst 24 timmar före slutet av den pågående perioden. Hantera eller säg upp när som helst i Inställningar → Apple-ID → Prenumerationer.

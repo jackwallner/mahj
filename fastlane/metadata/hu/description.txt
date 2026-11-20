@@ -1,34 +1,34 @@
-A Mahj Trainer ingyenes alkalmazás az amerikai mahjong megtanulásához az NMJL éves kártyájával, fiók nélkül. A kvízek minden válasznál elmagyarázzák az indoklást, a rack olvasásától a Charlestonban továbbadott kövek kiválasztásáig.
+A Mahj Trainer ingyenes alkalmazás az amerikai mahjong megtanulásához az NMJL éves kártyájával, fiók nélkül. A kvízek minden válasznál elmagyarázzák, miért az a jó válasz, a rack olvasásától a Charlestonban továbbadott kövek kiválasztásáig.
 
-Gyakorolj ötperces menetekben, ellenfelekre várakozás nélkül, mielőtt leülsz egy igazi asztalhoz. Az alkalmazás szövegei angolul vannak.
+Gyakorolj ötperces menetekben, mielőtt leülsz egy igazi asztalhoz, és ellenfelekre sem kell várnod. Az alkalmazás szövegei angolul vannak.
 
 A KÖVEK TERME (TILE ROOM)
-• Ismerd meg az összes kőcsaládot: craks, bams, dots, szelek, sárkányok, virágok és jokerek.
-• Teszteld magad azokon a szabályokon, amelyeket az újoncok összekevernek, például melyik sárkány melyik színhez tartozik, és mit tehet egy joker.
+• Ismerd meg az összes kőfajtát: craks, bams, dots, szelek, sárkányok, virágok és jokerek.
+• Teszteld a tudásod azokból a szabályokból, amelyeket az újoncok összekevernek, például melyik sárkány melyik színhez tartozik, és mit tehet egy joker.
 
 A KÁRTYA TERME (CARD ROOM)
 • Ismerd meg a kártya szakaszait, például 2468, Consecutive Run, 13579 és Winds and Dragons.
-• Olvass el egy 13 kőből álló rack-et, és nevezd meg a szakaszt, amely felé tart. A rossz válaszhoz jegyzet tartozik arról, miért nem illik.
+• Olvass el egy 13 kőből álló rack-et, és nevezd meg a szakaszt, amelyre épít. A rossz válasz mellé magyarázat is jár arról, miért nem illik.
 
 A CHARLESTON TERME (CHARLESTON ROOM)
 • Tanuld meg a kövek továbbadásának szabályait és stratégiáját.
 • Válassz 3 követ továbbadásra egy gyakorló osztásból, hasonlítsd össze a választásodat az edzőével, és olvasd el az indoklást.
 
 AZ ASZTAL TERME (TABLE ROOM)
-• Gyakorold a megtartom vagy eldobom döntést: mikor tartsd meg a virágot, mikor cseréld ki kitett jokerre, mit árul el az ellenfél kitett sorozata, és mely dobások biztonságosak.
+• Gyakorold a döntést a megtartás és az eldobás között: mikor érdemes megtartani a virágot, mikor érdemes egy kitett jokert elcserélni, mit árul el az ellenfél kitett sorozata, és mely dobások biztonságosak.
 
 PLAY A HAND
-• Játssz 13 követ egy igazi falból 12 körön át. Minden dobást értékel az alkalmazás, a számítással együtt.
+• Játssz le egy 13 köves kezet egy igazi falból 12 körön át. Minden dobás értékelést kap, a számítással együtt.
 
 MÉG AZ ALKALMAZÁSBAN
 • Mahj Minute: napi öt kérdés egy havi kihívás felé.
-• How to Play, hatoldalas bevezető vadonatúj játékosoknak, valamint szójegyzék, ahol utánanézhetsz a kifejezéseknek.
-• Offline is működik iPhone-on és iPaden, ellenfelekre várakozás nélkül.
+• How to Play, hatoldalas bevezető teljesen új játékosoknak, valamint szójegyzék, ahol utánanézhetsz a kifejezéseknek.
+• Offline is működik iPhone-on és iPaden, ellenfelekre sem kell várnod.
 
 INGYENES ÉS MAHJ+
-Az első indítástól ingyenes: a négy terem (Tile, Card, Charleston és Table), napi egy Play a Hand, a Mahj Minute, a How to Play és a szójegyzék. A Mahj+ korlátlan Play a Hand-et, extra gyakorlókészleteket mind a négy teremben, Endless Practice-t minden alkalommal új rack-kel, Fix My Mistakes-t (a hibáid időben elosztva térnek vissza), Game Night Prep-et (öt perc a hibáidból összeállítva), 90 másodperces Timed Challenge-et, valamint Master Tables-t biztosít haladó Charlestonnal, védekezéssel, szakértői rackolvasással és jokerszabályokkal. A Mahj+ automatikusan megújuló havi vagy éves előfizetés, mindkettő 7 napos ingyenes próbával, vagy egyszeri Lifetime vásárlás.
+Az első indítástól ingyenes: a négy terem (Tile, Card, Charleston és Table), napi egy Play a Hand, a Mahj Minute, a How to Play és a szójegyzék. A Mahj+ korlátlan Play a Hand-et, extra gyakorlókészleteket mind a négy teremben, Endless Practice-t minden alkalommal új rack-kel, Fix My Mistakes-t (a hibáid egyre hosszabb időközökkel térnek vissza), Game Night Prep-et (öt perc a hibáidból összeállítva), 90 másodperces Timed Challenge-et, valamint Master Tables-t biztosít haladó Charlestonnal, védekezéssel, rackolvasással szakértői szinten és jokerszabályokkal. A Mahj+ automatikusan megújuló havi vagy éves előfizetés, mindkettő 7 napos ingyenes próbával, vagy egyszeri Lifetime vásárlás.
 
-A gyakorlókezek eredetiek, és a kártya szakaszait tanítják, így amit megtanulsz, bármelyik év kártyájánál használható. A Mahj Trainer független, nincs kapcsolatban a National Mah Jongg League-gel, és a szervezet nem hagyta jóvá. A hivatalos kezekhez szerezd be az aktuális NMJL-kártyát.
+A gyakorlókezek eredetiek, és a kártya szakaszait tanítják, így amit megtanulsz, bármelyik év kártyájánál használható. A Mahj Trainer független, nincs kapcsolatban a National Mah Jongg League-gel, és a szervezet nem hagyta jóvá. A hivatalos kezeket az aktuális NMJL-kártyán találod.
 
 ELŐFIZETÉSEK
 Az árak vásárlás előtt megjelennek az alkalmazásban, és régiónként eltérhetnek. A fizetés megerősítéskor az Apple ID-dhoz kapcsolt fiókot terheli. Az előfizetések automatikusan megújulnak, hacsak legalább 24 órával az aktuális időszak vége előtt le nem mondod őket. Kezelés vagy lemondás bármikor: Beállítások → Apple ID → Előfizetések.

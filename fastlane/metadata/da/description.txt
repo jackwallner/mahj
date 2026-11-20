@@ -1,6 +1,6 @@
 Mahj Trainer er en gratis app til at lære amerikansk mahjong med det årlige NMJL-kort, uden konto. Quizzerne forklarer tankegangen bag hvert svar, fra at læse et rack til at vælge, hvilke brikker du giver videre i Charleston.
 
-Øv i sessioner på fem minutter, uden modstandere at vente på, før du sætter dig ved et rigtigt bord. Appens tekster er på engelsk.
+Øv i sessioner på fem minutter, før du sætter dig ved et rigtigt bord, uden at du skal vente på modstandere. Appens tekster er på engelsk.
 
 BRIKROMMET (TILE ROOM)
 • Lær alle brikfamilierne at kende: craks, bams, dots, vinde, drager, blomster og jokere.
@@ -12,23 +12,23 @@ KORTROMMET (CARD ROOM)
 
 CHARLESTON-ROMMET (CHARLESTON ROOM)
 • Lær reglerne og strategien for, hvordan brikker gives videre i Charleston.
-• Vælg 3 brikker at give videre i en øvedeal, sammenlign dit valg med trænerens, og læs begrundelsen.
+• Vælg 3 brikker at give videre fra en øvehånd, sammenlign dit valg med trænerens, og læs begrundelsen.
 
 BORDROMMET (TABLE ROOM)
-• Træn beslutningen mellem at beholde og at kaste: hvornår du skal beholde en blomst, hvornår du skal bytte med en udlagt joker, hvad en modstanders udlæg fortæller dig, og hvilke kast der er sikre.
+• Træn valget mellem at beholde og at kaste: hvornår du skal beholde en blomst, hvornår du skal bytte dig til en udlagt joker, hvad en modstanders udlagte brikker fortæller dig, og hvilke kast der er sikre.
 
 PLAY A HAND
-• Spil 13 brikker fra en rigtig mur i 12 ture. Hvert kast får en bedømmelse, og regnestykket vises.
+• Spil en hånd med 13 brikker fra en rigtig mur over 12 ture. Hvert kast får en bedømmelse, og regnestykket vises.
 
 OGSÅ MED I APPEN
 • Mahj Minute: fem spørgsmål om dagen på vej mod en månedlig udfordring.
-• How to Play, en primer på seks sider til helt nye spillere, plus en ordliste, hvor du kan slå begreber op.
-• Virker offline på iPhone og iPad, uden modstandere at vente på.
+• How to Play, en introduktion på seks sider til helt nye spillere, plus en ordliste, hvor du kan slå begreber op.
+• Virker offline på iPhone og iPad, så du aldrig skal vente på modstandere.
 
 GRATIS OG MAHJ+
-Gratis fra første start: de fire rum (Tile, Card, Charleston og Table), én Play a Hand om dagen, Mahj Minute, How to Play og ordlisten. Mahj+ tilføjer ubegrænset Play a Hand, ekstra øvesæt i alle fire rum, Endless Practice med et nyt rack hver gang, Fix My Mistakes (dine fejl kommer tilbage med mellemrum), Game Night Prep (fem minutter bygget på dine fejl), en Timed Challenge på 90 sekunder og Master Tables med avanceret Charleston, forsvar, ekspertlæsning af rack og jokerregler. Mahj+ er et abonnement med automatisk fornyelse, månedligt eller årligt, begge med 7 dages gratis prøveperiode, eller et engangskøb af Lifetime.
+Gratis fra første start: de fire rum (Tile, Card, Charleston og Table), én Play a Hand om dagen, Mahj Minute, How to Play og ordlisten. Mahj+ tilføjer ubegrænset Play a Hand, ekstra øvesæt i alle fire rum, Endless Practice med et nyt rack hver gang, Fix My Mistakes (dine fejl kommer tilbage med stadig længere mellemrum), Game Night Prep (fem minutter sammensat af dine fejl), en Timed Challenge på 90 sekunder og Master Tables med avanceret Charleston, forsvar, læsning af rack på ekspertniveau og jokerregler. Mahj+ er et abonnement med automatisk fornyelse, månedligt eller årligt, begge med 7 dages gratis prøveperiode, eller et engangskøb af Lifetime.
 
-Øvehænderne er originale og lærer kortets afsnit, så det, du lærer, gælder for ethvert års kort. Mahj Trainer er uafhængig og er hverken tilknyttet eller godkendt af National Mah Jongg League. For de officielle hænder, skaf dig det gældende NMJL-kort.
+Øvehænderne er originale og lærer dig kortets afsnit, så det, du lærer, gælder for ethvert års kort. Mahj Trainer er uafhængig og er hverken tilknyttet eller godkendt af National Mah Jongg League. Du finder de officielle hænder på det gældende NMJL-kort.
 
 ABONNEMENTER
 Priserne vises i appen, før du køber, og varierer fra region til region. Betalingen trækkes på dit Apple-id ved bekræftelse. Abonnementer fornyes automatisk, medmindre de opsiges mindst 24 timer før udgangen af den aktuelle periode. Administrer eller opsig når som helst i Indstillinger → Apple-id → Abonnementer.

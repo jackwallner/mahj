@@ -1,34 +1,34 @@
 Mahj Trainer on ilmainen sovellus amerikkalaisen mahjongin opetteluun NMJL:n vuosittaisen kortin avulla, ilman tiliä. Tietovisat selittävät jokaisen vastauksen perustelut: rackin eli 13 laatan rivin lukemisesta aina siihen, mitkä laatat annat eteenpäin Charlestonissa.
 
-Harjoittele viiden minuutin jaksoissa, ilman vastustajia, joita pitäisi odottaa, ennen kuin istut oikeaan pöytään. Sovelluksen tekstit ovat englanniksi.
+Harjoittele viiden minuutin jaksoissa ennen kuin istut oikeaan pöytään. Vastustajia ei tarvitse odottaa. Sovelluksen tekstit ovat englanniksi.
 
 LAATTAHUONE (TILE ROOM)
 • Opi kaikki laattaperheet: craks, bams, dots, tuulet, lohikäärmeet, kukat ja jokerit.
-• Testaa itsesi säännöillä, jotka menevät uusilla pelaajilla sekaisin, kuten mikä lohikäärme kuuluu mihinkin sarjaan ja mitä jokeri saa tehdä.
+• Testaa tietosi säännöistä, jotka menevät uusilla pelaajilla sekaisin, kuten mikä lohikäärme kuuluu mihinkin sarjaan ja mitä jokeri saa tehdä.
 
 KORTTIHUONE (CARD ROOM)
 • Opi kortin osiot, kuten 2468, Consecutive Run, 13579 ja Winds and Dragons.
-• Lue 13 laatan rack ja nimeä osio, jota se tavoittelee. Väärä vastaus saa huomautuksen siitä, miksi se ei sovi.
+• Lue 13 laatan rack ja nimeä osio, jota se tavoittelee. Väärän vastauksen mukana tulee selitys siitä, miksi se ei sovi.
 
 CHARLESTON-HUONE (CHARLESTON ROOM)
 • Opi laattojen eteenpäin antamisen säännöt ja strategia.
 • Valitse 3 laattaa annettavaksi harjoitusjaosta, vertaa valintaasi valmentajan valintaan ja lue perustelut.
 
 PÖYTÄHUONE (TABLE ROOM)
-• Harjoittele päätöstä pitää vai heittää: milloin kukka kannattaa pitää, milloin sen voi vaihtaa esillä olevaan jokeriin, mitä vastustajan esillepano kertoo ja mitkä heitot ovat turvallisia.
+• Harjoittele valintaa pitää vai heittää: milloin kukka kannattaa pitää, milloin sen voi vaihtaa esillä olevaan jokeriin, mitä vastustajan esillepano kertoo ja mitkä heitot ovat turvallisia.
 
 PLAY A HAND
-• Pelaa 13 laattaa oikeasta muurista 12 vuoroa. Jokainen heitto arvioidaan, ja laskelma näytetään.
+• Pelaa 13 laatan käsi oikeasta muurista 12 vuoron ajan. Jokainen heitto arvioidaan, ja laskelma näytetään.
 
 MUUTA SOVELLUKSESSA
 • Mahj Minute: viisi kysymystä päivässä kohti kuukausihaastetta.
 • How to Play, kuusisivuinen opas aivan uusille pelaajille, sekä sanasto, josta voit hakea termejä.
-• Toimii offline-tilassa iPhonella ja iPadilla, ilman vastustajia, joita pitäisi odottaa.
+• Toimii offline-tilassa iPhonella ja iPadilla, eikä vastustajia tarvitse odottaa.
 
 ILMAINEN JA MAHJ+
-Ilmaiseksi heti ensimmäisestä käynnistyksestä: neljä huonetta (Tile, Card, Charleston ja Table), yksi Play a Hand päivässä, Mahj Minute, How to Play ja sanasto. Mahj+ lisää rajattoman Play a Handin, lisäharjoitussarjat kaikkiin neljään huoneeseen, Endless Practicen uudella rackilla joka kerta, Fix My Mistakesin (virheesi palaavat harvenevalla aikataululla), Game Night Prepin (viisi minuuttia virheistäsi koottuna), 90 sekunnin Timed Challengen sekä Master Tables -osiot edistyneeseen Charlestoniin, puolustukseen, rackin asiantuntevaan lukuun ja jokerisääntöihin. Mahj+ on automaattisesti uusiutuva kuukausi- tai vuositilaus, molemmissa 7 päivän ilmainen kokeilu, tai kertaostos Lifetime.
+Ilmaiseksi heti ensimmäisestä käynnistyksestä: neljä huonetta (Tile, Card, Charleston ja Table), yksi Play a Hand päivässä, Mahj Minute, How to Play ja sanasto. Mahj+ lisää rajattoman Play a Handin, lisäharjoitussarjat kaikkiin neljään huoneeseen, Endless Practicen uudella rackilla joka kerta, Fix My Mistakesin (virheesi palaavat yhä pidemmin väliajoin), Game Night Prepin (viisi minuuttia virheistäsi koottuna), 90 sekunnin Timed Challengen sekä Master Tables -osiot edistyneeseen Charlestoniin, puolustukseen, rackin lukemiseen asiantuntijatasolla ja jokerisääntöihin. Mahj+ on automaattisesti uusiutuva kuukausi- tai vuositilaus, molemmissa 7 päivän ilmainen kokeilu, tai kertaostos Lifetime.
 
-Harjoituskädet ovat alkuperäisiä ja opettavat kortin osiot, joten oppimasi pätee minkä tahansa vuoden korttiin. Mahj Trainer on riippumaton, eikä se ole National Mah Jongg Leaguen sidoksissa oleva tai hyväksymä. Viralliset kädet löydät ajankohtaisesta NMJL-kortista.
+Harjoituskädet ovat alkuperäisiä ja opettavat kortin osiot, joten oppimasi pätee minkä tahansa vuoden korttiin. Mahj Trainer on riippumaton, eikä sillä ole yhteyttä National Mah Jongg Leagueen tai sen hyväksyntää. Viralliset kädet löydät ajankohtaisesta NMJL-kortista.
 
 TILAUKSET
 Hinnat näytetään sovelluksessa ennen ostoa, ja ne vaihtelevat alueittain. Maksu veloitetaan Apple ID:llesi vahvistettaessa. Tilaukset uusiutuvat automaattisesti, ellei niitä peruuteta vähintään 24 tuntia ennen kuluvan jakson päättymistä. Hallinnoi tai peruuta milloin tahansa kohdassa Asetukset → Apple ID → Tilaukset.

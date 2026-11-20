@@ -1,1 +1,1 @@
-Viiden minuutin harjoituksia amerikkalaiseen mahjongiin: lue rack, valitse annettavat laatat, päätä pidätkö vai heitätkö. Jokainen vastaus näyttää syyn. Ei tiliä.
+Viiden minuutin harjoituksia amerikkalaiseen mahjongiin: lue rack, valitse annettavat laatat, päätä pidätkö vai heitätkö. Jokainen vastaus kertoo syyn. Ei tiliä.
