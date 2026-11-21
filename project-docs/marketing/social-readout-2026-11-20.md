@@ -28,9 +28,11 @@ answer is already clear). The full pattern, the measuring rule and the Bridge an
 
 ## Changes made
 
-- 21 new table-pace shorts (B41 to B61, at least 8 on the Charleston) are building on the iMac (fleet run
-  20261120-132417-a91b). `mahj-refill-prompt.md` now asks for this format on every refill, and the refill fires
-  when under 14 table-pace shorts are left.
+- 21 new table-pace shorts (B41 to B61, 9 on the Charleston, 43 to 54 s) were built on the iMac (fleet run
+  20261120-132417-a91b), checked for motion in the first half second, and queued the same day: TikTok from
+  Dec 2 5:30 PM, Instagram from Dec 3 11:30 AM, YouTube from Dec 6 5:30 PM. `mahj-refill-prompt.md` now asks for
+  this format on every refill, and the refill fires when under 14 table-pace shorts are left. Titles are the plain
+  search phrase, with no format name in them.
 - `queue_backlog.py` orders every unscheduled row on all three platforms: table pace in TikTok's 11:30 AM and
   5:30 PM slots, 6:30 AM for the rest (complete beginner answers first, pick and fix last). Instagram and YouTube
   run best first. The backlog (B01 to B40) is now queued on Instagram and YouTube too; before, both ran dry on Dec 7.
@@ -45,5 +47,6 @@ answer is already clear). The full pattern, the measuring rule and the Bridge an
 
 ## Next read
 
-Nov 27: the first B41+ posts at 72 hours against the 11 s average watch gate. `stats/post-insights.mjs` and
+Each post is read at 72 hours against the 11 s average watch gate: the already scheduled slow shorts V57
+(posts Nov 23) and V64 (Nov 25) first, then B41 (posts Dec 2, read Dec 5). `stats/post-insights.mjs` and
 `stats/post-table.py` in social-autopost pull the table.
