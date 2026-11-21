@@ -26,12 +26,7 @@ final class MasteryLedger: ObservableObject {
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        if let data = defaults.data(forKey: Self.key),
-           let decoded = try? JSONDecoder().decode([String: [String: Int]].self, from: data) {
-            days = decoded
-        } else {
-            days = [:]
-        }
+        days = StoredDictionary.load([String: Int].self, defaults: defaults, key: Self.key) ?? [:]
         baselineFloor = defaults.string(forKey: Self.floorKey)
     }
 

@@ -53,12 +53,7 @@ final class MahjMinuteStore: ObservableObject {
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        if let data = defaults.data(forKey: Self.resultsKey),
-           let decoded = try? JSONDecoder().decode([String: MahjMinuteResult].self, from: data) {
-            results = decoded
-        } else {
-            results = [:]
-        }
+        results = StoredDictionary.load(MahjMinuteResult.self, defaults: defaults, key: Self.resultsKey) ?? [:]
     }
 
     func result(for day: Date, calendar: Calendar = .gregorianLocal) -> MahjMinuteResult? {

@@ -247,9 +247,8 @@ final class MonthlyChallengeStore: ObservableObject {
         return result
     }
 
-    private static func load<T: Decodable>(_ defaults: UserDefaults, key: String) -> T? {
-        guard let data = defaults.data(forKey: key) else { return nil }
-        return try? JSONDecoder().decode(T.self, from: data)
+    private static func load<V: Decodable>(_ defaults: UserDefaults, key: String) -> [String: V]? {
+        StoredDictionary.load(V.self, defaults: defaults, key: key)
     }
 
     private func save<T: Encodable>(_ value: T, key: String) {
