@@ -187,9 +187,41 @@ enum PurchaseAttempt: Equatable, Sendable {
 
 enum PurchaseError: LocalizedError {
     case productsUnavailable
+    /// Ask to Buy: a parent has the request. Apple finishes it later and
+    /// the customer-info update unlocks Mahj+.
+    case waitingForApproval
+    /// StoreKit says this Apple Account owns Mahj+ but RevenueCat's sync did
+    /// not return it. Nothing is sold; Restore is the way through.
+    case foundOnAccount
 
     var errorDescription: String? {
-        String(localized: "The App Store isn't reachable right now. Check your connection and try again.")
+        switch self {
+        case .productsUnavailable:
+            return String(localized: "The App Store isn't reachable right now. Check your connection and try again.")
+        case .waitingForApproval:
+            return String(localized: "Waiting for approval. Your purchase unlocks once it is approved.")
+        case .foundOnAccount:
+            return String(localized: "\(Membership.name) was found on this Apple Account. Tap Restore to unlock it.")
+        }
+    }
+
+    /// What a purchase error is shown as. RevenueCat's own descriptions are
+    /// English only, and a pending Ask to Buy is not a failure. A lost
+    /// connection reads as the existing translated "not reachable" line.
+    static func shown(_ error: Error) -> Error {
+        guard let code = error as? RevenueCat.ErrorCode else { return error }
+        switch code {
+        case .paymentPendingError: return PurchaseError.waitingForApproval
+        case .networkError, .offlineConnectionError: return PurchaseError.productsUnavailable
+        default: return error
+        }
+    }
+
+    /// Why the store reads as unavailable after the membership check: a sync
+    /// that found Mahj+ on the account but came back without it is not a bad
+    /// connection, and the copy says so.
+    static func unavailable(isRecovering: Bool, lastRecovery: MembershipRecovery?) -> PurchaseError {
+        !isRecovering && lastRecovery == .ownedUnsynced ? .foundOnAccount : .productsUnavailable
     }
 }
 
@@ -603,7 +635,8 @@ final class SubscriptionService: NSObject, ObservableObject {
         case .buy: break
         case .redraw: return .redraw
         case .alreadyMember: return .bought(.alreadyMember)
-        case .unavailable: throw PurchaseError.productsUnavailable
+        case .unavailable:
+            throw PurchaseError.unavailable(isRecovering: isRecoveringMembership, lastRecovery: membershipRecovery.last)
         case .noProduct: return .noProduct
         }
         return .bought(try await purchase(package(for: intent.plan)))
@@ -622,7 +655,8 @@ final class SubscriptionService: NSObject, ObservableObject {
         switch PurchaseGate.decide(isRecovering: isRecoveringMembership, lastRecovery: membershipRecovery.last, isPro: isPro) {
         case .sell: break
         case .alreadyMember: return .alreadyMember
-        case .unsettled: throw PurchaseError.productsUnavailable
+        case .unsettled:
+            throw PurchaseError.unavailable(isRecovering: isRecoveringMembership, lastRecovery: membershipRecovery.last)
         }
         // The screen may have gone away during the preflight (Close, a swipe
         // down): nothing may reach Apple's sheet for a screen nobody sees.
@@ -637,10 +671,11 @@ final class SubscriptionService: NSObject, ObservableObject {
         do {
             result = try await Purchases.shared.purchase(package: package)
         } catch {
-            purchaseProperties["outcome"] = "error"
+            let shown = PurchaseError.shown(error)
+            purchaseProperties["outcome"] = (shown as? PurchaseError) == .waitingForApproval ? "pending" : "error"
             purchaseProperties["error"] = (error as NSError).code
             Analytics.capture("purchase_finished", purchaseProperties)
-            throw error
+            throw shown
         }
         // RevenueCat reports a user backing out of Apple's sheet as a normal
         // result, not an error. Treating it as a failure is what used to shove

@@ -1238,6 +1238,47 @@
         }
       }
     },
+    "%@ was found on this Apple Account. Tap Restore to unlock it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم العثور على %@ في حساب Apple هذا. اضغطوا على استعادة لفتحه."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ wurde auf diesem Apple Account gefunden. Tippe auf Wiederherstellen, um es freizuschalten."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se encontró %@ en esta cuenta de Apple. Toca Restaurar para desbloquearlo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ a été trouvé sur ce compte Apple. Touchez Restaurer pour le débloquer."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ditemukan di Akun Apple ini. Ketuk Pulihkan untuk membukanya."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã tìm thấy %@ trên Tài khoản Apple này. Nhấn Khôi phục để mở khóa."
+          }
+        }
+      }
+    },
     "%@, and %@": {
       "comment": "Joins reasons a tile is safe",
       "extractionState": "manual",
@@ -26103,6 +26144,47 @@
           "stringUnit": {
             "state": "translated",
             "value": "GIÓ"
+          }
+        }
+      }
+    },
+    "Waiting for approval. Your purchase unlocks once it is approved.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "في انتظار الموافقة. سيُفتح الشراء بمجرد الموافقة عليه."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warte auf Genehmigung. Dein Kauf wird freigeschaltet, sobald er genehmigt ist."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esperando aprobación. Tu compra se desbloqueará cuando se apruebe."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente d'approbation. Votre achat sera débloqué dès son approbation."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menunggu persetujuan. Pembelianmu terbuka setelah disetujui."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đang chờ phê duyệt. Giao dịch sẽ được mở khóa khi được phê duyệt."
           }
         }
       }
