@@ -74,6 +74,19 @@ final class ProgressStoreTests: XCTestCase {
         XCTAssertEqual(ProgressStore(defaults: defaults).sessionsAtOnboarding, 0)
     }
 
+    /// A player who quit in the primer or the tour comes back to that stage,
+    /// not the first intro page, until onboarding finishes.
+    func testOnboardingStageSurvivesARelaunchUntilOnboardingEnds() {
+        XCTAssertNil(store.onboardingStage)
+        store.onboardingStage = "tour"
+        XCTAssertEqual(ProgressStore(defaults: defaults).onboardingStage, "tour")
+        store.hasOnboarded = true
+        XCTAssertNil(ProgressStore(defaults: defaults).onboardingStage)
+        store.onboardingStage = "howToPlay"
+        store.resetAll()
+        XCTAssertEqual(store.onboardingStage, "howToPlay", "Reset Progress leaves onboarding alone")
+    }
+
     func testStreakStartsAtOne() {
         store.recordSession(drillID: "a")
         XCTAssertEqual(store.streakCount, 1)
