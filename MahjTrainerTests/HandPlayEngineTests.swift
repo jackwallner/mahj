@@ -269,6 +269,20 @@ final class HandPlayStoreTests: XCTestCase {
         XCTAssertFalse(HandPlayStore(defaults: defaults).canPlay(isMember: false))
     }
 
+    /// Reset Progress used to delete a started free hand and keep the day
+    /// spent, leaving a free player with no hand until tomorrow.
+    func testResetProgressKeepsAFreeHandAlreadyStarted() {
+        store.recordStart(isMember: false)
+        store.saveInProgress(hand(grade: nil))
+        store.resetAll()
+        XCTAssertNotNil(store.inProgress)
+        XCTAssertTrue(store.canPlay(isMember: false))
+        let relaunched = HandPlayStore(defaults: defaults)
+        XCTAssertNotNil(relaunched.inProgress)
+        XCTAssertTrue(relaunched.canPlay(isMember: false))
+        XCTAssertEqual(relaunched.handsPlayed, 0)
+    }
+
     func testSecondHandTheSameDayNeedsMembership() {
         let now = Date()
         store.recordStart(isMember: false, now: now)

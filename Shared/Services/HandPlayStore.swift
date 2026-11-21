@@ -114,10 +114,11 @@ final class HandPlayStore: ObservableObject {
 
     /// Today's free hand stays spent: Reset Progress clears practice
     /// history, and must not hand a free player a second hand the same day.
+    /// A hand already started is not history. It stays, because clearing it
+    /// while the day stays spent leaves the player with no hand until tomorrow.
     func resetAll() {
         handsPlayed = 0
         bestStars = 0
-        clearInProgress()
         defaults.removeObject(forKey: Keys.handsPlayed)
         defaults.removeObject(forKey: Keys.bestStars)
     }
