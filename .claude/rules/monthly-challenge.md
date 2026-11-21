@@ -190,8 +190,12 @@ Reading Your Rack from the rotation.
   never `Calendar.current`: a Buddhist or Hebrew system calendar gave a
   different month key, different questions and a 46,000-month archive. Mahj
   Minute day keys and the local day keys use it too.
-- Saved runs carry `QuickItem.challengeFingerprint` per answer. The answer
-  review and skill breakdown are only shown while the fingerprints still
+- Saved runs carry `QuickItem.challengeFingerprint` per answer. It holds
+  nothing translated (id, tiles, choice count, answer slot; the choice order
+  is seeded by the item), so a language change from Settings keeps the day's
+  saved answers and the review (2026-11-20). Runs and results saved before
+  that carry the old text fingerprint and still match through
+  `legacyChallengeFingerprint`, in the language they were made in. The answer review and skill breakdown are only shown while the fingerprints still
   match the month's rebuilt questions; an update that changes a month keeps
   the score but drops the review instead of re-labelling old answers.
   Results without fingerprints (pre build 43) are score-only.

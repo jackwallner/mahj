@@ -84,6 +84,19 @@ on different lines across the row. The tour's own
 reads `DayClock`, so a resume on a new day redraws Get Started and the
 challenge card for today.
 
+**Quitting mid-onboarding (2026-11-20):** `ProgressStore.onboardingStage`
+holds `howToPlay` or `tour` once the trial decision is made, so a relaunch
+resumes there instead of the first intro page (a player who just started the
+trial was walked through the intro again). It is cleared with
+`hasOnboarded = true`. The intro pages and the trial page still start over.
+
+**Routes over open screens (2026-11-20):** a routed destination (reminder
+tap, `mahj://challenge`) goes over whatever Home has open (`show(_:overOpenScreen:)`
+appends to the stack or the pane, so a Timed Challenge or Endless run is still
+there on Back) and does nothing when it is already on top. A route while
+Settings is open was checked on iOS 27.2 (2026-11-20) and already lands in
+front of the sheet, so nothing closes sheets for it.
+
 ## iOS 18 freeze: no publish without a change
 
 A `@Published` write fires `objectWillChange` even when the value is the same.
