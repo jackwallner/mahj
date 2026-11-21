@@ -101,13 +101,23 @@ the destination. In Compose, construct the snapshot during composition and
 persist it in `SideEffect`: reading answer state only inside the effect does
 not observe a pick, so the held answer can be lost before Next.
 
+One run per drill (2026-11-20): `OrdinaryRunStore` keeps a run for each drill
+id (key `practice.ordinaryRuns`, an array, most recently answered last), so
+answering one question in Tile Check no longer drops a half-finished Get
+Started. The old single key `practice.ordinaryRun` is still read once.
+`resumableRoomRun` is Home's Resume card (the latest room drill) and
+`hasResumableQuickSession` turns the Get Started card into "Resume Quick
+Session"; both can show at once. `inProgress` is the most recent run.
+Reset Progress uses `clearAll()`. The rest of this paragraph was written for
+one slot: read "slot" as "this drill's slot".
+
 Saved runs, 1.4.2 (review fixes): the slot only ever holds a run with an
 answer (`OrdinaryRun.hasAnswers`). Drills save on the first answer, never on
 appear: every drill used to save an empty run when it opened, so peeking at
 another drill wiped a half-done one and Home offered "Resume Quick Session"
 with nothing answered. An unanswered run never replaces the slot, the same
 run undone back to nothing drops out, and an empty run left on disk by 1.4.1
-is ignored on load. `resumable(besideOpenPane:isMember:)` also refuses a run
+is ignored on load. `resumable(besideOpenPane:isMember:)` (every run, newest first) also refuses a run
 `isLocked` for this player: a room drill through `Room.isLocked`, a Quick
 Session built with Mahj+ questions; the run stays on disk for a returning
 member. Home's room-drill Resume card goes straight into the run
