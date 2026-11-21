@@ -59,8 +59,8 @@ enum DebugShot {
         // the install between screens, and the last screen's drill showed
         // up as Home's Resume card on the next.
         if ProcessInfo.processInfo.arguments.contains("-mahj.demoSeed"),
-           let run = OrdinaryRunStore.shared.inProgress {
-            OrdinaryRunStore.shared.clear(run.id)
+           OrdinaryRunStore.shared.inProgress != nil {
+            OrdinaryRunStore.shared.clearAll()
         }
         guard let name = UserDefaults.standard.string(forKey: "mahj.shot") else { return }
         Task {

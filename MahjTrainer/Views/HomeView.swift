@@ -456,8 +456,8 @@ struct HomeView: View {
     /// its own Resume card above it.
     @ViewBuilder
     private var todaySession: some View {
-        let run = ordinaryRuns.resumable(besideOpenPane: split != nil, isMember: subscriptions.isPro)
-        if let run, !run.isQuickSession {
+        let run = ordinaryRuns.resumableRoomRun(besideOpenPane: split != nil, isMember: subscriptions.isPro)
+        if let run {
             Button {
                 show(.ordinaryRun)
             } label: {
@@ -473,7 +473,8 @@ struct HomeView: View {
         if progress.quickSessionCompletedToday() {
             getStartedDoneCard
         } else {
-            getStartedCard(resuming: run?.isQuickSession == true)
+            getStartedCard(resuming: ordinaryRuns.hasResumableQuickSession(
+                besideOpenPane: split != nil, isMember: subscriptions.isPro))
         }
     }
 

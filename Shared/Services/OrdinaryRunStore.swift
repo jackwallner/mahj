@@ -46,9 +46,14 @@ struct OrdinaryRun: Codable, Sendable {
 @MainActor
 final class OrdinaryRunStore: ObservableObject {
     static let shared = OrdinaryRunStore()
+    /// The single-slot key of 1.4.x. Still read once, so an install that
+    /// saved a run before the update keeps it.
     static let key = "practice.ordinaryRun"
+    /// One saved run per drill, oldest first.
+    static let runsKey = "practice.ordinaryRuns"
 
-    @Published private(set) var inProgress: OrdinaryRun?
+    /// Every run with answers, one per drill id, the most recently answered last.
+    @Published private(set) var runs: [OrdinaryRun] = []
     /// The run a runner has on screen. The unfolded Duo keeps Home beside an
     /// open drill, and its Resume card must not offer the drill in view.
     @Published private(set) var onScreenID: String?
@@ -56,25 +61,32 @@ final class OrdinaryRunStore: ObservableObject {
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
-        if let data = defaults.data(forKey: Self.key),
-           let run = try? JSONDecoder().decode(OrdinaryRun.self, from: data), run.hasAnswers {
-            inProgress = run
+        if let data = defaults.data(forKey: Self.runsKey),
+           let saved = try? JSONDecoder().decode([OrdinaryRun].self, from: data) {
+            runs = saved.filter(\.hasAnswers)
+        } else if let data = defaults.data(forKey: Self.key),
+                  let run = try? JSONDecoder().decode(OrdinaryRun.self, from: data), run.hasAnswers {
+            runs = [run]
         }
     }
 
+    /// The most recently answered run.
+    var inProgress: OrdinaryRun? { runs.last }
+
     func run(for id: String) -> OrdinaryRun? {
-        inProgress?.id == id ? inProgress : nil
+        runs.first { $0.id == id }
     }
 
-    /// The one slot holds a run with answers. An unanswered run never
-    /// replaces it (a peek at another drill wiped a half-done one), and the
-    /// same run undone back to nothing drops out.
+    /// Each drill keeps its own run, so answering in one never drops the
+    /// place in another (a Tile Check answer wiped a half-done Quick
+    /// Session). An unanswered run never takes a slot, and the same run
+    /// undone back to nothing drops out.
     func save(_ run: OrdinaryRun) {
         guard run.drill.kind.itemCount > 0 || !run.items.isEmpty else { return }
         guard run.hasAnswers else { return clear(run.id) }
-        guard let data = try? JSONEncoder().encode(run) else { return }
-        defaults.set(data, forKey: Self.key)
-        inProgress = run
+        var updated = runs.filter { $0.id != run.id }
+        updated.append(run)
+        persist(updated)
     }
 
     func setOnScreen(_ id: String, _ isOnScreen: Bool) {
@@ -85,17 +97,42 @@ final class OrdinaryRunStore: ObservableObject {
         }
     }
 
-    /// Home's Resume card, unless that run is already open beside Home or
-    /// locked to this player.
-    func resumable(besideOpenPane: Bool, isMember: Bool) -> OrdinaryRun? {
-        guard let inProgress, inProgress.hasAnswers, !inProgress.isLocked(isMember: isMember),
-              !(besideOpenPane && onScreenID == inProgress.id) else { return nil }
-        return inProgress
+    /// Home's Resume cards, most recent first, leaving out a run already
+    /// open beside Home or locked to this player.
+    func resumable(besideOpenPane: Bool, isMember: Bool) -> [OrdinaryRun] {
+        runs.reversed().filter {
+            $0.hasAnswers && !$0.isLocked(isMember: isMember) && !(besideOpenPane && onScreenID == $0.id)
+        }
+    }
+
+    /// The run behind Home's Resume card: the latest room drill. A saved
+    /// Quick Session resumes from the Get Started card instead.
+    func resumableRoomRun(besideOpenPane: Bool, isMember: Bool) -> OrdinaryRun? {
+        resumable(besideOpenPane: besideOpenPane, isMember: isMember).first { !$0.isQuickSession }
+    }
+
+    func hasResumableQuickSession(besideOpenPane: Bool, isMember: Bool) -> Bool {
+        resumable(besideOpenPane: besideOpenPane, isMember: isMember).contains { $0.isQuickSession }
     }
 
     func clear(_ id: String) {
-        guard inProgress?.id == id else { return }
+        guard runs.contains(where: { $0.id == id }) else { return }
+        persist(runs.filter { $0.id != id })
+    }
+
+    func clearAll() {
+        persist([])
+    }
+
+    private func persist(_ updated: [OrdinaryRun]) {
+        if updated.isEmpty {
+            defaults.removeObject(forKey: Self.runsKey)
+        } else if let data = try? JSONEncoder().encode(updated) {
+            defaults.set(data, forKey: Self.runsKey)
+        } else {
+            return
+        }
         defaults.removeObject(forKey: Self.key)
-        inProgress = nil
+        runs = updated
     }
 }

@@ -46,7 +46,12 @@ final class OrdinaryRunStoreTests: XCTestCase {
                 }
             }
         }
-        store.clear(store.inProgress!.id)
+        // Every drill kept its own run, so one clear leaves the others.
+        let last = try XCTUnwrap(store.inProgress)
+        store.clear(last.id)
+        XCTAssertNil(store.run(for: last.id))
+        XCTAssertNotNil(store.inProgress)
+        store.clearAll()
         XCTAssertNil(store.inProgress)
         store.save(OrdinaryRun(drill: SessionBuilder.sessionDrill))
         XCTAssertNil(store.inProgress, "Empty runs cannot be resumed or completed")
@@ -66,13 +71,56 @@ final class OrdinaryRunStoreTests: XCTestCase {
             items: SessionBuilder.quickSession(seen: [], missed: [], includePro: false)))
         XCTAssertEqual(OrdinaryRunStore(defaults: defaults).inProgress?.id, halfDone.id)
         XCTAssertEqual(store.inProgress?.answers, [true, false])
-        // The first answer elsewhere is a new run, and it takes the slot.
+        // The first answer elsewhere is a run of its own and the most recent.
         store.save(OrdinaryRun(drill: peeked, answers: [true]))
         XCTAssertEqual(store.inProgress?.id, peeked.id)
-        // The same run undone back to nothing leaves nothing to resume.
+        XCTAssertEqual(store.run(for: halfDone.id)?.answers, [true, false])
+        // The same run undone back to nothing leaves only the other run.
         store.save(OrdinaryRun(drill: peeked))
-        XCTAssertNil(store.inProgress)
+        XCTAssertNil(store.run(for: peeked.id))
+        XCTAssertEqual(OrdinaryRunStore(defaults: defaults).inProgress?.id, halfDone.id)
+    }
+
+    /// Answering one question in another drill used to overwrite the single
+    /// slot and drop a half-finished Quick Session without a word.
+    func testAnswerInAnotherDrillKeepsTheQuickSessionRun() throws {
+        let suite = UUID().uuidString
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = OrdinaryRunStore(defaults: defaults)
+        let items = SessionBuilder.quickSession(seen: [], missed: [], includePro: false)
+        store.save(OrdinaryRun(drill: SessionBuilder.sessionDrill, items: items, index: 3, score: 2,
+                               answers: [true, false, true]))
+        let tileCheck = try XCTUnwrap(DrillLibrary.rooms.first?.drills.first)
+        store.save(OrdinaryRun(drill: tileCheck, index: 1, score: 1, answers: [true]))
+
+        let relaunched = OrdinaryRunStore(defaults: defaults)
+        XCTAssertEqual(relaunched.run(for: SessionBuilder.sessionDrill.id)?.index, 3)
+        XCTAssertEqual(relaunched.run(for: SessionBuilder.sessionDrill.id)?.items.map(\.id), items.map(\.id))
+        XCTAssertEqual(relaunched.run(for: tileCheck.id)?.answers, [true])
+        XCTAssertEqual(relaunched.resumableRoomRun(besideOpenPane: false, isMember: true)?.id, tileCheck.id)
+        XCTAssertTrue(relaunched.hasResumableQuickSession(besideOpenPane: false, isMember: true))
+
+        relaunched.clear(tileCheck.id)
+        XCTAssertNil(relaunched.resumableRoomRun(besideOpenPane: false, isMember: true))
+        XCTAssertTrue(relaunched.hasResumableQuickSession(besideOpenPane: false, isMember: true))
+        relaunched.clearAll()
         XCTAssertNil(OrdinaryRunStore(defaults: defaults).inProgress)
+    }
+
+    /// A run saved by 1.4.x sits under the old single key and still resumes.
+    func testARunSavedUnderTheOldKeyIsStillLoaded() throws {
+        let suite = UUID().uuidString
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let drill = try XCTUnwrap(DrillLibrary.rooms.first?.drills.first)
+        defaults.set(try JSONEncoder().encode(OrdinaryRun(drill: drill, index: 1, answers: [true])),
+                     forKey: OrdinaryRunStore.key)
+        let store = OrdinaryRunStore(defaults: defaults)
+        XCTAssertEqual(store.run(for: drill.id)?.answers, [true])
+        let other = try XCTUnwrap(DrillLibrary.rooms.last?.drills.first)
+        store.save(OrdinaryRun(drill: other, answers: [false]))
+        XCTAssertEqual(OrdinaryRunStore(defaults: defaults).runs.map(\.id), [drill.id, other.id])
     }
 
     /// 1.4.1 saved a run the moment a drill opened. One of those left on
@@ -85,7 +133,7 @@ final class OrdinaryRunStoreTests: XCTestCase {
         defaults.set(try JSONEncoder().encode(OrdinaryRun(drill: drill)), forKey: OrdinaryRunStore.key)
         let store = OrdinaryRunStore(defaults: defaults)
         XCTAssertNil(store.inProgress)
-        XCTAssertNil(store.resumable(besideOpenPane: false, isMember: true))
+        XCTAssertTrue(store.resumable(besideOpenPane: false, isMember: true).isEmpty)
     }
 
     /// A lapsed member keeps the run but is never offered a locked drill.
@@ -98,19 +146,20 @@ final class OrdinaryRunStoreTests: XCTestCase {
         let plus = try XCTUnwrap(room.drills.first(where: \.isPlus))
         XCTAssertTrue(room.isLocked(plus, isMember: false))
         store.save(OrdinaryRun(drill: plus, answers: [true]))
-        XCTAssertEqual(store.resumable(besideOpenPane: false, isMember: true)?.id, plus.id)
-        XCTAssertNil(store.resumable(besideOpenPane: false, isMember: false))
+        XCTAssertEqual(store.resumableRoomRun(besideOpenPane: false, isMember: true)?.id, plus.id)
+        XCTAssertNil(store.resumableRoomRun(besideOpenPane: false, isMember: false))
         XCTAssertNotNil(store.inProgress, "Kept for when the membership comes back")
 
         let free = try XCTUnwrap(room.drills.first { !room.isLocked($0, isMember: false) })
         store.save(OrdinaryRun(drill: free, answers: [false]))
-        XCTAssertEqual(store.resumable(besideOpenPane: false, isMember: false)?.id, free.id)
+        XCTAssertEqual(store.resumableRoomRun(besideOpenPane: false, isMember: false)?.id, free.id)
 
         let memberMix = SessionBuilder.quickSession(seen: [], missed: [], includePro: true)
             .filter { SessionBuilder.isMemberOnly($0.id) }
         if !memberMix.isEmpty {
             store.save(OrdinaryRun(drill: SessionBuilder.sessionDrill, items: memberMix, answers: [true]))
-            XCTAssertNil(store.resumable(besideOpenPane: false, isMember: false))
+            XCTAssertFalse(store.hasResumableQuickSession(besideOpenPane: false, isMember: false))
+            XCTAssertTrue(store.hasResumableQuickSession(besideOpenPane: false, isMember: true))
         }
     }
 

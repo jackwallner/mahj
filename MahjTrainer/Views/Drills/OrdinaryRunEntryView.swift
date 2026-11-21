@@ -53,7 +53,9 @@ struct OrdinaryRunEntryView<Content: View>: View {
 /// lapsed member out of a locked drill whatever the route.
 struct SavedOrdinaryRunView: View {
     @EnvironmentObject private var subscriptions: SubscriptionService
-    @State private var run = OrdinaryRunStore.shared.inProgress
+    /// The latest room drill Home offers: the same pick as its Resume card.
+    @State private var run = OrdinaryRunStore.shared.resumableRoomRun(
+        besideOpenPane: false, isMember: SubscriptionService.shared.isPro)
 
     var body: some View {
         if let run, !run.isLocked(isMember: subscriptions.isPro) {

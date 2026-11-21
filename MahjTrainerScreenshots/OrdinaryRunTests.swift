@@ -10,7 +10,7 @@ final class OrdinaryRunTests: XCTestCase {
             "-mahj.suppressWhatsNew", "-subscription.localProOverride", "YES",
             "-progress.lastQuickSessionDay", "", "-reviewPrompt.launchCount", "0"
         ]
-        app.launchArguments = arguments + ["-practice.ordinaryRun", ""]
+        app.launchArguments = arguments + ["-practice.ordinaryRun", "", "-practice.ordinaryRuns", ""]
         app.launch()
         let getStarted = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Get Started")).firstMatch
         XCTAssertTrue(getStarted.waitForExistence(timeout: 15))
@@ -56,7 +56,7 @@ final class OrdinaryRunTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = [
             "-progress.hasOnboarded", "YES", "-mahj.hasReadPrimer", "YES",
-            "-mahj.suppressWhatsNew", "YES", "-practice.ordinaryRun", "", "-progress.lastQuickSessionDay", "",
+            "-mahj.suppressWhatsNew", "YES", "-practice.ordinaryRun", "", "-practice.ordinaryRuns", "", "-progress.lastQuickSessionDay", "",
             "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL",
         ]
         app.launch()
