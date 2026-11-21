@@ -27,7 +27,7 @@ struct MonthlyChallengeResult: Codable, Identifiable, Sendable {
     /// True when `round` still holds exactly the questions this result
     /// answered, in the same order with the same choices.
     func matches(_ round: ChallengeRound) -> Bool {
-        fingerprints == round.items.prefix(answers.count).map(\.challengeFingerprint)
+        round.holds(fingerprints, answered: answers.count)
     }
 }
 
@@ -43,7 +43,7 @@ struct MonthlyChallengeProgress: Codable, Sendable {
     /// old answers against new ones; a run without fingerprints cannot show
     /// that it matches.
     func matches(_ round: ChallengeRound) -> Bool {
-        fingerprints == round.items.prefix(answers.count).map(\.challengeFingerprint)
+        round.holds(fingerprints, answered: answers.count)
     }
 }
 
@@ -78,11 +78,34 @@ struct ChallengeStanding: Codable, Equatable, Sendable {
 
 extension QuickItem {
     /// Everything that decides what an answer meant: the question, its rack,
-    /// the choices in their shown order and the answer. Plain text rather
+    /// how many choices there were and which one was right. Plain text rather
     /// than a hash, because `Hasher` is reseeded on every launch.
+    ///
+    /// Nothing in it is translated. The prompt and the choice labels change
+    /// with the app's language, so a fingerprint made of them stopped
+    /// matching the moment a player switched language: the saved answers were
+    /// dropped and the answer review vanished. The choice order is seeded by
+    /// the item, so the same slot is right in every language.
     var challengeFingerprint: String {
+        [id, tiles.map(\.shortLabel).joined(separator: " "), String(choices.count), String(answerIndex)]
+            .joined(separator: "|")
+    }
+
+    /// What `challengeFingerprint` was before it left the language out. Saved
+    /// runs and results from those builds are still read as theirs.
+    var legacyChallengeFingerprint: String {
         [id, prompt, tiles.map(\.shortLabel).joined(separator: " "), choices.joined(separator: "/"), String(answerIndex)]
             .joined(separator: "|")
+    }
+}
+
+extension ChallengeRound {
+    /// True when `stored` is exactly the fingerprints of this round's first
+    /// `answered` questions. Each one may be in either format, since a run
+    /// begun before the update carries old ones and takes new ones after it.
+    func holds(_ stored: [String]?, answered: Int) -> Bool {
+        guard let stored, stored.count == answered, items.count >= answered else { return false }
+        return zip(stored, items).allSatisfy { $0 == $1.challengeFingerprint || $0 == $1.legacyChallengeFingerprint }
     }
 }
 
