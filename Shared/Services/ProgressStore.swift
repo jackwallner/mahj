@@ -94,10 +94,7 @@ final class ProgressStore: ObservableObject {
     func currentStreak(now: Date = Date()) -> Int {
         guard let last = defaults.object(forKey: Keys.lastActiveDay) as? Date else { return streakCount }
         let calendar = Calendar.current
-        let gap = calendar.dateComponents(
-            [.day], from: calendar.startOfDay(for: last), to: calendar.startOfDay(for: now)
-        ).day ?? 0
-        return gap > 1 ? 0 : streakCount
+        return calendar.calendarDays(from: last, to: now) > 1 ? 0 : streakCount
     }
 
     /// Streak counts consecutive calendar days with at least one finished drill.
@@ -107,8 +104,7 @@ final class ProgressStore: ObservableObject {
         let last = defaults.object(forKey: Keys.lastActiveDay) as? Date
 
         if let last {
-            let lastDay = calendar.startOfDay(for: last)
-            let gap = calendar.dateComponents([.day], from: lastDay, to: today).day ?? 0
+            let gap = calendar.calendarDays(from: last, to: now)
             if gap == 1 {
                 streakCount += 1
             } else if gap > 1 {

@@ -75,9 +75,7 @@ enum TrialOfferPacer {
 
     /// Install day or the calendar day after it.
     static func isSessionPaced(installedAt: Date?, now: Date, calendar: Calendar = .current) -> Bool {
-        let start = calendar.startOfDay(for: installedAt ?? now)
-        let days = calendar.dateComponents([.day], from: start, to: calendar.startOfDay(for: now)).day ?? 0
-        return days < sessionPacedDays
+        return calendar.calendarDays(from: installedAt ?? now, to: now) < sessionPacedDays
     }
 
     /// The app came to the foreground. A first launch, or a return after
