@@ -29,8 +29,9 @@ struct OnboardingView: View {
     @State private var purchaseError: String?
     @AppStorage("mahj.skillLevel") private var skillLevel = ""
 
-    private enum Stage: Equatable { case pages, tour, howToPlay }
-    @State private var stage: Stage = .pages
+    private enum Stage: String, Equatable { case pages, tour, howToPlay }
+    /// Picks up in the primer or the tour after a relaunch (`onboardingStage`).
+    @State private var stage: Stage = Stage(rawValue: ProgressStore.shared.onboardingStage ?? "") ?? .pages
 
     private let lastPage = 4
     private let skillPage = 3
@@ -51,6 +52,9 @@ struct OnboardingView: View {
             }
         }
         .animation(reduceMotion ? nil : .spring(response: 0.45, dampingFraction: 0.85), value: stage)
+        .onChange(of: stage) { _, newStage in
+            progress.onboardingStage = newStage == .pages ? nil : newStage.rawValue
+        }
         // Cream under the stage change: while the trial page fades out and
         // the tour slides in, both are partly see-through, and the bare
         // window drew a white flash between two cream screens (release gate).

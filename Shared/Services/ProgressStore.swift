@@ -23,6 +23,7 @@ final class ProgressStore: ObservableObject {
         static let missedItems = "progress.missedItems"
         static let lastQuickSessionDay = "progress.lastQuickSessionDay"
         static let sessionsAtOnboarding = "progress.sessionsAtOnboarding"
+        static let onboardingStage = "progress.onboardingStage"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -46,7 +47,26 @@ final class ProgressStore: ObservableObject {
 
     var hasOnboarded: Bool {
         get { defaults.bool(forKey: Keys.hasOnboarded) }
-        set { defaults.set(newValue, forKey: Keys.hasOnboarded) }
+        set {
+            defaults.set(newValue, forKey: Keys.hasOnboarded)
+            if newValue { defaults.removeObject(forKey: Keys.onboardingStage) }
+        }
+    }
+
+    /// Where a player who quit in the primer or the tour picks up. The
+    /// intro pages and the trial page start over, as ever: this only holds
+    /// the stages after the trial decision, so a player who started the
+    /// trial is not walked through the intro again. Cleared with
+    /// `hasOnboarded`.
+    var onboardingStage: String? {
+        get { defaults.string(forKey: Keys.onboardingStage) }
+        set {
+            if let newValue {
+                defaults.set(newValue, forKey: Keys.onboardingStage)
+            } else {
+                defaults.removeObject(forKey: Keys.onboardingStage)
+            }
+        }
     }
 
     /// Sessions finished before onboarding ended: the tour's closing
