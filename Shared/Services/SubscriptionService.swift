@@ -780,6 +780,13 @@ final class SubscriptionService: NSObject, ObservableObject {
         let previous = (defaults.data(forKey: snapshotKey))
             .flatMap { try? JSONDecoder().decode(MembershipSnapshot.self, from: $0) }
         if previous == nil, now.timeIntervalSince(answeredAt) > Self.freshBaselineAge { return }
+        // A member record turning into a non-member record only counts as a
+        // departure when RevenueCat answered it just now. A cached record
+        // from before a renewal reads as expired, and the network's answer
+        // is on its way: keep what was stored, so that answer is compared
+        // with the member snapshot and a real lapse is still caught then.
+        if let previous, previous.isActive, !current.isActive,
+           !Self.confirmsLapse(isMember: false, answeredAt: answeredAt, now: now) { return }
         defer {
             if let data = try? JSONEncoder().encode(current) {
                 defaults.set(data, forKey: snapshotKey)
