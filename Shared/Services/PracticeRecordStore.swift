@@ -53,12 +53,7 @@ final class PracticeRecordStore: ObservableObject {
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         bestChallengeScore = defaults.integer(forKey: Keys.bestChallenge)
-        if let data = defaults.data(forKey: Keys.records),
-           let decoded = try? JSONDecoder().decode([String: PracticeRecord].self, from: data) {
-            records = decoded
-        } else {
-            records = [:]
-        }
+        records = StoredDictionary.load(PracticeRecord.self, defaults: defaults, key: Keys.records) ?? [:]
     }
 
     // MARK: - Legacy migration
