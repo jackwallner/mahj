@@ -196,12 +196,12 @@ final class OrdinaryRunStoreTests: XCTestCase {
         let drill = try XCTUnwrap(DrillLibrary.rooms.first?.drills.first)
         store.save(OrdinaryRun(drill: drill, answers: [true]))
         store.setOnScreen(drill.id, true)
-        XCTAssertNil(store.resumable(besideOpenPane: true, isMember: false))
+        XCTAssertNil(store.resumableRoomRun(besideOpenPane: true, isMember: false))
         // Single column, nothing sits beside Home, so it offers the run.
-        XCTAssertEqual(store.resumable(besideOpenPane: false, isMember: false)?.id, drill.id)
+        XCTAssertEqual(store.resumableRoomRun(besideOpenPane: false, isMember: false)?.id, drill.id)
         store.setOnScreen("another-drill", false)
-        XCTAssertNil(store.resumable(besideOpenPane: true, isMember: false))
+        XCTAssertNil(store.resumableRoomRun(besideOpenPane: true, isMember: false))
         store.setOnScreen(drill.id, false)
-        XCTAssertEqual(store.resumable(besideOpenPane: true, isMember: false)?.id, drill.id)
+        XCTAssertEqual(store.resumableRoomRun(besideOpenPane: true, isMember: false)?.id, drill.id)
     }
 }
