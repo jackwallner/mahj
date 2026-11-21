@@ -203,10 +203,10 @@ enum ProContent {
         ),
         HandMatchQuestion(
             id: "pro-rack-6",
-            tiles: [.c(1), .c(1), .b(2), .b(2), .d(3), .d(3), .c(5), .c(5), .b(6), .b(6), .d(8), .d(8), .wind(.north)],
+            tiles: [.b(1), .b(1), .b(2), .b(2), .b(3), .b(3), .b(4), .b(4), .b(5), .b(5), .b(6), .b(6), .wind(.north)],
             choices: [.singlesAndPairs, .odds13579, .evens2468],
             answer: .singlesAndPairs,
-            explanation: "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape."
+            explanation: "Six pairs in one suit, no pungs and no jokers: that is the Singles and Pairs shape. The odd and even pairs rule out 13579 and 2468. Jokers cannot help this section, so it is hard to finish. Chase it only when most of your rack is already pairs, like this one."
         ),
         HandMatchQuestion(
             id: "pro-rack-7",

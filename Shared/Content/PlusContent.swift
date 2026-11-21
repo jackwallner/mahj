@@ -12,11 +12,11 @@ enum PlusContent {
 
     static let tileExtras: [QuizQuestion] = [
         QuizQuestion(
-            id: "plus-tq-set-size",
-            prompt: "How many tiles are in a standard American Mah Jongg set?",
-            choices: ["136", "144", "152", "160"],
-            answerIndex: 2,
-            explanation: "152: the 144 base tiles (suits, winds, dragons, flowers) plus the 8 jokers that make American mahj its own game."
+            id: "plus-tq-hand-size",
+            prompt: "How many tiles make a finished mah jongg hand?",
+            choices: ["13", "14", "15", "16"],
+            answerIndex: 1,
+            explanation: "14. Every hand on the card adds up to 14 tiles, so the groups in any line always total 14. You hold 13 during play and win with the 14th."
         ),
         QuizQuestion(
             id: "plus-tq-green-dragon",
@@ -211,9 +211,9 @@ enum PlusContent {
             id: "plus-kd-commit",
             frontTitle: "You are 3 tiles from a 2468 hand and 4 from a Consecutive Run.",
             frontTiles: [.c(2), .c(4), .b(6), .b(8)],
-            frontSubtitle: "Chase both, or pick one?",
+            frontSubtitle: "You are out of tiles that fit neither, so every discard now breaks one of them. Chase both, or pick one?",
             backTitle: "Commit To The Shorter Road",
-            backBody: "Straddling two sections means every draw helps only half your hand and you never get close to either. Count the tiles you still need, commit to the smaller number, and turn the other section's tiles into discards.",
+            backBody: "Keeping two hands alive is smart while you still have tiles that fit neither to throw. Once every discard costs one hand or the other, count the tiles each still needs, commit to the smaller number, and the other hand's tiles become your discards.",
             choice: CardChoice("Commit to 2468", "Keep both alive", answerIndex: 0)
         ),
         Flashcard(

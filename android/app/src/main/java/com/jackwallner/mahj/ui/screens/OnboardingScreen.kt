@@ -218,7 +218,7 @@ private fun OnboardingPages(skillLevel: String, onSkill: (String) -> Unit, onDon
                         "square.grid.3x3.fill",
                         "Make it stick between games",
                         "Mah Jongg fades fast between games. Mahj Trainer gives you five-minute drills you can run anywhere, whether you are still meeting the tiles or sharpening instincts you already have.",
-                        listOf(Tile.c(2), Tile.DragonTile(Dragon.SOAP), Tile.c(2), Tile.b(6)),
+                        listOf(Tile.c(2), Tile.DragonTile(Dragon.SOAP), Tile.c(2), Tile.c(6)),
                     )
                     1 -> InfoPage(
                         "rectangle.stack.fill",

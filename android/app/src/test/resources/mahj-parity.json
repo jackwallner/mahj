@@ -420,21 +420,21 @@
         null
       ],
       "choices" : [
-        "160",
-        "152",
-        "136",
-        "144"
+        "13",
+        "14",
+        "15",
+        "16"
       ],
-      "explanation" : "152: the 144 base tiles (suits, winds, dragons, flowers) plus the 8 jokers that make American mahj its own game.",
-      "id" : "plus-tq-set-size",
+      "explanation" : "14. Every hand on the card adds up to 14 tiles, so the groups in any line always total 14. You hold 13 during play and win with the 14th.",
+      "id" : "plus-tq-hand-size",
       "isReviewable" : true,
-      "prompt" : "How many tiles are in a standard American Mah Jongg set?",
+      "prompt" : "How many tiles make a finished mah jongg hand?",
       "roomID" : "tile-room",
       "sourceLabel" : "The Tile Room",
       "tiles" : [
 
       ],
-      "trackingID" : "plus-tq-set-size"
+      "trackingID" : "plus-tq-hand-size"
     },
     {
       "answerIndex" : 3,
@@ -1220,18 +1220,18 @@
     {
       "answerIndex" : 1,
       "choiceNotes" : [
-        "This rack has 7 numbered tiles and only 2 winds or dragons, so it has little to build a Winds & Dragons hand from.",
+        "This rack has 6 numbered tiles and only 3 winds or dragons, so it has little to build a Winds & Dragons hand from.",
         null,
-        "Singles & Pairs never takes jokers, so the joker on this rack could not help it.",
-        "2468 (Evens) could use some of these tiles, but more of them point to Year Hands."
+        "A run steps up with no gaps, and this rack only has 2s and 6s.",
+        "This rack holds 2s and 6s, and a finished 13579 hand never uses an even number."
       ],
       "choices" : [
         "Winds & Dragons",
         "Year Hands",
-        "Singles & Pairs",
-        "2468 (Evens)"
+        "Consecutive Run",
+        "13579 (Odds)"
       ],
-      "explanation" : "The 2s, soaps (zeros) and 6s are the makings of a year hand. 2468 fits too, but the soaps point to the year section first.",
+      "explanation" : "Only 2s, Soaps and 6s, all in craks. The Soap stands in for zero, so these tiles spell 2, 0, 2, 6. That is a year hand.",
       "id" : "hm-year",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -1240,11 +1240,11 @@
       "tiles" : [
         "2C",
         "2C",
-        "2B",
-        "2B",
-        "6B",
-        "6B",
-        "4D",
+        "2C",
+        "6C",
+        "6C",
+        "6C",
+        "SO",
         "SO",
         "SO",
         "F",
@@ -2361,7 +2361,7 @@
       "explanation" : "Calling takes the place of your draw. Put the pung face up on your rack, discard, and play continues to your right.",
       "id" : "table-call-then-what",
       "isReviewable" : true,
-      "prompt" : "You call a discard for a pung. What comes next?",
+      "prompt" : "You call a discard to make a pung (three matching tiles). What comes next?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2379,14 +2379,14 @@
       ],
       "choices" : [
         "Neither, it is dead",
-        "The player whose turn comes next",
+        "The player next in turn after the discarder",
         "Whoever spoke first",
         "The player with fewer exposures"
       ],
-      "explanation" : "When two players want a tile for an exposure, it goes to the one next in turn after the discarder, unless the other caller has already put the tile on their rack or exposed tiles for it. A call for mah jongg still beats any exposure.",
+      "explanation" : "Between two calls for an exposure, the tile goes to the player next in turn after the discarder. The only call that beats turn order is a call for mah jongg.",
       "id" : "table-call-priority",
       "isReviewable" : true,
-      "prompt" : "Two players call the same discard for a pung. Who gets it?",
+      "prompt" : "Two players call the same discard, and neither needs it for mah jongg. Who gets it?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2498,10 +2498,10 @@
         "Commit to 2468",
         "Keep both alive"
       ],
-      "explanation" : "Straddling two sections means every draw helps only half your hand and you never get close to either. Count the tiles you still need, commit to the smaller number, and turn the other section's tiles into discards.",
+      "explanation" : "Keeping two hands alive is smart while you still have tiles that fit neither to throw. Once every discard costs one hand or the other, count the tiles each still needs, commit to the smaller number, and the other hand's tiles become your discards.",
       "id" : "plus-kd-commit",
       "isReviewable" : true,
-      "prompt" : "You are 3 tiles from a 2468 hand and 4 from a Consecutive Run.\nChase both, or pick one?",
+      "prompt" : "You are 3 tiles from a 2468 hand and 4 from a Consecutive Run.\nYou are out of tiles that fit neither, so every discard now breaks one of them. Chase both, or pick one?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -2694,13 +2694,13 @@
         null
       ],
       "choices" : [
-        "Check the card",
-        "Always keep all"
+        "Keep it",
+        "Throw it"
       ],
-      "explanation" : "Flowers are useful in most sections, but a Singles and Pairs hand may only want a pair of them. Holding a third out of habit costs you a tile you need.",
+      "explanation" : "That hand can only use two, but early on you are not locked in. The third flower keeps a switch to another hand open. Let it go once you are sure of your hand and every other tile on your rack is one you need.",
       "id" : "more-judge-flower-discipline",
       "isReviewable" : true,
-      "prompt" : "Three flowers, hand is Singles and Pairs",
+      "prompt" : "Three flowers, early in the game\nYou are leaning toward a Singles and Pairs hand that uses one pair of flowers. Throw the third?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -3226,32 +3226,32 @@
       "choiceNotes" : [
         null,
         "This rack holds 1s, 3s and 5s, and a finished 2468 hand never uses an odd number.",
-        "This rack holds 2s, 6s and 8s, and a finished 13579 hand never uses an even number."
+        "This rack holds 2s, 4s and 6s, and a finished 13579 hand never uses an even number."
       ],
       "choices" : [
         "Singles & Pairs",
         "2468 (Evens)",
         "13579 (Odds)"
       ],
-      "explanation" : "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape.",
+      "explanation" : "Six pairs in one suit, no pungs and no jokers: that is the Singles and Pairs shape. The odd and even pairs rule out 13579 and 2468. Jokers cannot help this section, so it is hard to finish. Chase it only when most of your rack is already pairs, like this one.",
       "id" : "pro-rack-6",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
       "roomID" : "pro-tables",
       "sourceLabel" : "The Master Tables",
       "tiles" : [
-        "1C",
-        "1C",
-        "5C",
-        "5C",
+        "1B",
+        "1B",
         "2B",
         "2B",
+        "3B",
+        "3B",
+        "4B",
+        "4B",
+        "5B",
+        "5B",
         "6B",
         "6B",
-        "3D",
-        "3D",
-        "8D",
-        "8D",
         "N"
       ],
       "trackingID" : "pro-rack-6"
@@ -5376,10 +5376,10 @@
     "plus-tq-dead-hand",
     "plus-tq-expose",
     "plus-tq-green-dragon",
+    "plus-tq-hand-size",
     "plus-tq-kong",
     "plus-tq-pair-call",
     "plus-tq-priority",
-    "plus-tq-set-size",
     "plus-tq-sextet",
     "plus-tq-wind-count",
     "pro-def-break-hand",

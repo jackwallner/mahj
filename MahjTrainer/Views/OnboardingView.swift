@@ -64,7 +64,7 @@ struct OnboardingView: View {
                     icon: "square.grid.3x3.fill",
                     title: String(localized: "Make it stick between games"),
                     body: String(localized: "Mah Jongg fades fast between games. Mahj Trainer gives you five-minute drills you can run anywhere, whether you are still meeting the tiles or sharpening instincts you already have."),
-                    tiles: [.c(2), .dragon(.soap), .c(2), .b(6)]
+                    tiles: [.c(2), .dragon(.soap), .c(2), .c(6)]
                 ).tag(0).accessibilityHidden(page != 0)
                 infoPage(
                     icon: "rectangle.stack.fill",

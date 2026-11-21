@@ -247,43 +247,43 @@
         }
       }
     },
-    "13579 is the decoy off the 1s, 3s, and 5s, but the 2, 6, and 8 pairs kill any odd-only hand. Six natural pairs across mixed numbers with zero jokers is the textbook Singles and Pairs shape.": {
+    "14. Every hand on the card adds up to 14 tiles, so the groups in any line always total 14. You hold 13 during play and win with the 14th.": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "قد توحي أرقام 1 و3 و5 بفئة 13579، لكن أزواج 2 و6 و8 تستبعد أي يد تتكون من أرقام فردية فقط. ستة أزواج أصلية بأرقام مختلفة ومن دون جوكر هي الشكل المعتاد لفئة القطع المنفردة والأزواج."
+            "value": "14. كل يد على البطاقة مجموعها 14 قطعة، لذا تبلغ مجموعات أي سطر 14 دائمًا. تحتفظون بـ13 قطعة أثناء اللعب وتفوزون بالقطعة الرابعة عشرة."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "13579 ist die Falle wegen der 1er, 3er und 5er, aber die Paare aus 2, 6 und 8 schließen jede Hand mit nur ungeraden Zahlen aus. Sechs echte Paare aus unterschiedlichen Zahlen, ganz ohne Joker, sind der Musterfall für Singles & Paare."
+            "value": "14. Jede Hand auf der Karte hat zusammen 14 Steine, die Gruppen einer Zeile ergeben also immer 14. Im Spiel hältst du 13 und gewinnst mit dem 14. Stein."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "13579 es el señuelo por los 1, 3 y 5, pero las parejas de 2, 6 y 8 descartan cualquier mano solo de impares. Seis parejas naturales de números distintos y sin comodines forman un caso de manual de Sueltas y Parejas."
+            "value": "14. Todas las manos de la tarjeta suman 14 fichas, así que los grupos de cualquier línea siempre suman 14. Durante el juego tienes 13 y ganas con la ficha número 14."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "13579 est le leurre à cause des 1, 3 et 5, mais les paires de 2, 6 et 8 excluent toute main composée uniquement d'impairs. Six paires naturelles de valeurs différentes, sans aucun joker : c'est la configuration classique d'une main Simples et Paires."
+            "value": "14. Chaque main de la carte totalise 14 tuiles, donc les groupes d'une ligne font toujours 14. Vous en avez 13 pendant le jeu et gagnez avec la 14e."
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "13579 adalah umpan karena ada angka 1, 3, dan 5, tetapi pasangan 2, 6, dan 8 menyingkirkan tangan yang hanya memakai angka ganjil. Enam pasangan alami dari angka berbeda tanpa joker adalah bentuk khas tangan Tunggal & Pasangan."
+            "value": "14. Setiap tangan di kartu berjumlah 14 ubin, jadi kelompok dalam satu baris selalu berjumlah 14. Kamu memegang 13 saat bermain dan menang dengan ubin ke-14."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "13579 là mồi nhử vì có các quân 1, 3 và 5. Nhưng các đôi 2, 6 và 8 loại trừ mọi bài chỉ dùng số lẻ. Sáu đôi thật với các số khác nhau và không có joker là dạng bài Đơn & Đôi điển hình."
+            "value": "14. Mọi bộ bài trên thẻ đều có tổng 14 quân, nên các nhóm trong một dòng luôn cộng lại thành 14. Khi chơi bạn cầm 13 quân và thắng bằng quân thứ 14."
           }
         }
       }
@@ -325,47 +325,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "152 quân"
-          }
-        }
-      }
-    },
-    "152: the 144 base tiles (suits, winds, dragons, flowers) plus the 8 jokers that make American mahj its own game.": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "152: القطع الأساسية البالغ عددها 144 (الفئات والرياح والتنانين والزهور)، إضافة إلى 8 قطع جوكر تميز الماه جونغ الأمريكية."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "152: die 144 Grundsteine (Zahlensteine, Winde, Drachen und Blumen) plus die 8 Joker, die American Mahj zu einem eigenen Spiel machen."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "152: las 144 fichas base (palos, vientos, dragones, flores) más los 8 comodines que hacen del mahj americano un juego propio."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "152 : les 144 tuiles de base (familles, vents, dragons, fleurs) plus les 8 jokers qui font du mahj américain un jeu à part."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "152: 144 ubin dasar (jenis, angin, naga, bunga) ditambah 8 joker yang membuat mahj Amerika menjadi permainan tersendiri."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "152: 144 quân cơ bản (chất, gió, rồng, hoa) cộng 8 joker làm nên nét riêng của mahj kiểu Mỹ."
           }
         }
       }
@@ -7258,47 +7217,6 @@
         }
       }
     },
-    "Always keep all": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "الاحتفاظ بها كلها دائمًا"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Immer alle behalten"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Guardar siempre todas"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toujours tout garder"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Selalu simpan semua"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Luôn giữ hết"
-          }
-        }
-      }
-    },
     "Ambiguous racks where two sections look right": {
       "extractionState": "manual",
       "localizations": {
@@ -10005,6 +9923,47 @@
         }
       }
     },
+    "Between two calls for an exposure, the tile goes to the player next in turn after the discarder. The only call that beats turn order is a call for mah jongg.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عندما يطلب لاعبان القطعة لكشف مجموعة، تذهب إلى التالي في الدور بعد من رماها. الطلب الوحيد الذي يتقدم على ترتيب الأدوار هو طلبها للفوز بالماه جونغ."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rufen zwei Spieler für eine Auslage, geht der Stein an den, der nach dem Abwerfenden dran ist. Nur ein Ruf für Mah Jongg schlägt diese Reihenfolge."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entre dos llamadas para una exposición, la ficha es para el jugador que sigue en turno a quien descartó. Solo cantar mah jongg gana al orden de turno."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entre deux appels pour une exposition, la tuile va au joueur qui suit celui qui a défaussé. Seul un appel pour mah jongg passe avant l'ordre du tour."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Di antara dua panggilan untuk ekspos, ubin itu jatuh ke pemain yang giliran berikutnya setelah pembuang. Hanya panggilan mah jongg yang mengalahkan urutan giliran."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữa hai người hô để lập bộ lộ, quân đó thuộc về người có lượt kế tiếp sau người bỏ quân. Chỉ hô mah jongg mới được ưu tiên hơn thứ tự lượt."
+          }
+        }
+      }
+    },
     "Blind Pass": {
       "extractionState": "manual",
       "localizations": {
@@ -11518,129 +11477,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bắt buộc Charleston"
-          }
-        }
-      }
-    },
-    "Chase both, or pick one?": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "متابعة الاثنين أم اختيار واحد؟"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beides verfolgen oder eins wählen?"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Persigues ambas o eliges una?"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Poursuivre les deux, ou en choisir une ?"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kejar keduanya, atau pilih satu?"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theo cả hai hướng hay chọn một?"
-          }
-        }
-      }
-    },
-    "Check the card": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تحققوا من البطاقة"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Karte prüfen"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Revisar la tarjeta"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vérifier la carte"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Periksa kartu"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kiểm tra thẻ"
-          }
-        }
-      }
-    },
-    "Check the hand first": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تحققوا من اليد أولًا"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prüf zuerst die Hand"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Revisa primero la mano"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vérifiez d'abord la main"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Periksa tangannya dulu"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kiểm tra bộ bài trước"
           }
         }
       }
@@ -18533,47 +18369,6 @@
         }
       }
     },
-    "Flowers are useful in most sections, but a Singles and Pairs hand may only want a pair of them. Holding a third out of habit costs you a tile you need.": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تفيد قطع Flower في معظم الأقسام، لكن يد القطع المنفردة والأزواج قد تحتاج إلى زوج منها فقط. الاحتفاظ بقطعة ثالثة بحكم العادة يشغل مكان قطعة مطلوبة."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Blumen sind in den meisten Sektionen nützlich, aber eine Hand aus der Sektion „Einzelsteine & Paare“ braucht vielleicht nur ein Paar davon. Eine dritte Blume aus Gewohnheit zu behalten, kostet dich einen Stein, den du brauchst."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Las flores sirven en la mayoría de las secciones, pero una mano de Sueltas y Parejas quizá solo quiera una pareja de ellas. Guardar una tercera por costumbre ocupa el espacio de una ficha que necesitas."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Les fleurs servent dans la plupart des sections, mais une main Simples et Paires ne veut parfois qu'une paire de fleurs. En garder une troisième par habitude vous coûte une tuile utile."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bunga berguna di sebagian besar bagian, tapi tangan Tunggal dan Pasangan mungkin hanya menginginkan sepasang. Menyimpan yang ketiga karena kebiasaan membuatmu kehilangan ubin yang kamu perlukan."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hoa hữu ích ở hầu hết các nhóm, nhưng bộ Đơn & Đôi có thể chỉ cần một đôi hoa. Giữ quân hoa thứ ba theo thói quen sẽ khiến bạn thiếu chỗ cho quân cần thiết."
-          }
-        }
-      }
-    },
     "Flowers can stand in for it": {
       "extractionState": "manual",
       "localizations": {
@@ -20173,47 +19968,6 @@
         }
       }
     },
-    "How many tiles are in a standard American Mah Jongg set?": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "كم قطعة توجد في مجموعة الماه جونغ الأمريكية القياسية؟"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wie viele Steine hat ein normales amerikanisches Mahjong-Set?"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Cuántas fichas tiene un juego estándar de Mah Jongg americano?"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Combien de tuiles contient un jeu standard de Mah Jongg américain ?"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Berapa banyak ubin dalam satu set Mah Jongg Amerika standar?"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Một bộ mạt chược kiểu Mỹ tiêu chuẩn có bao nhiêu quân?"
-          }
-        }
-      }
-    },
     "How many tiles do you hold during play (before your turn)?": {
       "extractionState": "manual",
       "localizations": {
@@ -20292,6 +20046,47 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sau khi chia bài, trước lần bỏ đầu tiên, mỗi người cầm bao nhiêu quân?"
+          }
+        }
+      }
+    },
+    "How many tiles make a finished mah jongg hand?": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "كم قطعة تتكون منها يد ماه جونغ مكتملة؟"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus wie vielen Steinen besteht eine fertige Mah-Jongg-Hand?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cuántas fichas tiene una mano de mah jongg completa?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Combien de tuiles compte une main de mah jongg complète ?"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Berapa ubin dalam satu tangan mah jongg yang selesai?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Một bộ bài mah jongg hoàn chỉnh có bao nhiêu quân?"
           }
         }
       }
@@ -22793,6 +22588,47 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rèn phán đoán giữ hay bỏ cho ván thật"
+          }
+        }
+      }
+    },
+    "Keeping two hands alive is smart while you still have tiles that fit neither to throw. Once every discard costs one hand or the other, count the tiles each still needs, commit to the smaller number, and the other hand's tiles become your discards.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإبقاء على يدين ممكنتين فكرة جيدة ما دامت لديكم قطع لا تناسب أيًّا منهما لترموها. عندما يصبح كل رمي على حساب إحدى اليدين، عُدّوا القطع التي تحتاجها كل يد، واختاروا التي تحتاج إلى عدد أقل، فتصبح قطع اليد الأخرى هي ما ترمونه."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zwei Hände offenzuhalten ist klug, solange du noch Steine abwerfen kannst, die zu keiner passen. Sobald jeder Abwurf eine der beiden Hände kostet, zähl, wie viele Steine jeder noch fehlen, leg dich auf die mit weniger fest, und die Steine der anderen Hand werden zu deinen Abwürfen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantener dos manos vivas es buena idea mientras te queden fichas que no sirvan a ninguna para tirar. Cuando cada descarte cueste una mano o la otra, cuenta las fichas que le faltan a cada una, comprométete con la que necesite menos y las fichas de la otra pasan a ser tus descartes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Garder deux mains possibles est malin tant qu'il vous reste à défausser des tuiles qui ne servent à aucune des deux. Dès que chaque défausse coûte l'une ou l'autre, comptez les tuiles qui manquent à chacune, engagez-vous sur celle qui en demande le moins, et les tuiles de l'autre deviennent vos défausses."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mempertahankan dua tangan itu cerdas selama kamu masih punya ubin yang tidak cocok untuk keduanya untuk dibuang. Begitu setiap buangan merugikan salah satu tangan, hitung ubin yang masih dibutuhkan masing-masing, pilih yang butuh lebih sedikit, dan ubin tangan lainnya menjadi buanganmu."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giữ cả hai bộ là khôn ngoan khi bạn vẫn còn quân không hợp với bộ nào để bỏ. Khi mỗi lần bỏ quân đều làm mất một trong hai bộ, hãy đếm số quân mỗi bộ còn thiếu, chốt bộ cần ít hơn, và các quân của bộ kia trở thành quân để bỏ."
           }
         }
       }
@@ -28287,6 +28123,47 @@
           "stringUnit": {
             "state": "translated",
             "value": "Một quân từ đôi bạn đang có"
+          }
+        }
+      }
+    },
+    "Only 2s, Soaps and 6s, all in craks. The Soap stands in for zero, so these tiles spell 2, 0, 2, 6. That is a year hand.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قطع 2 وSoap و6 فقط، وكلها من Crak. تمثل Soap الصفر، فتكوّن هذه القطع 2 و0 و2 و6. هذه يد السنة."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nur 2er, Soaps und 6er, alle in Craks. Die Soap steht für die Null, also ergeben diese Steine 2, 0, 2, 6. Das ist eine Jahreshand."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solo 2, fichas Soap y 6, todos en Crak. La Soap hace de cero, así que estas fichas forman 2, 0, 2, 6. Es una mano del año."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uniquement des 2, des Soap et des 6, tous en Crak. La Soap tient lieu de zéro, donc ces tuiles forment 2, 0, 2, 6. C'est une main de l'année."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hanya 2, Soap, dan 6, semuanya Crak. Soap menggantikan nol, jadi ubin ini membentuk 2, 0, 2, 6. Ini tangan bertema tahun."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chỉ có 2, Soap và 6, tất cả đều là Crak. Soap thay cho số 0, nên các quân này tạo thành 2, 0, 2, 6. Đây là bộ bài Năm."
           }
         }
       }
@@ -34728,6 +34605,47 @@
         }
       }
     },
+    "Six pairs in one suit, no pungs and no jokers: that is the Singles and Pairs shape. The odd and even pairs rule out 13579 and 2468. Jokers cannot help this section, so it is hard to finish. Chase it only when most of your rack is already pairs, like this one.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ستة أزواج من فئة واحدة، بلا pung ولا جوكر: هذا هو شكل القطع المنفردة والأزواج. وجود أزواج فردية وزوجية معًا يستبعد 13579 و2468. لا يساعد الجوكر في هذا القسم، لذا يصعب إكماله. لا تطاردوه إلا إذا كان معظم الحامل أزواجًا بالفعل، كما هنا."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sechs Paare in einer Farbe, keine Pungs und keine Joker: Das ist die Form von Singles & Paare. Ungerade und gerade Paare schließen 13579 und 2468 aus. Joker helfen in dieser Sektion nicht, darum ist sie schwer zu vollenden. Verfolge sie nur, wenn dein Rack schon größtenteils aus Paaren besteht, wie hier."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seis parejas de un mismo palo, sin pungs ni comodines: esa es la forma de Sueltas y Parejas. Las parejas pares e impares descartan 13579 y 2468. Los comodines no sirven en esta sección, así que cuesta completarla. Persíguela solo cuando la mayor parte de tu atril ya sean parejas, como aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Six paires dans une seule famille, sans pung ni joker : c'est la forme d'une main Simples et Paires. Les paires paires et impaires excluent 13579 et 2468. Les jokers n'aident pas dans cette section, elle est donc difficile à terminer. Visez-la seulement quand votre chevalet est déjà surtout fait de paires, comme ici."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enam pasangan dalam satu jenis, tanpa pung dan tanpa joker: itulah bentuk Tunggal & Pasangan. Adanya pasangan ganjil dan genap menyingkirkan 13579 dan 2468. Joker tidak bisa membantu bagian ini, jadi sulit diselesaikan. Kejar hanya jika sebagian besar rakmu sudah berupa pasangan, seperti ini."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sáu đôi cùng một chất, không có pung và không có joker: đó là dạng Đơn & Đôi. Có cả đôi lẻ lẫn đôi chẵn nên loại được 13579 và 2468. Joker không giúp được nhóm này, nên rất khó hoàn thành. Chỉ theo đuổi khi phần lớn giá bài đã là đôi, như ở đây."
+          }
+        }
+      }
+    },
     "Six tiles are left in the wall and your hand can no longer win. What matters most now?": {
       "extractionState": "manual",
       "localizations": {
@@ -35466,47 +35384,6 @@
         }
       }
     },
-    "Straddling two sections means every draw helps only half your hand and you never get close to either. Count the tiles you still need, commit to the smaller number, and turn the other section's tiles into discards.": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "المراوحة بين قسمين تعني أن كل قطعة مسحوبة تفيد نصف اليد فقط، فلا تقترب اليد من أي منهما. بعد عد القطع اللازمة لكل قسم، يُختار القسم الذي يحتاج إلى عدد أقل وتُرمى قطع القسم الآخر."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wenn du zwischen zwei Sektionen schwankst, hilft jeder gezogene Stein nur einer Hälfte deiner Hand, und du kommst keiner der beiden näher. Zähl, wie viele Steine dir noch fehlen, entscheide dich für die Sektion mit weniger fehlenden Steinen und wirf die Steine der anderen Sektion ab."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Estar a caballo entre dos secciones hace que cada robo ayude solo a la mitad de tu mano y que nunca te acerques a ninguna. Cuenta las fichas que aún necesitas y elige la opción para la que te falten menos; convierte en descartes las de la otra sección."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jouer sur deux sections signifie que chaque pioche n'aide que la moitié de votre main et que vous n'approchez ni l'une ni l'autre. Comptez les tuiles qu'il vous manque, engagez-vous dans la section qui en demande le moins et défaussez les tuiles de l'autre section."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mengejar dua bagian sekaligus berarti setiap ubin yang kamu ambil hanya membantu separuh tanganmu, jadi kamu tidak makin dekat ke salah satunya. Hitung ubin yang masih kamu butuhkan, pilih bagian yang memerlukan paling sedikit, lalu buang ubin yang hanya cocok dengan bagian lain."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theo đuổi cùng lúc hai nhóm khiến mỗi lần bốc chỉ giúp được một nửa bài, nên bạn chẳng tiến gần hẳn nhóm nào. Hãy đếm số quân còn thiếu, chọn nhóm cần ít quân hơn và bỏ các quân chỉ hợp với nhóm còn lại."
-          }
-        }
-      }
-    },
     "Substitution limits, redemption timing, and stealing jokers": {
       "extractionState": "manual",
       "localizations": {
@@ -36122,6 +35999,47 @@
         }
       }
     },
+    "That hand can only use two, but early on you are not locked in. The third flower keeps a switch to another hand open. Let it go once you are sure of your hand and every other tile on your rack is one you need.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تلك اليد لا تستخدم إلا اثنتين، لكنكم في البداية لم تلتزموا بعد. الزهرة الثالثة تُبقي باب التحول إلى يد أخرى مفتوحًا. تخلّصوا منها عندما تتأكدون من يدكم وتكون كل قطعة أخرى على الحامل مطلوبة."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diese Hand kann nur zwei nutzen, aber früh im Spiel bist du noch nicht festgelegt. Die dritte Blume hält dir den Wechsel zu einer anderen Hand offen. Gib sie ab, sobald du dir deiner Hand sicher bist und du jeden anderen Stein auf deinem Rack brauchst."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esa mano solo puede usar dos, pero al principio todavía no te has comprometido. La tercera flor deja abierta la opción de cambiar a otra mano. Suéltala cuando tengas clara tu mano y necesites cada una de las demás fichas de tu atril."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cette main ne peut en utiliser que deux, mais en début de partie rien n'est encore décidé. La troisième fleur vous laisse la possibilité de changer de main. Défaussez-la quand votre main est sûre et que chaque autre tuile de votre chevalet vous est utile."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tangan itu hanya bisa memakai dua, tapi di awal kamu belum terkunci. Bunga ketiga membuat peluang pindah ke tangan lain tetap terbuka. Lepaskan setelah kamu yakin dengan tanganmu dan setiap ubin lain di rakmu memang kamu perlukan."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bộ đó chỉ dùng được hai quân, nhưng đầu ván bạn chưa chốt bài. Quân hoa thứ ba giữ cho bạn đường đổi sang bộ khác. Hãy bỏ nó khi bạn đã chắc bộ bài và mọi quân khác trên giá đều cần thiết."
+          }
+        }
+      }
+    },
     "That's the whole shape of the game. Build toward the card, survive the Charleston, and read racks fast. The drills teach each skill one room at a time, five minutes at a stretch.": {
       "extractionState": "manual",
       "localizations": {
@@ -36200,47 +36118,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "152 quân bài"
-          }
-        }
-      }
-    },
-    "The 2s, soaps (zeros) and 6s are the makings of a year hand. 2468 fits too, but the soaps point to the year section first.": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "قطع 2 وSoap التي تمثل الأصفار وقطع 6 تشكل أساس يد السنة. يناسبها 2468 أيضاً، لكن قطع Soap تشير أولاً إلى قسم السنة."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Die 2er, Soaps (Nullen) und 6er sind die Bausteine einer Jahreshand. 2468 passt auch, aber die Soaps weisen zuerst auf die Jahressektion."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Los 2, las fichas Soap y los 6 son la base de una mano del año. 2468 también encaja, pero las fichas Soap apuntan primero a la sección del año."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Les 2, les Soap (zéros) et les 6 sont les éléments d'une main de l'année. 2468 convient aussi, mais les Soap orientent d'abord vers la section de l'année."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Angka 2, Soap (nol), dan 6 menjadi dasar tangan bertema tahun. 2468 juga cocok, tetapi Soap lebih dulu mengarah ke bagian bertema tahun."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Các quân 2, Soap (số 0) và 6 là nền tảng cho bộ bài Năm. 2468 cũng hợp, nhưng Soap trước hết gợi ý hướng bài Năm."
           }
         }
       }
@@ -38828,6 +38705,47 @@
         }
       }
     },
+    "The player next in turn after the discarder": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اللاعب التالي في الدور بعد من رماها"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Spieler, der nach dem Abwerfenden dran ist"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El jugador que sigue en turno a quien descartó"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le joueur qui suit celui qui a défaussé"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pemain yang giliran berikutnya setelah pembuang"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Người có lượt kế tiếp sau người bỏ quân"
+          }
+        }
+      }
+    },
     "The player on your left just threw a 4 Bam and nobody called it. You hold a 4 Bam. How risky is throwing it now?": {
       "extractionState": "manual",
       "localizations": {
@@ -38947,47 +38865,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Người bỏ quân thắng trả gấp đôi"
-          }
-        }
-      }
-    },
-    "The player whose turn comes next": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اللاعب التالي في الدور"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Der Spieler, der als Nächstes dran ist"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "El jugador al que le toca el turno a continuación"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Le joueur dont le tour vient ensuite"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pemain yang mendapat giliran berikutnya"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Người có lượt kế tiếp"
           }
         }
       }
@@ -41001,43 +40878,43 @@
         }
       }
     },
-    "Three flowers, hand is Singles and Pairs": {
+    "Three flowers, early in the game": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "ثلاث زهور، اليد من قسم القطع المنفردة والأزواج"
+            "value": "ثلاث زهور في بداية اللعب"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Drei Blumen, Handtyp: Einzelsteine & Paare"
+            "value": "Drei Blumen, früh im Spiel"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hay tres flores y la mano es de Sueltas y Parejas"
+            "value": "Tres flores, al principio de la partida"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Trois fleurs : cette main appartient à la section Simples et Paires"
+            "value": "Trois fleurs, en début de partie"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiga bunga, tangan berpola Tunggal dan Pasangan"
+            "value": "Tiga bunga, di awal permainan"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ba hoa, bộ bài là Đơn & Đôi"
+            "value": "Ba hoa, đầu ván"
           }
         }
       }
@@ -42846,43 +42723,43 @@
         }
       }
     },
-    "Two players call the same discard for a pung. Who gets it?": {
+    "Two players call the same discard, and neither needs it for mah jongg. Who gets it?": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "طلب لاعبان القطعة المرمية نفسها لإكمال pung. من يحصل عليها؟"
+            "value": "طلب لاعبان القطعة المرمية نفسها، ولا يحتاجها أي منهما للفوز بالماه جونغ. من يحصل عليها؟"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zwei Spieler rufen denselben Abwurf für einen Pung. Wer bekommt ihn?"
+            "value": "Zwei Spieler rufen denselben Abwurf, und keiner braucht ihn für Mah Jongg. Wer bekommt ihn?"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dos jugadores cantan el mismo descarte para un pung. ¿Quién se lo queda?"
+            "value": "Dos jugadores cantan el mismo descarte y ninguno lo necesita para mah jongg. ¿Quién se lo queda?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deux joueurs appellent la même défausse pour un pung. Qui l'obtient ?"
+            "value": "Deux joueurs appellent la même défausse, et aucun n'en a besoin pour mah jongg. Qui l'obtient ?"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dua pemain memanggil buangan yang sama untuk pung. Siapa yang mendapatkannya?"
+            "value": "Dua pemain memanggil buangan yang sama, dan tidak ada yang membutuhkannya untuk mah jongg. Siapa yang mendapatkannya?"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hai người cùng hô một quân bỏ để tạo pung. Ai lấy được quân đó?"
+            "value": "Hai người cùng hô một quân bỏ, và không ai cần nó để mah jongg. Ai lấy được quân đó?"
           }
         }
       }
@@ -44113,47 +43990,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Khi hai người cùng lúc hô một quân bỏ để lập bộ, người có lượt kế tiếp sau bạn được lấy quân đó. Chỉ người hô mah jongg mới được ưu tiên."
-          }
-        }
-      }
-    },
-    "When two players want a tile for an exposure, it goes to the one next in turn after the discarder, unless the other caller has already put the tile on their rack or exposed tiles for it. A call for mah jongg still beats any exposure.": {
-      "extractionState": "manual",
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "عندما يطلب لاعبان قطعة لتكوين مجموعة مكشوفة، تذهب إلى التالي في ترتيب الأدوار بعد من رماها، إلا إذا كان اللاعب الآخر قد وضع القطعة على حامل القطع أو كشف قطعًا لها بالفعل. ويبقى طلب القطعة للفوز بالماه جونغ مقدَّمًا على أي طلب لكشف مجموعة."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wollen zwei Spieler einen Stein für eine Auslage, geht er an den, der nach dem Abwerfenden zuerst dran ist, außer der andere Spieler hat den Stein bereits auf sein Rack gelegt oder passende Steine dafür ausgelegt. Ein Ruf für Mah Jongg schlägt trotzdem jede Auslage."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cuando dos jugadores quieren una ficha para una exposición, se la queda el que sigue en turno después de quien descartó, salvo que el otro ya haya puesto la ficha en su atril o expuesto fichas con ella. Cantar mah jongg siempre gana a cualquier exposición."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Quand deux joueurs veulent une tuile pour une exposition, elle va à celui qui suit le joueur ayant défaussé dans l'ordre du tour, sauf si l'autre joueur a déjà posé la tuile sur son chevalet ou exposé des tuiles pour elle. Un appel pour mah jongg l'emporte toujours sur une exposition."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kalau dua pemain menginginkan ubin untuk membentuk ekspos, ubin itu diberikan kepada pemain yang mendapat giliran lebih dulu setelah pemain yang membuangnya, kecuali pemanggil lain sudah lebih dulu menaruh ubin itu di rak atau mengekspos kelompoknya. Panggilan mah jongg tetap mengalahkan panggilan ekspos apa pun."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Khi hai người cùng muốn lấy một quân bỏ để lập bộ, quân đó thuộc về người có lượt kế tiếp sau người bỏ quân, trừ khi người hô kia đã đặt quân lên giá hoặc đã để lộ bộ có quân đó. Hô mah jongg vẫn được ưu tiên hơn mọi bộ đã lộ."
           }
         }
       }
@@ -46495,6 +46331,47 @@
         }
       }
     },
+    "You are leaning toward a Singles and Pairs hand that uses one pair of flowers. Throw the third?": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تميلون إلى يد من قسم القطع المنفردة والأزواج تستخدم زوجًا واحدًا من الزهور. هل ترمون الثالثة؟"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du tendierst zu einer Hand aus Singles & Paare, die ein Paar Blumen nutzt. Die dritte abwerfen?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te inclinas por una mano de Sueltas y Parejas que usa una pareja de flores. ¿Tiras la tercera?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous penchez vers une main Simples et Paires qui utilise une paire de fleurs. Défausser la troisième ?"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kamu condong ke tangan Tunggal & Pasangan yang memakai sepasang bunga. Buang yang ketiga?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn đang nghiêng về bộ Đơn & Đôi dùng một đôi hoa. Bỏ quân thứ ba?"
+          }
+        }
+      }
+    },
     "You are one tile from mah jongg: a lone 5 Dot.": {
       "extractionState": "manual",
       "localizations": {
@@ -46536,43 +46413,43 @@
         }
       }
     },
-    "You call a discard for a pung. What comes next?": {
+    "You are out of tiles that fit neither, so every discard now breaks one of them. Chase both, or pick one?": {
       "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "تطلبون قطعة مرمية لتكوين pung. ماذا يحدث بعد ذلك؟"
+            "value": "لم تعد لديكم قطع لا تناسب أيًّا منهما، فكل قطعة ترمونها الآن تكسر إحداهما. هل تطاردون الاثنتين أم تختارون واحدة؟"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Du rufst einen Abwurf für einen Pung. Was kommt als Nächstes?"
+            "value": "Dir sind die Steine ausgegangen, die zu keiner passen, also bricht jeder Abwurf jetzt eine der beiden. Beide verfolgen oder eine wählen?"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cantas un descarte para un pung. ¿Qué sigue?"
+            "value": "Ya no te quedan fichas que no sirvan a ninguna, así que cada descarte rompe una de las dos. ¿Persigues las dos o eliges una?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vous appelez une défausse pour un pung. Que se passe-t-il ensuite ?"
+            "value": "Vous n'avez plus de tuiles qui ne servent à aucune des deux, donc chaque défausse en casse une. Poursuivre les deux, ou en choisir une ?"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kamu memanggil buangan untuk pung. Apa selanjutnya?"
+            "value": "Ubin yang tidak cocok untuk keduanya sudah habis, jadi setiap buangan sekarang merusak salah satunya. Kejar keduanya, atau pilih satu?"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bạn hô một quân bỏ để tạo pung. Tiếp theo là gì?"
+            "value": "Bạn đã hết quân không hợp với bộ nào, nên giờ mỗi lần bỏ quân đều làm hỏng một bộ. Theo cả hai, hay chọn một?"
           }
         }
       }
@@ -46655,6 +46532,47 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bạn hô một quân bỏ để hoàn thành pung. Những quân đó sẽ ra sao?"
+          }
+        }
+      }
+    },
+    "You call a discard to make a pung (three matching tiles). What comes next?": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تطلبون قطعة مرمية لتكوين pung (ثلاث قطع متطابقة). ماذا يحدث بعد ذلك؟"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du rufst einen Abwurf für einen Pung (drei gleiche Steine). Was kommt als Nächstes?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cantas un descarte para formar un pung (tres fichas iguales). ¿Qué sigue?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous appelez une défausse pour former un pung (trois tuiles identiques). Que se passe-t-il ensuite ?"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kamu memanggil buangan untuk membentuk pung (tiga ubin sama). Apa selanjutnya?"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn hô một quân bỏ để tạo pung (ba quân giống nhau). Tiếp theo là gì?"
           }
         }
       }
