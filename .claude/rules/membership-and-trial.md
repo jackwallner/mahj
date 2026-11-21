@@ -114,6 +114,17 @@ a real product, resets on every offerings load, and never comes from a
 failed fetch. Tests: `PurchasePreflightTests`, `PurchaseGateTests`,
 `MembershipRecoveryLifetimeTests`.
 
+Purchase errors (2026-11-20): `PurchaseError.shown` turns RevenueCat's
+payment-pending error (Ask to Buy) into `.waitingForApproval` and lost
+connections into the translated "not reachable" line; any other RevenueCat
+error still shows RevenueCat's English text. `.foundOnAccount` replaces the
+connection line when the last membership check ended `ownedUnsynced`
+(StoreKit owns Mahj+, RevenueCat's sync returned nothing): it says to tap
+Restore, which every purchase surface has. `observe` ignores a non-member
+record RevenueCat did not answer within 5 minutes after a member snapshot
+(a cached pre-renewal record), so it cannot start a churn question; the
+network's answer is then compared with the member snapshot.
+
 One exception since (Jack, 2026-10-19): benefit rows 2 and 4 changed, because
 the Mahj Minute went free in 1.4.1 and 1.3.2's row 2 sold it as paid. 1.3.2
 had "Mahj Minute and a personalized Game Night Prep" and "Fix My Mistakes

@@ -192,7 +192,18 @@ struct HomeView: View {
 
     /// Opens a routed destination: in the trailing pane while unfolded,
     /// pushed over Home otherwise.
-    private func show(_ destination: AppDestination) {
+    ///
+    /// A routed destination (a notification tap or the event link) goes over
+    /// whatever is open instead of replacing it, so a Timed Challenge or an
+    /// Endless run in progress is still there on Back. Routing to the screen
+    /// already on top changes nothing.
+    private func show(_ destination: AppDestination, overOpenScreen: Bool = false) {
+        if overOpenScreen, split == nil, panePath.isEmpty, !path.isEmpty {
+            guard path.last != destination else { return }
+            if destination == .monthlyChallenge { challengeOpenCount += 1 }
+            path.append(destination)
+            return
+        }
         if destination == .monthlyChallenge { challengeOpenCount += 1 }
         // Folded with Home's screen still open in the pane, the pane is the
         // screen on top, so the new one goes there too.
@@ -200,7 +211,13 @@ struct HomeView: View {
             path = [destination]
             return
         }
-        panePath = [PaneScreen(id: "\(destination)", view: AnyView(destinationView(destination)))]
+        let screen = PaneScreen(id: "\(destination)", view: AnyView(destinationView(destination)))
+        if overOpenScreen, !panePath.isEmpty {
+            guard panePath.last?.id != screen.id else { return }
+            panePath.append(screen)
+        } else {
+            panePath = [screen]
+        }
     }
 
     @ViewBuilder
@@ -524,7 +541,7 @@ struct HomeView: View {
             upgrade.destination = destination
             showPaywall = true
         case .open:
-            show(destination)
+            show(destination, overOpenScreen: true)
         }
     }
 
