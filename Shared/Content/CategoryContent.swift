@@ -9,7 +9,7 @@ enum CategoryContent {
         Flashcard(
             id: "cat-year",
             frontTitle: "Year Hands",
-            frontTiles: [.c(2), .dragon(.soap), .c(2), .b(6)],
+            frontTiles: [.c(2), .dragon(.soap), .c(2), .c(6)],
             frontSubtitle: "2 - 0 - 2 - 6",
             backTitle: "Year Hands",
             backBody: HandCategory.year.howToSpot + " " + ContentText.localized("The digits are easy to spot on a rack, but year lines are specific, so read them closely.")
@@ -190,10 +190,10 @@ enum CategoryContent {
         ),
         HandMatchQuestion(
             id: "hm-year",
-            tiles: [.c(2), .c(2), .dragon(.soap), .dragon(.soap), .b(2), .b(2), .b(6), .b(6), .flower, .flower, .flower, .joker, .d(4)],
-            choices: [.year, .evens2468, .windsDragons, .singlesAndPairs],
+            tiles: [.c(2), .c(2), .c(2), .dragon(.soap), .dragon(.soap), .dragon(.soap), .c(6), .c(6), .c(6), .flower, .flower, .flower, .joker],
+            choices: [.year, .odds13579, .windsDragons, .consecutiveRun],
             answer: .year,
-            explanation: "The 2s, soaps (zeros) and 6s are the makings of a year hand. 2468 fits too, but the soaps point to the year section first."
+            explanation: "Only 2s, Soaps and 6s, all in craks. The Soap stands in for zero, so these tiles spell 2, 0, 2, 6. That is a year hand."
         ),
         HandMatchQuestion(
             id: "hm-quints",

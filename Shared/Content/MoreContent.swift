@@ -288,7 +288,7 @@ enum MoreContent {
         ),
         QuizQuestion(
             id: "table-call-then-what",
-            prompt: "You call a discard for a pung. What comes next?",
+            prompt: "You call a discard to make a pung (three matching tiles). What comes next?",
             choices: [
                 "Draw from the wall, then discard",
                 "Expose the pung, then discard",
@@ -300,10 +300,10 @@ enum MoreContent {
         ),
         QuizQuestion(
             id: "table-call-priority",
-            prompt: "Two players call the same discard for a pung. Who gets it?",
-            choices: ["Whoever spoke first", "The player whose turn comes next", "The player with fewer exposures", "Neither, it is dead"],
+            prompt: "Two players call the same discard, and neither needs it for mah jongg. Who gets it?",
+            choices: ["Whoever spoke first", "The player next in turn after the discarder", "The player with fewer exposures", "Neither, it is dead"],
             answerIndex: 1,
-            explanation: "When two players want a tile for an exposure, it goes to the one next in turn after the discarder, unless the other caller has already put the tile on their rack or exposed tiles for it. A call for mah jongg still beats any exposure."
+            explanation: "Between two calls for an exposure, the tile goes to the player next in turn after the discarder. The only call that beats turn order is a call for mah jongg."
         ),
         QuizQuestion(
             id: "table-exposure-locked",
@@ -357,11 +357,12 @@ enum MoreContent {
         ),
         Flashcard(
             id: "more-judge-flower-discipline",
-            frontTitle: "Three flowers, hand is Singles and Pairs",
+            frontTitle: "Three flowers, early in the game",
             frontTiles: [.flower, .flower, .flower],
-            backTitle: "Check the hand first",
-            backBody: "Flowers are useful in most sections, but a Singles and Pairs hand may only want a pair of them. Holding a third out of habit costs you a tile you need.",
-            choice: CardChoice("Check the card", "Always keep all", answerIndex: 0)
+            frontSubtitle: "You are leaning toward a Singles and Pairs hand that uses one pair of flowers. Throw the third?",
+            backTitle: "Hold It For Now",
+            backBody: "That hand can only use two, but early on you are not locked in. The third flower keeps a switch to another hand open. Let it go once you are sure of your hand and every other tile on your rack is one you need.",
+            choice: CardChoice("Keep it for now", "Throw it now", answerIndex: 0)
         ),
         Flashcard(
             id: "more-judge-late-switch",
