@@ -15,3 +15,19 @@ extension Calendar {
         return calendar
     }
 }
+
+extension Calendar {
+    /// Calendar days from `start`'s day to `end`'s day, by year, month and day
+    /// alone. The gap between two `startOfDay` values is wrong where a clock
+    /// change skips local midnight (Lebanon, Egypt, Chile, the Azores): the
+    /// day's start is then 01:00, and 01:00 to the next 00:00 is 23 hours,
+    /// which reads as no days at all. Noon always exists.
+    func calendarDays(from start: Date, to end: Date) -> Int {
+        func noon(_ date: Date) -> Date {
+            var parts = dateComponents([.year, .month, .day], from: date)
+            parts.hour = 12
+            return self.date(from: parts) ?? date
+        }
+        return dateComponents([.day], from: noon(start), to: noon(end)).day ?? 0
+    }
+}
