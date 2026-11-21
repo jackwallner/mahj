@@ -1,0 +1,19 @@
+{
+  "app_id": "6790052126",
+  "reference_name": "New Card Season 2027 Reading Your Rack",
+  "badge": "NEW_SEASON",
+  "purpose": "APPROPRIATE_FOR_ALL_USERS",
+  "priority": "HIGH",
+  "purchase_requirement": "NO_COST_ASSOCIATED",
+  "primary_locale": "en-US",
+  "publish_start": "2027-03-18T16:00:00Z",
+  "event_start": "2027-04-01T07:00:00Z",
+  "event_end": "2027-05-01T06:59:00Z",
+  "deep_link": "mahj://challenge",
+  "name": "New Card, New Racks",
+  "short_description": "Three new Reading Your Rack questions a day",
+  "long_description": "Every April the card changes. This month, spot which section a rack is heading for. Three new questions a day.",
+  "event_card": "event-card-1920x1080.png",
+  "details_page": "event-details-1080x1920.png",
+  "event_id": "6837594557"
+}
