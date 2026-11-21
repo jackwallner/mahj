@@ -82,7 +82,9 @@ enum ReviewPromptTracker {
     static func shouldRequestReview(now: Date = Date()) -> Bool {
         guard outcome != .openedWriteReview else { return false }
         guard launchCount >= minimumLaunchCount else { return false }
-        guard let last = lastShownDate else { return true }
+        // A stamp from a clock that ran ahead is in the future: it is no
+        // evidence of an ask, and would hold the cooldown shut for as long.
+        guard let last = lastShownDate, last <= now else { return true }
         return now.timeIntervalSince(last) >= TimeInterval(cooldownDays) * 86_400
     }
 

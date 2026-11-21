@@ -47,7 +47,8 @@ enum TrialOfferPacer {
             guard defaults.object(forKey: lastShownSessionKey) != nil else { return true }
             return defaults.integer(forKey: lastShownSessionKey) < defaults.integer(forKey: sessionKey)
         }
-        guard let last = defaults.object(forKey: lastShownKey) as? Date else { return true }
+        // A stamp from a clock that ran ahead is in the future: treat it as unset.
+        guard let last = defaults.object(forKey: lastShownKey) as? Date, last <= now else { return true }
         let gap = dayGaps[min(defaults.integer(forKey: dayPacedCountKey), dayGaps.count - 1)]
         return now.timeIntervalSince(last) >= gap
     }
@@ -99,7 +100,7 @@ enum TrialOfferPacer {
     /// on the same result: one ask per moment.
     static func autoShownRecently(within seconds: TimeInterval = 120, now: Date = Date(),
                                   defaults: UserDefaults = .standard) -> Bool {
-        guard let last = defaults.object(forKey: lastShownKey) as? Date else { return false }
+        guard let last = defaults.object(forKey: lastShownKey) as? Date, last <= now else { return false }
         return now.timeIntervalSince(last) < seconds
     }
 }
