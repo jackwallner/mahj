@@ -39,14 +39,23 @@ answer is already clear). The full pattern, the measuring rule and the Bridge an
 - TikTok from Nov 30: V78, V85, V92, V99 and V106 (the five unscheduled slow shorts) moved up to Nov 30 to Dec 2,
   and the new batch follows them. Instagram: V99 moved from Dec 5 to Nov 21.
 
-## Left as is
+## Evening pass (Jack: optimize everything, nothing unsent has to be kept)
 
-- TikTok Nov 21 to 29 is already scheduled (28 posts, 9 of them pick or fix). Studio web can't delete them
-  because of the Your brand disclosure; the phone app can. Waiting on Jack.
-- YouTube through Dec 6 is uploaded and scheduled in Studio.
+- Table pace now takes every slot on every platform; other formats only fill a slot when none is left. The refill
+  fires at under 21 left, and the next batch (B62 to B82) is building (fleet run 20261120-212824-e624).
+- YouTube: the 15 uploaded table-pace Shorts were moved to Nov 21 to 25 (3 a day) and the 40 Shorts scheduled in
+  other formats were set to Private, so they never publish. B49 to B61 follow from Nov 26 to Nov 30.
+- TikTok: table pace runs from Dec 1 6:30 AM (V92, V99, V106, then B41 to B61 through Dec 8).
+
+## Still to do
+
+- TikTok Nov 21 to 30: 30 posts are in Studio, 4 of them table pace. The other 26 can only be deleted in the phone
+  app (Your brand disclosure). Once deleted, the 24 queued table-pace shorts move up to those slots.
+- Instagram through Dec 2: about 33 Reels in other formats sit in Instagram's own scheduler from before Nov 19.
+  They can only be removed in the Instagram app. Table pace starts Dec 3 until then (V99 posts Nov 21).
 
 ## Next read
 
-Each post is read at 72 hours against the 11 s average watch gate: the already scheduled slow shorts V57
-(posts Nov 23) and V64 (Nov 25) first, then B41 (posts Dec 2, read Dec 5). `stats/post-insights.mjs` and
+Each post is read at 72 hours against the 11 s average watch gate: on YouTube the table-pace run starts Nov 21. On TikTok the
+already scheduled slow shorts V57 (posts Nov 23) and V64 (Nov 25) come first, then V92 (posts Dec 1, read Dec 4). `stats/post-insights.mjs` and
 `stats/post-table.py` in social-autopost pull the table.
