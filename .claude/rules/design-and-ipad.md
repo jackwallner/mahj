@@ -134,3 +134,24 @@ flashed the bare white window. Apple's contrast audit flags
 text that draws at 7 to 15:1 (it samples off-element pixels); those are
 accepted in `qa/ledger.jsonl` with the ratio measured off the gate
 screenshot, so measure before darkening a token further.
+
+**Experience audit fixes (2026-11-22, council of three, audit in
+`project-docs/audits/experience-2026-11-20/`):**
+- Grade marks use `Theme.gradeCorrect` / `gradeWrong`, not the tile pigments:
+  bamGreen and crakRed fell under 3:1 on the tinted rows in dark mode.
+- Play a Hand places the prompt and rack from their measured height plus a
+  fixed note reserve (`noteReserve`), not by centring the whole stack, so a
+  verdict of any length grows downward and the rack never moves. Next's
+  room is held by a hidden copy; the real button still comes and goes, so
+  its label never flips while it fades.
+- `StablePageTop` (primer and tour) gives every page the top edge the
+  tallest page would have. Where the tallest page does not fit, pages share
+  the top of the screen; centring them is what made titles jump.
+- `ConfettiBurst` from an answer row waits 0.35s for the row to settle, and
+  hosts pass `scope` (the question) so Next inside the wait cancels it: the
+  answer row reports its frame before it is answered, so a late burst fired
+  from the next question's right answer.
+- A missed rack question whose prompt and rack fill over 55% of the screen
+  repeats the rack at 32pt above the explanation, because the scroll to the
+  note takes the real rack away. Captions need 32pt: FLOWER cut to "FLO..."
+  at 26.
