@@ -7,6 +7,8 @@ Developer notes and historical audits for this repository. The published site re
 - [research/2026-11-20-competitor-reviews.md](research/2026-11-20-competitor-reviews.md): 3,462 competitor reviews (App Store, Google Play, comparison pages) tagged by theme and ranked against Mahj, with 9 opportunities; raw tagged TSV alongside
 - [research/2026-11-20-opportunity-proposal.md](research/2026-11-20-opportunity-proposal.md): product proposal from that study: large tiles, a "Which line?" drill, a rules audit with citations, guided full hands as a direction decision, five smaller items, build order and 1.5 scope; the Nov 13 Mahj Minute question found (fixed in 1.4.5); player feedback agrees on hand help and depth
 
+- [research/2026-11-21-feedback-triage.md](research/2026-11-21-feedback-triage.md): all 33 in-app feedback rows (Mahj, Skat, Bridge): the one-word feedback bug (dictation's marked text, fixed in all five apps), churn reasons counted, rows mapped to the proposal, the Bridge bidding gap
+
 - [research/2026-11-20-teacher-review.md](research/2026-11-20-teacher-review.md): first detailed teacher review (nine screenshots): eight content fixes made, and the basic, intermediate and challenging tier proposal for Quick Session
 
 ## Releases

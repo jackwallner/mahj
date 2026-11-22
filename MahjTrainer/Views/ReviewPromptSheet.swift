@@ -247,10 +247,12 @@ struct ReviewPromptSheet: View {
     private func send(kind: FeedbackKind, context: [String: String]) {
         guard canSend, !sending else { return }
         sending = true
-        feedbackFocused = false
-        let message = composedMessage
-        let isMember = subscriptions.isPro
         Task { @MainActor in
+            // Read the text only after dictation has handed over every word.
+            await PendingTextInput.commit()
+            feedbackFocused = false
+            let message = composedMessage
+            let isMember = subscriptions.isPro
             let outcome = await FeedbackService.shared.submit(
                 kind: kind,
                 message: message,
@@ -300,5 +302,18 @@ struct ReviewPromptSheet: View {
             .frame(width: 68, height: 68)
             .background(color.opacity(0.13), in: Circle())
             .padding(.top, 6)
+    }
+}
+
+/// Dictation, and keyboards that compose words (Japanese, Chinese, Korean),
+/// hold what is still being written as marked text, and a SwiftUI text
+/// binding does not see marked text until it is committed. Reading the
+/// binding mid-dictation sent only the first word ("I'm", "The"). Ending
+/// editing commits it; the binding has it one main-actor turn later.
+@MainActor
+enum PendingTextInput {
+    static func commit() async {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        await Task.yield()
     }
 }

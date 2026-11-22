@@ -12,11 +12,11 @@ enum PlusContent {
 
     static let tileExtras: [QuizQuestion] = [
         QuizQuestion(
-            id: "plus-tq-hand-size",
-            prompt: "How many tiles make a finished mah jongg hand?",
-            choices: ["13", "14", "15", "16"],
-            answerIndex: 1,
-            explanation: "14. Every hand on the card adds up to 14 tiles, so the groups in any line always total 14. You hold 13 during play and win with the 14th."
+            id: "plus-tq-copies",
+            prompt: "How many copies of each number tile are in the set?",
+            choices: ["2", "3", "4", "8"],
+            answerIndex: 2,
+            explanation: "Four of every number tile, and four of each wind and dragon too, so once three copies of a number tile are showing, only one is left. Flowers and jokers are the exceptions, with eight of each."
         ),
         QuizQuestion(
             id: "plus-tq-green-dragon",
