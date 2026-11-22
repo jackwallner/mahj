@@ -328,6 +328,7 @@ struct PaywallView: View {
     @State private var priceLoadAttempted = false
     @State private var message: String?
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     var body: some View {
         NavigationStack {
@@ -354,6 +355,10 @@ struct PaywallView: View {
                 }
             }
             .background(Theme.background)
+            // iPad: a bar behind Close once the plans scroll under it.
+            // Without one the title was cut in half and copy ran behind
+            // Close. The iPhone sheet keeps its soft edge.
+            .planSheetTopEdge(hard: horizontalSizeClass == .regular)
             .analyticsScreen("Paywall", ["source": source])
             .safeAreaInset(edge: .bottom) {
                 Group {
@@ -367,6 +372,10 @@ struct PaywallView: View {
                     }
                 }
                 .padding()
+                // The plans' width, so the button lines up with the cards
+                // on the wider iPad sheet. Narrower screens are unchanged.
+                .frame(maxWidth: 680)
+                .frame(maxWidth: .infinity)
                 .background(.thinMaterial)
             }
             .toolbar {
@@ -395,6 +404,7 @@ struct PaywallView: View {
                 if !priceReady { await loadPrices() }
             }
         }
+        .planSheetSizing()
     }
 
     private var purchaseFooter: some View {
@@ -542,6 +552,29 @@ struct PaywallView: View {
             } catch {
                 message = error.localizedDescription
             }
+        }
+    }
+}
+
+private extension View {
+    /// On iPad the default form sheet was a short card that hid Lifetime
+    /// below the fold with half the screen unused. The page size shows all
+    /// three plans; iPhone ignores it.
+    @ViewBuilder
+    func planSheetSizing() -> some View {
+        if #available(iOS 18.0, *) {
+            presentationSizing(.page)
+        } else {
+            self
+        }
+    }
+
+    @ViewBuilder
+    func planSheetTopEdge(hard: Bool) -> some View {
+        if #available(iOS 26.0, *) {
+            scrollEdgeEffectStyle(hard ? .hard : nil, for: .top)
+        } else {
+            self
         }
     }
 }

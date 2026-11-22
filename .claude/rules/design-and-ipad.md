@@ -155,3 +155,9 @@ screenshot, so measure before darkening a token further.
   repeats the rack at 32pt above the explanation, because the scroll to the
   note takes the real rack away. Captions need 32pt: FLOWER cut to "FLO..."
   at 26.
+- The iPad plan sheet (item 22, Jack's go-ahead) opens at `.page` size and
+  shows all three plans in both orientations. `.form.fitted` collapsed it to
+  the footer: a ScrollView has no ideal height. The footer is capped to the
+  plans' 680pt, and the hard top edge is regular width only, because on
+  iPhone it drew a divider under Close at rest and the frozen paywall must
+  stay pixel-identical there. Lifetime stays third on iPhone (item 8, Jack).
