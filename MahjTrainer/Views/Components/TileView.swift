@@ -289,12 +289,17 @@ struct TileRackView: View {
                     .opacity(selected ? 1 : 0)
             }
             .overlay(alignment: .bottom) {
-                Circle()
-                    .fill(highlightColor)
-                    .frame(width: 6, height: 6)
-                    .offset(y: 7)
-                    .opacity(selected && highlightDot ? 1 : 0)
-                    .accessibilityHidden(true)
+                // Only racks that use the dot draw it: an invisible 6pt circle
+                // still reached Apple's accessibility audit as an unlabeled,
+                // too-small element under every onboarding tile (release gate).
+                if highlightDot {
+                    Circle()
+                        .fill(highlightColor)
+                        .frame(width: 6, height: 6)
+                        .offset(y: 7)
+                        .opacity(selected ? 1 : 0)
+                        .accessibilityHidden(true)
+                }
             }
             .offset(y: selected ? -8 : 0)
             .onTapGesture { onTap?(index) }

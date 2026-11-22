@@ -183,8 +183,10 @@ final class ReleaseJourneysUITests: XCTestCase {
         XCTAssertEqual(number("%lld drills done", in: app), drillsBefore + 1, "the session was not counted",
                        file: file, line: line)
         XCTAssertGreaterThanOrEqual(number("%lld day streak", in: app), 1, "no streak", file: file, line: line)
-        XCTAssertFalse(app.buttons.containing(label(t("Resume"))).firstMatch.exists, "a finished run is still offered",
-                       file: file, line: line)
+        // Each drill keeps its own saved run, so the Tile Check run this
+        // journey left half done is still (rightly) offered; the session is not.
+        XCTAssertFalse(app.buttons.containing(label(t("Resume %@", t("Quick Session")))).firstMatch.exists,
+                       "a finished run is still offered", file: file, line: line)
     }
 
     /// The number a stats chip reads, from its label ("12 drills done",
