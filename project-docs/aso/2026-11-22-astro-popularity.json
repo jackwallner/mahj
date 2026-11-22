@@ -1,0 +1,1650 @@
+{
+ "gb": [
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "cards",
+   "term": "mahjong cards",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "cards",
+   "term": "cards",
+   "pop": 47
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "drill",
+   "term": "mahjong drill",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "drill",
+   "term": "drill",
+   "pop": 29
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "flashcard",
+   "term": "mahjong flashcard",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "flashcard",
+   "term": "flashcard",
+   "pop": 22
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "hand",
+   "term": "mahjong hand",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "hand",
+   "term": "hand",
+   "pop": 25
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "rule",
+   "term": "mahjong rule",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "rule",
+   "term": "rule",
+   "pop": 29
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "tile",
+   "term": "mahjong tile",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "tile",
+   "term": "tile",
+   "pop": 55
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "tutor",
+   "term": "mahjong tutor",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "dropped",
+   "word": "tutor",
+   "term": "tutor",
+   "pop": 35
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "coach",
+   "term": "mahjong coach",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "coach",
+   "term": "coach",
+   "pop": 55
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "practise",
+   "term": "mahjong practise",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "practise",
+   "term": "practise",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "quiz",
+   "term": "mahjong quiz",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "quiz",
+   "term": "quiz",
+   "pop": 58
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "rules",
+   "term": "mahjong rules",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "rules",
+   "term": "rules",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "tutorial",
+   "term": "mahjong tutorial",
+   "pop": 5
+  },
+  {
+   "loc": "en-GB",
+   "kind": "added",
+   "word": "tutorial",
+   "term": "tutorial",
+   "pop": 5
+  }
+ ],
+ "ca": [
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "beginner",
+   "term": "mahjong beginner",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "beginner",
+   "term": "beginner",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "cards",
+   "term": "mahjong cards",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "cards",
+   "term": "cards",
+   "pop": 46
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "drill",
+   "term": "mahjong drill",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "drill",
+   "term": "drill",
+   "pop": 25
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "flashcard",
+   "term": "mahjong flashcard",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "flashcard",
+   "term": "flashcard",
+   "pop": 36
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "hand",
+   "term": "mahjong hand",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "hand",
+   "term": "hand",
+   "pop": 25
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "tile",
+   "term": "mahjong tile",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "dropped",
+   "word": "tile",
+   "term": "tile",
+   "pop": 59
+  },
+  {
+   "loc": "en-CA",
+   "kind": "added",
+   "word": "beginners",
+   "term": "mahjong beginners",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "added",
+   "word": "beginners",
+   "term": "beginners",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "added",
+   "word": "card",
+   "term": "mahjong card",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "added",
+   "word": "card",
+   "term": "card",
+   "pop": 52
+  },
+  {
+   "loc": "en-CA",
+   "kind": "added",
+   "word": "free",
+   "term": "mahjong free",
+   "pop": 61
+  },
+  {
+   "loc": "en-CA",
+   "kind": "added",
+   "word": "free",
+   "term": "free",
+   "pop": 56
+  },
+  {
+   "loc": "en-CA",
+   "kind": "added",
+   "word": "practise",
+   "term": "mahjong practise",
+   "pop": 5
+  },
+  {
+   "loc": "en-CA",
+   "kind": "added",
+   "word": "practise",
+   "term": "practise",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "bambou",
+   "term": "mahjong bambou",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "bambou",
+   "term": "bambou",
+   "pop": 17
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "caractère",
+   "term": "mahjong caractère",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "caractère",
+   "term": "caractère",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "charleston",
+   "term": "mahjong charleston",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "charleston",
+   "term": "charleston",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "dragon",
+   "term": "mahjong dragon",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "dragon",
+   "term": "dragon",
+   "pop": 55
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "fleur",
+   "term": "mahjong fleur",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "fleur",
+   "term": "fleur",
+   "pop": 29
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "joker",
+   "term": "mahjong joker",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "joker",
+   "term": "joker",
+   "pop": 35
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "kong",
+   "term": "mahjong kong",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "kong",
+   "term": "kong",
+   "pop": 18
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "point",
+   "term": "mahjong point",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "point",
+   "term": "point",
+   "pop": 37
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "pung",
+   "term": "mahjong pung",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "pung",
+   "term": "pung",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "rack",
+   "term": "mahjong rack",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "rack",
+   "term": "rack",
+   "pop": 23
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "tactique",
+   "term": "mahjong tactique",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "tactique",
+   "term": "tactique",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "truc",
+   "term": "mahjong truc",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "truc",
+   "term": "truc",
+   "pop": 13
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "tuile",
+   "term": "mahjong tuile",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "tuile",
+   "term": "tuile",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "vent",
+   "term": "mahjong vent",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "dropped",
+   "word": "vent",
+   "term": "vent",
+   "pop": 30
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "américain",
+   "term": "mahjong américain",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "américain",
+   "term": "américain",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "apprendre",
+   "term": "mahjong apprendre",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "apprendre",
+   "term": "apprendre",
+   "pop": 26
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "chevalet",
+   "term": "mahjong chevalet",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "chevalet",
+   "term": "chevalet",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "coach",
+   "term": "mahjong coach",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "coach",
+   "term": "coach",
+   "pop": 53
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "exercices",
+   "term": "mahjong exercices",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "exercices",
+   "term": "exercices",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "game",
+   "term": "mahjong game",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "game",
+   "term": "game",
+   "pop": 67
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "gratuit",
+   "term": "mahjong gratuit",
+   "pop": 22
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "gratuit",
+   "term": "gratuit",
+   "pop": 34
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "jeu",
+   "term": "mahjong jeu",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "jeu",
+   "term": "jeu",
+   "pop": 54
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "school",
+   "term": "mahjong school",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "school",
+   "term": "school",
+   "pop": 55
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "teacher",
+   "term": "mahjong teacher",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "teacher",
+   "term": "teacher",
+   "pop": 33
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "tuiles",
+   "term": "mahjong tuiles",
+   "pop": 5
+  },
+  {
+   "loc": "fr-CA",
+   "kind": "added",
+   "word": "tuiles",
+   "term": "tuiles",
+   "pop": 5
+  }
+ ],
+ "mx": [
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "bambú",
+   "term": "mahjong bambú",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "bambú",
+   "term": "bambú",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "carácter",
+   "term": "mahjong carácter",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "carácter",
+   "term": "carácter",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "consejo",
+   "term": "mahjong consejo",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "consejo",
+   "term": "consejo",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "dragón",
+   "term": "mahjong dragón",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "dragón",
+   "term": "dragón",
+   "pop": 23
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "flor",
+   "term": "mahjong flor",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "flor",
+   "term": "flor",
+   "pop": 49
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "jongg",
+   "term": "mahjong jongg",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "jongg",
+   "term": "jongg",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "juego",
+   "term": "mahjong juego",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "juego",
+   "term": "juego",
+   "pop": 60
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "kong",
+   "term": "mahjong kong",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "kong",
+   "term": "kong",
+   "pop": 28
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "mah",
+   "term": "mahjong mah",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "mah",
+   "term": "mah",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "pung",
+   "term": "mahjong pung",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "pung",
+   "term": "pung",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "punto",
+   "term": "mahjong punto",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "punto",
+   "term": "punto",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "táctica",
+   "term": "mahjong táctica",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "táctica",
+   "term": "táctica",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "usa",
+   "term": "mahjong usa",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "usa",
+   "term": "usa",
+   "pop": 27
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "viento",
+   "term": "mahjong viento",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "dropped",
+   "word": "viento",
+   "term": "viento",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "americano",
+   "term": "mahjong americano",
+   "pop": 33
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "americano",
+   "term": "americano",
+   "pop": 24
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "aprende",
+   "term": "mahjong aprende",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "aprende",
+   "term": "aprende",
+   "pop": 52
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "aprender",
+   "term": "mahjong aprender",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "aprender",
+   "term": "aprender",
+   "pop": 25
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "atril",
+   "term": "mahjong atril",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "atril",
+   "term": "atril",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "español",
+   "term": "mahjong español",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "español",
+   "term": "español",
+   "pop": 24
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "estilo",
+   "term": "mahjong estilo",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "estilo",
+   "term": "estilo",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "estrategia",
+   "term": "mahjong estrategia",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "estrategia",
+   "term": "estrategia",
+   "pop": 43
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "game",
+   "term": "mahjong game",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "game",
+   "term": "game",
+   "pop": 25
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "mahjong",
+   "term": "mahjong",
+   "pop": 56
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "mahjong",
+   "term": "mahjong",
+   "pop": 56
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "práctica",
+   "term": "mahjong práctica",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "práctica",
+   "term": "práctica",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "reglas",
+   "term": "mahjong reglas",
+   "pop": 5
+  },
+  {
+   "loc": "es-MX",
+   "kind": "added",
+   "word": "reglas",
+   "term": "reglas",
+   "pop": 5
+  }
+ ],
+ "br": [
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "bambu",
+   "term": "mahjong bambu",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "bambu",
+   "term": "bambu",
+   "pop": 41
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "caractere",
+   "term": "mahjong caractere",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "caractere",
+   "term": "caractere",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "dica",
+   "term": "mahjong dica",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "dica",
+   "term": "dica",
+   "pop": 6
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "dragão",
+   "term": "mahjong dragão",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "dragão",
+   "term": "dragão",
+   "pop": 35
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "kong",
+   "term": "mahjong kong",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "kong",
+   "term": "kong",
+   "pop": 32
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "peça",
+   "term": "mahjong peça",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "peça",
+   "term": "peça",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "prática",
+   "term": "mahjong prática",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "prática",
+   "term": "prática",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "pung",
+   "term": "mahjong pung",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "pung",
+   "term": "pung",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "quiz",
+   "term": "mahjong quiz",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "quiz",
+   "term": "quiz",
+   "pop": 55
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "rack",
+   "term": "mahjong rack",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "dropped",
+   "word": "rack",
+   "term": "rack",
+   "pop": 23
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "americano",
+   "term": "mahjong americano",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "americano",
+   "term": "americano",
+   "pop": 25
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "coach",
+   "term": "mahjong coach",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "coach",
+   "term": "coach",
+   "pop": 35
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "dicas",
+   "term": "mahjong dicas",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "dicas",
+   "term": "dicas",
+   "pop": 46
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "grátis",
+   "term": "mahjong grátis",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "grátis",
+   "term": "grátis",
+   "pop": 25
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "jogo",
+   "term": "mahjong jogo",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "jogo",
+   "term": "jogo",
+   "pop": 74
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "offline",
+   "term": "mahjong offline",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "offline",
+   "term": "offline",
+   "pop": 62
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "peças",
+   "term": "mahjong peças",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "peças",
+   "term": "peças",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "treino",
+   "term": "mahjong treino",
+   "pop": 5
+  },
+  {
+   "loc": "pt-BR",
+   "kind": "added",
+   "word": "treino",
+   "term": "treino",
+   "pop": 68
+  }
+ ],
+ "de": [
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "bambus",
+   "term": "mahjong bambus",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "bambus",
+   "term": "bambus",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "blume",
+   "term": "mahjong blume",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "blume",
+   "term": "blume",
+   "pop": 6
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "drache",
+   "term": "mahjong drache",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "drache",
+   "term": "drache",
+   "pop": 12
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "gestell",
+   "term": "mahjong gestell",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "gestell",
+   "term": "gestell",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "hand",
+   "term": "mahjong hand",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "hand",
+   "term": "hand",
+   "pop": 31
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "joker",
+   "term": "mahjong joker",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "joker",
+   "term": "joker",
+   "pop": 45
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "kong",
+   "term": "mahjong kong",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "kong",
+   "term": "kong",
+   "pop": 26
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "pung",
+   "term": "mahjong pung",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "pung",
+   "term": "pung",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "punkt",
+   "term": "mahjong punkt",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "punkt",
+   "term": "punkt",
+   "pop": 23
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "quiz",
+   "term": "mahjong quiz",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "quiz",
+   "term": "quiz",
+   "pop": 60
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "stein",
+   "term": "mahjong stein",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "stein",
+   "term": "stein",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "tipp",
+   "term": "mahjong tipp",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "tipp",
+   "term": "tipp",
+   "pop": 34
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "wind",
+   "term": "mahjong wind",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "wind",
+   "term": "wind",
+   "pop": 44
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "zeichen",
+   "term": "mahjong zeichen",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "zeichen",
+   "term": "zeichen",
+   "pop": 24
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "übung",
+   "term": "mahjong übung",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "dropped",
+   "word": "übung",
+   "term": "übung",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "amerikanisch",
+   "term": "mahjong amerikanisch",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "amerikanisch",
+   "term": "amerikanisch",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "anleitung",
+   "term": "mahjong anleitung",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "anleitung",
+   "term": "anleitung",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "einsteiger",
+   "term": "mahjong einsteiger",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "einsteiger",
+   "term": "einsteiger",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "jongg",
+   "term": "mahjong jongg",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "jongg",
+   "term": "jongg",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "karte",
+   "term": "mahjong karte",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "karte",
+   "term": "karte",
+   "pop": 42
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "kostenlos",
+   "term": "mahjong kostenlos",
+   "pop": 64
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "kostenlos",
+   "term": "kostenlos",
+   "pop": 32
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "kurs",
+   "term": "mahjong kurs",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "kurs",
+   "term": "kurs",
+   "pop": 23
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "lektion",
+   "term": "mahjong lektion",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "lektion",
+   "term": "lektion",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "schule",
+   "term": "mahjong schule",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "schule",
+   "term": "schule",
+   "pop": 58
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "steine",
+   "term": "mahjong steine",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "steine",
+   "term": "steine",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "tipps",
+   "term": "mahjong tipps",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "tipps",
+   "term": "tipps",
+   "pop": 45
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "üben",
+   "term": "mahjong üben",
+   "pop": 5
+  },
+  {
+   "loc": "de-DE",
+   "kind": "added",
+   "word": "üben",
+   "term": "üben",
+   "pop": 5
+  }
+ ]
+}
