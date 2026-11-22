@@ -1,0 +1,10485 @@
+{
+ "app_id": 6790052126,
+ "base": "868bda3",
+ "taken": "2026-11-21 20:55",
+ "locales": {
+  "ar-SA": [
+   {
+    "term": "Mahj Trainer: ماهجونج أمريكي",
+    "kind": "name",
+    "store": "sa",
+    "rank": "1/1"
+   },
+   {
+    "term": "Mahj Trainer: ماهجونج أمريكي",
+    "kind": "name",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "قواعد وتمارين للمبتدئين",
+    "kind": "subtitle",
+    "store": "sa",
+    "rank": "-/19"
+   },
+   {
+    "term": "قواعد وتمارين للمبتدئين",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "-/19"
+   },
+   {
+    "term": "استراتيجية تشارلستون واليد",
+    "kind": "old subtitle",
+    "store": "sa",
+    "rank": "1/1"
+   },
+   {
+    "term": "استراتيجية تشارلستون واليد",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "ماجونج",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/158"
+   },
+   {
+    "term": "ماجونج",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/171"
+   },
+   {
+    "term": "ماهجونغ",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/199"
+   },
+   {
+    "term": "ماهجونغ",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/197"
+   },
+   {
+    "term": "ماجونغ",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/85"
+   },
+   {
+    "term": "ماجونغ",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/86"
+   },
+   {
+    "term": "تعلم",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/178"
+   },
+   {
+    "term": "تعلم",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/169"
+   },
+   {
+    "term": "تدريب",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/198"
+   },
+   {
+    "term": "تدريب",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "اختبار",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/193"
+   },
+   {
+    "term": "اختبار",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/196"
+   },
+   {
+    "term": "مجاني",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/154"
+   },
+   {
+    "term": "مجاني",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/148"
+   },
+   {
+    "term": "لعبة",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/172"
+   },
+   {
+    "term": "لعبة",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/169"
+   },
+   {
+    "term": "جوكر",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/179"
+   },
+   {
+    "term": "جوكر",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "تشارلستون",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/84"
+   },
+   {
+    "term": "تشارلستون",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "85/124"
+   },
+   {
+    "term": "دروس",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/187"
+   },
+   {
+    "term": "دروس",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/181"
+   },
+   {
+    "term": "أسئلة",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/197"
+   },
+   {
+    "term": "أسئلة",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/197"
+   },
+   {
+    "term": "استراتيجية",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/194"
+   },
+   {
+    "term": "استراتيجية",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "بلاطة",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/192"
+   },
+   {
+    "term": "بلاطة",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "104/192"
+   },
+   {
+    "term": "ريح",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/190"
+   },
+   {
+    "term": "ريح",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/191"
+   },
+   {
+    "term": "تنين",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/190"
+   },
+   {
+    "term": "تنين",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/167"
+   },
+   {
+    "term": "زهرة",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/191"
+   },
+   {
+    "term": "زهرة",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "153/186"
+   },
+   {
+    "term": "مبتدئين",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/193"
+   },
+   {
+    "term": "مبتدئين",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "28/188"
+   },
+   {
+    "term": "نصيحة",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "158/161"
+   },
+   {
+    "term": "نصيحة",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "26/169"
+   },
+   {
+    "term": "قاعدة",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/181"
+   },
+   {
+    "term": "قاعدة",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "56/184"
+   },
+   {
+    "term": "دليل",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/163"
+   },
+   {
+    "term": "دليل",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/158"
+   },
+   {
+    "term": "بطاقة",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/188"
+   },
+   {
+    "term": "بطاقة",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "احتفظ",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "51/53"
+   },
+   {
+    "term": "احتفظ",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "9/54"
+   },
+   {
+    "term": "ارمِ",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/194"
+   },
+   {
+    "term": "ارمِ",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/182"
+   },
+   {
+    "term": "بونج",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "-/196"
+   },
+   {
+    "term": "بونج",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/182"
+   },
+   {
+    "term": "استعد",
+    "kind": "dropped keyword",
+    "store": "sa",
+    "rank": "121/130"
+   },
+   {
+    "term": "استعد",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "20/127"
+   },
+   {
+    "term": "شرح",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/189"
+   },
+   {
+    "term": "شرح",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/186"
+   },
+   {
+    "term": "اوفلاين",
+    "kind": "keyword",
+    "store": "sa",
+    "rank": "-/176"
+   },
+   {
+    "term": "اوفلاين",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/174"
+   }
+  ],
+  "bn-BD": [
+   {
+    "term": "Mahj Trainer: মাহজং শিখুন",
+    "kind": "name",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "আমেরিকান নিয়ম ও চার্লস্টন",
+    "kind": "subtitle",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: মাহজং অনুশীলন",
+    "kind": "old name",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "টাইল, চার্লস্টন ও কৌশল শিখুন",
+    "kind": "old subtitle",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "অনুশীলন",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "নতুন",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "টিউটোরিয়াল",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "গাইড",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "গেম",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "টাইল",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "জোকার",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "র‍্যাক",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "কৌশল",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "কুইজ",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "কোচ",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "খেলা",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "বিনামূল্যে",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "অফলাইন",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "মাহজোং",
+    "kind": "keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "ডট",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "ব্যাম",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "ক্র্যাক",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "ড্রাগন",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "উইন্ড",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "ফ্লাওয়ার",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "হ্যান্ড",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "নিয়ম",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "টিপ",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   },
+   {
+    "term": "পাং",
+    "kind": "dropped keyword",
+    "store": "bd",
+    "rank": "-/0"
+   }
+  ],
+  "ca": [
+   {
+    "term": "Mahj Trainer: Aprèn Mahjong",
+    "kind": "name",
+    "store": "es",
+    "rank": "-/0"
+   },
+   {
+    "term": "Americà, regles i Charleston",
+    "kind": "subtitle",
+    "store": "es",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, regles i pràctica",
+    "kind": "old subtitle",
+    "store": "es",
+    "rank": "-/0"
+   },
+   {
+    "term": "principiant",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/169"
+   },
+   {
+    "term": "fitxes",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/176"
+   },
+   {
+    "term": "comodí",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/6"
+   },
+   {
+    "term": "targeta",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/192"
+   },
+   {
+    "term": "exercicis",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/174"
+   },
+   {
+    "term": "partida",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/178"
+   },
+   {
+    "term": "curs",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/188"
+   },
+   {
+    "term": "joc",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/169"
+   },
+   {
+    "term": "guia",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/174"
+   },
+   {
+    "term": "mà",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/197"
+   },
+   {
+    "term": "lecciones",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/189"
+   },
+   {
+    "term": "consejos",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/159"
+   },
+   {
+    "term": "normas",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/160"
+   },
+   {
+    "term": "jugar",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/188"
+   },
+   {
+    "term": "fitxa",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/51"
+   },
+   {
+    "term": "punt",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/184"
+   },
+   {
+    "term": "bambú",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/155"
+   },
+   {
+    "term": "caràcter",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/174"
+   },
+   {
+    "term": "vent",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/190"
+   },
+   {
+    "term": "drac",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/139"
+   },
+   {
+    "term": "flor",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/179"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/174"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/179"
+   },
+   {
+    "term": "tutorial",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/145"
+   },
+   {
+    "term": "consell",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/46"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/176"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/182"
+   }
+  ],
+  "cs": [
+   {
+    "term": "Mahj Trainer: Mahjong pravidla",
+    "kind": "name",
+    "store": "cz",
+    "rank": "-/0"
+   },
+   {
+    "term": "Cvičení pro začátečníky",
+    "kind": "subtitle",
+    "store": "cz",
+    "rank": "-/81"
+   },
+   {
+    "term": "Charleston, kostky a cvičení",
+    "kind": "old subtitle",
+    "store": "cz",
+    "rank": "-/0"
+   },
+   {
+    "term": "americký",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/70"
+   },
+   {
+    "term": "zdarma",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/180"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/167"
+   },
+   {
+    "term": "naučit",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/190"
+   },
+   {
+    "term": "kameny",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/190"
+   },
+   {
+    "term": "kurz",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/175"
+   },
+   {
+    "term": "výuka",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/171"
+   },
+   {
+    "term": "návod",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/138"
+   },
+   {
+    "term": "tipy",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/172"
+   },
+   {
+    "term": "strategie",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/192"
+   },
+   {
+    "term": "ruka",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/183"
+   },
+   {
+    "term": "hra",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/153"
+   },
+   {
+    "term": "lekce",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/192"
+   },
+   {
+    "term": "trénink",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/187"
+   },
+   {
+    "term": "kvíz",
+    "kind": "keyword",
+    "store": "cz",
+    "rank": "-/182"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/181"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/164"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/164"
+   },
+   {
+    "term": "vítr",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/169"
+   },
+   {
+    "term": "drak",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/173"
+   },
+   {
+    "term": "květina",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/69"
+   },
+   {
+    "term": "žolík",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/190"
+   },
+   {
+    "term": "stojan",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/5"
+   },
+   {
+    "term": "začátečník",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/195"
+   },
+   {
+    "term": "tip",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/176"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/180"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/191"
+   },
+   {
+    "term": "deska",
+    "kind": "dropped keyword",
+    "store": "cz",
+    "rank": "-/190"
+   }
+  ],
+  "da": [
+   {
+    "term": "Mahj Trainer: Lær Mahjong",
+    "kind": "name",
+    "store": "dk",
+    "rank": "-/1"
+   },
+   {
+    "term": "Regler og øvelse for begyndere",
+    "kind": "subtitle",
+    "store": "dk",
+    "rank": "-/4"
+   },
+   {
+    "term": "Mahj Trainer: Mahjong-regler",
+    "kind": "old name",
+    "store": "dk",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, brikker og øvelse",
+    "kind": "old subtitle",
+    "store": "dk",
+    "rank": "-/0"
+   },
+   {
+    "term": "amerikansk",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/137"
+   },
+   {
+    "term": "nybegynder",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/137"
+   },
+   {
+    "term": "gratis",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/155"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/173"
+   },
+   {
+    "term": "brikker",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/163"
+   },
+   {
+    "term": "kursus",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/128"
+   },
+   {
+    "term": "træning",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/189"
+   },
+   {
+    "term": "vejledning",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/109"
+   },
+   {
+    "term": "tips",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/186"
+   },
+   {
+    "term": "kort",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/174"
+   },
+   {
+    "term": "strategi",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/198"
+   },
+   {
+    "term": "hånd",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/165"
+   },
+   {
+    "term": "spil",
+    "kind": "keyword",
+    "store": "dk",
+    "rank": "-/150"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/180"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/169"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/161"
+   },
+   {
+    "term": "vind",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/168"
+   },
+   {
+    "term": "drage",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/165"
+   },
+   {
+    "term": "blomst",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/151"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/174"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/169"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/171"
+   },
+   {
+    "term": "nybegynner",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/20"
+   },
+   {
+    "term": "guide",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/190"
+   },
+   {
+    "term": "tip",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/165"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/178"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/184"
+   },
+   {
+    "term": "bræt",
+    "kind": "dropped keyword",
+    "store": "dk",
+    "rank": "-/173"
+   }
+  ],
+  "de-DE": [
+   {
+    "term": "Mahj Trainer: Mahjong lernen",
+    "kind": "name",
+    "store": "de",
+    "rank": "-/1"
+   },
+   {
+    "term": "Anfänger: Regeln & Charleston",
+    "kind": "subtitle",
+    "store": "de",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, Regeln & Übung",
+    "kind": "old subtitle",
+    "store": "de",
+    "rank": "-/0"
+   },
+   {
+    "term": "amerikanisch",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/114"
+   },
+   {
+    "term": "üben",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/188"
+   },
+   {
+    "term": "kostenlos",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/193"
+   },
+   {
+    "term": "anleitung",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/160"
+   },
+   {
+    "term": "kurs",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/181"
+   },
+   {
+    "term": "taktik",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/188"
+   },
+   {
+    "term": "einsteiger",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/91"
+   },
+   {
+    "term": "schule",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/168"
+   },
+   {
+    "term": "jongg",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/122"
+   },
+   {
+    "term": "tipps",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/164"
+   },
+   {
+    "term": "steine",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/185"
+   },
+   {
+    "term": "karte",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/183"
+   },
+   {
+    "term": "lektion",
+    "kind": "keyword",
+    "store": "de",
+    "rank": "-/148"
+   },
+   {
+    "term": "stein",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/190"
+   },
+   {
+    "term": "punkt",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/180"
+   },
+   {
+    "term": "bambus",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/31"
+   },
+   {
+    "term": "zeichen",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/187"
+   },
+   {
+    "term": "wind",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/173"
+   },
+   {
+    "term": "drache",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/159"
+   },
+   {
+    "term": "blume",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/146"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/171"
+   },
+   {
+    "term": "gestell",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/19"
+   },
+   {
+    "term": "hand",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/182"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/167"
+   },
+   {
+    "term": "anfänger",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/158"
+   },
+   {
+    "term": "tipp",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/169"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/114"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "de",
+    "rank": "-/177"
+   }
+  ],
+  "el": [
+   {
+    "term": "Mahj Trainer: Μάθε Mahjong",
+    "kind": "name",
+    "store": "gr",
+    "rank": "-/0"
+   },
+   {
+    "term": "Κανόνες, Charleston, εξάσκηση",
+    "kind": "subtitle",
+    "store": "gr",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Κανόνες Mahjong",
+    "kind": "old name",
+    "store": "gr",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, πλακίδια, εξάσκηση",
+    "kind": "old subtitle",
+    "store": "gr",
+    "rank": "-/0"
+   },
+   {
+    "term": "αμερικάνικο",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/34"
+   },
+   {
+    "term": "αρχάριοι",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/177"
+   },
+   {
+    "term": "εκμάθηση",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/163"
+   },
+   {
+    "term": "μαθήματα",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/189"
+   },
+   {
+    "term": "οδηγός",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/193"
+   },
+   {
+    "term": "δωρεάν",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/166"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/176"
+   },
+   {
+    "term": "πλακίδια",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/119"
+   },
+   {
+    "term": "τζόκερ",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/39"
+   },
+   {
+    "term": "πώς",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/145"
+   },
+   {
+    "term": "παίζεται",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/2"
+   },
+   {
+    "term": "μαχζόνγκ",
+    "kind": "keyword",
+    "store": "gr",
+    "rank": "-/2"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/173"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/173"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/164"
+   },
+   {
+    "term": "άνεμος",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/165"
+   },
+   {
+    "term": "δράκος",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/106"
+   },
+   {
+    "term": "λουλούδι",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/116"
+   },
+   {
+    "term": "βάση",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/79"
+   },
+   {
+    "term": "χέρι",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/122"
+   },
+   {
+    "term": "κουίζ",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/185"
+   },
+   {
+    "term": "αρχάριος",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/192"
+   },
+   {
+    "term": "συμβουλή",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/23"
+   },
+   {
+    "term": "στρατηγική",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/174"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "gr",
+    "rank": "-/183"
+   }
+  ],
+  "en-AU": [
+   {
+    "term": "Mahj Trainer: Mahjong Lessons",
+    "kind": "name",
+    "store": "au",
+    "rank": "11/179"
+   },
+   {
+    "term": "American Mahjong for Beginners",
+    "kind": "subtitle",
+    "store": "au",
+    "rank": "18/191"
+   },
+   {
+    "term": "Mahj Trainer: Mahjong Practice",
+    "kind": "old name",
+    "store": "au",
+    "rank": "1/178"
+   },
+   {
+    "term": "Learn American Mah Jongg Cards",
+    "kind": "old subtitle",
+    "store": "au",
+    "rank": "9/167"
+   },
+   {
+    "term": "guide",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/180"
+   },
+   {
+    "term": "school",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/181"
+   },
+   {
+    "term": "tips",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/192"
+   },
+   {
+    "term": "study",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/194"
+   },
+   {
+    "term": "course",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/192"
+   },
+   {
+    "term": "training",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/190"
+   },
+   {
+    "term": "test",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/184"
+   },
+   {
+    "term": "skills",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/187"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/184"
+   },
+   {
+    "term": "game",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/184"
+   },
+   {
+    "term": "glossary",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/83"
+   },
+   {
+    "term": "flashcard",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/194"
+   },
+   {
+    "term": "review",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/184"
+   },
+   {
+    "term": "tutor",
+    "kind": "keyword",
+    "store": "au",
+    "rank": "-/191"
+   },
+   {
+    "term": "majong",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/192"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/166"
+   },
+   {
+    "term": "mahjongg",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/199"
+   },
+   {
+    "term": "tile",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/196"
+   },
+   {
+    "term": "nmjl",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "20/59"
+   },
+   {
+    "term": "charleston",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/87"
+   },
+   {
+    "term": "beginner",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/192"
+   },
+   {
+    "term": "lesson",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/183"
+   },
+   {
+    "term": "drill",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/187"
+   },
+   {
+    "term": "rule",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/168"
+   },
+   {
+    "term": "hand",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/185"
+   },
+   {
+    "term": "strategy",
+    "kind": "dropped keyword",
+    "store": "au",
+    "rank": "-/197"
+   }
+  ],
+  "en-CA": [
+   {
+    "term": "Mahj Trainer: Mahjong Practice",
+    "kind": "name",
+    "store": "ca",
+    "rank": "1/175"
+   },
+   {
+    "term": "American Mahjong for Beginners",
+    "kind": "subtitle",
+    "store": "ca",
+    "rank": "8/192"
+   },
+   {
+    "term": "Learn American Mah Jongg Cards",
+    "kind": "old subtitle",
+    "store": "ca",
+    "rank": "11/174"
+   },
+   {
+    "term": "majong",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/191"
+   },
+   {
+    "term": "mahjongg",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "102/198"
+   },
+   {
+    "term": "joker",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/172"
+   },
+   {
+    "term": "nmjl",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "14/72"
+   },
+   {
+    "term": "charleston",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/102"
+   },
+   {
+    "term": "learn",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/189"
+   },
+   {
+    "term": "tutor",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/195"
+   },
+   {
+    "term": "lesson",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/183"
+   },
+   {
+    "term": "rule",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/173"
+   },
+   {
+    "term": "strategy",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/195"
+   },
+   {
+    "term": "free",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/195"
+   },
+   {
+    "term": "practise",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/191"
+   },
+   {
+    "term": "mah",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/180"
+   },
+   {
+    "term": "jongg",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "63/164"
+   },
+   {
+    "term": "card",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/197"
+   },
+   {
+    "term": "tile",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/196"
+   },
+   {
+    "term": "flashcard",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/193"
+   },
+   {
+    "term": "beginner",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/188"
+   },
+   {
+    "term": "drill",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/185"
+   },
+   {
+    "term": "hand",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/189"
+   }
+  ],
+  "en-GB": [
+   {
+    "term": "Mahj Trainer: American Mahjong",
+    "kind": "name",
+    "store": "gb",
+    "rank": "9/177"
+   },
+   {
+    "term": "Learn the Rules and Charleston",
+    "kind": "subtitle",
+    "store": "gb",
+    "rank": "30/100"
+   },
+   {
+    "term": "Mahj Trainer: Mahjong Practice",
+    "kind": "old name",
+    "store": "gb",
+    "rank": "1/176"
+   },
+   {
+    "term": "Learn American Mah Jongg Cards",
+    "kind": "old subtitle",
+    "store": "gb",
+    "rank": "11/172"
+   },
+   {
+    "term": "practise",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/192"
+   },
+   {
+    "term": "practice",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/191"
+   },
+   {
+    "term": "beginner",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/192"
+   },
+   {
+    "term": "tutorial",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/165"
+   },
+   {
+    "term": "lesson",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/181"
+   },
+   {
+    "term": "coach",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/197"
+   },
+   {
+    "term": "quiz",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/191"
+   },
+   {
+    "term": "nmjl",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "18/59"
+   },
+   {
+    "term": "mahjongg",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/200"
+   },
+   {
+    "term": "majong",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/182"
+   },
+   {
+    "term": "joker",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/166"
+   },
+   {
+    "term": "strategy",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/193"
+   },
+   {
+    "term": "mah",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "-/185"
+   },
+   {
+    "term": "jongg",
+    "kind": "keyword",
+    "store": "gb",
+    "rank": "72/154"
+   },
+   {
+    "term": "tile",
+    "kind": "dropped keyword",
+    "store": "gb",
+    "rank": "-/194"
+   },
+   {
+    "term": "charleston",
+    "kind": "dropped keyword",
+    "store": "gb",
+    "rank": "-/91"
+   },
+   {
+    "term": "flashcard",
+    "kind": "dropped keyword",
+    "store": "gb",
+    "rank": "-/195"
+   },
+   {
+    "term": "tutor",
+    "kind": "dropped keyword",
+    "store": "gb",
+    "rank": "-/193"
+   },
+   {
+    "term": "drill",
+    "kind": "dropped keyword",
+    "store": "gb",
+    "rank": "-/174"
+   },
+   {
+    "term": "rule",
+    "kind": "dropped keyword",
+    "store": "gb",
+    "rank": "-/173"
+   },
+   {
+    "term": "hand",
+    "kind": "dropped keyword",
+    "store": "gb",
+    "rank": "-/177"
+   }
+  ],
+  "es-ES": [
+   {
+    "term": "Mahj Trainer: Aprende Mahjong",
+    "kind": "name",
+    "store": "es",
+    "rank": "-/1"
+   },
+   {
+    "term": "Mahjong americano y Charleston",
+    "kind": "subtitle",
+    "store": "es",
+    "rank": "-/25"
+   },
+   {
+    "term": "Charleston, reglas y fichas",
+    "kind": "old subtitle",
+    "store": "es",
+    "rank": "-/8"
+   },
+   {
+    "term": "reglas",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/182"
+   },
+   {
+    "term": "principiante",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/179"
+   },
+   {
+    "term": "práctica",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/182"
+   },
+   {
+    "term": "ejercicios",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/185"
+   },
+   {
+    "term": "fichas",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/194"
+   },
+   {
+    "term": "atril",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/82"
+   },
+   {
+    "term": "comodín",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/87"
+   },
+   {
+    "term": "tarjeta",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/185"
+   },
+   {
+    "term": "estrategia",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/195"
+   },
+   {
+    "term": "curso",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/180"
+   },
+   {
+    "term": "gratis",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/175"
+   },
+   {
+    "term": "juego",
+    "kind": "keyword",
+    "store": "es",
+    "rank": "-/161"
+   },
+   {
+    "term": "punto",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/191"
+   },
+   {
+    "term": "bambú",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/155"
+   },
+   {
+    "term": "carácter",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/178"
+   },
+   {
+    "term": "viento",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/184"
+   },
+   {
+    "term": "dragón",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/189"
+   },
+   {
+    "term": "flor",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/179"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/174"
+   },
+   {
+    "term": "mano",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/176"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/179"
+   },
+   {
+    "term": "tutorial",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/145"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/176"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/182"
+   },
+   {
+    "term": "mesa",
+    "kind": "dropped keyword",
+    "store": "es",
+    "rank": "-/127"
+   }
+  ],
+  "es-MX": [
+   {
+    "term": "Mahj Trainer: Aprende Mahjong",
+    "kind": "name",
+    "store": "mx",
+    "rank": "-/2"
+   },
+   {
+    "term": "Mahj Trainer: Aprende Mahjong",
+    "kind": "name",
+    "store": "us",
+    "rank": "74/182"
+   },
+   {
+    "term": "Charleston, estilo americano",
+    "kind": "subtitle",
+    "store": "mx",
+    "rank": "-/1"
+   },
+   {
+    "term": "Charleston, estilo americano",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "-/86"
+   },
+   {
+    "term": "Mahj Trainer: Mah Jongg USA",
+    "kind": "old name",
+    "store": "mx",
+    "rank": "1/86"
+   },
+   {
+    "term": "Mahj Trainer: Mah Jongg USA",
+    "kind": "old name",
+    "store": "us",
+    "rank": "1/183"
+   },
+   {
+    "term": "Charleston, fichas y táctica",
+    "kind": "old subtitle",
+    "store": "mx",
+    "rank": "1/8"
+   },
+   {
+    "term": "Charleston, fichas y táctica",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "3/126"
+   },
+   {
+    "term": "español",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/187"
+   },
+   {
+    "term": "español",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/180"
+   },
+   {
+    "term": "en",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/178"
+   },
+   {
+    "term": "en",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/176"
+   },
+   {
+    "term": "aprender",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/175"
+   },
+   {
+    "term": "aprender",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/170"
+   },
+   {
+    "term": "principiante",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/182"
+   },
+   {
+    "term": "principiante",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "75/179"
+   },
+   {
+    "term": "reglas",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/182"
+   },
+   {
+    "term": "reglas",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/189"
+   },
+   {
+    "term": "fichas",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/195"
+   },
+   {
+    "term": "fichas",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/199"
+   },
+   {
+    "term": "quiz",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/188"
+   },
+   {
+    "term": "quiz",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "game",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/185"
+   },
+   {
+    "term": "game",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/188"
+   },
+   {
+    "term": "práctica",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/187"
+   },
+   {
+    "term": "práctica",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/188"
+   },
+   {
+    "term": "comodín",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "27/97"
+   },
+   {
+    "term": "comodín",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "13/101"
+   },
+   {
+    "term": "atril",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/78"
+   },
+   {
+    "term": "atril",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/105"
+   },
+   {
+    "term": "rack",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/184"
+   },
+   {
+    "term": "rack",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "estrategia",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/194"
+   },
+   {
+    "term": "estrategia",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/193"
+   },
+   {
+    "term": "mano",
+    "kind": "keyword",
+    "store": "mx",
+    "rank": "-/171"
+   },
+   {
+    "term": "mano",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/163"
+   },
+   {
+    "term": "punto",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/191"
+   },
+   {
+    "term": "punto",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/182"
+   },
+   {
+    "term": "bambú",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "116/166"
+   },
+   {
+    "term": "bambú",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "123/185"
+   },
+   {
+    "term": "carácter",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/185"
+   },
+   {
+    "term": "carácter",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/168"
+   },
+   {
+    "term": "viento",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/174"
+   },
+   {
+    "term": "viento",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/174"
+   },
+   {
+    "term": "dragón",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/184"
+   },
+   {
+    "term": "dragón",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/165"
+   },
+   {
+    "term": "flor",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/178"
+   },
+   {
+    "term": "flor",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/182"
+   },
+   {
+    "term": "consejo",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/137"
+   },
+   {
+    "term": "consejo",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "101/161"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/182"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/191"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "juego",
+    "kind": "dropped keyword",
+    "store": "mx",
+    "rank": "-/167"
+   },
+   {
+    "term": "juego",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/169"
+   }
+  ],
+  "fi": [
+   {
+    "term": "Mahj Trainer: Opettele Mahjong",
+    "kind": "name",
+    "store": "fi",
+    "rank": "-/0"
+   },
+   {
+    "term": "Säännöt ja harjoitukset",
+    "kind": "subtitle",
+    "store": "fi",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Mahjong-säännöt",
+    "kind": "old name",
+    "store": "fi",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, laatat, harjoitus",
+    "kind": "old subtitle",
+    "store": "fi",
+    "rank": "-/0"
+   },
+   {
+    "term": "aloittelija",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/191"
+   },
+   {
+    "term": "amerikkalainen",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/72"
+   },
+   {
+    "term": "ilmainen",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/129"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/176"
+   },
+   {
+    "term": "laatta",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/179"
+   },
+   {
+    "term": "kurssi",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/186"
+   },
+   {
+    "term": "opas",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/194"
+   },
+   {
+    "term": "vinkki",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/158"
+   },
+   {
+    "term": "strategia",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/197"
+   },
+   {
+    "term": "käsi",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/182"
+   },
+   {
+    "term": "peli",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/159"
+   },
+   {
+    "term": "valmentaja",
+    "kind": "keyword",
+    "store": "fi",
+    "rank": "-/174"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/179"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/173"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/158"
+   },
+   {
+    "term": "tuuli",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/172"
+   },
+   {
+    "term": "lohikäärme",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/128"
+   },
+   {
+    "term": "kukka",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/138"
+   },
+   {
+    "term": "jokeri",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/178"
+   },
+   {
+    "term": "räkki",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/2"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/172"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/181"
+   },
+   {
+    "term": "lauta",
+    "kind": "dropped keyword",
+    "store": "fi",
+    "rank": "-/183"
+   }
+  ],
+  "fr-CA": [
+   {
+    "term": "Mahj Trainer: Pratique Mahjong",
+    "kind": "name",
+    "store": "ca",
+    "rank": "1/177"
+   },
+   {
+    "term": "Apprendre le mahjong américain",
+    "kind": "subtitle",
+    "store": "ca",
+    "rank": "129/175"
+   },
+   {
+    "term": "Charleston, règles et tactique",
+    "kind": "old subtitle",
+    "store": "ca",
+    "rank": "8/61"
+   },
+   {
+    "term": "débutant",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/175"
+   },
+   {
+    "term": "règles",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/184"
+   },
+   {
+    "term": "tuiles",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/185"
+   },
+   {
+    "term": "exercices",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/193"
+   },
+   {
+    "term": "tutoriel",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/173"
+   },
+   {
+    "term": "quiz",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/195"
+   },
+   {
+    "term": "main",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/180"
+   },
+   {
+    "term": "chevalet",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/179"
+   },
+   {
+    "term": "gratuit",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/190"
+   },
+   {
+    "term": "jeu",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/179"
+   },
+   {
+    "term": "coach",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/194"
+   },
+   {
+    "term": "game",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/189"
+   },
+   {
+    "term": "teacher",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/195"
+   },
+   {
+    "term": "school",
+    "kind": "keyword",
+    "store": "ca",
+    "rank": "-/180"
+   },
+   {
+    "term": "tuile",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/194"
+   },
+   {
+    "term": "point",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/182"
+   },
+   {
+    "term": "bambou",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "57/97"
+   },
+   {
+    "term": "caractère",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "122/164"
+   },
+   {
+    "term": "vent",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/186"
+   },
+   {
+    "term": "dragon",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/190"
+   },
+   {
+    "term": "fleur",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/178"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/172"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/167"
+   },
+   {
+    "term": "truc",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/182"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "71/131"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "ca",
+    "rank": "-/174"
+   }
+  ],
+  "fr-FR": [
+   {
+    "term": "Mahj Trainer: Cours de Mahjong",
+    "kind": "name",
+    "store": "fr",
+    "rank": "-/18"
+   },
+   {
+    "term": "Mahj Trainer: Cours de Mahjong",
+    "kind": "name",
+    "store": "us",
+    "rank": "1/181"
+   },
+   {
+    "term": "Mahjong américain, Charleston",
+    "kind": "subtitle",
+    "store": "fr",
+    "rank": "-/47"
+   },
+   {
+    "term": "Mahjong américain, Charleston",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "34/185"
+   },
+   {
+    "term": "Charleston, règles & tactique",
+    "kind": "old subtitle",
+    "store": "fr",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, règles & tactique",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "10/100"
+   },
+   {
+    "term": "apprendre",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/163"
+   },
+   {
+    "term": "apprendre",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/167"
+   },
+   {
+    "term": "débutant",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/168"
+   },
+   {
+    "term": "débutant",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/178"
+   },
+   {
+    "term": "règles",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/186"
+   },
+   {
+    "term": "règles",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/188"
+   },
+   {
+    "term": "tuile",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/185"
+   },
+   {
+    "term": "tuile",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/197"
+   },
+   {
+    "term": "entraînement",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/187"
+   },
+   {
+    "term": "entraînement",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "tutoriel",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/166"
+   },
+   {
+    "term": "tutoriel",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "120/172"
+   },
+   {
+    "term": "exercices",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/193"
+   },
+   {
+    "term": "exercices",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/194"
+   },
+   {
+    "term": "main",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/179"
+   },
+   {
+    "term": "main",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "chevalet",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/11"
+   },
+   {
+    "term": "chevalet",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/19"
+   },
+   {
+    "term": "gratuit",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/195"
+   },
+   {
+    "term": "gratuit",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/180"
+   },
+   {
+    "term": "teacher",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/175"
+   },
+   {
+    "term": "teacher",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/196"
+   },
+   {
+    "term": "school",
+    "kind": "keyword",
+    "store": "fr",
+    "rank": "-/167"
+   },
+   {
+    "term": "school",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/183"
+   },
+   {
+    "term": "point",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/171"
+   },
+   {
+    "term": "point",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/176"
+   },
+   {
+    "term": "bambou",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/103"
+   },
+   {
+    "term": "bambou",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "63/109"
+   },
+   {
+    "term": "caractère",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/146"
+   },
+   {
+    "term": "caractère",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "83/165"
+   },
+   {
+    "term": "vent",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/190"
+   },
+   {
+    "term": "vent",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/183"
+   },
+   {
+    "term": "dragon",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/180"
+   },
+   {
+    "term": "dragon",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "fleur",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/168"
+   },
+   {
+    "term": "fleur",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/186"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/186"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/166"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/176"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/164"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/158"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "fr",
+    "rank": "-/168"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/184"
+   }
+  ],
+  "gu-IN": [
+   {
+    "term": "Mahj Trainer: માહજોંગ શીખો",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "અમેરિકન નિયમ અને ચાર્લ્સટન",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: માહજોંગ અભ્યાસ",
+    "kind": "old name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ટાઇલ, ચાર્લ્સટન અને રણનીતિ",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "પ્રેક્ટિસ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "અભ્યાસ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/2"
+   },
+   {
+    "term": "ટ્યુટોરિયલ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "માર્ગદર્શિકા",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ગેમ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ટાઇલ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "જોકર",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "રેક",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "રણનીતિ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ક્વિઝ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "કોચ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "રમત",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "મફત",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ઓફલાઇન",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/2"
+   },
+   {
+    "term": "મહજોંગ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ડોટ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "બેમ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ક્રેક",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ડ્રેગન",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "વિન્ડ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ફ્લાવર",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "હેન્ડ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "નિયમ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "શરૂઆતી",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ટિપ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "પંગ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "કાર્ડ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   }
+  ],
+  "he": [
+   {
+    "term": "Mahj Trainer: מהג'ונג אמריקאי",
+    "kind": "name",
+    "store": "il",
+    "rank": "-/0"
+   },
+   {
+    "term": "חוקים ותרגול למתחילים",
+    "kind": "subtitle",
+    "store": "il",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: מאג'ונג אמריקאי",
+    "kind": "old name",
+    "store": "il",
+    "rank": "1/1"
+   },
+   {
+    "term": "אסטרטגיית צ'רלסטון וקריאת יד",
+    "kind": "old subtitle",
+    "store": "il",
+    "rank": "1/1"
+   },
+   {
+    "term": "מאג'ונג",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "3/10"
+   },
+   {
+    "term": "מהגונג",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/103"
+   },
+   {
+    "term": "מאגונג",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/7"
+   },
+   {
+    "term": "מתחילים",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/185"
+   },
+   {
+    "term": "כללים",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/23"
+   },
+   {
+    "term": "משחק",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/161"
+   },
+   {
+    "term": "לימוד",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/181"
+   },
+   {
+    "term": "אימון",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/185"
+   },
+   {
+    "term": "חידון",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/179"
+   },
+   {
+    "term": "ג'וקר",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "9/17"
+   },
+   {
+    "term": "צ'רלסטון",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "1/1"
+   },
+   {
+    "term": "מדריך",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/184"
+   },
+   {
+    "term": "אסטרטגיה",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/192"
+   },
+   {
+    "term": "אריחים",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/189"
+   },
+   {
+    "term": "חינם",
+    "kind": "keyword",
+    "store": "il",
+    "rank": "-/179"
+   },
+   {
+    "term": "אריח",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "79/81"
+   },
+   {
+    "term": "רוח",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "-/191"
+   },
+   {
+    "term": "דרקון",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "148/161"
+   },
+   {
+    "term": "פרח",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "-/166"
+   },
+   {
+    "term": "טיפ",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "-/174"
+   },
+   {
+    "term": "חוק",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "-/175"
+   },
+   {
+    "term": "קלף",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "-/153"
+   },
+   {
+    "term": "שמור",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "116/154"
+   },
+   {
+    "term": "זרוק",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "11/11"
+   },
+   {
+    "term": "פאנג",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "-/141"
+   },
+   {
+    "term": "בסיס",
+    "kind": "dropped keyword",
+    "store": "il",
+    "rank": "94/102"
+   }
+  ],
+  "hi": [
+   {
+    "term": "Mahj Trainer: महजोंग सीखें",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "अमेरिकन नियम और चार्ल्सटन पास",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: महजोंग अभ्यास",
+    "kind": "old name",
+    "store": "in",
+    "rank": "1/1"
+   },
+   {
+    "term": "टाइल, चार्ल्सटन रणनीति गाइड",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "1/1"
+   },
+   {
+    "term": "अभ्यास",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/199"
+   },
+   {
+    "term": "शुरुआती",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/195"
+   },
+   {
+    "term": "गेम",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/193"
+   },
+   {
+    "term": "टाइल",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/192"
+   },
+   {
+    "term": "जोकर",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/158"
+   },
+   {
+    "term": "रैक",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/174"
+   },
+   {
+    "term": "रणनीति",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/192"
+   },
+   {
+    "term": "क्विज़",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/196"
+   },
+   {
+    "term": "ट्यूटोरियल",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "88/88"
+   },
+   {
+    "term": "गाइड",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/198"
+   },
+   {
+    "term": "कोच",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/183"
+   },
+   {
+    "term": "खेल",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/197"
+   },
+   {
+    "term": "मुफ़्त",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/182"
+   },
+   {
+    "term": "कार्ड",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/192"
+   },
+   {
+    "term": "हैंड",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/190"
+   },
+   {
+    "term": "game",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/189"
+   },
+   {
+    "term": "tiles",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/197"
+   },
+   {
+    "term": "डॉट",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/197"
+   },
+   {
+    "term": "बैम",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/190"
+   },
+   {
+    "term": "क्रैक",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "42/44"
+   },
+   {
+    "term": "ड्रैगन",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/195"
+   },
+   {
+    "term": "विंड",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/187"
+   },
+   {
+    "term": "फ्लावर",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "10/11"
+   },
+   {
+    "term": "नियम",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "180/183"
+   },
+   {
+    "term": "क्विज",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/193"
+   },
+   {
+    "term": "टिप",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/183"
+   },
+   {
+    "term": "पंग",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/163"
+   }
+  ],
+  "hr": [
+   {
+    "term": "Mahj Trainer: Nauči mahjong",
+    "kind": "name",
+    "store": "hr",
+    "rank": "-/0"
+   },
+   {
+    "term": "Pravila, Charleston, vježbe",
+    "kind": "subtitle",
+    "store": "hr",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Pravila mahjonga",
+    "kind": "old name",
+    "store": "hr",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, pločice i vježbe",
+    "kind": "old subtitle",
+    "store": "hr",
+    "rank": "-/3"
+   },
+   {
+    "term": "američki",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/96"
+   },
+   {
+    "term": "početnici",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/169"
+   },
+   {
+    "term": "učenje",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/193"
+   },
+   {
+    "term": "tečaj",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/177"
+   },
+   {
+    "term": "lekcije",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/194"
+   },
+   {
+    "term": "vodič",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/175"
+   },
+   {
+    "term": "besplatno",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/183"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/171"
+   },
+   {
+    "term": "pločice",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/171"
+   },
+   {
+    "term": "kako",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/186"
+   },
+   {
+    "term": "igrati",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/88"
+   },
+   {
+    "term": "savjeti",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/176"
+   },
+   {
+    "term": "stalak",
+    "kind": "keyword",
+    "store": "hr",
+    "rank": "-/7"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/175"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/162"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/181"
+   },
+   {
+    "term": "vjetar",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/157"
+   },
+   {
+    "term": "zmaj",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/100"
+   },
+   {
+    "term": "cvijet",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/89"
+   },
+   {
+    "term": "džoker",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/3"
+   },
+   {
+    "term": "ruka",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/180"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/192"
+   },
+   {
+    "term": "početnik",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/186"
+   },
+   {
+    "term": "savjet",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/60"
+   },
+   {
+    "term": "strategija",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/193"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/121"
+   },
+   {
+    "term": "ploča",
+    "kind": "dropped keyword",
+    "store": "hr",
+    "rank": "-/183"
+   }
+  ],
+  "hu": [
+   {
+    "term": "Mahj Trainer: Mahjong tanulás",
+    "kind": "name",
+    "store": "hu",
+    "rank": "-/0"
+   },
+   {
+    "term": "Szabályok, gyakorlás kezdőknek",
+    "kind": "subtitle",
+    "store": "hu",
+    "rank": "-/1"
+   },
+   {
+    "term": "Mahj Trainer: Mahjong szabály",
+    "kind": "old name",
+    "store": "hu",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, kövek és gyakorlás",
+    "kind": "old subtitle",
+    "store": "hu",
+    "rank": "-/0"
+   },
+   {
+    "term": "amerikai",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/156"
+   },
+   {
+    "term": "ingyenes",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/176"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/175"
+   },
+   {
+    "term": "kezdő",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/192"
+   },
+   {
+    "term": "tanul",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/172"
+   },
+   {
+    "term": "kő",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/182"
+   },
+   {
+    "term": "tanfolyam",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/188"
+   },
+   {
+    "term": "útmutató",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/168"
+   },
+   {
+    "term": "tipp",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/159"
+   },
+   {
+    "term": "stratégia",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/183"
+   },
+   {
+    "term": "kéz",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/77"
+   },
+   {
+    "term": "játék",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/163"
+   },
+   {
+    "term": "lecke",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/153"
+   },
+   {
+    "term": "oktatás",
+    "kind": "keyword",
+    "store": "hu",
+    "rank": "-/178"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/172"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/173"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/169"
+   },
+   {
+    "term": "szél",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/179"
+   },
+   {
+    "term": "sárkány",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/177"
+   },
+   {
+    "term": "virág",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/169"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/179"
+   },
+   {
+    "term": "állvány",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/15"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/177"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/178"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/173"
+   },
+   {
+    "term": "tábla",
+    "kind": "dropped keyword",
+    "store": "hu",
+    "rank": "-/167"
+   }
+  ],
+  "id": [
+   {
+    "term": "Mahj Trainer: Belajar Mahjong",
+    "kind": "name",
+    "store": "id",
+    "rank": "1/1"
+   },
+   {
+    "term": "Aturan Amerika, Latihan Pemula",
+    "kind": "subtitle",
+    "store": "id",
+    "rank": "6/9"
+   },
+   {
+    "term": "Mahj Trainer: Latihan Mahjong",
+    "kind": "old name",
+    "store": "id",
+    "rank": "1/1"
+   },
+   {
+    "term": "Strategi Charleston, Baca Rak",
+    "kind": "old subtitle",
+    "store": "id",
+    "rank": "1/1"
+   },
+   {
+    "term": "kuis",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/193"
+   },
+   {
+    "term": "cara",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/178"
+   },
+   {
+    "term": "main",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/178"
+   },
+   {
+    "term": "gratis",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/155"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/171"
+   },
+   {
+    "term": "strategi",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/197"
+   },
+   {
+    "term": "panduan",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/192"
+   },
+   {
+    "term": "tips",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/189"
+   },
+   {
+    "term": "ubin",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/192"
+   },
+   {
+    "term": "kartu",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/193"
+   },
+   {
+    "term": "pelajaran",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/194"
+   },
+   {
+    "term": "soal",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/186"
+   },
+   {
+    "term": "dasar",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/187"
+   },
+   {
+    "term": "pelatih",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/189"
+   },
+   {
+    "term": "kursus",
+    "kind": "keyword",
+    "store": "id",
+    "rank": "-/186"
+   },
+   {
+    "term": "angin",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/186"
+   },
+   {
+    "term": "naga",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/155"
+   },
+   {
+    "term": "bunga",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/177"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/183"
+   },
+   {
+    "term": "pemula",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/183"
+   },
+   {
+    "term": "aturan",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "117/171"
+   },
+   {
+    "term": "tutorial",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/175"
+   },
+   {
+    "term": "buang",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "67/82"
+   },
+   {
+    "term": "simpan",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/192"
+   },
+   {
+    "term": "trik",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/153"
+   },
+   {
+    "term": "belajar",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/162"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "id",
+    "rank": "-/188"
+   }
+  ],
+  "it": [
+   {
+    "term": "Mahj Trainer: Impara Mahjong",
+    "kind": "name",
+    "store": "it",
+    "rank": "-/1"
+   },
+   {
+    "term": "Americano, regole e Charleston",
+    "kind": "subtitle",
+    "store": "it",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Corso di Mahjong",
+    "kind": "old name",
+    "store": "it",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, regole e strategia",
+    "kind": "old subtitle",
+    "store": "it",
+    "rank": "-/0"
+   },
+   {
+    "term": "principianti",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/166"
+   },
+   {
+    "term": "corso",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/181"
+   },
+   {
+    "term": "esercizi",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/184"
+   },
+   {
+    "term": "lezioni",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/182"
+   },
+   {
+    "term": "tessere",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/190"
+   },
+   {
+    "term": "jolly",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/174"
+   },
+   {
+    "term": "strategia",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/188"
+   },
+   {
+    "term": "allenamento",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/170"
+   },
+   {
+    "term": "gratis",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/166"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/170"
+   },
+   {
+    "term": "guida",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/177"
+   },
+   {
+    "term": "carta",
+    "kind": "keyword",
+    "store": "it",
+    "rank": "-/192"
+   },
+   {
+    "term": "tessera",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/188"
+   },
+   {
+    "term": "punto",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/181"
+   },
+   {
+    "term": "bambù",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/153"
+   },
+   {
+    "term": "carattere",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/181"
+   },
+   {
+    "term": "vento",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/181"
+   },
+   {
+    "term": "drago",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/179"
+   },
+   {
+    "term": "fiore",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/144"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/168"
+   },
+   {
+    "term": "mano",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/185"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/177"
+   },
+   {
+    "term": "principiante",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/182"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/177"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/185"
+   },
+   {
+    "term": "tavolo",
+    "kind": "dropped keyword",
+    "store": "it",
+    "rank": "-/180"
+   }
+  ],
+  "ja": [
+   {
+    "term": "Mahj Trainer: アメリカン麻雀入門",
+    "kind": "name",
+    "store": "jp",
+    "rank": "1/18"
+   },
+   {
+    "term": "初心者向けルールとチャールストン練習",
+    "kind": "subtitle",
+    "store": "jp",
+    "rank": "-/1"
+   },
+   {
+    "term": "配牌の読み方とチャールストン戦略を特訓",
+    "kind": "old subtitle",
+    "store": "jp",
+    "rank": "1/1"
+   },
+   {
+    "term": "勉強",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/184"
+   },
+   {
+    "term": "学習",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/167"
+   },
+   {
+    "term": "上達",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/169"
+   },
+   {
+    "term": "覚える",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/176"
+   },
+   {
+    "term": "マージャン",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/182"
+   },
+   {
+    "term": "まーじゃん",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/181"
+   },
+   {
+    "term": "無料",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/196"
+   },
+   {
+    "term": "オフライン",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/193"
+   },
+   {
+    "term": "アメリカ式",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/12"
+   },
+   {
+    "term": "ジョーカー",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/141"
+   },
+   {
+    "term": "索子",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "27/38"
+   },
+   {
+    "term": "筒子",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "19/20"
+   },
+   {
+    "term": "萬子",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/144"
+   },
+   {
+    "term": "風牌",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/118"
+   },
+   {
+    "term": "三元牌",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "5/5"
+   },
+   {
+    "term": "花牌",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/138"
+   },
+   {
+    "term": "手牌",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/151"
+   },
+   {
+    "term": "トレーニング",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/179"
+   },
+   {
+    "term": "講座",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/139"
+   },
+   {
+    "term": "解説",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/186"
+   },
+   {
+    "term": "ゲーム",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/189"
+   },
+   {
+    "term": "基礎",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/186"
+   },
+   {
+    "term": "問題",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/192"
+   },
+   {
+    "term": "教室",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/149"
+   },
+   {
+    "term": "暗記",
+    "kind": "keyword",
+    "store": "jp",
+    "rank": "-/175"
+   },
+   {
+    "term": "初心者",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "-/166"
+   },
+   {
+    "term": "クイズ",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "-/155"
+   },
+   {
+    "term": "コツ",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "-/188"
+   },
+   {
+    "term": "ルール",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "-/179"
+   },
+   {
+    "term": "対子",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "-/158"
+   },
+   {
+    "term": "刻子",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "83/105"
+   },
+   {
+    "term": "家庭麻雀",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "5/9"
+   },
+   {
+    "term": "牌活",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "30/39"
+   },
+   {
+    "term": "役",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "-/186"
+   },
+   {
+    "term": "点数",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "-/191"
+   },
+   {
+    "term": "雀卓",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "-/172"
+   },
+   {
+    "term": "牌効率",
+    "kind": "dropped keyword",
+    "store": "jp",
+    "rank": "91/95"
+   }
+  ],
+  "kn-IN": [
+   {
+    "term": "Mahj Trainer: ಮಹ್ಜಾಂಗ್ ಕಲಿಯಿರಿ",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಅಮೆರಿಕನ್ ನಿಯಮ, ಚಾರ್ಲ್ಸ್ಟನ್",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: ಮಹ್ಜಾಂಗ್ ಅಭ್ಯಾಸ",
+    "kind": "old name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಟೈಲ್, ಚಾರ್ಲ್ಸ್ಟನ್ ಮತ್ತು ತಂತ್ರ",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಅಭ್ಯಾಸ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಹೊಸಬರಿಗೆ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಗೇಮ್",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಟೈಲ್",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಜೋಕರ್",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ರ್ಯಾಕ್",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ತಂತ್ರ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಕ್ವಿಜ್",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಟ್ಯುಟೋರಿಯಲ್",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಮಾರ್ಗದರ್ಶಿ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಕೋಚ್",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಆಟ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ಉಚಿತ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಮಹಜಾಂಗ್",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಡಾಟ್",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಬ್ಯಾಮ್",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಕ್ರ್ಯಾಕ್",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಡ್ರ್ಯಾಗನ್",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ವಿಂಡ್",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಫ್ಲವರ್",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಹ್ಯಾಂಡ್",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ನಿಯಮ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಹೊಸಬ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ಟಿಪ್",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   }
+  ],
+  "ko": [
+   {
+    "term": "Mahj Trainer: 미국식 마작 연습",
+    "kind": "name",
+    "store": "kr",
+    "rank": "1/3"
+   },
+   {
+    "term": "Mahj Trainer: 미국식 마작 연습",
+    "kind": "name",
+    "store": "us",
+    "rank": "1/3"
+   },
+   {
+    "term": "초보 마작 배우기와 찰스턴 훈련",
+    "kind": "subtitle",
+    "store": "kr",
+    "rank": "-/0"
+   },
+   {
+    "term": "초보 마작 배우기와 찰스턴 훈련",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "-/0"
+   },
+   {
+    "term": "찰스턴 전략과 패 읽기 훈련",
+    "kind": "old subtitle",
+    "store": "kr",
+    "rank": "1/1"
+   },
+   {
+    "term": "찰스턴 전략과 패 읽기 훈련",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "퀴즈",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/183"
+   },
+   {
+    "term": "퀴즈",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/186"
+   },
+   {
+    "term": "규칙",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/172"
+   },
+   {
+    "term": "규칙",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "77/165"
+   },
+   {
+    "term": "입문",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/184"
+   },
+   {
+    "term": "입문",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "38/174"
+   },
+   {
+    "term": "족보",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "129/151"
+   },
+   {
+    "term": "족보",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "23/149"
+   },
+   {
+    "term": "점수",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/191"
+   },
+   {
+    "term": "점수",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/198"
+   },
+   {
+    "term": "만수",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "5/5"
+   },
+   {
+    "term": "만수",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "2/3"
+   },
+   {
+    "term": "삭수",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "1/1"
+   },
+   {
+    "term": "삭수",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "통수",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "6/6"
+   },
+   {
+    "term": "통수",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "4/5"
+   },
+   {
+    "term": "풍패",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "1/1"
+   },
+   {
+    "term": "풍패",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "삼원패",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "1/1"
+   },
+   {
+    "term": "삼원패",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "꽃패",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "2/3"
+   },
+   {
+    "term": "꽃패",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "1/4"
+   },
+   {
+    "term": "조커",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/182"
+   },
+   {
+    "term": "조커",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "43/165"
+   },
+   {
+    "term": "팁",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/174"
+   },
+   {
+    "term": "팁",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "135/168"
+   },
+   {
+    "term": "전략",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/195"
+   },
+   {
+    "term": "전략",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/186"
+   },
+   {
+    "term": "튜토리얼",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/178"
+   },
+   {
+    "term": "튜토리얼",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/172"
+   },
+   {
+    "term": "강좌",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/146"
+   },
+   {
+    "term": "강좌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/181"
+   },
+   {
+    "term": "공부",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/170"
+   },
+   {
+    "term": "공부",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/161"
+   },
+   {
+    "term": "게임",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/194"
+   },
+   {
+    "term": "게임",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/172"
+   },
+   {
+    "term": "학습",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/184"
+   },
+   {
+    "term": "학습",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/196"
+   },
+   {
+    "term": "기초",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/163"
+   },
+   {
+    "term": "기초",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/165"
+   },
+   {
+    "term": "교육",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/152"
+   },
+   {
+    "term": "교육",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/123"
+   },
+   {
+    "term": "레슨",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/191"
+   },
+   {
+    "term": "레슨",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/173"
+   },
+   {
+    "term": "카드",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/183"
+   },
+   {
+    "term": "카드",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/181"
+   },
+   {
+    "term": "해설",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/198"
+   },
+   {
+    "term": "해설",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/195"
+   },
+   {
+    "term": "마작패",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "24/60"
+   },
+   {
+    "term": "마작패",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "4/60"
+   },
+   {
+    "term": "초급",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/177"
+   },
+   {
+    "term": "초급",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/174"
+   },
+   {
+    "term": "입문서",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/3"
+   },
+   {
+    "term": "입문서",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/3"
+   },
+   {
+    "term": "암기",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/191"
+   },
+   {
+    "term": "암기",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/194"
+   },
+   {
+    "term": "복습",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/196"
+   },
+   {
+    "term": "복습",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/194"
+   },
+   {
+    "term": "문제",
+    "kind": "keyword",
+    "store": "kr",
+    "rank": "-/188"
+   },
+   {
+    "term": "문제",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/193"
+   },
+   {
+    "term": "초보자",
+    "kind": "dropped keyword",
+    "store": "kr",
+    "rank": "-/174"
+   },
+   {
+    "term": "초보자",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "141/172"
+   }
+  ],
+  "ml-IN": [
+   {
+    "term": "Mahj Trainer: മഹ്ജോങ് പഠിക്കാം",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "അമേരിക്കൻ നിയമം, ചാൾസ്റ്റൺ",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: മഹ്ജോങ് പരിശീലനം",
+    "kind": "old name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ടൈൽ, ചാൾസ്റ്റൺ, തന്ത്ര ഗൈഡ്",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "പരിശീലനം",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "തുടക്കക്കാർ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ഗെയിം",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ടൈൽ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ജോക്കർ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "റാക്ക്",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "തന്ത്രം",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ക്വിസ്",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ട്യൂട്ടോറിയൽ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "കോച്ച്",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "കളി",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "സൗജന്യം",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "മഹ്ജോംഗ്",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ഡോട്ട്",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ബാം",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ക്രാക്",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ഡ്രാഗൺ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "വിൻഡ്",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ഫ്ലവർ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ഹാൻഡ്",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "നിയമം",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "പുതിയ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ടിപ്",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   }
+  ],
+  "mr-IN": [
+   {
+    "term": "Mahj Trainer: माहजोंग शिका",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "अमेरिकन नियम आणि चार्ल्सटन",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: मह जोंग सराव",
+    "kind": "old name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "टाइल, चार्ल्सटन आणि डावपेच",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "सराव",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/95"
+   },
+   {
+    "term": "नवशिके",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/17"
+   },
+   {
+    "term": "खेळ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "डावपेच",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "मोफत",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/179"
+   },
+   {
+    "term": "क्विझ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "रॅक",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/174"
+   },
+   {
+    "term": "हँड",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "70/74"
+   },
+   {
+    "term": "ट्युटोरियल",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "88/88"
+   },
+   {
+    "term": "धडा",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/2"
+   },
+   {
+    "term": "मार्गदर्शक",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/61"
+   },
+   {
+    "term": "ऑफलाइन",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/195"
+   },
+   {
+    "term": "प्रश्नमंजुषा",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "शिक्षण",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/65"
+   },
+   {
+    "term": "पाठ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/191"
+   },
+   {
+    "term": "डॉट",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/197"
+   },
+   {
+    "term": "बॅम",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/190"
+   },
+   {
+    "term": "क्रॅक",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "43/44"
+   },
+   {
+    "term": "ड्रॅगन",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "117/117"
+   },
+   {
+    "term": "विंड",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/187"
+   },
+   {
+    "term": "फ्लॉवर",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "11/11"
+   },
+   {
+    "term": "जोकर",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/158"
+   },
+   {
+    "term": "नियम",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "180/183"
+   },
+   {
+    "term": "नवशिक्या",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "टिप",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/183"
+   },
+   {
+    "term": "पंग",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/163"
+   },
+   {
+    "term": "कार्ड",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/192"
+   }
+  ],
+  "ms": [
+   {
+    "term": "Mahj Trainer: Latihan Mahjong",
+    "kind": "name",
+    "store": "my",
+    "rank": "1/1"
+   },
+   {
+    "term": "Peraturan Amerika untuk Pemula",
+    "kind": "subtitle",
+    "store": "my",
+    "rank": "-/1"
+   },
+   {
+    "term": "Strategi Charleston, Baca Rak",
+    "kind": "old subtitle",
+    "store": "my",
+    "rank": "1/1"
+   },
+   {
+    "term": "belajar",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/161"
+   },
+   {
+    "term": "kuiz",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/196"
+   },
+   {
+    "term": "cara",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/181"
+   },
+   {
+    "term": "main",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/183"
+   },
+   {
+    "term": "percuma",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/144"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/176"
+   },
+   {
+    "term": "strategi",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/195"
+   },
+   {
+    "term": "panduan",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/197"
+   },
+   {
+    "term": "tip",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/179"
+   },
+   {
+    "term": "jubin",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/185"
+   },
+   {
+    "term": "kad",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/195"
+   },
+   {
+    "term": "pelajaran",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/187"
+   },
+   {
+    "term": "soalan",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/183"
+   },
+   {
+    "term": "asas",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/182"
+   },
+   {
+    "term": "kursus",
+    "kind": "keyword",
+    "store": "my",
+    "rank": "-/177"
+   },
+   {
+    "term": "angin",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/178"
+   },
+   {
+    "term": "naga",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/159"
+   },
+   {
+    "term": "bunga",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/180"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/165"
+   },
+   {
+    "term": "pemula",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/189"
+   },
+   {
+    "term": "peraturan",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "106/111"
+   },
+   {
+    "term": "tutorial",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/168"
+   },
+   {
+    "term": "buang",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/181"
+   },
+   {
+    "term": "simpan",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/187"
+   },
+   {
+    "term": "trik",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/183"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "my",
+    "rank": "-/187"
+   }
+  ],
+  "nl-NL": [
+   {
+    "term": "Mahj Trainer: Mahjong leren",
+    "kind": "name",
+    "store": "nl",
+    "rank": "-/1"
+   },
+   {
+    "term": "Regels en Charleston oefenen",
+    "kind": "subtitle",
+    "store": "nl",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Mahjong oefenen",
+    "kind": "old name",
+    "store": "nl",
+    "rank": "-/1"
+   },
+   {
+    "term": "Charleston, regels & tips",
+    "kind": "old subtitle",
+    "store": "nl",
+    "rank": "-/0"
+   },
+   {
+    "term": "amerikaans",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/138"
+   },
+   {
+    "term": "beginners",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/194"
+   },
+   {
+    "term": "cursus",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/148"
+   },
+   {
+    "term": "uitleg",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/180"
+   },
+   {
+    "term": "lessen",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/173"
+   },
+   {
+    "term": "stenen",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/169"
+   },
+   {
+    "term": "gratis",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/169"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/172"
+   },
+   {
+    "term": "kaart",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/195"
+   },
+   {
+    "term": "handleiding",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/103"
+   },
+   {
+    "term": "tips",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/182"
+   },
+   {
+    "term": "strategie",
+    "kind": "keyword",
+    "store": "nl",
+    "rank": "-/195"
+   },
+   {
+    "term": "steen",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/179"
+   },
+   {
+    "term": "punt",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/173"
+   },
+   {
+    "term": "bamboe",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/165"
+   },
+   {
+    "term": "teken",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/171"
+   },
+   {
+    "term": "wind",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/175"
+   },
+   {
+    "term": "draak",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/181"
+   },
+   {
+    "term": "bloem",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/163"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/171"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/180"
+   },
+   {
+    "term": "hand",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/186"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/173"
+   },
+   {
+    "term": "beginner",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/191"
+   },
+   {
+    "term": "tutorial",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/142"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/174"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/181"
+   },
+   {
+    "term": "tafel",
+    "kind": "dropped keyword",
+    "store": "nl",
+    "rank": "-/157"
+   }
+  ],
+  "no": [
+   {
+    "term": "Mahj Trainer: Lær Mahjong",
+    "kind": "name",
+    "store": "no",
+    "rank": "-/1"
+   },
+   {
+    "term": "Regler og øving for begynnere",
+    "kind": "subtitle",
+    "store": "no",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Mahjong regler",
+    "kind": "old name",
+    "store": "no",
+    "rank": "1/1"
+   },
+   {
+    "term": "Charleston, brikker og øvelser",
+    "kind": "old subtitle",
+    "store": "no",
+    "rank": "1/1"
+   },
+   {
+    "term": "amerikansk",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/139"
+   },
+   {
+    "term": "nybegynner",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/189"
+   },
+   {
+    "term": "gratis",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/170"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/182"
+   },
+   {
+    "term": "brikker",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/167"
+   },
+   {
+    "term": "kurs",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/189"
+   },
+   {
+    "term": "trening",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/176"
+   },
+   {
+    "term": "øvelse",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/187"
+   },
+   {
+    "term": "veiledning",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/115"
+   },
+   {
+    "term": "tips",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/178"
+   },
+   {
+    "term": "kort",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/181"
+   },
+   {
+    "term": "strategi",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/198"
+   },
+   {
+    "term": "hånd",
+    "kind": "keyword",
+    "store": "no",
+    "rank": "-/192"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/184"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/177"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/173"
+   },
+   {
+    "term": "vind",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/171"
+   },
+   {
+    "term": "drage",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/176"
+   },
+   {
+    "term": "blomst",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/167"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/174"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/176"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/181"
+   },
+   {
+    "term": "guide",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/190"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/179"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/183"
+   },
+   {
+    "term": "brett",
+    "kind": "dropped keyword",
+    "store": "no",
+    "rank": "-/169"
+   }
+  ],
+  "or-IN": [
+   {
+    "term": "Mahj Trainer: Mahjong ଶିଖନ୍ତୁ",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଆମେରିକୀୟ ମାହଜଙ୍ଗ ନିୟମ ଓ ଅଭ୍ୟାସ",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: ମାହଜଙ୍ଗ ଅଭ୍ୟାସ",
+    "kind": "old name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଟାଇଲ୍, ଚାର୍ଲସ୍ଟନ୍ ଓ କୌଶଳ ଗାଇଡ୍",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "score",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/190"
+   },
+   {
+    "term": "ନୂଆ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ପାଠ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/2"
+   },
+   {
+    "term": "କୁଇଜ୍",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "କୌଶଳ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ପରାମର୍ଶ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "କାର୍ଡ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଟାଇଲ୍",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ମାଗଣା",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଖେଳ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଶିକ୍ଷା",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/2"
+   },
+   {
+    "term": "ଗାଇଡ୍",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଶିକ୍ଷକ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ପରୀକ୍ଷା",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ହାତ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଟ୍ୟୁଟୋରିଆଲ୍",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଡଟ୍",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ବାମ୍",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "କ୍ରାକ୍",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ଡ୍ରାଗନ୍",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ୱିଣ୍ଡ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଫ୍ଲାୱାର୍",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଜୋକର୍",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ରାକ୍",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ହ୍ୟାଣ୍ଡ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ନିୟମ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ଟିପ୍",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ପଙ୍ଗ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   }
+  ],
+  "pa-IN": [
+   {
+    "term": "Mahj Trainer: Mahjong ਸਿੱਖੋ",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਅਮਰੀਕੀ ਮਾਹਜੋਂਗ ਨਿਯਮ ਅਤੇ ਅਭਿਆਸ",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: ਮਾਹਜੋਂਗ ਅਭਿਆਸ",
+    "kind": "old name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਟਾਈਲ, ਚਾਰਲਸਟਨ, ਰਣਨੀਤੀ ਗਾਈਡ",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਟਾਈਲ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "13",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/181"
+   },
+   {
+    "term": "master",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/190"
+   },
+   {
+    "term": "ਸ਼ੁਰੂਆਤੀ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਸਬਕ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਕੁਇਜ਼",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਰਣਨੀਤੀ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਸੁਝਾਅ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਕਾਰਡ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਮੁਫ਼ਤ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ਖੇਡ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ਸਿਖਲਾਈ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ਕੋਰਸ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਗਾਈਡ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਟਿਊਟੋਰਿਅਲ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਸਿੱਖਿਆ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/2"
+   },
+   {
+    "term": "ਹੱਥ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਡਾਟ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਬੈਮ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਕ੍ਰੈਕ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਡ੍ਰੈਗਨ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਵਿੰਡ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਫਲਾਵਰ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਜੋਕਰ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਰੈਕ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਹੈਂਡ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਨਿਯਮ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਨਵਾਂ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ਟਿਪ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ਪੰਗ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ਟੇਬਲ",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   }
+  ],
+  "pl": [
+   {
+    "term": "Mahj Trainer: Nauka mahjonga",
+    "kind": "name",
+    "store": "pl",
+    "rank": "-/0"
+   },
+   {
+    "term": "Zasady, Charleston, ćwiczenia",
+    "kind": "subtitle",
+    "store": "pl",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Zasady mahjonga",
+    "kind": "old name",
+    "store": "pl",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, kamienie i quizy",
+    "kind": "old subtitle",
+    "store": "pl",
+    "rank": "-/2"
+   },
+   {
+    "term": "amerykański",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/91"
+   },
+   {
+    "term": "początkujących",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/189"
+   },
+   {
+    "term": "samouczek",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/75"
+   },
+   {
+    "term": "lekcje",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/195"
+   },
+   {
+    "term": "kurs",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/189"
+   },
+   {
+    "term": "trener",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/195"
+   },
+   {
+    "term": "jak",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/190"
+   },
+   {
+    "term": "grać",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/181"
+   },
+   {
+    "term": "darmowy",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/181"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/172"
+   },
+   {
+    "term": "kamienie",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/177"
+   },
+   {
+    "term": "dżoker",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/3"
+   },
+   {
+    "term": "gra",
+    "kind": "keyword",
+    "store": "pl",
+    "rank": "-/153"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/179"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/180"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/164"
+   },
+   {
+    "term": "wiatr",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/185"
+   },
+   {
+    "term": "smok",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/186"
+   },
+   {
+    "term": "kwiat",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/132"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/174"
+   },
+   {
+    "term": "stojak",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/4"
+   },
+   {
+    "term": "ręka",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/170"
+   },
+   {
+    "term": "nowicjusz",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/3"
+   },
+   {
+    "term": "porada",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/29"
+   },
+   {
+    "term": "strategia",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/190"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/186"
+   },
+   {
+    "term": "plansza",
+    "kind": "dropped keyword",
+    "store": "pl",
+    "rank": "-/191"
+   }
+  ],
+  "pt-BR": [
+   {
+    "term": "Mahj Trainer: Aprenda Mahjong",
+    "kind": "name",
+    "store": "br",
+    "rank": "1/2"
+   },
+   {
+    "term": "Mahj Trainer: Aprenda Mahjong",
+    "kind": "name",
+    "store": "us",
+    "rank": "1/181"
+   },
+   {
+    "term": "Mahjong americano e Charleston",
+    "kind": "subtitle",
+    "store": "br",
+    "rank": "5/54"
+   },
+   {
+    "term": "Mahjong americano e Charleston",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "36/186"
+   },
+   {
+    "term": "Charleston, regras e prática",
+    "kind": "old subtitle",
+    "store": "br",
+    "rank": "6/13"
+   },
+   {
+    "term": "Charleston, regras e prática",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "2/117"
+   },
+   {
+    "term": "tutorial",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/173"
+   },
+   {
+    "term": "tutorial",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/174"
+   },
+   {
+    "term": "coach",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/195"
+   },
+   {
+    "term": "coach",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/192"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/171"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/191"
+   },
+   {
+    "term": "grátis",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/171"
+   },
+   {
+    "term": "grátis",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "regras",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/169"
+   },
+   {
+    "term": "regras",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "58/164"
+   },
+   {
+    "term": "iniciante",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/168"
+   },
+   {
+    "term": "iniciante",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "115/167"
+   },
+   {
+    "term": "peças",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/185"
+   },
+   {
+    "term": "peças",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/192"
+   },
+   {
+    "term": "dicas",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/184"
+   },
+   {
+    "term": "dicas",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/167"
+   },
+   {
+    "term": "treino",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/185"
+   },
+   {
+    "term": "treino",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "mão",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/182"
+   },
+   {
+    "term": "mão",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/178"
+   },
+   {
+    "term": "coringa",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/190"
+   },
+   {
+    "term": "coringa",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "10/41"
+   },
+   {
+    "term": "ponto",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/190"
+   },
+   {
+    "term": "ponto",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/172"
+   },
+   {
+    "term": "vento",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/180"
+   },
+   {
+    "term": "vento",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/179"
+   },
+   {
+    "term": "flor",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/179"
+   },
+   {
+    "term": "flor",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/182"
+   },
+   {
+    "term": "jogo",
+    "kind": "keyword",
+    "store": "br",
+    "rank": "-/176"
+   },
+   {
+    "term": "jogo",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/167"
+   },
+   {
+    "term": "peça",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "-/171"
+   },
+   {
+    "term": "peça",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "bambu",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "157/172"
+   },
+   {
+    "term": "bambu",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/174"
+   },
+   {
+    "term": "caractere",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "143/156"
+   },
+   {
+    "term": "caractere",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "90/160"
+   },
+   {
+    "term": "dragão",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "-/175"
+   },
+   {
+    "term": "dragão",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/162"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "-/179"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "-/187"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "dica",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "-/194"
+   },
+   {
+    "term": "dica",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/159"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "-/183"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "br",
+    "rank": "-/192"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/184"
+   }
+  ],
+  "pt-PT": [
+   {
+    "term": "Mahj Trainer: Aprender Mahjong",
+    "kind": "name",
+    "store": "pt",
+    "rank": "-/1"
+   },
+   {
+    "term": "Americano, regras e Charleston",
+    "kind": "subtitle",
+    "store": "pt",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, regras e treino",
+    "kind": "old subtitle",
+    "store": "pt",
+    "rank": "-/12"
+   },
+   {
+    "term": "principiante",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/177"
+   },
+   {
+    "term": "iniciante",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/181"
+   },
+   {
+    "term": "treino",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/188"
+   },
+   {
+    "term": "peças",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/185"
+   },
+   {
+    "term": "jogo",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/153"
+   },
+   {
+    "term": "grátis",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/162"
+   },
+   {
+    "term": "lições",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/153"
+   },
+   {
+    "term": "curso",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/185"
+   },
+   {
+    "term": "estratégia",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/195"
+   },
+   {
+    "term": "cartão",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/185"
+   },
+   {
+    "term": "exercícios",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/184"
+   },
+   {
+    "term": "guia",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/188"
+   },
+   {
+    "term": "dicas",
+    "kind": "keyword",
+    "store": "pt",
+    "rank": "-/181"
+   },
+   {
+    "term": "peça",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/170"
+   },
+   {
+    "term": "ponto",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/176"
+   },
+   {
+    "term": "bambu",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/186"
+   },
+   {
+    "term": "caractere",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/147"
+   },
+   {
+    "term": "vento",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/183"
+   },
+   {
+    "term": "dragão",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/185"
+   },
+   {
+    "term": "flor",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/171"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/180"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/167"
+   },
+   {
+    "term": "mão",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/165"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/176"
+   },
+   {
+    "term": "tutorial",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/141"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/182"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "pt",
+    "rank": "-/177"
+   }
+  ],
+  "ro": [
+   {
+    "term": "Mahj Trainer: Învață Mahjong",
+    "kind": "name",
+    "store": "ro",
+    "rank": "-/0"
+   },
+   {
+    "term": "Reguli, Charleston, exerciții",
+    "kind": "subtitle",
+    "store": "ro",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, reguli și tactică",
+    "kind": "old subtitle",
+    "store": "ro",
+    "rank": "-/0"
+   },
+   {
+    "term": "începători",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/184"
+   },
+   {
+    "term": "antrenament",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/182"
+   },
+   {
+    "term": "lecții",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/187"
+   },
+   {
+    "term": "curs",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/167"
+   },
+   {
+    "term": "ghid",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/178"
+   },
+   {
+    "term": "gratuit",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/151"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/170"
+   },
+   {
+    "term": "piese",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/179"
+   },
+   {
+    "term": "cum",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/0"
+   },
+   {
+    "term": "joacă",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/178"
+   },
+   {
+    "term": "tactică",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/181"
+   },
+   {
+    "term": "sfaturi",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/174"
+   },
+   {
+    "term": "strategie",
+    "kind": "keyword",
+    "store": "ro",
+    "rank": "-/197"
+   },
+   {
+    "term": "piesă",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/155"
+   },
+   {
+    "term": "punct",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/179"
+   },
+   {
+    "term": "bambus",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/17"
+   },
+   {
+    "term": "caracter",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/177"
+   },
+   {
+    "term": "vânt",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/163"
+   },
+   {
+    "term": "dragon",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/190"
+   },
+   {
+    "term": "floare",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/91"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/169"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/192"
+   },
+   {
+    "term": "mână",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/167"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/180"
+   },
+   {
+    "term": "începător",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/192"
+   },
+   {
+    "term": "tutorial",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/148"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/178"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "ro",
+    "rank": "-/179"
+   }
+  ],
+  "ru": [
+   {
+    "term": "Mahj Trainer: Правила маджонга",
+    "kind": "name",
+    "store": "ru",
+    "rank": "1/3"
+   },
+   {
+    "term": "Mahj Trainer: Правила маджонга",
+    "kind": "name",
+    "store": "us",
+    "rank": "1/3"
+   },
+   {
+    "term": "Американский маджонг: обучение",
+    "kind": "subtitle",
+    "store": "ru",
+    "rank": "-/0"
+   },
+   {
+    "term": "Американский маджонг: обучение",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, кости, тренировка",
+    "kind": "old subtitle",
+    "store": "ru",
+    "rank": "1/1"
+   },
+   {
+    "term": "Charleston, кости, тренировка",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "офлайн",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/168"
+   },
+   {
+    "term": "офлайн",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/180"
+   },
+   {
+    "term": "бесплатно",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/130"
+   },
+   {
+    "term": "бесплатно",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/163"
+   },
+   {
+    "term": "новичок",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/187"
+   },
+   {
+    "term": "новичок",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "24/182"
+   },
+   {
+    "term": "тренировка",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/180"
+   },
+   {
+    "term": "тренировка",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/180"
+   },
+   {
+    "term": "кости",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/169"
+   },
+   {
+    "term": "кости",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/178"
+   },
+   {
+    "term": "тренажер",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/186"
+   },
+   {
+    "term": "тренажер",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/182"
+   },
+   {
+    "term": "квиз",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/190"
+   },
+   {
+    "term": "квиз",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "стойка",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/160"
+   },
+   {
+    "term": "стойка",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "112/167"
+   },
+   {
+    "term": "джокер",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/142"
+   },
+   {
+    "term": "джокер",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "99/103"
+   },
+   {
+    "term": "стратегия",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/183"
+   },
+   {
+    "term": "стратегия",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/193"
+   },
+   {
+    "term": "совет",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/133"
+   },
+   {
+    "term": "совет",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "62/130"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/185"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/169"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/164"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/180"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "22/164"
+   },
+   {
+    "term": "ветер",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/185"
+   },
+   {
+    "term": "ветер",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "70/167"
+   },
+   {
+    "term": "дракон",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/149"
+   },
+   {
+    "term": "дракон",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/180"
+   },
+   {
+    "term": "цветок",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/160"
+   },
+   {
+    "term": "цветок",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "169/182"
+   },
+   {
+    "term": "рука",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/151"
+   },
+   {
+    "term": "рука",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "75/157"
+   },
+   {
+    "term": "руководство",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/132"
+   },
+   {
+    "term": "руководство",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "64/135"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "ru",
+    "rank": "-/167"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "урок",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/180"
+   },
+   {
+    "term": "урок",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/180"
+   },
+   {
+    "term": "карта",
+    "kind": "keyword",
+    "store": "ru",
+    "rank": "-/187"
+   },
+   {
+    "term": "карта",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/182"
+   }
+  ],
+  "sk": [
+   {
+    "term": "Mahj Trainer: Mahjong pravidlá",
+    "kind": "name",
+    "store": "sk",
+    "rank": "-/0"
+   },
+   {
+    "term": "Cvičenie pre začiatočníkov",
+    "kind": "subtitle",
+    "store": "sk",
+    "rank": "-/9"
+   },
+   {
+    "term": "Charleston, kamene a cvičenia",
+    "kind": "old subtitle",
+    "store": "sk",
+    "rank": "-/0"
+   },
+   {
+    "term": "americký",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/72"
+   },
+   {
+    "term": "zadarmo",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/182"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/173"
+   },
+   {
+    "term": "naučiť",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/151"
+   },
+   {
+    "term": "kamene",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/165"
+   },
+   {
+    "term": "kurz",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/183"
+   },
+   {
+    "term": "výučba",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/73"
+   },
+   {
+    "term": "návod",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/117"
+   },
+   {
+    "term": "tipy",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/178"
+   },
+   {
+    "term": "stratégia",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/172"
+   },
+   {
+    "term": "ruka",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/178"
+   },
+   {
+    "term": "hra",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/166"
+   },
+   {
+    "term": "lekcia",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/71"
+   },
+   {
+    "term": "tréning",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/187"
+   },
+   {
+    "term": "kvíz",
+    "kind": "keyword",
+    "store": "sk",
+    "rank": "-/183"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/173"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/156"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/168"
+   },
+   {
+    "term": "vietor",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/159"
+   },
+   {
+    "term": "drak",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/176"
+   },
+   {
+    "term": "kvet",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/76"
+   },
+   {
+    "term": "žolík",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/166"
+   },
+   {
+    "term": "stojan",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/8"
+   },
+   {
+    "term": "začiatočník",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/193"
+   },
+   {
+    "term": "tip",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/190"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/181"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/177"
+   },
+   {
+    "term": "doska",
+    "kind": "dropped keyword",
+    "store": "sk",
+    "rank": "-/184"
+   }
+  ],
+  "sl-SI": [
+   {
+    "term": "Mahj Trainer: Učenje mahjonga",
+    "kind": "name",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "Pravila, Charleston, vaje",
+    "kind": "subtitle",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Pravila mahjonga",
+    "kind": "old name",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "Charleston, ploščice in vaje",
+    "kind": "old subtitle",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "ameriški",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "začetniki",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "tečaj",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/9"
+   },
+   {
+    "term": "lekcije",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/13"
+   },
+   {
+    "term": "vodič",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/76"
+   },
+   {
+    "term": "brezplačno",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/172"
+   },
+   {
+    "term": "ploščice",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "navodila",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "kako",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/165"
+   },
+   {
+    "term": "igrati",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "stojalo",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "kviz",
+    "kind": "keyword",
+    "store": "si",
+    "rank": "-/179"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/178"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/168"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/168"
+   },
+   {
+    "term": "veter",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/138"
+   },
+   {
+    "term": "zmaj",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/2"
+   },
+   {
+    "term": "cvet",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/149"
+   },
+   {
+    "term": "džoker",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "roka",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/176"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/177"
+   },
+   {
+    "term": "začetnik",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "nasvet",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/0"
+   },
+   {
+    "term": "strategija",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/193"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/184"
+   },
+   {
+    "term": "plošča",
+    "kind": "dropped keyword",
+    "store": "si",
+    "rank": "-/0"
+   }
+  ],
+  "sv": [
+   {
+    "term": "Mahj Trainer: Lär dig Mahjong",
+    "kind": "name",
+    "store": "se",
+    "rank": "-/2"
+   },
+   {
+    "term": "Regler & övning för nybörjare",
+    "kind": "subtitle",
+    "store": "se",
+    "rank": "-/194"
+   },
+   {
+    "term": "Charleston, regler & taktik",
+    "kind": "old subtitle",
+    "store": "se",
+    "rank": "-/1"
+   },
+   {
+    "term": "amerikansk",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/137"
+   },
+   {
+    "term": "gratis",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/167"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/165"
+   },
+   {
+    "term": "brickor",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/187"
+   },
+   {
+    "term": "kurs",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/170"
+   },
+   {
+    "term": "träning",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/171"
+   },
+   {
+    "term": "guide",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/182"
+   },
+   {
+    "term": "tips",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/189"
+   },
+   {
+    "term": "kort",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/184"
+   },
+   {
+    "term": "strategi",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/192"
+   },
+   {
+    "term": "hand",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/178"
+   },
+   {
+    "term": "spel",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/145"
+   },
+   {
+    "term": "lärare",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/178"
+   },
+   {
+    "term": "handledning",
+    "kind": "keyword",
+    "store": "se",
+    "rank": "-/54"
+   },
+   {
+    "term": "bricka",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/193"
+   },
+   {
+    "term": "punkt",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/161"
+   },
+   {
+    "term": "bambu",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/157"
+   },
+   {
+    "term": "tecken",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/153"
+   },
+   {
+    "term": "vind",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/172"
+   },
+   {
+    "term": "drake",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/174"
+   },
+   {
+    "term": "blomma",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/159"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/170"
+   },
+   {
+    "term": "rack",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/173"
+   },
+   {
+    "term": "quiz",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/172"
+   },
+   {
+    "term": "nybörjare",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/191"
+   },
+   {
+    "term": "tutorial",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/139"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/175"
+   },
+   {
+    "term": "kong",
+    "kind": "dropped keyword",
+    "store": "se",
+    "rank": "-/180"
+   }
+  ],
+  "ta-IN": [
+   {
+    "term": "Mahj Trainer: Mahjong கற்போம்",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "அமெரிக்க மஹ்ஜாங் விதிகள்",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: மஹ்ஜாங் பயிற்சி",
+    "kind": "old name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "டைல், சார்லஸ்டன் & உத்தி கல்வி",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "glossary",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/115"
+   },
+   {
+    "term": "பயிற்சி",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "புதியவர்",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "பாடம்",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/2"
+   },
+   {
+    "term": "கேள்வி",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "உத்தி",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "குறிப்புகள்",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "அட்டை",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ஓடுகள்",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "இலவசம்",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "விளையாட்டு",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/4"
+   },
+   {
+    "term": "சவால்",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "டைல்",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "டாட்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "பாம்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "கிராக்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "டிராகன்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "விண்ட்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ஃப்ளவர்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ஜோக்கர்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ராக்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ஹேண்ட்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "விதி",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "வினாடி",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "பயிற்று",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "டிப்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "பங்",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   }
+  ],
+  "te-IN": [
+   {
+    "term": "Mahj Trainer: Mahjong సాధన",
+    "kind": "name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "అమెరికన్ మహ్జాంగ్ నియమాలు",
+    "kind": "subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: మహ్జాంగ్ సాధన",
+    "kind": "old name",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "టైల్, చార్ల్‌స్టన్, వ్యూహాలు",
+    "kind": "old subtitle",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "daily",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/193"
+   },
+   {
+    "term": "play",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/183"
+   },
+   {
+    "term": "test",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/183"
+   },
+   {
+    "term": "నేర్చుకో",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "కొత్తవారు",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "పాఠాలు",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "క్విజ్",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "వ్యూహం",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "చిట్కాలు",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "కార్డ్",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "టైల్స్",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ఉచితం",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ఆట",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "శిక్షణ",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "గైడ్",
+    "kind": "keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "డాట్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "బామ్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "క్రాక్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "డ్రాగన్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "విండ్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ఫ్లవర్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "జోకర్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/1"
+   },
+   {
+    "term": "ర్యాక్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "హ్యాండ్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "నియమం",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "ట్యుటోరియల్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   },
+   {
+    "term": "టిప్",
+    "kind": "dropped keyword",
+    "store": "in",
+    "rank": "-/0"
+   }
+  ],
+  "th": [
+   {
+    "term": "Mahj Trainer: มาจองอเมริกัน",
+    "kind": "name",
+    "store": "th",
+    "rank": "1/1"
+   },
+   {
+    "term": "สอนไพ่นกกระจอก กติกามือใหม่",
+    "kind": "subtitle",
+    "store": "th",
+    "rank": "-/2"
+   },
+   {
+    "term": "Mahj Trainer: ฝึกมาจองอเมริกัน",
+    "kind": "old name",
+    "store": "th",
+    "rank": "1/1"
+   },
+   {
+    "term": "ชาร์ลสตันและการอ่านไพ่มือ",
+    "kind": "old subtitle",
+    "store": "th",
+    "rank": "1/1"
+   },
+   {
+    "term": "เรียน",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/187"
+   },
+   {
+    "term": "ฝึก",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/197"
+   },
+   {
+    "term": "แบบทดสอบ",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/174"
+   },
+   {
+    "term": "ชาร์ลสตัน",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "2/2"
+   },
+   {
+    "term": "โจ๊กเกอร์",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "30/30"
+   },
+   {
+    "term": "เกม",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/191"
+   },
+   {
+    "term": "ฟรี",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/196"
+   },
+   {
+    "term": "ออฟไลน์",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/168"
+   },
+   {
+    "term": "บทเรียน",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/186"
+   },
+   {
+    "term": "คู่มือ",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/178"
+   },
+   {
+    "term": "วิธีเล่น",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/24"
+   },
+   {
+    "term": "กลยุทธ์",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/190"
+   },
+   {
+    "term": "เคล็ดลับ",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/170"
+   },
+   {
+    "term": "ควิซ",
+    "kind": "keyword",
+    "store": "th",
+    "rank": "-/195"
+   },
+   {
+    "term": "ลม",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "-/177"
+   },
+   {
+    "term": "มังกร",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "-/149"
+   },
+   {
+    "term": "ดอกไม้",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "-/184"
+   },
+   {
+    "term": "มือใหม่",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "-/189"
+   },
+   {
+    "term": "กฎ",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "133/165"
+   },
+   {
+    "term": "ติว",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "-/194"
+   },
+   {
+    "term": "ปุง",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "-/182"
+   },
+   {
+    "term": "แร็ค",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "-/111"
+   },
+   {
+    "term": "กลเม็ด",
+    "kind": "dropped keyword",
+    "store": "th",
+    "rank": "9/10"
+   }
+  ],
+  "tr": [
+   {
+    "term": "Mahj Trainer: Mahjong Öğren",
+    "kind": "name",
+    "store": "tr",
+    "rank": "1/1"
+   },
+   {
+    "term": "Kurallar, Charleston, pratik",
+    "kind": "subtitle",
+    "store": "tr",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: Mahjong Antreni",
+    "kind": "old name",
+    "store": "tr",
+    "rank": "1/1"
+   },
+   {
+    "term": "Charleston Taktiği, Taş Okuma",
+    "kind": "old subtitle",
+    "store": "tr",
+    "rank": "1/1"
+   },
+   {
+    "term": "amerikan",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/167"
+   },
+   {
+    "term": "başlangıç",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/170"
+   },
+   {
+    "term": "rehber",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/191"
+   },
+   {
+    "term": "eğitim",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/162"
+   },
+   {
+    "term": "ders",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/195"
+   },
+   {
+    "term": "antrenman",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/187"
+   },
+   {
+    "term": "ücretsiz",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/148"
+   },
+   {
+    "term": "taş",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/187"
+   },
+   {
+    "term": "nasıl",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/173"
+   },
+   {
+    "term": "oynanır",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/20"
+   },
+   {
+    "term": "istaka",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/68"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/167"
+   },
+   {
+    "term": "ipuçları",
+    "kind": "keyword",
+    "store": "tr",
+    "rank": "-/172"
+   },
+   {
+    "term": "rüzgar",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/187"
+   },
+   {
+    "term": "ejder",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "52/52"
+   },
+   {
+    "term": "çiçek",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/188"
+   },
+   {
+    "term": "joker",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/168"
+   },
+   {
+    "term": "test",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/182"
+   },
+   {
+    "term": "ipucu",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/172"
+   },
+   {
+    "term": "kural",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/182"
+   },
+   {
+    "term": "raf",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/182"
+   },
+   {
+    "term": "el",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/172"
+   },
+   {
+    "term": "at",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/170"
+   },
+   {
+    "term": "sakla",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/161"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/179"
+   },
+   {
+    "term": "öğren",
+    "kind": "dropped keyword",
+    "store": "tr",
+    "rank": "-/195"
+   }
+  ],
+  "uk": [
+   {
+    "term": "Mahj Trainer: Вивчай маджонг",
+    "kind": "name",
+    "store": "ua",
+    "rank": "-/0"
+   },
+   {
+    "term": "Правила, Charleston, вправи",
+    "kind": "subtitle",
+    "store": "ua",
+    "rank": "1/1"
+   },
+   {
+    "term": "Mahj Trainer: Правила маджонгу",
+    "kind": "old name",
+    "store": "ua",
+    "rank": "1/3"
+   },
+   {
+    "term": "Charleston, кістки, вправи",
+    "kind": "old subtitle",
+    "store": "ua",
+    "rank": "1/1"
+   },
+   {
+    "term": "американський",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "-/85"
+   },
+   {
+    "term": "початківець",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "136/191"
+   },
+   {
+    "term": "навчання",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "-/171"
+   },
+   {
+    "term": "курс",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "-/181"
+   },
+   {
+    "term": "посібник",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "70/102"
+   },
+   {
+    "term": "безкоштовно",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "-/183"
+   },
+   {
+    "term": "кістки",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "63/89"
+   },
+   {
+    "term": "тренування",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "-/191"
+   },
+   {
+    "term": "стійка",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "16/28"
+   },
+   {
+    "term": "стратегія",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "-/194"
+   },
+   {
+    "term": "тест",
+    "kind": "keyword",
+    "store": "ua",
+    "rank": "-/189"
+   },
+   {
+    "term": "dot",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "-/190"
+   },
+   {
+    "term": "bam",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "-/180"
+   },
+   {
+    "term": "crak",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "-/181"
+   },
+   {
+    "term": "вітер",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "122/189"
+   },
+   {
+    "term": "дракон",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "-/172"
+   },
+   {
+    "term": "квітка",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "54/101"
+   },
+   {
+    "term": "джокер",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "125/152"
+   },
+   {
+    "term": "рука",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "-/152"
+   },
+   {
+    "term": "квіз",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "-/192"
+   },
+   {
+    "term": "порада",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "121/182"
+   },
+   {
+    "term": "pung",
+    "kind": "dropped keyword",
+    "store": "ua",
+    "rank": "-/185"
+   }
+  ],
+  "ur-PK": [
+   {
+    "term": "Mahj Trainer: Mahjong سیکھیں",
+    "kind": "name",
+    "store": "pk",
+    "rank": "-/13"
+   },
+   {
+    "term": "امریکی ماہ جونگ اصول اور مشق",
+    "kind": "subtitle",
+    "store": "pk",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: ماہ جونگ کی مشق",
+    "kind": "old name",
+    "store": "pk",
+    "rank": "-/0"
+   },
+   {
+    "term": "ٹائل، چارلسٹن اور حکمت عملی",
+    "kind": "old subtitle",
+    "store": "pk",
+    "rank": "-/0"
+   },
+   {
+    "term": "guide",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/194"
+   },
+   {
+    "term": "tips",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/192"
+   },
+   {
+    "term": "course",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/172"
+   },
+   {
+    "term": "school",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/183"
+   },
+   {
+    "term": "academy",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/175"
+   },
+   {
+    "term": "study",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/194"
+   },
+   {
+    "term": "offline",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/174"
+   },
+   {
+    "term": "game",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/189"
+   },
+   {
+    "term": "ابتدائی",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/200"
+   },
+   {
+    "term": "سبق",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/182"
+   },
+   {
+    "term": "کوئز",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/193"
+   },
+   {
+    "term": "ٹیوٹوریل",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/197"
+   },
+   {
+    "term": "ٹائل",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/197"
+   },
+   {
+    "term": "کارڈ",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/199"
+   },
+   {
+    "term": "حکمت",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/22"
+   },
+   {
+    "term": "عملی",
+    "kind": "keyword",
+    "store": "pk",
+    "rank": "-/155"
+   },
+   {
+    "term": "ڈاٹ",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/0"
+   },
+   {
+    "term": "بیم",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/197"
+   },
+   {
+    "term": "کریک",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/199"
+   },
+   {
+    "term": "ڈریگن",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/200"
+   },
+   {
+    "term": "ونڈ",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/198"
+   },
+   {
+    "term": "فلاور",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/200"
+   },
+   {
+    "term": "جوکر",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/193"
+   },
+   {
+    "term": "ریک",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/199"
+   },
+   {
+    "term": "ہینڈ",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/198"
+   },
+   {
+    "term": "قاعدہ",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/134"
+   },
+   {
+    "term": "نیا",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/198"
+   },
+   {
+    "term": "ٹپ",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/0"
+   },
+   {
+    "term": "پنگ",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/198"
+   },
+   {
+    "term": "ٹیبل",
+    "kind": "dropped keyword",
+    "store": "pk",
+    "rank": "-/200"
+   }
+  ],
+  "vi": [
+   {
+    "term": "Mahj Trainer: Luyện Mạt Chược",
+    "kind": "name",
+    "store": "vn",
+    "rank": "1/3"
+   },
+   {
+    "term": "Mahj Trainer: Luyện Mạt Chược",
+    "kind": "name",
+    "store": "us",
+    "rank": "1/3"
+   },
+   {
+    "term": "Mạt chược Mỹ và Charleston",
+    "kind": "subtitle",
+    "store": "vn",
+    "rank": "1/1"
+   },
+   {
+    "term": "Mạt chược Mỹ và Charleston",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "Học Charleston, đọc khay bài",
+    "kind": "old subtitle",
+    "store": "vn",
+    "rank": "2/2"
+   },
+   {
+    "term": "Học Charleston, đọc khay bài",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "1/2"
+   },
+   {
+    "term": "miễn phí",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/174"
+   },
+   {
+    "term": "miễn phí",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/146"
+   },
+   {
+    "term": "quân bài",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/166"
+   },
+   {
+    "term": "quân bài",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "61/182"
+   },
+   {
+    "term": "gió",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/198"
+   },
+   {
+    "term": "gió",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/197"
+   },
+   {
+    "term": "rồng",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/170"
+   },
+   {
+    "term": "rồng",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "joker",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/151"
+   },
+   {
+    "term": "joker",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/166"
+   },
+   {
+    "term": "mới học",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/195"
+   },
+   {
+    "term": "mới học",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/192"
+   },
+   {
+    "term": "câu đố",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/185"
+   },
+   {
+    "term": "câu đố",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/169"
+   },
+   {
+    "term": "mẹo",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/174"
+   },
+   {
+    "term": "mẹo",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/174"
+   },
+   {
+    "term": "hướng dẫn",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/181"
+   },
+   {
+    "term": "hướng dẫn",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/198"
+   },
+   {
+    "term": "chiến lược",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/176"
+   },
+   {
+    "term": "chiến lược",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/173"
+   },
+   {
+    "term": "giữ hay bỏ",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "1/1"
+   },
+   {
+    "term": "giữ hay bỏ",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "học",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/172"
+   },
+   {
+    "term": "học",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/159"
+   },
+   {
+    "term": "hoa",
+    "kind": "dropped keyword",
+    "store": "vn",
+    "rank": "-/186"
+   },
+   {
+    "term": "hoa",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/186"
+   },
+   {
+    "term": "quy tắc",
+    "kind": "dropped keyword",
+    "store": "vn",
+    "rank": "99/146"
+   },
+   {
+    "term": "quy tắc",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "29/129"
+   },
+   {
+    "term": "luật",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/181"
+   },
+   {
+    "term": "luật",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/188"
+   },
+   {
+    "term": "chơi",
+    "kind": "keyword",
+    "store": "vn",
+    "rank": "-/166"
+   },
+   {
+    "term": "chơi",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/168"
+   }
+  ],
+  "zh-Hans": [
+   {
+    "term": "Mahj Trainer: 美式麻将新手训练",
+    "kind": "name",
+    "store": "cn",
+    "rank": "-/0"
+   },
+   {
+    "term": "Mahj Trainer: 美式麻将新手训练",
+    "kind": "name",
+    "store": "us",
+    "rank": "1/3"
+   },
+   {
+    "term": "麻将教学与查尔斯顿传牌练习",
+    "kind": "subtitle",
+    "store": "cn",
+    "rank": "-/1"
+   },
+   {
+    "term": "麻将教学与查尔斯顿传牌练习",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "-/1"
+   },
+   {
+    "term": "查尔斯顿传牌与摆牌读牌技巧",
+    "kind": "old subtitle",
+    "store": "cn",
+    "rank": "-/1"
+   },
+   {
+    "term": "查尔斯顿传牌与摆牌读牌技巧",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "学麻将",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/180"
+   },
+   {
+    "term": "学麻将",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "59/197"
+   },
+   {
+    "term": "入门",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/175"
+   },
+   {
+    "term": "入门",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/198"
+   },
+   {
+    "term": "规则",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/148"
+   },
+   {
+    "term": "规则",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "76/168"
+   },
+   {
+    "term": "测验",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/136"
+   },
+   {
+    "term": "测验",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/184"
+   },
+   {
+    "term": "教程",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/145"
+   },
+   {
+    "term": "教程",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/193"
+   },
+   {
+    "term": "策略",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/159"
+   },
+   {
+    "term": "策略",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/191"
+   },
+   {
+    "term": "牌型",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/167"
+   },
+   {
+    "term": "牌型",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "6/165"
+   },
+   {
+    "term": "读牌",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/155"
+   },
+   {
+    "term": "读牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "17/161"
+   },
+   {
+    "term": "手牌",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/168"
+   },
+   {
+    "term": "手牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "20/175"
+   },
+   {
+    "term": "百搭",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/192"
+   },
+   {
+    "term": "百搭",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "25/164"
+   },
+   {
+    "term": "万子",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/176"
+   },
+   {
+    "term": "万子",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "13/173"
+   },
+   {
+    "term": "条子",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/156"
+   },
+   {
+    "term": "条子",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "2/139"
+   },
+   {
+    "term": "筒子",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/185"
+   },
+   {
+    "term": "筒子",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "3/96"
+   },
+   {
+    "term": "风牌",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/154"
+   },
+   {
+    "term": "风牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "5/168"
+   },
+   {
+    "term": "三元牌",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/9"
+   },
+   {
+    "term": "三元牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "1/8"
+   },
+   {
+    "term": "花牌",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/187"
+   },
+   {
+    "term": "花牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "14/138"
+   },
+   {
+    "term": "牌谱",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/146"
+   },
+   {
+    "term": "牌谱",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/74"
+   },
+   {
+    "term": "零基础",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/181"
+   },
+   {
+    "term": "零基础",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/190"
+   },
+   {
+    "term": "小白",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/182"
+   },
+   {
+    "term": "小白",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/179"
+   },
+   {
+    "term": "游戏",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/184"
+   },
+   {
+    "term": "游戏",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/173"
+   },
+   {
+    "term": "免费",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/195"
+   },
+   {
+    "term": "免费",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/185"
+   },
+   {
+    "term": "题库",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/194"
+   },
+   {
+    "term": "题库",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/199"
+   },
+   {
+    "term": "基础",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/192"
+   },
+   {
+    "term": "基础",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/194"
+   },
+   {
+    "term": "教练",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/167"
+   },
+   {
+    "term": "教练",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/177"
+   },
+   {
+    "term": "技巧",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/123"
+   },
+   {
+    "term": "技巧",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "45/166"
+   },
+   {
+    "term": "留牌",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/161"
+   },
+   {
+    "term": "留牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/70"
+   },
+   {
+    "term": "弃牌",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/171"
+   },
+   {
+    "term": "弃牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/173"
+   },
+   {
+    "term": "牌桌",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/44"
+   },
+   {
+    "term": "牌桌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/98"
+   },
+   {
+    "term": "玩法",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/112"
+   },
+   {
+    "term": "玩法",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/133"
+   },
+   {
+    "term": "记牌",
+    "kind": "dropped keyword",
+    "store": "cn",
+    "rank": "-/189"
+   },
+   {
+    "term": "记牌",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "37/185"
+   },
+   {
+    "term": "美国",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/158"
+   },
+   {
+    "term": "美国",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/181"
+   },
+   {
+    "term": "单机",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/178"
+   },
+   {
+    "term": "单机",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/192"
+   },
+   {
+    "term": "术语",
+    "kind": "keyword",
+    "store": "cn",
+    "rank": "-/174"
+   },
+   {
+    "term": "术语",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/180"
+   }
+  ],
+  "zh-Hant": [
+   {
+    "term": "Mahj Trainer: 美式麻將入門特訓",
+    "kind": "name",
+    "store": "tw",
+    "rank": "1/1"
+   },
+   {
+    "term": "Mahj Trainer: 美式麻將入門特訓",
+    "kind": "name",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "麻將教學與查爾斯頓傳牌練習",
+    "kind": "subtitle",
+    "store": "tw",
+    "rank": "1/2"
+   },
+   {
+    "term": "麻將教學與查爾斯頓傳牌練習",
+    "kind": "subtitle",
+    "store": "us",
+    "rank": "1/2"
+   },
+   {
+    "term": "查爾斯頓傳牌與讀牌秘訣",
+    "kind": "old subtitle",
+    "store": "tw",
+    "rank": "1/1"
+   },
+   {
+    "term": "查爾斯頓傳牌與讀牌秘訣",
+    "kind": "old subtitle",
+    "store": "us",
+    "rank": "1/1"
+   },
+   {
+    "term": "學麻將",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/189"
+   },
+   {
+    "term": "學麻將",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "51/194"
+   },
+   {
+    "term": "規則",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/179"
+   },
+   {
+    "term": "規則",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "72/175"
+   },
+   {
+    "term": "小測驗",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/175"
+   },
+   {
+    "term": "小測驗",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "30/173"
+   },
+   {
+    "term": "策略",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/195"
+   },
+   {
+    "term": "策略",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/191"
+   },
+   {
+    "term": "牌型",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/166"
+   },
+   {
+    "term": "牌型",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "6/165"
+   },
+   {
+    "term": "記牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/168"
+   },
+   {
+    "term": "記牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "44/181"
+   },
+   {
+    "term": "讀牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/175"
+   },
+   {
+    "term": "讀牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "15/161"
+   },
+   {
+    "term": "手牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/164"
+   },
+   {
+    "term": "手牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "20/175"
+   },
+   {
+    "term": "基礎",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/187"
+   },
+   {
+    "term": "基礎",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/191"
+   },
+   {
+    "term": "新手",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/166"
+   },
+   {
+    "term": "新手",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "18/176"
+   },
+   {
+    "term": "萬子",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/184"
+   },
+   {
+    "term": "萬子",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "12/171"
+   },
+   {
+    "term": "筒子",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/186"
+   },
+   {
+    "term": "筒子",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "3/96"
+   },
+   {
+    "term": "條子",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/163"
+   },
+   {
+    "term": "條子",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "3/167"
+   },
+   {
+    "term": "風牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/157"
+   },
+   {
+    "term": "風牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "8/169"
+   },
+   {
+    "term": "三元牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "13/17"
+   },
+   {
+    "term": "三元牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "1/8"
+   },
+   {
+    "term": "花牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/149"
+   },
+   {
+    "term": "花牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "14/138"
+   },
+   {
+    "term": "鬼牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/149"
+   },
+   {
+    "term": "鬼牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "6/135"
+   },
+   {
+    "term": "碰牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/158"
+   },
+   {
+    "term": "碰牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "1/151"
+   },
+   {
+    "term": "遊戲",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/183"
+   },
+   {
+    "term": "遊戲",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/168"
+   },
+   {
+    "term": "免費",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/189"
+   },
+   {
+    "term": "免費",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/197"
+   },
+   {
+    "term": "題庫",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/196"
+   },
+   {
+    "term": "題庫",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/191"
+   },
+   {
+    "term": "教練",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/182"
+   },
+   {
+    "term": "教練",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "技巧",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/148"
+   },
+   {
+    "term": "技巧",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "45/166"
+   },
+   {
+    "term": "留牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/164"
+   },
+   {
+    "term": "留牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/70"
+   },
+   {
+    "term": "棄牌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/178"
+   },
+   {
+    "term": "棄牌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/173"
+   },
+   {
+    "term": "牌桌",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/80"
+   },
+   {
+    "term": "牌桌",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/98"
+   },
+   {
+    "term": "玩法",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/154"
+   },
+   {
+    "term": "玩法",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/133"
+   },
+   {
+    "term": "教學",
+    "kind": "dropped keyword",
+    "store": "tw",
+    "rank": "-/173"
+   },
+   {
+    "term": "教學",
+    "kind": "dropped keyword",
+    "store": "us",
+    "rank": "-/186"
+   },
+   {
+    "term": "美國",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/165"
+   },
+   {
+    "term": "美國",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/174"
+   },
+   {
+    "term": "單機",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/194"
+   },
+   {
+    "term": "單機",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/187"
+   },
+   {
+    "term": "離線",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/191"
+   },
+   {
+    "term": "離線",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/186"
+   },
+   {
+    "term": "術語",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/163"
+   },
+   {
+    "term": "術語",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/167"
+   },
+   {
+    "term": "每日",
+    "kind": "keyword",
+    "store": "tw",
+    "rank": "-/185"
+   },
+   {
+    "term": "每日",
+    "kind": "keyword",
+    "store": "us",
+    "rank": "-/174"
+   }
+  ]
+ }
+}
