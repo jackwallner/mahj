@@ -4,7 +4,7 @@ Harjoittele viiden minuutin jaksoissa ennen kuin istut oikeaan pöytään. Vastu
 
 LAATTAHUONE (TILE ROOM)
 • Opi kaikki laattaperheet: craks, bams, dots, tuulet, lohikäärmeet, kukat ja jokerit.
-• Testaa tietosi säännöistä, jotka menevät uusilla pelaajilla sekaisin, kuten mikä lohikäärme kuuluu mihinkin sarjaan ja mitä jokeri saa tehdä.
+• Testaa tietosi säännöistä, jotka menevät uusilla pelaajilla sekaisin, kuten mikä lohikäärme kuuluu mihinkin maahan ja mitä jokeri saa tehdä.
 
 KORTTIHUONE (CARD ROOM)
 • Opi kortin osiot, kuten 2468, Consecutive Run, 13579 ja Winds and Dragons.
