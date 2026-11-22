@@ -25,6 +25,11 @@ publishable key in the binary can only INSERT rows where `app = 'mahj'` and
 `kind` is one of `general`, `not_enjoying`, `question` (retired), `churn`; it cannot
 read anything. Reading needs the management API or the dashboard:
 `scripts/feedback-inbox.sh` prints unread rows and marks them read.
+The ops morning digest (`~/ios/ops`, `sources/app_feedback.py`, since
+2026-11-21) reads each day's rows through `ops_feedback_read` (migration
+`20261121120000_ops_feedback_read.sql`): a security definer function that
+checks a secret's SHA-256, returns no ids, devices or locales, and never
+marks rows read, so the inbox script still sees them as new.
 
 Delivery rules: 2xx is sent, a network error, 408, 429 or 5xx queues the row
 in UserDefaults (cap 20) and `flushPending()` retries on the next launch or
