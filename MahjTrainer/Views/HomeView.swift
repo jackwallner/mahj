@@ -259,6 +259,10 @@ struct HomeView: View {
                 // iOS 27.1 hands the Duo's status column inset to this pane
                 // too, which stopped Home about 120 pt short of the fold.
                 .ignoresSafeArea(.container, edges: split != nil ? .trailing : [])
+                // A solid edge once scrolled: the soft default let card
+                // titles read through the clock and the two round buttons.
+                // Clear at rest, as before.
+                .hardTopScrollEdge()
                 .onAppear {
                     homeOnScreen = true
                     consumeRecommendedRoomHint(proxy: proxy)
@@ -591,7 +595,10 @@ struct HomeView: View {
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 400_000_000)
             withAnimation(reduceMotion ? nil : .spring(response: 0.5, dampingFraction: 0.85)) {
-                proxy.scrollTo(roomID, anchor: .center)
+                // No anchor: the least scroll that shows the card, and none
+                // when it is already on screen. Centring it pushed Get
+                // Started under the status bar on the first arrival.
+                proxy.scrollTo(roomID)
                 highlightedRoomID = roomID
             }
             try? await Task.sleep(nanoseconds: 2_200_000_000)
@@ -1281,7 +1288,9 @@ struct HomeView: View {
             .contentShape(RoundedRectangle(cornerRadius: Theme.cardCorner, style: .continuous))
         }
         .buttonStyle(PressableCardStyle())
-        .accessibilityHint(locked
+        // A value, not a hint: it is the room's state, and VoiceOver users
+        // often turn hints off.
+        .accessibilityValue(locked
             ? String(localized: "Locked. \(room.drills.count) drills, included with \(Membership.name)")
             : String(localized: "\(mastery.level.title). \(mastery.known) of \(mastery.total) questions solid"))
         .id(room.id)

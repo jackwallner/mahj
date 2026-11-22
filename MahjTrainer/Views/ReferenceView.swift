@@ -174,6 +174,7 @@ struct ReferenceView: View {
                 }
             }
             .buttonStyle(.plain)
+            .accessibilityValue(expanded ? String(localized: "Expanded") : String(localized: "Collapsed"))
 
             if expanded {
                 VStack(alignment: .leading, spacing: 10) {

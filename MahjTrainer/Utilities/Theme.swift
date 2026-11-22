@@ -72,6 +72,11 @@ enum Theme {
     static let tileEdge = Color(light: (0.84, 0.79, 0.68), dark: (0.70, 0.65, 0.54))
     static let crakRed = Color(red: 0.72, green: 0.17, blue: 0.16)
     static let bamGreen = Color(red: 0.12, green: 0.47, blue: 0.29)
+    /// Grade marks (the check and cross on an answer row). The suit colours
+    /// above are fixed for tile faces, and on a dark tinted row they measured
+    /// 2.3 and 2.2:1. These hold the light look and lift dark to about 6:1.
+    static let gradeCorrect = Color(light: (0.12, 0.47, 0.29), dark: (0.45, 0.80, 0.58))
+    static let gradeWrong = Color(light: (0.72, 0.17, 0.16), dark: (0.98, 0.52, 0.48))
     static let dotBlue = Color(red: 0.15, green: 0.32, blue: 0.60)
     static let jokerPurple = Color(red: 0.45, green: 0.25, blue: 0.60)
     static let flowerPink = Color(red: 0.80, green: 0.33, blue: 0.47)
@@ -199,6 +204,21 @@ extension View {
     /// takes the room back out of the layout, so nothing on screen moves.
     func hitPadding(_ insets: EdgeInsets) -> some View {
         padding(insets).contentShape(Rectangle())
+    }
+}
+
+extension View {
+    /// iOS 26's hard scroll edge under the top bar: content that scrolls up
+    /// meets a solid edge instead of reading through the clock and the bar's
+    /// buttons. The bar stays clear at rest. Earlier systems draw their own
+    /// bar background once content scrolls under it.
+    @ViewBuilder
+    func hardTopScrollEdge() -> some View {
+        if #available(iOS 26.0, *) {
+            scrollEdgeEffectStyle(.hard, for: .top)
+        } else {
+            self
+        }
     }
 }
 

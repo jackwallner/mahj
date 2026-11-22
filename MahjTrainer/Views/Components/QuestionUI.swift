@@ -56,6 +56,10 @@ struct QuestionPager<Choices: View>: View {
     /// True when this miss just went back into the review schedule. Saying so
     /// turns a wrong answer from a score into a plan.
     var requeued: Bool = false
+    /// The player picked a wrong answer. Hosts whose misses carry no note
+    /// (a quiz, a generated item) say so here; otherwise a note or a
+    /// requeue implies it.
+    var missed: Bool? = nil
     @ViewBuilder let choices: () -> Choices
 
     /// Nil until the regular layout has been measured against the viewport.
@@ -109,6 +113,14 @@ struct QuestionPager<Choices: View>: View {
                 }
                 if answered {
                     VStack(spacing: 10) {
+                        // A miss on a question too tall to keep its rack on
+                        // screen beside the note: the scroll to the note
+                        // takes the rack away just when the note talks about
+                        // its tiles, so a small copy rides with the note.
+                        if missedOnTallQuestion {
+                            TileRackView(tiles: tiles, tileWidth: 32)
+                                .accessibilityHidden(true)
+                        }
                         HStack(alignment: .top, spacing: 10) {
                             Image(systemName: "lightbulb.fill")
                                 .foregroundStyle(Theme.gold)
@@ -194,6 +206,13 @@ struct QuestionPager<Choices: View>: View {
 
     private var isCompact: Bool { compact ?? false }
 
+    /// The question alone already fills most of the screen, so the note
+    /// cannot share it with the rack.
+    private var missedOnTallQuestion: Bool {
+        (missed ?? (missNote != nil || requeued)) && !tiles.isEmpty
+            && viewportHeight > 0 && questionHeight > viewportHeight * 0.55
+    }
+
     /// Compact only when the regular question (prompt, tiles, choices and the
     /// pager's 10pt padding) would not fit, so the player never has to scroll
     /// to reach the last choice.
@@ -220,8 +239,19 @@ struct ChoiceList: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.compactQuestion) private var compact
     @State private var shineTrigger = 0
-    @State private var landed = false
+    /// Starts true for a question restored already answered (a resumed run),
+    /// so it draws settled, like a live grade after its pop, without
+    /// replaying the pop, the shine or the announcement.
+    @State private var landed: Bool
     @State private var shakes: CGFloat = 0
+
+    init(labels: [String], selection: Int?, answerIndex: Int, onPick: @escaping (Int) -> Void) {
+        self.labels = labels
+        self.selection = selection
+        self.answerIndex = answerIndex
+        self.onPick = onPick
+        _landed = State(initialValue: selection != nil)
+    }
 
     private var answered: Bool { selection != nil }
 
@@ -342,12 +372,14 @@ struct ChoiceList: View {
         if answered && isAnswer {
             Image(systemName: "checkmark.circle.fill")
                 .font(.body.weight(.bold))
-                .foregroundStyle(Theme.bamGreen)
-                .scaleEffect(landed ? 1.2 : 0.4)
+                .foregroundStyle(Theme.gradeCorrect)
+                // Full size from the first graded frame, so the grade reads
+                // before the pop and the confetti; the pop only adds to it.
+                .scaleEffect(landed ? 1.2 : 1)
         } else if answered && isMiss {
             Image(systemName: "xmark.circle.fill")
                 .font(.body.weight(.bold))
-                .foregroundStyle(Theme.crakRed)
+                .foregroundStyle(Theme.gradeWrong)
         } else {
             Color.clear.frame(width: 22, height: 22)
         }
@@ -391,7 +423,7 @@ struct MissNoteCard: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 8) {
                 Image(systemName: "questionmark.circle.fill")
-                    .foregroundStyle(Theme.crakRed)
+                    .foregroundStyle(Theme.gradeWrong)
                 Text("Why not \(note.pickedLabel)?")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(Theme.ink)

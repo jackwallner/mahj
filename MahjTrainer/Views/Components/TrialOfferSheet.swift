@@ -361,6 +361,8 @@ private struct TrialOfferModifier: ViewModifier {
             // Let the result land before anything rises over it.
             try? await Task.sleep(nanoseconds: 1_200_000_000)
             guard onScreen, !isPresented, eligible else { return }
+            TrialOfferPacer.autoOffersPending += 1
+            defer { TrialOfferPacer.autoOffersPending -= 1 }
             // Never rise on its own to promise a free week Apple won't give.
             guard await subscriptions.isTrialEligible(for: subscriptions.onboardingPlan.plan),
                   onScreen, !isPresented else { return }

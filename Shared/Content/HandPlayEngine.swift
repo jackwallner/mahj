@@ -330,7 +330,7 @@ enum HandPlayEngine {
         switch stars {
         case 3: headline = String(localized: "That is how you build a hand")
         case 2: headline = String(localized: "Solid hand")
-        case 1: headline = String(localized: "You got there in the end")
+        case 1: headline = String(localized: "A start to build on")
         default: headline = String(localized: "That one fought you")
         }
 

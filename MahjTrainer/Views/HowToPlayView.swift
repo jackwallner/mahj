@@ -49,10 +49,11 @@ struct HowToPlayView: View {
                 // dots under the status bar and Skip off the bottom, so
                 // those scroll instead.
                 ViewThatFits(in: .vertical) {
-                    VStack(spacing: 0) {
-                        Spacer(minLength: 0)
+                    // Every page's top sits where the tallest page's would,
+                    // centred, so the title is not hunted for on each page.
+                    StablePageTop {
+                        ForEach(pages) { pageCard($0).hidden().accessibilityHidden(true) }
                         movingCard(swipes: true)
-                        Spacer(minLength: 0)
                     }
                     ScrollView { movingCard(swipes: false) }
                         .id(page.id)
@@ -76,7 +77,8 @@ struct HowToPlayView: View {
     /// so the end of a long page on an iPhone SE could not be scrolled to.
     /// Back and Continue still page there.
     private func movingCard(swipes: Bool) -> some View {
-        pageCard
+        pageCard(page)
+            .shine(trigger: shineTrigger, corner: 22)
             .id(page.id)
             .offset(x: drag)
             .rotationEffect(.degrees(Double(drag / 40)), anchor: .bottom)
@@ -176,7 +178,7 @@ struct HowToPlayView: View {
         }
     }
 
-    private var pageCard: some View {
+    private func pageCard(_ page: HowToPlayPage) -> some View {
         VStack(spacing: 16) {
             Image(systemName: page.icon)
                 .font(.system(size: 32, weight: .semibold))
@@ -215,14 +217,13 @@ struct HowToPlayView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Theme.gold.opacity(0.12), in: RoundedRectangle(cornerRadius: 10))
             }
-            if isLast {
+            if page.id == pages.last?.id {
                 recommendationCard
             }
         }
         .padding(24)
         .frame(maxWidth: .infinity)
         .themedCard(corner: 22)
-        .shine(trigger: shineTrigger, corner: 22)
     }
 
     /// The primer's real next action: a tappable card recommending a room
@@ -301,6 +302,35 @@ struct HowToPlayView: View {
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 350_000_000)
             shineTrigger += 1
+        }
+    }
+}
+
+/// Lays out the last subview (the page on screen) with its top where the
+/// tallest subview's top would sit if centred. The others are the hidden
+/// pages, there only to be measured. Centring each page on its own moved the
+/// title 20 to 30pt up or down on every Continue. A page taller than the
+/// space still fits: it moves up only as far as it needs.
+struct StablePageTop: Layout {
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        guard let visible = subviews.last else { return .zero }
+        let size = visible.sizeThatFits(ProposedViewSize(width: proposal.width, height: nil))
+        let width = proposal.width ?? size.width
+        guard let height = proposal.height, height.isFinite else { return CGSize(width: width, height: size.height) }
+        return CGSize(width: width, height: max(height, size.height))
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        guard let visible = subviews.last else { return }
+        let free = ProposedViewSize(width: bounds.width, height: nil)
+        let tallest = subviews.map { $0.sizeThatFits(free).height }.max() ?? 0
+        let visibleHeight = visible.sizeThatFits(free).height
+        let top = max(0, min((bounds.height - tallest) / 2, bounds.height - visibleHeight))
+        for subview in subviews {
+            subview.place(
+                at: CGPoint(x: bounds.minX, y: bounds.minY + top),
+                proposal: ProposedViewSize(width: bounds.width, height: subview.sizeThatFits(free).height)
+            )
         }
     }
 }

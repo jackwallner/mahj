@@ -40,6 +40,9 @@ struct PracticeRunView: View {
     @State private var attempted = 0
     @State private var finished = false
     @State private var selection: Int?
+    /// The timed clock ran out with nothing answered. That run has no score
+    /// to show, but it still needs an ending rather than a silent dismiss.
+    @State private var timedOutEmpty = false
 
     @State private var secondsRemaining = Self.challengeSeconds
     /// The timed clock does not start with the screen. It used to, and the
@@ -86,6 +89,15 @@ struct PracticeRunView: View {
             // streak day and asked for an App Store rating,
             // all for a round nobody played.
             emptyRunScreen
+        } else if timedOutEmpty {
+            timeUpScreen
+                // After the swap (sooner, it is cut off), and only while
+                // the screen is still up.
+                .task {
+                    try? await Task.sleep(nanoseconds: 500_000_000)
+                    guard !Task.isCancelled else { return }
+                    AccessibilityNotification.Announcement(String(localized: "Time's up")).post()
+                }
         } else if mode == .timed && !timedStarted {
             readyScreen
         } else {
@@ -162,6 +174,51 @@ struct PracticeRunView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
+    private var timeUpScreen: some View {
+        VStack(spacing: 18) {
+            Spacer()
+            Image(systemName: "timer")
+                .font(.system(size: 48))
+                .foregroundStyle(Theme.coral)
+                .accessibilityHidden(true)
+            Text("Time's up")
+                .font(Theme.display(30))
+                .foregroundStyle(Theme.ink)
+            Spacer()
+            Button {
+                retryTimed()
+            } label: {
+                Text("Try again").primaryCTA()
+            }
+            Button { dismiss() } label: {
+                Text("Done")
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(Theme.jade)
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .contentShape(Rectangle())
+            }
+        }
+        .padding()
+        .frame(maxWidth: Theme.readableContentWidth)
+        .frame(maxWidth: .infinity)
+        .frame(maxHeight: .infinity)
+        .background(Theme.background)
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    /// A fresh deal and a fresh clock, started at once: the player just
+    /// asked for it.
+    private func retryTimed() {
+        Haptics.impact(.rigid)
+        items = EndlessPractice.mixedItems(count: Self.batchSize)
+        index = 0
+        selection = nil
+        secondsRemaining = Self.challengeSeconds
+        clockEnd = nil
+        timedOutEmpty = false
+    }
+
     private var item: QuickItem { items[min(index, items.count - 1)] }
     private var answered: Bool { selection != nil }
     /// Every run is scored out of what was actually attempted. Closing Fix My
@@ -197,7 +254,8 @@ struct PracticeRunView: View {
                     answered: answered,
                     eyebrow: item.sourceLabel.uppercased(),
                     missNote: missNote,
-                    requeued: requeued
+                    requeued: requeued,
+                    missed: answered && selection != item.answerIndex
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)
@@ -219,7 +277,8 @@ struct PracticeRunView: View {
                 trigger: confettiTrigger,
                 origin: .init(x: 0.5, y: 0.35),
                 particleCount: confettiParticleCount,
-                sourceRect: answerRect
+                sourceRect: answerRect,
+                scope: item.id
             )
         }
         .analyticsScreen("Practice Run", ["mode": String(describing: mode)])
@@ -339,6 +398,10 @@ struct PracticeRunView: View {
         }
         guard !finished else { return }
         Haptics.impact(.rigid)
+        guard attempted > 0 else {
+            timedOutEmpty = true
+            return
+        }
         finish()
     }
 
@@ -346,6 +409,9 @@ struct PracticeRunView: View {
 
     private func grade(_ pick: Int) {
         guard selection == nil else { return }
+        // The clock ticks every quarter second; a tap after the deadline but
+        // before the next tick does not score.
+        if mode == .timed, let clockEnd, Date() >= clockEnd { return }
         selection = pick
         attempted += 1
         let correct = pick == item.answerIndex

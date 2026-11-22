@@ -205,7 +205,7 @@ object HandPlayEngine {
         val headline = when (stars) {
             3 -> "That is how you build a hand"
             2 -> "Solid hand"
-            1 -> "You got there in the end"
+            1 -> "A start to build on"
             else -> "That one fought you"
         }
         val grouped = if (working == 0) "None of them have paired up yet, and pairs are what turn a collection into a hand."

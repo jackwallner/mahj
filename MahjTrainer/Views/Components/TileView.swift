@@ -19,6 +19,15 @@ struct TileView: View {
     /// Whether this tile is currently picked out (the tile just drawn, or a
     /// selection). Announced, not just drawn.
     var isSelected = false
+    /// Spoken for a picked-out tile when "selected" is not what it means
+    /// (Play a Hand's tile just drawn).
+    var selectedValue: String?
+    /// What activating it does, when that is more than choosing it.
+    var actionHint: String?
+    /// False while the rack holds a verdict: the action stays attached (so
+    /// nothing in the tree is rebuilt mid-animation) but the tile stops
+    /// announcing itself as a button that does something.
+    var actionEnabled = true
 
     private var height: CGFloat { width * 1.35 }
 
@@ -45,13 +54,18 @@ struct TileView: View {
         .accessibilityLabel(tile.spokenName)
         .accessibilityIdentifier(identifier ?? "")
         .accessibilityAddTraits(accessibilityTraits)
-        .accessibilityHint(action == nil ? "" : String(localized: "Double tap to choose this tile"))
+        .accessibilityValue(isSelected ? (selectedValue ?? "") : "")
+        .accessibilityHint(action == nil || !actionEnabled ? "" : (actionHint ?? String(localized: "Double tap to choose this tile")))
+        .accessibilityRespondsToUserInteraction(action != nil && actionEnabled)
+        // The action stays attached (see `actionEnabled`), so a graded tile
+        // is disabled instead: VoiceOver will not perform it.
+        .disabled(action != nil && !actionEnabled)
     }
 
     private var accessibilityTraits: AccessibilityTraits {
         var traits = AccessibilityTraits()
-        if action != nil { traits.insert(.isButton) }
-        if isSelected { traits.insert(.isSelected) }
+        if action != nil, actionEnabled { traits.insert(.isButton) }
+        if isSelected, selectedValue == nil { traits.insert(.isSelected) }
         return traits
     }
 
@@ -60,8 +74,10 @@ struct TileView: View {
         switch tile {
         case .suited(let rank, .crak):
             // Real crak tiles read numeral-over-萬; no pips to count.
+            // Ranks are verbatim: a real set prints 1 to 9 in Western digits
+            // everywhere, and a localized Text drew Arabic-Indic ones.
             VStack(spacing: width * 0.02) {
-                Text("\(rank)")
+                Text(verbatim: String(rank))
                     .font(.system(size: width * 0.5, weight: .bold, design: .serif))
                     .foregroundStyle(Theme.crakRed)
                 Text(verbatim: "萬")
@@ -71,7 +87,7 @@ struct TileView: View {
         case .suited(let rank, let suit):
             // Dots and bams carry rank-accurate pips: a 9 shows 9 marks.
             VStack(spacing: width * 0.06) {
-                Text("\(rank)")
+                Text(verbatim: String(rank))
                     .font(.system(size: width * 0.3, weight: .bold, design: .serif))
                     .foregroundStyle(suitColor(suit))
                 pipBlock(rank: rank, suit: suit)
@@ -202,6 +218,17 @@ struct TileRackView: View {
     /// once its neighbours have moved aside (`TileRackView.dropIn`); a whole
     /// new deal must not wait, or only the tiles both deals share show first.
     var tileInsertion: AnyTransition = .opacity
+    /// The outline on a highlighted tile. Gold means selected (Charleston);
+    /// Play a Hand marks the tile just drawn in jade, with its own spoken
+    /// value, since there a tap throws it rather than selecting it.
+    var highlightColor: Color = Theme.gold
+    var highlightValue: String?
+    var actionHint: ((Tile) -> String?)?
+    /// See `TileView.actionEnabled`.
+    var tapsEnabled = true
+    /// A dot in the gap under a highlighted tile, so the tile just drawn
+    /// differs from a selection in shape as well as colour.
+    var highlightDot = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     static let dropIn = AnyTransition.offset(y: -10).combined(with: .opacity)
@@ -249,14 +276,25 @@ struct TileRackView: View {
             width: tileWidth,
             identifier: "rack-tile-\(index)",
             action: onTap.map { tap in { tap(index) } },
-            isSelected: selected
+            isSelected: selected,
+            selectedValue: highlightValue,
+            actionHint: actionHint?(tile),
+            actionEnabled: tapsEnabled
         )
             // Always present, only its opacity changes: a removed outline
             // stayed behind fading at the old spot while its tile slid away.
             .overlay {
                 RoundedRectangle(cornerRadius: tileWidth * 0.16)
-                    .strokeBorder(Theme.gold, lineWidth: 3)
+                    .strokeBorder(highlightColor, lineWidth: 3)
                     .opacity(selected ? 1 : 0)
+            }
+            .overlay(alignment: .bottom) {
+                Circle()
+                    .fill(highlightColor)
+                    .frame(width: 6, height: 6)
+                    .offset(y: 7)
+                    .opacity(selected && highlightDot ? 1 : 0)
+                    .accessibilityHidden(true)
             }
             .offset(y: selected ? -8 : 0)
             .onTapGesture { onTap?(index) }

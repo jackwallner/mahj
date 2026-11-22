@@ -27,9 +27,9 @@ struct StatsView: View {
                         weekCard(gain)
                     }
                     if let focus = records.roomToWorkOn(isMember: subscriptions.isPro) {
-                        workOnCard(focus)
+                        roomLink(focus.roomID) { workOnCard(focus) }
                     } else if let weakest = records.weakestRoom(), roomStats.count > 1 {
-                        weakSpotCard(weakest)
+                        roomLink(weakest.id) { weakSpotCard(weakest) }
                     }
                     masteryBreakdown
                     roomBreakdown
@@ -133,6 +133,18 @@ struct StatsView: View {
         .themedCard(corner: 16)
     }
 
+    /// The recommendation is a next step, so it opens the room it names.
+    /// Rooms always open; their drills apply the usual locks.
+    @ViewBuilder
+    private func roomLink<Card: View>(_ roomID: String, @ViewBuilder card: () -> Card) -> some View {
+        if let room = DrillLibrary.room(id: roomID) {
+            NavigationLink { RoomView(room: room).trailingPaneEdge() } label: { card() }
+                .buttonStyle(PressableCardStyle())
+        } else {
+            card()
+        }
+    }
+
     private func weakSpotCard(_ stat: PracticeRecordStore.RoomStat) -> some View {
         HStack(spacing: 12) {
             Image(systemName: "target")
@@ -150,6 +162,10 @@ struct StatsView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             Spacer(minLength: 0)
+            Image(systemName: "chevron.forward")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(Theme.inkTertiary)
+                .accessibilityHidden(true)
         }
         .padding(14)
         .themedCard(corner: 16)
@@ -185,7 +201,7 @@ struct StatsView: View {
                                 Text(mastery.level.title)
                                     .font(.caption.weight(.bold))
                             }
-                            .foregroundStyle(levelColor(mastery.level))
+                            .foregroundStyle(Theme.readable(levelColor(mastery.level)))
                         }
                         // Coloured by LEVEL, not by the accuracy thresholds:
                         // a room nobody has started is not failing, and
@@ -208,7 +224,7 @@ struct StatsView: View {
         case .untouched: return Theme.inkTertiary
         case .learning: return Theme.coral
         case .solid: return Theme.gold
-        case .sharp: return Theme.bamGreen
+        case .sharp: return Theme.gradeCorrect
         }
     }
 
@@ -231,6 +247,10 @@ struct StatsView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             Spacer(minLength: 0)
+            Image(systemName: "chevron.forward")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(Theme.inkTertiary)
+                .accessibilityHidden(true)
         }
         .padding(14)
         .themedCard(corner: 16)
@@ -251,7 +271,7 @@ struct StatsView: View {
                         Spacer()
                         Text(percent(stat.accuracy))
                             .font(.subheadline.weight(.bold))
-                            .foregroundStyle(barColor(stat.accuracy))
+                            .foregroundStyle(Theme.readable(barColor(stat.accuracy)))
                             .monospacedDigit()
                     }
                     accuracyBar(stat.accuracy)
@@ -314,7 +334,7 @@ struct StatsView: View {
     }
 
     private func barColor(_ fraction: Double) -> Color {
-        if fraction >= 0.8 { return Theme.bamGreen }
+        if fraction >= 0.8 { return Theme.gradeCorrect }
         if fraction >= 0.6 { return Theme.gold }
         return Theme.coral
     }

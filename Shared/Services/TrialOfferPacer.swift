@@ -30,6 +30,9 @@ enum TrialOfferPacer {
     static let lastShownSessionKey = "trialOffer.lastAutoShownSession"
     static let dayPacedCountKey = "trialOffer.dayPacedCount"
     static let sessionKey = "trialOffer.session"
+    /// Automatic asks waiting on StoreKit's eligibility answer (a count, so
+    /// two overlapping checks never clear each other). Main actor only.
+    nonisolated(unsafe) static var autoOffersPending = 0
     static let leftAtKey = "trialOffer.leftAt"
     static let askDayKey = "trialOffer.askDay"
     static let askDayCountKey = "trialOffer.askDayCount"
@@ -100,6 +103,9 @@ enum TrialOfferPacer {
     /// on the same result: one ask per moment.
     static func autoShownRecently(within seconds: TimeInterval = 120, now: Date = Date(),
                                   defaults: UserDefaults = .standard) -> Bool {
+        // An automatic ask still waiting on StoreKit's free-week answer
+        // counts: the rating prompt must not land first and be covered.
+        if autoOffersPending > 0 { return true }
         guard let last = defaults.object(forKey: lastShownKey) as? Date, last <= now else { return false }
         return now.timeIntervalSince(last) < seconds
     }

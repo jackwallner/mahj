@@ -25,7 +25,13 @@ struct OrdinaryRunEntryView<Content: View>: View {
         if let saved, !decided {
             VStack(spacing: 18) {
                 Spacer()
-                Text(title).font(Theme.display(28)).foregroundStyle(Theme.ink)
+                // The bar already names the drill; the middle says what
+                // Resume brings back.
+                Text(Self.position(of: saved))
+                    .font(Theme.display(28))
+                    .foregroundStyle(Theme.ink)
+                    .multilineTextAlignment(.center)
+                    .monospacedDigit()
                 Spacer()
                 Button { decided = true } label: {
                     Text("Resume").primaryCTA()
@@ -45,6 +51,16 @@ struct OrdinaryRunEntryView<Content: View>: View {
         } else {
             content()
         }
+    }
+
+    /// Where the saved run stands: cards down for a deck, otherwise the
+    /// question (or deal) it resumes on.
+    static func position(of run: OrdinaryRun) -> String {
+        let total = run.drill.kind.itemCount
+        if case .flashcards = run.drill.kind {
+            return String(localized: "\(total - run.queue.count) of \(total) down")
+        }
+        return String(localized: "Question \(min(run.index + 1, total)) of \(total)")
     }
 }
 

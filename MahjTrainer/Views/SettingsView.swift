@@ -170,9 +170,9 @@ struct SettingsView: View {
             Button("Reset Progress", role: .destructive) {
                 showResetConfirm = true
             }
-            // The system red measured 3.6:1 on the row; the tile red is the
-            // same warning at 6:1.
-            .foregroundStyle(Theme.crakRed)
+            // The system red measured 3.6:1 on the row; the grade red is the
+            // same warning at 6:1 or better in both modes.
+            .foregroundStyle(Theme.gradeWrong)
         } header: {
             sectionHeader("Your Practice History")
         }

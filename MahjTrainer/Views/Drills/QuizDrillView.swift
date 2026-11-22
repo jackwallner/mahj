@@ -52,7 +52,8 @@ struct QuizDrillView: View {
                     prompt: question.prompt,
                     tiles: question.tiles,
                     explanation: question.explanation,
-                    answered: answered
+                    answered: answered,
+                    missed: answered && selection != shuffled.answerIndex
                 ) {
                     ChoiceList(labels: shuffled.labels, selection: selection, answerIndex: shuffled.answerIndex) { pick in
                         select(pick)
@@ -72,7 +73,8 @@ struct QuizDrillView: View {
             ConfettiBurst(
                 trigger: confettiTrigger,
                 origin: .init(x: 0.5, y: 0.35),
-                sourceRect: answerRect
+                sourceRect: answerRect,
+                scope: index
             )
         }
         .analyticsScreen("Quiz", ["drill_id": drill.id])

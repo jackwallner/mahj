@@ -48,6 +48,12 @@ struct FlashcardDrillView: View {
     /// One-time teaching nudge after the first-ever flip.
     @AppStorage("mahj.hasSwipedDeck") private var hasSwipedDeck = false
     @State private var didHint = false
+    /// The first-flip hint's own offset, added to the finger's. Kept apart so
+    /// the hint's delayed reset can never yank a card the finger is holding.
+    @State private var hintNudge: CGFloat = 0
+    /// True while a finger is on the card. It also resets when the system
+    /// cancels the touch (Control Center, a call), where onEnded never runs.
+    @GestureState private var touching = false
 
     private var isFlinging: Bool { flingGate.isFlinging }
 
@@ -166,13 +172,19 @@ struct FlashcardDrillView: View {
                 )
                 .scaleEffect(scale(forSlot: slot))
                 .offset(y: yOffset(forSlot: slot))
+                // Inside the moving layer, so the stamp leaves with the card
+                // it grades instead of staying behind on the one that rises.
+                .overlay { if slot == 0 { verdictStamps } }
                 .offset(slot == 0 ? onScreen(effectiveDrag) : .zero)
                 .rotationEffect(slot == 0 ? topRotation : .zero, anchor: .bottom)
-                .overlay { if slot == 0 { verdictStamps } }
                 .opacity(slot == 0 ? flingOpacity : 1)
                 .zIndex(Double(3 - slot))
                 .allowsHitTesting(slot == 0)
                 .gesture(dragGesture(size: size))
+                .onChange(of: touching) { _, isTouching in
+                    guard !isTouching, slot == 0 else { return }
+                    settleCancelledDrag()
+                }
                 .accessibilityAddTraits(.isButton)
                 .accessibilityHint(swipeAccessibilityHint)
                 // The deck is gestures; VoiceOver and Switch Control get the
@@ -200,8 +212,13 @@ struct FlashcardDrillView: View {
     /// Pre-flip, horizontal pulls rubber-band: the card answers the finger but
     /// makes it obvious it won't leave until it's been flipped.
     private var effectiveDrag: CGSize {
-        guard !isFlipped, !isFlinging else { return drag }
+        guard !isFlipped, !isFlinging else { return shownDrag }
         return CGSize(width: drag.width * 0.16, height: drag.height * 0.10)
+    }
+
+    /// The finger's drag plus the first-flip hint.
+    private var shownDrag: CGSize {
+        CGSize(width: drag.width + hintNudge, height: drag.height)
     }
 
     /// The finger's translation is physical, but right to left (Arabic)
@@ -256,7 +273,7 @@ struct FlashcardDrillView: View {
     }
 
     private func stampOpacity(forDirection direction: CGFloat) -> Double {
-        let travel = drag.width * direction
+        let travel = shownDrag.width * direction
         return Double(min(1, max(0, travel / 80)))
     }
 
@@ -268,7 +285,7 @@ struct FlashcardDrillView: View {
 
     private var progress01: CGFloat {
         guard isFlipped else { return 0 }
-        return min(1, abs(drag.width) / 110)
+        return min(1, abs(shownDrag.width) / 110)
     }
 
     private func restingScale(_ slot: Int) -> CGFloat { 1 - CGFloat(slot) * 0.04 }
@@ -285,7 +302,10 @@ struct FlashcardDrillView: View {
     }
 
     private var topRotation: Angle {
-        .degrees(Double(max(-12, min(12, onScreen(effectiveDrag).width / 14))))
+        // Reduce Motion: a released card fades where the finger left it,
+        // upright, instead of hanging tilted off the side.
+        guard !reduceMotion else { return .zero }
+        return .degrees(Double(max(-12, min(12, onScreen(effectiveDrag).width / 14))))
     }
 
     // MARK: - Choice self-test
@@ -330,8 +350,15 @@ struct FlashcardDrillView: View {
         // barely moved flips the card (see onEnded). A separate TapGesture
         // loses the arbitration race against this drag and never fires.
         DragGesture(minimumDistance: 0)
+            .updating($touching) { _, state, _ in state = true }
             .onChanged { value in
                 guard !isFlinging else { return }
+                // Touch-down ends the hint: the finger owns the card.
+                if hintNudge != 0 {
+                    var t = Transaction()
+                    t.disablesAnimations = true
+                    withTransaction(t) { hintNudge = 0 }
+                }
                 drag = value.translation
                 guard isFlipped else { return }
                 let past = abs(value.translation.width) > dismissDistance(size)
@@ -375,6 +402,18 @@ struct FlashcardDrillView: View {
             }
     }
 
+    /// A cancelled touch leaves the card wherever the finger was. Checked a
+    /// turn later, after onEnded has had its chance to fling or settle it.
+    private func settleCancelledDrag() {
+        DispatchQueue.main.async {
+            guard !touching, !isFlinging, drag != .zero else { return }
+            crossedThreshold = false
+            withAnimation(deckMotion(.spring(response: 0.32, dampingFraction: 0.78))) {
+                drag = .zero
+            }
+        }
+    }
+
     /// Throw the card off, then commit the grade with animation suppressed.
     /// the risen card behind is already in place, so nothing jumps. The card
     /// fades as it goes, so the verdict stamp leaves with it instead of being
@@ -396,6 +435,7 @@ struct FlashcardDrillView: View {
             withTransaction(t) {
                 commit(gotIt: direction > 0)
                 drag = .zero
+                hintNudge = 0
                 flingOpacity = 1
                 flingGate.end()
                 isFlipped = false
@@ -463,14 +503,14 @@ struct FlashcardDrillView: View {
         didHint = true
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: 700_000_000)
-            guard !hasSwipedDeck, !isFlinging, drag == .zero, isFlipped else { return }
-            withAnimation(reduceMotion ? nil : .spring(response: 0.38, dampingFraction: 0.6)) {
-                drag = CGSize(width: 52, height: 0)
+            guard !hasSwipedDeck, !isFlinging, !touching, drag == .zero, isFlipped else { return }
+            withAnimation(.spring(response: 0.38, dampingFraction: 0.6)) {
+                hintNudge = 52
             }
             try? await Task.sleep(nanoseconds: 430_000_000)
-            guard !isFlinging else { return }
-            withAnimation(reduceMotion ? nil : .spring(response: 0.55, dampingFraction: 0.72)) {
-                drag = .zero
+            guard hintNudge != 0 else { return }
+            withAnimation(.spring(response: 0.55, dampingFraction: 0.72)) {
+                hintNudge = 0
             }
         }
     }
@@ -824,6 +864,7 @@ private struct MahjCardFace<Content: View>: View {
                 // running off the top card's edge.
                 .opacity(isDeckScenery ? 0 : 1)
                 .allowsHitTesting(false)
+                .accessibilityHidden(true)
         }
         .overlay {
             RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous)

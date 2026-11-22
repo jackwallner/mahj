@@ -207,7 +207,8 @@ struct QuickSessionView: View {
                     answered: answered,
                     eyebrow: item.sourceLabel.uppercased(),
                     missNote: missNote,
-                    requeued: requeued
+                    requeued: requeued,
+                    missed: answered && selection != item.answerIndex
                 ) {
                     ChoiceList(labels: item.choices, selection: selection, answerIndex: item.answerIndex) { pick in
                         grade(pick)
@@ -229,7 +230,8 @@ struct QuickSessionView: View {
                 trigger: confettiTrigger,
                 origin: .init(x: 0.5, y: 0.35),
                 particleCount: confettiParticleCount,
-                sourceRect: answerRect
+                sourceRect: answerRect,
+                scope: index
             )
         }
         .overlay(alignment: .top) {
@@ -372,6 +374,10 @@ struct QuickSessionView: View {
 
     private func advance() {
         guard answered else { return }
+        // The banner belongs to the question that earned it: carried into the
+        // next prompt it covered the new rack while the player read it.
+        streakBannerTrigger += 1
+        streakBannerText = nil
         if index + 1 < items.count {
             withAnimation(reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.85)) {
                 selection = nil

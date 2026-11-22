@@ -50,10 +50,11 @@ struct FeatureTourView: View {
                 // Centred where it fits; scrolls on a small phone rather than
                 // pushing the buttons off the screen.
                 ViewThatFits(in: .vertical) {
-                    VStack(spacing: 0) {
-                        Spacer(minLength: 0)
+                    // Every page's top sits where the tallest page's would,
+                    // centred, so the title holds its place on Show me.
+                    StablePageTop {
+                        ForEach(pages.indices, id: \.self) { cardBody(pages[$0]).hidden().accessibilityHidden(true) }
                         card(page)
-                        Spacer(minLength: 0)
                     }
                     ScrollView { card(page) }
                         .id(index)
@@ -74,6 +75,16 @@ struct FeatureTourView: View {
     }
 
     private func card(_ page: TourPage) -> some View {
+        cardBody(page)
+            .shine(trigger: shineTrigger, corner: 22)
+            .id(index)
+            .transition(.asymmetric(
+                insertion: .move(edge: .trailing).combined(with: .opacity),
+                removal: .move(edge: .leading).combined(with: .opacity)
+            ))
+    }
+
+    private func cardBody(_ page: TourPage) -> some View {
         VStack(spacing: 16) {
             Text(page.eyebrow)
                 .font(.caption.weight(.heavy))
@@ -93,12 +104,6 @@ struct FeatureTourView: View {
         .padding(24)
         .frame(maxWidth: .infinity)
         .themedCard(corner: 22)
-        .shine(trigger: shineTrigger, corner: 22)
-        .id(index)
-        .transition(.asymmetric(
-            insertion: .move(edge: .trailing).combined(with: .opacity),
-            removal: .move(edge: .leading).combined(with: .opacity)
-        ))
     }
 
     // The escape hatch is offered on EVERY page, not just at the session
@@ -112,12 +117,16 @@ struct FeatureTourView: View {
                 advance(pageCount: pageCount)
             } label: {
                 Text(isLast ? String(localized: "Start my first session") : String(localized: "Show me")).primaryCTA()
+                    // The label swaps; it never cross-fades with the page,
+                    // which drew both labels on top of each other.
+                    .transaction { $0.animation = nil }
             }
             Button {
                 Haptics.impact(.light, intensity: 0.6)
                 onDone()
             } label: {
                 Text(isLast ? String(localized: "Skip it, take me to the app") : String(localized: "Skip the tour"))
+                    .transaction { $0.animation = nil }
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(Theme.inkSecondary)
                     .hitPadding(Self.skipHit)

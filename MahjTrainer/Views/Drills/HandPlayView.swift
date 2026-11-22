@@ -42,6 +42,14 @@ struct HandPlayView: View {
     /// Bumped when a free player finishes the day's free hand: the trial
     /// sheet's cue to rise on its own, when it is due.
     @State private var freeHandSpent = 0
+    /// VoiceOver moves to the coach's note after a throw: the tile that held
+    /// focus has just left the rack.
+    @AccessibilityFocusState private var noteFocused: Bool
+    /// Room held under the rack for the coach's note, so the rack keeps its
+    /// place when the note arrives. Scales with the note's text.
+    @ScaledMetric(relativeTo: .subheadline) private var noteReserve: CGFloat = 128
+    /// The prompt and rack's height, which places them in the play area.
+    @State private var playHeadHeight: CGFloat = 0
 
     /// The result of one throw, held on screen until the player advances, and
     /// saved with the hand so a relaunch mid-coaching comes back to it rather
@@ -196,7 +204,7 @@ struct HandPlayView: View {
         return VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 8) {
                 Image(systemName: agrees ? "checkmark.seal.fill" : "graduationcap.fill")
-                    .foregroundStyle(agrees ? Theme.bamGreen : Theme.gold)
+                    .foregroundStyle(agrees ? Theme.gradeCorrect : Theme.gold)
                 Text(agrees ? String(localized: "The coach agrees") : String(localized: "The coach reads it differently"))
                     .font(.headline)
                     .foregroundStyle(Theme.ink)
@@ -241,6 +249,15 @@ struct HandPlayView: View {
             } label: {
                 Text("Play it out").primaryCTA()
             }
+            // Nothing is spent until play starts, so the player can take the
+            // stronger section the comparison just showed them.
+            Button { changeSection() } label: {
+                Text("Change section")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Theme.jade)
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .contentShape(Rectangle())
+            }
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -255,6 +272,14 @@ struct HandPlayView: View {
         }
     }
 
+    private func changeSection() {
+        Haptics.impact(.light)
+        withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.85)) {
+            target = nil
+            phase = .choosing
+        }
+    }
+
     private func startPlaying() {
         handPlay.recordStart(isMember: subscriptions.isPro)
         withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) { phase = .playing }
@@ -266,8 +291,14 @@ struct HandPlayView: View {
     private var playScreen: some View {
         VStack(spacing: 14) {
             statusBar
-            CenteringScrollView {
+            // The prompt and rack sit where they would if the note took
+            // exactly its reserved room, so a longer note (large text, a
+            // long verdict) grows downward and scrolls instead of moving the
+            // rack up on the verdict.
+            GeometryReader { viewport in
+              ScrollView {
                 VStack(spacing: 16) {
+                  VStack(spacing: 16) {
                     if let drawn {
                         let prompt = grade == nil
                             ? String(localized: "You drew the \(drawn.spokenName). What goes?")
@@ -276,42 +307,87 @@ struct HandPlayView: View {
                         // once the rack has settled. Cross-faded while the rack
                         // re-centred, both lines showed on top of each other
                         // and the tiles slid across the new one.
-                        Text(prompt)
-                            .font(Theme.display(21))
-                            .foregroundStyle(Theme.ink)
-                            .multilineTextAlignment(.center)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .id(prompt)
-                            .transition(reduceMotion ? .identity : Self.settleIn)
+                        // Both lines of the turn hold the same height, the
+                        // taller of the two, so the rack does not move when
+                        // one replaces the other.
+                        ZStack {
+                            promptText(String(localized: "You drew the \(drawn.spokenName). What goes?")).hidden()
+                            if let grade {
+                                promptText(String(localized: "You threw the \(grade.discard.spokenName).")).hidden()
+                            }
+                            promptText(prompt)
+                                .id(prompt)
+                                .transition(reduceMotion ? .identity : Self.settleIn)
+                        }
                     }
                     TileRackView(
                         tiles: rack,
                         tileWidth: 40,
                         highlightedIndices: highlightedIndices,
                         onTap: { index in throwTile(at: index) },
-                        tileInsertion: TileRackView.dropIn
+                        tileInsertion: TileRackView.dropIn,
+                        highlightColor: Theme.jade,
+                        highlightValue: String(localized: "Just drawn"),
+                        actionHint: { _ in String(localized: "Double tap to throw this tile") },
+                        tapsEnabled: grade == nil,
+                        highlightDot: true
                     )
-                    if let grade {
-                        gradeCard(grade)
-                    } else {
-                        Text("Tap the tile you want to throw")
-                            .font(.caption)
-                            .foregroundStyle(Theme.inkTertiary)
-                            .transition(reduceMotion ? .identity : Self.settleIn)
+                  }
+                  .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { playHeadHeight = $0 }
+                    ZStack(alignment: .top) {
+                        if let grade {
+                            gradeCard(grade)
+                                .accessibilityFocused($noteFocused)
+                                // After the note's fade-in (focus asked for
+                                // before it is on screen is dropped), and
+                                // only while this verdict is up.
+                                .task {
+                                    try? await Task.sleep(nanoseconds: 450_000_000)
+                                    guard !Task.isCancelled else { return }
+                                    noteFocused = true
+                                }
+                        } else {
+                            Text("Tap the tile you want to throw")
+                                .font(.caption)
+                                .foregroundStyle(Theme.inkTertiary)
+                                .transition(reduceMotion ? .identity : Self.settleIn)
+                        }
                     }
+                    .frame(minHeight: noteReserve, alignment: .top)
                 }
+                .padding(.top, max(0, (viewport.size.height - playHeadHeight - 16 - noteReserve) / 2))
+                .frame(maxWidth: .infinity)
+                // Hidden for the one frame before the head is measured, when
+                // the padding would draw it too low.
+                .opacity(playHeadHeight > 0 ? 1 : 0)
+              }
             }
-            if grade != nil {
-                Button {
-                    advance()
-                } label: {
-                    Text(turn >= HandPlayEngine.turnCount ? String(localized: "See how you did") : String(localized: "Next turn")).primaryCTA()
+            // Its room is always held, so its arrival never shrinks the
+            // play area. The button itself comes and goes, so its label
+            // never changes on screen as the last turn leaves.
+            ZStack {
+                Text("Next turn").primaryCTA().hidden().accessibilityHidden(true)
+                Text("See how you did").primaryCTA().hidden().accessibilityHidden(true)
+                if grade != nil {
+                    Button {
+                        advance()
+                    } label: {
+                        Text(turn >= HandPlayEngine.turnCount ? String(localized: "See how you did") : String(localized: "Next turn")).primaryCTA()
+                    }
                 }
             }
         }
         .padding()
         .frame(maxWidth: Theme.readableContentWidth)
         .frame(maxWidth: .infinity)
+    }
+
+    private func promptText(_ text: String) -> some View {
+        Text(text)
+            .font(Theme.display(21))
+            .foregroundStyle(Theme.ink)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
     }
 
     /// Before the throw, the tile just drawn is marked so the player can find
@@ -365,7 +441,7 @@ struct HandPlayView: View {
     private func gradeCard(_ grade: Grade) -> some View {
         HStack(alignment: .top, spacing: 10) {
             Image(systemName: grade.wasBest ? "checkmark.circle.fill" : "lightbulb.fill")
-                .foregroundStyle(grade.wasBest ? Theme.bamGreen : Theme.gold)
+                .foregroundStyle(grade.wasBest ? Theme.gradeCorrect : Theme.gold)
             Text(grade.note)
                 .font(.subheadline)
                 .foregroundStyle(Theme.ink)
@@ -377,6 +453,10 @@ struct HandPlayView: View {
             (grade.wasBest ? Theme.bamGreen : Theme.gold).opacity(0.12),
             in: RoundedRectangle(cornerRadius: 14)
         )
+        // One element that says the throw and the verdict, where VoiceOver
+        // lands after the thrown tile leaves the rack.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(String(localized: "You threw the \(grade.discard.spokenName).") + " " + grade.note)
         .transition(reduceMotion ? .identity : Self.settleIn)
     }
 
@@ -442,6 +522,7 @@ struct HandPlayView: View {
     private func advance() {
         // A second tap in the same frame would draw twice and skip a throw.
         guard grade != nil else { return }
+        noteFocused = false
         // One transaction for the whole turn change: the card leaving, the
         // prompt and the drawn tile used to run on two different curves.
         withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.85)) {

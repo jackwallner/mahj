@@ -408,6 +408,7 @@ private struct MonthlyChallengeReminderButton: View {
     let nextMonthName: String
     @State private var isOn = MonthlyChallengeReminder.isOn
     @State private var denied = false
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -449,6 +450,30 @@ private struct MonthlyChallengeReminderButton: View {
                     .font(.caption)
                     .foregroundStyle(Theme.inkSecondary)
                     .fixedSize(horizontal: false, vertical: true)
+                // The same way out Game Night Prep offers.
+                Button {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                } label: {
+                    Text("Open Settings")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.jade)
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
+                }
+            }
+        }
+        // Back from Settings with notifications allowed: drop the warning so
+        // the button can turn the reminder on.
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active, denied else { return }
+            Task {
+                let settings = await UNUserNotificationCenter.current().notificationSettings()
+                if settings.authorizationStatus != .denied {
+                    denied = false
+                    isOn = MonthlyChallengeReminder.isOn
+                }
             }
         }
     }

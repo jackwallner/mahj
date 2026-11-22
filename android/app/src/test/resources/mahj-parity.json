@@ -8245,7 +8245,7 @@
       "body" : "You finished with 6 of 13 tiles that fit 2468 (Evens). 2 of them are already sitting in a group of two or more, which is the half that counts. 6 of your 12 throws were the cheapest one available, and that is the number to chase: the shape you are building toward is the whole game, and everything outside it is what you spend.",
       "clean" : 6,
       "discards" : 12,
-      "headline" : "You got there in the end",
+      "headline" : "A start to build on",
       "stars" : 1,
       "target" : "evens2468"
     },
@@ -8253,7 +8253,7 @@
       "body" : "You finished with 6 of 13 tiles that fit 13579 (Odds). 2 of them are already sitting in a group of two or more, which is the half that counts. 6 of your 12 throws were the cheapest one available, and that is the number to chase: the shape you are building toward is the whole game, and everything outside it is what you spend.",
       "clean" : 6,
       "discards" : 12,
-      "headline" : "You got there in the end",
+      "headline" : "A start to build on",
       "stars" : 1,
       "target" : "odds13579"
     },
@@ -8261,7 +8261,7 @@
       "body" : "You finished with 5 of 13 tiles that fit 369. 2 of them are already sitting in a group of two or more, which is the half that counts. 6 of your 12 throws were the cheapest one available, and that is the number to chase: the shape you are building toward is the whole game, and everything outside it is what you spend.",
       "clean" : 6,
       "discards" : 12,
-      "headline" : "You got there in the end",
+      "headline" : "A start to build on",
       "stars" : 1,
       "target" : "threeSixNine"
     },
@@ -8269,7 +8269,7 @@
       "body" : "You finished with 8 of 13 tiles that fit Consecutive Run. 2 of them are already sitting in a group of two or more, which is the half that counts. 6 of your 12 throws were the cheapest one available, and that is the number to chase: the shape you are building toward is the whole game, and everything outside it is what you spend.",
       "clean" : 6,
       "discards" : 12,
-      "headline" : "You got there in the end",
+      "headline" : "A start to build on",
       "stars" : 1,
       "target" : "consecutiveRun"
     },
@@ -8277,7 +8277,7 @@
       "body" : "You finished with 5 of 13 tiles that fit Winds & Dragons. 2 of them are already sitting in a group of two or more, which is the half that counts. 6 of your 12 throws were the cheapest one available, and that is the number to chase: the shape you are building toward is the whole game, and everything outside it is what you spend.",
       "clean" : 6,
       "discards" : 12,
-      "headline" : "You got there in the end",
+      "headline" : "A start to build on",
       "stars" : 1,
       "target" : "windsDragons"
     },

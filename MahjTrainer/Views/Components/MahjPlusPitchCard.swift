@@ -60,14 +60,16 @@ struct MahjPlusPitchCard: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(14)
-                .contentShape(Rectangle())
+                // Surface and border inside the label, so the press moves the
+                // whole card, as the room links do, not just its contents.
+                .themedCard(corner: 16)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .strokeBorder(Theme.gold.opacity(0.45), lineWidth: 1)
+                )
+                .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
             .buttonStyle(PressableCardStyle())
-            .themedCard(corner: 16)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .strokeBorder(Theme.gold.opacity(0.45), lineWidth: 1)
-            )
             .accessibilityHint("Shows \(Membership.name) plans")
         }
     }

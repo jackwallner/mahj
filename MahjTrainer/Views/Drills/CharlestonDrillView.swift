@@ -26,6 +26,9 @@ struct CharlestonDrillView: View {
     @State private var finished = false
     @State private var confettiTrigger = 0
     @State private var shineTrigger = 0
+    /// Why the last tap did nothing (a joker, or a fourth tile). Shown in the
+    /// count's place until the next tap that changes the pass.
+    @State private var refusal: String?
 
     var body: some View {
         if finished {
@@ -54,11 +57,24 @@ struct CharlestonDrillView: View {
                         tiles: rackedDeal,
                         tileWidth: 44,
                         highlightedIndices: selected,
-                        onTap: { index in toggle(index) }
+                        onTap: { index in toggle(index) },
+                        actionHint: { tile in
+                            if case .joker = tile { return String(localized: "Jokers can never be passed.") }
+                            return nil
+                        },
+                        tapsEnabled: !submitted
                     )
                     .padding(.vertical, 6)
                     if submitted {
                         coachCard
+                            // Said once the card has replaced the Pass button
+                            // (said sooner, the focus move cuts it off), and
+                            // never after the card has gone.
+                            .task {
+                                try? await Task.sleep(nanoseconds: 500_000_000)
+                                guard !Task.isCancelled else { return }
+                                AccessibilityNotification.Announcement(headline).post()
+                            }
                             .shine(trigger: shineTrigger, corner: 16)
                             .winGlow(Theme.gold, active: matchCount == 3)
                             // Arrives once the rack has moved up, and the
@@ -71,9 +87,10 @@ struct CharlestonDrillView: View {
                                 removal: .identity
                             ))
                     } else {
-                        Text("Selected \(selected.count) of 3")
+                        Text(refusal ?? String(localized: "Selected \(selected.count) of 3"))
                             .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(refusal == nil ? Theme.inkSecondary : Theme.ink)
+                            .multilineTextAlignment(.center)
                             .transition(.identity)
                     }
                 }
@@ -172,12 +189,23 @@ struct CharlestonDrillView: View {
         guard !submitted else { return }
         if selected.contains(tileIndex) {
             selected.remove(tileIndex)
+        } else if case .joker = rackedDeal[tileIndex] {
+            // Jokers may never be passed. Enforce the real rule in the drill,
+            // and say so: a silent refusal reads as a missed tap.
+            return refuse(String(localized: "Jokers can never be passed."))
         } else if selected.count < 3 {
-            // Jokers may never be passed. Enforce the real rule in the drill.
-            if case .joker = rackedDeal[tileIndex] { return }
             selected.insert(tileIndex)
+        } else {
+            return refuse(String(localized: "Three chosen. Tap one to take it back first."))
         }
+        refusal = nil
         saveRun()
+    }
+
+    private func refuse(_ reason: String) {
+        refusal = reason
+        Haptics.impact(.light)
+        AccessibilityNotification.Announcement(reason).post()
     }
 
     private func saveRun() {
@@ -216,6 +244,7 @@ struct CharlestonDrillView: View {
         if index + 1 < scenarios.count {
             selected = []
             submitted = false
+            refusal = nil
             index += 1
             saveRun()
         } else {
