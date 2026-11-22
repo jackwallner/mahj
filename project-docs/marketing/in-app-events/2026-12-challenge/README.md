@@ -1,6 +1,6 @@
 # December 2026 Mahj Challenge (Safe Discards)
 
-ASC event `6837887765` (CHALLENGE, deep link `mahj://challenge`), DRAFT. Not submitted.
+ASC event `6837887765` (CHALLENGE, deep link `mahj://challenge`). Submitted 2026-11-21 on Jack's yes: reviewSubmission `3a2e0ea0-7848-4034-8918-6a992bc227f3` (event only, WAITING_FOR_REVIEW); nomination `b1c3d868` SUBMITTED (Dec 1 to Jan 1). Link the event to the nomination once Apple accepts it.
 Built like November's (`../2026-11-challenge/`), per `.claude/rules/monthly-challenge.md`.
 
 | Field | Value |
