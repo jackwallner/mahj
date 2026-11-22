@@ -117,9 +117,11 @@ struct QuestionPager<Choices: View>: View {
                         // screen beside the note: the scroll to the note
                         // takes the rack away just when the note talks about
                         // its tiles, so a small copy rides with the note.
+                        // One element reading the tiles: hidden, its drawn
+                        // captions failed Apple's accessibility audit.
                         if missedOnTallQuestion {
                             TileRackView(tiles: tiles, tileWidth: 32)
-                                .accessibilityHidden(true)
+                                .accessibilityElement(children: .combine)
                         }
                         HStack(alignment: .top, spacing: 10) {
                             Image(systemName: "lightbulb.fill")

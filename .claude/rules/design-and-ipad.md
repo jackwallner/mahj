@@ -154,7 +154,9 @@ screenshot, so measure before darkening a token further.
 - A missed rack question whose prompt and rack fill over 55% of the screen
   repeats the rack at 32pt above the explanation, because the scroll to the
   note takes the real rack away. Captions need 32pt: FLOWER cut to "FLO..."
-  at 26.
+  at 26. The copy is one combined accessibility element, never hidden: hidden,
+  its drawn captions failed the gate's Apple audit ("Potentially inaccessible
+  text").
 - The iPad plan sheet (item 22, Jack's go-ahead) opens at `.page` size and
   shows all three plans in both orientations. `.form.fitted` collapsed it to
   the footer: a ScrollView has no ideal height. The footer is capped to the
