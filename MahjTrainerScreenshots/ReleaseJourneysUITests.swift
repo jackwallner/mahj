@@ -141,7 +141,11 @@ final class ReleaseJourneysUITests: XCTestCase {
         QA.checkpoint(app, "core-resumed")
 
         toHome(in: app)
-        tapButton(t("Get Started"), in: app)
+        // "Resume Quick Session" when an earlier test left a run.
+        let session = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@ OR label BEGINSWITH %@",
+            t("Get Started"), t("Resume %@", t("Quick Session")))).firstMatch
+        XCTAssertTrue(session.waitForExistence(timeout: 10), "no Get Started")
+        session.tap()
         QA.checkpoint(app, "core-session")
         var answered = 0
         while answered < 20 {

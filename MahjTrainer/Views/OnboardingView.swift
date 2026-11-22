@@ -583,6 +583,11 @@ struct OnboardingView: View {
                     .animation(reduceMotion ? nil : .snappy(duration: 0.22), value: page)
             }
         }
+        .padding(.vertical, 18)
+        .contentShape(Rectangle())
+        .padding(.vertical, -18)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(String(localized: "\(page + 1) of \(lastPage + 1)"))
         .padding(.bottom, 2)
     }
 
