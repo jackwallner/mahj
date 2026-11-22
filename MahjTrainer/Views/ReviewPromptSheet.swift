@@ -26,11 +26,20 @@ struct ReviewPromptSheet: View {
     @State private var chosenChip: String?
     @State private var sending = false
     @State private var sendOutcome: FeedbackService.Outcome?
+    @State private var copied = false
     @FocusState private var feedbackFocused: Bool
+
+    /// Settings > Send Feedback's unsent words, kept for this app session: a
+    /// swipe down on the large sheet used to throw them away. Cleared once
+    /// the message is sent or queued. Main actor only.
+    nonisolated(unsafe) private static var unsentFeedback = ""
 
     init(initialStep: Step) {
         self.initialStep = initialStep
         _step = State(initialValue: initialStep)
+        if initialStep == .feedback {
+            _feedbackText = State(initialValue: Self.unsentFeedback)
+        }
     }
 
     var body: some View {
@@ -118,6 +127,12 @@ struct ReviewPromptSheet: View {
                     .padding(10)
                     .themedCard(corner: 14)
                     .focused($feedbackFocused)
+                    // Named by the question, so the box keeps its name once
+                    // the placeholder goes.
+                    .accessibilityLabel(question)
+                    .onChange(of: feedbackText) { _, text in
+                        if step == .feedback { Self.unsentFeedback = text }
+                    }
                     .overlay(alignment: .topLeading) {
                         if feedbackText.isEmpty {
                             Text(chips.isEmpty ? String(localized: "Anything at all.") : String(localized: "Add a few words if you like."))
@@ -126,6 +141,7 @@ struct ReviewPromptSheet: View {
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 18)
                                 .allowsHitTesting(false)
+                                .accessibilityHidden(true)
                         }
                     }
                 Text("Goes straight to the developer, a real person. No account, no email needed.")
@@ -201,14 +217,19 @@ struct ReviewPromptSheet: View {
                 Button {
                     UIPasteboard.general.string = composedMessage
                     Haptics.success()
+                    // Said and shown, not only felt: haptics can be off.
+                    copied = true
+                    AccessibilityNotification.Announcement(String(localized: "Copied")).post()
                 } label: {
-                    Label("Copy my message", systemImage: "doc.on.doc")
+                    Label(copied ? String(localized: "Copied") : String(localized: "Copy my message"),
+                          systemImage: copied ? "checkmark" : "doc.on.doc")
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(Theme.jade)
                 }
                 // Back to the form with the text intact, so a refused send
                 // never costs the player what they wrote.
                 Button {
+                    copied = false
                     withAnimation(reduceMotion ? nil : .easeOut(duration: 0.25)) { sendOutcome = nil }
                 } label: {
                     Text("Try again")
@@ -255,6 +276,7 @@ struct ReviewPromptSheet: View {
         feedbackFocused = false
         let message = composedMessage
         let isMember = subscriptions.isPro
+        let draft = feedbackText
         Task { @MainActor in
             let outcome = await FeedbackService.shared.submit(
                 kind: kind,
@@ -263,6 +285,9 @@ struct ReviewPromptSheet: View {
                 isMember: isMember
             )
             sending = false
+            // Here, not on the sent screen: a sheet swiped away mid-send
+            // never shows it. Words typed since then stay.
+            if outcome != .failed, Self.unsentFeedback == draft { Self.unsentFeedback = "" }
             if outcome == .sent { Haptics.success() }
             withAnimation(reduceMotion ? nil : .easeOut(duration: 0.25)) { sendOutcome = outcome }
             // The Send button VoiceOver was on is gone: say what happened.
