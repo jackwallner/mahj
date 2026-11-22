@@ -193,7 +193,7 @@ enum CategoryContent {
             tiles: [.c(2), .c(2), .c(2), .dragon(.soap), .dragon(.soap), .dragon(.soap), .c(6), .c(6), .c(6), .flower, .flower, .flower, .joker],
             choices: [.year, .odds13579, .windsDragons, .consecutiveRun],
             answer: .year,
-            explanation: "Only 2s, Soaps and 6s, all in craks. The Soap stands in for zero, so these tiles spell 2, 0, 2, 6. That is a year hand."
+            explanation: "The 2s and 6s are all craks, and the Soaps stand in for zero, so the rack points to 2026 and the Year section."
         ),
         HandMatchQuestion(
             id: "hm-quints",

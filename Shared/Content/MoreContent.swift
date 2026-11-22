@@ -300,10 +300,10 @@ enum MoreContent {
         ),
         QuizQuestion(
             id: "table-call-priority",
-            prompt: "Two players call the same discard, and neither needs it for mah jongg. Who gets it?",
-            choices: ["Whoever spoke first", "The player next in turn after the discarder", "The player with fewer exposures", "Neither, it is dead"],
+            prompt: "Two players call the same discard at the same time, and neither needs it for mah jongg. Who gets it?",
+            choices: ["Whoever spoke first", "The caller closest in turn after the discarder", "The player with fewer exposures", "Neither, it is dead"],
             answerIndex: 1,
-            explanation: "Between two calls for an exposure, the tile goes to the player next in turn after the discarder. The only call that beats turn order is a call for mah jongg."
+            explanation: "When two players want a tile for an exposure, it goes to the caller closest in turn after the discarder, unless the other caller has already put the tile on their rack or exposed tiles for it. A call for mah jongg still beats any exposure."
         ),
         QuizQuestion(
             id: "table-exposure-locked",

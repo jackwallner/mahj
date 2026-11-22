@@ -12,12 +12,12 @@ ambiguous or over a beginner's head.
 |---|---|---|---|---|
 | 1 | Endless Practice is excellent: simple questions, clear answers | Endless Practice | Praise | None |
 | 2 | Singles and Pairs card says drop the third flower; another card says hold a spare flower | `more-judge-flower-discipline` vs `kd-third-flower` | Fixed | Card now agrees: early, hold the third flower as a pivot; let it go once you are sure of the hand |
-| 3 | Call priority has no fully correct choice (the mah jongg exception is only in the note) | `table-call-priority` | Fixed | Prompt states neither caller needs it for mah jongg; answer reads "next in turn after the discarder"; note names mah jongg as the only call that beats turn order. Mah jongg vs exposure already has its own question (Tile Room extras) |
-| 4 | 2026 vs 2468 is too close for a new player | `hm-year` (free Card Room) | Fixed | Rack is now 2s, Soaps, 6s in craks only, with flowers and a joker; 2468 is no longer a choice (13579, Winds & Dragons, Consecutive Run instead). The 2468 decoy stays in Master Tables (`pro-rack-4`) and the Mahj+ set (`plus-hm-year`), which are the harder tiers |
-| 5 | "How many tiles in a set" is the least useful fact | `plus-tq-set-size` | Fixed | Replaced with `plus-tq-hand-size`: a finished hand is 14 tiles, every card line totals 14. The 152 fact stays on the Tile Room card |
-| 6 | Pung and kong come up early without definitions | `table-call-then-what` | Fixed, partly | Prompt defines pung inline. The root cause is Quick Session ordering, below |
+| 3 | Call priority has no fully correct choice (the mah jongg exception is only in the note) | `table-call-priority` | Fixed | Prompt states both call at the same time and neither needs it for mah jongg; answer reads "the caller closest in turn after the discarder"; the note keeps the exception (a caller who already racked the tile or exposed for it keeps it) and says a mah jongg call beats any exposure. Mah jongg vs exposure already has its own question (Tile Room extras) |
+| 4 | 2026 vs 2468 is too close for a new player | `hm-year` (free Card Room) | Fixed | Rack is now 2s and 6s in craks with Soaps (no suit), flowers and a joker; 2468 is no longer a choice (13579, Winds & Dragons, Consecutive Run instead). The 2468 decoy stays in Master Tables (`pro-rack-4`) and the Mahj+ set (`plus-hm-year`), which are the harder tiers |
+| 5 | "How many tiles in a set" is the least useful fact | `plus-tq-set-size` | Fixed | Replaced with `plus-tq-copies`: four of every number tile, wind and dragon, eight flowers and jokers, so three showing means one left. Her "like you do in other exercises" points at the per-group counts; the 14-tile hand is already asked in the free Tile Check |
+| 6 | Pung and kong come up early without definitions | `table-call-then-what` | Fixed, partly | Prompt defines pung inline. About eight other free items still use pung or kong undefined; the fix is Quick Session ordering, below |
 | 7 | "Never straddle two sections" is too absolute | `plus-kd-commit` | Fixed | Keeping two hands alive is smart while you still have tiles that fit neither; commit once every discard costs one of them. Scenario now says you are at that point |
-| 8 | Singles and Pairs rack: pairs split across three suits, not a real S&P shape; steer beginners away from S&P | `pro-rack-6` (Master Tables) | Fixed | Six pairs in one suit (1 to 6 Bam) plus a North; note says S&P is hard to finish without jokers, chase it only when most of the rack is pairs. Stays in Master Tables, the advanced room |
+| 8 | Singles and Pairs rack: pairs split across three suits, not a real S&P shape; steer beginners away from S&P | `pro-rack-6` (Master Tables) | Fixed | Six pairs in one suit that do not form a run (1, 3, 4, 6, 8, 9 Bam) plus a North, Consecutive Run as a decoy; note says each line needs its exact pairs and jokers cannot help, so chase it only when most of the rack fits one line. Stays in Master Tables, the advanced room |
 | 9 | Never show 2026 with mixed suits | Onboarding hero, `cat-year` card | Fixed | 2 Crak, Soap, 2 Crak, 6 Crak on iOS and Android |
 | 10 | Split into basic, intermediate, challenging | Whole app | Proposed | Below, for Jack |
 
@@ -50,5 +50,7 @@ Recommendation:
    rather than a new screen, so the lobby stays as it is.
 4. Teacher copy: once tiers exist, the outreach email can say "start your
    students on Basic", which answers her concern directly.
+
+Checked by a council (Claude Opus, Claude Fable, GPT Sol 6.2) on 2026-11-21; round 1 found the run in the first S&P rack, the dropped call caveat and the misread of point 5; round 2 tightened the tie wording in the call question.
 
 Out of scope here: no code for tiers was written. The trial flow is untouched.

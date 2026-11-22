@@ -412,7 +412,7 @@
       "trackingID" : "quiz-dead-joker"
     },
     {
-      "answerIndex" : 1,
+      "answerIndex" : 0,
       "choiceNotes" : [
         null,
         null,
@@ -420,21 +420,21 @@
         null
       ],
       "choices" : [
-        "13",
-        "14",
-        "15",
-        "16"
+        "4",
+        "3",
+        "8",
+        "2"
       ],
-      "explanation" : "14. Every hand on the card adds up to 14 tiles, so the groups in any line always total 14. You hold 13 during play and win with the 14th.",
-      "id" : "plus-tq-hand-size",
+      "explanation" : "Four of every number tile, and four of each wind and dragon too, so once three copies of a number tile are showing, only one is left. Flowers and jokers are the exceptions, with eight of each.",
+      "id" : "plus-tq-copies",
       "isReviewable" : true,
-      "prompt" : "How many tiles make a finished mah jongg hand?",
+      "prompt" : "How many copies of each number tile are in the set?",
       "roomID" : "tile-room",
       "sourceLabel" : "The Tile Room",
       "tiles" : [
 
       ],
-      "trackingID" : "plus-tq-hand-size"
+      "trackingID" : "plus-tq-copies"
     },
     {
       "answerIndex" : 3,
@@ -1231,7 +1231,7 @@
         "Consecutive Run",
         "13579 (Odds)"
       ],
-      "explanation" : "Only 2s, Soaps and 6s, all in craks. The Soap stands in for zero, so these tiles spell 2, 0, 2, 6. That is a year hand.",
+      "explanation" : "The 2s and 6s are all craks, and the Soaps stand in for zero, so the rack points to 2026 and the Year section.",
       "id" : "hm-year",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -2379,14 +2379,14 @@
       ],
       "choices" : [
         "Neither, it is dead",
-        "The player next in turn after the discarder",
+        "The caller closest in turn after the discarder",
         "Whoever spoke first",
         "The player with fewer exposures"
       ],
-      "explanation" : "Between two calls for an exposure, the tile goes to the player next in turn after the discarder. The only call that beats turn order is a call for mah jongg.",
+      "explanation" : "When two players want a tile for an exposure, it goes to the caller closest in turn after the discarder, unless the other caller has already put the tile on their rack or exposed tiles for it. A call for mah jongg still beats any exposure.",
       "id" : "table-call-priority",
       "isReviewable" : true,
-      "prompt" : "Two players call the same discard, and neither needs it for mah jongg. Who gets it?",
+      "prompt" : "Two players call the same discard at the same time, and neither needs it for mah jongg. Who gets it?",
       "roomID" : "table-room",
       "sourceLabel" : "The Table Room",
       "tiles" : [
@@ -3225,15 +3225,15 @@
       "answerIndex" : 0,
       "choiceNotes" : [
         null,
-        "This rack holds 1s, 3s and 5s, and a finished 2468 hand never uses an odd number.",
-        "This rack holds 2s, 4s and 6s, and a finished 13579 hand never uses an even number."
+        "This rack holds 1s, 3s and 9s, and a finished 2468 hand never uses an odd number.",
+        "The numbers here (1, 3, 4, 6, 8, 9) never make three in a row, and a run steps up with no gaps."
       ],
       "choices" : [
         "Singles & Pairs",
         "2468 (Evens)",
-        "13579 (Odds)"
+        "Consecutive Run"
       ],
-      "explanation" : "Six pairs in one suit, no pungs and no jokers: that is the Singles and Pairs shape. The odd and even pairs rule out 13579 and 2468. Jokers cannot help this section, so it is hard to finish. Chase it only when most of your rack is already pairs, like this one.",
+      "explanation" : "Six pairs in one suit, no pungs and no jokers: that is the Singles and Pairs shape. The numbers skip around, so it is no run, and the odd pairs rule out 2468. Still, each line needs its own exact pairs and jokers cannot help, so chase this section only when most of your rack already fits one line.",
       "id" : "pro-rack-6",
       "isReviewable" : true,
       "prompt" : "Which section is this rack chasing?",
@@ -3242,16 +3242,16 @@
       "tiles" : [
         "1B",
         "1B",
-        "2B",
-        "2B",
         "3B",
         "3B",
         "4B",
         "4B",
-        "5B",
-        "5B",
         "6B",
         "6B",
+        "8B",
+        "8B",
+        "9B",
+        "9B",
         "N"
       ],
       "trackingID" : "pro-rack-6"
@@ -5373,10 +5373,10 @@
     "plus-kd-redeem-own",
     "plus-kd-safe-discard",
     "plus-tq-call-kong",
+    "plus-tq-copies",
     "plus-tq-dead-hand",
     "plus-tq-expose",
     "plus-tq-green-dragon",
-    "plus-tq-hand-size",
     "plus-tq-kong",
     "plus-tq-pair-call",
     "plus-tq-priority",

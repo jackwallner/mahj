@@ -203,10 +203,10 @@ enum ProContent {
         ),
         HandMatchQuestion(
             id: "pro-rack-6",
-            tiles: [.b(1), .b(1), .b(2), .b(2), .b(3), .b(3), .b(4), .b(4), .b(5), .b(5), .b(6), .b(6), .wind(.north)],
-            choices: [.singlesAndPairs, .odds13579, .evens2468],
+            tiles: [.b(1), .b(1), .b(3), .b(3), .b(4), .b(4), .b(6), .b(6), .b(8), .b(8), .b(9), .b(9), .wind(.north)],
+            choices: [.singlesAndPairs, .consecutiveRun, .evens2468],
             answer: .singlesAndPairs,
-            explanation: "Six pairs in one suit, no pungs and no jokers: that is the Singles and Pairs shape. The odd and even pairs rule out 13579 and 2468. Jokers cannot help this section, so it is hard to finish. Chase it only when most of your rack is already pairs, like this one."
+            explanation: "Six pairs in one suit, no pungs and no jokers: that is the Singles and Pairs shape. The numbers skip around, so it is no run, and the odd pairs rule out 2468. Still, each line needs its own exact pairs and jokers cannot help, so chase this section only when most of your rack already fits one line."
         ),
         HandMatchQuestion(
             id: "pro-rack-7",
