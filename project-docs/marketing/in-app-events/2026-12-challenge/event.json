@@ -1,0 +1,19 @@
+{
+  "app_id": "6790052126",
+  "reference_name": "Monthly Challenge 2026-12 Safe Discards",
+  "badge": "CHALLENGE",
+  "purpose": "APPROPRIATE_FOR_ALL_USERS",
+  "priority": "HIGH",
+  "purchase_requirement": "NO_COST_ASSOCIATED",
+  "primary_locale": "en-US",
+  "publish_start": "2026-11-22T16:00:00Z",
+  "event_start": "2026-12-01T08:00:00Z",
+  "event_end": "2027-01-01T07:59:00Z",
+  "deep_link": "mahj://challenge",
+  "name": "December Mahj Challenge",
+  "short_description": "Three new Safe Discards questions a day",
+  "long_description": "A new challenge every month. December is Safe Discards: three new questions a day. Your best 20 days are your score.",
+  "event_card": "event-card-1920x1080.png",
+  "details_page": "event-details-1080x1920.png",
+  "event_id": "6837887765"
+}
