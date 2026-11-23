@@ -324,6 +324,7 @@ struct PracticeRunView: View {
         case .review:
             ProgressView(value: Double(index), total: Double(max(items.count, 1)))
                 .tint(Theme.jade)
+                .drillProgress(index, of: items.count)
         case .endless:
             HStack {
                 Text("\(score) of \(attempted) correct")

@@ -170,6 +170,14 @@ struct FlashcardDrillView: View {
                         ? { fling(direction: 1, size: size) }
                         : nil
                 )
+                .modifier(DeckCardAccessibility(
+                    isTop: slot == 0,
+                    hint: swipeAccessibilityHint,
+                    flip: { flip() },
+                    verdicts: slot == 0 && isFlipped && !choiceAnswered && !isFlinging,
+                    knewIt: { fling(direction: 1, size: size) },
+                    again: { fling(direction: -1, size: size) }
+                ))
                 .scaleEffect(scale(forSlot: slot))
                 .offset(y: yOffset(forSlot: slot))
                 // Inside the moving layer, so the stamp leaves with the card
@@ -185,22 +193,6 @@ struct FlashcardDrillView: View {
                     guard !isTouching, slot == 0 else { return }
                     settleCancelledDrag()
                 }
-                .accessibilityAddTraits(.isButton)
-                .accessibilityHint(swipeAccessibilityHint)
-                // The deck is gestures; VoiceOver and Switch Control get the
-                // same moves as named actions. Activating flips, and a
-                // revealed plain card offers Knew It and Again.
-                .accessibilityAction { if slot == 0 { flip() } }
-                .accessibilityActions {
-                    if slot == 0, isFlipped, !choiceAnswered, !isFlinging {
-                        Button("Knew It") { fling(direction: 1, size: size) }
-                        Button("Again") { fling(direction: -1, size: size) }
-                    }
-                }
-                // Only the top card can be flipped or flung. The two behind it
-                // are scenery: left in the tree they give VoiceOver two cards
-                // that answer nothing, which reads as a broken deck.
-                .accessibilityHidden(slot != 0)
                 .environment(\.isDeckScenery, slot != 0)
             }
         }
@@ -246,13 +238,19 @@ struct FlashcardDrillView: View {
     /// the quick session buttons, one grading vocabulary everywhere.
     private var verdictStamps: some View {
         ZStack {
-            if !choiceAnswered {
-                stamp(String(localized: "KNEW IT"), color: Theme.jade, angle: -12)
-                    .opacity(isFlipped ? stampOpacity(forDirection: 1) : 0)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                stamp(String(localized: "AGAIN"), color: Theme.coral, angle: 12)
-                    .opacity(isFlipped ? stampOpacity(forDirection: -1) : 0)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+            // A stamp exists only while the drag shows it: at zero opacity
+            // it would still sit in the tree as text over the card.
+            if isFlipped, !choiceAnswered {
+                if stampOpacity(forDirection: 1) > 0 {
+                    stamp(String(localized: "KNEW IT"), color: Theme.jade, angle: -12)
+                        .opacity(stampOpacity(forDirection: 1))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                }
+                if stampOpacity(forDirection: -1) > 0 {
+                    stamp(String(localized: "AGAIN"), color: Theme.coral, angle: 12)
+                        .opacity(stampOpacity(forDirection: -1))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                }
             }
         }
         .padding(22)
@@ -260,6 +258,10 @@ struct FlashcardDrillView: View {
         // like the swipe directions they name.
         .environment(\.layoutDirection, .leftToRight)
         .allowsHitTesting(false)
+        // Drag feedback only. VoiceOver gets the same verdicts as the card's
+        // Knew It and Again actions; left in the tree, the invisible stamps
+        // read as two more buttons on the card.
+        .accessibilityHidden(true)
     }
 
     private func stamp(_ text: String, color: Color, angle: Double) -> some View {
@@ -551,7 +553,13 @@ struct FlipCardFace: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.isDeckScenery) private var isDeckScenery
     @State private var shineTrigger = 0
+
+    private var elementChildren: AccessibilityChildBehavior {
+        if isDeckScenery { return .ignore }
+        return card.choice == nil || (isFlipped && onAdvance == nil) ? .combine : .contain
+    }
 
     var body: some View {
         Group {
@@ -571,8 +579,11 @@ struct FlipCardFace: View {
         .shine(trigger: reduceMotion ? 0 : shineTrigger, corner: Theme.deckCorner)
         // A plain card is one element, so the deck's flip and grading
         // actions land on it. A choice card keeps its buttons reachable.
-        .accessibilityElement(children: card.choice == nil || (isFlipped && onAdvance == nil) ? .combine : .contain)
-        .accessibilityLabel(isFlipped ? backSpoken : frontSpoken)
+        // A card behind the top one is an empty, unlabeled element:
+        // accessibilityHidden alone still leaves its text in the tree that
+        // UI tests and audits read (iOS 27).
+        .accessibilityElement(children: elementChildren)
+        .accessibilityLabel(isDeckScenery ? "" : isFlipped ? backSpoken : frontSpoken)
         .task(id: isFlipped) {
             // A correct call earns the slot-machine gleam once the flip lands.
             guard isFlipped, verdict?.correct == true else { return }
@@ -953,5 +964,38 @@ private extension View {
         } else {
             self
         }
+    }
+}
+
+/// The deck is gestures; VoiceOver and Switch Control get the same moves as
+/// named actions on the top card. Activating flips, and a revealed plain card
+/// offers Knew It and Again. The two cards behind it are scenery: left in the
+/// tree they give VoiceOver two cards that answer nothing, which reads as a
+/// broken deck, so they drop out of it. Applied to the card face itself,
+/// before the stamps and the deck's offsets, so nothing else picks up the
+/// button trait.
+private struct DeckCardAccessibility: ViewModifier {
+    let isTop: Bool
+    let hint: String
+    let flip: () -> Void
+    let verdicts: Bool
+    let knewIt: () -> Void
+    let again: () -> Void
+
+    func body(content: Content) -> some View {
+        content
+            .accessibilityAddTraits(isTop ? .isButton : [])
+            // The face's own tap button would otherwise make a blank scenery
+            // card read as an unnamed button.
+            .accessibilityRemoveTraits(isTop ? [] : .isButton)
+            .accessibilityHint(isTop ? hint : "")
+            .accessibilityAction { if isTop { flip() } }
+            .accessibilityActions {
+                if verdicts {
+                    Button("Knew It", action: knewIt)
+                    Button("Again", action: again)
+                }
+            }
+            .accessibilityHidden(!isTop)
     }
 }

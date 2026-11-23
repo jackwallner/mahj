@@ -62,6 +62,7 @@ struct HandMatchDrillView: View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(questions.count))
                 .tint(Theme.jade)
+                .drillProgress(index, of: questions.count)
             VStack(spacing: 16) {
                 QuestionPager(
                     prompt: String(localized: "Which section is this rack chasing?"),

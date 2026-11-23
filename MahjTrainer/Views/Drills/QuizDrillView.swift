@@ -47,6 +47,7 @@ struct QuizDrillView: View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(questions.count))
                 .tint(Theme.jade)
+                .drillProgress(index, of: questions.count)
             VStack(spacing: 16) {
                 QuestionPager(
                     prompt: question.prompt,

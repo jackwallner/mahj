@@ -199,6 +199,7 @@ struct QuickSessionView: View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(items.count))
                 .tint(accent)
+                .drillProgress(index, of: items.count)
             VStack(spacing: 12) {
                 QuestionPager(
                     prompt: item.prompt,

@@ -46,6 +46,7 @@ struct CharlestonDrillView: View {
         VStack(spacing: 16) {
             ProgressView(value: Double(index), total: Double(scenarios.count))
                 .tint(Theme.jade)
+                .drillProgress(index, of: scenarios.count)
             CenteringScrollView {
                 VStack(spacing: 18) {
                     Text(scenario.situation)

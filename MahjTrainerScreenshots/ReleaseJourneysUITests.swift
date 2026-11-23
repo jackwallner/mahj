@@ -194,7 +194,9 @@ final class ReleaseJourneysUITests: XCTestCase {
             // DEBUG route (the gate builds Debug): the drill, pushed on Home.
             "-mahj.shot", "drill/\(drill)",
         ], journey: journey)
-        XCTAssertTrue(app.descendants(matching: .any)["shot-drill/\(drill)"].firstMatch.waitForExistence(timeout: 20),
+        // Each of these drills opens on a rack; Home shows none. Waits in any
+        // language and in the Duo's trailing pane, which has no back button.
+        XCTAssertTrue(app.descendants(matching: .any)["rack-tile-0"].firstMatch.waitForExistence(timeout: 20),
                       "\(drill) never opened")
         QA.checkpoint(app, "wide-\(drill)", journey: journey)
         app.terminate()

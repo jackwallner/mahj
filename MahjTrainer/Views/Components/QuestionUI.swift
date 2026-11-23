@@ -25,6 +25,21 @@ extension View {
                 answerRect.wrappedValue = rect
             }
     }
+
+    /// A drill's progress bar, read to VoiceOver as "Question 2 of 10". The
+    /// system bar's own element is a 4pt track that Apple's audit reports as
+    /// a target too small to hit, so it leaves the tree and a 24pt element
+    /// over it speaks for it.
+    func drillProgress(_ index: Int, of total: Int) -> some View {
+        accessibilityHidden(true)
+            .overlay {
+                Color.clear
+                    .frame(height: 24)
+                    .accessibilityElement()
+                    .accessibilityLabel(Text("Question \(min(index + 1, max(total, 1))) of \(max(total, 1))"))
+                    .accessibilityAddTraits(.updatesFrequently)
+            }
+    }
 }
 
 extension EnvironmentValues {
