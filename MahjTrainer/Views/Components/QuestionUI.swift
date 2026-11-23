@@ -71,6 +71,8 @@ struct QuestionPager<Choices: View>: View {
     @State private var questionHeight: CGFloat = 0
     /// The graded note has been scrolled to for this answer.
     @State private var noteScrolled = false
+    /// The graded block, once scrolled to, stays pinned from its top.
+    @State private var pinnedID: String?
 
     var body: some View {
         // The reader wraps the scroll view: inside its content, `scrollTo`
@@ -83,10 +85,13 @@ struct QuestionPager<Choices: View>: View {
     private func pager(_ proxy: ScrollViewProxy) -> some View {
         // Centering, not top-aligned: on a 13-inch iPad a three-choice question
         // used to sit in the top quarter of the screen. See CenteringScrollView.
-        // iOS 18: a graded question that grows keeps its bottom, the note,
-        // in view. Only once graded: before that, the compact switch must
-        // not scroll an unanswered question off its prompt.
-        CenteringScrollView(keepsBottom: answered) {
+        // Graded, the block (recap, note, miss card) is pinned from its top,
+        // clamped by the scroll range: a block that fits ends at the foot of
+        // the screen, a taller one opens at its first line, and the pin holds
+        // while the spring and the note's fade grow the content. A bottom
+        // anchor raced the scroll there and, at AX5, sometimes left the
+        // block's start 1,200pt above the screen (release gate, 2026-11-22).
+        CenteringScrollView(pinned: $pinnedID) {
             VStack(spacing: isCompact ? 12 : 20) {
                 VStack(spacing: isCompact ? 12 : 20) {
                     if let eyebrow {
@@ -152,6 +157,7 @@ struct QuestionPager<Choices: View>: View {
                     ))
                 }
             }
+            .scrollTargetLayout()
             // Headroom so the winning row's pop and glow have somewhere to go.
             // A ScrollView clips its content, so a row that scales up to the
             // full content width would get its sides sheared off (that was the
@@ -174,11 +180,14 @@ struct QuestionPager<Choices: View>: View {
             .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { _ in
                 guard answered, !noteScrolled else { return }
                 noteScrolled = true
-                Task { @MainActor in scrollToNote(proxy) }
+                Task { @MainActor in await scrollToNote(proxy) }
             }
         }
         .onChange(of: answered) { _, isAnswered in
-            if !isAnswered { noteScrolled = false }
+            if !isAnswered {
+                noteScrolled = false
+                pinnedID = nil
+            }
         }
         .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { height in
             // Unfolding or rotating changes the room: measure again.
@@ -193,7 +202,7 @@ struct QuestionPager<Choices: View>: View {
         .animation(reduceMotion ? nil : Self.gradeSpring, value: answered)
     }
 
-    private func scrollToNote(_ proxy: ScrollViewProxy) {
+    private func scrollToNote(_ proxy: ScrollViewProxy) async {
         // `.top`, clamped by the scroll range: the block is the last thing
         // in the content, so while it fits on screen this lands exactly
         // where `.bottom` did (block at the foot, as much prompt as fits
@@ -201,6 +210,15 @@ struct QuestionPager<Choices: View>: View {
         // AX3, it starts at the note's first line instead of cutting it
         // off under the navigation bar. Reduce Motion: the scroll jumps.
         withAnimation(reduceMotion ? nil : .easeOut(duration: 0.35)) {
+            pinnedID = questionExplanationID
+        }
+        // A pin set while the block is still being inserted is sometimes
+        // ignored (2 runs in 25 at AX5 left it below the fold). Once the
+        // spring and the fade have settled, scroll to it again, unless the
+        // player has scrolled since, which moves the pin off the block.
+        try? await Task.sleep(for: .milliseconds(650))
+        guard answered, pinnedID == questionExplanationID else { return }
+        withAnimation(reduceMotion ? nil : .easeOut(duration: 0.25)) {
             proxy.scrollTo(questionExplanationID, anchor: .top)
         }
     }
