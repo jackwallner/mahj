@@ -356,7 +356,13 @@ struct ChoiceList: View {
             }
             .shine(trigger: answered && isAnswer ? shineTrigger : 0)
             .winGlow(Theme.bamGreen, active: answered && isAnswer && landed)
-            .scaleEffect(answered && isAnswer && landed ? 1.035 : 1)
+            // The pop grows the row by at most 16pt in all, so a wide iPad or
+            // Duo row stays inside the 10pt headroom the question pads in for
+            // it (a 708pt iPad row at 1.035 was cut 2pt a side, release gate
+            // 2026-11-23).
+            .visualEffect { [pop = answered && isAnswer && landed] content, geo in
+                content.scaleEffect(pop ? min(1.035, 1 + 16 / max(geo.size.width, 1)) : 1)
+            }
             .modifier(ShakeEffect(travels: isMiss ? shakes : 0))
             .opacity(recedes ? 0.72 : 1)
             .animation(reduceMotion ? nil : .spring(response: 0.3, dampingFraction: 0.8), value: answered)
