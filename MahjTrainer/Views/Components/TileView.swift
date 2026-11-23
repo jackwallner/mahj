@@ -312,20 +312,34 @@ struct TileRackView: View {
 
 /// Rows of `perRow`, each centred, in one container so a tile moving to
 /// another row slides there instead of fading out and back in.
-private struct BalancedRowsLayout: Layout {
+///
+/// Never wider than it is offered. Seven 44pt tiles are 344pt, and with
+/// Display Zoom an iPhone 15 Pro is 320pt wide: the rack drew past its
+/// scroll view, which sheared tiles off both edges, and a flashcard front
+/// stretched the whole deck past the screen and clipped its choices. A row
+/// that does not fit first closes its gaps (down to `minimumSpacing`), then
+/// wraps into more balanced rows. Where it fits, nothing changes.
+struct BalancedRowsLayout: Layout {
     let perRow: Int
     let spacing: CGFloat
     let rowSpacing: CGFloat
+    var minimumSpacing: CGFloat = 2
+
+    private struct Row {
+        let range: Range<Int>
+        let width: CGFloat
+        let height: CGFloat
+    }
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let rows = rowSizes(subviews)
+        let (rows, _) = arrangement(subviews, width: proposal.width)
         let width = rows.map(\.width).max() ?? 0
         let height = rows.map(\.height).reduce(0, +) + rowSpacing * CGFloat(max(0, rows.count - 1))
         return CGSize(width: width, height: height)
     }
 
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let rows = rowSizes(subviews)
+        let (rows, gap) = arrangement(subviews, width: proposal.width)
         var y = bounds.minY
         for (rowIndex, row) in rows.enumerated() {
             var x = bounds.midX - row.width / 2
@@ -335,18 +349,44 @@ private struct BalancedRowsLayout: Layout {
                     at: CGPoint(x: x, y: y + (row.height - size.height) / 2),
                     proposal: ProposedViewSize(size)
                 )
-                x += size.width + spacing
+                x += size.width + gap
             }
             y += row.height + (rowIndex < rows.count - 1 ? rowSpacing : 0)
         }
     }
 
-    private func rowSizes(_ subviews: Subviews) -> [(range: Range<Int>, width: CGFloat, height: CGFloat)] {
-        stride(from: 0, to: subviews.count, by: max(1, perRow)).map { start in
-            let range = start..<min(start + max(1, perRow), subviews.count)
-            let sizes = range.map { subviews[$0].sizeThatFits(.unspecified) }
-            let width = sizes.map(\.width).reduce(0, +) + spacing * CGFloat(max(0, sizes.count - 1))
-            return (range, width, sizes.map(\.height).max() ?? 0)
+    /// The designed rows with the designed gap where they fit `width`, else
+    /// the most tiles per row that fit with gaps no tighter than
+    /// `minimumSpacing`. An unspecified width (ideal size) is the design.
+    private func arrangement(_ subviews: Subviews, width: CGFloat?) -> ([Row], CGFloat) {
+        let sizes = subviews.map { $0.sizeThatFits(.unspecified) }
+        let designed = max(1, perRow)
+        guard let width, width.isFinite, !sizes.isEmpty else {
+            return (rows(sizes, perRow: designed, gap: spacing), spacing)
+        }
+        for limit in stride(from: designed, through: 1, by: -1) {
+            let rowCount = (sizes.count + limit - 1) / limit
+            let balanced = (sizes.count + rowCount - 1) / rowCount
+            let tight = rows(sizes, perRow: balanced, gap: 0)
+            let gap = tight.reduce(spacing) { gap, row in
+                let count = row.range.count
+                guard count > 1 else { return gap }
+                return min(gap, (width - row.width) / CGFloat(count - 1))
+            }
+            if gap >= minimumSpacing || balanced == 1 {
+                let gap = max(gap, balanced == 1 ? spacing : minimumSpacing)
+                return (rows(sizes, perRow: balanced, gap: gap), gap)
+            }
+        }
+        return (rows(sizes, perRow: 1, gap: spacing), spacing)
+    }
+
+    private func rows(_ sizes: [CGSize], perRow: Int, gap: CGFloat) -> [Row] {
+        stride(from: 0, to: sizes.count, by: perRow).map { start in
+            let range = start..<min(start + perRow, sizes.count)
+            let row = sizes[range]
+            let width = row.map(\.width).reduce(0, +) + gap * CGFloat(max(0, row.count - 1))
+            return Row(range: range, width: width, height: row.map(\.height).max() ?? 0)
         }
     }
 }

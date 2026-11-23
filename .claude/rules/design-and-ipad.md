@@ -106,6 +106,16 @@ cards around a moving rack (`HandPlayView.settleIn`, the Charleston coach
 card) leave at once and fade in after the tiles settle, so no tile slides
 across them.
 
+**Racks fit their width (2026-11-22, 1-star review "text and tiles are
+constantly cut off" on an iPhone 15 Pro):** `BalancedRowsLayout` used to
+ignore the offered width. With Display Zoom a 15 Pro is 320pt wide, a
+question offers its rack 268pt, and seven 44pt tiles drew 344pt: the scroll
+view sheared tiles off both edges, and a flashcard front stretched the deck
+and clipped its choices. A row that does not fit now closes its gaps (to
+2pt), then wraps into more balanced rows at full tile size; the ideal size
+(what `ViewThatFits` reads) is still the design. On a 393pt phone the
+Hand Match rack's gaps close from 6 to 5.5pt. Guard: `TileRackFitTests`.
+
 **Release gate accessibility pass (1.4.2, 2026-10-27):** every `withAnimation`,
 `.animation` and inserted `.transition` reads `accessibilityReduceMotion` and
 drops to `nil`/`.identity` (`PressableCardStyle` dims instead of scaling).
