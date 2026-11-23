@@ -69,6 +69,30 @@ enum DebugShot {
         }
     }
 
+    /// `-mahj.windowSize 320x693` shrinks the app's window to that many
+    /// points, centred at the top of the screen. With Display Zoom a 6.1"
+    /// iPhone is 320pt wide, and an iPhone SE or mini is 375pt; the pool has
+    /// neither and a simulator has no Display Zoom, so narrow captures run
+    /// on an ordinary phone with this. Sheets and alerts present inside the
+    /// window, so they shrink with it.
+    static func resizeWindowIfRequested() {
+        guard let spec = UserDefaults.standard.string(forKey: "mahj.windowSize") else { return }
+        let parts = spec.lowercased().split(separator: "x").compactMap { Double($0) }
+        guard parts.count == 2, parts[0] > 0, parts[1] > 0 else { return }
+        for scene in UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }) {
+            let screen = scene.coordinateSpace.bounds
+            let frame = CGRect(
+                x: ((screen.width - parts[0]) / 2).rounded(),
+                y: 0,
+                width: min(parts[0], screen.width),
+                height: min(parts[1], screen.height)
+            )
+            for window in scene.windows where window.frame != frame {
+                window.frame = frame
+            }
+        }
+    }
+
     /// `-mahj.demoSeed YES` gives a fresh install a week of real practice,
     /// recorded through the same stores a player's answers go through, so
     /// the captures show a returning player rather than empty rings. Once

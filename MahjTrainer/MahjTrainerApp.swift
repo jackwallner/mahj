@@ -49,6 +49,7 @@ struct MahjTrainerApp: App {
                     #if DEBUG
                     LaunchTiming.mark("root appear")
                     DispatchQueue.main.async { LaunchTiming.mark("first commit") }
+                    DebugShot.resizeWindowIfRequested()
                     DebugShot.seedIfRequested()
                     DebugShot.routeIfRequested(router)
                     #endif

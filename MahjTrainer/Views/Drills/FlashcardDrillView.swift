@@ -597,33 +597,30 @@ struct FlipCardFace: View {
 
     private var front: some View {
         MahjCardFace(accent: accent, eyebrow: String(localized: "MAHJ TRAINER")) {
-            if dynamicTypeSize.isAccessibilitySize {
-                accessibleFront
-            } else {
-                VStack(spacing: 18) {
-                    Spacer(minLength: 0)
-                    frontQuestion
-                    Spacer(minLength: 0)
-                    frontAction
-                }
-            }
+            fittedFront
         }
     }
 
     @ViewBuilder
-    private var frontQuestion: some View {
+    private func frontQuestion(compact: Bool) -> some View {
+        // Never truncated: on a 320pt Display Zoom phone the stack between
+        // the spacers squeezed a three-line title to "You're building 2468
+        // in craks an..." with room to spare below. Too tall for the card,
+        // the question scrolls instead (`fittedFront`).
         Text(card.frontTitle)
-            .font(Theme.display(25))
+            .font(Theme.display(compact ? 21 : 25))
             .foregroundStyle(Theme.ink)
             .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
         if !card.frontTiles.isEmpty {
-            TileRackView(tiles: card.frontTiles, tileWidth: frontTileWidth)
+            TileRackView(tiles: card.frontTiles, tileWidth: compact ? min(frontTileWidth, 40) : frontTileWidth)
         }
         if let subtitle = card.frontSubtitle {
             Text(subtitle)
                 .font(.subheadline)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 
@@ -638,20 +635,29 @@ struct FlipCardFace: View {
         }
     }
 
-    /// At accessibility sizes a long subtitle under a two-row rack outgrows
-    /// the card on a small phone and was cut off. The question scrolls only
-    /// when it has to, with the choices pinned below, as on the back.
-    private var accessibleFront: some View {
-        VStack(spacing: 14) {
+    /// A long subtitle under a two-row rack outgrows the card on a small
+    /// phone (accessibility sizes, or a 320pt Display Zoom screen at any
+    /// size) and was cut off. The question scrolls only when it has to, with
+    /// the choices pinned below, as on the back.
+    private var fittedFront: some View {
+        VStack(spacing: dynamicTypeSize.isAccessibilitySize ? 14 : 18) {
             ViewThatFits(in: .vertical) {
                 VStack(spacing: 18) {
                     Spacer(minLength: 0)
-                    frontQuestion
+                    frontQuestion(compact: false)
+                    Spacer(minLength: 0)
+                }
+                // A smaller title and tiles before anything scrolls: on a
+                // 320pt phone a four-line question over three tiles left its
+                // last line under the scroll edge.
+                VStack(spacing: 12) {
+                    Spacer(minLength: 0)
+                    frontQuestion(compact: true)
                     Spacer(minLength: 0)
                 }
                 ScrollView {
                     VStack(spacing: 18) {
-                        frontQuestion
+                        frontQuestion(compact: true)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .frame(maxWidth: .infinity)
@@ -670,20 +676,25 @@ struct FlipCardFace: View {
             if dynamicTypeSize.isAccessibilitySize {
                 accessibleBack
             } else {
-                VStack(spacing: 14) {
-                    if let verdict {
-                        verdictBanner(verdict)
-                    }
-                    Spacer(minLength: 0)
-                    answerText
-                    Spacer(minLength: 0)
-                    if showsSwipeHints {
-                        if let onAdvance {
-                            nextButton(onAdvance)
-                        } else {
-                            swipeHint
+                // A long answer on a short card (a 320pt Display Zoom phone)
+                // ran past the card's bottom edge; it scrolls instead.
+                ViewThatFits(in: .vertical) {
+                    VStack(spacing: 14) {
+                        if let verdict {
+                            verdictBanner(verdict)
+                        }
+                        Spacer(minLength: 0)
+                        answerText
+                        Spacer(minLength: 0)
+                        if showsSwipeHints {
+                            if let onAdvance {
+                                nextButton(onAdvance)
+                            } else {
+                                swipeHint
+                            }
                         }
                     }
+                    accessibleBack
                 }
             }
         }
@@ -754,6 +765,7 @@ struct FlipCardFace: View {
                 .font(Theme.display(22))
                 .foregroundStyle(accent)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
             Rectangle()
                 .fill(Theme.rule)
                 .frame(width: 44, height: 2)

@@ -116,6 +116,19 @@ and clipped its choices. A row that does not fit now closes its gaps (to
 (what `ViewThatFits` reads) is still the design. On a 393pt phone the
 Hand Match rack's gaps close from 6 to 5.5pt. Guard: `TileRackFitTests`.
 
+**Narrow screens are checked, not assumed (2026-11-22):** the pool's
+narrowest phone is 393pt, and a simulator has no Display Zoom, so nothing
+ever ran at 320pt. DEBUG `-mahj.windowSize 320x693` shrinks the app's window
+(`DebugShot.resizeWindowIfRequested`); `scripts/narrow-shots.sh <udid> <out>`
+shoots every room and drill at 320 and 375pt, and `SWEEP_WINDOW=320x693
+scripts/layout-sweep.sh ...` walks the answered states. Run both before a
+release that touches layout. The first pass found, besides the racks:
+flashcard questions truncated to "You're building 2468 in craks an..." (the
+stack between the card's spacers squeezed the title; titles now never
+truncate, the question shrinks to 21pt with tiles at most 40pt, then
+scrolls), long answers running past the card bottom (the back now scrolls
+when it must), and the primer's "Recommended:..." chip.
+
 **Release gate accessibility pass (1.4.2, 2026-10-27):** every `withAnimation`,
 `.animation` and inserted `.transition` reads `accessibilityReduceMotion` and
 drops to `nil`/`.identity` (`PressableCardStyle` dims instead of scaling).

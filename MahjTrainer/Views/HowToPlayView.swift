@@ -242,12 +242,17 @@ struct HowToPlayView: View {
                     .frame(width: 40, height: 40)
                     .background(recommendedRoom.accent.opacity(0.14), in: Circle())
                 VStack(alignment: .leading, spacing: 2) {
+                    // Wraps, never truncates: on a 320pt Display Zoom phone
+                    // both lines read "Recommended:..." and "Meet the tiles
+                    // and ta...".
                     Text("Recommended: \(recommendedRoom.name)")
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(Theme.ink)
+                        .fixedSize(horizontal: false, vertical: true)
                     Text(recommendedRoom.tagline)
                         .font(.caption)
                         .foregroundStyle(Theme.inkSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer(minLength: 4)
                 Image(systemName: "chevron.right")

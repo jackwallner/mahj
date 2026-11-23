@@ -11,6 +11,9 @@ import XCTest
 /// xcodebuild as `TEST_RUNNER_<NAME>`):
 /// - `SWEEP_SIZE`: `L` (default), `XXXL`, `AX3` or `AX5`.
 /// - `SWEEP_ORIENT`: `portrait` (default) or `landscape`.
+/// - `SWEEP_WINDOW`: a window size such as `320x693`, passed to the app as
+///   `-mahj.windowSize` (DEBUG), for a Display Zoom iPhone or Slide Over,
+///   which no simulator is.
 /// - `SWEEP_SCOPE`: `full` (default), `compare` (trial page, paywall, Home and What's New
 ///   only, for the 1.3.2 side by side), `att` (the real first-run tracking
 ///   prompt flow; needs a fresh install), `flashcard` (the Tile Room and one
@@ -433,6 +436,9 @@ final class LayoutSweepTests: XCTestCase {
         }
         if let sizeCategory {
             args += ["-UIPreferredContentSizeCategoryName", sizeCategory]
+        }
+        if let window = env["SWEEP_WINDOW"], !window.isEmpty {
+            args += ["-mahj.windowSize", window]
         }
         app.launchArguments = args
         XCUIDevice.shared.orientation = landscape ? .landscapeLeft : .portrait

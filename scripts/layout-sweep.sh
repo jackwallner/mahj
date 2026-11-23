@@ -14,6 +14,9 @@
 #     BUILD  key into XCTESTRUN_<BUILD> / OUT_<BUILD> env vars (default: main)
 #
 # Env:
+#   SWEEP_WINDOW    shrink the app window, e.g. 320x693 (a Display Zoom
+#                   6.1" iPhone). Run 375pt natively on
+#                   com.apple.CoreSimulator.SimDeviceType.iPhone-SE-3rd-generation.
 #   XCTESTRUN_main  .xctestrun from `xcodebuild build-for-testing -scheme Screenshots`
 #   XCTESTRUN_<b>   another build's .xctestrun (e.g. an older release)
 #   OUT_<b>         output root for that build (default: <out-root>)
@@ -92,6 +95,7 @@ for run in "$@"; do
   start=$(date +%s)
   status=0
   TEST_RUNNER_SWEEP_SIZE="$SIZE" TEST_RUNNER_SWEEP_ORIENT="$ORIENT" TEST_RUNNER_SWEEP_SCOPE="$SCOPE" \
+  TEST_RUNNER_SWEEP_WINDOW="${SWEEP_WINDOW:-}" SWEEP_WINDOW="${SWEEP_WINDOW:-}" \
     xcodebuild test-without-building -quiet \
       -xctestrun "$XCTESTRUN" \
       -destination "id=$UDID" \
