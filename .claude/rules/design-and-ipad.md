@@ -186,3 +186,11 @@ screenshot, so measure before darkening a token further.
   plans' 680pt, and the hard top edge is regular width only, because on
   iPhone it drew a divider under Close at rest and the frozen paywall must
   stay pixel-identical there. Lifetime stays third on iPhone (item 8, Jack).
+
+**XCUITest and the accessibility tree (iOS 27, 2026-11-23):**
+- XCUITest still lists SwiftUI views marked `accessibilityHidden(true)`. To take
+  an element out of the tree (the deck's back cards, the KNEW IT / AGAIN stamps),
+  remove the view or strip its label and traits; hiding alone does not.
+- XCUITest `tap()` and coordinate presses do not flip a flashcard (its
+  `DragGesture` has `minimumDistance: 0`); real HID taps do. A harness quirk,
+  not an app bug: drive flips with a swipe or a real tap.
