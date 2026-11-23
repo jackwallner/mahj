@@ -172,6 +172,33 @@ final class ReleaseJourneysUITests: XCTestCase {
         assertSessionBanked(drillsBefore: drillsBefore, in: app)
     }
 
+    // MARK: - Wide rows
+
+    /// The drills with the widest rows: a 13-tile rack, a Charleston pass
+    /// rack and the Know the Sections cards. The narrow persona (375pt) and
+    /// the iPad Slide Over width are where a fixed row clips; the 1-star
+    /// "tiles cut off" review (2026-11-21) was a zoomed 320pt iPhone. One
+    /// launch per test, so the CTA check never compares two drills.
+    func testWideRowsHandMatch() { openWideDrill("hand-match") }
+    func testWideRowsCharlestonPass() { openWideDrill("charleston-pass") }
+    func testWideRowsKnowTheSections() { openWideDrill("category-cards") }
+
+    private func openWideDrill(_ drill: String, journey: String = #function) {
+        let app = XCUIApplication(bundleIdentifier: bundle)
+        QA.launch(app, arguments: [
+            "-progress.hasOnboarded", "YES",
+            "-mahj.hasReadPrimer", "YES",
+            "-mahj.skillLevel", "some",
+            "-whatsnew.lastSeenVersion", "99",
+            "-practice.ordinaryRun", "", "-practice.ordinaryRuns", "",
+            // DEBUG route (the gate builds Debug): the drill, pushed on Home.
+            "-mahj.shot", "drill/\(drill)",
+        ], journey: journey)
+        XCTAssertTrue(app.navigationBars.buttons.firstMatch.waitForExistence(timeout: 20), "\(drill) never opened")
+        QA.checkpoint(app, "wide-\(drill)", journey: journey)
+        app.terminate()
+    }
+
     // MARK: - Helpers
 
     /// Home after the finished session: the day's Get Started is spent, the
