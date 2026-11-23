@@ -96,6 +96,12 @@ appends to the stack or the pane, so a Timed Challenge or Endless run is still
 there on Back) and does nothing when it is already on top. A route while
 Settings is open was checked on iOS 27.2 (2026-11-20) and already lands in
 front of the sheet, so nothing closes sheets for it.
+Open gap (2026-11-23, deferred past 1.4.6): Home's tiles, rooms and drills
+push with view-based `NavigationLink`s, so `path` stays empty under them and
+`show()` takes the `path = [destination]` branch, replacing the stack and
+losing a Timed run under a room-opened drill. No worse than 1.4.5. A fix has
+to detect a view-pushed screen (or move those links to values) without
+popping it, because changing a typed path pops view-destination screens.
 
 ## iOS 18 freeze: no publish without a change
 
