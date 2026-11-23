@@ -860,16 +860,26 @@ private struct MahjCardFace<Content: View>: View {
                 .fill(Theme.card)
         }
         .overlay {
-            // Watermark sits above the surface but below the frame.
-            Text("麻")
-                .font(.system(size: 190, weight: .bold))
-                .foregroundStyle(accent.opacity(0.05))
-                .rotationEffect(.degrees(-10))
-                .offset(x: 60, y: 70)
-                // Zero minimums hold the frame to the card. Without them a
-                // card shorter than the glyph (a Duo pane's deck) grew the
-                // frame, and the clip let the glyph spill onto the deck.
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .bottomTrailing)
+            // Watermark sits above the surface but below the frame. Drawn
+            // in a Canvas, so the glyph is paint, not a view: as a rotated,
+            // offset Text its accessibility frame ran 60pt past the card and
+            // off the screen even though the clip hid it (release gate,
+            // 2026-11-23). A Canvas is exactly the card's size, so it can
+            // never grow the card (a Duo pane's short deck) either.
+            Canvas { context, size in
+                let glyph = context.resolve(
+                    Text("麻")
+                        .font(.system(size: 190, weight: .bold))
+                        .foregroundStyle(accent.opacity(0.05))
+                )
+                let glyphSize = glyph.measure(in: CGSize(width: CGFloat.infinity, height: .infinity))
+                // Bottom-trailing in the card, then 60 right and 70 down,
+                // turned 10 degrees about its own centre.
+                context.translateBy(x: size.width - glyphSize.width / 2 + 60,
+                                    y: size.height - glyphSize.height / 2 + 70)
+                context.rotate(by: .degrees(-10))
+                context.draw(glyph, at: .zero, anchor: .center)
+            }
                 .clipShape(RoundedRectangle(cornerRadius: Theme.deckCorner, style: .continuous))
                 // Only the top card carries it. The cards behind drew theirs
                 // in the strips that peek below, which lined up into one glyph
