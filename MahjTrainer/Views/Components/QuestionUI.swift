@@ -122,6 +122,7 @@ struct QuestionPager<Choices: View>: View {
                         if missedOnTallQuestion {
                             TileRackView(tiles: tiles, tileWidth: 32)
                                 .accessibilityElement(children: .combine)
+                                .accessibilityIdentifier("missed-question-rack-recap")
                         }
                         HStack(alignment: .top, spacing: 10) {
                             Image(systemName: "lightbulb.fill")
