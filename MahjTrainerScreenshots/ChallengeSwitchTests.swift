@@ -50,7 +50,7 @@ final class ChallengeSwitchTests: XCTestCase {
             let anchor = app.staticTexts["Your week, counted"]
             XCTAssertTrue(anchor.waitForExistence(timeout: 20), "What's New did not show (\(value))")
             attachScreenshot("whatsnew_\(value)")
-            XCTAssertEqual(app.staticTexts["A challenge every month"].exists, expected, "challenge line with switch \(value)")
+            XCTAssertEqual(app.staticTexts["Mahj Minute, now for everyone"].exists, expected, "challenge line with switch \(value)")
             app.terminate()
         }
     }
