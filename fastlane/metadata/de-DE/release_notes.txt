@@ -1,5 +1,7 @@
-Eine Mahj+-Frage zu einer toten 5 Bam wurde korrigiert. Sie nennt jetzt, welche Joker du hältst.
+Text und Steine werden auf kleineren Bildschirmen oder bei aktiviertem Display-Zoom nicht mehr abgeschnitten.
 
-Auf Arabisch folgen Karten und die Seiten der Spielanleitung jetzt deinem Finger.
+Klarere Antworten bei einigen Anfängerfragen.
 
-Auf dem iPad hat die Fertig-Taste nach einer Übung jetzt die gleiche Größe wie der Rest des Bildschirms.
+Deine Serie und dein Übungsverlauf bleiben jetzt bei Uhrzeitänderungen, App-Updates und Sprachwechseln erhalten.
+
+VoiceOver liest Karten, Ablagen und Fortschritt verständlicher vor.

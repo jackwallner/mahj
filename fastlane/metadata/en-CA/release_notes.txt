@@ -1,5 +1,7 @@
-Fixed a Mahj+ question about a dead 5 Bam. It now says which jokers you hold.
+Text and tiles no longer get cut off on smaller screens or with Display Zoom on.
 
-In Arabic, cards and How to Play pages now follow your finger.
+Clearer answers on a few beginner questions.
 
-On iPad, the Done button after a practice is sized like the rest of the screen.
+Your streak and practice history now hold up through clock changes, app updates and language switches.
+
+VoiceOver reads cards, racks and progress more clearly.

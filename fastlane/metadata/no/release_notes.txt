@@ -1,5 +1,7 @@
-Rettet et Mahj+-spørsmål om en død 5 Bam. Det forteller nå hvilke jokere du har.
+Tekst og brikker blir ikke lenger kuttet av på mindre skjermer eller med Skjermzoom slått på.
 
-På arabisk følger kort og sidene Slik spiller du nå fingeren din.
+Tydeligere svar på noen få spørsmål for nybegynnere.
 
-På iPad har Ferdig-knappen etter en øvelse nå samme størrelse som resten av skjermen.
+Streken din og øvelseshistorikken holder nå gjennom klokkeendringer, appoppdateringer og språkbytter.
+
+VoiceOver leser opp kort, stativer og fremgang tydeligere.

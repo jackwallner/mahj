@@ -1,5 +1,7 @@
-Åtgärdade en Mahj+-fråga om en död 5 Bam. Den berättar nu vilka jokrar du har.
+Text och brickor skärs inte längre av på mindre skärmar eller med Skärmzoom påslaget.
 
-På arabiska följer kort och sidorna Så spelar du nu ditt finger.
+Tydligare svar på några nybörjarfrågor.
 
-På iPad har knappen Klar efter en övning nu samma storlek som resten av skärmen.
+Din serie och din övningshistorik klarar nu tidsändringar, appuppdateringar och språkbyten.
+
+VoiceOver läser upp kort, ställ och framsteg tydligare.

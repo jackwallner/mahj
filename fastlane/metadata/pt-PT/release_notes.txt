@@ -1,5 +1,7 @@
-Corrigida uma pergunta do Mahj+ sobre um 5 Bam morto. Agora indica que jokers tem.
+O texto e as peças já não são cortados em ecrãs mais pequenos ou com o Zoom do ecrã ativado.
 
-Em árabe, os cartões e as páginas de Como jogar seguem agora o seu dedo.
+Respostas mais claras em algumas perguntas para principiantes.
 
-No iPad, o botão Concluir depois de um treino tem agora o mesmo tamanho do resto do ecrã.
+A sua sequência e o seu histórico de treino mantêm-se agora após mudanças de hora, atualizações da app e trocas de idioma.
+
+O VoiceOver lê os cartões, os suportes e o progresso com mais clareza.

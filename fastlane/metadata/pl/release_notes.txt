@@ -1,5 +1,7 @@
-Poprawiono pytanie w Mahj+ o martwej 5 Bam. Teraz mówi, jakie jokery masz.
+Tekst i kafelki nie są już ucinane na mniejszych ekranach ani przy włączonym Powiększeniu ekranu.
 
-W języku arabskim karty i strony Jak grać podążają teraz za palcem.
+Jaśniejsze odpowiedzi w kilku pytaniach dla początkujących.
 
-Na iPadzie przycisk Gotowe po ćwiczeniu ma teraz taki sam rozmiar jak reszta ekranu.
+Twoja seria i historia ćwiczeń wytrzymują teraz zmiany czasu, aktualizacje aplikacji i zmiany języka.
+
+VoiceOver czyta karty, stojaki i postępy wyraźniej.

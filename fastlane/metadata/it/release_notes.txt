@@ -1,5 +1,7 @@
-Corretta una domanda di Mahj+ su un 5 Bam morto. Ora indica quali jolly hai.
+Testo e tessere non vengono più tagliati sugli schermi più piccoli o con Zoom display attivo.
 
-In arabo, le carte e le pagine Come si gioca ora seguono il tuo dito.
+Risposte più chiare in alcune domande per principianti.
 
-Su iPad, il pulsante Fine dopo un esercizio ha ora la stessa dimensione del resto dello schermo.
+La tua serie e la cronologia degli esercizi ora resistono ai cambi d'ora, agli aggiornamenti dell'app e ai cambi di lingua.
+
+VoiceOver legge in modo più chiaro carte, leggii e progressi.

@@ -1,5 +1,7 @@
-Corrigida uma pergunta do Mahj+ sobre um 5 Bam morto. Agora ela diz quais coringas você tem.
+O texto e as peças não são mais cortados em telas menores ou com o Zoom de Tela ativado.
 
-Em árabe, os cartões e as páginas de Como jogar agora seguem o seu dedo.
+Respostas mais claras em algumas perguntas para iniciantes.
 
-No iPad, o botão Concluído depois de um treino tem o mesmo tamanho do resto da tela.
+Sua sequência e seu histórico de treino agora se mantêm após mudanças de horário, atualizações do app e trocas de idioma.
+
+O VoiceOver lê cartas, suportes e progresso com mais clareza.

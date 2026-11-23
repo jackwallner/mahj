@@ -1,5 +1,7 @@
-Ispravljeno je pitanje u Mahj+ o mrtvoj 5 Bam. Sada kaže koje jokere imate.
+Tekst i pločice više se ne režu na manjim zaslonima ni kad je uključen Zoom zaslona.
 
-Na arapskom kartice i stranice Kako igrati sada prate vaš prst.
+Jasniji odgovori na nekoliko pitanja za početnike.
 
-Na iPadu je gumb Gotovo nakon vježbe sada iste veličine kao ostatak zaslona.
+Vaš niz i povijest vježbanja sada se zadržavaju nakon promjena vremena, ažuriranja aplikacije i promjena jezika.
+
+VoiceOver jasnije čita kartice, stalke i napredak.

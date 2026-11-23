@@ -1,5 +1,7 @@
-Opravená otázka v Mahj+ o mŕtvej 5 Bam. Teraz hovorí, ktoré žolíky držíte.
+Text a kamene sa už neorezávajú na menších obrazovkách ani so zapnutým Priblížením displeja.
 
-V arabčine teraz karty a stránky Ako hrať sledujú váš prst.
+Jasnejšie odpovede pri niekoľkých otázkach pre začiatočníkov.
 
-Na iPade má tlačidlo Hotovo po cvičení rovnakú veľkosť ako zvyšok obrazovky.
+Vaša séria a história cvičení prežijú zmenu času, aktualizáciu aplikácie aj prepnutie jazyka.
+
+VoiceOver číta karty, stojany a pokrok zrozumiteľnejšie.

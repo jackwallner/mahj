@@ -1,5 +1,7 @@
-Memperbaiki pertanyaan Mahj+ tentang 5 Bam mati. Sekarang pertanyaan itu menyebutkan joker mana yang Anda pegang.
+Teks dan ubin tidak lagi terpotong di layar yang lebih kecil atau saat Zoom Tampilan aktif.
 
-Dalam bahasa Arab, kartu dan halaman Cara Bermain kini mengikuti jari Anda.
+Jawaban yang lebih jelas pada beberapa pertanyaan untuk pemula.
 
-Di iPad, tombol Selesai setelah latihan kini berukuran sama dengan bagian layar lainnya.
+Rentetan hari dan riwayat latihan kini tetap aman saat jam berubah, aplikasi diperbarui, atau bahasa diganti.
+
+VoiceOver kini membacakan kartu, rak, dan kemajuan dengan lebih jelas.

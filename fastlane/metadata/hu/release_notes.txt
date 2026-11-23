@@ -1,5 +1,7 @@
-Javítottunk egy Mahj+ kérdést egy halott 5 Bamról. Mostantól megmondja, melyik jokereid vannak.
+A szöveg és a kövek már nem lógnak le kisebb képernyőn vagy bekapcsolt Kijelzőnagyítás mellett.
 
-Arabul a kártyák és a Hogyan kell játszani oldalak mostantól követik az ujjadat.
+Világosabb válaszok néhány kezdő kérdésnél.
 
-iPaden a gyakorlás utáni Kész gomb mostantól akkora, mint a képernyő többi eleme.
+A sorozatod és a gyakorlási előzményeid mostantól megmaradnak óraváltás, alkalmazásfrissítés és nyelvváltás után is.
+
+A VoiceOver érthetőbben olvassa fel a kártyákat, az állványokat és az előrehaladást.

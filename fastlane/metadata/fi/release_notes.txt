@@ -1,5 +1,7 @@
-Korjattu Mahj+-kysymys kuolleesta 5 Bamista. Nyt se kertoo, mitkä jokerit sinulla on.
+Teksti ja laatat eivät enää leikkaudu pienemmillä näytöillä tai kun Näytön zoom on päällä.
 
-Arabiaksi kortit ja Näin pelataan -sivut seuraavat nyt sormeasi.
+Selkeämmät vastaukset muutamaan aloittelijan kysymykseen.
 
-iPadilla harjoituksen jälkeinen Valmis-painike on nyt yhtä suuri kuin muu näyttö.
+Putkesi ja harjoitushistoriasi kestävät nyt kellonajan muutokset, sovelluspäivitykset ja kielenvaihdot.
+
+VoiceOver lukee kortit, telineet ja edistymisen selkeämmin.

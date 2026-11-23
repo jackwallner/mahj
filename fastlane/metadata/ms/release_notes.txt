@@ -1,5 +1,7 @@
-Membetulkan soalan Mahj+ tentang 5 Bam mati. Kini ia menyatakan joker mana yang anda pegang.
+Teks dan jubin tidak lagi terpotong pada skrin yang lebih kecil atau apabila Zum Paparan dihidupkan.
 
-Dalam bahasa Arab, kad dan halaman Cara Bermain kini mengikuti jari anda.
+Jawapan yang lebih jelas untuk beberapa soalan pemula.
 
-Pada iPad, butang Selesai selepas latihan kini bersaiz sama seperti bahagian skrin yang lain.
+Rentetan hari dan sejarah latihan kini kekal selepas perubahan jam, kemas kini apl dan pertukaran bahasa.
+
+VoiceOver membaca kad, rak dan kemajuan dengan lebih jelas.

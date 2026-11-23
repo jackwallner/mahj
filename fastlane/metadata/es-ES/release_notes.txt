@@ -1,5 +1,7 @@
-Corregida una pregunta de Mahj+ sobre un 5 Bam muerto. Ahora indica qué comodines tienes.
+El texto y las fichas ya no se cortan en pantallas pequeñas ni con Zoom de pantalla activado.
 
-En árabe, las cartas y las páginas de Cómo se juega ahora siguen tu dedo.
+Respuestas más claras en algunas preguntas para principiantes.
 
-En iPad, el botón Listo después de una práctica tiene el mismo tamaño que el resto de la pantalla.
+Tu racha y tu historial de práctica ahora se mantienen tras cambios de hora, actualizaciones de la app y cambios de idioma.
+
+VoiceOver lee con más claridad las cartas, los atriles y el progreso.

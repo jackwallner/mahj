@@ -1,5 +1,7 @@
-Đã sửa một câu hỏi Mahj+ về 5 Bam chết. Giờ câu hỏi cho biết bạn đang giữ những joker nào.
+Văn bản và quân bài không còn bị cắt ở màn hình nhỏ hoặc khi bật Thu phóng màn hình.
 
-Trong tiếng Ả Rập, các thẻ và trang Cách chơi giờ đi theo ngón tay bạn.
+Câu trả lời rõ ràng hơn ở một vài câu hỏi dành cho người mới.
 
-Trên iPad, nút Xong sau buổi luyện tập giờ có kích thước như phần còn lại của màn hình.
+Chuỗi ngày và lịch sử luyện tập của bạn giờ được giữ nguyên khi đổi giờ, cập nhật ứng dụng và đổi ngôn ngữ.
+
+VoiceOver đọc thẻ, giá xếp bài và tiến độ rõ ràng hơn.

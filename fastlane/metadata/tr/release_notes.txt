@@ -1,5 +1,7 @@
-Ölü bir 5 Bam hakkındaki Mahj+ sorusu düzeltildi. Artık hangi jokerlere sahip olduğunuzu söylüyor.
+Metin ve taşlar artık küçük ekranlarda veya Ekran Yakınlaştırma açıkken kesilmiyor.
 
-Arapçada kartlar ve Nasıl Oynanır sayfaları artık parmağınızı takip ediyor.
+Yeni başlayanlara yönelik birkaç soruda daha net yanıtlar.
 
-iPad'de alıştırmadan sonraki Bitti düğmesi artık ekranın geri kalanıyla aynı boyutta.
+Serin ve alıştırma geçmişin artık saat değişikliklerinde, uygulama güncellemelerinde ve dil değişimlerinde korunuyor.
+
+VoiceOver kartları, istakaları ve ilerlemeyi daha net okuyor.

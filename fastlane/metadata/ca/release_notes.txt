@@ -1,5 +1,7 @@
-S'ha corregit una pregunta de Mahj+ sobre un 5 Bam mort. Ara indica quins comodins tens.
+El text i les fitxes ja no es tallen en pantalles més petites ni amb el Zoom de pantalla activat.
 
-En àrab, les cartes i les pàgines de Com es juga ara segueixen el dit.
+Respostes més clares en algunes preguntes per a principiants.
 
-A l'iPad, el botó Fet després d'una pràctica té la mida de la resta de la pantalla.
+La ratxa i l'historial de pràctica ara aguanten els canvis d'hora, les actualitzacions de l'app i els canvis d'idioma.
+
+VoiceOver llegeix amb més claredat les cartes, els faristols i el progrés.

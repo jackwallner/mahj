@@ -1,5 +1,7 @@
-Popravljeno je vprašanje v Mahj+ o mrtvi 5 Bam. Zdaj pove, katere jokerje imate.
+Besedilo in ploščice se na manjših zaslonih ali z vklopljenim Povečavo zaslona ne odrežejo več.
 
-V arabščini kartice in strani Kako igrati zdaj sledijo vašemu prstu.
+Jasnejši odgovori pri nekaj vprašanjih za začetnike.
 
-Na iPadu je gumb Končano po vadbi zdaj enako velik kot preostali zaslon.
+Vaš niz in zgodovina vadbe ostaneta nespremenjena ob spremembah ure, posodobitvah aplikacije in menjavi jezika.
+
+VoiceOver jasneje bere kartice, stojala in napredek.
