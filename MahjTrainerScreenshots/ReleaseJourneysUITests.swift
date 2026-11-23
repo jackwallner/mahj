@@ -194,7 +194,8 @@ final class ReleaseJourneysUITests: XCTestCase {
             // DEBUG route (the gate builds Debug): the drill, pushed on Home.
             "-mahj.shot", "drill/\(drill)",
         ], journey: journey)
-        XCTAssertTrue(app.navigationBars.buttons.firstMatch.waitForExistence(timeout: 20), "\(drill) never opened")
+        XCTAssertTrue(app.descendants(matching: .any)["shot-drill/\(drill)"].firstMatch.waitForExistence(timeout: 20),
+                      "\(drill) never opened")
         QA.checkpoint(app, "wide-\(drill)", journey: journey)
         app.terminate()
     }

@@ -29,8 +29,17 @@ enum DebugShot {
         }
     }
 
-    @ViewBuilder
+    /// The routed screen, tagged `shot-<name>` so a UI test can wait for it
+    /// in any language and in the Duo's trailing pane, where there is no
+    /// back button to wait for.
     static func screen(_ name: String) -> some View {
+        content(name)
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("shot-\(name)")
+    }
+
+    @ViewBuilder
+    private static func content(_ name: String) -> some View {
         let parts = name.split(separator: "/").map(String.init)
         switch (parts.first, parts.last) {
         case ("reference", _): ReferenceView()
