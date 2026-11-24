@@ -57,6 +57,22 @@ import com.jackwallner.mahj.ui.theme.screenPadding
 import com.jackwallner.mahj.ui.theme.themedCard
 import kotlinx.coroutines.delay
 
+/** A tap on a rack tile in the pass picker: the new selection, or why the tap changed nothing. */
+data class PassTap(val selected: List<Int>, val refusal: String?)
+
+object PassPicker {
+    const val JOKER_REFUSAL = "Jokers can never be passed."
+    const val FULL_REFUSAL = "Three chosen. Tap one to take it back first."
+
+    /** Jokers may never be passed, and a pass is three tiles. A silent refusal reads as a missed tap, so both say why. */
+    fun tap(selected: List<Int>, rack: List<Tile>, tapped: Int): PassTap = when {
+        tapped in selected -> PassTap(selected - tapped, null)
+        rack[tapped] == Tile.Joker -> PassTap(selected, JOKER_REFUSAL)
+        selected.size < 3 -> PassTap(selected + tapped, null)
+        else -> PassTap(selected, FULL_REFUSAL)
+    }
+}
+
 /** Grade a pass by tile multiset, so equivalent duplicates count as matches. */
 fun matchCount(selected: Collection<Int>, rack: List<Tile>, recommended: List<Tile>): Int {
     val pool = recommended.toMutableList()
@@ -76,6 +92,8 @@ fun CharlestonDrillScreen(drill: Drill, scenarios: List<CharlestonScenario>) {
     var answers by rememberSaveable { mutableStateOf(saved?.answers ?: emptyList<Boolean>()) }
     var finished by rememberSaveable { mutableStateOf(false) }
     var confetti by remember { mutableIntStateOf(0) }
+    /** Why the last tap did nothing, shown in the count's place until a tap changes the pass. */
+    var refusal by remember { mutableStateOf<String?>(null) }
     var shineTrigger by remember { mutableIntStateOf(0) }
 
     val runToSave = if (finished) null else OrdinaryRun(drill, index = index, score = score, answers = answers, selected = selected, submitted = submitted)
@@ -119,19 +137,21 @@ fun CharlestonDrillScreen(drill: Drill, scenarios: List<CharlestonScenario>) {
                             )
                             TileRack(rack, Modifier.padding(vertical = 6.dp), highlighted = selected.toSet()) { tapped ->
                                 if (submitted) return@TileRack
-                                selected = when {
-                                    tapped in selected -> selected - tapped
-                                    selected.size >= 3 -> selected
-                                    // Jokers may never be passed. The drill enforces the real rule.
-                                    rack[tapped] == Tile.Joker -> selected
-                                    else -> selected + tapped
-                                }
+                                val result = PassPicker.tap(selected, rack, tapped)
+                                selected = result.selected
+                                refusal = result.refusal
+                                if (result.refusal != null) Haptics.light()
                             }
                             AnimatedVisibility(submitted, enter = fadeIn() + scaleIn(initialScale = 0.94f)) {
                                 CoachCard(scenario, matches, shineTrigger)
                             }
                             if (!submitted) {
-                                Text("Selected ${selected.size} of 3", style = MahjType.subheadline, color = colors.inkSecondary)
+                                Text(
+                                    refusal ?: "Selected ${selected.size} of 3",
+                                    style = MahjType.subheadline,
+                                    color = if (refusal == null) colors.inkSecondary else colors.ink,
+                                    textAlign = TextAlign.Center,
+                                )
                             }
                         }
                     }
@@ -141,6 +161,7 @@ fun CharlestonDrillScreen(drill: Drill, scenarios: List<CharlestonScenario>) {
                             if (!DrillNext.allowed(answered = submitted, finished = finished)) return@PrimaryCTA
                             if (index + 1 < scenarios.size) {
                                 selected = emptyList()
+                                refusal = null
                                 submitted = false
                                 index += 1
                             } else {
@@ -150,6 +171,7 @@ fun CharlestonDrillScreen(drill: Drill, scenarios: List<CharlestonScenario>) {
                     } else {
                         PrimaryCTA("Pass These 3", Modifier.testTag("pass"), enabled = selected.size == 3) {
                             submitted = true
+                            refusal = null
                             score += matches
                             answers = answers + (matches >= 2)
                             graph.recordAnswer(scenario.id, DrillLibrary.roomID(drill.id), matches >= 2)
