@@ -32,6 +32,9 @@ struct CenteringScrollView<Content: View>: View {
                         alignment: .center
                     )
             }
+            // At large text sizes a question with its rack runs past the
+            // footer on a small phone; the flash shows there is more below.
+            .scrollIndicatorsFlash(onAppear: true)
             .modifier(PinnedTarget(id: pinned))
         }
     }
