@@ -7,6 +7,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -276,7 +279,9 @@ private fun TrainingSection(isPro: Boolean, onLocked: (Route) -> Unit) {
         BoxWithConstraints(Modifier.fillMaxWidth()) {
         val tileWidth = TrainingCarousel.tileWidth(maxWidth.value).dp
         Row(
-            Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = TrainingCarousel.LEADING_INSET.dp, vertical = 2.dp),
+            // Every tile stretches to the tallest, so the cards line up when large text grows one.
+            Modifier.horizontalScroll(rememberScrollState()).height(IntrinsicSize.Max)
+                .padding(horizontal = TrainingCarousel.LEADING_INSET.dp, vertical = 2.dp),
             horizontalArrangement = Arrangement.spacedBy(TrainingCarousel.SPACING.dp),
         ) {
             // Play a Hand is the one mode a free player can open, once a day.
@@ -335,7 +340,10 @@ private fun TrainingTile(title: String, icon: String, color: Color, badge: Strin
     Column(
         Modifier
             .width(width)
-            .height(118.dp)
+            // 118dp at least, never at most: at the largest font a two-line title and its badge
+            // ran past a fixed 118dp card.
+            .heightIn(min = 118.dp)
+            .fillMaxHeight()
             .testTag(tag)
             .pressable(label = if (locked) "Included with ${Membership.NAME}" else null, onClick = onClick)
             .themedCard(16.dp)

@@ -74,6 +74,7 @@ import com.jackwallner.mahj.ui.nav.LocalNavigator
 import com.jackwallner.mahj.ui.theme.BarIconButton
 import com.jackwallner.mahj.ui.theme.CapsuleBar
 import com.jackwallner.mahj.ui.theme.Haptics
+import com.jackwallner.mahj.ui.theme.CenteringScroll
 import com.jackwallner.mahj.ui.theme.Mahj
 import com.jackwallner.mahj.ui.theme.MahjGeo
 import com.jackwallner.mahj.ui.theme.MahjScreen
@@ -414,11 +415,15 @@ private fun CardFront(card: Flashcard, accent: Color, onChoose: ((Int) -> Unit)?
         else -> 38.dp
     }
     MahjCardFace(accent, "MAHJ TRAINER") {
-        Spacer(Modifier.weight(1f))
-        Text(card.frontTitle, style = MahjType.display(25.sp), color = colors.ink, textAlign = TextAlign.Center)
-        if (card.frontTiles.isNotEmpty()) TileRack(card.frontTiles, tileWidth = tileWidth)
-        card.frontSubtitle?.let { Text(it, style = MahjType.subheadline, color = colors.inkSecondary, textAlign = TextAlign.Center) }
-        Spacer(Modifier.weight(1f))
+        // Centred when it fits; at large font sizes a front that outgrows the card scrolls instead
+        // of running under the choices, which stay pinned below it.
+        CenteringScroll(Modifier.weight(1f).fillMaxWidth()) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                Text(card.frontTitle, style = MahjType.display(25.sp), color = colors.ink, textAlign = TextAlign.Center)
+                if (card.frontTiles.isNotEmpty()) TileRack(card.frontTiles, tileWidth = tileWidth)
+                card.frontSubtitle?.let { Text(it, style = MahjType.subheadline, color = colors.inkSecondary, textAlign = TextAlign.Center) }
+            }
+        }
         val choice = card.choice
         if (choice != null && onChoose != null) {
             val order = remember(card.id) { ChoiceShuffle.permutation(choice.options.size, card.id) }
