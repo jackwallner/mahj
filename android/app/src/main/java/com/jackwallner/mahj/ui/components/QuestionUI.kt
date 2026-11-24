@@ -41,6 +41,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
@@ -75,36 +76,52 @@ fun QuestionPager(
     eyebrow: String? = null,
     missNote: MissNote? = null,
     requeued: Boolean = false,
+    /** The player picked a wrong answer, whether or not the miss carries a note. */
+    missed: Boolean = missNote != null || requeued,
     scroll: ScrollState = rememberScrollState(),
     choices: @Composable () -> Unit,
 ) {
     val colors = Mahj.colors
+    var viewportHeight by remember { mutableIntStateOf(0) }
+    var questionHeight by remember { mutableIntStateOf(0) }
     LaunchedEffect(answered) {
         if (answered) scroll.animateScrollTo(scroll.maxValue)
     }
     LaunchedEffect(scroll.maxValue, answered) {
         if (answered) scroll.animateScrollTo(scroll.maxValue)
     }
-    CenteringScroll(modifier, scroll) {
+    CenteringScroll(modifier.onSizeChanged { viewportHeight = it.height }, scroll) {
         Column(
             Modifier.fillMaxWidth().padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
-            if (eyebrow != null) {
-                Text(eyebrow, style = MahjType.caption2.copy(fontWeight = FontWeight.ExtraBold, letterSpacing = MahjType.eyebrow.letterSpacing), color = colors.inkTertiary)
+            Column(
+                Modifier.fillMaxWidth().onSizeChanged { questionHeight = it.height },
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+            ) {
+                if (eyebrow != null) {
+                    Text(eyebrow, style = MahjType.caption2.copy(fontWeight = FontWeight.ExtraBold, letterSpacing = MahjType.eyebrow.letterSpacing), color = colors.inkTertiary)
+                }
+                Text(
+                    prompt,
+                    style = MahjType.display(MahjType.title3.fontSize * 1.1f),
+                    color = colors.ink,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 8.dp).testTag("question-prompt"),
+                )
+                if (tiles.isNotEmpty()) TileRack(tiles)
+                choices()
             }
-            Text(
-                prompt,
-                style = MahjType.display(MahjType.title3.fontSize * 1.1f),
-                color = colors.ink,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp).testTag("question-prompt"),
-            )
-            if (tiles.isNotEmpty()) TileRack(tiles)
-            choices()
             AnimatedVisibility(answered, enter = fadeIn() + expandVertically()) {
-                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    // A miss on a question too tall to keep its rack on screen beside the note: the
+                    // scroll to the note takes the rack away just when the note talks about its
+                    // tiles, so a small copy rides with the note.
+                    if (missedOnTallQuestion(missed, tiles.size, questionHeight, viewportHeight)) {
+                        TileRack(tiles, tileWidth = 32.dp)
+                    }
                     CoachNote(explanation)
                     if (missNote != null) MissNoteCard(missNote)
                     if (requeued) RequeuedChip()
@@ -113,6 +130,10 @@ fun QuestionPager(
         }
     }
 }
+
+/** The question alone fills most of the screen, so the miss note cannot share it with the rack. */
+fun missedOnTallQuestion(missed: Boolean, tileCount: Int, questionHeight: Int, viewportHeight: Int): Boolean =
+    missed && tileCount > 0 && viewportHeight > 0 && questionHeight > viewportHeight * 0.55f
 
 /** The gold lightbulb card that carries every explanation. */
 @Composable

@@ -140,9 +140,17 @@ fun StatsScreen() {
                     val weakest = records.weakestRoom()
                     if (focus != null) {
                         val room = DrillLibrary.room(focus.roomID)
-                        FocusCard("Work on ${room?.name ?: "this room"}", "${focus.known} of ${focus.total} questions are holding. ${focus.level.nextStep}")
+                        FocusCard(
+                            "Work on ${room?.name ?: "this room"}",
+                            "${focus.known} of ${focus.total} questions are holding. ${focus.level.nextStep}",
+                            onOpen = room?.let { { navigator.push(Route.Room(it.id)) } },
+                        )
                     } else if (weakest != null && roomStats.size > 1) {
-                        FocusCard("Work on ${weakest.name}", "${percent(weakest.accuracy)} right across ${weakest.attempts} questions, your lowest so far.")
+                        FocusCard(
+                            "Work on ${weakest.name}",
+                            "${percent(weakest.accuracy)} right across ${weakest.attempts} questions, your lowest so far.",
+                            onOpen = DrillLibrary.room(weakest.id)?.let { { navigator.push(Route.Room(it.id)) } },
+                        )
                     }
                     MasteryBreakdown(records.masteryByRoom(isPro).filter { it.total > 0 })
                     AccuracyBreakdown(roomStats + listOfNotNull(records.handPlayStat()))
@@ -177,19 +185,23 @@ private fun StatMetric(value: String, caption: String, color: Color, modifier: M
     }
 }
 
+/** The recommendation is a next step, so it opens the room it names. Rooms always open; their drills apply the usual locks. */
 @Composable
-private fun FocusCard(title: String, body: String) {
+private fun FocusCard(title: String, body: String, onOpen: (() -> Unit)?) {
     val colors = Mahj.colors
+    var modifier = Modifier.fillMaxWidth()
+    if (onOpen != null) modifier = modifier.pressable(onClick = onOpen)
     Row(
-        Modifier.fillMaxWidth().themedCard(16.dp).padding(14.dp),
+        modifier.themedCard(16.dp).padding(14.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         IconBadge("target", colors.coral)
-        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(title, style = MahjType.headline, color = colors.ink)
             Text(body, style = MahjType.caption, color = colors.inkSecondary)
         }
+        if (onOpen != null) Icon(symbol("chevron.right"), null, tint = colors.inkTertiary, modifier = Modifier.size(18.dp))
     }
 }
 

@@ -97,6 +97,7 @@ fun ChoiceQuestionBody(
                         eyebrow = shown.eyebrow,
                         missNote = picked?.takeIf { it != shown.answerIndex }?.let(shown.missNote),
                         requeued = picked != null && picked != shown.answerIndex && shown.requeuesOnMiss,
+                        missed = picked != null && picked != shown.answerIndex,
                         modifier = Modifier.weight(1f),
                     ) {
                         ChoiceList(shown.labels, picked, shown.answerIndex, onAnswerBounds) { if (live) onPick(it) }

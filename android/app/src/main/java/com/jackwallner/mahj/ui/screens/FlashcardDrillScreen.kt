@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -35,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -320,14 +322,14 @@ fun FlashcardDrillScreen(drill: Drill, cards: List<Flashcard>, accent: Color) {
                                     }
                             }
                             Box(modifier) {
-                                FlipCard(
+                                CompositionLocalProvider(LocalDeckScenery provides !top) { FlipCard(
                                     card = card,
                                     flipped = top && flipped,
                                     accent = accent,
                                     choicePick = if (top) choicePick else null,
                                     onChoose = if (top) { index -> choose(index, card) } else null,
                                     onAdvance = if (top && choicePick != null) { { fling(1f, widthPx) } } else null,
-                                )
+                                ) }
                                 if (top && flipped && !choiceAnswered) {
                                     val travel = raw.x / density.density
                                     Stamp("KNEW IT", colors.jade, -12f, (travel / 80f).coerceIn(0f, 1f), Modifier.align(Alignment.TopStart).padding(22.dp))
@@ -496,6 +498,9 @@ private fun CardBack(card: Flashcard, accent: Color, choicePick: Int?, onAdvance
     }
 }
 
+/** True for the cards stacked behind the deck's top card. */
+private val LocalDeckScenery = staticCompositionLocalOf { false }
+
 /** The mahjong-card chrome both faces share: ivory surface, double frame, eyebrow and watermark. */
 @Composable
 private fun MahjCardFace(accent: Color, eyebrow: String, content: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit) {
@@ -509,7 +514,9 @@ private fun MahjCardFace(accent: Color, eyebrow: String, content: @Composable an
             .background(colors.card)
             .border(1.dp, colors.rule, shape),
     ) {
-        Text(
+        // Only the top card carries the watermark. The cards behind drew theirs in the strips that
+        // peek below, which lined up into one glyph running off the top card's edge.
+        if (!LocalDeckScenery.current) Text(
             "麻",
             style = MahjType.display(190.sp),
             color = accent.copy(alpha = 0.05f),
