@@ -52,3 +52,4 @@ Developer notes and historical audits for this repository. The published site re
 ## ASO
 
 - [aso/README.md](aso/README.md): App Store search and conversion metadata audits
+- [ppo/laurel-2026-11/](ppo/laurel-2026-11/): laurel badge arms for screenshot 1 (teacher recommended, 2,000 players, 4.6 rating) and the script that renders them
