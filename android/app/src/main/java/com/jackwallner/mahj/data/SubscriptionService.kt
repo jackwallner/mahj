@@ -97,6 +97,14 @@ class SubscriptionService(
     var membershipResolved by mutableStateOf(false)
         private set
 
+    /**
+     * True only when RevenueCat answered "not a member" within the last five minutes, so the
+     * record came from the network, not an old cache. A cached record from before a renewal reads
+     * as lapsed, so only this may end what a membership set up (the game night reminder).
+     */
+    var lapseConfirmed by mutableStateOf(false)
+        private set
+
     /** The active entitlement is the free week, not a paid or lifetime membership. */
     var isTrialing by mutableStateOf(false)
         private set
@@ -271,6 +279,7 @@ class SubscriptionService(
         activeProductId = managedSubscriptionId(info.activeSubscriptions)
         val override = BuildConfig.DEBUG && defaults.getBoolean(LOCAL_OVERRIDE)
         isPro = entitlement?.isActive == true || override || reviewAccess.isGranted
+        lapseConfirmed = confirmsLapse(isPro, info.requestDate.time, System.currentTimeMillis())
         isTrialing = entitlement?.isActive == true && entitlement.periodType == PeriodType.TRIAL
     }
 
@@ -305,6 +314,13 @@ class SubscriptionService(
     }
 
     companion object {
+        /** How old a customer record may be and still prove a lapse. */
+        const val FRESH_RECORD_AGE_MS = 300_000L
+
+        /** A non-member record answered within [FRESH_RECORD_AGE_MS]: from the network, not an old cache. */
+        fun confirmsLapse(isMember: Boolean, answeredAt: Long, now: Long): Boolean =
+            !isMember && now - answeredAt <= FRESH_RECORD_AGE_MS
+
         private const val QA_APP_USER_ID = "qa-android"
         private const val ANDROID_OFFERING_ID = "android"
         private const val SYNCED_TO_SHARED_PROJECT = "subscription.syncedToSharedProject"

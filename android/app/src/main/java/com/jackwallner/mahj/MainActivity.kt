@@ -89,6 +89,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /**
+     * The reminder toggles say what Android will deliver: notifications switched off in system
+     * settings turn the toggles off, and otherwise every reminder that is on is laid again.
+     */
+    override fun onResume() {
+        super.onResume()
+        val graph = (application as MahjApplication).graph
+        graph.settings.reconcileReminders(com.jackwallner.mahj.data.AlarmReminderScheduler.canNotify(this))
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         intent.getStringExtra(AlarmReminderScheduler.ROUTE_KEY)?.let { pendingRoute = it }

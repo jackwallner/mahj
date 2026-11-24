@@ -116,6 +116,17 @@ class AppSettings(private val defaults: KeyValueStore, private val scheduler: Re
         if (gameNightReminderEnabled) scheduleGameNight()
     }
 
+    /**
+     * At launch and every return: a reminder that reads on while notifications are off would never
+     * arrive, so it reads off; otherwise everything on is laid again (an alarm can be lost to a
+     * force stop or an update).
+     */
+    fun reconcileReminders(canNotify: Boolean) {
+        if (canNotify) return rescheduleAll()
+        if (reminderEnabled) updateReminderEnabled(false)
+        if (gameNightReminderEnabled) updateGameNightReminderEnabled(false)
+    }
+
     private fun scheduleGameNight() = scheduler?.scheduleGameNight(gameNightDay.dayOfWeek, gameNightHour, gameNightMinute)
 
     private object Keys {
