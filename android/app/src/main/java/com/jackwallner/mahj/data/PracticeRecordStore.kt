@@ -238,9 +238,8 @@ class PracticeRecordStore(private val defaults: KeyValueStore, private val clock
     }
 
     private fun load(): Map<String, PracticeRecord> {
-        val raw = defaults.getString(Keys.RECORDS) ?: return emptyMap()
-        val json = runCatching { JSONObject(raw) }.getOrNull() ?: return emptyMap()
-        return json.keys().asSequence().associateWith { PracticeRecord.fromJson(json.getJSONObject(it)) }
+        // One damaged entry must not wipe the rest of the history.
+        return StoredDictionary.load(defaults, Keys.RECORDS, PracticeRecord::fromJson) ?: emptyMap()
     }
 
     companion object {

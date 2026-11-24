@@ -21,6 +21,7 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -194,7 +195,109 @@ class StoreTest {
         store.resetAll()
         assertEquals(0, store.handsPlayed)
         assertEquals(0, store.bestStars)
-        assertNull(store.inProgress)
+        assertEquals(0, HandPlayStore(defaults, clock).handsPlayed)
+    }
+
+    /** Reset after today's free hand was started keeps that hand, or a free player has none until tomorrow. */
+    @Test
+    fun resetProgressKeepsAStartedHand() {
+        val store = HandPlayStore(defaults, clock)
+        store.recordStart(isMember = false)
+        store.saveInProgress(
+            HandPlayStore.InProgressHand(listOf(Tile.c(2)), listOf(Tile.Joker), 1, HandCategory.EVENS_2468, 3, 2, null, null),
+        )
+        store.resetAll()
+        assertNotNull(store.inProgress)
+        assertTrue(store.canPlay(isMember = false))
+        assertTrue(HandPlayStore(defaults, clock).canPlay(isMember = false))
+    }
+
+    // Saved records: one damaged entry never wipes the rest (iOS StoredDictionary).
+
+    @Test
+    fun aDamagedPracticeRecordKeepsTheRestAndBacksUpTheBlob() {
+        val store = PracticeRecordStore(defaults, clock)
+        store.record("quiz-pung", room, correct = true)
+        store.record("quiz-colors", room, correct = false)
+        val raw = defaults.getString("practice.records")!!
+        val damaged = org.json.JSONObject(raw).put("broken", "not a record").toString()
+        defaults.putString("practice.records", damaged)
+        val reloaded = PracticeRecordStore(defaults, clock)
+        assertEquals(setOf("quiz-pung", "quiz-colors"), reloaded.records.keys)
+        assertEquals(damaged, defaults.getString("practice.records.unreadable"))
+
+        defaults.putString("practice.records", "{not json")
+        assertTrue(PracticeRecordStore(defaults, clock).records.isEmpty())
+        assertEquals("The first unreadable blob wins", damaged, defaults.getString("practice.records.unreadable"))
+    }
+
+    @Test
+    fun aDamagedMinuteResultKeepsTheOtherDays() {
+        val store = MahjMinuteStore(defaults, clock)
+        val challenge = MahjMinuteContent.challenge(clock.today())
+        store.record(challenge, challenge.questions.map { true })
+        val damaged = org.json.JSONObject(defaults.getString("mahjMinute.results")!!)
+            .put("2026-09-01", org.json.JSONObject().put("dayKey", "2026-09-01")).toString()
+        defaults.putString("mahjMinute.results", damaged)
+        val reloaded = MahjMinuteStore(defaults, clock)
+        assertEquals(setOf(challenge.dayKey), reloaded.results.keys)
+        assertTrue(defaults.contains("mahjMinute.results.unreadable"))
+    }
+
+    @Test
+    fun nothingSavedLeavesNoBackup() {
+        PracticeRecordStore(defaults, clock)
+        MahjMinuteStore(defaults, clock)
+        assertFalse(defaults.keys().any { it.endsWith(".unreadable") })
+    }
+
+    // Streaks as they stand now.
+
+    @Test
+    fun aMissedDayShowsTheStreakAsLost() {
+        val store = ProgressStore(defaults, clock)
+        store.recordSession("a")
+        advanceDays(1)
+        store.recordSession("a")
+        assertEquals(2, store.currentStreak())
+        advanceDays(1)
+        assertEquals("Today is still open", 2, store.currentStreak())
+        advanceDays(1)
+        assertEquals("A whole missed day ends the streak", 0, store.currentStreak())
+        assertEquals(2, store.streakCount)
+        store.recordSession("a")
+        assertEquals(1, store.currentStreak())
+    }
+
+    @Test
+    fun aClockSetBackDoesNotCountADayTwice() {
+        val store = ProgressStore(defaults, clock)
+        store.recordSession("a")
+        advanceDays(1)
+        store.recordSession("a")
+        advanceDays(-1)
+        store.recordSession("a")
+        assertEquals(2, store.streakCount)
+        advanceDays(1)
+        store.recordSession("a")
+        assertEquals("Back on the later day: same day, no double count", 2, store.streakCount)
+        advanceDays(1)
+        store.recordSession("a")
+        assertEquals(3, store.streakCount)
+    }
+
+    /** Where a clock change skips midnight (Azores, 2026-03-29 starts at 01:00) the next day is still one day on. */
+    @Test
+    fun streakCountsDaysAcrossAMidnightClockChange() {
+        val azores = java.time.ZoneId.of("Atlantic/Azores")
+        val zoned = AppClock(Clock.fixed(Instant.parse("2026-03-28T12:00:00Z"), azores))
+        val store = ProgressStore(defaults, zoned)
+        store.recordSession("a")
+        zoned.clock = Clock.fixed(Instant.parse("2026-03-29T12:00:00Z"), azores)
+        store.recordSession("a")
+        zoned.clock = Clock.fixed(Instant.parse("2026-03-30T12:00:00Z"), azores)
+        store.recordSession("a")
+        assertEquals(3, store.streakCount)
     }
 
     /** After Reset Progress a relaunch is not an upgrade: every practice after the reset is the player's own. */
@@ -239,6 +342,18 @@ class StoreTest {
         tracker.markOpenedWriteReview()
         advanceDays(400)
         assertFalse("A terminal outcome retires it", tracker.shouldShowAfterPositiveMoment())
+    }
+
+    /** A clock set ahead once stamped a future date; back on the real date the ask must not wait for it. */
+    @Test
+    fun aFutureReviewStampDoesNotBlockTheAsk() {
+        val tracker = ReviewPromptTracker(defaults, clock)
+        tracker.recordAppLaunch()
+        tracker.recordAppLaunch()
+        advanceDays(365)
+        tracker.markStoreCardRequested()
+        advanceDays(-365)
+        assertTrue(tracker.shouldShowAfterPositiveMoment())
     }
 
     @Test

@@ -111,9 +111,8 @@ class MahjMinuteStore(private val defaults: KeyValueStore, private val clock: Ap
     }
 
     private fun load(): Map<String, MahjMinuteResult> {
-        val raw = defaults.getString(KEY) ?: return emptyMap()
-        val json = runCatching { JSONObject(raw) }.getOrNull() ?: return emptyMap()
-        return json.keys().asSequence().associateWith { MahjMinuteResult.fromJson(json.getJSONObject(it)) }
+        // One damaged day must not wipe the rest of the results.
+        return StoredDictionary.load(defaults, KEY, MahjMinuteResult::fromJson) ?: emptyMap()
     }
 
     private companion object {
@@ -211,12 +210,13 @@ class HandPlayStore(private val defaults: KeyValueStore, private val clock: AppC
 
     /**
      * Today's free hand stays spent: Reset Progress clears practice history, and must not hand a
-     * free player a second hand the same day.
+     * free player a second hand the same day. A hand already started is kept too: clearing it
+     * after today's free hand was spent would leave a free player locked out of the hand they
+     * were playing.
      */
     fun resetAll() {
         handsPlayed = 0
         bestStars = 0
-        clearInProgress()
         defaults.remove(Keys.HANDS_PLAYED)
         defaults.remove(Keys.BEST_STARS)
     }

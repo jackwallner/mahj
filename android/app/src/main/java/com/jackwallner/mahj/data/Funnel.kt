@@ -43,7 +43,11 @@ class ReviewPromptTracker(private val defaults: KeyValueStore, private val clock
         if (isAutomationRun || outcome == OPENED_WRITE_REVIEW) return false
         if (launchCount < MINIMUM_LAUNCH_COUNT) return false
         if (!defaults.contains(Keys.LAST_SHOWN)) return true
-        return clock.millis() - defaults.getLong(Keys.LAST_SHOWN) >= COOLDOWN_DAYS * DAY_MS
+        val last = defaults.getLong(Keys.LAST_SHOWN)
+        // A stamp in the future is a clock that was set ahead once; it must not block the ask
+        // until the real date catches up.
+        if (last > clock.millis()) return true
+        return clock.millis() - last >= COOLDOWN_DAYS * DAY_MS
     }
 
     /** Spent when requested: Play may show nothing (quota) and there is no answer to wait for. */

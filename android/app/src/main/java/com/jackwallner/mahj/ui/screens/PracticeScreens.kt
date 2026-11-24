@@ -154,7 +154,7 @@ fun StatsScreen() {
                 ) {
                     IconBadge("flame.fill", colors.coral)
                     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        Text("${graph.progress.streakCount}-day streak", style = MahjType.headline, color = colors.ink)
+                        Text("${graph.progress.currentStreak()}-day streak", style = MahjType.headline, color = colors.ink)
                         val sessions = graph.progress.totalSessions
                         Text("$sessions drill${if (sessions == 1) "" else "s"} finished", style = MahjType.caption, color = colors.inkSecondary)
                     }

@@ -122,7 +122,7 @@ fun DrillCompleteScreen(drill: Drill, score: Int?, total: Int, onDone: () -> Uni
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
             ) {
                 Icon(symbol("flame.fill"), null, tint = colors.coral, modifier = Modifier.size(18.dp))
-                Text("${graph.progress.streakCount}-day streak", style = MahjType.headline, color = colors.ink)
+                Text("${graph.progress.currentStreak()}-day streak", style = MahjType.headline, color = colors.ink)
             }
             Spacer(Modifier.weight(1f))
             PrimaryCTA("Done", Modifier.testTag("drill-done"), onClick = onDone)

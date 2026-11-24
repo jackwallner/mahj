@@ -62,14 +62,30 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
         defaults.putInt(Keys.TOTAL_SESSIONS, totalSessions)
     }
 
+    private fun lastActiveDay(): LocalDate? =
+        defaults.getString(Keys.LAST_ACTIVE_DAY)?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+
+    /**
+     * The streak as it stands right now. `streakCount` only changes when a drill is finished, so
+     * after a missed day it still held the old number and showed a streak already lost.
+     */
+    fun currentStreak(): Int {
+        val last = lastActiveDay() ?: return streakCount
+        return if (ChronoUnit.DAYS.between(last, clock.today()) > 1L) 0 else streakCount
+    }
+
     /** Consecutive calendar days with at least one finished drill. */
     private fun bumpStreak() {
         val today = clock.today()
-        val last = defaults.getString(Keys.LAST_ACTIVE_DAY)?.let(LocalDate::parse)
+        val last = lastActiveDay()
+        val gap = last?.let { ChronoUnit.DAYS.between(it, today) }
+        // The clock went backwards (travel, a manual change). Keep the later day so the streak is
+        // not counted twice on the way back.
+        if (gap != null && gap < 0) return
         streakCount = when {
-            last == null -> 1
-            ChronoUnit.DAYS.between(last, today) == 1L -> streakCount + 1
-            ChronoUnit.DAYS.between(last, today) > 1L -> 1
+            gap == null -> 1
+            gap == 1L -> streakCount + 1
+            gap > 1L -> 1
             else -> streakCount
         }
         defaults.putString(Keys.LAST_ACTIVE_DAY, today.toString())
