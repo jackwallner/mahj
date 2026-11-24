@@ -92,6 +92,27 @@ holds only what is specific to this app.
   two-singles racks, `DefenseGenerator.withRunBait`, `RackGenerator.rack(for:seed:)`,
   `MonthlyChallengeContent`/`Extras` and its `defensePlan` closers) is not
   ported: the monthly challenge is iOS only.
+- Brought up to iOS 1.4.7 on 2026-11-24 (fleet runs a102 and c38d, cd840d4
+  onward). Last iOS sync: 7e43d4f. Ported: per-drill saved runs, a damaged
+  record or day no longer wiping history, streaks shown as they stand,
+  clock-ahead stamps ignored by the rating ask, double tap on Next, Endless
+  dropping answered items, onboarding resume, tiles following the font size
+  with balanced rack rows, the lapse-only game night reminder end, Time's up,
+  Charleston refusal copy, reminder taps opening over the open screen, the
+  Settings Privacy Policy row, the kept feedback draft, compact questions on
+  short screens, the rack recap on a tall miss and the scrolling flashcard
+  front. Not ported, on purpose: the monthly challenge and everything that
+  hangs off it (Minute rounds, month score, midnight banking, the language
+  fingerprint), the weekly gain ledger and churn question (Android has
+  neither), PostHog, localization, StoreKit, Duo, iPad and VoiceOver fixes, and
+  the trial sheet and paywall changes (Android keeps its own trial flow).
+  Streak and day gaps were already calendar dates (`LocalDate`), so the
+  skipped-midnight fix needs nothing here.
+- Session levels (iOS fcb81a2): the tier table is exported as
+  `itemDifficulty` (id to tier), never duplicated in Kotlin.
+  `ProgressStore.sessionCeiling` and `SessionLevel` port the seed and the
+  60%/80% rise, persisted as `progress.reachedLevel`; `SessionLevelTest` ports
+  `SessionLevelTests`. Rules: `.claude/rules/session-level.md`.
 - Hand copy that is not in the export (screen text, paywall, onboarding) is
   ported by hand; keep it word for word with iOS.
 
@@ -134,7 +155,9 @@ fm-gradle assembleQa                   # R8 build, debug-signed, no RC key
 - Only the signed `bundleRelease` runs on the MacBook Air (the keystore never
   leaves it). `fm-gradle` runs everything else on jmbp (ssh host `clawd-mac`)
   and copies outputs, reports and test results back. 39 unit tests green on
-  jmbp on 2026-10-19.
+  jmbp on 2026-10-19; 110 green and `assembleQa` building on 2026-11-24.
+  Running `./gradlew` directly on jmbp needs
+  `JAVA_HOME=~/jdks/temurin-17/Contents/Home`: its default `java` is 12.
 - AVD `mahj-api36` (on jmbp, never the Air; Pixel 9, API 36 Google Play image), started
   headless on port 5586: `emulator -avd mahj-api36 -port 5586 -no-window
   -no-audio -no-boot-anim -no-metrics -gpu swiftshader_indirect`. Connected
