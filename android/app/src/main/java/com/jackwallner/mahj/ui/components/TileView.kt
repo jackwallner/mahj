@@ -244,13 +244,19 @@ fun TileRack(
     modifier: Modifier = Modifier,
     tileWidth: Dp = 44.dp,
     highlighted: Set<Int> = emptySet(),
+    /** Shrink the tiles rather than wrap: for a short row that must read as one line. */
+    oneRow: Boolean = false,
     onTap: ((Int) -> Unit)? = null,
 ) {
     val gold = Mahj.colors.gold
     val scaled = scaledTileWidth(tileWidth)
     BoxWithConstraints(modifier, contentAlignment = Alignment.Center) {
         val available = if (maxWidth.value.isFinite()) maxWidth.value else null
-        val width = if (available != null) minOf(scaled, maxWidth) else scaled
+        val width = when {
+            oneRow -> TileSizing.oneRowWidth(tiles.size, scaled.value, available).dp
+            available != null -> minOf(scaled, maxWidth)
+            else -> scaled
+        }
         val layout = TileSizing.arrangement(tiles.size, width.value, available)
         var start = 0
         val rows = layout.rows.map { count -> tiles.withIndex().toList().subList(start, start + count).also { start += count } }

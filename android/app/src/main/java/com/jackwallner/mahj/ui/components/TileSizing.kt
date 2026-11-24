@@ -57,6 +57,17 @@ object TileSizing {
         return Arrangement(rows(count, 1), SPACING)
     }
 
+    /**
+     * A row that must stay one line (the onboarding info pages): the tile width, shrunk until
+     * `count` tiles and their gaps fit `width`. At the largest font on a narrow phone four big
+     * tiles otherwise broke 2 and 2 and the second row sat under the page dots.
+     */
+    fun oneRowWidth(count: Int, tileWidth: Float, width: Float?): Float {
+        if (width == null || !width.isFinite() || count <= 0) return tileWidth
+        val fit = (width - (count - 1) * SPACING) / count
+        return max(1f, min(tileWidth, fit))
+    }
+
     /** The fewest rows of at most `perRow`, differing by at most one tile: 13 four a row read 4, 3, 3, 3. */
     fun rows(count: Int, perRow: Int): List<Int> {
         if (count == 0) return emptyList()

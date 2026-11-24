@@ -338,7 +338,7 @@ private fun InfoPage(icon: String, title: String, body: String, tiles: List<Tile
         if (compact) IconBadge(icon, colors.jade, size = 68.dp, iconSize = 32.dp, alpha = 0.12f)
         else IconBadge(icon, colors.jade, size = 92.dp, iconSize = 42.dp, alpha = 0.12f)
         Text(title, style = MahjType.display(if (compact) 26.sp else 32.sp), color = colors.ink, textAlign = TextAlign.Center)
-        TileRack(tiles, tileWidth = if (compact) 46.dp else 54.dp)
+        TileRack(tiles, tileWidth = if (compact) 46.dp else 54.dp, oneRow = true)
         Text(body, style = if (compact) MahjType.subheadline else MahjType.body, color = colors.inkSecondary, textAlign = TextAlign.Center)
     }
 }

@@ -66,4 +66,14 @@ class TileSizingTest {
         }
         assertEquals(listOf(4, 3, 3, 3), TileSizing.arrangement(13, TileSizing.scaled(44f, 2f), 268f).rows)
     }
+
+    @Test
+    fun theOnboardingRowStaysOneLineAtTheLargestFont() {
+        // Four 54dp tiles at 2x font are 72dp each: 306dp, wider than a 280dp column.
+        val tile = TileSizing.scaled(54f, 2f)
+        val shrunk = TileSizing.oneRowWidth(4, tile, 280f)
+        assertTrue(4 * shrunk + 3 * TileSizing.SPACING <= 280.01f)
+        assertEquals("Room to spare keeps the full size", tile, TileSizing.oneRowWidth(4, tile, 400f))
+        assertEquals(tile, TileSizing.oneRowWidth(4, tile, null))
+    }
 }
