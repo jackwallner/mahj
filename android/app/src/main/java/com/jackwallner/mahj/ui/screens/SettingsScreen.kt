@@ -170,6 +170,9 @@ fun SettingsScreen(requestNotifications: (onGranted: () -> Unit) -> Unit) {
                         Text(BuildConfig.VERSION_NAME, style = MahjType.body, color = colors.inkSecondary)
                     }
                     FormDivider()
+                    // Members never see the paywall's links again, so the policy lives here for everyone.
+                    FormRow("Privacy Policy", tint = colors.jade, onClick = { context.openUrl(StoreLinks.PRIVACY_URL) })
+                    FormDivider()
                     Text(
                         "Mahj Trainer teaches American Mah Jongg skills with original practice hands. It is not affiliated with or endorsed by the National Mah Jongg League. For official hands and values, pick up the current NMJL card.",
                         style = MahjType.footnote,
@@ -309,14 +312,23 @@ fun WhatsNewSheet(onClose: () -> Unit, onUpgrade: () -> Unit) {
 }
 
 /** Feedback goes to a real person through the mail app, and only claims success if one opened. */
+/**
+ * Send Feedback's unsent words, kept for this app session: dismissing the sheet used to throw
+ * them away. Cleared once the mail app takes the message. Main thread only.
+ */
+object FeedbackDraft {
+    var unsent = ""
+}
+
 @Composable
 fun FeedbackSheet(onClose: () -> Unit) {
     val graph = LocalGraph.current
     val context = LocalContext.current
     val clipboard: ClipboardManager = LocalClipboardManager.current
     val colors = Mahj.colors
-    var text by rememberSaveable { mutableStateOf("") }
+    var text by rememberSaveable { mutableStateOf(FeedbackDraft.unsent) }
     var mailFailed by remember { mutableStateOf(false) }
+    var copied by remember { mutableStateOf(false) }
     val focus = remember { FocusRequester() }
     LaunchedEffect(Unit) { focus.requestFocus() }
     val trimmed = text.trim()
@@ -326,7 +338,10 @@ fun FeedbackSheet(onClose: () -> Unit) {
             Text("What would make Mahj Trainer better for you?", style = MahjType.headline, color = colors.ink)
             BasicTextField(
                 text,
-                { text = it },
+                {
+                    text = it
+                    FeedbackDraft.unsent = it
+                },
                 textStyle = MahjType.body.copy(color = colors.ink),
                 cursorBrush = SolidColor(colors.jade),
                 modifier = Modifier
@@ -346,12 +361,14 @@ fun FeedbackSheet(onClose: () -> Unit) {
                         Modifier.testTag("copy-email").pressable {
                             clipboard.setText(AnnotatedString(StoreLinks.FEEDBACK_EMAIL))
                             Haptics.success()
+                            // Shown, not only felt: haptics can be off.
+                            copied = true
                         }.padding(vertical = 6.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(6.dp),
                     ) {
-                        Icon(symbol("doc.on.doc"), null, tint = colors.jade, modifier = Modifier.size(14.dp))
-                        Text("Copy ${StoreLinks.FEEDBACK_EMAIL}", style = MahjType.caption.copy(fontWeight = FontWeight.SemiBold), color = colors.jade)
+                        Icon(symbol(if (copied) "checkmark.circle" else "doc.on.doc"), null, tint = colors.jade, modifier = Modifier.size(14.dp))
+                        Text(if (copied) "Copied" else "Copy ${StoreLinks.FEEDBACK_EMAIL}", style = MahjType.caption.copy(fontWeight = FontWeight.SemiBold), color = colors.jade)
                     }
                 }
             } else {
@@ -359,6 +376,7 @@ fun FeedbackSheet(onClose: () -> Unit) {
             }
             PrimaryCTA("Send feedback", Modifier.testTag("send-feedback"), enabled = trimmed.isNotEmpty()) {
                 if (context.openFeedbackMail(trimmed)) {
+                    if (FeedbackDraft.unsent == text) FeedbackDraft.unsent = ""
                     onClose()
                 } else {
                     mailFailed = true
