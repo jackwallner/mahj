@@ -206,9 +206,11 @@ because a 13-tile rack in a 320pt Display Zoom question (268pt) still fits
 four a row. `BalancedRowsLayout` now spreads tiles evenly across its rows
 (13 four a row read 4, 3, 3, 3, never 4, 4, 4 and a lone tile; 5 a row read
 5, 4, 4). The Monthly Challenge answers' own AX bump (30 to 36pt) is gone:
-the shared scale covers it. The onboarding info pages' tile row takes the
-largest of 54/46/40/34pt that fits on one line (at XXXL on a 320pt phone
-four tiles broke 2 and 2 and the second row sat under the page dots), and
+the shared scale covers it. The onboarding info pages' 54pt rack is the one that
+does not grow (`.dynamicTypeSize(...large)`): grown, it broke 2 and 2 at
+XXXL on a 320pt phone and pushed the copy under the page dots. Those pages
+still run their copy under the dots at XXXL on 320pt with 1.4.6's tiles
+(the scroll fallback; open), and
 `CenteringScrollView` flashes its scroll bar on appear, since a big-text
 question with its rack can run past the footer. Known tight spot: Play a
 Hand at AX5 on a 320pt window shows one rack row above the held Next room;
