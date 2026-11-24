@@ -159,6 +159,8 @@ fun QuizDrillScreen(drill: Drill, questions: List<QuizQuestion>) {
                     }
                 },
                 onNext = {
+                    // A double tap lands twice before the screen redraws: advance once.
+                    if (!DrillNext.allowed(answered = selection != null, finished = finished)) return@ChoiceQuestionBody
                     if (index + 1 < questions.size) {
                         selection = null
                         index += 1
@@ -232,6 +234,8 @@ fun HandMatchDrillScreen(drill: Drill, questions: List<HandMatchQuestion>) {
                     }
                 },
                 onNext = {
+                    // A double tap lands twice before the screen redraws: advance once.
+                    if (!DrillNext.allowed(answered = selection != null, finished = finished)) return@ChoiceQuestionBody
                     if (index + 1 < questions.size) {
                         selection = null
                         index += 1

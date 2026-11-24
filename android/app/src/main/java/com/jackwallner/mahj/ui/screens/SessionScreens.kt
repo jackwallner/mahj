@@ -196,6 +196,8 @@ fun SessionScreen(initialItems: List<QuickItem>, purpose: SessionPurpose, onClos
                     }
                 },
                 onNext = {
+                    // A double tap lands twice before the screen redraws: advance once.
+                    if (!DrillNext.allowed(answered = selection != null, finished = finished)) return@ChoiceQuestionBody
                     if (index + 1 < items.size) {
                         selection = null
                         index += 1
@@ -245,6 +247,22 @@ private fun StreakBanner(text: String) {
 private const val CHALLENGE_SECONDS = 90
 private const val BATCH_SIZE = 8
 private const val TOP_UP_THRESHOLD = 3
+
+/**
+ * The run after Next. A generated run (Endless, Timed) tops up when few questions are left and
+ * always drops what has been answered, so a long run never keeps (or saves) every question it
+ * dealt. Fix My Mistakes keeps its fixed list and steps on.
+ */
+internal fun advancedRun(
+    items: List<QuickItem>,
+    index: Int,
+    isGenerated: Boolean,
+    topUp: () -> List<QuickItem>,
+): Pair<List<QuickItem>, Int> {
+    if (!isGenerated) return items to index + 1
+    val dealt = if (items.size - index <= TOP_UP_THRESHOLD) items + topUp() else items
+    return dealt.drop(index + 1) to 0
+}
 
 private val practiceItemsSaver = Saver<List<QuickItem>, String>(
     save = { QuickItemState.encode(it) },
@@ -411,18 +429,18 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
                     }
                 },
                 onNext = {
-                    if (isLast) {
+                    if (!DrillNext.allowed(answered = selection != null, finished = finished)) return@ChoiceQuestionBody
+                    if (mode == PracticeMode.Review && index + 1 >= items.size) {
                         finish()
                     } else {
-                        if (mode.isGenerated && items.size - index <= TOP_UP_THRESHOLD) {
-                            items = items.drop(index + 1) + when (mode) {
+                        val (next, nextIndex) = advancedRun(items, index, mode.isGenerated) {
+                            when (mode) {
                                 is PracticeMode.Endless -> EndlessPractice.items(mode.skill, BATCH_SIZE)
                                 else -> EndlessPractice.mixedItems(BATCH_SIZE)
                             }
-                            index = 0
-                        } else {
-                            index += 1
                         }
+                        items = next
+                        index = nextIndex
                         selection = null
                     }
                 },

@@ -157,3 +157,7 @@ fun EmptyRunScreen(icon: String, title: String, body: String, onBack: () -> Unit
     }
 }
 
+/** Next only advances an answered question of a drill still running (a double tap advanced twice). */
+object DrillNext {
+    fun allowed(answered: Boolean, finished: Boolean): Boolean = answered && !finished
+}

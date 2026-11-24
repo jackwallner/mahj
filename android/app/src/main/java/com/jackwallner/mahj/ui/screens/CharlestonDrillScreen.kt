@@ -137,6 +137,8 @@ fun CharlestonDrillScreen(drill: Drill, scenarios: List<CharlestonScenario>) {
                     }
                     if (submitted) {
                         PrimaryCTA(if (index + 1 < scenarios.size) "Next Deal" else "Finish", Modifier.testTag("next")) {
+                            // A double tap lands twice before the screen redraws: advance once.
+                            if (!DrillNext.allowed(answered = submitted, finished = finished)) return@PrimaryCTA
                             if (index + 1 < scenarios.size) {
                                 selected = emptyList()
                                 submitted = false
