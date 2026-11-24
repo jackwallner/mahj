@@ -60,7 +60,6 @@ fun RoomScreen(roomId: String) {
     val actions = LocalAppActions.current
     val colors = Mahj.colors
     val isPro = graph.subscriptions.isPro
-    val roomLocked = !room.isFree && !isPro
     val lockedCount = room.drills.count { room.isLocked(it, isPro) }
     val accent = room.accent(colors)
 
@@ -78,14 +77,6 @@ fun RoomScreen(roomId: String) {
                     IconBadge(room.icon, accent, size = 66.dp, iconSize = 30.dp, alpha = 0.12f)
                     Text(room.name, style = MahjType.display(28.sp), color = colors.ink, textAlign = TextAlign.Center)
                     Text(room.tagline, style = MahjType.subheadline, color = colors.inkSecondary, textAlign = TextAlign.Center)
-                    if (roomLocked) {
-                        Text(
-                            "Look around. Every drill here opens with ${Membership.NAME}.",
-                            style = MahjType.caption.copy(fontWeight = FontWeight.Medium),
-                            color = colors.gold,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
                 }
                 room.drills.forEach { drill ->
                     val locked = room.isLocked(drill, isPro)

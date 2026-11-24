@@ -9,6 +9,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -44,6 +45,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jackwallner.mahj.content.DrillLibrary
@@ -177,10 +179,7 @@ const val RECOMMENDED_ROOM_HINT = "mahj.recommendedRoomHint"
 private fun Header(streak: Int, sessions: Int, onStats: () -> Unit) {
     val colors = Mahj.colors
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text("Mahj Trainer", style = MahjType.display(32.sp), color = colors.ink)
-            Text("Your seat at the table.", style = MahjType.subheadline, color = colors.inkSecondary)
-        }
+        Text("Mahj Trainer", style = MahjType.display(32.sp), color = colors.ink)
         Row(
             Modifier.pressable(label = "Opens your progress breakdown", onClick = onStats),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -272,15 +271,13 @@ private fun TrainingSection(isPro: Boolean, onLocked: (Route) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             Eyebrow("TRAINING")
-            Spacer(Modifier.weight(1f))
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(3.dp)) {
-                Text("SWIPE FOR MORE", style = MahjType.caption2.copy(fontWeight = FontWeight.ExtraBold, letterSpacing = 1.1.sp), color = colors.inkTertiary)
-                Icon(symbol("chevron.right"), null, tint = colors.inkTertiary, modifier = Modifier.size(12.dp))
-            }
         }
+        // No "swipe for more" label: the row always ends partway into a tile, which says it scrolls.
+        BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val tileWidth = TrainingCarousel.tileWidth(maxWidth.value).dp
         Row(
-            Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 4.dp, vertical = 2.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = TrainingCarousel.LEADING_INSET.dp, vertical = 2.dp),
+            horizontalArrangement = Arrangement.spacedBy(TrainingCarousel.SPACING.dp),
         ) {
             // Play a Hand is the one mode a free player can open, once a day.
             val canPlay = handPlay.canPlay(isPro)
@@ -292,31 +289,31 @@ private fun TrainingSection(isPro: Boolean, onLocked: (Route) -> Unit) {
                 handPlay.bestStars > 0 -> "Best ${handPlay.bestStars}/3"
                 else -> "${handPlay.handsPlayed} played"
             }
-            TrainingTile("Play a Hand", "hand.draw.fill", colors.jade, handBadge, locked = !canPlay, tag = "tile-hand-play") {
+            TrainingTile("Play a Hand", "hand.draw.fill", colors.jade, handBadge, locked = !canPlay, tag = "tile-hand-play", width = tileWidth) {
                 if (canPlay) navigator.push(Route.HandPlay) else onLocked(Route.HandPlay)
             }
-            TrainingTile("Endless Practice", "infinity", colors.jade, null, locked = !isPro, tag = "tile-endless") {
+            TrainingTile("Endless Practice", "infinity", colors.jade, null, locked = !isPro, tag = "tile-endless", width = tileWidth) {
                 if (isPro) navigator.push(Route.EndlessPicker) else onLocked(Route.EndlessPicker)
             }
             val minute = graph.minutes.result(LocalDate.now())
             TrainingTile(
                 "Mahj Minute", "calendar.badge.clock", colors.coral,
-                minute?.let { "${it.score}/${it.total} today" } ?: "Daily", locked = !isPro, tag = "tile-minute",
+                minute?.let { "${it.score}/${it.total} today" } ?: "Daily", locked = !isPro, tag = "tile-minute", width = tileWidth,
             ) { if (isPro) navigator.push(Route.MahjMinute) else onLocked(Route.MahjMinute) }
             TrainingTile(
                 "Game Night Prep", "person.2.fill", colors.plum,
                 if (graph.settings.gameNightReminderEnabled) graph.settings.gameNightDay.displayName else "Weekly",
-                locked = !isPro, tag = "tile-game-night",
+                locked = !isPro, tag = "tile-game-night", width = tileWidth,
             ) { if (isPro) navigator.push(Route.GameNightPrep) else onLocked(Route.GameNightPrep) }
             TrainingTile(
                 "Timed Challenge", "timer", colors.coral,
-                if (records.bestChallengeScore > 0) "Best ${records.bestChallengeScore}" else null, locked = !isPro, tag = "tile-timed",
+                if (records.bestChallengeScore > 0) "Best ${records.bestChallengeScore}" else null, locked = !isPro, tag = "tile-timed", width = tileWidth,
             ) { if (isPro) navigator.push(Route.Practice(PracticeMode.Timed)) else onLocked(Route.Practice(PracticeMode.Timed)) }
             // Only offered when there is something the runner can actually ask.
             val reviewable = SessionBuilder.reviewableIDs(isPro)
             val due = records.dueCount(reviewable)
             if (due > 0) {
-                TrainingTile("Fix My Mistakes", "arrow.trianglehead.counterclockwise", colors.plum, "$due due", locked = !isPro, tag = "tile-review") {
+                TrainingTile("Fix My Mistakes", "arrow.trianglehead.counterclockwise", colors.plum, "$due due", locked = !isPro, tag = "tile-review", width = tileWidth) {
                     if (!isPro) {
                         onLocked(Route.Practice(PracticeMode.Review,
                             SessionBuilder.reviewSession(records.reviewQueue(presentable = SessionBuilder.reviewableIDs(true)), true)))
@@ -327,16 +324,17 @@ private fun TrainingSection(isPro: Boolean, onLocked: (Route) -> Unit) {
                 }
             }
         }
+        }
     }
 }
 
 /** Icon square and lock on top, then the title and its badge, all from the top edge so every tile reads on the same lines. */
 @Composable
-private fun TrainingTile(title: String, icon: String, color: Color, badge: String?, locked: Boolean, tag: String, onClick: () -> Unit) {
+private fun TrainingTile(title: String, icon: String, color: Color, badge: String?, locked: Boolean, tag: String, width: Dp, onClick: () -> Unit) {
     val colors = Mahj.colors
     Column(
         Modifier
-            .width(128.dp)
+            .width(width)
             .height(118.dp)
             .testTag(tag)
             .pressable(label = if (locked) "Included with ${Membership.NAME}" else null, onClick = onClick)
@@ -456,4 +454,28 @@ private fun UpgradeCard(onClick: () -> Unit) {
         }
         Icon(symbol("chevron.right"), null, tint = colors.inkTertiary, modifier = Modifier.size(18.dp))
     }
+}
+
+/**
+ * The Training row's tile width: as many whole tiles as fit at about 128dp (never under 120dp,
+ * where two-word titles broke), plus 40% of the next, so the row always ends partway into a tile
+ * and needs no "swipe for more" label (iOS `TrainingCarousel`).
+ */
+object TrainingCarousel {
+    const val LEADING_INSET = 4f
+    const val SPACING = 10f
+    const val PREFERRED_TILE_WIDTH = 128f
+    const val MINIMUM_TILE_WIDTH = 120f
+    const val PEEK = 0.4f
+
+    /** `rowWidth` is the scroll row's visible width. */
+    fun tileWidth(rowWidth: Float): Float {
+        val room = rowWidth - LEADING_INSET
+        if (room <= PREFERRED_TILE_WIDTH) return PREFERRED_TILE_WIDTH
+        var whole = maxOf(1f, kotlin.math.floor((room + SPACING) / (PREFERRED_TILE_WIDTH + SPACING)))
+        while (whole > 1 && width(room, whole) < MINIMUM_TILE_WIDTH) whole -= 1
+        return width(room, whole)
+    }
+
+    private fun width(room: Float, whole: Float) = kotlin.math.floor((room - whole * SPACING) / (whole + PEEK))
 }
