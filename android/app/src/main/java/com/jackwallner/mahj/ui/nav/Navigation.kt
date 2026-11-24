@@ -92,6 +92,15 @@ class Navigator {
         entries.add(Entry(nextId++, route))
     }
 
+    /**
+     * A routed screen (a reminder tap) goes over whatever is open instead of replacing it, so a
+     * run in progress is still there on Back. Routing to the screen already on top changes nothing.
+     */
+    fun pushRouted(route: Route, isSame: (Route) -> Boolean) {
+        if (isSame(top)) return
+        push(route)
+    }
+
     fun pop(): Boolean {
         if (entries.size <= 1) return false
         lastWasPop = true

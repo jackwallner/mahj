@@ -135,8 +135,9 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
         if (!membershipResolved && !membershipWaitOver) return@LaunchedEffect
         onRouteConsumed()
         if (isPro) {
-            navigator.popToRoot()
-            navigator.push(Route.Session(gameNightPrepItems(graph), SessionPurpose.GameNightPrep))
+            navigator.pushRouted(Route.Session(gameNightPrepItems(graph), SessionPurpose.GameNightPrep)) {
+                it is Route.Session && it.purpose == SessionPurpose.GameNightPrep
+            }
         } else {
             prepAfterUpgrade = true
             paywallSource = "mahj_home_sheet"
