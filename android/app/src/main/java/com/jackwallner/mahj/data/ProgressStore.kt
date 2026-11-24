@@ -3,6 +3,8 @@ package com.jackwallner.mahj.data
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.jackwallner.mahj.content.Difficulty
+import com.jackwallner.mahj.content.SessionLevel
 import com.jackwallner.mahj.model.Room
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -96,6 +98,23 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
         defaults.putStringSet(Keys.MISSED_ITEMS, missedItems)
     }
 
+    /**
+     * The hardest tier this player's sessions draw on. Starts at the onboarding answer and rises
+     * with accuracy (`SessionLevel`). A tier once earned is kept, so a bad day never takes
+     * questions away again. Writes the plain store only, never observable state: screens call
+     * this while building a session.
+     */
+    fun sessionCeiling(includePro: Boolean): Difficulty {
+        val seed = SessionLevel.seed(defaults.getString(Keys.SKILL_LEVEL).orEmpty())
+        val stored = if (defaults.contains(Keys.REACHED_LEVEL)) {
+            Difficulty.entries.getOrNull(defaults.getInt(Keys.REACHED_LEVEL))
+        } else null
+        val start = maxOf(seed, stored ?: seed)
+        val earned = SessionLevel.ceiling(start, seenItems, missedItems, includePro)
+        if (earned > seed && earned != stored) defaults.putInt(Keys.REACHED_LEVEL, earned.ordinal)
+        return earned
+    }
+
     /** Get Started is once a day: a fresh mix each day, resting once today's is done. */
     fun quickSessionCompletedToday(): Boolean = quickSessionDay == clock.today().toString()
 
@@ -115,7 +134,7 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
         listOf(
             Keys.STREAK_COUNT, Keys.LAST_ACTIVE_DAY, Keys.TOTAL_SESSIONS, Keys.COMPLETIONS,
             Keys.SEEN_ITEMS, Keys.MISSED_ITEMS, Keys.REVIEW_GATE_SHOWN, Keys.LAST_QUICK_SESSION_DAY,
-            Keys.SESSIONS_AT_ONBOARDING,
+            Keys.SESSIONS_AT_ONBOARDING, Keys.REACHED_LEVEL,
         ).forEach(defaults::remove)
     }
 
@@ -136,5 +155,7 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
         const val MISSED_ITEMS = "progress.missedItems"
         const val LAST_QUICK_SESSION_DAY = "progress.lastQuickSessionDay"
         const val SESSIONS_AT_ONBOARDING = "progress.sessionsAtOnboarding"
+        const val REACHED_LEVEL = "progress.reachedLevel"
+        const val SKILL_LEVEL = "mahj.skillLevel"
     }
 }

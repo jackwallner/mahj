@@ -334,4 +334,5 @@ fun gameNightPrepItems(graph: com.jackwallner.mahj.AppGraph) = SessionBuilder.ga
     missed = graph.progress.missedItems,
     dueIDs = graph.records.reviewQueue(presentable = SessionBuilder.reviewableIDs(true)),
     weakestRoomID = graph.records.weakestRoom()?.id,
+    ceiling = graph.progress.sessionCeiling(includePro = true),
 )

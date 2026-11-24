@@ -86,7 +86,10 @@ fun FeatureTourScreen(onDone: () -> Unit) {
 
     fun startSession() {
         Haptics.success()
-        session = SessionBuilder.quickSession(seen = graph.progress.seenItems, missed = graph.progress.missedItems, includePro = isPro)
+        session = SessionBuilder.quickSession(
+            seen = graph.progress.seenItems, missed = graph.progress.missedItems, includePro = isPro,
+            ceiling = graph.progress.sessionCeiling(isPro),
+        )
     }
 
     val pages = listOf(

@@ -3,8 +3,9 @@ import Foundation
 // Exports the iOS content and generator fixtures for the Android port.
 // Run through scripts/sync-android-content.sh, never by hand.
 //
-//   content.json  every authored drill, the primer, the reference and the
-//                 What's New notes, read by the app at runtime.
+//   content.json  every authored drill, the primer, the reference, the
+//                 What's New notes and each item's session tier, read by
+//                 the app at runtime.
 //   parity.json   seeded generator output, read only by the Android unit
 //                 tests to prove the Kotlin generators deal the same tiles.
 
@@ -127,7 +128,18 @@ func content() -> [String: Any] {
         "referenceSections": sections,
         "glossary": glossary,
         "whatsNew": whatsNew,
+        "itemDifficulty": ItemDifficulty.tiers.mapValues(tierName),
     ]
+}
+
+/// `ItemDifficulty` by name, so the Android port reads the one Swift table
+/// instead of keeping a copy of it.
+func tierName(_ tier: Difficulty) -> String {
+    switch tier {
+    case .basic: return "basic"
+    case .intermediate: return "intermediate"
+    case .challenging: return "challenging"
+    }
 }
 
 // MARK: - Parity fixtures

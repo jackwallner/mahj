@@ -128,7 +128,10 @@ fun HomeScreen() {
         ) {
             Header(progress.streakCount, progress.totalSessions) { navigator.push(Route.Stats) }
             if (progress.quickSessionCompletedToday()) GetStartedDoneCard() else GetStartedCard {
-                val items = SessionBuilder.quickSession(seen = progress.seenItems, missed = progress.missedItems, includePro = isPro)
+                val items = SessionBuilder.quickSession(
+                    seen = progress.seenItems, missed = progress.missedItems, includePro = isPro,
+                    ceiling = progress.sessionCeiling(isPro),
+                )
                 navigator.push(Route.Session(items, SessionPurpose.Quick(isDaily = true)))
             }
             graph.ordinaryRuns.inProgress?.let { run ->

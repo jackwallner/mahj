@@ -60,6 +60,8 @@ class ContentLibrary(
     val referenceSections: List<SectionReference>,
     val glossary: List<GlossaryTerm>,
     val whatsNew: List<WhatsNewRelease>,
+    /** Each drill item's session tier, from the Swift `ItemDifficulty` table. */
+    val itemDifficulty: Map<String, Difficulty>,
 )
 
 /**
@@ -128,6 +130,9 @@ object MahjContent {
                         )
                     },
                 )
+            },
+            itemDifficulty = json.getJSONObject("itemDifficulty").let { tiers ->
+                tiers.keys().asSequence().associateWith { Difficulty.fromRaw(tiers.getString(it)) }
             },
         )
     }

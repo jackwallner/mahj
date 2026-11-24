@@ -35,5 +35,8 @@ straight from lessons, so a first session must feel easy.
   ceiling. Misses and due items still come back first. A pool too small to
   fill a session pads with the easiest tier above. Fix My Mistakes is
   untouched (it is the player's own misses).
-- Android still runs the old order (`SessionBuilder` is hand-ported Kotlin);
-  the tiers are not in the content export yet.
+- Android reads the same table: the exporter writes `itemDifficulty` (id to
+  tier name) into `mahj-content.json`, and `content/ItemDifficulty.kt` holds
+  only the hand-ported `SessionLevel` rules. Retune tiers here, then rerun
+  `scripts/sync-android-content.sh`. `SessionLevelTest.kt` mirrors this
+  file's tests.

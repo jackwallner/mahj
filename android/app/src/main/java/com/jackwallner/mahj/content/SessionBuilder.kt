@@ -46,13 +46,32 @@ object SessionBuilder {
     val reviewDrill = Drill("review-session", "Fix My Mistakes", "The questions you keep getting wrong", DrillKind.Flashcards(emptyList()))
     val gameNightPrepDrill = Drill("game-night-prep", "Game Night Prep", "A five-minute mix for your next table", DrillKind.Flashcards(emptyList()))
 
-    fun quickSession(count: Int = 10, seen: Set<String>, missed: Set<String>, includePro: Boolean): List<QuickItem> {
+    /**
+     * `ceiling` is the hardest tier this player is ready for (`SessionLevel`). Items above it stay
+     * out unless the eligible pool cannot fill the session, and then the easiest of them pad it.
+     */
+    fun quickSession(
+        count: Int = 10,
+        seen: Set<String>,
+        missed: Set<String>,
+        includePro: Boolean,
+        ceiling: Difficulty = Difficulty.CHALLENGING,
+    ): List<QuickItem> {
         fun tier(item: QuickItem) = when {
             item.id in missed -> 0
             item.id !in seen -> 1
             else -> 2
         }
-        return choicePool(includePro).shuffled().sortedBy(::tier).take(count).map(::prepared)
+        val pool = choicePool(includePro)
+        val picked = pool.filter { ItemDifficulty.of(it.id) <= ceiling }.shuffled().sortedBy(::tier).take(count)
+        return (picked + padding(pool, ceiling, count - picked.size)).map(::prepared)
+    }
+
+    /** The easiest items above `ceiling`, shuffled within each tier, for a pool too small to fill a session. */
+    private fun padding(pool: List<QuickItem>, ceiling: Difficulty, count: Int): List<QuickItem> {
+        if (count <= 0) return emptyList()
+        return pool.filter { ItemDifficulty.of(it.id) > ceiling }.shuffled()
+            .sortedBy { ItemDifficulty.of(it.id) }.take(count)
     }
 
     /** Exactly the items the scheduler says are due, in its order. Never padded. */
@@ -67,24 +86,35 @@ object SessionBuilder {
     private val freeReviewable by lazy { choicePool(false).map { it.id }.toSet() }
     private val memberReviewable by lazy { choicePool(true).map { it.id }.toSet() }
 
-    /** Due mistakes lead, then misses, then the weakest room, then unseen material. */
+    /** Due mistakes lead, then misses, then the weakest room, then unseen material; fresh material stays under `ceiling`. */
     fun gameNightPrep(
         count: Int = 10,
         seen: Set<String>,
         missed: Set<String>,
         dueIDs: List<String>,
         weakestRoomID: String?,
+        ceiling: Difficulty = Difficulty.CHALLENGING,
     ): List<QuickItem> {
         val due = dueIDs.toSet()
-        fun tier(item: QuickItem) = when {
+        // The player's own misses always come back; fresh material stays at or below their ceiling.
+        fun tier(item: QuickItem): Int? = when {
             item.id in due -> 0
             item.id in missed -> 1
+            ItemDifficulty.of(item.id) > ceiling -> null
             item.roomID == weakestRoomID -> 2
             item.id !in seen -> 3
             else -> 4
         }
-        return choicePool(true).shuffled().sortedBy(::tier).take(count).map(::prepared)
+        val (eligible, rest) = choicePool(true).shuffled().partition { tier(it) != null }
+        val picked = eligible.sortedBy { tier(it) }.take(count)
+        return (picked + padding(rest, ceiling, count - picked.size)).map(::prepared)
     }
+
+    /** Every item id a session can draw on, for measuring a player's level. */
+    fun poolIDs(includePro: Boolean): List<String> = if (includePro) memberPoolIDs else freePoolIDs
+
+    private val freePoolIDs by lazy { choicePool(false).map { it.id } }
+    private val memberPoolIDs by lazy { choicePool(true).map { it.id } }
 
     fun choiceItems(roomID: String, includePro: Boolean): List<QuickItem> =
         choicePool(includePro).filter { it.roomID == roomID }
