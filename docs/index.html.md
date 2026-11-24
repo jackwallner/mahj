@@ -86,6 +86,8 @@ All four rooms are free. Mahj+ adds more: monthly or yearly (both with a 1-week 
 
 **Extra practice sets.** A second set of questions, racks, and deals in every room, using drills you already know.
 
+**Practice modes.** Play a Hand beyond the one free hand a day, Endless Practice that deals a freshly generated rack every time, Fix My Mistakes that brings your misses back on a spaced schedule, and a Timed Challenge of ninety seconds with a personal best to chase.
+
 **The Master Tables.** Advanced Charleston strategy, a defense school, and expert rack reading for players moving past the basics.
 
 ### Specs
@@ -138,7 +140,7 @@ Yes. Mahj Trainer is a free iPhone, iPad and Android app that drills the tiles, 
 
 ## Is Mahj Trainer free?
 
-Yes, the download is free and the four practice rooms, flashcards, rack reading and the reference are included. An optional Mahj+ upgrade adds extra practice sets and the Master Tables, and prices are shown in the app before you buy.
+Yes, the download is free and the four practice rooms, flashcards, rack reading and the reference are included. An optional Mahj+ upgrade adds more hands, endless and timed practice, extra practice sets and the Master Tables, and prices are shown in the app before you buy.
 
 ## Do I need an account or an internet connection?
 
