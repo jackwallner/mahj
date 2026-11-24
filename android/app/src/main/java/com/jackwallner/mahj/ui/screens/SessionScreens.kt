@@ -295,6 +295,10 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
     var finished by rememberSaveable { mutableStateOf(false) }
     var secondsLeft by rememberSaveable { mutableIntStateOf(CHALLENGE_SECONDS) }
     var timedStarted by rememberSaveable { mutableStateOf(false) }
+    // The timed clock ran out with nothing answered: no score to show, but it still needs an
+    // ending rather than a silent pop. Try again bumps `timedRound` for a fresh clock.
+    var timedOutEmpty by rememberSaveable { mutableStateOf(false) }
+    var timedRound by rememberSaveable { mutableIntStateOf(0) }
     var streak by rememberSaveable { mutableIntStateOf(0) }
     var confetti by remember { mutableIntStateOf(0) }
     var particles by remember { mutableIntStateOf(30) }
@@ -331,8 +335,8 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
     // scheduler still counted one second per tick, so a run could last well
     // past ninety real seconds and its best score meant nothing.
     var clockEnd by remember { mutableStateOf<Long?>(null) }
-    LaunchedEffect(timedStarted) {
-        if (mode != PracticeMode.Timed || !timedStarted) return@LaunchedEffect
+    LaunchedEffect(timedStarted, timedRound) {
+        if (mode != PracticeMode.Timed || !timedStarted || timedOutEmpty) return@LaunchedEffect
         val end = clockEnd ?: (SystemClock.elapsedRealtime() + CHALLENGE_SECONDS * 1_000L).also { clockEnd = it }
         while (secondsLeft > 0 && !finished) {
             delay(250)
@@ -341,8 +345,36 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
         }
         if (!finished) {
             Haptics.rigid()
-            finish()
+            if (attempted == 0) timedOutEmpty = true else finish()
         }
+    }
+
+    if (timedOutEmpty) {
+        MahjScreen(title, onBack = { navigator.pop() }) {
+            Column(
+                Modifier.fillMaxSize().screenPadding(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(18.dp),
+            ) {
+                Spacer(Modifier.weight(1f))
+                Icon(symbol("timer"), null, tint = colors.coral, modifier = Modifier.size(48.dp))
+                Text("Time's up", style = MahjType.display(30.sp), color = colors.ink)
+                Spacer(Modifier.weight(1f))
+                // A fresh deal and a fresh clock, started at once: the player just asked for it.
+                PrimaryCTA("Try again", Modifier.testTag("try-again")) {
+                    Haptics.rigid()
+                    items = EndlessPractice.mixedItems(BATCH_SIZE)
+                    index = 0
+                    selection = null
+                    secondsLeft = CHALLENGE_SECONDS
+                    clockEnd = null
+                    timedOutEmpty = false
+                    timedRound += 1
+                }
+                BarTextButton("Done", colors.jade) { navigator.pop() }
+            }
+        }
+        return
     }
 
     if (finished) {
@@ -407,6 +439,9 @@ fun PracticeRunScreen(mode: PracticeMode, initialItems: List<QuickItem>) {
                 footerLabel = if (mode == PracticeMode.Review) "${index + 1} of ${items.size}" else "Question ${attempted + 1}",
                 onPick = { pick ->
                     if (selection != null) return@ChoiceQuestionBody
+                    // The clock ticks every quarter second; a tap after the deadline but before
+                    // the next tick does not score.
+                    if (mode == PracticeMode.Timed && clockEnd?.let { SystemClock.elapsedRealtime() >= it } == true) return@ChoiceQuestionBody
                     selection = pick
                     attempted += 1
                     val correct = pick == item.answerIndex
