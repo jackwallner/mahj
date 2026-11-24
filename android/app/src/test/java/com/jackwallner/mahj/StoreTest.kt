@@ -407,4 +407,18 @@ class StoreTest {
         progress.resetAll()
         assertEquals(0, progress.sessionsAtOnboarding)
     }
+
+    /** A relaunch mid-primer or mid-tour picks up there; finishing onboarding clears it. */
+    @Test
+    fun onboardingStageSurvivesARelaunchUntilOnboardingEnds() {
+        val store = ProgressStore(defaults, clock)
+        assertNull(store.onboardingStage)
+        store.onboardingStage = "tour"
+        assertEquals("tour", ProgressStore(defaults, clock).onboardingStage)
+        store.setOnboarded(true)
+        assertNull(ProgressStore(defaults, clock).onboardingStage)
+        store.onboardingStage = "howToPlay"
+        store.resetAll()
+        assertEquals("Reset Progress leaves onboarding alone", "howToPlay", store.onboardingStage)
+    }
 }

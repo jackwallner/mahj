@@ -73,7 +73,8 @@ import com.jackwallner.mahj.ui.theme.pressable
 import com.jackwallner.mahj.ui.theme.rounded
 import kotlinx.coroutines.launch
 
-private enum class Stage { PAGES, HOW_TO_PLAY, TOUR }
+/** Raw values match iOS (`progress.onboardingStage`). */
+private enum class Stage(val raw: String) { PAGES("pages"), HOW_TO_PLAY("howToPlay"), TOUR("tour") }
 
 private const val LAST_PAGE = 4
 private const val SKILL_PAGE = 3
@@ -96,7 +97,13 @@ private val skillOptions = listOf(
 @Composable
 fun OnboardingScreen() {
     val graph = LocalGraph.current
-    var stage by rememberSaveable { mutableStateOf(Stage.PAGES) }
+    // Picks up in the primer or the tour after a relaunch.
+    var stage by rememberSaveable {
+        mutableStateOf(Stage.entries.firstOrNull { it.raw == graph.progress.onboardingStage } ?: Stage.PAGES)
+    }
+    LaunchedEffect(stage) {
+        if (!graph.progress.hasOnboarded) graph.progress.onboardingStage = stage.raw.takeIf { stage != Stage.PAGES }
+    }
     var skillLevel by rememberSaveable { mutableStateOf(graph.defaults.getString(SKILL_LEVEL).orEmpty()) }
 
     fun finish() {

@@ -34,7 +34,18 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
     fun setOnboarded(value: Boolean) {
         hasOnboarded = value
         defaults.putBoolean(Keys.HAS_ONBOARDED, value)
+        if (value) defaults.remove(Keys.ONBOARDING_STAGE)
     }
+
+    /**
+     * Where a player who quit in the primer or the tour picks up. The intro pages and the trial
+     * page start over: this only holds the stages after the trial decision, so a player who
+     * started the trial is not walked through the intro again. Cleared with `hasOnboarded`;
+     * Reset Progress leaves it alone.
+     */
+    var onboardingStage: String?
+        get() = defaults.getString(Keys.ONBOARDING_STAGE)
+        set(value) = if (value == null) defaults.remove(Keys.ONBOARDING_STAGE) else defaults.putString(Keys.ONBOARDING_STAGE, value)
 
     /** Sessions finished before onboarding ended: the tour's closing practice. Older installs have none stored (0). */
     var sessionsAtOnboarding: Int
@@ -172,6 +183,7 @@ class ProgressStore(private val defaults: KeyValueStore, private val clock: AppC
         const val LAST_QUICK_SESSION_DAY = "progress.lastQuickSessionDay"
         const val SESSIONS_AT_ONBOARDING = "progress.sessionsAtOnboarding"
         const val REACHED_LEVEL = "progress.reachedLevel"
+        const val ONBOARDING_STAGE = "progress.onboardingStage"
         const val SKILL_LEVEL = "mahj.skillLevel"
     }
 }
