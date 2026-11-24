@@ -116,9 +116,8 @@ class AppFlowTest {
         scenario?.close()
         scenario = ActivityScenario.launch(Intent(context, MainActivity::class.java).putExtra("uiTest", true))
         waitFor("Resume Quick Session")
+        // The Get Started card itself resumes the saved run, straight in.
         compose.onNodeWithText("Resume Quick Session").performClick()
-        compose.waitUntil(15_000) { compose.onAllNodes(hasText("Resume")).fetchSemanticsNodes().size == 1 }
-        compose.onNodeWithText("Resume").performClick()
         compose.runOnIdle {
             org.junit.Assert.assertEquals(1, graph.ordinaryRuns.inProgress?.index)
             org.junit.Assert.assertNotNull(graph.ordinaryRuns.inProgress?.selection)

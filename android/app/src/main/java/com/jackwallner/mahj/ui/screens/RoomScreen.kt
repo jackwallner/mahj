@@ -166,10 +166,10 @@ private fun RoomUpsell(lockedCount: Int, onClick: () -> Unit) {
 
 /** Routes a drill to the screen for its kind. */
 @Composable
-fun DrillScreen(roomId: String, drillId: String) {
+fun DrillScreen(roomId: String, drillId: String, resume: Boolean = false) {
     val room = DrillLibrary.room(roomId) ?: return
     val drill = LocalGraph.current.ordinaryRuns.run(drillId)?.drill ?: room.drills.firstOrNull { it.id == drillId } ?: return
-    OrdinaryRunEntry(drill.id, drill.title) {
+    OrdinaryRunEntry(drill.id, drill.title, askFirst = !resume) {
         when (val kind = drill.kind) {
             is DrillKind.Flashcards -> FlashcardDrillScreen(drill, kind.cards, room.accent(Mahj.colors))
             is DrillKind.Quiz -> QuizDrillScreen(drill, kind.questions)

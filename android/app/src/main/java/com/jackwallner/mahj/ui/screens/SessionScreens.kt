@@ -106,7 +106,10 @@ fun SessionScreen(initialItems: List<QuickItem>, purpose: SessionPurpose, onClos
     val graph = LocalGraph.current
     val navigator = LocalNavigator.current
     val ordinary = purpose is SessionPurpose.Quick && purpose.isDaily && onClose == null
-    val saved = remember { if (ordinary) graph.ordinaryRuns.run(purpose.drill.id) else null }
+    // A lapsed member never replays a run built on Mahj+ questions; it stays on disk.
+    val saved = remember {
+        if (ordinary) graph.ordinaryRuns.run(purpose.drill.id)?.takeUnless { it.isLocked(graph.subscriptions.isPro) } else null
+    }
     val items = remember { saved?.items ?: initialItems }
     val colors = Mahj.colors
     val scope = rememberCoroutineScope()

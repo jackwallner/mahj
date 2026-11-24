@@ -83,6 +83,9 @@ object SessionBuilder {
     /** The ids Fix My Mistakes can actually put on screen. */
     fun reviewableIDs(includePro: Boolean): Set<String> = if (includePro) memberReviewable else freeReviewable
 
+    /** In a member's pool but not a free player's: a Mahj+ question. */
+    fun isMemberOnly(id: String): Boolean = id in memberReviewable && id !in freeReviewable
+
     private val freeReviewable by lazy { choicePool(false).map { it.id }.toSet() }
     private val memberReviewable by lazy { choicePool(true).map { it.id }.toSet() }
 

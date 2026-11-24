@@ -45,7 +45,6 @@ import com.jackwallner.mahj.ui.screens.PaywallSheet
 import com.jackwallner.mahj.ui.screens.PracticeRunScreen
 import com.jackwallner.mahj.ui.screens.ReferenceScreen
 import com.jackwallner.mahj.ui.screens.RoomScreen
-import com.jackwallner.mahj.ui.screens.OrdinaryRunEntry
 import com.jackwallner.mahj.content.SessionBuilder
 import com.jackwallner.mahj.ui.screens.SessionScreen
 import com.jackwallner.mahj.ui.screens.SettingsScreen
@@ -177,12 +176,9 @@ fun RootScreen(graph: AppGraph, pendingRoute: String?, onRouteConsumed: () -> Un
                     when (route) {
                         Route.Home -> HomeScreen()
                         is Route.Room -> RoomScreen(route.roomId)
-                        is Route.Drill -> DrillScreen(route.roomId, route.drillId)
-                        is Route.Session -> if (route.purpose is SessionPurpose.Quick && route.purpose.isDaily) {
-                            OrdinaryRunEntry(SessionBuilder.sessionDrill.id, SessionBuilder.sessionDrill.title) {
-                                SessionScreen(route.items, route.purpose)
-                            }
-                        } else SessionScreen(route.items, route.purpose)
+                        is Route.Drill -> DrillScreen(route.roomId, route.drillId, route.resume)
+                        // A saved Get Started resumes from its own card, straight in (`SessionScreen` reads it).
+                        is Route.Session -> SessionScreen(route.items, route.purpose)
                         is Route.Practice -> PracticeRunScreen(route.mode, route.items)
                         Route.HandPlay -> HandPlayScreen()
                         Route.MahjMinute -> MahjMinuteScreen()

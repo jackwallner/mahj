@@ -49,7 +49,8 @@ sealed interface PracticeMode {
 sealed interface Route {
     data object Home : Route
     data class Room(val roomId: String) : Route
-    data class Drill(val roomId: String, val drillId: String) : Route
+    /** `resume` is Home's Resume card: straight back into the saved run, no Resume or Start over. */
+    data class Drill(val roomId: String, val drillId: String, val resume: Boolean = false) : Route
     data class Session(val items: List<QuickItem>, val purpose: SessionPurpose) : Route
     data class Practice(val mode: PracticeMode, val items: List<QuickItem> = emptyList()) : Route
     data object HandPlay : Route

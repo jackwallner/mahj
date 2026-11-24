@@ -3,6 +3,7 @@ package com.jackwallner.mahj.data
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.jackwallner.mahj.content.DrillLibrary
 import com.jackwallner.mahj.content.MahjContent
 import com.jackwallner.mahj.content.QuickItem
 import com.jackwallner.mahj.content.SessionBuilder
@@ -50,6 +51,18 @@ data class OrdinaryRun(
 
     val id: String get() = drill.id
     val isQuickSession: Boolean get() = id == SessionBuilder.sessionDrill.id
+    val hasAnswers: Boolean get() = answers.isNotEmpty()
+
+    /**
+     * A lapsed member keeps the run on disk but never replays it: a room drill locks through
+     * `Room.isLocked`, a Get Started on the Mahj+ questions it was built with.
+     */
+    fun isLocked(isMember: Boolean): Boolean {
+        if (isMember) return false
+        if (isQuickSession) return items.any { SessionBuilder.isMemberOnly(it.id) }
+        val room = DrillLibrary.room(DrillLibrary.roomID(id)) ?: return false
+        return room.isLocked(drill, isMember)
+    }
 
     fun toJson(): JSONObject = JSONObject().apply {
         put("drill", drill.toJson())
@@ -105,26 +118,68 @@ data class OrdinaryRun(
 }
 
 class OrdinaryRunStore(private val defaults: KeyValueStore) {
-    var inProgress by mutableStateOf(defaults.getString(KEY)?.let { runCatching { OrdinaryRun.fromJson(JSONObject(it)) }.getOrNull() })
+    /** Every run with answers, one per drill id, the most recently answered last. */
+    var runs by mutableStateOf(load())
         private set
 
-    fun run(id: String): OrdinaryRun? = inProgress?.takeIf { it.id == id }
+    /** The most recently answered run. */
+    val inProgress: OrdinaryRun? get() = runs.lastOrNull()
 
+    fun run(id: String): OrdinaryRun? = runs.firstOrNull { it.id == id }
+
+    /**
+     * Each drill keeps its own run, so answering in one never drops the place in another (a Tile
+     * Check answer wiped a half-done Get Started). An unanswered run never takes a slot, and the
+     * same run undone back to nothing drops out.
+     */
     fun save(run: OrdinaryRun) {
-        if (run == inProgress) return
         if (run.drill.kind.itemCount == 0 && run.items.isEmpty()) return
-        defaults.putString(KEY, run.toJson().toString())
-        inProgress = run
+        if (!run.hasAnswers) return clear(run.id)
+        if (run(run.id) == run) return
+        persist(runs.filter { it.id != run.id } + run)
     }
 
+    /** Home's Resume choices, most recent first, leaving out runs locked to this player. */
+    fun resumable(isMember: Boolean): List<OrdinaryRun> =
+        runs.asReversed().filter { it.hasAnswers && !it.isLocked(isMember) }
+
+    /** The run behind Home's Resume card: the latest room drill. A saved Get Started resumes from its own card. */
+    fun resumableRoomRun(isMember: Boolean): OrdinaryRun? = resumable(isMember).firstOrNull { !it.isQuickSession }
+
+    fun hasResumableQuickSession(isMember: Boolean): Boolean = resumable(isMember).any { it.isQuickSession }
+
     fun clear(id: String) {
-        if (inProgress?.id != id) return
+        if (runs.none { it.id == id }) return
+        persist(runs.filter { it.id != id })
+    }
+
+    fun clearAll() = persist(emptyList())
+
+    private fun persist(updated: List<OrdinaryRun>) {
+        if (updated.isEmpty()) defaults.remove(RUNS_KEY)
+        else defaults.putString(RUNS_KEY, JSONArray(updated.map { it.toJson() }).toString())
         defaults.remove(KEY)
-        inProgress = null
+        runs = updated
+    }
+
+    private fun load(): List<OrdinaryRun> {
+        defaults.getString(RUNS_KEY)?.let { raw ->
+            val list = runCatching { JSONArray(raw) }.getOrNull() ?: return emptyList()
+            // One damaged run must not cost the others.
+            return (0 until list.length())
+                .mapNotNull { runCatching { OrdinaryRun.fromJson(list.getJSONObject(it)) }.getOrNull() }
+                .filter { it.hasAnswers }
+        }
+        val legacy = defaults.getString(KEY)?.let { runCatching { OrdinaryRun.fromJson(JSONObject(it)) }.getOrNull() }
+        return listOfNotNull(legacy?.takeIf { it.hasAnswers })
     }
 
     companion object {
+        /** The single-slot key of 1.4.x. Still read once, so a run saved before the update survives it. */
         const val KEY = "practice.ordinaryRun"
+
+        /** One saved run per drill, oldest first. */
+        const val RUNS_KEY = "practice.ordinaryRuns"
     }
 }
 

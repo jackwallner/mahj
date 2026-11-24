@@ -60,7 +60,7 @@ class OrdinaryRunStoreTest {
         val before = OrdinaryRun.AnswerSnapshot(progress.snapshotItem(card.id), records.snapshotAnswer(card.id))
         records.record(card.id, "tile-room", false)
         val store = OrdinaryRunStore(defaults)
-        store.save(OrdinaryRun(drill, pendingAnswer = before, undoCardID = card.id, undoAnswer = before))
+        store.save(OrdinaryRun(drill, answers = listOf(false), pendingAnswer = before, undoCardID = card.id, undoAnswer = before))
         val saved = OrdinaryRunStore(defaults).inProgress!!
         assertEquals(before, saved.pendingAnswer)
         assertEquals(card.id, saved.undoCardID)
@@ -68,4 +68,81 @@ class OrdinaryRunStoreTest {
         assertNull(records.records[card.id])
     }
 
+    private fun drill(id: String) = DrillLibrary.rooms.flatMap { it.drills }.first { it.id == id }
+
+    /** Answering in another drill used to replace the one saved slot and lose a half-done Get Started. */
+    @Test
+    fun eachDrillKeepsItsOwnRun() {
+        val defaults = InMemoryStore()
+        val store = OrdinaryRunStore(defaults)
+        val items = SessionBuilder.quickSession(seen = emptySet(), missed = emptySet(), includePro = false)
+        val quick = OrdinaryRun(SessionBuilder.sessionDrill, items, index = 2, score = 1, answers = listOf(true, false))
+        store.save(quick)
+        val other = DrillLibrary.rooms.first().drills.first { it.kind is DrillKind.Quiz }
+        val room = OrdinaryRun(other, index = 1, answers = listOf(true))
+        store.save(room)
+        val reloaded = OrdinaryRunStore(defaults)
+        assertEquals(quick, reloaded.run(quick.id))
+        assertEquals(room, reloaded.run(room.id))
+        assertEquals("The latest answered run is last", room, reloaded.inProgress)
+        assertEquals(room, reloaded.resumableRoomRun(isMember = false))
+        assertTrue(reloaded.hasResumableQuickSession(isMember = false))
+
+        store.save(quick.copy(index = 3, answers = listOf(true, false, true)))
+        assertEquals(SessionBuilder.sessionDrill.id, OrdinaryRunStore(defaults).inProgress?.id)
+
+        store.clearAll()
+        assertTrue(OrdinaryRunStore(defaults).runs.isEmpty())
+    }
+
+    /** Opening a drill saves its empty run; that must never take or replace a slot. */
+    @Test
+    fun anUnansweredRunNeverReplacesASavedOne() {
+        val defaults = InMemoryStore()
+        val store = OrdinaryRunStore(defaults)
+        val other = DrillLibrary.rooms.first().drills.first { it.kind is DrillKind.Quiz }
+        val items = SessionBuilder.quickSession(seen = emptySet(), missed = emptySet(), includePro = false)
+        val quick = OrdinaryRun(SessionBuilder.sessionDrill, items, index = 1, answers = listOf(true))
+        store.save(quick)
+        store.save(OrdinaryRun(other))
+        assertEquals(listOf(quick), OrdinaryRunStore(defaults).runs)
+        assertNull(store.resumableRoomRun(isMember = false))
+
+        store.save(OrdinaryRun(SessionBuilder.sessionDrill, items))
+        assertNull("Undone back to nothing, the run drops out", OrdinaryRunStore(defaults).run(quick.id))
+    }
+
+    @Test
+    fun aRunSavedBeforeTheUpdateSurvivesIt() {
+        val defaults = InMemoryStore()
+        val other = DrillLibrary.rooms.first().drills.first { it.kind is DrillKind.Quiz }
+        val legacy = OrdinaryRun(other, index = 2, answers = listOf(true, true))
+        defaults.putString(OrdinaryRunStore.KEY, legacy.toJson().toString())
+        val store = OrdinaryRunStore(defaults)
+        assertEquals(listOf(legacy), store.runs)
+        store.save(legacy.copy(index = 3, answers = listOf(true, true, false)))
+        assertFalse("The old slot goes once the new list is written", defaults.contains(OrdinaryRunStore.KEY))
+
+        val empty = InMemoryStore()
+        empty.putString(OrdinaryRunStore.KEY, OrdinaryRun(other).toJson().toString())
+        assertTrue("An unanswered legacy run is not offered", OrdinaryRunStore(empty).runs.isEmpty())
+    }
+
+    /** A lapsed member keeps the run on disk but is never offered it. */
+    @Test
+    fun aLockedRunIsKeptButNotOffered() {
+        val defaults = InMemoryStore()
+        val store = OrdinaryRunStore(defaults)
+        val plus = DrillLibrary.rooms.first { it.isFree }.drills.first { it.isPlus }
+        store.save(OrdinaryRun(plus, index = 1, answers = listOf(true)))
+        val memberItems = SessionBuilder.quickSession(seen = emptySet(), missed = emptySet(), includePro = true, count = 200)
+        val quick = OrdinaryRun(SessionBuilder.sessionDrill, memberItems, index = 1, answers = listOf(true))
+        store.save(quick)
+        assertTrue(quick.isLocked(isMember = false))
+        assertTrue(store.resumable(isMember = false).isEmpty())
+        assertEquals(2, store.resumable(isMember = true).size)
+        assertEquals(2, OrdinaryRunStore(defaults).runs.size)
+        val freeQuick = quick.copy(items = SessionBuilder.quickSession(seen = emptySet(), missed = emptySet(), includePro = false))
+        assertFalse(freeQuick.isLocked(isMember = false))
+    }
 }

@@ -35,7 +35,7 @@ class AppGraph(context: Context) {
 
     /** Settings' Reset Progress: every practice stat, never onboarding or purchases. */
     fun resetProgress() {
-        ordinaryRuns.inProgress?.let { ordinaryRuns.clear(it.id) }
+        ordinaryRuns.clearAll()
         progress.resetAll()
         records.resetAll()
         minutes.resetAll()

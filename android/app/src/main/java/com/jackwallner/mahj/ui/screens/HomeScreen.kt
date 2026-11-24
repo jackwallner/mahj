@@ -127,18 +127,19 @@ fun HomeScreen() {
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             Header(progress.currentStreak(), progress.totalSessions) { navigator.push(Route.Stats) }
-            if (progress.quickSessionCompletedToday()) GetStartedDoneCard() else GetStartedCard {
+            // A saved room drill gets its own Resume card; a saved Get Started resumes from its own card.
+            graph.ordinaryRuns.resumableRoomRun(isPro)?.let { run ->
+                BarTextButton("Resume ${run.drill.title}", colors.jade) {
+                    navigator.push(Route.Drill(com.jackwallner.mahj.content.DrillLibrary.roomID(run.id), run.id, resume = true))
+                }
+            }
+            if (progress.quickSessionCompletedToday()) GetStartedDoneCard()
+            else GetStartedCard(resuming = graph.ordinaryRuns.hasResumableQuickSession(isPro)) {
                 val items = SessionBuilder.quickSession(
                     seen = progress.seenItems, missed = progress.missedItems, includePro = isPro,
                     ceiling = progress.sessionCeiling(isPro),
                 )
                 navigator.push(Route.Session(items, SessionPurpose.Quick(isDaily = true)))
-            }
-            graph.ordinaryRuns.inProgress?.let { run ->
-                BarTextButton("Resume ${run.drill.title}", colors.jade) {
-                    if (run.isQuickSession) navigator.push(Route.Session(run.items, SessionPurpose.Quick(isDaily = true)))
-                    else navigator.push(Route.Drill(com.jackwallner.mahj.content.DrillLibrary.roomID(run.id), run.id))
-                }
             }
             val skillLevel = graph.defaults.getString(SKILL_LEVEL).orEmpty()
             if (skillLevel == "new" && !graph.defaults.getBoolean(HAS_READ_PRIMER)) {
@@ -205,7 +206,7 @@ private fun StatChip(value: Int, icon: String, color: Color, label: String) {
 }
 
 @Composable
-private fun GetStartedCard(onClick: () -> Unit) {
+private fun GetStartedCard(resuming: Boolean, onClick: () -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -216,10 +217,12 @@ private fun GetStartedCard(onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text("Get Started", style = MahjType.display(24.sp), color = Color.White)
-            Text("A five-minute mix of what you need next", style = MahjType.subheadline, color = Color.White.copy(alpha = 0.85f))
-        }
+        Text(
+            if (resuming) "Resume ${SessionBuilder.sessionDrill.title}" else "Get Started",
+            Modifier.weight(1f),
+            style = MahjType.display(24.sp),
+            color = Color.White,
+        )
         Icon(symbol("play.circle.fill"), null, tint = Color.White, modifier = Modifier.size(44.dp))
     }
 }
