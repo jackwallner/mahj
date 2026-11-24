@@ -26,7 +26,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +45,7 @@ import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -82,8 +85,19 @@ fun QuestionPager(
     choices: @Composable () -> Unit,
 ) {
     val colors = Mahj.colors
+    val density = LocalDensity.current
     var viewportHeight by remember { mutableIntStateOf(0) }
     var questionHeight by remember { mutableIntStateOf(0) }
+    // Null until the regular layout has been measured against the viewport. Decided once per
+    // question, so the explanation growing the content never flips the metrics mid-answer.
+    var compact by remember { mutableStateOf<Boolean?>(null) }
+    LaunchedEffect(viewportHeight, questionHeight) {
+        if (compact == null && viewportHeight > 0 && questionHeight > 0) {
+            compact = needsCompactQuestion(questionHeight, viewportHeight, with(density) { 20.dp.toPx() })
+        }
+    }
+    val isCompact = compact ?: false
+    val spacing = if (isCompact) 12.dp else 20.dp
     LaunchedEffect(answered) {
         if (answered) scroll.animateScrollTo(scroll.maxValue)
     }
@@ -92,27 +106,29 @@ fun QuestionPager(
     }
     CenteringScroll(modifier.onSizeChanged { viewportHeight = it.height }, scroll) {
         Column(
-            Modifier.fillMaxWidth().padding(10.dp),
+            // One hidden frame while the regular layout is measured, so a short screen never
+            // shows it and then snaps to the compact one.
+            Modifier.fillMaxWidth().padding(10.dp).graphicsLayer { alpha = if (compact == null) 0f else 1f },
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(20.dp),
+            verticalArrangement = Arrangement.spacedBy(spacing),
         ) {
             Column(
                 Modifier.fillMaxWidth().onSizeChanged { questionHeight = it.height },
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(20.dp),
+                verticalArrangement = Arrangement.spacedBy(spacing),
             ) {
                 if (eyebrow != null) {
                     Text(eyebrow, style = MahjType.caption2.copy(fontWeight = FontWeight.ExtraBold, letterSpacing = MahjType.eyebrow.letterSpacing), color = colors.inkTertiary)
                 }
                 Text(
                     prompt,
-                    style = MahjType.display(MahjType.title3.fontSize * 1.1f),
+                    style = MahjType.display(MahjType.title3.fontSize * if (isCompact) 0.95f else 1.1f),
                     color = colors.ink,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = 8.dp).testTag("question-prompt"),
+                    modifier = Modifier.padding(top = if (isCompact) 0.dp else 8.dp).testTag("question-prompt"),
                 )
-                if (tiles.isNotEmpty()) TileRack(tiles)
-                choices()
+                if (tiles.isNotEmpty()) TileRack(tiles, tileWidth = if (isCompact) 36.dp else 44.dp)
+                CompositionLocalProvider(LocalCompactQuestion provides isCompact) { choices() }
             }
             AnimatedVisibility(answered, enter = fadeIn() + expandVertically()) {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -130,6 +146,16 @@ fun QuestionPager(
         }
     }
 }
+
+/** Tighter question metrics for a viewport too short for the regular ones (a 360 x 640dp phone). */
+private val LocalCompactQuestion = compositionLocalOf { false }
+
+/**
+ * Compact only when the regular question (prompt, tiles, choices and the pager's padding) would
+ * not fit, so the player never has to scroll to reach the last choice.
+ */
+fun needsCompactQuestion(questionHeight: Int, viewportHeight: Int, paddingPx: Float): Boolean =
+    questionHeight + paddingPx > viewportHeight
 
 /** The question alone fills most of the screen, so the miss note cannot share it with the rack. */
 fun missedOnTallQuestion(missed: Boolean, tileCount: Int, questionHeight: Int, viewportHeight: Int): Boolean =
@@ -174,7 +200,7 @@ fun ChoiceList(
         shineTrigger += 1
         if (selection != answerIndex) shakeTrigger += 1
     }
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(if (LocalCompactQuestion.current) 8.dp else 10.dp)) {
         labels.forEachIndexed { index, label ->
             ChoiceRow(
                 label = label,
@@ -247,7 +273,7 @@ private fun ChoiceRow(
                 }
             }
             .pressable(enabled = !answered, role = Role.Button) { onPick(index) }
-            .padding(16.dp),
+            .padding(horizontal = 16.dp, vertical = if (LocalCompactQuestion.current) 11.dp else 16.dp),
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
