@@ -143,7 +143,8 @@ struct FeatureTourView: View {
                 items: SessionBuilder.quickSession(
                     seen: progress.seenItems,
                     missed: progress.missedItems,
-                    includePro: subscriptions.isPro
+                    includePro: subscriptions.isPro,
+                    ceiling: progress.sessionCeiling(includePro: subscriptions.isPro)
                 ),
                 isDaily: false,
                 onClose: { showQuickSession = false }

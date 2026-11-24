@@ -92,11 +92,15 @@ enum SessionBuilder {
         kind: .flashcards([])
     )
 
+    /// `ceiling` is the hardest tier this player is ready for
+    /// (`SessionLevel`). Items above it stay out unless the eligible pool
+    /// cannot fill the session, and then the easiest of them pad it.
     static func quickSession(
         count: Int = 10,
         seen: Set<String>,
         missed: Set<String>,
-        includePro: Bool
+        includePro: Bool,
+        ceiling: Difficulty = .challenging
     ) -> [QuickItem] {
         let pool = choicePool(includePro: includePro)
 
@@ -106,12 +110,26 @@ enum SessionBuilder {
             if !seen.contains(item.id) { return 1 }
             return 2
         }
-        let picked = Dictionary(grouping: pool.shuffled(), by: tier)
+        let eligible = pool.filter { ItemDifficulty.of($0.id) <= ceiling }
+        let picked = Dictionary(grouping: eligible.shuffled(), by: tier)
             .sorted { $0.key < $1.key }
             .flatMap(\.value)
             .prefix(count)
 
-        return picked.map(prepared)
+        return (Array(picked) + padding(from: pool, above: ceiling, count: count - picked.count))
+            .map(prepared)
+    }
+
+    /// The easiest items above `ceiling`, shuffled within each tier, for a
+    /// pool too small to fill a session on its own.
+    private static func padding(from pool: [QuickItem], above ceiling: Difficulty, count: Int) -> [QuickItem] {
+        guard count > 0 else { return [] }
+        let above = pool.filter { ItemDifficulty.of($0.id) > ceiling }
+        return Dictionary(grouping: above.shuffled()) { ItemDifficulty.of($0.id) }
+            .sorted { $0.key < $1.key }
+            .flatMap(\.value)
+            .prefix(count)
+            .map { $0 }
     }
 
     /// The Fix My Mistakes session: exactly the items the scheduler says are
@@ -150,25 +168,41 @@ enum SessionBuilder {
         seen: Set<String>,
         missed: Set<String>,
         dueIDs: [String],
-        weakestRoomID: String?
+        weakestRoomID: String?,
+        ceiling: Difficulty = .challenging
     ) -> [QuickItem] {
         let due = Set(dueIDs)
         let pool = choicePool(includePro: true)
 
-        func tier(_ item: QuickItem) -> Int {
+        // The player's own misses always come back; fresh material stays at
+        // or below their ceiling.
+        func tier(_ item: QuickItem) -> Int? {
             if due.contains(item.id) { return 0 }
             if missed.contains(item.id) { return 1 }
+            guard ItemDifficulty.of(item.id) <= ceiling else { return nil }
             if item.roomID == weakestRoomID { return 2 }
             if !seen.contains(item.id) { return 3 }
             return 4
         }
 
-        return Dictionary(grouping: pool.shuffled(), by: tier)
-            .sorted { $0.key < $1.key }
-            .flatMap(\.value)
+        let grouped = Dictionary(grouping: pool.shuffled(), by: tier)
+        let picked = grouped
+            .compactMap { key, items in key.map { ($0, items) } }
+            .sorted { $0.0 < $1.0 }
+            .flatMap(\.1)
             .prefix(count)
+        let rest = grouped[nil] ?? []
+        return (Array(picked) + padding(from: rest, above: ceiling, count: count - picked.count))
             .map(prepared)
     }
+
+    /// Every item id a session can draw on, for measuring a player's level.
+    static func poolIDs(includePro: Bool) -> [String] {
+        includePro ? memberPoolIDs : freePoolIDs
+    }
+
+    private static let freePoolIDs = choicePool(includePro: false).map(\.id)
+    private static let memberPoolIDs = choicePool(includePro: true).map(\.id)
 
     /// Used by deterministic daily features to draw from a particular room
     /// without exposing locked content to callers that did not request it.

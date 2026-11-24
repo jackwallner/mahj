@@ -24,6 +24,8 @@ final class ProgressStore: ObservableObject {
         static let lastQuickSessionDay = "progress.lastQuickSessionDay"
         static let sessionsAtOnboarding = "progress.sessionsAtOnboarding"
         static let onboardingStage = "progress.onboardingStage"
+        static let reachedLevel = "progress.reachedLevel"
+        static let skillLevel = "mahj.skillLevel"
     }
 
     init(defaults: UserDefaults = .standard) {
@@ -171,6 +173,24 @@ final class ProgressStore: ObservableObject {
         defaults.set(Array(missedItems), forKey: Keys.missedItems)
     }
 
+    // MARK: - Session level
+
+    /// The hardest tier this player's sessions draw on. Starts at the
+    /// onboarding answer and rises with accuracy (`SessionLevel`). A tier once
+    /// earned is kept, so a bad day never takes questions away again.
+    /// Writes plain defaults only, never a published value: views call this
+    /// while building a session.
+    func sessionCeiling(includePro: Bool) -> Difficulty {
+        let seed = SessionLevel.seed(forSkillLevel: defaults.string(forKey: Keys.skillLevel) ?? "")
+        let stored = (defaults.object(forKey: Keys.reachedLevel) as? Int).flatMap(Difficulty.init(rawValue:))
+        let start = max(seed, stored ?? seed)
+        let earned = SessionLevel.ceiling(from: start, seen: seenItems, missed: missedItems, includePro: includePro)
+        if earned > seed, earned != stored {
+            defaults.set(earned.rawValue, forKey: Keys.reachedLevel)
+        }
+        return earned
+    }
+
     // MARK: - Daily Quick Session
 
     /// Get Started is a once-a-day ritual: a fresh mix each day, and once
@@ -201,6 +221,7 @@ final class ProgressStore: ObservableObject {
         defaults.removeObject(forKey: Keys.missedItems)
         defaults.removeObject(forKey: Keys.reviewGateShown)
         defaults.removeObject(forKey: Keys.lastQuickSessionDay)
+        defaults.removeObject(forKey: Keys.reachedLevel)
         // Zero, not removed: with no key the next launch takes this player
         // for a 1.3.2 upgrader and takes one of their practices off again.
         sessionsAtOnboarding = 0

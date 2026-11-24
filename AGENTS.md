@@ -75,6 +75,7 @@ Condensed from the deep notes below; the reasoning and the bugs behind each one 
 - `Room.isLocked(_:isMember:)` is the single source of truth for locking.
 - The trial flow (onboarding trial page, paywall, purchase to tour) keeps its 1.3.2 shape: it converts. Small details may change if the general flow is exactly the same; a change to the flow itself needs Jack's go-ahead (Jack, 2026-11-04). Remote variants come only through RevenueCat offering metadata (`RemoteConfig`).
 - `OnboardingView.trialDisclosure` must always name the same plan the CTA buys (3.1.2). A player backing out of Apple's sheet is `PurchaseOutcome.cancelled`, not an error: never answer it with another paywall.
+- Every drill item carries a tier in `ItemDifficulty`; sessions never show a tier above the player's ceiling (onboarding seed, raised by accuracy), and there is no level picker or label.
 - `QuickItem.choiceNotes` rides the same permutation as `choices` in `SessionBuilder.prepared`.
 - `RootView` branches onboarding vs `HomeView` on `progress.hasOnboarded`, never a fullScreenCover. The primer and the tour always keep an escape hatch straight to Home.
 - No generated illustration: tiles are drawn from real data by `TileView`/`TileRackView`.
@@ -100,6 +101,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/android.md` | The Android port: exported content, RNG parity, Play identity, deliberate differences | Anything under `android/` or the content export |
 | `.claude/rules/chatgpt-plugin.md` | The free ChatGPT plugin and Claude connector: MCP server on Cloudflare, widget, packaging and submission | Anything under `chatgpt/` |
 | `.claude/rules/localization.md` | de/es/fr/id/vi String Catalogs, the Content table looked up at model init, rules for adding copy | Any user-facing string, `Shared/Content`, the catalogs |
+| `.claude/rules/session-level.md` | Basic / intermediate / challenging tiers per item, the onboarding seed and how accuracy raises a session's ceiling | `ItemDifficulty`, `SessionBuilder`, adding drill content |
 
 ## Flashcard deck (signature interaction)
 

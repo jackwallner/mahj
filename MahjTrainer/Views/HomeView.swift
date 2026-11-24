@@ -227,7 +227,8 @@ struct HomeView: View {
             // A saved run resumes itself (`QuickSessionView` reads it);
             // otherwise this is a fresh mix.
             QuickSessionView(items: SessionBuilder.quickSession(
-                seen: progress.seenItems, missed: progress.missedItems, includePro: subscriptions.isPro))
+                seen: progress.seenItems, missed: progress.missedItems, includePro: subscriptions.isPro,
+                ceiling: progress.sessionCeiling(includePro: subscriptions.isPro)))
                 .tracksOrdinaryRun(SessionBuilder.sessionDrill.id)
         case .ordinaryRun:
             SavedOrdinaryRunView()
@@ -504,7 +505,8 @@ struct HomeView: View {
             seen: progress.seenItems,
             missed: progress.missedItems,
             dueIDs: records.reviewQueue(among: SessionBuilder.reviewableIDs(includePro: true)),
-            weakestRoomID: records.weakestRoom()?.id
+            weakestRoomID: records.weakestRoom()?.id,
+            ceiling: progress.sessionCeiling(includePro: true)
         )
     }
 

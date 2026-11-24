@@ -11,7 +11,8 @@ struct GameNightPrepView: View {
             seen: progress.seenItems,
             missed: progress.missedItems,
             dueIDs: records.reviewQueue(among: reviewableIDs),
-            weakestRoomID: records.weakestRoom()?.id
+            weakestRoomID: records.weakestRoom()?.id,
+            ceiling: progress.sessionCeiling(includePro: true)
         )
     }
 
