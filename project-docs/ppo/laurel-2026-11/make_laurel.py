@@ -1,28 +1,40 @@
 """Laurel badge treatments for Mahj screenshot 1 (PPO test, 2026-11).
 
+Layout follows the store's best performing laurel screenshots (Period Tracker
+"Trusted by 300M women", Sudoku.com "5,000,000+ 5-Star Ratings", MyNetDiary
+"Loved by 32M+ people"): the claim is a bold hero close to headline size and
+the wreath spans most of the width, so it reads in search results. The phone
+is scaled down to make room instead of cropped.
+
 The branches are Apple's laurel.leading / laurel.trailing symbols in gold,
 rendered by render_laurel.swift into laurel_left.png and laurel_right.png.
 """
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
 SRC = "/Users/jackwallner/mahj/fastlane/screenshots/en-US/01_pass_with_a_plan.png"
 SERIF = "/System/Library/Fonts/NewYork.ttf"
 INK = (38, 46, 34)
 SS = 3
-BW, BH = 1320, 300
-SHIFT = 150
-CUT = 330
-LAUREL_H = 250
-GAP = 34
+CUT = 330          # headline ends here in the source
+BADGE_H = 560      # height of the badge band under the headline
+PHONE_SCALE = 0.9  # phone shrinks so it still fits whole below the badge
+LAUREL_H = 470
+GAP = 26
 
 
-def spaced(d: ImageDraw.ImageDraw, center: tuple[float, float], text: str,
-           font: ImageFont.FreeTypeFont, track: float) -> float:
-    widths = [d.textlength(ch, font=font) for ch in text]
+def font(size: int, weight: str) -> ImageFont.FreeTypeFont:
+    f = ImageFont.truetype(SERIF, size * SS)
+    f.set_variation_by_name(weight)
+    return f
+
+
+def spaced(d: ImageDraw.ImageDraw, cx: float, cy: float, text: str,
+           f: ImageFont.FreeTypeFont, track: float) -> float:
+    widths = [d.textlength(ch, font=f) for ch in text]
     total = sum(widths) + track * (len(text) - 1)
-    x = center[0] - total / 2
+    x = cx - total / 2
     for ch, w in zip(text, widths):
-        d.text((x, center[1]), ch, font=font, fill=INK, anchor="lm")
+        d.text((x, cy), ch, font=f, fill=INK, anchor="lm")
         x += w + track
     return total
 
@@ -34,45 +46,76 @@ def laurel(path: str) -> Image.Image:
     return img.resize((round(img.width * h / img.height), h), Image.LANCZOS)
 
 
-def badge(top: str, big: str) -> Image.Image:
-    W, H = BW * SS, BH * SS
+def badge(lines: list[tuple[str, int, str, int]], width: int) -> Image.Image:
+    """lines: (text, size, weight, tracking); tracked lines are set in caps."""
+    W, H = width * SS, BADGE_H * SS
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
-    cx, cy = W / 2, H / 2
-    ft = ImageFont.truetype(SERIF, 32 * SS)
-    fb = ImageFont.truetype(SERIF, 84 * SS)
-    top_w = spaced(d, (cx, cy - 62 * SS), top.upper(), ft, 6 * SS)
-    d.text((cx, cy + 16 * SS), big, font=fb, fill=INK, anchor="mm")
-    half = max(top_w, d.textlength(big, font=fb)) / 2 + GAP * SS
+    cx = W / 2
+    heights = [size * SS * 1.12 for _, size, _, _ in lines]
+    y = H / 2 - sum(heights) / 2
+    widest = 0.0
+    for (text, size, weight, track), h in zip(lines, heights):
+        f = font(size, weight)
+        cy = y + h / 2
+        if track:
+            w = spaced(d, cx, cy, text.upper(), f, track * SS)
+        else:
+            d.text((cx, cy), text, font=f, fill=INK, anchor="mm")
+            w = d.textlength(text, font=f)
+        widest = max(widest, w)
+        y += h
+    half = widest / 2 + GAP * SS
     left, right = laurel("laurel_left.png"), laurel("laurel_right.png")
-    y = round(cy - left.height / 2)
-    img.alpha_composite(left, (round(cx - half - left.width), y))
-    img.alpha_composite(right, (round(cx + half), y))
-    return img.resize((BW, BH), Image.LANCZOS)
+    ly = round(H / 2 - left.height / 2)
+    img.alpha_composite(left, (round(cx - half - left.width), ly))
+    img.alpha_composite(right, (round(cx + half), ly))
+    return img.resize((width, BADGE_H), Image.LANCZOS)
 
 
-def compose(top: str, big: str, out: str) -> Image.Image:
+def background(src: Image.Image) -> Image.Image:
+    """The source background is a vertical gradient, uniform across each row."""
+    return src.crop((0, 0, 1, src.height)).resize(src.size)
+
+
+def compose(lines: list[tuple[str, int, str, int]], out: str) -> Image.Image:
     src = Image.open(SRC).convert("RGB")
     W, H = src.size
-    canvas = Image.new("RGB", (W, H))
+    bg = background(src)
+    canvas = bg.copy()
     canvas.paste(src.crop((0, 0, W, CUT)), (0, 0))
-    canvas.paste(src.crop((0, CUT, W, H - SHIFT)), (0, CUT + SHIFT))
-    canvas.paste(src.crop((0, CUT, W, CUT + 1)).resize((W, SHIFT)), (0, CUT))
-    b = badge(top, big)
-    canvas.paste(b, (0, CUT + 10), b)
+
+    body = src.crop((0, CUT, W, H))
+    diff = ImageChops.difference(body, bg.crop((0, CUT, W, H))).convert("L")
+    mask = diff.point(lambda v: 255 if v > 3 else v * 60).filter(ImageFilter.GaussianBlur(2))
+    sw, sh = round(W * PHONE_SCALE), round(body.height * PHONE_SCALE)
+    body, mask = body.resize((sw, sh), Image.LANCZOS), mask.resize((sw, sh), Image.LANCZOS)
+    top = CUT + BADGE_H - round((570 - CUT) * PHONE_SCALE) + 40
+    canvas.paste(body, ((W - sw) // 2, top), mask)
+
+    b = badge(lines, W)
+    canvas.paste(b, (0, CUT - 30), b)
     canvas.save(out)
     return canvas
 
 
-def side_by_side(frames: list[Image.Image], out: str) -> None:
-    w, h = frames[0].width * 2 // 5, frames[0].height * 2 // 5
-    sheet = Image.new("RGB", (w * len(frames) + 40 * (len(frames) - 1), h), "white")
+def side_by_side(frames: list[Image.Image], out: str, scale: float) -> None:
+    w, h = round(frames[0].width * scale), round(frames[0].height * scale)
+    gap = max(8, round(40 * scale))
+    sheet = Image.new("RGB", (w * len(frames) + gap * (len(frames) - 1), h), "white")
     for i, f in enumerate(frames):
-        sheet.paste(f.resize((w, h), Image.LANCZOS), (i * (w + 40), 0))
+        sheet.paste(f.resize((w, h), Image.LANCZOS), (i * (w + gap), 0))
     sheet.save(out)
 
 
 if __name__ == "__main__":
-    teacher = compose("Recommended by", "Mahj Teachers", "teacher.png")
-    players = compose("Trusted by over", "2,000 Players", "players.png")
-    side_by_side([Image.open(SRC).convert("RGB"), teacher, players], "arms.png")
+    teacher = compose([("Recommended by", 46, "Semibold", 7),
+                       ("Mahj", 150, "Semibold", 0),
+                       ("Teachers", 150, "Semibold", 0)], "teacher.png")
+    players = compose([("Trusted by over", 46, "Semibold", 7),
+                       ("2,000", 200, "Semibold", 0),
+                       ("Players", 46, "Semibold", 7)], "players.png")
+    control = Image.open(SRC).convert("RGB")
+    side_by_side([control, teacher, players], "arms.png", 0.4)
+    # Search results show screenshot 1 at about 1/4 of its pixel width on a phone.
+    side_by_side([control, teacher, players], "arms_search_size.png", 0.18)
