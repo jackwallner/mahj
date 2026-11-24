@@ -1,7 +1,1 @@
-Metin ve taşlar artık küçük ekranlarda veya Ekran Yakınlaştırma açıkken kesilmiyor.
-
-Yeni başlayanlara yönelik birkaç soruda daha net yanıtlar.
-
-Serin ve alıştırma geçmişin artık saat değişikliklerinde, uygulama güncellemelerinde ve dil değişimlerinde korunuyor.
-
-VoiceOver kartları, istakaları ve ilerlemeyi daha net okuyor.
+iPhone'unuzda metin boyutunu büyüttüğünüzde taşlar da büyür.

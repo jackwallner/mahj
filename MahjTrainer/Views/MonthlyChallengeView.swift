@@ -708,7 +708,7 @@ struct MonthlyChallengeAnswersView: View {
                 .foregroundStyle(Theme.ink)
                 .fixedSize(horizontal: false, vertical: true)
             if !item.tiles.isEmpty {
-                TileRackView(tiles: item.tiles, tileWidth: dynamicTypeSize.isAccessibilitySize ? 36 : 30)
+                TileRackView(tiles: item.tiles, tileWidth: 30)
                     .frame(maxWidth: .infinity)
                     // One element: without this every tile inherited the
                     // whole rack's label and VoiceOver read it 13 times over.

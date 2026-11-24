@@ -1,7 +1,1 @@
-Teksti ja laatat eivät enää leikkaudu pienemmillä näytöillä tai kun Näytön zoom on päällä.
-
-Selkeämmät vastaukset muutamaan aloittelijan kysymykseen.
-
-Putkesi ja harjoitushistoriasi kestävät nyt kellonajan muutokset, sovelluspäivitykset ja kielenvaihdot.
-
-VoiceOver lukee kortit, telineet ja edistymisen selkeämmin.
+Laatat suurenevat, kun suurennat iPhonen tekstikokoa.

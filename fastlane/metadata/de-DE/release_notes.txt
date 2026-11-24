@@ -1,7 +1,1 @@
-Text und Steine werden auf kleineren Bildschirmen oder bei aktiviertem Display-Zoom nicht mehr abgeschnitten.
-
-Klarere Antworten bei einigen Anfängerfragen.
-
-Deine Serie und dein Übungsverlauf bleiben jetzt bei Uhrzeitänderungen, App-Updates und Sprachwechseln erhalten.
-
-VoiceOver liest Karten, Ablagen und Fortschritt verständlicher vor.
+Die Steine werden größer, wenn du die Textgröße deines iPhone erhöhst.

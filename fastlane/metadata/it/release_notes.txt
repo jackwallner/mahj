@@ -1,7 +1,1 @@
-Testo e tessere non vengono più tagliati sugli schermi più piccoli o con Zoom display attivo.
-
-Risposte più chiare in alcune domande per principianti.
-
-La tua serie e la cronologia degli esercizi ora resistono ai cambi d'ora, agli aggiornamenti dell'app e ai cambi di lingua.
-
-VoiceOver legge in modo più chiaro carte, leggii e progressi.
+Le tessere diventano più grandi quando aumenti la dimensione del testo dell'iPhone.

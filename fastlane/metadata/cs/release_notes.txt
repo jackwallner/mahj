@@ -1,7 +1,1 @@
-Text a kameny se už neořezávají na menších displejích ani se zapnutým přiblížením displeje.
-
-Jasnější odpovědi u několika otázek pro začátečníky.
-
-Vaše série a historie procvičování nyní přežijí změnu času, aktualizaci aplikace i přepnutí jazyka.
-
-VoiceOver čte karty, stojánky a pokrok srozumitelněji.
+Kameny se zvětší, když na iPhonu zvětšíte velikost textu.

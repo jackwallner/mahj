@@ -1,7 +1,1 @@
-Tekst og brikker bliver ikke længere skåret af på mindre skærme eller med Skærmzoom slået til.
-
-Tydeligere svar på nogle få spørgsmål for begyndere.
-
-Din stribe og din øvelseshistorik holder nu efter ændringer af uret, appopdateringer og sprogskift.
-
-VoiceOver læser kort, stativer og fremskridt tydeligere op.
+Brikkerne bliver større, når du skruer op for tekststørrelsen på din iPhone.

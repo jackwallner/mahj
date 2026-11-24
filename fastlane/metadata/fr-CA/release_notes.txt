@@ -1,7 +1,1 @@
-Le texte et les tuiles ne sont plus coupés sur les petits écrans ou avec le Zoom de l'affichage activé.
-
-Réponses plus claires sur quelques questions pour débutants.
-
-Votre série et votre historique d'entraînement résistent désormais aux changements d'heure, aux mises à jour de l'app et aux changements de langue.
-
-VoiceOver lit plus clairement les cartes, les chevalets et la progression.
+Les tuiles grossissent quand vous augmentez la taille du texte de votre iPhone.

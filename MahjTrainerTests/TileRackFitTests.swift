@@ -55,4 +55,34 @@ final class TileRackFitTests: XCTestCase {
             add(shot)
         }
     }
+
+    // Tiles follow the iPhone's text size (2026-11-24, a teacher: tiles too
+    // small for kids and older players on a phone).
+    func testTilesGrowWithTextSizeAndStopAtTheCap() {
+        let sizes = DynamicTypeSize.allCases
+        let scales = sizes.map(TileView.scale(for:))
+        XCTAssertEqual(scales, scales.sorted(), "never shrinks as text grows")
+        XCTAssertEqual(TileView.scale(for: .large), 1)
+        XCTAssertEqual(TileView.scale(for: .xSmall), 1, "small text never shrinks a tile")
+        XCTAssertEqual(TileView.scaled(44, for: .accessibility5), 61.6, accuracy: 0.01)
+        XCTAssertEqual(TileView.scaled(54, for: .accessibility5), TileView.maximumWidth)
+    }
+
+    private func size(_ rack: TileRackView, width: CGFloat, typeSize: DynamicTypeSize) -> CGSize {
+        let host = UIHostingController(rootView: rack.environment(\.dynamicTypeSize, typeSize))
+        return host.sizeThatFits(in: CGSize(width: width, height: .greatestFiniteMagnitude))
+    }
+
+    func testALargeTextRackStillFitsAZoomedQuestion() {
+        for typeSize in DynamicTypeSize.allCases {
+            let tile = TileView.scaled(44, for: typeSize)
+            let fitted = size(TileRackView(tiles: deal, tileWidth: 44), width: 268, typeSize: typeSize)
+            XCTAssertLessThanOrEqual(fitted.width, 268.5, "\(typeSize)")
+            // Never a lone tile on its own row: at the cap 13 tiles read 4, 3, 3, 3.
+            let rows = Int(((fitted.height + 10) / (tile * 1.35 + 10)).rounded())
+            XCTAssertLessThanOrEqual(rows, 4, "\(typeSize)")
+        }
+        let largest = size(TileRackView(tiles: deal, tileWidth: 44), width: 268, typeSize: .accessibility5)
+        XCTAssertEqual(largest.height, 4 * 61.6 * 1.35 + 3 * 10, accuracy: 0.5)
+    }
 }

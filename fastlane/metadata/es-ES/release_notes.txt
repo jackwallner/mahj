@@ -1,7 +1,1 @@
-El texto y las fichas ya no se cortan en pantallas pequeñas ni con Zoom de pantalla activado.
-
-Respuestas más claras en algunas preguntas para principiantes.
-
-Tu racha y tu historial de práctica ahora se mantienen tras cambios de hora, actualizaciones de la app y cambios de idioma.
-
-VoiceOver lee con más claridad las cartas, los atriles y el progreso.
+Las fichas se hacen más grandes cuando aumentas el tamaño del texto del iPhone.

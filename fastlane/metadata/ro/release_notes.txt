@@ -1,7 +1,1 @@
-Textul și piesele nu mai sunt tăiate pe ecrane mai mici sau cu Zoom afișare activat.
-
-Răspunsuri mai clare la câteva întrebări pentru începători.
-
-Seria ta și istoricul exercițiilor rezistă acum la schimbările de oră, la actualizările aplicației și la schimbările de limbă.
-
-VoiceOver citește mai clar cărțile, suporturile și progresul.
+Piesele devin mai mari când mărești dimensiunea textului pe iPhone.

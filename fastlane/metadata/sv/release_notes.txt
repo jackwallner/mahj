@@ -1,7 +1,1 @@
-Text och brickor skärs inte längre av på mindre skärmar eller med Skärmzoom påslaget.
-
-Tydligare svar på några nybörjarfrågor.
-
-Din serie och din övningshistorik klarar nu tidsändringar, appuppdateringar och språkbyten.
-
-VoiceOver läser upp kort, ställ och framsteg tydligare.
+Brickorna blir större när du ökar textstorleken på din iPhone.

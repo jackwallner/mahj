@@ -1,7 +1,1 @@
-Text a kamene sa už neorezávajú na menších obrazovkách ani so zapnutým Priblížením displeja.
-
-Jasnejšie odpovede pri niekoľkých otázkach pre začiatočníkov.
-
-Vaša séria a história cvičení prežijú zmenu času, aktualizáciu aplikácie aj prepnutie jazyka.
-
-VoiceOver číta karty, stojany a pokrok zrozumiteľnejšie.
+Kamene sa zväčšia, keď na iPhone zväčšíte veľkosť textu.

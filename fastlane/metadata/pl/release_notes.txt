@@ -1,7 +1,1 @@
-Tekst i kafelki nie są już ucinane na mniejszych ekranach ani przy włączonym Powiększeniu ekranu.
-
-Jaśniejsze odpowiedzi w kilku pytaniach dla początkujących.
-
-Twoja seria i historia ćwiczeń wytrzymują teraz zmiany czasu, aktualizacje aplikacji i zmiany języka.
-
-VoiceOver czyta karty, stojaki i postępy wyraźniej.
+Kafelki robią się większe, gdy zwiększysz rozmiar tekstu w iPhonie.

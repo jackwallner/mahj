@@ -1,7 +1,1 @@
-Text and tiles no longer get cut off on smaller screens or with Display Zoom on.
-
-Clearer answers on a few beginner questions.
-
-Your streak and practice history now hold up through clock changes, app updates and language switches.
-
-VoiceOver reads cards, racks and progress more clearly.
+Tiles get bigger when you turn up your iPhone's text size.

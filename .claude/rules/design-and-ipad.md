@@ -194,3 +194,16 @@ screenshot, so measure before darkening a token further.
 - XCUITest `tap()` and coordinate presses do not flip a flashcard (its
   `DragGesture` has `minimumDistance: 0`); real HID taps do. A harness quirk,
   not an app bug: drive flips with a swipe or a real tap.
+
+**Tiles follow the text size (1.4.7, 2026-11-24):** a Mahj teacher said
+phone tiles are too small for kids and older players. Jack chose the iPhone
+text-size setting over an in-app size setting. `TileView.scale(for:)` is the
+one place: 1x up to Large (smaller text never shrinks a tile), 1.1 at XL,
+1.2 at XXL, 1.3 at XXXL, 1.4 at every accessibility size, and no tile wider
+than `TileView.maximumWidth` (72pt). Call sites keep passing their designed
+width; `TileRackView`'s highlight outline scales with it. 1.4x is the cap
+because a 13-tile rack in a 320pt Display Zoom question (268pt) still fits
+four a row. `BalancedRowsLayout` now spreads tiles evenly across its rows
+(13 four a row read 4, 3, 3, 3, never 4, 4, 4 and a lone tile; 5 a row read
+5, 4, 4). The Monthly Challenge answers' own AX bump (30 to 36pt) is gone:
+the shared scale covers it. Guard: `TileRackFitTests`.

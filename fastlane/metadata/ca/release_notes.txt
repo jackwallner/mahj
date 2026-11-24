@@ -1,7 +1,1 @@
-El text i les fitxes ja no es tallen en pantalles més petites ni amb el Zoom de pantalla activat.
-
-Respostes més clares en algunes preguntes per a principiants.
-
-La ratxa i l'historial de pràctica ara aguanten els canvis d'hora, les actualitzacions de l'app i els canvis d'idioma.
-
-VoiceOver llegeix amb més claredat les cartes, els faristols i el progrés.
+Les fitxes es fan més grans quan augmentes la mida del text de l'iPhone.

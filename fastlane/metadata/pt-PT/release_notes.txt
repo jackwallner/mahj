@@ -1,7 +1,1 @@
-O texto e as peças já não são cortados em ecrãs mais pequenos ou com o Zoom do ecrã ativado.
-
-Respostas mais claras em algumas perguntas para principiantes.
-
-A sua sequência e o seu histórico de treino mantêm-se agora após mudanças de hora, atualizações da app e trocas de idioma.
-
-O VoiceOver lê os cartões, os suportes e o progresso com mais clareza.
+As peças ficam maiores quando aumenta o tamanho do texto do iPhone.

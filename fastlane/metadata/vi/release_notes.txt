@@ -1,7 +1,1 @@
-Văn bản và quân bài không còn bị cắt ở màn hình nhỏ hoặc khi bật Thu phóng màn hình.
-
-Câu trả lời rõ ràng hơn ở một vài câu hỏi dành cho người mới.
-
-Chuỗi ngày và lịch sử luyện tập của bạn giờ được giữ nguyên khi đổi giờ, cập nhật ứng dụng và đổi ngôn ngữ.
-
-VoiceOver đọc thẻ, giá xếp bài và tiến độ rõ ràng hơn.
+Quân bài to hơn khi bạn tăng cỡ chữ trên iPhone.

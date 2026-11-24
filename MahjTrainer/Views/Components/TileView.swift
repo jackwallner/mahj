@@ -29,7 +29,36 @@ struct TileView: View {
     /// announcing itself as a button that does something.
     var actionEnabled = true
 
-    private var height: CGFloat { width * 1.35 }
+    @Environment(\.dynamicTypeSize) private var typeSize
+
+    /// `width` is the design at the default text size; what is drawn grows
+    /// with the player's text size (`TileView.scale`).
+    private var scaledWidth: CGFloat { Self.scaled(width, for: typeSize) }
+    private var height: CGFloat { scaledWidth * 1.35 }
+
+    /// How much a tile grows with the iPhone's text size. A teacher asked for
+    /// bigger tiles for kids and older players (2026-11-24); the text-size
+    /// setting is the one they already use, so tiles follow it instead of an
+    /// in-app setting. Smaller text sizes never shrink a tile. Text grows 3x
+    /// by AX5; tiles stop at 1.4x, where a 13-tile rack in a 320pt Display
+    /// Zoom question (268pt) still wraps four a row (4, 3, 3, 3).
+    static func scale(for size: DynamicTypeSize) -> CGFloat {
+        switch size {
+        case ...DynamicTypeSize.large: return 1
+        case .xLarge: return 1.1
+        case .xxLarge: return 1.2
+        case .xxxLarge: return 1.3
+        default: return 1.4
+        }
+    }
+
+    /// No tile draws wider than this, so the big onboarding and flashcard
+    /// tiles (54 and 52pt) do not turn a rack into a wall.
+    static let maximumWidth: CGFloat = 72
+
+    static func scaled(_ width: CGFloat, for size: DynamicTypeSize) -> CGFloat {
+        max(width, min(width * scale(for: size), maximumWidth))
+    }
 
     @ViewBuilder
     var body: some View {
@@ -42,14 +71,14 @@ struct TileView: View {
 
     private var tileBody: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: width * 0.16)
+            RoundedRectangle(cornerRadius: scaledWidth * 0.16)
                 .fill(Theme.ivory)
                 .shadow(color: .black.opacity(0.25), radius: 1.5, y: 1.5)
-            RoundedRectangle(cornerRadius: width * 0.16)
+            RoundedRectangle(cornerRadius: scaledWidth * 0.16)
                 .strokeBorder(Theme.ivoryShadow, lineWidth: 1)
             face
         }
-        .frame(width: width, height: height)
+        .frame(width: scaledWidth, height: height)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(tile.spokenName)
         .accessibilityIdentifier(identifier ?? "")
@@ -76,61 +105,61 @@ struct TileView: View {
             // Real crak tiles read numeral-over-萬; no pips to count.
             // Ranks are verbatim: a real set prints 1 to 9 in Western digits
             // everywhere, and a localized Text drew Arabic-Indic ones.
-            VStack(spacing: width * 0.02) {
+            VStack(spacing: scaledWidth * 0.02) {
                 Text(verbatim: String(rank))
-                    .font(.system(size: width * 0.5, weight: .bold, design: .serif))
+                    .font(.system(size: scaledWidth * 0.5, weight: .bold, design: .serif))
                     .foregroundStyle(Theme.crakRed)
                 Text(verbatim: "萬")
-                    .font(.system(size: width * 0.3, weight: .semibold))
+                    .font(.system(size: scaledWidth * 0.3, weight: .semibold))
                     .foregroundStyle(Theme.crakRed)
             }
         case .suited(let rank, let suit):
             // Dots and bams carry rank-accurate pips: a 9 shows 9 marks.
-            VStack(spacing: width * 0.06) {
+            VStack(spacing: scaledWidth * 0.06) {
                 Text(verbatim: String(rank))
-                    .font(.system(size: width * 0.3, weight: .bold, design: .serif))
+                    .font(.system(size: scaledWidth * 0.3, weight: .bold, design: .serif))
                     .foregroundStyle(suitColor(suit))
                 pipBlock(rank: rank, suit: suit)
             }
         case .wind(let wind):
-            VStack(spacing: width * 0.02) {
+            VStack(spacing: scaledWidth * 0.02) {
                 Text(wind.letter)
-                    .font(.system(size: width * 0.52, weight: .bold, design: .serif))
+                    .font(.system(size: scaledWidth * 0.52, weight: .bold, design: .serif))
                     .foregroundStyle(.black.opacity(0.85))
                 caption(String(localized: "WIND"), color: .black.opacity(0.66))
             }
         case .dragon(.red):
-            VStack(spacing: width * 0.02) {
+            VStack(spacing: scaledWidth * 0.02) {
                 Text(verbatim: "中")
-                    .font(.system(size: width * 0.5, weight: .bold))
+                    .font(.system(size: scaledWidth * 0.5, weight: .bold))
                     .foregroundStyle(Theme.crakRed)
                 caption(String(localized: "RED"), color: Theme.crakRed)
             }
         case .dragon(.green):
-            VStack(spacing: width * 0.02) {
+            VStack(spacing: scaledWidth * 0.02) {
                 Text(verbatim: "發")
-                    .font(.system(size: width * 0.5, weight: .bold))
+                    .font(.system(size: scaledWidth * 0.5, weight: .bold))
                     .foregroundStyle(Theme.bamGreen)
                 caption(String(localized: "GREEN"), color: Theme.bamGreen)
             }
         case .dragon(.soap):
-            VStack(spacing: width * 0.06) {
-                RoundedRectangle(cornerRadius: width * 0.06)
-                    .strokeBorder(Theme.dotBlue, lineWidth: width * 0.055)
-                    .frame(width: width * 0.5, height: width * 0.62)
+            VStack(spacing: scaledWidth * 0.06) {
+                RoundedRectangle(cornerRadius: scaledWidth * 0.06)
+                    .strokeBorder(Theme.dotBlue, lineWidth: scaledWidth * 0.055)
+                    .frame(width: scaledWidth * 0.5, height: scaledWidth * 0.62)
                 caption(String(localized: "SOAP"), color: Theme.dotBlue)
             }
         case .flower:
-            VStack(spacing: width * 0.02) {
+            VStack(spacing: scaledWidth * 0.02) {
                 Image(systemName: "camera.macro")
-                    .font(.system(size: width * 0.42, weight: .semibold))
+                    .font(.system(size: scaledWidth * 0.42, weight: .semibold))
                     .foregroundStyle(Theme.flowerPink)
                 caption(String(localized: "FLOWER"), color: Theme.flowerText)
             }
         case .joker:
-            VStack(spacing: width * 0.02) {
+            VStack(spacing: scaledWidth * 0.02) {
                 Image(systemName: "theatermasks.fill")
-                    .font(.system(size: width * 0.4, weight: .semibold))
+                    .font(.system(size: scaledWidth * 0.4, weight: .semibold))
                     .foregroundStyle(Theme.jokerPurple)
                 caption(String(localized: "JOKER"), color: Theme.jokerPurple)
             }
@@ -143,14 +172,14 @@ struct TileView: View {
     /// actually use, which is unreadable for the players this app is for.
     private func caption(_ text: String, color: Color) -> some View {
         Text(text)
-            .font(.system(size: max(9.5, width * 0.16), weight: .heavy))
+            .font(.system(size: max(9.5, scaledWidth * 0.16), weight: .heavy))
             // One line always: on the small review tiles GREEN broke as GREE / N.
             .lineLimit(1)
             .minimumScaleFactor(0.6)
             .foregroundStyle(color)
             // Inset from the tile's edge, or FLOWER filled the whole 44 pt
             // face and touched both sides before it would scale.
-            .padding(.horizontal, width * 0.08)
+            .padding(.horizontal, scaledWidth * 0.08)
     }
 
     private func suitColor(_ suit: Suit) -> Color {
@@ -179,7 +208,7 @@ struct TileView: View {
     @ViewBuilder
     private func pipBlock(rank: Int, suit: Suit) -> some View {
         let rows = pipRows(for: rank)
-        let pip = width * (rows.count == 1 ? 0.24 : rows.count == 2 ? 0.19 : 0.145)
+        let pip = scaledWidth * (rows.count == 1 ? 0.24 : rows.count == 2 ? 0.19 : 0.145)
         VStack(spacing: pip * 0.28) {
             ForEach(0..<rows.count, id: \.self) { row in
                 HStack(spacing: pip * 0.32) {
@@ -230,6 +259,7 @@ struct TileRackView: View {
     /// differs from a selection in shape as well as colour.
     var highlightDot = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     static let dropIn = AnyTransition.offset(y: -10).combined(with: .opacity)
         .animation(.easeOut(duration: 0.2).delay(0.22))
@@ -284,7 +314,7 @@ struct TileRackView: View {
             // Always present, only its opacity changes: a removed outline
             // stayed behind fading at the old spot while its tile slid away.
             .overlay {
-                RoundedRectangle(cornerRadius: tileWidth * 0.16)
+                RoundedRectangle(cornerRadius: TileView.scaled(tileWidth, for: typeSize) * 0.16)
                     .strokeBorder(highlightColor, lineWidth: 3)
                     .opacity(selected ? 1 : 0)
             }
@@ -381,9 +411,19 @@ struct BalancedRowsLayout: Layout {
         return (rows(sizes, perRow: 1, gap: spacing), spacing)
     }
 
+    /// Spread over the fewest rows of at most `perRow`, rows differing by at
+    /// most one tile, longest first: 13 tiles four a row read 4, 3, 3, 3,
+    /// never 4, 4, 4 and a lone tile (large text sizes wrap this far).
     private func rows(_ sizes: [CGSize], perRow: Int, gap: CGFloat) -> [Row] {
-        stride(from: 0, to: sizes.count, by: perRow).map { start in
-            let range = start..<min(start + perRow, sizes.count)
+        let rowCount = max(1, (sizes.count + perRow - 1) / perRow)
+        let base = sizes.count / rowCount
+        let extra = sizes.count % rowCount
+        var start = 0
+        return (0..<rowCount).compactMap { rowIndex in
+            let count = base + (rowIndex < extra ? 1 : 0)
+            guard count > 0 else { return nil }
+            let range = start..<(start + count)
+            start += count
             let row = sizes[range]
             let width = row.map(\.width).reduce(0, +) + gap * CGFloat(max(0, row.count - 1))
             return Row(range: range, width: width, height: row.map(\.height).max() ?? 0)

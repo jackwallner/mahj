@@ -1,7 +1,1 @@
-Besedilo in ploščice se na manjših zaslonih ali z vklopljenim Povečavo zaslona ne odrežejo več.
-
-Jasnejši odgovori pri nekaj vprašanjih za začetnike.
-
-Vaš niz in zgodovina vadbe ostaneta nespremenjena ob spremembah ure, posodobitvah aplikacije in menjavi jezika.
-
-VoiceOver jasneje bere kartice, stojala in napredek.
+Ploščice postanejo večje, ko na iPhonu povečate velikost besedila.

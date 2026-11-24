@@ -1,7 +1,1 @@
-Tekst i pločice više se ne režu na manjim zaslonima ni kad je uključen Zoom zaslona.
-
-Jasniji odgovori na nekoliko pitanja za početnike.
-
-Vaš niz i povijest vježbanja sada se zadržavaju nakon promjena vremena, ažuriranja aplikacije i promjena jezika.
-
-VoiceOver jasnije čita kartice, stalke i napredak.
+Pločice postaju veće kad na iPhoneu povećate veličinu teksta.

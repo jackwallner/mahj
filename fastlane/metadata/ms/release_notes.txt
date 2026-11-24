@@ -1,7 +1,1 @@
-Teks dan jubin tidak lagi terpotong pada skrin yang lebih kecil atau apabila Zum Paparan dihidupkan.
-
-Jawapan yang lebih jelas untuk beberapa soalan pemula.
-
-Rentetan hari dan sejarah latihan kini kekal selepas perubahan jam, kemas kini apl dan pertukaran bahasa.
-
-VoiceOver membaca kad, rak dan kemajuan dengan lebih jelas.
+Jubin menjadi lebih besar apabila anda membesarkan saiz teks iPhone.

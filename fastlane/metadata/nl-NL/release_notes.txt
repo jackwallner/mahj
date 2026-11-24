@@ -1,7 +1,1 @@
-Tekst en stenen worden niet meer afgekapt op kleinere schermen of met Weergavezoom aan.
-
-Duidelijkere antwoorden bij een paar vragen voor beginners.
-
-Je reeks en je oefengeschiedenis blijven nu behouden bij tijdwijzigingen, app-updates en taalwissels.
-
-VoiceOver leest kaarten, rekjes en voortgang duidelijker voor.
+Stenen worden groter als je de tekstgrootte van je iPhone groter zet.

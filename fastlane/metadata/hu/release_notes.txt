@@ -1,7 +1,1 @@
-A szöveg és a kövek már nem lógnak le kisebb képernyőn vagy bekapcsolt Kijelzőnagyítás mellett.
-
-Világosabb válaszok néhány kezdő kérdésnél.
-
-A sorozatod és a gyakorlási előzményeid mostantól megmaradnak óraváltás, alkalmazásfrissítés és nyelvváltás után is.
-
-A VoiceOver érthetőbben olvassa fel a kártyákat, az állványokat és az előrehaladást.
+A kövek nagyobbak lesznek, ha növeled az iPhone szövegméretét.
