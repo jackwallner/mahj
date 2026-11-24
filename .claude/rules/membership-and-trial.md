@@ -182,6 +182,14 @@ everyone enrolled, so read with `~/ios/growth/test-readout.py mahj
 --experiment expfa8555d5ee --since 2026-10-16 --until 2026-11-14`. Promote
 "my" by setting `cta_my` as the default offering.
 
+Read 2026-11-24 (settled, first seen Oct 16 to Nov 12): control 211
+customers, 59 trials, 32 paying, $1.26 per customer; "my" 199, 57, 33,
+$1.38. "My" won. `cta_my` is the current offering since 2026-11-24 (Jack),
+so every customer outside the experiment sees "Start my free trial". The
+experiment still runs: new customers it enrols in control keep the 7-day
+wording until it is stopped. Keep `offer_pitch` and any new key identical on
+`default` and `cta_my` while both exist.
+
 
 **Plain-words pitch (1.4.1, 2026-10-19):** with the Mahj Minute free for everyone, the Mahj+ pitch leads with practice hands. Jack first asked for "unlimited hands", then cut the mode name: a new player does not know what "Play a Hand" is. Every surface now says "coached practice hands, as many as you want" (trial page benefits, paywall's first benefit, pitch card, Home's Get Mahj+ row, room upsell). `TrialOfferPacerTests` fails any benefit line that names "Play a Hand". Only wording changed on the trial page; its layout, CTA and plan are untouched.
 
