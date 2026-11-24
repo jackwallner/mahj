@@ -190,7 +190,14 @@ struct OnboardingView: View {
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
-            TileRackView(tiles: tiles, tileWidth: 54)
+            // One row, at the largest size that fits: tiles grow with the
+            // text size, and at XXXL on a 320pt phone four 54pt tiles broke
+            // into two rows and the second sat under the page dots.
+            ViewThatFits(in: .horizontal) {
+                ForEach([54, 46, 40, 34], id: \.self) { width in
+                    TileRackView(tiles: tiles, tileWidth: CGFloat(width))
+                }
+            }
             Text(bodyText)
                 .font(.body)
                 .foregroundStyle(Theme.inkSecondary)
