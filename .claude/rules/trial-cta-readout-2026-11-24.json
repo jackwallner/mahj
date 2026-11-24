@@ -1,0 +1,31 @@
+{
+  "app": "mahj",
+  "since": "2026-10-16",
+  "until": "2026-11-13",
+  "arms": {
+    "a": {
+      "customers": 211,
+      "trials": 59,
+      "paying": 32,
+      "trials_running": 0,
+      "revenue_per_customer": 1.26
+    },
+    "b": {
+      "customers": 199,
+      "trials": 57,
+      "paying": 33,
+      "trials_running": 0,
+      "revenue_per_customer": 1.381
+    }
+  },
+  "settled": true,
+  "chance_b_higher": 0.645,
+  "experiment": "expfa8555d5ee",
+  "read_on": "2026-11-24",
+  "arm_names": {
+    "a": "default (control, Start 7-day free trial)",
+    "b": "cta_my (Start my free trial)"
+  },
+  "group": "customers first seen 2026-10-16 to 2026-11-12 enrolled in expfa8555d5ee",
+  "members_file": "~/ios/growth/readouts/mahj-expfa8555d5ee-members.json (local only, customer ids)"
+}
