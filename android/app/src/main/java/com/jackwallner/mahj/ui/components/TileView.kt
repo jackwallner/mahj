@@ -5,12 +5,15 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,21 +42,38 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.jackwallner.mahj.model.Dragon
 import com.jackwallner.mahj.model.Suit
 import com.jackwallner.mahj.model.Tile
 import com.jackwallner.mahj.ui.theme.Mahj
 import com.jackwallner.mahj.ui.theme.pressable
 
+/** `width` grown with the system font size (`TileSizing.scale`), capped at 72dp. */
+@Composable
+fun scaledTileWidth(width: Dp): Dp = TileSizing.scaled(width.value, LocalDensity.current.fontScale).dp
+
 /**
  * One American mahj tile. Text-forward on purpose: US sets print N/E/W/S, F
- * and J, so beginners learn the real markings. Sizes are in dp, not sp: a
- * tile is a picture of an object and must not grow with the font scale.
+ * and J, so beginners learn the real markings. Call sites pass their designed
+ * width; the tile grows with the system font size (1.4.7: teachers found phone
+ * tiles too small for kids and older players), and its glyphs follow its width.
  */
 @Composable
 fun TileView(
     tile: Tile,
     width: Dp = 44.dp,
+    modifier: Modifier = Modifier,
+    tag: String? = null,
+    selected: Boolean = false,
+    onClick: (() -> Unit)? = null,
+) = ScaledTile(tile, scaledTileWidth(width), modifier, tag, selected, onClick)
+
+/** A tile at an already scaled width, so `TileRack` can lay out with the size it draws. */
+@Composable
+private fun ScaledTile(
+    tile: Tile,
+    width: Dp,
     modifier: Modifier = Modifier,
     tag: String? = null,
     selected: Boolean = false,
@@ -151,11 +171,22 @@ private fun TileFace(tile: Tile, width: Dp) {
     }
 }
 
-/** The tile's word has a legibility floor so it stays readable on small tiles. */
+/**
+ * The tile's word has a legibility floor so it stays readable on small tiles, and keeps clear of
+ * the tile edge: inset by 8% each side, it shrinks (to 60% at most) rather than touching it.
+ */
 @Composable
 private fun Caption(text: String, color: Color, width: Dp) {
     val size = maxOf(9.5.dp, width * 0.16f)
-    Text(text, style = glyph(size, FontWeight.ExtraBold), color = color, maxLines = 1, softWrap = false)
+    val style = glyph(size, FontWeight.ExtraBold).copy(color = color)
+    BasicText(
+        text,
+        Modifier.padding(horizontal = width * 0.08f),
+        style = style,
+        maxLines = 1,
+        softWrap = false,
+        autoSize = TextAutoSize.StepBased(minFontSize = style.fontSize * 0.6f, maxFontSize = style.fontSize, stepSize = 0.25.sp),
+    )
 }
 
 private fun pipRows(rank: Int): List<Int> = when (rank) {
@@ -201,9 +232,11 @@ private fun PipBlock(rank: Int, suit: Suit, width: Dp, color: Color) {
  * A wrapping row of tiles. Rows are balanced rather than filled: eight tiles
  * split 4 and 4, not 7 and a lone tile. A 13-tile rack reads 7 and 6.
  *
- * Tiles shrink to fit the width they are given: seven 44dp tiles need 344dp,
- * and a 360dp phone has 328dp inside the screen padding, so without this the
- * seventh tile of every rack question was cut off at the edge.
+ * Racks fit the width they are given by wrapping, never by shrinking tiles
+ * (1.4.7 grows them with the font size): the designed rows where they fit,
+ * else the most tiles a row that fit with at least a 2dp gap, spread evenly
+ * (13 four a row read 4, 3, 3, 3). Seven 44dp tiles still fit a 360dp phone's
+ * 328dp with a 3dp gap. Only a single tile wider than the space shrinks.
  */
 @Composable
 fun TileRack(
@@ -213,23 +246,22 @@ fun TileRack(
     highlighted: Set<Int> = emptySet(),
     onTap: ((Int) -> Unit)? = null,
 ) {
-    val columns = 7
-    val gap = 6.dp
-    val rowCount = maxOf(1, (tiles.size + columns - 1) / columns)
-    val perRow = maxOf(1, (tiles.size + rowCount - 1) / rowCount)
-    val rows = tiles.withIndex().chunked(perRow)
     val gold = Mahj.colors.gold
+    val scaled = scaledTileWidth(tileWidth)
     BoxWithConstraints(modifier, contentAlignment = Alignment.Center) {
-        val fitted = if (maxWidth.value.isFinite()) minOf(tileWidth, (maxWidth - gap * (perRow - 1)) / perRow) else tileWidth
-        val width = maxOf(fitted, 24.dp)
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        val available = if (maxWidth.value.isFinite()) maxWidth.value else null
+        val width = if (available != null) minOf(scaled, maxWidth) else scaled
+        val layout = TileSizing.arrangement(tiles.size, width.value, available)
+        var start = 0
+        val rows = layout.rows.map { count -> tiles.withIndex().toList().subList(start, start + count).also { start += count } }
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(TileSizing.ROW_SPACING.dp)) {
             rows.forEach { row ->
-                Row(horizontalArrangement = Arrangement.spacedBy(gap)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(layout.gap.dp)) {
                     row.forEach { (index, tile) ->
                         val selected = index in highlighted
                         val lift by animateDpAsState(if (selected) (-8).dp else 0.dp, spring(dampingRatio = 0.7f, stiffness = 500f), label = "lift")
                         Box(Modifier.offset(y = lift)) {
-                            TileView(
+                            ScaledTile(
                                 tile,
                                 width,
                                 tag = "rack-tile-$index",
