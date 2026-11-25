@@ -197,6 +197,10 @@ this public repo), because `test-readout.py --experiment` finds the group
 through each customer's live enrolment, which a stopped experiment may not
 keep. The Dec 20 renewal read scores those ids, not a fresh enrolment query.
 
+Experiment `expfa8555d5ee` was stopped on 2026-11-24, so every new customer
+now gets `cta_my` and "Start my free trial". The same wording went live that day
+on Total Calories, Bridge, Cribbage, Skat and Sheepshead through `trial_cta: my`.
+
 
 **Plain-words pitch (1.4.1, 2026-10-19):** with the Mahj Minute free for everyone, the Mahj+ pitch leads with practice hands. Jack first asked for "unlimited hands", then cut the mode name: a new player does not know what "Play a Hand" is. Every surface now says "coached practice hands, as many as you want" (trial page benefits, paywall's first benefit, pitch card, Home's Get Mahj+ row, room upsell). `TrialOfferPacerTests` fails any benefit line that names "Play a Hand". Only wording changed on the trial page; its layout, CTA and plan are untouched.
 
