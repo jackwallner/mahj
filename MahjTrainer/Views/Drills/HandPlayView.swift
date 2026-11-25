@@ -290,7 +290,10 @@ struct HandPlayView: View {
 
     private var playScreen: some View {
         VStack(spacing: 14) {
-            statusBar
+            // At accessibility sizes the stacked status scrolls with the
+            // rack: pinned above it, on a 320pt phone at AX5 it left room
+            // for one row of the rack above the held Next room.
+            if !dynamicTypeSize.isAccessibilitySize { statusBar }
             // The prompt and rack sit where they would if the note took
             // exactly its reserved room, so a longer note (large text, a
             // long verdict) grows downward and scrolls instead of moving the
@@ -299,6 +302,7 @@ struct HandPlayView: View {
               ScrollView {
                 VStack(spacing: 16) {
                   VStack(spacing: 16) {
+                    if dynamicTypeSize.isAccessibilitySize { statusBar }
                     if let drawn {
                         let prompt = grade == nil
                             ? String(localized: "You drew the \(drawn.spokenName). What goes?")
@@ -376,6 +380,9 @@ struct HandPlayView: View {
                     }
                 }
             }
+            // Its room is held on every turn, so at AX5 a two-line button
+            // took a quarter of a 320pt phone and left one rack row on screen.
+            .dynamicTypeSize(...DynamicTypeSize.accessibility1)
         }
         .padding()
         .frame(maxWidth: Theme.readableContentWidth)
@@ -399,35 +406,72 @@ struct HandPlayView: View {
     }
 
     /// Turn count and target on one line, or stacked at accessibility sizes,
-    /// where side by side the section name broke into "24 / 68".
+    /// where side by side the section name broke into "24 / 68". Stacked,
+    /// the target and its fit count share a line where they fit: three
+    /// lines of chrome pushed the rack's last row off a 320pt phone.
     private var statusBar: some View {
         let stacked = dynamicTypeSize.isAccessibilitySize
-        return (stacked ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6)) : AnyLayout(HStackLayout(spacing: 10))) {
-            Text("Turn \(min(turn, HandPlayEngine.turnCount)) of \(HandPlayEngine.turnCount)")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(Theme.inkSecondary)
-                .monospacedDigit()
-            if !stacked { Spacer() }
-            if let target {
-                HStack(spacing: 5) {
-                    Image(systemName: "target")
-                        .font(.caption2)
-                    Text(target.shortName)
-                        .font(.caption.weight(.bold))
-                        .fixedSize()
+        return Group {
+            if stacked {
+                VStack(alignment: .leading, spacing: 6) {
+                    turnText
+                    if let target {
+                        ViewThatFits(in: .horizontal) {
+                            HStack(spacing: 10) {
+                                targetPill(target)
+                                fitText
+                            }
+                            VStack(alignment: .leading, spacing: 6) {
+                                targetPill(target)
+                                fitText
+                            }
+                        }
+                    }
                 }
-                .foregroundStyle(Theme.jade)
-                .padding(.horizontal, 9)
-                .padding(.vertical, 5)
-                .background(Theme.jade.opacity(0.12), in: Capsule())
-                Text("\(fittingCount) fit")
-                    .accessibilityLabel("\(fittingCount) tiles fit the section")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(Theme.inkSecondary)
-                    .monospacedDigit()
+            } else {
+                HStack(spacing: 10) {
+                    turnText
+                    Spacer()
+                    if let target {
+                        targetPill(target)
+                        fitText
+                    }
+                }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        // Chrome above the rack: past AX1 it pushed the rack's last rows off
+        // a small phone.
+        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
+    }
+
+    private var turnText: some View {
+        Text("Turn \(min(turn, HandPlayEngine.turnCount)) of \(HandPlayEngine.turnCount)")
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(Theme.inkSecondary)
+            .monospacedDigit()
+    }
+
+    private func targetPill(_ target: HandCategory) -> some View {
+        HStack(spacing: 5) {
+            Image(systemName: "target")
+                .font(.caption2)
+            Text(target.shortName)
+                .font(.caption.weight(.bold))
+                .fixedSize()
+        }
+        .foregroundStyle(Theme.jade)
+        .padding(.horizontal, 9)
+        .padding(.vertical, 5)
+        .background(Theme.jade.opacity(0.12), in: Capsule())
+    }
+
+    private var fitText: some View {
+        Text("\(fittingCount) fit")
+            .accessibilityLabel("\(fittingCount) tiles fit the section")
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(Theme.inkSecondary)
+            .monospacedDigit()
     }
 
     /// Tiles that FIT, not tiles already grouped. The choose screen and the

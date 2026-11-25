@@ -19,6 +19,7 @@ holds only what is specific to this app.
   `Mahj Trainer: Mahjong Practice`, category Education, audience 18+.
 - Version name follows iOS (`1.3.1`); `versionCode` starts at 1 and bumps on
   every upload.
+- vc10 (1.4.7, the iOS 1.4.7 catch-up with session levels): internal 2026-11-24, checked through Play on moto-2, then promoted to production by API on 2026-11-25 (edit commit, status completed, en-US notes), replacing vc9 (1.3.2). Managed publishing holds it after Google approves until Publish is pressed in Publishing overview. A Moto with a sideloaded build signed by another key must uninstall it before Play can update.
 - Moving into the iOS project (2026-10-27): Play app `app8da2718cbb` in `proj28030dc2` has the Play products on entitlement `pro` and a non-current `android` offering. The code syncs existing Play purchases once (`SYNCED_TO_SHARED_PROJECT`) so old-project trials keep access. Shipped 2026-10-27: vc8 uses that app's `goog_` key and went to production review by API (the service account can now write production; the 2026-10-08 Console-only note below is stale). The old Android-only project stays until the update rolls out. Trial copy follows Play's offer (`offersFreeTrial`) and also drops the free week for anyone with a past subscription (`TrialPolicy`).
 - Old RevenueCat project `projba4fbe38` "Mahj Trainer Android" (separate from
   iOS `proj28030dc2`), Play app `appeb48abdaf2`: builds before vc8 ship its

@@ -208,10 +208,17 @@ four a row. `BalancedRowsLayout` now spreads tiles evenly across its rows
 5, 4, 4). The Monthly Challenge answers' own AX bump (30 to 36pt) is gone:
 the shared scale covers it. The onboarding info pages' 54pt rack is the one that
 does not grow (`.dynamicTypeSize(...large)`): grown, it broke 2 and 2 at
-XXXL on a 320pt phone and pushed the copy under the page dots. Those pages
-still run their copy under the dots at XXXL on 320pt with 1.4.6's tiles
-(the scroll fallback; open), and
+XXXL on a 320pt phone and pushed the copy under the page dots.
 `CenteringScrollView` flashes its scroll bar on appear, since a big-text
-question with its rack can run past the footer. Known tight spot: Play a
-Hand at AX5 on a 320pt window shows one rack row above the held Next room;
-the rest scrolls. Guard: `TileRackFitTests`.
+question with its rack can run past the footer.
+
+Fixed alongside (all checked on a 320x693 window): the onboarding pages
+clip at their own bottom (`.clipped()` on the paged TabView) and every
+scrolling fallback ends 10pt above the page dots, so copy never draws across
+them; the info pages' scroll fallback drops the icon so the first screen
+shows copy at XXXL. The onboarding footer and Play a Hand's status line and
+held Next room cap at AX1: at AX5 the pinned price, terms and trial button
+outgrew the screen and drew over the trial page, and Play a Hand showed one
+rack row. Play a Hand's status scrolls with the rack at AX sizes, the target
+and fit count sharing a line where they fit; the whole 13-tile rack is on
+screen at AX5. Guard: `TileRackFitTests`.
