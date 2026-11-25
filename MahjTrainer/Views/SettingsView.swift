@@ -13,6 +13,7 @@ struct SettingsView: View {
     @State private var restoreMessage: String?
     @State private var restoring = false
     @State private var showFeedback = false
+    @ObservedObject private var classes = ClassCodeService.shared
 
     var body: some View {
         NavigationStack {
@@ -150,6 +151,17 @@ struct SettingsView: View {
                     GameNightPrepView()
                 } label: {
                     Label("Game Night Prep", systemImage: "person.2.fill")
+                }
+            }
+            NavigationLink {
+                ClassCodeView()
+            } label: {
+                LabeledContent {
+                    if let joined = classes.current {
+                        Text(joined.name).foregroundStyle(Theme.inkSecondary)
+                    }
+                } label: {
+                    Label("Class Code", systemImage: "graduationcap.fill")
                 }
             }
         } header: {

@@ -26,6 +26,11 @@ struct MahjTrainerApp: App {
                 .onOpenURL { url in
                     Analytics.capture("deep_link_opened", ["host": url.host ?? "none"])
                     if let destination = AppDestination(url: url) { router.route(to: destination) }
+                    // A teacher's card: joining is all it does, and Home
+                    // shows the class as soon as the server answers.
+                    if let code = ClassCode.code(from: url) {
+                        Task { _ = await ClassCodeService.shared.join(code) }
+                    }
                 }
                 .onChange(of: scenePhase) { _, phase in
                     if phase == .background { TrialOfferPacer.noteBackground() }
@@ -35,6 +40,7 @@ struct MahjTrainerApp: App {
                     DayClock.shared.refresh()
                     TrialOfferPacer.noteForeground()
                     Task { await FeedbackService.shared.flushPending() }
+                    Task { await ClassCodeService.shared.refresh() }
                     // Keeps "1st of each month" true for players who never
                     // cold-launch: the three scheduled months roll forward.
                     MonthlyChallengeReminder.refresh()

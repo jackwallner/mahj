@@ -320,6 +320,8 @@ final class SubscriptionService: NSObject, ObservableObject {
         // The last record RevenueCat saw, from the first frame: a member is a
         // member before the network answers.
         if let cached = Purchases.shared.cachedCustomerInfo { apply(cached) }
+        // A class joined before this install ever configured RevenueCat.
+        if let code = ClassCodeService.shared.current?.code { syncClassAttribute(code) }
         Task {
             await refreshCustomerInfo()
             // In parallel with offerings: a reinstalled member should be
@@ -508,6 +510,16 @@ final class SubscriptionService: NSObject, ObservableObject {
         Purchases.shared.attribution.setAttributes(attributes)
         Analytics.setPersonProperties(attributes)
         Analytics.register(remoteVariantAttributes)
+    }
+
+    /// The teacher's class this player joined (`ClassCodeService`), so trials
+    /// and members can be counted per teacher. An empty value clears it.
+    func syncClassAttribute(_ code: String?) {
+        let value = code ?? ""
+        Analytics.setPersonProperties(["class_code": value])
+        Analytics.register(["class_code": value])
+        guard isConfigured else { return }
+        Purchases.shared.attribution.setAttributes(["class_code": value])
     }
 
     /// `fetchCurrent` when the answer has to be new (right after a purchase):

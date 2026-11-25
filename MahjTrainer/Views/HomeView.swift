@@ -25,6 +25,7 @@ struct HomeView: View {
     @StateObject private var handPlay = HandPlayStore.shared
     @StateObject private var ledger = MasteryLedger.shared
     @StateObject private var dayClock = DayClock.shared
+    @ObservedObject private var classes = ClassCodeService.shared
     @State private var path: [AppDestination] = []
     /// Bumped on every open of the challenge, so the event link redraws it
     /// for today even when it is already the screen on top.
@@ -380,6 +381,7 @@ struct HomeView: View {
             VStack(spacing: 14) {
                 header
                 todaySession
+                if let focus = classFocus { classCard(focus) }
                 if showsPrimerCard { howToPlayCard }
                 if let round = challengeCardRound { monthlyChallengeCard(round) }
                 if showsGameNightCard { gameNightCard }
@@ -397,6 +399,7 @@ struct HomeView: View {
     private var todayColumn: some View {
         VStack(spacing: 14) {
             todaySession
+            if let focus = classFocus { classCard(focus) }
             if showsPrimerCard { howToPlayCard }
             if let round = challengeCardRound { monthlyChallengeCard(round) }
             if showsGameNightCard { gameNightCard }
@@ -856,6 +859,56 @@ struct HomeView: View {
     private var challengeCardRound: ChallengeRound? {
         guard let round = homeChallengeRound, monthlyStore.result(for: round) == nil else { return nil }
         return round
+    }
+
+    /// The teacher's class and the room they want this week, under Get
+    /// Started. Jack sets the room on the server (`ClassCodeService`).
+    private var classFocus: (name: String, room: Room)? {
+        guard let joined = classes.current, let room = joined.focusRoom else { return nil }
+        return (joined.name, room)
+    }
+
+    private func classCard(_ focus: (name: String, room: Room)) -> some View {
+        let room = focus.room
+        let locked = !room.isFree && !subscriptions.isPro
+        return paneLink(room: room) {
+            HStack(spacing: 12) {
+                Image(systemName: room.icon)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(room.accent)
+                    .frame(width: 38, height: 38)
+                    .background(room.accent.opacity(0.13), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("\(focus.name.uppercased()) · THIS WEEK")
+                        .font(.caption2.weight(.heavy))
+                        .kerning(1.2)
+                        .foregroundStyle(Theme.readable(room.accent))
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(room.name)
+                        .font(.headline)
+                        .foregroundStyle(Theme.ink)
+                    Text(room.tagline)
+                        .font(.caption)
+                        .foregroundStyle(Theme.inkSecondary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: 4)
+                Image(systemName: locked ? "lock.fill" : "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(locked ? Theme.gold : Theme.inkTertiary)
+                    .accessibilityHidden(true)
+            }
+            .padding(12)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PressableCardStyle())
+        .themedCard(corner: 16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(room.accent.opacity(0.3), lineWidth: 1)
+        )
     }
 
     /// Today's Mahj Minute, under Get Started (and under How to Play for

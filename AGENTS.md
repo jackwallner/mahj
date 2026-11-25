@@ -102,6 +102,7 @@ These files load automatically when you read a file matching their `paths:`. Age
 | `.claude/rules/chatgpt-plugin.md` | The free ChatGPT plugin and Claude connector: MCP server on Cloudflare, widget, packaging and submission | Anything under `chatgpt/` |
 | `.claude/rules/localization.md` | de/es/fr/id/vi String Catalogs, the Content table looked up at model init, rules for adding copy | Any user-facing string, `Shared/Content`, the catalogs |
 | `.claude/rules/session-level.md` | Basic / intermediate / challenging tiers per item, the onboarding seed and how accuracy raises a session's ceiling | `ItemDifficulty`, `SessionBuilder`, adding drill content |
+| `.claude/rules/class-codes.md` | Teacher class codes (1.4.7): Settings entry, `mahj://class` link, Home focus card, `class_fetch` RPC, `class_code` attribution | `ClassCodeService`, the class card, teacher pilots |
 
 ## Flashcard deck (signature interaction)
 
