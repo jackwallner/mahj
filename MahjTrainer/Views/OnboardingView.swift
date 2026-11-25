@@ -89,6 +89,9 @@ struct OnboardingView: View {
             // walks off the first screen straight into the trial page's price,
             // Restore, Terms and Privacy controls before they are visible.
             .tabViewStyle(.page(indexDisplayMode: .never))
+            // A page that scrolls (large text on a small phone) ends at the
+            // page dots: unclipped, its next line drew across them.
+            .clipped()
             // Reduce Motion: the page changes in place instead of sliding.
             .animation(reduceMotion ? nil : .easeInOut, value: page)
             .transaction { if reduceMotion { $0.animation = nil } }
@@ -136,6 +139,7 @@ struct OnboardingView: View {
                 VStack(spacing: spacing) { content }
                     .padding(.vertical, 24)
             }
+            .padding(.bottom, 10)
         }
         .padding(.horizontal, 28)
     }
@@ -167,10 +171,16 @@ struct OnboardingView: View {
                 infoText(title: title, body: bodyText, tiles: tiles)
                 Spacer(minLength: 0)
             }
+            // Without the icon here too: on a 320pt phone at XXXL the first
+            // screen showed the icon, the title and the tiles, and no copy.
             ScrollView {
-                full.padding(.vertical, 24)
+                infoText(title: title, body: bodyText, tiles: tiles)
+                    .padding(.vertical, 24)
             }
             .scrollIndicatorsFlash(trigger: page)
+            // Clipped 10pt above the page dots, not at them: a cut line's
+            // descenders touched the dots.
+            .padding(.bottom, 10)
         }
         .padding(.horizontal, 28)
     }
@@ -242,6 +252,9 @@ struct OnboardingView: View {
                 skillContent(compact: false).padding(.vertical, 24)
             }
             .scrollIndicatorsFlash(trigger: page)
+            // Clipped 10pt above the page dots, not at them: a cut line's
+            // descenders touched the dots.
+            .padding(.bottom, 10)
         }
         .padding(.horizontal, 28)
     }
@@ -368,6 +381,7 @@ struct OnboardingView: View {
                     .padding(.vertical, 24)
                 }
                 .scrollIndicatorsFlash(trigger: page)
+                .padding(.bottom, 10)
             }
             .padding(.horizontal, 28)
         }
@@ -507,6 +521,10 @@ struct OnboardingView: View {
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 10)
+        // Pinned, so it cannot scroll: at AX5 on a 320pt phone the price,
+        // its terms and the CTA outgrew the screen and drew over the page
+        // they were meant to sit under.
+        .dynamicTypeSize(...DynamicTypeSize.accessibility1)
         // Full width as in 1.3.2: the trial flow's layout is frozen, iPad too.
     }
 
