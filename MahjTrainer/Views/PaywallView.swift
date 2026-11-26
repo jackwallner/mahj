@@ -416,6 +416,8 @@ struct PaywallView: View {
         }
     }
 
+    private static let retryHit = EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
+
     @ViewBuilder
     private var priceRetry: some View {
         if priceLoadAttempted && !priceReady && !loadingPrices {
@@ -423,9 +425,13 @@ struct PaywallView: View {
                 .font(.caption)
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
-            Button("Retry loading prices") {
+            // A 44pt target grown around the text; nothing it sits beside moves.
+            Button {
                 Task { await loadPrices() }
+            } label: {
+                Text("Retry loading prices").hitPadding(Self.retryHit)
             }
+            .padding(-Self.retryHit)
             .font(.subheadline.weight(.semibold))
             .foregroundStyle(Theme.jade)
         }
