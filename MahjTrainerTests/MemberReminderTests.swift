@@ -36,6 +36,27 @@ final class MemberReminderTests: XCTestCase {
         XCTAssertTrue(settings.gameNightReminderEnabled)
     }
 
+    /// Notification removal makes a synchronous XPC call. A stalled system
+    /// service must not block RevenueCat's main-actor update or the first tap.
+    func testTrialReminderCancellationRunsOffTheUIThread() async {
+        let removed = expectation(description: "legacy trial reminder removed")
+        let expectedID = "mahj.trialEndReminder"
+        AppSettings.cancelTrialEndReminder { identifiers in
+            XCTAssertFalse(Thread.isMainThread, "notification service calls must not block the UI thread")
+            XCTAssertEqual(identifiers, [expectedID])
+            removed.fulfill()
+        }
+        await fulfillment(of: [removed], timeout: 5)
+    }
+
+    func testNotificationUpdatesKeepSubmissionOrder() async {
+        let cancelled = expectation(description: "old requests cancelled")
+        let scheduled = expectation(description: "replacement requests scheduled")
+        NotificationRequests.perform { cancelled.fulfill() }
+        NotificationRequests.perform { scheduled.fulfill() }
+        await fulfillment(of: [cancelled, scheduled], timeout: 5, enforceOrder: true)
+    }
+
     // MARK: - Which records confirm a lapse
 
     func testAFreshNonMemberRecordConfirmsTheLapse() {

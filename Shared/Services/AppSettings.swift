@@ -200,16 +200,17 @@ final class AppSettings: ObservableObject {
     /// date), never from "now plus seven days". Needs notification
     /// permission; the caller handles a refusal.
     func scheduleTrialEndReminder(trialEndsAt end: Date, daysBefore: Int = 2, now: Date = Date()) {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: [Self.trialEndReminderID])
-        guard let fireAt = Self.trialReminderFireDate(trialEndsAt: end, daysBefore: daysBefore, now: now) else { return }
-        let content = UNMutableNotificationContent()
-        content.title = String(localized: "Your \(Membership.name) trial ends in \(daysBefore) days")
-        content.body = String(localized: "Keep it and nothing changes. Not for you? Cancel in Settings > Apple Account > Subscriptions and you won't be charged.")
-        content.sound = .default
+        guard let fireAt = Self.trialReminderFireDate(trialEndsAt: end, daysBefore: daysBefore, now: now) else {
+            Self.cancelTrialEndReminder()
+            return
+        }
         let parts = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: fireAt)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)
-        center.add(UNNotificationRequest(identifier: Self.trialEndReminderID, content: content, trigger: trigger))
+        NotificationRequests.replace([.init(
+            identifier: Self.trialEndReminderID,
+            title: String(localized: "Your \(Membership.name) trial ends in \(daysBefore) days"),
+            body: String(localized: "Keep it and nothing changes. Not for you? Cancel in Settings > Apple Account > Subscriptions and you won't be charged."),
+            components: parts, repeats: false
+        )], removing: [Self.trialEndReminderID])
     }
 
     /// 10am local, `daysBefore` days before the trial ends, or nil when that
@@ -225,9 +226,15 @@ final class AppSettings: ObservableObject {
     }
 
     /// The trial converted, ended, or will not renew: the reminder's promise
-    /// no longer holds.
-    static func cancelTrialEndReminder() {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [trialEndReminderID])
+    /// no longer holds. Removal waits synchronously on the notification
+    /// service, so keep it off the main actor even when RevenueCat calls us.
+    static func cancelTrialEndReminder(
+        remove: @escaping @Sendable ([String]) -> Void = { identifiers in
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+        }
+    ) {
+        let identifiers = [trialEndReminderID]
+        NotificationRequests.perform { remove(identifiers) }
     }
 
     /// Asks for permission if needed, then schedules. `completion` reports
@@ -310,23 +317,17 @@ final class AppSettings: ObservableObject {
     }
 
     private func scheduleReminder() {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: [Self.reminderID])
-
-        let content = UNMutableNotificationContent()
-        content.title = String(localized: "Time for a quick drill")
-        content.body = Self.dailyReminderBody
-        content.sound = .default
-
         var parts = Calendar.current.dateComponents([.hour, .minute], from: reminderTime)
         parts.second = 0
-        let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: true)
-        center.add(UNNotificationRequest(identifier: Self.reminderID, content: content, trigger: trigger))
+        NotificationRequests.replace([.init(
+            identifier: Self.reminderID,
+            title: String(localized: "Time for a quick drill"), body: Self.dailyReminderBody,
+            components: parts, repeats: true
+        )], removing: [Self.reminderID])
     }
 
     private func cancelReminder() {
-        UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(withIdentifiers: [Self.reminderID])
+        NotificationRequests.remove([Self.reminderID])
     }
 
     // MARK: - Game night reminder
@@ -347,23 +348,18 @@ final class AppSettings: ObservableObject {
     }
 
     private func scheduleGameNightReminder() {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: [Self.gameNightReminderID])
-
-        let content = UNMutableNotificationContent()
-        content.title = String(localized: "Your game night prep is ready")
-        content.body = Self.gameNightReminderBody
-        content.sound = .default
-        content.userInfo = [AppNotification.routeKey: AppNotification.gameNightPrepValue]
-
         let time = Calendar.current.dateComponents([.hour, .minute], from: gameNightReminderTime)
         var parts = DateComponents()
         parts.weekday = gameNightDay.rawValue
         parts.hour = time.hour
         parts.minute = time.minute
         parts.second = 0
-        let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: true)
-        center.add(UNNotificationRequest(identifier: Self.gameNightReminderID, content: content, trigger: trigger))
+        NotificationRequests.replace([.init(
+            identifier: Self.gameNightReminderID,
+            title: String(localized: "Your game night prep is ready"), body: Self.gameNightReminderBody,
+            components: parts, repeats: true,
+            userInfo: [AppNotification.routeKey: AppNotification.gameNightPrepValue]
+        )], removing: [Self.gameNightReminderID])
     }
 
     /// A confirmed non-member has no game night reminder: it opens a paywall,
@@ -374,7 +370,6 @@ final class AppSettings: ObservableObject {
     }
 
     func cancelGameNightReminder() {
-        UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(withIdentifiers: [Self.gameNightReminderID])
+        NotificationRequests.remove([Self.gameNightReminderID])
     }
 }

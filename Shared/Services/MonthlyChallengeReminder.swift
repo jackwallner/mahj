@@ -28,7 +28,7 @@ enum MonthlyChallengeReminder {
 
     static func disable() {
         UserDefaults.standard.set(false, forKey: enabledKey)
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers())
+        NotificationRequests.remove(identifiers())
     }
 
     /// Called on launch and when the offering arrives: keeps the next three
@@ -38,7 +38,7 @@ enum MonthlyChallengeReminder {
     static func refresh() {
         guard isOn else { return }
         guard SubscriptionService.shared.isOn(.monthlyChallenge) else {
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers())
+            NotificationRequests.remove(identifiers())
             return
         }
         schedule()
@@ -75,18 +75,16 @@ enum MonthlyChallengeReminder {
     }
 
     private static func schedule(now: Date = Date(), calendar: Calendar = .gregorianLocal) {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: identifiers())
-        for challenge in months(now: now, calendar: calendar) {
-            let parts = fireComponents(for: challenge, calendar: calendar)
-            let content = UNMutableNotificationContent()
-            content.title = String(localized: "The \(challenge.monthName) Challenge is here", comment: "Notification title: the month's name")
-            content.body = String(localized: "\(challenge.theme.title): \(challenge.theme.blurb) A new Mahj Minute every day this month.", comment: "Notification body: the month's theme, then its one-line description")
-            content.sound = .default
-            content.userInfo = [AppNotification.routeKey: AppNotification.monthlyChallengeValue]
-            let trigger = UNCalendarNotificationTrigger(dateMatching: parts, repeats: false)
-            center.add(UNNotificationRequest(identifier: idPrefix + challenge.monthKey, content: content, trigger: trigger))
+        let requests = months(now: now, calendar: calendar).map { challenge in
+            NotificationRequests.Request(
+                identifier: idPrefix + challenge.monthKey,
+                title: String(localized: "The \(challenge.monthName) Challenge is here", comment: "Notification title: the month's name"),
+                body: String(localized: "\(challenge.theme.title): \(challenge.theme.blurb) A new Mahj Minute every day this month.", comment: "Notification body: the month's theme, then its one-line description"),
+                components: fireComponents(for: challenge, calendar: calendar), repeats: false,
+                userInfo: [AppNotification.routeKey: AppNotification.monthlyChallengeValue]
+            )
         }
+        NotificationRequests.replace(requests, removing: identifiers(now: now, calendar: calendar))
     }
 
     /// Every id this could have scheduled around now, so a disable clears them.
