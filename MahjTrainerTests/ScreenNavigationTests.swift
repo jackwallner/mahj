@@ -23,6 +23,17 @@ final class ScreenNavigationTests: XCTestCase {
         XCTAssertEqual(navigation.activeRoute, .gameNightPrepSession)
     }
 
+    func testManuallyStartedPrepCarriesItsReminderRoute() {
+        let link = ScreenLink(route: .gameNightPrepSession) {
+            Text("Prep")
+        } label: {
+            Text("Start")
+        }
+        let navigation = ScreenNavigation()
+        navigation.path = [link.navigationScreen]
+        XCTAssertEqual(navigation.activeRoute, .gameNightPrepSession)
+    }
+
     func testSeparateOpensHaveSeparateIdentity() {
         let first = NavigationScreen(id: "practice", view: AnyView(Text("Practice")))
         let second = NavigationScreen(id: "practice", view: AnyView(Text("Practice")))

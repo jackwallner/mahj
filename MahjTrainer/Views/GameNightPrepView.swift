@@ -22,7 +22,7 @@ struct GameNightPrepView: View {
                 hero
                 scheduleCard
                 personalizedCard
-                ScreenLink {
+                ScreenLink(route: .gameNightPrepSession) {
                     QuickSessionView(gameNightPrep: sessionItems)
                 } label: {
                     Text("Start My Five-Minute Prep").primaryCTA(color: Theme.plum)

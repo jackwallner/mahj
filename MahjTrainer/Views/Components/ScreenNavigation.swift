@@ -32,13 +32,19 @@ struct NavigationScreen: Hashable {
 struct ScreenLink<Destination: View, Label: View>: View {
     private let destination: Destination
     private let label: Label
+    private let route: AppDestination?
 
-    init(@ViewBuilder destination: () -> Destination, @ViewBuilder label: () -> Label) {
+    init(route: AppDestination? = nil, @ViewBuilder destination: () -> Destination, @ViewBuilder label: () -> Label) {
         self.destination = destination()
         self.label = label()
+        self.route = route
+    }
+
+    var navigationScreen: NavigationScreen {
+        NavigationScreen(view: AnyView(destination), route: route)
     }
 
     var body: some View {
-        NavigationLink(value: NavigationScreen(view: AnyView(destination))) { label }
+        NavigationLink(value: navigationScreen) { label }
     }
 }

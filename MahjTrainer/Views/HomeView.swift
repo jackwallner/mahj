@@ -37,6 +37,7 @@ struct HomeView: View {
     @State private var previewTrialOffer = ProcessInfo.processInfo.arguments.contains("-mahj.previewTrialOffer")
     #endif
     @State private var showSettings = false
+    @StateObject private var settingsNavigation = ScreenNavigation()
     @State private var showWhatsNew = false
     /// Non-nil while the one churn question is up.
     @State private var churnPrompt: ChurnMoment?
@@ -91,9 +92,9 @@ struct HomeView: View {
             // still open in it: the pane then fills the phone, so a Timed
             // Challenge or Game Night Prep keeps its questions, clock and
             // score (they live in view state, and this branch keeps its
-            // identity across the fold). Never hidden: a room on its own
-            // goes away with the fold, and a drill opened from it is saved,
-            // so Home's Resume card picks it up.
+            // identity across the fold). A room on its own goes away with
+            // the fold; a pushed drill stays visible until Back, never hidden
+            // behind a second copy offered by Home's Resume card.
             if split != nil || !paneNavigation.path.isEmpty {
                 trailingPane
                     .environment(\.horizontalSizeClass, .compact)
@@ -206,9 +207,14 @@ struct HomeView: View {
     /// whatever is open instead of replacing it, so a Timed Challenge or an
     /// Endless run in progress is still there on Back. Routing to the screen
     /// already on top changes nothing.
+    private var activeNavigation: ScreenNavigation {
+        if showSettings { return settingsNavigation }
+        if split != nil || !paneNavigation.path.isEmpty { return paneNavigation }
+        return navigation
+    }
+
     private func show(_ destination: AppDestination, overOpenScreen: Bool = false) {
-        // A pane carried over a fold is still the screen in front.
-        let stack = split != nil || !paneNavigation.path.isEmpty ? paneNavigation : navigation
+        let stack = activeNavigation
         if overOpenScreen, stack.activeRoute == destination { return }
         if destination == .monthlyChallenge { challengeOpenCount += 1 }
         let screen = NavigationScreen(
@@ -300,7 +306,9 @@ struct HomeView: View {
                 if let destination = upgrade.finish(isMember: subscriptions.isPro) { show(destination) }
                 homeIsBareAgain()
             }) { PaywallView(source: "mahj_home_sheet") }
-            .sheet(isPresented: $showSettings) { SettingsView() }
+            .sheet(isPresented: $showSettings, onDismiss: {
+                if !settingsNavigation.path.isEmpty { settingsNavigation.path = [] }
+            }) { SettingsView(navigation: settingsNavigation) }
             .sheet(isPresented: $showWhatsNew) {
                 if let release = WhatsNew.currentRelease {
                     WhatsNewSheet(release: release) {

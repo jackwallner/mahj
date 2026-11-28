@@ -14,7 +14,11 @@ struct SettingsView: View {
     @State private var restoring = false
     @State private var showFeedback = false
     @ObservedObject private var classes = ClassCodeService.shared
-    @StateObject private var navigation = ScreenNavigation()
+    @ObservedObject private var navigation: ScreenNavigation
+
+    init(navigation: ScreenNavigation) {
+        _navigation = ObservedObject(wrappedValue: navigation)
+    }
 
     var body: some View {
         NavigationStack(path: $navigation.path) {
