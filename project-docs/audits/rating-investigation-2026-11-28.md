@@ -60,7 +60,7 @@ Guards: `RouteOverOpenScreenTests` and `ScreenNavigationTests`. No navigation sy
 - GitHub issues, all states: none returned on November 28.
 - `qa/backlog.jsonl`: all 84 entries marked fixed at the starting main commit. `qa/ledger.jsonl` still has open P3 Q099. An unsupported temporary closure of Q099 during the investigation was reverted. No acceptance was added without identifying an element.
 - In-app feedback was read through the existing read-only ops RPC, with no read marking. No report identified the anonymous Canadian rating. Messages are not reproduced here.
-- Supabase management logs were queried read-only, one UTC day at a time because the log endpoint caps a request to a day. November 19 to 27 contained **477** requests mentioning `challenge_submit` or `app_feedback`, with no recorded HTTP 4xx or 5xx responses. Daily counts: 47, 65, 61, 54, 50, 48, 68, 45, 39. This does not rule out device-side failures or missing logs. No synthetic production score or feedback was inserted.
+- Supabase management logs were queried read-only, one UTC day at a time because the log endpoint caps a request to a day. November 19 to 27 contained **477 shared-project requests** (not a Mahj-only traffic count) mentioning `challenge_submit` or `app_feedback`, with no recorded HTTP 4xx or 5xx responses. Daily counts: 47, 65, 61, 54, 50, 48, 68, 45, 39. This does not rule out device-side failures or missing logs. No synthetic production score or feedback was inserted.
 - The current RevenueCat offering is `cta_my`, with annual, monthly, and lifetime packages and the expected metadata. All three iOS products are approved and available in Canada. Price history was read only; no price or availability was changed.
 - The class-code RPC deployed on main responds as expected for an unknown code. This feature was not in public build 88 and is not an explanation for that version's rating.
 - Both string catalogs contain French translations for every translatable entry. The content coverage tests guard authored content. No Canada-specific missing-product or missing-French-entry defect was established.
@@ -95,4 +95,8 @@ Verified code commits:
 - `3f1587a`: correct warm-link delivery and Next-button regression helpers.
 - `d4db153`: route through the visible Settings stack and tag manual prep.
 
-The fixes are on main. TestFlight-only upload is pending. No App Review submission, release, price change, review reply, or user contact is authorised or performed.
+The fixes and evidence are committed and pushed on main. `./scripts/testflight.sh` archived Release and uploaded **1.4.7, build 102**, with archive identity verified as `com.jackwallner.mahj 1.4.7 (102)`. Upload workflow: [46147776358](https://github.com/jackwallner/gh-sim/actions/runs/46147776358). The script committed the build bump as `303a724`; that commit is pushed.
+
+App Store Connect independently confirms build **102**, version **1.4.7**, processing state **VALID**, not expired, uploaded **2026-11-28 05:14:51 PST**. Verified November 28, 2026 at 13:20 UTC. The full multi-persona release gate was not rerun; its missing receipt warning is expected for this TestFlight-only task and is not represented as a release-gate pass.
+
+No App Review submission, release, price change, review reply, or user contact was performed. No spending was authorised or incurred by these public-repository GitHub runs. The anonymous rating's exact cause remains unknown.
