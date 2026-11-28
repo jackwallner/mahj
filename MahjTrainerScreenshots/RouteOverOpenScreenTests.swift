@@ -31,18 +31,41 @@ final class RouteOverOpenScreenTests: XCTestCase {
 
     private var challengeScreen: XCUIElement { app.navigationBars["November Challenge"] }
 
-    /// B10 (disproven on iOS 27.2): with Settings up, the link opens the
-    /// challenge in front of it. Kept as a guard.
+    private var nextButton: XCUIElement {
+        app.buttons.matching(NSPredicate(format: "label == 'Next' OR label BEGINSWITH 'Next ' OR label == 'Finish'")).firstMatch
+    }
+
+    private func openChallengeLink() {
+        let process = appProcessID()
+        XCTAssertGreaterThan(process, 0)
+        // XCUIApplication.open launches the target. Deliver through the OS so
+        // these tests exercise a warm link, not a fresh process with lost state.
+        XCUIDevice.shared.system.open(URL(string: "mahj://challenge")!)
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 15))
+        XCTAssertEqual(appProcessID(), process, "URL delivery relaunched the app instead of routing over it")
+    }
+
+    private func appProcessID() -> Int {
+        let header = String(app.debugDescription.split(whereSeparator: \.isNewline).first ?? "")
+        guard let range = header.range(of: #"pid:\s*\d+"#, options: .regularExpression) else { return -1 }
+        return Int(header[range].filter(\.isNumber)) ?? -1
+    }
+
+    /// Route into the presented stack, not underneath it. Back keeps the
+    /// Settings screen the player was using.
     func testChallengeLinkWhileSettingsIsOpenShowsTheChallenge() {
         launch(member: false)
         app.buttons["Settings"].tap()
         XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 10), "Settings did not open")
 
-        app.open(URL(string: "mahj://challenge")!)
+        openChallengeLink()
 
         XCTAssertTrue(challengeScreen.waitForExistence(timeout: 15), "the challenge never came to the front")
         XCTAssertFalse(app.navigationBars["Settings"].exists, "Settings is still over the challenge")
+        XCTAssertTrue(challengeScreen.isHittable, "the challenge is behind the sheet")
         attach("challenge_over_settings")
+        challengeScreen.buttons["BackButton"].firstMatch.tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 10), "Back lost Settings")
     }
 
     /// B1: a Timed Challenge in progress was replaced by the route. Back from
@@ -58,7 +81,7 @@ final class RouteOverOpenScreenTests: XCTestCase {
         start.tap()
         XCTAssertTrue(app.buttons["choice-0"].firstMatch.waitForExistence(timeout: 10), "the run did not start")
 
-        app.open(URL(string: "mahj://challenge")!)
+        openChallengeLink()
 
         XCTAssertTrue(challengeScreen.waitForExistence(timeout: 15), "the challenge never opened")
         attach("challenge_over_timed_run")
@@ -81,16 +104,16 @@ final class RouteOverOpenScreenTests: XCTestCase {
         let choice = app.buttons["choice-0"].firstMatch
         XCTAssertTrue(choice.waitForExistence(timeout: 10))
         choice.tap()
-        XCTAssertTrue(app.buttons["Next"].waitForExistence(timeout: 10))
+        XCTAssertTrue(nextButton.waitForExistence(timeout: 10))
         let prompt = app.staticTexts["question-prompt"].firstMatch.label
         let heldAnswer = choice.value as? String
 
-        app.open(URL(string: "mahj://challenge")!)
+        openChallengeLink()
         XCTAssertTrue(challengeScreen.waitForExistence(timeout: 15))
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
         XCTAssertTrue(app.navigationBars["Read the Rack"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.buttons["Next"].exists, "the generated question's held answer was lost")
+        XCTAssertTrue(nextButton.exists, "the generated question's held answer was lost")
         XCTAssertEqual(app.staticTexts["question-prompt"].firstMatch.label, prompt)
         XCTAssertEqual(app.buttons["choice-0"].firstMatch.value as? String, heldAnswer)
         attach("back_to_held_endless_answer")
@@ -110,19 +133,19 @@ final class RouteOverOpenScreenTests: XCTestCase {
         let choice = app.buttons["choice-0"].firstMatch
         XCTAssertTrue(choice.waitForExistence(timeout: 10))
         choice.tap()
-        XCTAssertTrue(app.buttons["Next"].waitForExistence(timeout: 10))
+        XCTAssertTrue(nextButton.waitForExistence(timeout: 10))
         let prompt = app.staticTexts["question-prompt"].firstMatch.label
         let heldAnswer = choice.value as? String
         attach("room_drill_before_challenge")
 
-        app.open(URL(string: "mahj://challenge")!)
+        openChallengeLink()
         XCTAssertTrue(challengeScreen.waitForExistence(timeout: 15))
         attach("challenge_over_room_drill")
         app.navigationBars.buttons.element(boundBy: 0).tap()
 
         XCTAssertTrue(app.navigationBars["Tile Check"].waitForExistence(timeout: 10),
                       "Back from the challenge discarded the room drill")
-        XCTAssertTrue(app.buttons["Next"].exists, "the held answer was lost")
+        XCTAssertTrue(nextButton.exists, "the held answer was lost")
         XCTAssertEqual(app.staticTexts["question-prompt"].firstMatch.label, prompt)
         XCTAssertEqual(app.buttons["choice-0"].firstMatch.value as? String, heldAnswer)
         attach("back_to_held_room_answer")
@@ -151,12 +174,12 @@ final class RouteOverOpenScreenTests: XCTestCase {
         let choice = app.buttons["choice-0"].firstMatch
         XCTAssertTrue(choice.waitForExistence(timeout: 10))
         choice.tap()
-        XCTAssertTrue(app.buttons["Next"].waitForExistence(timeout: 10), "no graded question")
+        XCTAssertTrue(nextButton.waitForExistence(timeout: 10), "no graded question")
 
-        app.open(URL(string: "mahj://challenge")!)
+        openChallengeLink()
         RunLoop.current.run(until: Date().addingTimeInterval(4))
 
-        XCTAssertTrue(app.buttons["Next"].exists, "the open question was rebuilt by the link")
+        XCTAssertTrue(nextButton.exists, "the open question was rebuilt by the link")
         attach("challenge_link_in_challenge")
     }
 
