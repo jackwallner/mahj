@@ -138,7 +138,7 @@ struct StatsView: View {
     @ViewBuilder
     private func roomLink<Card: View>(_ roomID: String, @ViewBuilder card: () -> Card) -> some View {
         if let room = DrillLibrary.room(id: roomID) {
-            NavigationLink { RoomView(room: room).trailingPaneEdge() } label: { card() }
+            ScreenLink { RoomView(room: room).trailingPaneEdge() } label: { card() }
                 .buttonStyle(PressableCardStyle())
         } else {
             card()

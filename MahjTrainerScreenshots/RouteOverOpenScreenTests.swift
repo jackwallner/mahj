@@ -65,7 +65,67 @@ final class RouteOverOpenScreenTests: XCTestCase {
         app.navigationBars.buttons.element(boundBy: 0).tap()
         XCTAssertTrue(app.navigationBars["Timed Challenge"].waitForExistence(timeout: 10),
                       "Back from the challenge did not return to the Timed Challenge")
+        XCTAssertFalse(start.exists, "the timed run restarted after the link")
         attach("back_to_timed_run")
+    }
+
+    func testChallengeLinkOverAnEndlessRunKeepsTheHeldAnswer() {
+        launch(member: true)
+        let tile = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Endless Practice")).firstMatch
+        XCTAssertTrue(tile.waitForExistence(timeout: 10))
+        scrollSideways(to: tile)
+        tile.tap()
+        let skill = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "Read the Rack")).firstMatch
+        XCTAssertTrue(skill.waitForExistence(timeout: 10))
+        skill.tap()
+        let choice = app.buttons["choice-0"].firstMatch
+        XCTAssertTrue(choice.waitForExistence(timeout: 10))
+        choice.tap()
+        XCTAssertTrue(app.buttons["Next"].waitForExistence(timeout: 10))
+        let prompt = app.staticTexts["question-prompt"].firstMatch.label
+        let heldAnswer = choice.value as? String
+
+        app.open(URL(string: "mahj://challenge")!)
+        XCTAssertTrue(challengeScreen.waitForExistence(timeout: 15))
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+
+        XCTAssertTrue(app.navigationBars["Read the Rack"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["Next"].exists, "the generated question's held answer was lost")
+        XCTAssertEqual(app.staticTexts["question-prompt"].firstMatch.label, prompt)
+        XCTAssertEqual(app.buttons["choice-0"].firstMatch.value as? String, heldAnswer)
+        attach("back_to_held_endless_answer")
+    }
+
+    func testChallengeLinkOverARoomDrillKeepsTheHeldAnswer() {
+        launch(member: false)
+        let room = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", "The Tile Room")).firstMatch
+        XCTAssertTrue(room.waitForExistence(timeout: 10))
+        room.tap()
+        let drill = app.buttons.matching(NSPredicate(
+            format: "label BEGINSWITH %@ AND NOT (label CONTAINS %@)", "Tile Check", "Extra Reps"
+        )).firstMatch
+        XCTAssertTrue(drill.waitForExistence(timeout: 10))
+        drill.tap()
+        if app.buttons["Start over"].waitForExistence(timeout: 2) { app.buttons["Start over"].tap() }
+        let choice = app.buttons["choice-0"].firstMatch
+        XCTAssertTrue(choice.waitForExistence(timeout: 10))
+        choice.tap()
+        XCTAssertTrue(app.buttons["Next"].waitForExistence(timeout: 10))
+        let prompt = app.staticTexts["question-prompt"].firstMatch.label
+        let heldAnswer = choice.value as? String
+        attach("room_drill_before_challenge")
+
+        app.open(URL(string: "mahj://challenge")!)
+        XCTAssertTrue(challengeScreen.waitForExistence(timeout: 15))
+        attach("challenge_over_room_drill")
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+
+        XCTAssertTrue(app.navigationBars["Tile Check"].waitForExistence(timeout: 10),
+                      "Back from the challenge discarded the room drill")
+        XCTAssertTrue(app.buttons["Next"].exists, "the held answer was lost")
+        XCTAssertEqual(app.staticTexts["question-prompt"].firstMatch.label, prompt)
+        XCTAssertEqual(app.buttons["choice-0"].firstMatch.value as? String, heldAnswer)
+        attach("back_to_held_room_answer")
     }
 
     /// The Training row scrolls sideways and ends each tile part way in.

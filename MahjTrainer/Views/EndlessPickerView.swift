@@ -11,7 +11,7 @@ struct EndlessPickerView: View {
             VStack(spacing: 12) {
                 intro
                 ForEach(PracticeSkill.endlessCases) { skill in
-                    NavigationLink {
+                    ScreenLink {
                         PracticeRunView(mode: .endless(skill))
                     } label: {
                         skillCard(skill)

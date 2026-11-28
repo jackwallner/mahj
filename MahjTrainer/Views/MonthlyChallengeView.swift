@@ -86,7 +86,7 @@ struct MonthlyChallengeView: View {
             if let result {
                 todayDone(round, result)
             } else {
-                NavigationLink {
+                ScreenLink {
                     QuickSessionView(monthlyRound: round, resume: progress)
                 } label: {
                     Text(progress == nil ? String(localized: "Play Today's Mahj Minute") : String(localized: "Resume Today's Mahj Minute"))
@@ -120,7 +120,7 @@ struct MonthlyChallengeView: View {
                 .foregroundStyle(Theme.inkSecondary)
                 .multilineTextAlignment(.center)
             if result.matches(round) {
-                NavigationLink {
+                ScreenLink {
                     MonthlyChallengeAnswersView(round: round, result: result)
                 } label: {
                     Text(result.score == result.total ? String(localized: "Review Today's Answers") : String(localized: "See What You Missed"))
@@ -224,7 +224,7 @@ struct MonthlyChallengeView: View {
     /// Minutes played before they counted toward the month (1.4.1 and
     /// earlier), kept so a member's history does not vanish.
     private var earlierMinutes: some View {
-        NavigationLink {
+        ScreenLink {
             MahjMinuteHistoryView()
         } label: {
             HStack(spacing: 12) {
@@ -508,7 +508,7 @@ struct MonthlyChallengeResultView: View {
             VStack(spacing: 16) {
                 scoreCard
                 if result.matches(round) {
-                    NavigationLink {
+                    ScreenLink {
                         MonthlyChallengeAnswersView(round: round, result: result)
                     } label: {
                         Text(result.score == result.total ? String(localized: "Review Your Answers") : String(localized: "See What You Missed"))

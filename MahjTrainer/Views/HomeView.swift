@@ -26,7 +26,7 @@ struct HomeView: View {
     @StateObject private var ledger = MasteryLedger.shared
     @StateObject private var dayClock = DayClock.shared
     @ObservedObject private var classes = ClassCodeService.shared
-    @State private var path: [AppDestination] = []
+    @StateObject private var navigation = ScreenNavigation()
     /// Bumped on every open of the challenge, so the event link redraws it
     /// for today even when it is already the screen on top.
     @State private var challengeOpenCount = 0
@@ -41,7 +41,6 @@ struct HomeView: View {
     /// Non-nil while the one churn question is up.
     @State private var churnPrompt: ChurnMoment?
     /// False while a room, drill or deep-linked screen is pushed over Home.
-    /// Room links are view-based, so `path` alone cannot tell.
     @State private var homeOnScreen = false
     /// "When's your game night?" is shown to members until they set one or
     /// wave it off. The reminder is the hook that matches how people play,
@@ -63,7 +62,7 @@ struct HomeView: View {
     @State private var paneGeometry = PaneGeometry(width: 0, fold: nil)
     /// The trailing pane's room, and whatever Home opened on top of it.
     @State private var paneRoomID = DrillLibrary.rooms[0].id
-    @State private var panePath: [PaneScreen] = []
+    @StateObject private var paneNavigation = ScreenNavigation()
 
     private var showsPrimerCard: Bool { skillLevel == "new" && !hasReadPrimer }
 
@@ -87,7 +86,7 @@ struct HomeView: View {
                 .environment(\.horizontalSizeClass, layoutSizeClass)
                 .frame(maxWidth: split?.primaryWidth ?? .infinity, maxHeight: .infinity)
                 // Covered by a pane carried over a fold.
-                .accessibilityHidden(split == nil && !panePath.isEmpty)
+                .accessibilityHidden(split == nil && !paneNavigation.path.isEmpty)
             // While split, and after a fold for as long as Home's screen is
             // still open in it: the pane then fills the phone, so a Timed
             // Challenge or Game Night Prep keeps its questions, clock and
@@ -95,7 +94,7 @@ struct HomeView: View {
             // identity across the fold). Never hidden: a room on its own
             // goes away with the fold, and a drill opened from it is saved,
             // so Home's Resume card picks it up.
-            if split != nil || !panePath.isEmpty {
+            if split != nil || !paneNavigation.path.isEmpty {
                 trailingPane
                     .environment(\.horizontalSizeClass, .compact)
                     .frame(maxWidth: split?.secondaryWidth ?? .infinity, maxHeight: .infinity)
@@ -131,7 +130,7 @@ struct HomeView: View {
     /// it is the navigator, so a screen Home opened shows no back button at
     /// the fold; a drill opened from the pane's own room keeps its one.
     private var trailingPane: some View {
-        NavigationStack(path: $panePath) {
+        NavigationStack(path: $paneNavigation.path) {
             Group {
                 if let room = DrillLibrary.room(id: paneRoomID) {
                     RoomView(room: room)
@@ -139,10 +138,15 @@ struct HomeView: View {
             }
             .trailingPaneEdge()
             .id(paneRoomID)
-            .navigationDestination(for: PaneScreen.self) {
-                $0.view.modifier(PaneScreenBackButton()).trailingPaneEdge()
+            .navigationDestination(for: NavigationScreen.self) { screen in
+                if screen.hidesBackButtonInPane {
+                    screen.view.modifier(PaneScreenBackButton()).trailingPaneEdge()
+                } else {
+                    screen.view.trailingPaneEdge()
+                }
             }
         }
+        .environmentObject(paneNavigation)
         .background(Theme.background.ignoresSafeArea())
         .environment(\.isTrailingPane, split != nil)
         .tint(Theme.jade)
@@ -151,7 +155,7 @@ struct HomeView: View {
     /// Outlined on Home only while the room itself is in the pane, not
     /// under a screen Home opened over it.
     private func paneShows(_ room: Room) -> Bool {
-        split != nil && paneRoomID == room.id && panePath.isEmpty
+        split != nil && paneRoomID == room.id && paneNavigation.path.isEmpty
     }
 
     /// Unfolded, Home's links open in the trailing pane instead of pushing
@@ -163,9 +167,11 @@ struct HomeView: View {
         @ViewBuilder label: () -> Label
     ) -> some View {
         if split != nil {
-            Button { panePath = [PaneScreen(id: id, view: AnyView(destination()))] } label: { label() }
+            Button {
+                paneNavigation.path = [NavigationScreen(id: id, view: AnyView(destination()), hidesBackButtonInPane: true)]
+            } label: { label() }
         } else {
-            NavigationLink(destination: destination, label: label)
+            ScreenLink(destination: destination, label: label)
         }
     }
 
@@ -174,7 +180,9 @@ struct HomeView: View {
         if split != nil {
             Button { show(value) } label: { label() }
         } else {
-            NavigationLink(value: value, label: label)
+            NavigationLink(value: NavigationScreen(
+                id: "\(value)", view: AnyView(destinationView(value)), route: value
+            ), label: label)
         }
     }
 
@@ -184,10 +192,10 @@ struct HomeView: View {
         if split != nil {
             Button {
                 paneRoomID = room.id
-                panePath = []
+                paneNavigation.path = []
             } label: { label() }
         } else {
-            NavigationLink(destination: { RoomView(room: room) }, label: label)
+            ScreenLink(destination: { RoomView(room: room) }, label: label)
         }
     }
 
@@ -199,25 +207,18 @@ struct HomeView: View {
     /// Endless run in progress is still there on Back. Routing to the screen
     /// already on top changes nothing.
     private func show(_ destination: AppDestination, overOpenScreen: Bool = false) {
-        if overOpenScreen, split == nil, panePath.isEmpty, !path.isEmpty {
-            guard path.last != destination else { return }
-            if destination == .monthlyChallenge { challengeOpenCount += 1 }
-            path.append(destination)
-            return
-        }
+        // A pane carried over a fold is still the screen in front.
+        let stack = split != nil || !paneNavigation.path.isEmpty ? paneNavigation : navigation
+        if overOpenScreen, stack.activeRoute == destination { return }
         if destination == .monthlyChallenge { challengeOpenCount += 1 }
-        // Folded with Home's screen still open in the pane, the pane is the
-        // screen on top, so the new one goes there too.
-        guard split != nil || !panePath.isEmpty else {
-            path = [destination]
-            return
-        }
-        let screen = PaneScreen(id: "\(destination)", view: AnyView(destinationView(destination)))
-        if overOpenScreen, !panePath.isEmpty {
-            guard panePath.last?.id != screen.id else { return }
-            panePath.append(screen)
+        let screen = NavigationScreen(
+            id: "\(destination)", view: AnyView(destinationView(destination)), route: destination,
+            hidesBackButtonInPane: !overOpenScreen || stack.path.isEmpty
+        )
+        if overOpenScreen {
+            stack.path.append(screen)
         } else {
-            panePath = [screen]
+            stack.path = [screen]
         }
     }
 
@@ -252,7 +253,7 @@ struct HomeView: View {
     }
 
     private var homeStack: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $navigation.path) {
             ScrollViewReader { proxy in
                 ScrollView {
                     homeContent
@@ -294,7 +295,7 @@ struct HomeView: View {
             // scroll-edge blur, and scrolled rooms ran straight under the
             // clock and the book and gear buttons. The bar is still clear at
             // the top of Home.
-            .navigationDestination(for: AppDestination.self) { destinationView($0) }
+            .navigationDestination(for: NavigationScreen.self) { $0.view }
             .sheet(isPresented: $showPaywall, onDismiss: {
                 if let destination = upgrade.finish(isMember: subscriptions.isPro) { show(destination) }
                 homeIsBareAgain()
@@ -357,6 +358,7 @@ struct HomeView: View {
             .sheet(isPresented: $previewTrialOffer) { TrialOfferSheet(context: .drillResult, auto: false) }
             #endif
         }
+        .environmentObject(navigation)
         .tint(Theme.jade)
     }
 
@@ -442,7 +444,7 @@ struct HomeView: View {
 
     /// Nothing pushed and no sheet up: the only state Home may put a prompt on.
     private var homeIsBare: Bool {
-        homeOnScreen && path.isEmpty && !paneBusy && !showWhatsNew && !showPaywall && !showSettings
+        homeOnScreen && navigation.path.isEmpty && !paneBusy && !showWhatsNew && !showPaywall && !showSettings
             && churnPrompt == nil
     }
 
@@ -450,7 +452,7 @@ struct HomeView: View {
     /// room: a screen Home opened there (split, or carried over a fold), or a
     /// drill opened from its room.
     private var paneBusy: Bool {
-        !panePath.isEmpty || (split != nil && ordinaryRuns.onScreenID != nil)
+        !paneNavigation.path.isEmpty || (split != nil && ordinaryRuns.onScreenID != nil)
     }
 
     /// A round left half done on an earlier day is scored on what was
@@ -561,13 +563,15 @@ struct HomeView: View {
         showSettings = name == "settings"
         showPaywall = name == "paywall"
         guard split != nil else {
-            path = DebugShot.pushes(name) ? [.debugShot(name)] : []
+            navigation.path = DebugShot.pushes(name)
+                ? [NavigationScreen(id: name, view: AnyView(DebugShot.screen(name)), route: .debugShot(name))]
+                : []
             return
         }
-        path = []
+        navigation.path = []
         if let roomID = DebugShot.roomID(name) { paneRoomID = roomID }
-        panePath = DebugShot.pushes(name) && !name.hasPrefix("room/")
-            ? [PaneScreen(id: name, view: AnyView(DebugShot.screen(name)))]
+        paneNavigation.path = DebugShot.pushes(name) && !name.hasPrefix("room/")
+            ? [NavigationScreen(id: name, view: AnyView(DebugShot.screen(name)), hidesBackButtonInPane: true)]
             : []
     }
     #endif
@@ -1532,20 +1536,6 @@ private struct PaneScreenBackButton: ViewModifier {
     func body(content: Content) -> some View {
         content.navigationBarBackButtonHidden(isTrailingPane)
     }
-}
-
-private struct PaneScreen: Hashable {
-    let id: String
-    let view: AnyView
-    private let token = UUID()
-
-    init(id: String, view: AnyView) {
-        self.id = id
-        self.view = view
-    }
-
-    static func == (lhs: PaneScreen, rhs: PaneScreen) -> Bool { lhs.token == rhs.token }
-    func hash(into hasher: inout Hasher) { hasher.combine(token) }
 }
 
 /// The toolbar's round buttons, drawn in Home's header on the unfolded Duo.

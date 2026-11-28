@@ -7,11 +7,10 @@ struct RoomView: View {
 
     @EnvironmentObject private var progress: ProgressStore
     @EnvironmentObject private var subscriptions: SubscriptionService
+    @EnvironmentObject private var navigation: ScreenNavigation
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var showPaywall = false
     @State private var upgrade = UnlockContinuation<Drill>()
-    @State private var unlockedDrill: Drill?
-    @State private var openUnlockedDrill = false
 
     private var lockedCount: Int {
         room.drills.filter { room.isLocked($0, isMember: subscriptions.isPro) }.count
@@ -47,12 +46,10 @@ struct RoomView: View {
         .navigationTitle(room.name)
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showPaywall, onDismiss: {
-            unlockedDrill = upgrade.finish(isMember: subscriptions.isPro)
-            openUnlockedDrill = unlockedDrill != nil
+            if let drill = upgrade.finish(isMember: subscriptions.isPro) {
+                navigation.path.append(NavigationScreen(id: drill.id, view: AnyView(destination(drill))))
+            }
         }) { PaywallView(source: "mahj_room_sheet") }
-        .navigationDestination(isPresented: $openUnlockedDrill) {
-            if let unlockedDrill { destination(unlockedDrill) }
-        }
     }
 
     private var header: some View {
@@ -88,7 +85,7 @@ struct RoomView: View {
             }
             .buttonStyle(PressableCardStyle())
         } else {
-            NavigationLink {
+            ScreenLink {
                 destination(drill)
             } label: {
                 drillRowBody(drill, locked: false)

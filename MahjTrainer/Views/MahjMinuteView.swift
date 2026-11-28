@@ -11,7 +11,7 @@ struct MahjMinuteHistoryView: View {
         ScrollView {
             VStack(spacing: 0) {
                 ForEach(results) { result in
-                    NavigationLink {
+                    ScreenLink {
                         MahjMinuteResultView(result: result)
                     } label: {
                         HStack(spacing: 12) {

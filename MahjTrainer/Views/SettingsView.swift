@@ -14,9 +14,10 @@ struct SettingsView: View {
     @State private var restoring = false
     @State private var showFeedback = false
     @ObservedObject private var classes = ClassCodeService.shared
+    @StateObject private var navigation = ScreenNavigation()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigation.path) {
             Form {
                 appearanceSection
                 practiceSection
@@ -34,6 +35,7 @@ struct SettingsView: View {
             .analyticsScreen("Settings")
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: NavigationScreen.self) { $0.view }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") { dismiss() }
@@ -88,6 +90,7 @@ struct SettingsView: View {
                 Text("Your streak, completed drills, and practice history will be cleared. Purchases are not affected.")
             }
         }
+        .environmentObject(navigation)
     }
 
     /// The language the app is running in, named in that language, as iOS
@@ -147,13 +150,13 @@ struct SettingsView: View {
                 DatePicker("Reminder Time", selection: $settings.reminderTime, displayedComponents: .hourAndMinute)
             }
             if subscriptions.isPro {
-                NavigationLink {
+                ScreenLink {
                     GameNightPrepView()
                 } label: {
                     Label("Game Night Prep", systemImage: "person.2.fill")
                 }
             }
-            NavigationLink {
+            ScreenLink {
                 ClassCodeView()
             } label: {
                 LabeledContent {
@@ -174,7 +177,7 @@ struct SettingsView: View {
     /// something does.
     private var dataSection: some View {
         Section {
-            NavigationLink {
+            ScreenLink {
                 StatsView()
             } label: {
                 Label("Your Progress", systemImage: "chart.bar.fill")
@@ -237,12 +240,12 @@ struct SettingsView: View {
 
     private var supportSection: some View {
         Section {
-            NavigationLink {
+            ScreenLink {
                 ReferenceView()
             } label: {
                 Label("Reference & Glossary", systemImage: "book.closed.fill")
             }
-            NavigationLink {
+            ScreenLink {
                 HowToPlayView()
             } label: {
                 Label("How to Play", systemImage: "book.fill")
