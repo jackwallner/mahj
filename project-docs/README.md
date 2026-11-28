@@ -47,6 +47,7 @@ Developer notes and historical audits for this repository. The published site re
 
 ## SEO
 
+- [seo/README.md](seo/README.md): search and AI discovery experiments, including the November 28 baseline and unpublished identity FAQ patch
 - [seo/learn-guides-2026-11-12.md](seo/learn-guides-2026-11-12.md): nine single-question rules guides under docs/learn (dead hand, wrong mah jongg, exposures, calling, soap, quints, joker exchange, flowers, the wall), the query evidence behind them, rule sources, and live checks
 
 ## ASO
