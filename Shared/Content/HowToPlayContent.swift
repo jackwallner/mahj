@@ -9,15 +9,26 @@ struct HowToPlayPage: Identifiable, Sendable {
     let body: String
     let tiles: [Tile]
     let tip: String?
+    /// A movement drawn in code in place of the tile row, when the page
+    /// teaches something that moves.
+    let demo: HowToPlayDemo?
 
-    init(id: String, icon: String, title: String, body: String, tiles: [Tile] = [], tip: String? = nil) {
+    init(id: String, icon: String, title: String, body: String, tiles: [Tile] = [], tip: String? = nil, demo: HowToPlayDemo? = nil) {
         self.id = id
         self.icon = icon
         self.title = ContentText.localized(title)
         self.body = ContentText.localized(body)
         self.tiles = tiles
         self.tip = ContentText.localized(tip)
+        self.demo = demo
     }
+}
+
+/// The animations a primer page can show. Each is a few lines of timing and
+/// geometry drawn at runtime, so it costs no assets.
+enum HowToPlayDemo: Sendable {
+    /// Four seats pass three tiles right, across, then left.
+    case charleston
 }
 
 /// The five-minute primer for players who picked "brand new" in onboarding.
@@ -54,7 +65,8 @@ enum HowToPlayContent {
             title: "The Charleston",
             body: "Before play begins, everyone passes three unwanted tiles to the right, then across, then to the left, with an optional second round. Jokers never pass. The Charleston is how a messy deal becomes a plan.",
             tiles: [.b(1), .d(9), .wind(.west)],
-            tip: "Pass tiles that fit no section you are chasing. Never pass a joker."
+            tip: "Pass tiles that fit no section you are chasing. Never pass a joker.",
+            demo: .charleston
         ),
         HowToPlayPage(
             id: "htp-turn",

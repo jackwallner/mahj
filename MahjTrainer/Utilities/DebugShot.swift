@@ -4,6 +4,7 @@ import SwiftUI
 /// Screenshot routes for the iPhone Duo capture, DEBUG builds only.
 /// `mahj://shot/<name>` opens one screen from anywhere:
 /// home, settings, paywall, reference, stats, challenge, quick, handplay,
+/// primer/<page>,
 /// room/<room-id>, drill/<drill-id>. gh-sim passes the links with `--url`.
 /// Unfolded, Home stays in the leading pane and the screen opens beside it.
 @MainActor
@@ -37,6 +38,7 @@ enum DebugShot {
         case ("stats", _): StatsView()
         case ("challenge", _): MonthlyChallengeView()
         case ("handplay", _): HandPlayView()
+        case ("primer", let page?): HowToPlayView(startPage: Int(page) ?? 0)
         case ("quick", _):
             QuickSessionView(items: SessionBuilder.quickSession(
                 seen: [], missed: [], includePro: true,

@@ -21,13 +21,21 @@ struct HowToPlayView: View {
     /// Read to the end once: Home stops showing the primer card, and the
     /// primer becomes a Settings row like any other reference.
     @AppStorage("mahj.hasReadPrimer") private var hasReadPrimer = false
-    @State private var index = 0
+    @State private var index: Int
     @State private var goingForward = true
     @State private var shineTrigger = 0
     @State private var confettiTrigger = 0
     @State private var drag: CGFloat = 0
 
     private let pages = HowToPlayContent.pages
+
+    /// `startPage` opens the primer part way in (the `primer/<n>` screenshot
+    /// route); everywhere else it starts on the first page.
+    init(onDone: (() -> Void)? = nil, onSkip: (() -> Void)? = nil, startPage: Int = 0) {
+        self.onDone = onDone
+        self.onSkip = onSkip
+        _index = State(initialValue: min(max(startPage, 0), HowToPlayContent.pages.count - 1))
+    }
     private var page: HowToPlayPage { pages[index] }
     private var isLast: Bool { index == pages.count - 1 }
     private var isFirst: Bool { index == 0 }
@@ -189,7 +197,9 @@ struct HowToPlayView: View {
                 .font(Theme.display(27))
                 .foregroundStyle(Theme.ink)
                 .multilineTextAlignment(.center)
-            if !page.tiles.isEmpty {
+            if page.demo == .charleston, !reduceMotion {
+                CharlestonDemo(passing: page.tiles)
+            } else if !page.tiles.isEmpty {
                 // Seven tiles at 46pt are wider than the card on every
                 // iPhone and pushed the card, Back and Continue off the
                 // screen. Take the largest size that fits.
