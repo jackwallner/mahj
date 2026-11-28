@@ -22,7 +22,7 @@ paths:
   (`OrdinaryRunStore.onScreenID`, set by `tracksOrdinaryRun`). While split,
   Home counts as covered (`homeIsBare` is false, so no What's New, churn
   question or ATT prompt) whenever the pane shows anything but a room: a
-  screen Home opened there (`panePath`) or a drill opened from its room
+  screen Home opened there (`paneNavigation.path`) or a drill opened from its room
   (`onScreenID`). Emptying it calls `homeIsBareAgain()`.
 - iOS 27.1 quirks (2026-10-25): toolbar items stack in a column down each
   pane's trailing edge, so Home hides its navigation bar while split and
@@ -48,13 +48,13 @@ paths:
 - Home's stack is one view tree: folding only moves its frame, so a screen
   pushed over Home survives fold and unfold. The trailing pane exists while
   split and, after a fold, while a screen Home opened is still in it
-  (`panePath`): it then fills the phone with a back button, so a Timed
-  Challenge or Game Night Prep keeps its questions, clock and score (view
-  state, kept because the pane branch keeps its identity). Back empties
-  `panePath` and Home shows; anything Home opens meanwhile goes into the
-  pane. A room alone, or a drill opened from it, is never kept hidden (a
-  hidden drill once stayed mounted while Home offered Resume for the same
-  run): it goes with the fold, and its saved run resumes from Home. Home reads `layoutSizeClass`, not the raw size class:
+  (`paneNavigation.path`): it then fills the phone with a back button, so a
+  Timed Challenge or Game Night Prep keeps its questions, clock and score
+  (view state, kept because the pane branch keeps its identity). Back empties
+  the path and Home shows; anything Home opens meanwhile goes into the pane.
+  Since 2026-11-28, room drills also have path values and stay visible across
+  a fold rather than being kept hidden or duplicated by a Resume card. A
+  room alone still goes away with the fold. Home reads `layoutSizeClass`, not the raw size class:
   the environment override on the pane only reaches its children.
 - The container is framed to the full width before `onGeometryChange`: a
   ZStack that shrank to Home's pane width measured "too narrow", undid the

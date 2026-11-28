@@ -93,15 +93,27 @@ trial was walked through the intro again). It is cleared with
 **Routes over open screens (2026-11-20):** a routed destination (reminder
 tap, `mahj://challenge`) goes over whatever Home has open (`show(_:overOpenScreen:)`
 appends to the stack or the pane, so a Timed Challenge or Endless run is still
-there on Back) and does nothing when it is already on top. A route while
-Settings is open was checked on iOS 27.2 (2026-11-20) and already lands in
-front of the sheet, so nothing closes sheets for it.
-Open gap (2026-11-23, deferred past 1.4.6): Home's tiles, rooms and drills
-push with view-based `NavigationLink`s, so `path` stays empty under them and
-`show()` takes the `path = [destination]` branch, replacing the stack and
-losing a Timed run under a room-opened drill. No worse than 1.4.5. A fix has
-to detect a view-pushed screen (or move those links to values) without
-popping it, because changing a typed path pops view-destination screens.
+there on Back) and does nothing when it is already on top. The older
+Settings check was invalid: `XCUIApplication.open` launched the target and
+hid the warm-link failure. Real OS URL delivery left Settings covering the
+challenge. Home now owns separate `ScreenNavigation` instances for its
+root, the Duo pane and the Settings sheet; `SettingsView` observes the
+injected sheet instance. Routed screens append to the visible stack, so
+Back from the challenge in Settings returns to Settings. The sheet path
+clears only when the sheet closes.
+
+Fixed 2026-11-28: all pushes use `NavigationScreen` values, through
+`ScreenLink` for ordinary links. The room's post-purchase continuation
+appends to its nearest stack too. Mixing view-based pushes with a bound value path let a
+challenge link discard the active Timed run. Never add a view-based link or
+boolean navigation destination below these stacks. `activeRoute` includes
+the parent route of a nested question, so another challenge link leaves a
+held daily answer alone. Guards: `RouteOverOpenScreenTests` (room drills,
+Endless, Timed, Settings, repeated challenge) and `ScreenNavigationTests`.
+Warm-link tests use `XCUIDevice.shared.system.open` and assert the process
+identifier is unchanged. Do not use `XCUIApplication.open` for that check.
+A manually started prep carries `.gameNightPrepSession` through `ScreenLink`
+so a reminder recognises the run already on top.
 
 ## iOS 18 freeze: no publish without a change
 

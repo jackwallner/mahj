@@ -109,6 +109,17 @@ already scheduled is still cancelled when the trial converts or stops
 renewing. Bringing it back is a RevenueCat Experiment behind offering
 metadata, measured on trial conversion, and only with Jack's go-ahead.
 
+Notification mutations use `NotificationRequests`' serial utility queue,
+never the main actor. A build-88 launch spindump (2026-11-28) caught
+`SubscriptionService.apply` blocked for over 98 seconds inside the legacy
+trial reminder's `removePendingNotificationRequests`, waiting synchronously
+for the notification service. Its Void API is not nonblocking. Daily, game
+night and monthly remove/add operations use the same queue to preserve
+replacement order. Compute localized copy and date components on the caller,
+then pass only Sendable values to the queue. Guards:
+`MemberReminderTests.testTrialReminderCancellationRunsOffTheUIThread` and
+`testNotificationUpdatesKeepSubmissionOrder`.
+
 ## Game night card
 
 Home shows "When's your game night?" to members with no reminder set, until
